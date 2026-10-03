@@ -49,8 +49,12 @@ try {
   await A.waitFor("!!document.getElementById('meetup-form')", "meetup form");
   await A.evaluate("(() => { const f = document.getElementById('meetup-form'); f.title.value = 'Browser test kafo'; f.cell.value = '8ccgqw'; f.venue.value = 'Pavilion 2'; f.requestSubmit(); return true; })()");
   await A.waitFor("location.pathname.startsWith('/meetups/') && document.querySelector('h1').textContent.includes('Browser test kafo')", "meetup page");
-  await B.goto(base + "/?cell=8ccgqw");
-  await B.waitFor("document.getElementById('meetups').textContent.includes('Browser test kafo')", "meetup in B's Around");
+  // Other instances cache a cell's meetups for up to a minute: reload until it shows.
+  for (let i = 0; ; i++) {
+    await B.goto(base + "/?cell=8ccgqw");
+    try { await B.waitFor("document.getElementById('meetups').textContent.includes('Browser test kafo')", "meetup in B's Around", 8000); break; }
+    catch (e) { if (i >= 10) throw e; }
+  }
   // Clean up (this test also runs against production).
   await A.evaluate("window.confirm = () => true; document.querySelector('form[action$=\"/delete\"]').requestSubmit(); true");
   await sleep(1000);

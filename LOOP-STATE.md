@@ -134,6 +134,8 @@ start (magic link re-binds them after a domain move).
 - Don't trust `--dump-dom`/`--screenshot` for IndexedDB-driven UI (virtual time stalls IDB); use cdp.mjs.
 - Headless check: `chromium --headless=new --dump-dom` works outside the sandbox (needs a socket);
   run the server on PORT=18080 with absolute paths (TMPDIR differs outside the sandbox).
+- Meetup lists are cached per instance for 60 s: a new meetup can take up to a minute to appear for
+  people served by another instance (the host's own instance forgets at once).
 - Joop (2026-10-03): "be daring, corrections are cheap"; ping his phone only for urgent things.
 - Datastore indexes: `~/google-cloud-sdk/bin/gcloud app deploy index.yaml --project lokumo`.
 - Deploy with the user-installed SDK: `~/google-cloud-sdk/bin/gcloud app deploy --project lokumo --quiet`

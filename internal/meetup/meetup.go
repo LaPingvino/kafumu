@@ -131,7 +131,7 @@ type cellEntry struct {
 }
 
 func NewService(s Store) *Service {
-	return &Service{Store: s, TTL: 2 * time.Minute, Now: time.Now, cells: map[string]cellEntry{}}
+	return &Service{Store: s, TTL: time.Minute, Now: time.Now, cells: map[string]cellEntry{}}
 }
 
 // Create validates and stores a new meetup by author.
