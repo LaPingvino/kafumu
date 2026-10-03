@@ -1,0 +1,13 @@
+:root { --pico-primary: #6f4e37; --pico-primary-hover: #5a3e2b; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --pico-primary: #c8a27a; --pico-primary-hover: #dbb892; } }
+.brand { font-weight: 700; text-decoration: none; }
+.muted { color: var(--pico-muted-color); }
+.cell-tag { font-size: clamp(2rem, 9vw, 3.5rem); letter-spacing: .02em; margin-bottom: .25rem; word-break: break-all; }
+.list { list-style: none; padding: 0; }
+.list li { list-style: none; border-bottom: 1px solid var(--pico-muted-border-color); padding: .75rem 0; }
+.list .meta { font-size: .85em; color: var(--pico-muted-color); }
+.list .text { white-space: pre-wrap; overflow-wrap: anywhere; margin: .25rem 0; }
+.list .bot { opacity: .6; }
+.badge { font-size: .75em; border: 1px solid var(--pico-muted-border-color); border-radius: 1em; padding: 0 .5em; margin-left: .25em; }
+#manual-form { display: flex; gap: .5rem; }
+#manual-form input { flex: 1; }

@@ -1,0 +1,33 @@
+{{define "head"}}<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{if .Title}}{{.Title}} · {{end}}{{.Brand}}</title>
+  <meta name="description" content="What is near you right now that you would want to know about? Friends in town, meetups in your languages, local posts — without tracking.">
+  <meta name="theme-color" content="#6f4e37">
+  <link rel="manifest" href="/static/manifest.json">
+  <link rel="icon" href="/static/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+  <link rel="stylesheet" href="/static/kafumu.css">
+</head>
+<body>
+  <header class="container">
+    <nav>
+      <ul><li><a href="/" class="brand">☕ {{.Brand}}</a></li></ul>
+      <ul><li><a href="/about">About</a></li></ul>
+    </nav>
+  </header>
+  <main class="container">
+{{end}}
+
+{{define "foot"}}
+  </main>
+  <footer class="container">
+    <small>{{.Brand}} is a lens on public, local information. Your location is turned into a coarse
+    <a href="/about#geo">#geo cell</a> on your device; coordinates never leave it.
+    <a href="https://github.com/LaPingvino/kafumu">Source</a></small>
+  </footer>
+</body>
+</html>
+{{end}}

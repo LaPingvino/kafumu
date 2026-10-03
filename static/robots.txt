@@ -1,0 +1,16 @@
+# SEO/backlink crawlers: no value here, heavy traffic.
+User-agent: SERankingBacklinksBot
+User-agent: SemrushBot
+User-agent: AhrefsBot
+User-agent: MJ12bot
+User-agent: DotBot
+User-agent: BLEXBot
+User-agent: DataForSeoBot
+User-agent: PetalBot
+Disallow: /
+
+User-agent: *
+Crawl-delay: 5
+Disallow: /bundle
+Disallow: /auth/
+Disallow: /api/

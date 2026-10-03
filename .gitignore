@@ -1,0 +1,12 @@
+*.test
+*.out
+/kafumu
+.claude/
+.idea/
+.vscode/
+*.swp
+*~
+# Credentials / secrets
+*.json.key
+service-account*.json
+.env

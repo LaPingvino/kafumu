@@ -1,0 +1,10 @@
+{
+  "name": "Kafumu",
+  "short_name": "Kafumu",
+  "description": "What is near you right now that you would want to know about?",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#6f4e37",
+  "icons": [{ "src": "/static/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

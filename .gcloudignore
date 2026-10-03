@@ -1,0 +1,7 @@
+.gcloudignore
+.git
+.gitignore
+.claude/
+test/
+*.md
+*_test.go
