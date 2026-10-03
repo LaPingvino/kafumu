@@ -39,6 +39,9 @@ Everything before the event serves that; the rest of M1 follows after.
       msgs, 7-day TTL, one Datastore entity per box (one Get per poll), ack-to-delete, per-IP limit,
       unknown == empty. ~60 reads per pairing with backoff polling → memcache slice later.
       Ops for Joop: Datastore TTL policy on `Box.expires_at` (one-time gcloud command).
+- [ ] 4b. App-like look (Joop: "like digwire", i.e. GNOME Libadwaita): own small CSS instead of Pico —
+      header bar, boxed lists/cards, pill buttons, adaptive bottom view switcher on phones (Around /
+      Connect / Contacts / Me), accent colour, dark mode. Do before 5c so new pages are born in it.
 - [ ] 5b. `static/pair.js` handshake (advisor-reviewed design): QR = `origin/c#<A's ephemeral P-256
       public key + invite box id>`; scanner does ECDH with its own ephemeral key → HKDF → pair key, so
       every scanner gets its own key and can't read other scanners' hellos. Hello = scanner pubkey (clear)
@@ -52,6 +55,10 @@ Everything before the event serves that; the rest of M1 follows after.
       iOS home-screen PWA has separate storage from Safari (contacts don't carry over on install).
 - [ ] 7. Meetups (fallback records, need account): "coffee at Pavilion 2, 15:00", side events, RSVP,
       tags `#websummit` + `lang:` + `tag:`; shown in the bundle; `.ics`.
+- [ ] 7b. Import events by link: paste a Luma / Meetup / any event URL → read its schema.org Event JSON-LD
+      (server fetch, cached) → title, time, venue, link; tag with cell + #websummit etc. Most Web Summit
+      side events live on Luma, so this is high value before the event.
+- [ ] 7c. Subscribe to calendars: Luma calendar / Meetup group iCal feeds per cell (cron, cached).
 - [ ] 8. Canned signals between scanned contacts: "I'm at the coffee bar", "join us at …".
 - [ ] 9. Profile tags + discoverable people at the event (opt-in): languages, interests
       (opensource, esperanto, climate…), matched on the device.
@@ -66,6 +73,8 @@ events early, so it spreads locally by word of mouth. Means: language tags + peo
 event entries for language gatherings (only with verified dates/venues — never guessed), EO/PT/EN/NL UI.
 
 ## After the event (rest of M1)
+- ATproto events: read `community.lexicon.calendar.event`/`.rsvp` (Smoke Signal) into bundles by
+  location → cell; then ATproto OAuth so RSVPs/events are written natively to the user's PDS (M2).
 - `LaPingvino/geotags` public repo: generator from GeoNames + language list, CC-BY; Kafumu vendors it.
 - Language gazetteer + canonical `lang:` tags (ISO 639-3, `#langepo`).
 - Client ranking: complementary language exchange, locally rare shared language.
