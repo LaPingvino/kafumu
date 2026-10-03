@@ -9,3 +9,7 @@ indexes:
     properties:
       - name: author_id
       - name: expires_at
+  - kind: User
+    properties:
+      - name: cell
+      - name: visible_until

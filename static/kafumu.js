@@ -47,6 +47,7 @@
         (b.events || []).forEach(function (e) { ringOf[e.tag] = e.live ? 0 : 1; });
         showEvents(b.events || [], c);
         showMeetups(b.meetups || [], b.events || []);
+        showPeople(b.people || []);
         render(b.posts || [], ringOf, places, c);
         var named = (b.places || []).filter(function (pt) { return pt.weight >= 0.5; })
           .slice(0, 3).map(function (pt) { return "#" + pt.tag; });
@@ -101,6 +102,55 @@
         li.appendChild(a);
         list.appendChild(li);
       });
+    });
+  }
+
+  // People ranking, on the device (amikumu's insight): someone who speaks
+  // what you learn and learns what you speak first; then a shared language,
+  // weighted by how rare it is here; then shared interests.
+  function showPeople(people) {
+    var me = window.KAFUMU_ME || { langs: [], tags: [], names: {} };
+    var sec = $("people-section"), list = $("people");
+    sec.hidden = !people.length;
+    if (!people.length) return;
+    function split(ls) {
+      var speak = {}, learn = {};
+      (ls || []).forEach(function (l) { var p = l.split("/"); if (p[1] === "learning") learn[p[0]] = true; else speak[p[0]] = true; });
+      return { speak: speak, learn: learn };
+    }
+    var mine = split(me.langs), myTags = {};
+    (me.tags || []).forEach(function (t) { myTags[t] = true; });
+    var count = {};
+    people.forEach(function (p) { (p.langs || []).forEach(function (l) { var c = l.split("/")[0]; count[c] = (count[c] || 0) + 1; }); });
+    var name = function (c) { return (me.names || {})[c] || c; };
+    people.forEach(function (p) {
+      var th = split(p.langs), score = 0, why = [];
+      var teach = Object.keys(th.speak).filter(function (c) { return mine.learn[c]; });
+      var learnFromMe = Object.keys(th.learn).filter(function (c) { return mine.speak[c]; });
+      if (teach.length && learnFromMe.length) { score += 10; why.push(tr("exchange", { a: name(teach[0]), b: name(learnFromMe[0]) })); }
+      else if (teach.length) { score += 5; why.push(tr("speaks_learning", { lang: name(teach[0]) })); }
+      else if (learnFromMe.length) { score += 4; why.push(tr("learns_speak", { lang: name(learnFromMe[0]) })); }
+      Object.keys(th.speak).forEach(function (c) {
+        if (mine.speak[c]) { score += 4 / count[c]; if (count[c] <= 3) why.push(tr("rare_shared", { lang: name(c) })); }
+      });
+      (p.tags || []).forEach(function (t) { if (myTags[t]) { score += 1; why.push("#" + t); } });
+      p._score = score; p._why = why;
+    });
+    people.sort(function (a, b) { return b._score - a._score; });
+    list.textContent = "";
+    people.slice(0, 20).forEach(function (p) {
+      var li = document.createElement("li");
+      var head = document.createElement("strong");
+      head.textContent = "@" + p.name;
+      li.appendChild(head);
+      if (p._why.length) { var w = document.createElement("div"); w.className = "why"; w.textContent = p._why.slice(0, 3).join(" · "); li.appendChild(w); }
+      var meta = document.createElement("div");
+      meta.className = "meta";
+      meta.textContent = [p.bio, p.where ? "📍 " + p.where : "", (p.langs || []).map(function (l) {
+        var x = l.split("/"); return name(x[0]) + (x[1] === "learning" ? " (" + tr("learning") + ")" : "");
+      }).join(", ")].filter(Boolean).join(" · ");
+      li.appendChild(meta);
+      list.appendChild(li);
     });
   }
 

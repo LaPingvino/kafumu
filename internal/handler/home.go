@@ -16,6 +16,7 @@ import (
 	"github.com/LaPingvino/kafumu/internal/config"
 	"github.com/LaPingvino/kafumu/internal/gazetteer"
 	"github.com/LaPingvino/kafumu/internal/geo"
+	"github.com/LaPingvino/kafumu/internal/langs"
 	"github.com/LaPingvino/kafumu/internal/locale"
 	"github.com/LaPingvino/kafumu/internal/meetup"
 )
@@ -32,8 +33,9 @@ type Home struct {
 	Tmpl *template.Template
 	Bsky *bsky.Client
 	Gaz  *gazetteer.Gazetteer
-	// Meetups, if set, are included in bundles.
-	Meetups *meetup.Service
+	// Meetups and Accounts, if set, are included in bundles.
+	Meetups  *meetup.Service
+	Accounts *account.Service
 }
 
 // page is the data every full page gets.
@@ -73,9 +75,20 @@ func (h *Home) ShowHome(w http.ResponseWriter, r *http.Request) {
 	if !geo.Valid(cell) {
 		cell = ""
 	}
-	p := h.newPage(r, "")
+	p := homePage{page: h.newPage(r, ""), LangNames: langs.Names}
 	p.Tab, p.Cell = "around", cell
+	if u := p.User; u != nil {
+		p.MyLangs, p.MyTags = u.Langs, u.Tags
+	}
 	h.render(w, "home.html", p)
+}
+
+// homePage adds what the device needs to rank people: your own public
+// languages and interests (you already see them) and language names.
+type homePage struct {
+	page
+	MyLangs, MyTags []string
+	LangNames       map[string]string
 }
 
 // ShowAbout renders the static explanation page.
@@ -102,6 +115,8 @@ type bundle struct {
 	Places []gazetteer.PlaceTag `json:"places"`
 	// Events are conferences and festivals here, upcoming or running.
 	Events []gazetteer.EventTag `json:"events"`
+	// People who chose to be discoverable here, unranked (the device ranks).
+	People []account.Person `json:"people"`
 	// Meetups hosted on Kafumu in these cells, soonest first.
 	Meetups []*meetup.Meetup `json:"meetups"`
 	Posts   []bsky.Post      `json:"posts"`
@@ -148,8 +163,18 @@ func (h *Home) ShowMove(w http.ResponseWriter, r *http.Request) {
 // Funcs are the template functions. Translations come from our own files,
 // so they may contain markup.
 var Funcs = template.FuncMap{
-	"t":  func(lang, key string) template.HTML { return template.HTML(locale.T(lang, key)) },
-	"ts": locale.T,
+	"t":        func(lang, key string) template.HTML { return template.HTML(locale.T(lang, key)) },
+	"ts":       locale.T,
+	"langs":    func() []langs.Lang { return langs.All },
+	"langName": func(code string) string { return langs.Names[code] },
+	"has": func(xs []string, x string) bool {
+		for _, v := range xs {
+			if v == x {
+				return true
+			}
+		}
+		return false
+	},
 }
 
 // Bundle handles GET /bundle?cells=a,b,c. Bundles are per cell, not per user.
@@ -171,7 +196,14 @@ func (h *Home) Bundle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	b := bundle{Cells: cells, Places: []gazetteer.PlaceTag{}, Events: []gazetteer.EventTag{}, Meetups: []*meetup.Meetup{}, Posts: []bsky.Post{}}
+	b := bundle{Cells: cells, Places: []gazetteer.PlaceTag{}, Events: []gazetteer.EventTag{}, Meetups: []*meetup.Meetup{}, People: []account.Person{}, Posts: []bsky.Post{}}
+	if h.Accounts != nil {
+		if ps, err := h.Accounts.People(r.Context(), cells); err != nil {
+			log.Printf("bundle: people: %v", err)
+		} else if ps != nil {
+			b.People = ps
+		}
+	}
 	if h.Meetups != nil {
 		if ms, err := h.Meetups.InCells(r.Context(), cells); err != nil {
 			log.Printf("bundle: meetups: %v", err)
@@ -223,6 +255,6 @@ func (h *Home) Bundle(w http.ResponseWriter, r *http.Request) {
 	sort.Slice(b.Posts, func(i, j int) bool { return b.Posts[i].CreatedAt.After(b.Posts[j].CreatedAt) })
 
 	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Cache-Control", "public, max-age=300")
+	w.Header().Set("Cache-Control", "public, max-age=30") // people and meetups change; posts are cached server-side anyway
 	json.NewEncoder(w).Encode(b)
 }

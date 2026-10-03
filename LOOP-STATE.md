@@ -104,7 +104,13 @@ Everything before the event serves that; the rest of M1 follows after.
       sent from each contact on /contacts; received into the contact (last 10, unread flag); Around shows
       "From your contacts" (checks the 10 most recent contacts: ≤10 reads per open); opening Contacts
       marks them seen. Browser test: B taps Coffee?, A sees it in Around. Push notifications: later (M2).
-- [ ] 9. Profile tags + discoverable people at the event (opt-in): languages, interests
+- [x] 9. Be findable (opt-in, time-boxed ≤7 days, needs a username): Account → languages (curated ISO
+      639-3 list incl. Esperanto, Toki Pona, sign languages; native/fluent/learning), interests, one line,
+      "where to find me", cell. Bundle carries people as id-less Person views (cell+visible_until index,
+      per-instance 60 s cache). Around "People here" ranked on the device: language exchange > speaks what
+      you learn > learns what you speak > shared language weighted by local rarity > shared interests, with
+      the reason shown. Strangers can't message. Bundle browser cache cut to 30 s (was 5 min: stale people).
+      Was: Profile tags + discoverable people at the event (opt-in): languages, interests
       (opensource, esperanto, climate…), matched on the device.
 - [ ] 10. Friends around (slots/beacons): "who you scanned is still in Lisbon today".
 - [ ] 11. `/patrons` + `/for-cafes` pages (Liberapay, Stripe Payment Link), privacy page with data table.

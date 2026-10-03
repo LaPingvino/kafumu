@@ -59,6 +59,25 @@ try {
   await A.evaluate("window.confirm = () => true; document.querySelector('form[action$=\"/delete\"]').requestSubmit(); true");
   await sleep(1000);
 
+  // Discoverable: A names itself, speaks Esperanto, becomes visible; B sees A.
+  const nick = "bt" + Date.now().toString(36);
+  await A.goto(base + "/account");
+  await A.evaluate(`(() => { const f = document.querySelector('form[action="/account/name"]'); f.username.value = "${nick}"; f.requestSubmit(); return true; })()`);
+  await A.waitFor(`document.body.textContent.includes("@${nick}")`, "username set");
+  await A.evaluate(`(() => { const s = document.getElementById('add-lang'); s.value = 'epo'; s.onchange(); const f = document.getElementById('profile-form');
+    f.cell.value = '8ccgqw'; f.visible_hours.value = '12'; f.where.value = 'test stand'; f.requestSubmit(); return true; })()`);
+  await A.waitFor("document.querySelector('[name=where]') && document.querySelector('[name=where]').value === 'test stand' && !!document.querySelector('select[name=level_epo]')", "profile saved");
+  for (let i = 0; ; i++) {
+    await B.goto(base + "/?cell=8ccgqw");
+    try { await B.waitFor(`document.getElementById('people').textContent.includes("${nick}")`, "A in B's People", 8000); break; }
+    catch (e) { if (i >= 10) throw e; }
+  }
+  // Hide again.
+  await A.goto(base + "/account");
+  await A.evaluate("(() => { const f = document.getElementById('profile-form'); f.visible_hours.value = '0'; f.requestSubmit(); return true; })()");
+  await sleep(800);
+
+
   // Share with self: a fresh browser (C) shows a move code, B sends everything.
   const C = await browser(9335);
   try {
@@ -74,7 +93,7 @@ try {
     await sleep(2000);
     await C.waitFor("document.getElementById('contacts').textContent.includes('Ana')", "Ana moved to C");
   } finally { C.close(); }
-  console.log("ok  connect pages in two browsers (A shows, B scans, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device, meetup hosted and seen)");
+  console.log("ok  connect pages in two browsers (A shows, B scans, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device, meetup hosted and seen, findable profile seen)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

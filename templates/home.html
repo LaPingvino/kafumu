@@ -23,6 +23,12 @@
   <ul id="signals" class="boxed-list"></ul>
 </section>
 
+<section id="people-section" hidden>
+  <h2>{{t .Lang "home.people"}}</h2>
+  <ul id="people" class="boxed-list"></ul>
+  <p class="dim small"><a href="/account#profile">{{t .Lang "home.be_findable"}}</a></p>
+</section>
+
 <section id="meetups-section" hidden>
   <h2>{{t .Lang "home.meetups"}}</h2>
   <ul id="meetups" class="boxed-list"></ul>
@@ -33,7 +39,7 @@
   <ul id="list" class="boxed-list"><li class="muted">{{t .Lang "home.nothing_loaded"}}</li></ul>
   <p class="muted" id="list-note"></p>
 </section>
-<script>window.KAFUMU_T = {{.JS}};</script>
+<script>window.KAFUMU_T = {{.JS}}; window.KAFUMU_ME = { langs: {{.MyLangs}} || [], tags: {{.MyTags}} || [], names: {{.LangNames}} };</script>
 <script src="/static/device.js?v={{.V}}"></script>
 <script src="/static/pair.js?v={{.V}}"></script>
 <script src="/static/geo.js?v={{.V}}"></script>

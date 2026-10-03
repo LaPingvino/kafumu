@@ -6,10 +6,12 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 
 	"github.com/LaPingvino/kafumu/internal/account"
+	"github.com/LaPingvino/kafumu/internal/langs"
 	"github.com/LaPingvino/kafumu/internal/locale"
 )
 
@@ -48,6 +50,8 @@ func (a *Accounts) Middleware(next http.Handler) http.Handler {
 
 type accountPage struct {
 	page
+	MyLangs  []myLang
+	Visible  bool
 	MagicURL string
 	Next     string
 	New      bool
@@ -62,6 +66,13 @@ func (a *Accounts) Show(w http.ResponseWriter, r *http.Request) {
 		p.MagicURL = a.Home.Cfg.Origin + "/auth/link?k=" + template.URLQueryEscaper(mustCookie(r))
 	}
 	p.New = r.URL.Query().Get("new") == "1"
+	if u := p.User; u != nil {
+		p.Visible = u.Visible(time.Now())
+		for _, l := range u.Langs {
+			code, lvl, _ := strings.Cut(l, "/")
+			p.MyLangs = append(p.MyLangs, myLang{code, langs.Names[code], lvl})
+		}
+	}
 	p.Next = localPath(r.URL.Query().Get("next"))
 	switch r.URL.Query().Get("err") {
 	case "taken":
@@ -71,6 +82,8 @@ func (a *Accounts) Show(w http.ResponseWriter, r *http.Request) {
 	}
 	a.Home.render(w, "account.html", p)
 }
+
+type myLang struct{ Code, Name, Level string }
 
 // Start handles POST /account/start: the one place accounts are created.
 func (a *Accounts) Start(w http.ResponseWriter, r *http.Request) {
@@ -170,4 +183,28 @@ func setCookie(w http.ResponseWriter, cred string) {
 
 func clearCookie(w http.ResponseWriter) {
 	http.SetCookie(w, &http.Cookie{Name: cookieName, Value: "", Path: "/", MaxAge: -1, HttpOnly: true, Secure: true})
+}
+
+// SetProfile handles POST /account/profile: the opt-in public profile.
+func (a *Accounts) SetProfile(w http.ResponseWriter, r *http.Request) {
+	u := UserFrom(r.Context())
+	if u == nil {
+		http.Redirect(w, r, "/account", http.StatusSeeOther)
+		return
+	}
+	r.ParseForm()
+	var ls []string
+	for _, code := range r.Form["lang"] {
+		if lvl := r.FormValue("level_" + code); lvl != "" {
+			ls = append(ls, code+"/"+lvl)
+		}
+	}
+	hours, _ := strconv.Atoi(r.FormValue("visible_hours"))
+	tags := strings.FieldsFunc(r.FormValue("tags"), func(c rune) bool { return c == ',' })
+	if err := a.Svc.SetProfile(r.Context(), u, r.FormValue("cell"), r.FormValue("bio"), r.FormValue("where"), ls, tags, time.Duration(hours)*time.Hour); err != nil {
+		log.Printf("account: profile: %v", err)
+		http.Error(w, "could not save", http.StatusInternalServerError)
+		return
+	}
+	http.Redirect(w, r, "/account#profile", http.StatusSeeOther)
 }

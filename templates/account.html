@@ -20,6 +20,59 @@
       <button type="submit">{{t .Lang "account.save"}}</button>
     </form>
 
+    <h2 id="profile">{{t .Lang "profile.title"}}</h2>
+    <p class="dim">{{t .Lang "profile.explain"}}</p>
+    {{if not .User.Username}}<p class="error">{{t .Lang "profile.need_name"}}</p>{{end}}
+    <form method="post" action="/account/profile" id="profile-form">
+      <label>{{t .Lang "profile.languages"}}</label>
+      <ul id="lang-rows" class="boxed-list">
+        {{range .MyLangs}}<li class="lang-row"><input type="hidden" name="lang" value="{{.Code}}"><span>{{.Name}}</span>
+          <select name="level_{{.Code}}"><option value="native"{{if eq .Level "native"}} selected{{end}}>{{t $.Lang "profile.native"}}</option><option value="fluent"{{if eq .Level "fluent"}} selected{{end}}>{{t $.Lang "profile.fluent"}}</option><option value="learning"{{if eq .Level "learning"}} selected{{end}}>{{t $.Lang "profile.learning"}}</option></select>
+          <button type="button" class="pill-sm" onclick="this.parentNode.remove()">×</button></li>{{end}}
+      </ul>
+      <select id="add-lang" aria-label="{{ts .Lang "profile.add_language"}}">
+        <option value="">+ {{t .Lang "profile.add_language"}}</option>
+        {{range langs}}<option value="{{.Code}}">{{.Native}}{{if ne .Native .English}} ({{.English}}){{end}}</option>{{end}}
+      </select>
+      <label>{{t .Lang "profile.interests"}}<input name="tags" value="{{range $i, $t := .User.Tags}}{{if $i}}, {{end}}{{$t}}{{end}}" placeholder="opensource, esperanto, climate"></label>
+      <label>{{t .Lang "profile.bio"}}<input name="bio" maxlength="160" value="{{.User.Bio}}"></label>
+      <label>{{t .Lang "profile.where"}}<input name="where" maxlength="80" value="{{.User.Where}}" placeholder="{{ts .Lang "profile.where_placeholder"}}"></label>
+      <label>{{t .Lang "meetup.field_cell"}}
+        <span class="inline-row"><input name="cell" maxlength="6" value="{{.User.Cell}}" pattern="[23456789cfghjmpqrvwx]{6}">
+        <button type="button" id="profile-loc">{{t .Lang "meetup.use_location"}}</button></span></label>
+      <label>{{t .Lang "profile.visible"}}
+        <select name="visible_hours">
+          <option value="0">{{t .Lang "profile.hidden"}}</option>
+          <option value="12"{{if .Visible}} selected{{end}}>{{t .Lang "profile.today"}}</option>
+          <option value="72">{{t .Lang "profile.three_days"}}</option>
+          <option value="168">{{t .Lang "profile.week"}}</option>
+        </select></label>
+      {{if .Visible}}<p class="dim small">{{t .Lang "profile.visible_until"}} {{.User.VisibleUntil.Format "2006-01-02 15:04 MST"}}</p>{{end}}
+      <div class="actions"><button type="submit" class="pill">{{t .Lang "account.save"}}</button></div>
+    </form>
+    <template id="lang-row-tpl"><li class="lang-row"><input type="hidden" name="lang"><span></span>
+      <select><option value="native">{{t .Lang "profile.native"}}</option><option value="fluent">{{t .Lang "profile.fluent"}}</option><option value="learning" selected>{{t .Lang "profile.learning"}}</option></select>
+      <button type="button" class="pill-sm" onclick="this.parentNode.remove()">×</button></li></template>
+    <script src="/static/geo.js?v={{.V}}"></script>
+    <script>
+    (function () {
+      var f = document.getElementById("profile-form"), add = document.getElementById("add-lang");
+      add.onchange = function () {
+        var code = add.value; add.value = "";
+        if (!code || f.querySelector('input[name="lang"][value="' + code + '"]')) return;
+        var row = document.getElementById("lang-row-tpl").content.firstElementChild.cloneNode(true);
+        row.querySelector("input").value = code;
+        row.querySelector("span").textContent = add.querySelector('option[value="' + code + '"]').textContent;
+        row.querySelector("select").name = "level_" + code;
+        document.getElementById("lang-rows").appendChild(row);
+      };
+      if (!f.cell.value) try { f.cell.value = localStorage.getItem("kafumu.lastCell") || ""; } catch (e) {}
+      document.getElementById("profile-loc").onclick = function () {
+        navigator.geolocation && navigator.geolocation.getCurrentPosition(function (p) { f.cell.value = kafumuGeo.cell(p.coords.latitude, p.coords.longitude); });
+      };
+    })();
+    </script>
+
     <h2>{{t .Lang "account.leave_title"}}</h2>
     <div class="actions">
     <form method="post" action="/account/signout"><button type="submit" class="secondary">{{t .Lang "account.signout"}}</button></form>

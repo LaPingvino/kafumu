@@ -13,6 +13,7 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"errors"
+	"regexp"
 	"strings"
 	"sync"
 	"time"
@@ -30,6 +31,35 @@ type User struct {
 	CreatedAt time.Time `datastore:"created_at,noindex"`
 	// LastSeenAt drives inactivity cleanup; written at most hourly.
 	LastSeenAt time.Time `datastore:"last_seen_at"`
+
+	// Public profile: shown only while VisibleUntil is in the future, and
+	// only in Cell's bundle. Discoverability is opt-in and time-boxed.
+	Cell         string    `datastore:"cell"`
+	VisibleUntil time.Time `datastore:"visible_until"`
+	Bio          string    `datastore:"bio,noindex"`
+	Where        string    `datastore:"where,noindex"` // "booth A23", "blue hat"
+	Langs        []string  `datastore:"langs,noindex"` // "epo/native", "por/learning"
+	Tags         []string  `datastore:"tags,noindex"`
+}
+
+// Visible reports whether u is discoverable at now.
+func (u *User) Visible(now time.Time) bool {
+	return u.Username != "" && u.Cell != "" && now.Before(u.VisibleUntil)
+}
+
+// Person is what others see of a discoverable user: no id, nothing linkable.
+type Person struct {
+	Name  string   `json:"name"`
+	Bio   string   `json:"bio,omitempty"`
+	Where string   `json:"where,omitempty"`
+	Langs []string `json:"langs,omitempty"`
+	Tags  []string `json:"tags,omitempty"`
+	Cell  string   `json:"cell"`
+}
+
+// Public returns u's public view.
+func (u *User) Public() Person {
+	return Person{Name: u.Username, Bio: u.Bio, Where: u.Where, Langs: u.Langs, Tags: u.Tags, Cell: u.Cell}
 }
 
 // Named reports whether the user picked a username.
@@ -49,6 +79,8 @@ type Store interface {
 	// ClaimUsername reserves name for id, failing with ErrTaken.
 	ClaimUsername(ctx context.Context, name, id string) error
 	ReleaseUsername(ctx context.Context, name, id string) error
+	// VisibleIn returns users visible in any of cells (≤ 30) at now.
+	VisibleIn(ctx context.Context, cells []string, now time.Time) ([]*User, error)
 }
 
 // Service is the account logic on top of a Store, with a small per-instance
@@ -57,8 +89,9 @@ type Service struct {
 	Store Store
 	TTL   time.Duration
 
-	mu    sync.Mutex
-	cache map[string]cachedUser
+	mu     sync.Mutex
+	cache  map[string]cachedUser
+	people map[string]peopleEntry
 }
 
 type cachedUser struct {
@@ -152,6 +185,95 @@ func (s *Service) Delete(ctx context.Context, u *User) error {
 	delete(s.cache, u.ID)
 	s.mu.Unlock()
 	return s.Store.Delete(ctx, u.ID)
+}
+
+// MaxVisible caps how long someone stays discoverable without renewing.
+const MaxVisible = 7 * 24 * time.Hour
+
+// SetProfile validates and saves u's public profile. visibleFor <= 0 hides it.
+func (s *Service) SetProfile(ctx context.Context, u *User, cell, bio, where string, langs, tags []string, visibleFor time.Duration) error {
+	u.Cell = strings.ToLower(strings.TrimSpace(cell))
+	u.Bio = clip(strings.TrimSpace(bio), 160)
+	u.Where = clip(strings.TrimSpace(where), 80)
+	u.Langs = cleanList(langs, 12, func(l string) bool { return langRE.MatchString(l) })
+	u.Tags = cleanList(tags, 12, func(t string) bool { return len(t) <= 40 })
+	if visibleFor > MaxVisible {
+		visibleFor = MaxVisible
+	}
+	u.VisibleUntil = time.Time{}
+	if visibleFor > 0 && u.Username != "" && len(u.Cell) == 6 {
+		u.VisibleUntil = time.Now().Add(visibleFor)
+	}
+	s.mu.Lock()
+	s.people = map[string]peopleEntry{}
+	s.mu.Unlock()
+	return s.Save(ctx, u)
+}
+
+// People returns the discoverable people in cells, via a per-instance
+// cache (one query per instance per minute for missing cells).
+func (s *Service) People(ctx context.Context, cells []string) ([]Person, error) {
+	now := time.Now()
+	var out []Person
+	var missing []string
+	s.mu.Lock()
+	if s.people == nil {
+		s.people = map[string]peopleEntry{}
+	}
+	for _, c := range cells {
+		if e, ok := s.people[c]; ok && now.Sub(e.at) < time.Minute {
+			out = append(out, e.ps...)
+		} else {
+			missing = append(missing, c)
+		}
+	}
+	s.mu.Unlock()
+	if len(missing) > 0 {
+		us, err := s.Store.VisibleIn(ctx, missing, now)
+		if err != nil {
+			return nil, err
+		}
+		by := map[string][]Person{}
+		for _, u := range us {
+			if u.Visible(now) {
+				by[u.Cell] = append(by[u.Cell], u.Public())
+			}
+		}
+		s.mu.Lock()
+		for _, c := range missing {
+			s.people[c] = peopleEntry{ps: by[c], at: now}
+			out = append(out, by[c]...)
+		}
+		s.mu.Unlock()
+	}
+	return out, nil
+}
+
+type peopleEntry struct {
+	ps []Person
+	at time.Time
+}
+
+var langRE = regexp.MustCompile(`^[a-z]{3}/(native|fluent|learning)$`)
+
+func cleanList(in []string, max int, ok func(string) bool) []string {
+	var out []string
+	seen := map[string]bool{}
+	for _, x := range in {
+		x = strings.ToLower(strings.TrimSpace(x))
+		if x != "" && !seen[x] && ok(x) && len(out) < max {
+			seen[x] = true
+			out = append(out, x)
+		}
+	}
+	return out
+}
+
+func clip(s string, n int) string {
+	if len(s) <= n {
+		return s
+	}
+	return strings.ToValidUTF8(s[:n], "")
 }
 
 // ValidUsername reports whether name is an acceptable username.

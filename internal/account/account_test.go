@@ -5,6 +5,7 @@ import (
 	"errors"
 	"strings"
 	"testing"
+	"time"
 )
 
 func TestLifecycle(t *testing.T) {
@@ -50,5 +51,33 @@ func TestLifecycle(t *testing.T) {
 	}
 	if _, err := s.Resolve(ctx, cred); !errors.Is(err, ErrNotFound) {
 		t.Errorf("deleted account still resolves: %v", err)
+	}
+}
+
+func TestProfile(t *testing.T) {
+	ctx := context.Background()
+	s := NewService(NewMemoryStore())
+	u, _, _ := s.Create(ctx, "en")
+	// No username: can't be visible.
+	s.SetProfile(ctx, u, "8ccgqw", "hi", "", nil, nil, time.Hour)
+	if ps, _ := s.People(ctx, []string{"8ccgqw"}); len(ps) != 0 {
+		t.Fatalf("nameless user visible: %+v", ps)
+	}
+	s.SetUsername(ctx, u, "ana")
+	err := s.SetProfile(ctx, u, "8CCGQW", "Esperanto & robots", "blue hat",
+		[]string{"epo/native", "por/learning", "bad", "EPO/native"}, []string{"AI", "ai", "opensource"}, 30*24*time.Hour)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !u.VisibleUntil.Before(time.Now().Add(MaxVisible + time.Minute)) {
+		t.Errorf("visibility not capped: %v", u.VisibleUntil)
+	}
+	ps, _ := s.People(ctx, []string{"8ccgqw", "8ccgqx"})
+	if len(ps) != 1 || ps[0].Name != "ana" || len(ps[0].Langs) != 2 || len(ps[0].Tags) != 2 || ps[0].Where != "blue hat" {
+		t.Fatalf("people = %+v", ps)
+	}
+	s.SetProfile(ctx, u, "8ccgqw", "", "", nil, nil, 0)
+	if ps, _ := s.People(ctx, []string{"8ccgqw"}); len(ps) != 0 {
+		t.Errorf("hidden user still visible")
 	}
 }

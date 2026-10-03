@@ -34,6 +34,7 @@ func main() {
 	home.Meetups = meetup.NewService(meetupStore)
 	meetups := &handler.Meetups{Home: home, Svc: home.Meetups, Importer: importer.New()}
 	accounts := &handler.Accounts{Home: home, Svc: account.NewService(users)}
+	home.Accounts = accounts.Svc
 	mailbox := box.NewHandler(boxes)
 
 	mux := http.NewServeMux()
@@ -48,6 +49,7 @@ func main() {
 	mux.HandleFunc("GET /account", accounts.Show)
 	mux.HandleFunc("POST /account/start", accounts.Start)
 	mux.HandleFunc("POST /account/name", accounts.SetName)
+	mux.HandleFunc("POST /account/profile", accounts.SetProfile)
 	mux.HandleFunc("POST /account/signout", accounts.SignOut)
 	mux.HandleFunc("POST /account/delete", accounts.Delete)
 	mux.HandleFunc("GET /auth/link", accounts.Link)

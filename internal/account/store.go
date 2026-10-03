@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"sync"
+	"time"
 
 	"cloud.google.com/go/datastore"
 )
@@ -74,6 +75,20 @@ func (s *DatastoreStore) ReleaseUsername(ctx context.Context, name, id string) e
 	return err
 }
 
+func (s *DatastoreStore) VisibleIn(ctx context.Context, cells []string, now time.Time) ([]*User, error) {
+	vals := make([]any, len(cells))
+	for i, c := range cells {
+		vals[i] = c
+	}
+	q := datastore.NewQuery(userKind).FilterField("cell", "in", vals).FilterField("visible_until", ">", now).Limit(300)
+	var us []*User
+	keys, err := s.DB.GetAll(ctx, q, &us)
+	for i, k := range keys {
+		us[i].ID = k.Name
+	}
+	return us, err
+}
+
 // MemoryStore is for local runs and tests.
 type MemoryStore struct {
 	mu    sync.Mutex
@@ -126,4 +141,21 @@ func (s *MemoryStore) ReleaseUsername(_ context.Context, name, id string) error 
 		delete(s.names, name)
 	}
 	return nil
+}
+
+func (s *MemoryStore) VisibleIn(_ context.Context, cells []string, now time.Time) ([]*User, error) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	want := map[string]bool{}
+	for _, c := range cells {
+		want[c] = true
+	}
+	var out []*User
+	for _, u := range s.users {
+		if want[u.Cell] && u.VisibleUntil.After(now) {
+			c := u
+			out = append(out, &c)
+		}
+	}
+	return out, nil
 }
