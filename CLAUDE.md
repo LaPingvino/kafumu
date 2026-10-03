@@ -3,7 +3,8 @@
 Read VISION.md before designing anything. LOOP-STATE.md is the build plan and progress log.
 
 ## Stack
-Go (GAE Standard `go127`, project `lokumo`), net/http ServeMux, html/template (embedded), Pico CSS,
+Go (GAE Standard `go127`, project `lokumo`, served at https://kafumu.com; bundled services for
+memcache), net/http ServeMux, html/template (embedded), Pico CSS,
 plain JS (HTMX when it helps), Datastore. Static assets are served by GAE from `static/`, not the app.
 
 ## Foundation rules (VISION.md §3) — every change must respect them
