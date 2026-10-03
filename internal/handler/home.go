@@ -108,6 +108,22 @@ func (h *Home) ShowCard(w http.ResponseWriter, r *http.Request) {
 	h.render(w, "card.html", p)
 }
 
+// ShowConnect renders "show my code"; the code is made on the device.
+func (h *Home) ShowConnect(w http.ResponseWriter, r *http.Request) {
+	p := h.newPage(r, "")
+	p.Title, p.Tab = locale.T(p.Lang, "connect.title"), "connect"
+	h.render(w, "connect.html", p)
+}
+
+// ShowAccept renders the page a scanned code opens. The code itself is in
+// the URL fragment, which browsers never send to the server.
+func (h *Home) ShowAccept(w http.ResponseWriter, r *http.Request) {
+	p := h.newPage(r, "")
+	p.Title, p.Tab = locale.T(p.Lang, "accept.title"), "connect"
+	w.Header().Set("Referrer-Policy", "no-referrer")
+	h.render(w, "accept.html", p)
+}
+
 // Funcs are the template functions. Translations come from our own files,
 // so they may contain markup.
 var Funcs = template.FuncMap{

@@ -148,3 +148,13 @@ details form input { margin: 0; }
 .card-preview ul { padding-left: 1.1rem; margin: .25rem 0; }
 footer { padding: 16px; }
 .boxed-list:empty { display: none; }
+.qr-card { padding: 16px; text-align: center; }
+.qr { width: min(78vw, 320px); margin: 0 auto; background: #fff; border-radius: 8px; padding: 6px; }
+.qr svg { display: block; width: 100%; height: auto; }
+.actions.center { justify-content: center; }
+.contact .actions { margin: .4rem 0; }
+.pill-sm { border-radius: 99px; padding: 4px 12px; min-height: 30px; font-size: .85rem; }
+.contact input { margin-top: .4rem; }
+.about-link { margin-left: auto; color: var(--fg); padding: 8px; border-radius: 8px; display: flex; }
+.about-link:hover { background: var(--button-hover); }
+.headerbar .about-link + select { margin-left: 0; }

@@ -51,9 +51,11 @@ Everything before the event serves that; the rest of M1 follows after.
       every scanner gets its own key and can't read other scanners' hellos. Hello = scanner pubkey (clear)
       + AES-GCM(card). Box ids = HMAC(pairKey, label); direction in AES-GCM AAD. A's invite private key in
       IndexedDB ~1 h. Node E2E test of A↔B (and A↔B,C isolation) against the local Go server.
-- [ ] 5c. `/connect` (client-side QR, vendored qrcodegen + licence) and `/c` landing: works for a
-      first-time visitor (asks only for a name inline), retries, backoff polling 2 s → 5 s → stop at 3 min,
-      "Connected with Ana" + note field, nudge to install.
+- [x] 5c. `/connect` (QR made on the device with vendored qrcode-generator 1.4.4, MIT header kept;
+      "send as link"; new code; keeps listening for more scanners) and `/c#…` (first-timers give just a
+      name, explicit "Connect and share my card", 3 retries, code removed from the URL, no-referrer,
+      install hint). Backoff 2 s → 5 s → stop at 3 min. Tabs: Around / Connect / My card / Account, About
+      in the header. `test/browser_test.mjs` drives two headless Chromiums over CDP: A shows, B scans.
 - [ ] 6. Contacts page: everyone you've scanned, notes, one-tap open of their links; export (vCard/JSON)
       — NON-NEGOTIABLE before the event: Safari evicts non-installed site data after 7 idle days, and an
       iOS home-screen PWA has separate storage from Safari (contacts don't carry over on install).

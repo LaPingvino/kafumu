@@ -15,3 +15,11 @@ pid=$!
 trap 'kill $pid 2>/dev/null' EXIT
 sleep 1
 node test/pair_test.mjs http://localhost:18081
+# Two-browser UI test, when chromium can run (not inside the sandbox).
+if command -v chromium >/dev/null 2>&1 && [ -z "$SKIP_BROWSER" ]; then
+  PORT=18082 "$bin" >/dev/null 2>&1 &
+  pid2=$!
+  trap 'kill $pid $pid2 2>/dev/null' EXIT
+  sleep 1
+  node test/browser_test.mjs http://localhost:18082
+fi
