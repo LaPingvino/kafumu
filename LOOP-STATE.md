@@ -205,7 +205,13 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       (~1k hashes, ms on a phone), ±10 min; else 402. Size checked first. pair.js mines with sha1.js.
       Was: Minimal PoW on mailbox posts (Joop: "no PoW should be minimal PoW"): ~10 bits over
       nonce;date;base64url(sha256(body));#box<id>, ±10 min — instant for people, a cost for bots.
-- [ ] 15g. Per-peer price (Joop): people set the minimum bits for unsolicited messages to them (questions,
+- [x] 15g-a. Per-peer price, server: public inbox on the account (box id + device-made ECDH public key +
+      price 12–24 bits), POST /account/inbox, InboxPrice entity (box id → bits, 1-min cache) enforced on
+      mailbox writes (CheckBits), Person in bundles carries {box, pub, bits}; deleting the account drops it.
+- [ ] 15g-b. Per-peer price, client: open/close inbox + price slider (time hint) in Be findable; "✉️ Write"
+      on People (encrypt to their key, mine at their price in the worker, optional card); Contacts "✉️ Messages
+      to you" (decrypt on device, Connect back = pair from the envelope).
+- [ ] 15g. (was) Per-peer price (Joop): people set the minimum bits for unsolicited messages to them (questions,
       offers); commercial senders pay in work for what reaching you is worth to them.
 - [ ] 18b. Contacts: sort by distance from where they were last seen (friends-around hits give a day+cell
       per contact — device only).

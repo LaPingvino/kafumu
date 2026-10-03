@@ -27,6 +27,11 @@ var ErrWork = errors.New("pow: missing or insufficient X-Kafumu-Work")
 
 // Check verifies stamp ("<nonce>;<date>") for body written to scope.
 func Check(stamp string, body []byte, scope string, now time.Time) error {
+	return CheckBits(stamp, body, scope, now, MinBits)
+}
+
+// CheckBits is Check with a required number of bits (a person's price).
+func CheckBits(stamp string, body []byte, scope string, now time.Time, need int) error {
 	nonce, date, ok := strings.Cut(stamp, ";")
 	if !ok || nonce == "" || len(stamp) > 64 {
 		return ErrWork
@@ -40,7 +45,7 @@ func Check(stamp string, body []byte, scope string, now time.Time) error {
 	}
 	h := sha256.Sum256(body)
 	raw := nonce + ";" + date + ";" + base64.URLEncoding.EncodeToString(h[:]) + ";#" + scope
-	if oln.Bits(raw) < MinBits {
+	if oln.Bits(raw) < need {
 		return ErrWork
 	}
 	return nil
@@ -48,11 +53,16 @@ func Check(stamp string, body []byte, scope string, now time.Time) error {
 
 // Mine makes a stamp for body and scope (tests and Go clients).
 func Mine(body []byte, scope string, now time.Time) string {
+	return MineBits(body, scope, now, MinBits)
+}
+
+// MineBits makes a stamp with at least bits.
+func MineBits(body []byte, scope string, now time.Time, bits int) string {
 	h := sha256.Sum256(body)
 	date := now.UTC().Format("20060102150405")
 	tail := ";" + date + ";" + base64.URLEncoding.EncodeToString(h[:]) + ";#" + scope
 	for i := 0; ; i++ {
-		if oln.Bits(fmt.Sprintf("%d", i)+tail) >= MinBits {
+		if oln.Bits(fmt.Sprintf("%d", i)+tail) >= bits {
 			return fmt.Sprintf("%d;%s", i, date)
 		}
 	}

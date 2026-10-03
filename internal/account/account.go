@@ -52,7 +52,26 @@ type User struct {
 	Where        string    `datastore:"where,noindex"` // "booth A23", "blue hat"
 	Langs        []string  `datastore:"langs,noindex"` // "epo/native", "por/learning"
 	Tags         []string  `datastore:"tags,noindex"`
+	// A public inbox lets people who find you write to you, encrypted to a
+	// key only your device holds, paying InboxBits of work per message.
+	InboxBox  string `datastore:"inbox_box,noindex"`
+	InboxPub  string `datastore:"inbox_pub,noindex"`
+	InboxBits int    `datastore:"inbox_bits,noindex"`
 }
+
+// Inbox is a public inbox as others see it.
+type Inbox struct {
+	Box  string `json:"box"`
+	Pub  string `json:"pub"`
+	Bits int    `json:"bits"`
+}
+
+// Inbox bounds: below MinInboxBits it would be the mailbox default; above
+// MaxInboxBits a phone would work for many minutes.
+const (
+	MinInboxBits = 12
+	MaxInboxBits = 24
+)
 
 // Visible reports whether u is discoverable at now.
 func (u *User) Visible(now time.Time) bool {
@@ -61,6 +80,7 @@ func (u *User) Visible(now time.Time) bool {
 
 // Person is what others see of a discoverable user: no id, nothing linkable.
 type Person struct {
+	Inbox *Inbox   `json:"inbox,omitempty"`
 	Name  string   `json:"name"`
 	Bio   string   `json:"bio,omitempty"`
 	Where string   `json:"where,omitempty"`
@@ -71,7 +91,11 @@ type Person struct {
 
 // Public returns u's public view.
 func (u *User) Public() Person {
-	return Person{Name: u.Username, Bio: u.Bio, Where: u.Where, Langs: u.Langs, Tags: u.Tags, Cell: u.Cell}
+	p := Person{Name: u.Username, Bio: u.Bio, Where: u.Where, Langs: u.Langs, Tags: u.Tags, Cell: u.Cell}
+	if u.InboxBox != "" && u.InboxPub != "" {
+		p.Inbox = &Inbox{Box: u.InboxBox, Pub: u.InboxPub, Bits: u.InboxBits}
+	}
+	return p
 }
 
 // Named reports whether the user picked a username.
@@ -201,6 +225,43 @@ func (s *Service) Delete(ctx context.Context, u *User) error {
 	delete(s.cache, u.ID)
 	s.mu.Unlock()
 	return s.Store.Delete(ctx, u.ID)
+}
+
+var (
+	boxRE = regexp.MustCompile(`^[0-9a-f]{64}$`)
+	pubRE = regexp.MustCompile(`^[A-Za-z0-9_-]{80,100}$`)
+)
+
+// SetInbox opens (box, pub non-empty) or closes u's public inbox and
+// records its price where the mailbox can find it.
+func (s *Service) SetInbox(ctx context.Context, prices InboxPrices, u *User, box, pub string, bitsWanted int) error {
+	if box == "" || pub == "" {
+		if u.InboxBox != "" && prices != nil {
+			_ = prices.Delete(ctx, u.InboxBox)
+		}
+		u.InboxBox, u.InboxPub, u.InboxBits = "", "", 0
+		return s.Save(ctx, u)
+	}
+	if !boxRE.MatchString(box) || !pubRE.MatchString(pub) {
+		return errors.New("account: bad inbox")
+	}
+	bitsWanted = max(MinInboxBits, min(MaxInboxBits, bitsWanted))
+	if u.InboxBox != "" && u.InboxBox != box && prices != nil {
+		_ = prices.Delete(ctx, u.InboxBox)
+	}
+	u.InboxBox, u.InboxPub, u.InboxBits = box, pub, bitsWanted
+	if prices != nil {
+		if err := prices.Set(ctx, box, bitsWanted); err != nil {
+			return err
+		}
+	}
+	return s.Save(ctx, u)
+}
+
+// InboxPrices maps a public inbox's box id to the work it requires.
+type InboxPrices interface {
+	Set(ctx context.Context, box string, bits int) error
+	Delete(ctx context.Context, box string) error
 }
 
 // MaxVisible caps how long someone stays discoverable without renewing.

@@ -57,6 +57,9 @@ func main() {
 	}
 	pusher := &push.Service{Store: pushStore, Contact: cfg.Origin, Text: func(l string) string { return locale.T(l, "push.signal") }}
 	mailbox.OnAppend = pusher.Notify
+	prices := box.NewPrices(db)
+	mailbox.Price = prices.Price
+	accounts.Prices = prices
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /", home.ShowHome)
@@ -99,6 +102,7 @@ func main() {
 	mux.HandleFunc("POST /account/start", accounts.Start)
 	mux.HandleFunc("POST /account/name", accounts.SetName)
 	mux.HandleFunc("POST /account/profile", accounts.SetProfile)
+	mux.HandleFunc("POST /account/inbox", accounts.SetInbox)
 	mux.HandleFunc("POST /account/signout", accounts.SignOut)
 	mux.HandleFunc("POST /account/delete", accounts.Delete)
 	mux.HandleFunc("GET /auth/link", accounts.Link)

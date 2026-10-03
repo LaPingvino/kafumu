@@ -30,6 +30,8 @@ func UserFrom(ctx context.Context) *account.User {
 type Accounts struct {
 	Home *Home
 	Svc  *account.Service
+	// Prices records public-inbox prices for the mailbox to enforce.
+	Prices account.InboxPrices
 }
 
 // Middleware resolves the "k" cookie. It never creates an account: page views
@@ -160,6 +162,9 @@ func (a *Accounts) Delete(w http.ResponseWriter, r *http.Request) {
 		if u.DID != "" && a.Home.ATproto != nil {
 			_ = a.Home.ATproto.Disconnect(r.Context(), u.DID, u.ATSession)
 		}
+		if u.InboxBox != "" && a.Prices != nil {
+			_ = a.Prices.Delete(r.Context(), u.InboxBox)
+		}
 		if err := a.Svc.Delete(r.Context(), u); err != nil {
 			log.Printf("account: delete: %v", err)
 			http.Error(w, "could not delete account", http.StatusInternalServerError)
@@ -223,4 +228,24 @@ func (a *Accounts) LinkJSON(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	json.NewEncoder(w).Encode(map[string]string{"link": a.Home.Cfg.Origin + "/auth/link?k=" + template.URLQueryEscaper(mustCookie(r))})
+}
+
+// SetInbox handles POST /account/inbox {box, pub, bits} — or close=1 — for
+// the public inbox, whose keys are made on the device.
+func (a *Accounts) SetInbox(w http.ResponseWriter, r *http.Request) {
+	u := UserFrom(r.Context())
+	if u == nil {
+		http.Error(w, "sign in first", http.StatusUnauthorized)
+		return
+	}
+	box, pub := r.FormValue("box"), r.FormValue("pub")
+	if r.FormValue("close") == "1" {
+		box, pub = "", ""
+	}
+	bits, _ := strconv.Atoi(r.FormValue("bits"))
+	if err := a.Svc.SetInbox(r.Context(), a.Prices, u, box, pub, bits); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	w.WriteHeader(http.StatusNoContent)
 }

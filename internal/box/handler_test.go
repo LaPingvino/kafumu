@@ -144,3 +144,26 @@ func TestPostNeedsWork(t *testing.T) {
 		t.Errorf("post without work: %d", w.Code)
 	}
 }
+
+func TestInboxPrice(t *testing.T) {
+	h := NewHandler(NewMemoryStore())
+	prices := NewPrices(nil)
+	prices.Set(context.Background(), id, 16)
+	h.Price = prices.Price
+	s := serve(h)
+	cheap := httptest.NewRequest("POST", "/api/box/"+id, strings.NewReader("hi"))
+	cheap.Header.Set("X-Kafumu-Work", pow.MineBits([]byte("hi"), "box"+id, time.Now(), pow.MinBits))
+	w := httptest.NewRecorder()
+	s.ServeHTTP(w, cheap)
+	// A cheap stamp may happen to reach 16 bits; only check when it didn't.
+	if w.Code == http.StatusNoContent && pow.CheckBits(cheap.Header.Get("X-Kafumu-Work"), []byte("hi"), "box"+id, time.Now(), 16) != nil {
+		t.Errorf("under-priced message accepted")
+	}
+	paid := httptest.NewRequest("POST", "/api/box/"+id, strings.NewReader("hi there"))
+	paid.Header.Set("X-Kafumu-Work", pow.MineBits([]byte("hi there"), "box"+id, time.Now(), 16))
+	w = httptest.NewRecorder()
+	s.ServeHTTP(w, paid)
+	if w.Code != http.StatusNoContent {
+		t.Errorf("paid message: %d", w.Code)
+	}
+}

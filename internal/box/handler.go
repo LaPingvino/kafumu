@@ -23,6 +23,9 @@ type Handler struct {
 	limiter *limiter
 	// OnAppend, if set, runs after a message lands (to wake the owner).
 	OnAppend func(ctx context.Context, box string)
+	// Price, if set, returns the work a box requires when it's someone's
+	// public inbox (0 for ordinary pair mailboxes: pow.MinBits applies).
+	Price func(ctx context.Context, box string) int
 }
 
 // The per-IP limit is generous on purpose: at a conference thousands of
@@ -66,7 +69,11 @@ func (h *Handler) Post(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "message empty or too big", http.StatusRequestEntityTooLarge)
 		return
 	}
-	if err := pow.Check(r.Header.Get("X-Kafumu-Work"), body, "box"+id, time.Now()); err != nil {
+	need := pow.MinBits
+	if h.Price != nil {
+		need = max(need, h.Price(r.Context(), id))
+	}
+	if err := pow.CheckBits(r.Header.Get("X-Kafumu-Work"), body, "box"+id, time.Now(), need); err != nil {
 		http.Error(w, err.Error(), http.StatusPaymentRequired)
 		return
 	}
