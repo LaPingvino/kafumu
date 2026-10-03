@@ -1,0 +1,22 @@
+{{template "head" .}}
+<article>
+  <h1>{{t .Lang "privacy.title"}}</h1>
+  <p>{{t .Lang "privacy.intro"}}</p>
+  <h2>{{t .Lang "privacy.device_title"}}</h2>
+  <p>{{t .Lang "privacy.device"}}</p>
+  <h2>{{t .Lang "privacy.server_title"}}</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>{{t .Lang "privacy.col_what"}}</th><th>{{t .Lang "privacy.col_why"}}</th><th>{{t .Lang "privacy.col_kept"}}</th></tr></thead>
+    <tbody>
+      {{range $r := (list "account" "profile" "meetups" "boxes" "slots" "logs")}}
+      <tr><td>{{t $.Lang (print "privacy.row_" $r)}}</td><td>{{t $.Lang (print "privacy.row_" $r "_why")}}</td><td>{{t $.Lang (print "privacy.row_" $r "_kept")}}</td></tr>
+      {{end}}
+    </tbody>
+  </table></div>
+  <h2>{{t .Lang "privacy.never_title"}}</h2>
+  <p>{{t .Lang "privacy.never"}}</p>
+  <h2>{{t .Lang "privacy.caveats_title"}}</h2>
+  <p>{{t .Lang "privacy.caveats"}}</p>
+  <p>{{t .Lang "privacy.rights"}} <a href="/account">{{t .Lang "nav.account"}}</a> · <a href="{{.Contact}}">{{t .Lang "privacy.contact"}}</a></p>
+</article>
+{{template "foot" .}}

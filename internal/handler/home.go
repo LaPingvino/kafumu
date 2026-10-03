@@ -160,11 +160,27 @@ func (h *Home) ShowMove(w http.ResponseWriter, r *http.Request) {
 	h.render(w, "move.html", p)
 }
 
+// infoPage is a static-ish page with the money/contact links.
+type infoPage struct {
+	page
+	PayPal, Liberapay, Stripe, Contact string
+}
+
+// Info renders /patrons, /for-cafes and /privacy.
+func (h *Home) Info(name, titleKey string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		p := infoPage{page: h.newPage(r, ""), PayPal: h.Cfg.PayPal, Liberapay: h.Cfg.Liberapay, Stripe: h.Cfg.Stripe, Contact: h.Cfg.Contact}
+		p.Title, p.Tab = locale.T(p.Lang, titleKey), "about"
+		h.render(w, name, p)
+	}
+}
+
 // Funcs are the template functions. Translations come from our own files,
 // so they may contain markup.
 var Funcs = template.FuncMap{
 	"t":        func(lang, key string) template.HTML { return template.HTML(locale.T(lang, key)) },
 	"ts":       locale.T,
+	"list":     func(xs ...string) []string { return xs },
 	"langs":    func() []langs.Lang { return langs.All },
 	"langName": func(code string) string { return langs.Names[code] },
 	"has": func(xs []string, x string) bool {

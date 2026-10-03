@@ -9,6 +9,8 @@ automatic_scaling:
 env_variables:
   KAFUMU_BRAND: "Kafumu"
   KAFUMU_ORIGIN: "https://lokumo.ew.r.appspot.com"
+  # Donations. A PayPal.me link or hosted button would avoid showing the address.
+  KAFUMU_PAYPAL: "https://www.paypal.com/donate/?business=ikojba%40gmail.com&currency_code=EUR&item_name=Kafumu"
 
 handlers:
   - url: /robots.txt

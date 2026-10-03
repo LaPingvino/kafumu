@@ -117,7 +117,10 @@ Everything before the event serves that; the rest of M1 follows after.
       TTL). Check-in only from a real GPS fix; a slot is rewritten only when the week's cell-days change.
       The friend fetches one slot per contact (≤30) and compares 3×3 cells × 7 days on the device: "Ana was
       here today / nearby on Tuesday". Server sees random ids and random-looking tokens. Tested in pair E2E.
-- [ ] 11. `/patrons` + `/for-cafes` pages (Liberapay, Stripe Payment Link), privacy page with data table.
+- [x] 11. /patrons (Lichess-style: everything free forever; PayPal donate button live via KAFUMU_PAYPAL,
+      Stripe/Liberapay slots via env; cosmetic thanks only), /for-cafes (relevance listings pitch, contact),
+      /privacy (device vs server table with retention, never-have list, honest caveats). EN/PT/EO/NL,
+      linked from the footer. Joop: a PayPal.me handle or hosted button would hide the address in app.yaml.
 - [ ] 12. Event polish: install prompt (PWA), offline shell, printable QR for a badge/T-shirt, PT/EN UI.
       Load test the bundle path; check free-tier quotas for ~1k users/day.
 

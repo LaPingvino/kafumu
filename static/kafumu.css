@@ -190,3 +190,8 @@ select[name="duration"] { display: flex; width: 100%; margin-top: 4px; font-weig
 #add-lang { width: 100%; font-weight: 400; margin: 4px 0 8px; }
 select[name="visible_hours"] { display: flex; width: 100%; margin-top: 4px; font-weight: 400; }
 .why { color: var(--accent); font-weight: 600; font-size: .85rem; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+th, td { text-align: left; vertical-align: top; padding: 6px 8px; border-bottom: 1px solid var(--border); }
+th { color: var(--dim); font-weight: 700; }
+article ul { padding-left: 1.2rem; }

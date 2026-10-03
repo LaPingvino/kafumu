@@ -19,6 +19,8 @@ type Config struct {
 	// Version tags static asset URLs (?v=…). App Engine sets GAE_VERSION per
 	// deploy; locally the start time does.
 	Version string
+	// Money and contact links; pages show "coming soon" while empty.
+	PayPal, Liberapay, Stripe, Contact string
 }
 
 func Load() *Config {
@@ -28,6 +30,10 @@ func Load() *Config {
 		Brand:     env("KAFUMU_BRAND", "Kafumu"),
 		Origin:    env("KAFUMU_ORIGIN", "http://localhost:8080"),
 		Version:   env("GAE_VERSION", strconv.FormatInt(time.Now().Unix(), 36)),
+		PayPal:    os.Getenv("KAFUMU_PAYPAL"),
+		Liberapay: os.Getenv("KAFUMU_LIBERAPAY"),
+		Stripe:    os.Getenv("KAFUMU_STRIPE"),
+		Contact:   env("KAFUMU_CONTACT", "https://github.com/LaPingvino/kafumu/issues"),
 	}
 }
 
