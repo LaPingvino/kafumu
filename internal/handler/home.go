@@ -136,6 +136,13 @@ func (h *Home) ShowConnect(w http.ResponseWriter, r *http.Request) {
 	h.render(w, "connect.html", p)
 }
 
+// ShowBadge renders a printable long-lived connect code.
+func (h *Home) ShowBadge(w http.ResponseWriter, r *http.Request) {
+	p := h.newPage(r, "")
+	p.Title, p.Tab = locale.T(p.Lang, "badge.title"), "connect"
+	h.render(w, "badge.html", p)
+}
+
 // ShowAccept renders the page a scanned code opens. The code itself is in
 // the URL fragment, which browsers never send to the server.
 func (h *Home) ShowAccept(w http.ResponseWriter, r *http.Request) {

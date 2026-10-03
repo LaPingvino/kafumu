@@ -28,6 +28,8 @@
       {{range .Langs}}<option value="{{.Code}}"{{if eq .Code $.Lang}} selected{{end}}>{{.Name}}</option>{{end}}
     </select>
   </header>
+  <div id="install-bar" class="install-bar" hidden><span class="text"></span>
+    <button type="button" class="go pill-sm">{{t .Lang "install.go"}}</button><button type="button" class="no pill-sm">×</button></div>
   <main class="clamp">
 {{end}}
 
@@ -47,6 +49,8 @@
     <a href="/privacy">{{t .Lang "privacy.title"}}</a> · <a href="/patrons">{{t .Lang "patrons.title"}}</a> · <a href="/for-cafes">{{t .Lang "cafes.title"}}</a></small>
   </footer>
   <nav class="switcher bottom" aria-label="{{.Brand}}">{{template "tabs" .}}</nav>
+  <script>window.KAFUMU_T = window.KAFUMU_T || {{.JS}};</script>
+  <script src="/static/app.js?v={{.V}}" defer></script>
 </body>
 </html>
 {{end}}

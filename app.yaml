@@ -16,6 +16,11 @@ handlers:
   - url: /robots.txt
     static_files: static/robots.txt
     upload: static/robots.txt
+  - url: /sw.js
+    static_files: static/sw.js
+    upload: static/sw.js
+    secure: always
+    expiration: "0s"
   - url: /favicon.ico
     static_files: static/icon.svg
     upload: static/icon.svg

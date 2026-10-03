@@ -31,6 +31,7 @@ export async function browser(port) {
     return m.result?.result?.value;
   };
   return {
+    send,
     goto: async (url) => { await send("Page.navigate", { url }); await sleep(800); },
     evaluate,
     waitFor: async (expr, what, ms = 20000) => {

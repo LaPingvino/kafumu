@@ -273,5 +273,14 @@
   "privacy.rights": "Je kunt alles wat we over je hebben bekijken, exporteren en verwijderen vanuit je account.",
   "privacy.contact": "Contact",
   "patrons.card": "Betalen met kaart",
-  "patrons.any_amount": "Elk bedrag, eenmalig of maandelijks. PayPal neemt ook kaarten aan zonder PayPal-account."
+  "patrons.any_amount": "Elk bedrag, eenmalig of maandelijks. PayPal neemt ook kaarten aan zonder PayPal-account.",
+  "install.go": "Installeren",
+  "js.install_offer": "Installeer Kafumu — je contacten zijn veiliger in de app.",
+  "js.install_ios": "Tip: tik op Deel → „Zet op beginscherm” zodat je contacten bij je blijven.",
+  "badge.title": "Badgecode afdrukken",
+  "badge.explain": "Een verbindcode voor je badge of T-shirt. Hij werkt twee weken; wie hem scant terwijl je bezig bent, wordt verbonden zodra je Kafumu weer opent.",
+  "badge.scan": "Scan om te verbinden",
+  "badge.print": "Afdrukken",
+  "badge.note": "Iedereen die deze code ziet kan je zijn of haar kaartje sturen — dat is de bedoeling. Ze krijgen het jouwe pas als je telefoon antwoordt.",
+  "badge.new_confirm": "Een nieuwe code maken? De afgedrukte werkt hoe dan ook nog maar twee weken."
 }

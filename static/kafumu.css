@@ -195,3 +195,10 @@ table { border-collapse: collapse; width: 100%; font-size: .9rem; }
 th, td { text-align: left; vertical-align: top; padding: 6px 8px; border-bottom: 1px solid var(--border); }
 th { color: var(--dim); font-weight: 700; }
 article ul { padding-left: 1.2rem; }
+.install-bar { display: flex; align-items: center; gap: 8px; padding: 8px 16px; background: var(--accent-bg); color: var(--accent-fg); font-size: .9rem; }
+.install-bar .text { flex: 1; }
+.install-bar button { background: rgba(255,255,255,.2); color: inherit; }
+@media print { .headerbar, .switcher, footer, .install-bar, .noprint { display: none !important; } body { background: #fff; padding: 0; } }
+.badge-sheet { text-align: center; }
+.badge-sheet .qr { width: min(80vw, 9cm); }
+.badge-sheet h1 { margin: .5rem 0 0; }

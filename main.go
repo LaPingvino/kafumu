@@ -48,6 +48,7 @@ func main() {
 	mux.HandleFunc("GET /bundle", home.Bundle)
 	mux.HandleFunc("GET /card", home.ShowCard)
 	mux.HandleFunc("GET /connect", home.ShowConnect)
+	mux.HandleFunc("GET /badge", home.ShowBadge)
 	mux.HandleFunc("GET /c", home.ShowAccept)
 	mux.HandleFunc("GET /contacts", home.ShowContacts)
 	mux.HandleFunc("GET /m", home.ShowMove)
@@ -74,6 +75,7 @@ func main() {
 	mux.HandleFunc("POST /api/box/{id}/ack", mailbox.Ack)
 	// Locally serve what app.yaml serves statically on GAE.
 	mux.Handle("GET /static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+	mux.HandleFunc("GET /sw.js", func(w http.ResponseWriter, r *http.Request) { http.ServeFile(w, r, "static/sw.js") })
 	mux.HandleFunc("GET /robots.txt", func(w http.ResponseWriter, r *http.Request) { http.ServeFile(w, r, "static/robots.txt") })
 
 	log.Printf("%s listening on :%s", cfg.Brand, cfg.Port)

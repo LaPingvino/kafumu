@@ -73,6 +73,16 @@ check((await B.pair.checkContact(cb)).length === 0, "B's own message is not in B
   check(Array.isArray(raw.tokens), "slot api answers");
 }
 
+// Badge: a long-lived printed code works like a normal one.
+{
+  const badge = await A.pair.invite(false, "badge");
+  check(badge.url.includes("/c#v1.") && badge.payload !== (await A.pair.invite()).payload, "badge is its own code");
+  const D = device("D");
+  await D.pair.accept(badge.payload, { name: "Dai" });
+  const got = await A.pair.checkInvite({ name: "Ana" }, "badge");
+  check(got.length === 1 && got[0].card.name === "Dai", "badge scan arrives");
+}
+
 // Share with self: the new device shows a move code, the old one sends a
 // backup big enough to need several chunks.
 const N = device("new"), O = device("old");
@@ -87,4 +97,4 @@ check(got2 && got2.contacts.length === 40 && got2.contacts[39].card.name === "Pe
 check((await N.pair.moveReceive()) === null, "move chunks acked");
 
 if (fail) process.exit(1);
-console.log("ok  static/pair.js handshake (A↔B, A↔C, isolation, signal) + friends around + move to new device");
+console.log("ok  static/pair.js handshake (A↔B, A↔C, isolation, signal) + friends around + badge + move to new device");

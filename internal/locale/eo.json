@@ -273,5 +273,14 @@
   "privacy.rights": "Vi povas vidi, eksporti kaj forigi ĉion, kion ni havas pri vi, el via konto.",
   "privacy.contact": "Kontakto",
   "patrons.card": "Pagi per karto",
-  "patrons.any_amount": "Ajna sumo, unufoje aŭ ĉiumonate. PayPal ankaŭ akceptas kartojn sen PayPal-konto."
+  "patrons.any_amount": "Ajna sumo, unufoje aŭ ĉiumonate. PayPal ankaŭ akceptas kartojn sen PayPal-konto.",
+  "install.go": "Instali",
+  "js.install_offer": "Instalu Kafumu — viaj kontaktoj estas pli sekuraj en la apo.",
+  "js.install_ios": "Konsileto: tuŝu Konigi → „Aldoni al ĉefekrano“, por ke viaj kontaktoj restu ĉe vi.",
+  "badge.title": "Presi kodon por insigno",
+  "badge.explain": "Konekta kodo por via insigno aŭ T-ĉemizo. Ĝi funkcias du semajnojn; kiuj skanas ĝin dum vi estas okupata, konektiĝas kiam vi venontfoje malfermos Kafumu.",
+  "badge.scan": "Skanu por konektiĝi",
+  "badge.print": "Presi",
+  "badge.note": "Ĉiu, kiu vidas ĉi tiun kodon, povas sendi al vi sian karton — tio estas la celo. Ili ricevas la vian nur kiam via telefono respondas.",
+  "badge.new_confirm": "Ĉu fari novan kodon? La presita ĉiukaze ĉesos funkcii post du semajnoj."
 }

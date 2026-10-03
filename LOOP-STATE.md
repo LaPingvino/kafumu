@@ -121,8 +121,13 @@ Everything before the event serves that; the rest of M1 follows after.
       Stripe/Liberapay slots via env; cosmetic thanks only), /for-cafes (relevance listings pitch, contact),
       /privacy (device vs server table with retention, never-have list, honest caveats). EN/PT/EO/NL,
       linked from the footer. Joop: a PayPal.me handle or hosted button would hide the address in app.yaml.
-- [ ] 12. Event polish: install prompt (PWA), offline shell, printable QR for a badge/T-shirt, PT/EN UI.
-      Load test the bundle path; check free-tier quotas for ~1k users/day.
+- [x] 12a. Service worker at /sw.js (pages network-first with offline fallback, versioned assets cache-first,
+      API/bundles never cached) — verified: Contacts opens offline. Install bar (beforeinstallprompt; iOS
+      "Share → Add to Home Screen" hint; dismissable). /badge: printable connect code for a badge or T-shirt,
+      a 14-day "badge" invite (same box/URL as a normal invite); hellos via the badge are collected on any
+      page with the device store. Pair E2E covers the badge.
+- [ ] 12b. Load test the bundle path; check free-tier quotas for ~1k users/day (Datastore reads/writes per
+      open, instance hours, outbound to the AppView); write the numbers into VISION/LOOP-STATE.
 
 ## Second beachhead: language events (Joop is a HYPIA member, visits language events)
 amikumu grew through Esperanto events. Aim to be the best tool at polyglot/Esperanto/language-café

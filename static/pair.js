@@ -100,14 +100,17 @@
     // private key stays in the device store, so late hellos still arrive
     // after the page is closed and reopened within the hour.
     // kind "move" is a share-with-self code: same keys, its own box and URL.
+    // kind "badge" is a connect code meant for printing: same box and URL as
+    // a normal invite, but it lives two weeks.
+    var TTL = { invite: INVITE_TTL, badge: 14 * 864e5, move: INVITE_TTL };
     function invite(fresh, kind) {
       kind = kind || "invite";
       var key = kind === "invite" ? "invite" : "invite:" + kind;
       return store.get(key).then(function (inv) {
-        if (!fresh && inv && Date.now() - inv.createdAt < INVITE_TTL) return inv;
+        if (!fresh && inv && Date.now() - inv.createdAt < TTL[kind]) return inv;
         return genKey().then(function (k) {
           return rawPub(k).then(function (pub) {
-            return inviteBox(pub, kind).then(function (box) {
+            return inviteBox(pub, kind === "badge" ? "invite" : kind).then(function (box) {
               var inv = { priv: k.privateKey, pub: b64(pub), box: box, createdAt: Date.now() };
               return store.set(key, inv).then(function () { return inv; });
             });
@@ -199,9 +202,10 @@
 
     // checkInvite is run by the inviter: turn hellos into contacts and answer
     // each with our card. Returns the new contacts.
-    function checkInvite(myCard) {
-      return store.get("invite").then(function (inv) {
-        if (!inv) return [];
+    function checkInvite(myCard, kind) {
+      var key = kind === "badge" ? "invite:badge" : "invite";
+      return store.get(key).then(function (inv) {
+        if (!inv || Date.now() - inv.createdAt > TTL[kind || "invite"] + 7 * 864e5) return [];
         var aRaw = unb64(inv.pub);
         return list(inv.box).then(function (msgs) {
           var done = [], added = [];

@@ -1,0 +1,34 @@
+{{template "head" .}}
+<div class="badge-sheet">
+  <p class="dim noprint">{{t .Lang "badge.explain"}}</p>
+  <h1 id="badge-name"></h1>
+  <p id="badge-about" class="dim"></p>
+  <div id="badge-qr" class="qr"></div>
+  <p><strong>{{t .Lang "badge.scan"}}</strong><br><small class="dim">☕ {{.Brand}}</small></p>
+  <div class="actions center noprint">
+    <button type="button" class="pill suggested" onclick="print()">{{t .Lang "badge.print"}}</button>
+    <button type="button" class="pill" id="badge-new">{{t .Lang "connect.new_code"}}</button>
+  </div>
+  <p class="dim small noprint">{{t .Lang "badge.note"}}</p>
+</div>
+<script src="/static/vendor/qrcode-1.4.4.js?v={{.V}}"></script>
+<script src="/static/device.js?v={{.V}}"></script>
+<script src="/static/pair.js?v={{.V}}"></script>
+<script>
+(function () {
+  var dev = window.kafumuDevice, pair = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin });
+  function draw(fresh) {
+    dev.personas.shareCard().then(function (card) {
+      document.getElementById("badge-name").textContent = card.name || "";
+      document.getElementById("badge-about").textContent = card.about || "";
+      return pair.invite(fresh, "badge");
+    }).then(function (inv) {
+      var q = qrcode(0, "M"); q.addData(inv.url); q.make();
+      document.getElementById("badge-qr").innerHTML = q.createSvgTag({ cellSize: 6, margin: 2, scalable: true });
+    });
+  }
+  document.getElementById("badge-new").onclick = function () { if (confirm({{ts .Lang "badge.new_confirm"}})) draw(true); };
+  draw(false);
+})();
+</script>
+{{template "foot" .}}
