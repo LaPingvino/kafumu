@@ -1,0 +1,50 @@
+{{template "head" .}}
+<h1>{{t .Lang "meetup.new_title"}}</h1>
+<p class="dim">{{t .Lang "meetup.new_explain"}}</p>
+{{if .Error}}<p role="alert" class="error">{{.Error}}</p>{{end}}
+{{if not .User}}
+  <div class="card" style="padding:4px 16px 12px">
+    <p>{{t .Lang "meetup.need_account"}}</p>
+    <form method="post" action="/account/start"><input type="hidden" name="next" value="/meetups/new">
+      <button type="submit" class="pill">{{t .Lang "account.start"}}</button></form>
+  </div>
+{{else}}
+<form id="meetup-form" method="post" action="/meetups" class="card" style="padding:4px 16px 12px">
+  <label>{{t .Lang "meetup.field_title"}}<input name="title" required maxlength="100" placeholder="{{ts .Lang "meetup.title_placeholder"}}"></label>
+  <div class="grid">
+    <label>{{t .Lang "meetup.field_start"}}<input name="start" type="datetime-local" required></label>
+    <label>{{t .Lang "meetup.field_duration"}}
+      <select name="duration">
+        <option value="30">30 min</option><option value="60">1 h</option><option value="120" selected>2 h</option>
+        <option value="180">3 h</option><option value="300">5 h</option><option value="480">8 h</option>
+      </select></label>
+  </div>
+  <label>{{t .Lang "meetup.field_venue"}}<input name="venue" maxlength="200" placeholder="{{ts .Lang "meetup.venue_placeholder"}}"></label>
+  <label>{{t .Lang "meetup.field_cell"}}
+    <span class="inline-row"><input name="cell" required pattern="[23456789cfghjmpqrvwxCFGHJMPQRVWX]{6}" maxlength="6" placeholder="8ccgqw">
+    <button type="button" id="use-location">{{t .Lang "meetup.use_location"}}</button></span></label>
+  <label>{{t .Lang "meetup.field_tags"}}<input name="tags" maxlength="200" placeholder="{{ts .Lang "meetup.tags_placeholder"}}"></label>
+  <label>{{t .Lang "meetup.field_text"}}<textarea name="text" rows="3" maxlength="1000"></textarea></label>
+  <label>{{t .Lang "meetup.field_link"}}<input name="link" type="url" maxlength="500" placeholder="https://lu.ma/…"></label>
+  <input type="hidden" name="start_iso">
+  <div class="actions"><button type="submit" class="pill">{{t .Lang "meetup.create"}}</button></div>
+  <p class="dim"><small>{{t .Lang "meetup.free_note"}}</small></p>
+</form>
+<script src="/static/geo.js?v={{.V}}"></script>
+<script>
+(function () {
+  var f = document.getElementById("meetup-form"), G = window.kafumuGeo;
+  try { var last = localStorage.getItem("kafumu.lastCell"); if (last) f.cell.value = last; } catch (e) {}
+  var d = new Date(Date.now() + 3600e3); d.setMinutes(0, 0, 0);
+  f.start.value = new Date(d.getTime() - d.getTimezoneOffset() * 60e3).toISOString().slice(0, 16);
+  document.getElementById("use-location").onclick = function () {
+    navigator.geolocation && navigator.geolocation.getCurrentPosition(function (p) { f.cell.value = G.cell(p.coords.latitude, p.coords.longitude); });
+  };
+  f.addEventListener("submit", function () {
+    f.cell.value = f.cell.value.toLowerCase();
+    if (f.start.value) f.start_iso.value = new Date(f.start.value).toISOString();
+  });
+})();
+</script>
+{{end}}
+{{template "foot" .}}

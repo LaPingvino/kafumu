@@ -17,6 +17,7 @@ import (
 	"github.com/LaPingvino/kafumu/internal/gazetteer"
 	"github.com/LaPingvino/kafumu/internal/geo"
 	"github.com/LaPingvino/kafumu/internal/locale"
+	"github.com/LaPingvino/kafumu/internal/meetup"
 )
 
 const (
@@ -31,6 +32,8 @@ type Home struct {
 	Tmpl *template.Template
 	Bsky *bsky.Client
 	Gaz  *gazetteer.Gazetteer
+	// Meetups, if set, are included in bundles.
+	Meetups *meetup.Service
 }
 
 // page is the data every full page gets.
@@ -99,7 +102,9 @@ type bundle struct {
 	Places []gazetteer.PlaceTag `json:"places"`
 	// Events are conferences and festivals here, upcoming or running.
 	Events []gazetteer.EventTag `json:"events"`
-	Posts  []bsky.Post          `json:"posts"`
+	// Meetups hosted on Kafumu in these cells, soonest first.
+	Meetups []*meetup.Meetup `json:"meetups"`
+	Posts   []bsky.Post      `json:"posts"`
 }
 
 // ShowCard renders the "my card" editor; the card itself lives on the device.
@@ -166,7 +171,14 @@ func (h *Home) Bundle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	b := bundle{Cells: cells, Places: []gazetteer.PlaceTag{}, Events: []gazetteer.EventTag{}, Posts: []bsky.Post{}}
+	b := bundle{Cells: cells, Places: []gazetteer.PlaceTag{}, Events: []gazetteer.EventTag{}, Meetups: []*meetup.Meetup{}, Posts: []bsky.Post{}}
+	if h.Meetups != nil {
+		if ms, err := h.Meetups.InCells(r.Context(), cells); err != nil {
+			log.Printf("bundle: meetups: %v", err)
+		} else if ms != nil {
+			b.Meetups = ms
+		}
+	}
 	tags := make([]string, 0, len(cells)+maxPlaceTags)
 	for _, c := range cells {
 		tags = append(tags, geo.Tag(c))

@@ -77,7 +77,14 @@ Everything before the event serves that; the rest of M1 follows after.
       Was: Share with self: move everything (personas, contacts, notes, keys) to a new device by scanning
       a "transfer" code — same ECDH handshake, a different message type, one-shot. Also JSON export/import.
       Lower priority than 6 export, but it IS the fix for the iOS Safari→home-screen storage split.
-- [ ] 7. Meetups (fallback records, need account): "coffee at Pavilion 2, 15:00", side events, RSVP,
+- [x] 7a. Meetups server side (`internal/meetup`): create (account; ≤10 upcoming per author), page
+      /meetups/{id}, RSVP toggle (ids never shown, only a count), expire a day after the end, per-cell
+      2-min cache + one `IN` query for missing cells, included in /bundle; auto-tag #websummit when inside
+      the event; "Host a meetup" button on Around; account `?next=` flow. Indexes: `gcloud app deploy
+      index.yaml` (the `datastore indexes` command needs the Firestore API, which is off).
+- [ ] 7b. Meetups in the Around list (top section, soonest first, ranked by tag match), RSVP from the
+      list, browser test: host → appears for a second browser in the same cell → RSVP.
+- [ ] 7. (rest) Meetups (fallback records, need account): "coffee at Pavilion 2, 15:00", side events, RSVP,
       tags `#websummit` + `lang:` + `tag:`; shown in the bundle; `.ics`.
 - [ ] 7b. Import events by link: paste a Luma / Meetup / any event URL → read its schema.org Event JSON-LD
       (server fetch, cached) → title, time, venue, link; tag with cell + #websummit etc. Most Web Summit
@@ -115,6 +122,7 @@ start (magic link re-binds them after a domain move).
 - Headless check: `chromium --headless=new --dump-dom` works outside the sandbox (needs a socket);
   run the server on PORT=18080 with absolute paths (TMPDIR differs outside the sandbox).
 - Joop (2026-10-03): "be daring, corrections are cheap"; ping his phone only for urgent things.
+- Datastore indexes: `~/google-cloud-sdk/bin/gcloud app deploy index.yaml --project lokumo`.
 - Deploy with the user-installed SDK: `~/google-cloud-sdk/bin/gcloud app deploy --project lokumo --quiet`
   (the pacman gcloud lacks app-engine-go). Needs the sandbox disabled.
 - `#ams` is full of flight-tracker bots; short aliases are marked ambiguous and weigh less.

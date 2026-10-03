@@ -5,9 +5,10 @@
   {{if not .User}}
     <p>{{t .Lang "account.why"}}</p>
     <p>{{t .Lang "account.what_we_keep"}}</p>
-    <form method="post" action="/account/start"><button type="submit" class="pill">{{t .Lang "account.start"}}</button></form>
+    <form method="post" action="/account/start"><input type="hidden" name="next" value="{{.Next}}"><button type="submit" class="pill">{{t .Lang "account.start"}}</button></form>
   {{else}}
     {{if .New}}<p><strong>{{t .Lang "account.created"}}</strong></p>{{end}}
+    {{if .Next}}<p><a href="{{.Next}}" role="button" class="pill suggested">{{t .Lang "account.continue"}}</a></p>{{end}}
     <h2>{{t .Lang "account.link_title"}}</h2>
     <p>{{t .Lang "account.link_explain"}}</p>
     <p class="magic"><input readonly value="{{.MagicURL}}" onclick="this.select()" aria-label="{{ts .Lang "account.link_title"}}">

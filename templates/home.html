@@ -5,6 +5,7 @@
   <p id="cell-actions" class="actions" hidden>
     <a id="compose" role="button" class="suggested pill" target="_blank" rel="noopener">{{t .Lang "home.post_here"}}</a>
     <a id="share" href="#" role="button" class="pill">{{t .Lang "home.share"}}</a>
+    <a href="/meetups/new" role="button" class="pill">{{t .Lang "meetup.new_title"}}</a>
   </p>
   <details id="manual">
     <summary>{{t .Lang "home.pick_place"}}</summary>
@@ -23,5 +24,6 @@
   <p class="muted" id="list-note"></p>
 </section>
 <script>window.KAFUMU_T = {{.JS}};</script>
+<script src="/static/geo.js?v={{.V}}"></script>
 <script src="/static/kafumu.js?v={{.V}}"></script>
 {{template "foot" .}}

@@ -11,12 +11,20 @@ import (
 	"github.com/LaPingvino/kafumu/internal/account"
 	"github.com/LaPingvino/kafumu/internal/bsky"
 	"github.com/LaPingvino/kafumu/internal/config"
+	"github.com/LaPingvino/kafumu/internal/gazetteer"
+	"github.com/LaPingvino/kafumu/internal/meetup"
 )
 
 func newServer(t *testing.T) (http.Handler, *account.Service) {
+	h, _, svc := newServerWithMeetups(t)
+	return h, svc
+}
+
+func newServerWithMeetups(t *testing.T) (http.Handler, *Home, *account.Service) {
 	t.Helper()
 	tmpl := template.Must(template.New("").Funcs(Funcs).ParseGlob("../../templates/*.html"))
-	home := &Home{Cfg: &config.Config{Brand: "Kafumu", Origin: "https://kafumu.test"}, Tmpl: tmpl, Bsky: bsky.NewClient()}
+	home := &Home{Cfg: &config.Config{Brand: "Kafumu", Origin: "https://kafumu.test"}, Tmpl: tmpl, Bsky: bsky.NewClient(),
+		Gaz: gazetteer.Load(), Meetups: meetup.NewService(meetup.NewMemoryStore())}
 	svc := account.NewService(account.NewMemoryStore())
 	a := &Accounts{Home: home, Svc: svc}
 	mux := http.NewServeMux()
@@ -25,7 +33,12 @@ func newServer(t *testing.T) (http.Handler, *account.Service) {
 	mux.HandleFunc("POST /account/name", a.SetName)
 	mux.HandleFunc("POST /account/delete", a.Delete)
 	mux.HandleFunc("GET /auth/link", a.Link)
-	return a.Middleware(mux), svc
+	m := &Meetups{Home: home, Svc: home.Meetups}
+	mux.HandleFunc("GET /meetups/new", m.New)
+	mux.HandleFunc("POST /meetups", m.Create)
+	mux.HandleFunc("GET /meetups/{id}", m.Show)
+	mux.HandleFunc("POST /meetups/{id}/rsvp", m.RSVP)
+	return a.Middleware(mux), home, svc
 }
 
 func do(h http.Handler, method, path string, form url.Values, cookie string) *httptest.ResponseRecorder {

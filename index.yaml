@@ -1,0 +1,11 @@
+# Datastore composite indexes. Deploy with:
+#   ~/google-cloud-sdk/bin/gcloud datastore indexes create index.yaml --project lokumo
+indexes:
+  - kind: Meetup
+    properties:
+      - name: cell
+      - name: expires_at
+  - kind: Meetup
+    properties:
+      - name: author_id
+      - name: expires_at

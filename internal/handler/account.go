@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/LaPingvino/kafumu/internal/account"
@@ -48,6 +49,7 @@ func (a *Accounts) Middleware(next http.Handler) http.Handler {
 type accountPage struct {
 	page
 	MagicURL string
+	Next     string
 	New      bool
 	Error    string
 }
@@ -60,6 +62,7 @@ func (a *Accounts) Show(w http.ResponseWriter, r *http.Request) {
 		p.MagicURL = a.Home.Cfg.Origin + "/auth/link?k=" + template.URLQueryEscaper(mustCookie(r))
 	}
 	p.New = r.URL.Query().Get("new") == "1"
+	p.Next = localPath(r.URL.Query().Get("next"))
 	switch r.URL.Query().Get("err") {
 	case "taken":
 		p.Error = locale.T(p.Lang, "account.err_taken")
@@ -87,7 +90,19 @@ func (a *Accounts) Start(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	setCookie(w, cred)
-	http.Redirect(w, r, "/account?new=1", http.StatusSeeOther)
+	next := "/account?new=1"
+	if n := localPath(r.FormValue("next")); n != "" {
+		next = "/account?new=1&next=" + n
+	}
+	http.Redirect(w, r, next, http.StatusSeeOther)
+}
+
+// localPath returns p if it is a path on this site, else "".
+func localPath(p string) string {
+	if strings.HasPrefix(p, "/") && !strings.HasPrefix(p, "//") && !strings.ContainsAny(p, "\\\r\n") && len(p) < 200 {
+		return p
+	}
+	return ""
 }
 
 // Link handles GET /auth/link?k=…, the magic link: sign in on this device.

@@ -18,6 +18,7 @@ import (
 	"github.com/LaPingvino/kafumu/internal/config"
 	"github.com/LaPingvino/kafumu/internal/gazetteer"
 	"github.com/LaPingvino/kafumu/internal/handler"
+	"github.com/LaPingvino/kafumu/internal/meetup"
 )
 
 //go:embed templates/*.html
@@ -28,7 +29,9 @@ func main() {
 	tmpl := template.Must(template.New("").Funcs(handler.Funcs).ParseFS(templateFS, "templates/*.html"))
 
 	home := &handler.Home{Cfg: cfg, Tmpl: tmpl, Bsky: bsky.NewClient(), Gaz: gazetteer.Load()}
-	users, boxes := stores(cfg)
+	users, boxes, meetupStore := stores(cfg)
+	home.Meetups = meetup.NewService(meetupStore)
+	meetups := &handler.Meetups{Home: home, Svc: home.Meetups}
 	accounts := &handler.Accounts{Home: home, Svc: account.NewService(users)}
 	mailbox := box.NewHandler(boxes)
 
@@ -47,6 +50,10 @@ func main() {
 	mux.HandleFunc("POST /account/signout", accounts.SignOut)
 	mux.HandleFunc("POST /account/delete", accounts.Delete)
 	mux.HandleFunc("GET /auth/link", accounts.Link)
+	mux.HandleFunc("GET /meetups/new", meetups.New)
+	mux.HandleFunc("POST /meetups", meetups.Create)
+	mux.HandleFunc("GET /meetups/{id}", meetups.Show)
+	mux.HandleFunc("POST /meetups/{id}/rsvp", meetups.RSVP)
 	mux.HandleFunc("GET /api/box/{id}", mailbox.Get)
 	mux.HandleFunc("POST /api/box/{id}", mailbox.Post)
 	mux.HandleFunc("POST /api/box/{id}/ack", mailbox.Ack)
@@ -60,14 +67,14 @@ func main() {
 
 // stores uses Datastore on App Engine (or with the emulator) and memory for
 // plain local runs, so `go run .` needs no credentials.
-func stores(cfg *config.Config) (account.Store, box.Store) {
+func stores(cfg *config.Config) (account.Store, box.Store, meetup.Store) {
 	if os.Getenv("GAE_ENV") == "" && os.Getenv("DATASTORE_EMULATOR_HOST") == "" {
 		log.Printf("stores: in memory (set DATASTORE_EMULATOR_HOST to use the emulator)")
-		return account.NewMemoryStore(), box.NewMemoryStore()
+		return account.NewMemoryStore(), box.NewMemoryStore(), meetup.NewMemoryStore()
 	}
 	db, err := datastore.NewClient(context.Background(), cfg.ProjectID)
 	if err != nil {
 		log.Fatalf("datastore: %v", err)
 	}
-	return &account.DatastoreStore{DB: db}, &box.DatastoreStore{DB: db}
+	return &account.DatastoreStore{DB: db}, &box.DatastoreStore{DB: db}, &meetup.DatastoreStore{DB: db}
 }
