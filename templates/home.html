@@ -2,9 +2,9 @@
 <section id="here" data-cell="{{.Cell}}">
   <p class="muted" id="status">{{t .Lang "home.finding"}}</p>
   <h1 class="cell-tag" hidden><span id="cell-tag"></span></h1>
-  <p id="cell-actions" hidden>
-    <a id="compose" role="button" class="outline" target="_blank" rel="noopener">{{t .Lang "home.post_here"}}</a>
-    <a id="share" href="#" role="button" class="secondary outline">{{t .Lang "home.share"}}</a>
+  <p id="cell-actions" class="actions" hidden>
+    <a id="compose" role="button" class="suggested pill" target="_blank" rel="noopener">{{t .Lang "home.post_here"}}</a>
+    <a id="share" href="#" role="button" class="pill">{{t .Lang "home.share"}}</a>
   </p>
   <details id="manual">
     <summary>{{t .Lang "home.pick_place"}}</summary>
@@ -15,11 +15,11 @@
   </details>
 </section>
 
-<article id="events" class="events" hidden></article>
+<div id="events" class="card events" hidden></div>
 
 <section>
   <h2>{{t .Lang "home.around_here"}}</h2>
-  <ul id="list" class="list"><li class="muted">{{t .Lang "home.nothing_loaded"}}</li></ul>
+  <ul id="list" class="boxed-list"><li class="muted">{{t .Lang "home.nothing_loaded"}}</li></ul>
   <p class="muted" id="list-note"></p>
 </section>
 <script>window.KAFUMU_T = {{.JS}};</script>

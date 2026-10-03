@@ -39,9 +39,10 @@ Everything before the event serves that; the rest of M1 follows after.
       msgs, 7-day TTL, one Datastore entity per box (one Get per poll), ack-to-delete, per-IP limit,
       unknown == empty. ~60 reads per pairing with backoff polling → memcache slice later.
       Ops for Joop: Datastore TTL policy on `Box.expires_at` (one-time gcloud command).
-- [ ] 4b. App-like look (Joop: "like digwire", i.e. GNOME Libadwaita): own small CSS instead of Pico —
-      header bar, boxed lists/cards, pill buttons, adaptive bottom view switcher on phones (Around /
-      Connect / Contacts / Me), accent colour, dark mode. Do before 5c so new pages are born in it.
+- [x] 4b. Libadwaita look (like digwire): own ~200-line CSS replaces Pico (one less CDN request);
+      header bar, view switcher in the header on wide screens and at the bottom on phones, boxed lists,
+      cards, pill buttons, coffee accent from the GNOME brown palette, dark mode, safe-area insets.
+      Tabs now: Around / My card / Account / About — Connect + Contacts slot in with 5c/6.
 - [ ] 5b. `static/pair.js` handshake (advisor-reviewed design): QR = `origin/c#<A's ephemeral P-256
       public key + invite box id>`; scanner does ECDH with its own ephemeral key → HKDF → pair key, so
       every scanner gets its own key and can't read other scanners' hellos. Hello = scanner pubkey (clear)

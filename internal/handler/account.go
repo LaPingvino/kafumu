@@ -55,7 +55,7 @@ type accountPage struct {
 // Show handles GET /account.
 func (a *Accounts) Show(w http.ResponseWriter, r *http.Request) {
 	p := accountPage{page: a.Home.newPage(r, "")}
-	p.Title = locale.T(p.Lang, "account.title")
+	p.Title, p.Tab = locale.T(p.Lang, "account.title"), "account"
 	if u := p.User; u != nil {
 		p.MagicURL = a.Home.Cfg.Origin + "/auth/link?k=" + template.URLQueryEscaper(mustCookie(r))
 	}

@@ -37,6 +37,7 @@ type Home struct {
 type page struct {
 	Brand string
 	Title string
+	Tab   string // active view-switcher tab
 	Cell  string
 	Lang  string
 	Langs []locale.Lang
@@ -69,14 +70,14 @@ func (h *Home) ShowHome(w http.ResponseWriter, r *http.Request) {
 		cell = ""
 	}
 	p := h.newPage(r, "")
-	p.Cell = cell
+	p.Tab, p.Cell = "around", cell
 	h.render(w, "home.html", p)
 }
 
 // ShowAbout renders the static explanation page.
 func (h *Home) ShowAbout(w http.ResponseWriter, r *http.Request) {
 	p := h.newPage(r, "")
-	p.Title = locale.T(p.Lang, "nav.about")
+	p.Title, p.Tab = locale.T(p.Lang, "nav.about"), "about"
 	h.render(w, "about.html", p)
 }
 
@@ -103,7 +104,7 @@ type bundle struct {
 // ShowCard renders the "my card" editor; the card itself lives on the device.
 func (h *Home) ShowCard(w http.ResponseWriter, r *http.Request) {
 	p := h.newPage(r, "")
-	p.Title = locale.T(p.Lang, "card.title")
+	p.Title, p.Tab = locale.T(p.Lang, "card.title"), "card"
 	h.render(w, "card.html", p)
 }
 

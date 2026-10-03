@@ -84,5 +84,6 @@
   "js.field_telegram": "Telegram",
   "js.field_bluesky": "Bluesky",
   "js.field_linkedin": "LinkedIn",
-  "js.field_website": "Site"
+  "js.field_website": "Site",
+  "nav.around": "Por aqui"
 }
