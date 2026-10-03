@@ -165,6 +165,21 @@ event entries for language gatherings (only with verified dates/venues — never
       drops the subscription; PushSub expires after 90 days (purged). Contacts: "🔔 Notify me of signals".
       Arch Chromium has no push service (no GCM keys) → verify on a real phone.
 
+## OLN layer (Joop, 2026-10-03): local messages with time-biased PoW, views, Aardvark questions
+Design in VISION §4 "Local messages". Benchmark: pure-JS SHA-1 (static/sha1.js, verified against Node
+crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 18 ≈ 6 s, 20 ≈ 25 s.
+- [ ] 15a. Server: internal/oln — parse/verify eolnpoc raw format (SHA-1 leading zeros), ±10 min clock
+      window, adaptive required bits per cell (14 + log2(1 + last-hour count/30), ≤22), TTL from bits,
+      dedupe by hash, length cap, per-cell cache like meetups, ≤50 per cell in the bundle (by priority),
+      admin hidden set; POST /api/oln; bundle field `notes` + `requiredBits`.
+- [ ] 15b. Client: mining Web Worker (sha1.js) with progress, composer in Around ("Say something here",
+      no account), "Around here now" section ranked bits+recency, hide/report (report = PoW'd message).
+- [ ] 15c. Views: filter chips (language, interest) + URL params (?cell=&lang=&tag=) applied on the
+      device; explore any place; multi-ring requests for big regions (holiday destinations).
+- [ ] 15d. Questions (Aardvark): ask with interest tags into a place's cells; question carries an
+      invite payload; matching devices see "Questions for you"; answer privately (pair.js) or publicly.
+- [ ] 15e. /oln.json per cell in eolnpoc's olnjson.Format for other OLN nodes.
+
 ## After the event (rest of M1)
 - [x] `LaPingvino/geotags` (public, /home/joop/geotags): 6,278 cities ≥100k from GeoNames (CC BY 4.0) with
       tag, native + curated aliases, radius from population, centre cell, ambiguity (duplicates, ≤3 chars,
@@ -205,6 +220,8 @@ start (magic link re-binds them after a domain move).
   run the server on PORT=18080 with absolute paths (TMPDIR differs outside the sandbox).
 - Meetup lists are cached per instance for 60 s: a new meetup can take up to a minute to appear for
   people served by another instance (the host's own instance forgets at once).
+- Cron: "every N hours" without `synchronized` counts from deploy time; now clock-aligned (feeds 00/06/
+  12/18 UTC, purge 04:00). Verify the first purge run in the logs — /privacy depends on it.
 - Joop (2026-10-03): "be daring, corrections are cheap"; ping his phone only for urgent things.
 - Datastore indexes: `~/google-cloud-sdk/bin/gcloud app deploy index.yaml --project lokumo`.
 - Deploy with the user-installed SDK: `~/google-cloud-sdk/bin/gcloud app deploy --project lokumo --quiet`

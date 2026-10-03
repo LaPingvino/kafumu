@@ -135,6 +135,29 @@ Two halves, both opt-in, neither paywalls anything. **Proximity, signalling, sea
 
 **Business-funded: relevance listings, the unintrusive alternative to advertising.** A listing is a record by a business or organiser with cells and interest tags and a label ("Listing · Café Tortoni · sponsors this area"). It is ranked on the device in the same list as everything else, against tags the client already has. No tracking, no third-party scripts, no per-user impressions: the business sees "live in cell X for week Y" and, optionally, a click count from a Kafumu redirect. Users opt in to "show listings" (default off until a cell has a sponsor, then on with a one-tap off, pending Joop's call). The first case is the **coffee spot**: when two friends match in a cell, or a meetup is created without a venue, the app suggests the sponsoring café, hours included, "we welcome Kafumu meetups". Pitch to cafés: cheaper than Google/Meta, lands exactly when someone within 5 km is choosing where to sit, and your customers like you for it. Pitch to users: it answers "where shall we go?". Pricing sketch (M2, Stripe Payment Links and manual approval first): community and non-commercial events free, always; commercial listing **€10/cell/week or €30/cell/month**, ≤ 3 tags, neighbouring cells sold separately; paid-ticket events free to list, optional "featured" €5, never a per-attendee cut; early cells free to seed. 50 paying cells ≈ €1,500/month; sales, not tech, is the bottleneck, so Joop's own cities first. Ethics: labelled, matched on coarse data only, never in friend or signal surfaces, never ranked above a friend being nearby, and the cell's patron line sits next to its sponsor line so users see both halves fund the same thing.
 
+### Local messages: the OLN layer (added 2026-10-03)
+
+*Adds:* ephemeral public messages with no account, paid for with proof of work, in Joop's OLN format
+(github.com/LaPingvino/eolnpoc). Checklist: (1) tier 3, strictly expiring; (2) tags in the keyword field:
+`#geo<cell>`, `#lang<code>`, interests; (3) the server sees the message text and its tags — public by
+nature — and nothing linking it to a person; (4) TTL = 1 h × 2^(bits − required), capped at 7 days, so
+casual chatter is cheap and short and a lasting notice costs a few seconds of phone work; required bits
+start at 14 and rise with the cell's recent volume; (5) ranked on the device: PoW bits + recency, as in
+eolnpoc's priority. The raw message is byte-compatible with eolnpoc —
+`nonce;YYYYMMDDhhmmss;base64url(message);keywords`, valid when SHA-1 has the required leading zero
+bits — and the timestamp must be within ±10 minutes of the server's clock, which stops pre-mined
+stockpiles (that is what makes the work *time-biased*). Kafumu is one OLN node reachable over HTTP
+(per-cell `/oln.json` in olnjson.Format), not a NATS peer: App Engine can't hold long connections.
+
+Built on it: **views** (Around filtered by language, location and interest — any place, e.g. a holiday
+destination — as shareable URLs, applied on the device), and **questions, Aardvark-style**: a question
+is an OLN message with interest tags that also carries an ephemeral public key and inbox, exactly a
+connect code; whoever's device matches the tags can answer privately (ECDH reply into the asker's inbox,
+optionally swapping cards) or publicly (an OLN message with a parent id). Routing is tag matching on the
+devices. PoW stays off the pair mailboxes, which relationships already bound. Moderation without
+accounts: hide on the device, reports that cost PoW too, an admin hidden-id set, and difficulty that
+climbs when a cell is noisy.
+
 ### How to add a layer (checklist)
 
 Before building anything new, answer these in five lines; if any answer is awkward, the feature is wrong or the foundation is, and it is almost always the feature.
