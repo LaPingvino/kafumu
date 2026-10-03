@@ -200,7 +200,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       tagged #re<10-hex id>, threaded under the question. Swipe a message sideways to hide it (Joop).
       Browser test: ask → other browser answers publicly → threaded. Was: Questions (Aardvark): ask with interest tags into a place's cells; question carries an
       invite payload; matching devices see "Questions for you"; answer privately (pair.js) or publicly.
-- [ ] 15f. Minimal PoW on mailbox posts (Joop: "no PoW should be minimal PoW"): ~10 bits over
+- [x] 15f. Minimal PoW on writes (internal/pow): mailbox POST and slot PUT need X-Kafumu-Work =
+      "<nonce>;<UTC date>" with SHA-1("<nonce>;<date>;<b64url(sha256(body))>;#box<id>|#slot<id>") ≥ 10 bits
+      (~1k hashes, ms on a phone), ±10 min; else 402. Size checked first. pair.js mines with sha1.js.
+      Was: Minimal PoW on mailbox posts (Joop: "no PoW should be minimal PoW"): ~10 bits over
       nonce;date;base64url(sha256(body));#box<id>, ±10 min — instant for people, a cost for bots.
 - [ ] 15g. Per-peer price (Joop): people set the minimum bits for unsolicited messages to them (questions,
       offers); commercial senders pay in work for what reaching you is worth to them.

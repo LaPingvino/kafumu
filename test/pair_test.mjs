@@ -2,6 +2,7 @@
 // with the right cards, and C cannot read B's hello. Runs against a local
 // server: PORT=18081 go run . & node test/pair_test.mjs http://localhost:18081
 import { readFileSync } from "node:fs";
+new Function(readFileSync(new URL("../static/sha1.js", import.meta.url), "utf8"))();
 new Function(readFileSync(new URL("../static/pair.js", import.meta.url), "utf8"))();
 const base = process.argv[2] || "http://localhost:18081";
 

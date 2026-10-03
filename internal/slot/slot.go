@@ -19,6 +19,8 @@ import (
 	"time"
 
 	"cloud.google.com/go/datastore"
+
+	"github.com/LaPingvino/kafumu/internal/pow"
 )
 
 const (
@@ -118,8 +120,17 @@ func (h *Handler) Put(w http.ResponseWriter, r *http.Request) {
 	if !ok {
 		return
 	}
+	body, err := io.ReadAll(io.LimitReader(r.Body, 8<<10))
+	if err != nil {
+		http.Error(w, "bad body", http.StatusBadRequest)
+		return
+	}
+	if err := pow.Check(r.Header.Get("X-Kafumu-Work"), body, "slot"+id, time.Now()); err != nil {
+		http.Error(w, err.Error(), http.StatusPaymentRequired)
+		return
+	}
 	var toks []string
-	if err := json.NewDecoder(io.LimitReader(r.Body, 8<<10)).Decode(&toks); err != nil || len(toks) > MaxTokens {
+	if err := json.Unmarshal(body, &toks); err != nil || len(toks) > MaxTokens {
 		http.Error(w, "want a JSON list of at most 64 tokens", http.StatusBadRequest)
 		return
 	}

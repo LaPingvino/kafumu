@@ -8,6 +8,8 @@ import (
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/LaPingvino/kafumu/internal/pow"
 )
 
 const id = "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
@@ -23,7 +25,11 @@ func serve(h *Handler) http.Handler {
 func call(t *testing.T, s http.Handler, method, path, body string) *httptest.ResponseRecorder {
 	t.Helper()
 	w := httptest.NewRecorder()
-	s.ServeHTTP(w, httptest.NewRequest(method, path, strings.NewReader(body)))
+	r := httptest.NewRequest(method, path, strings.NewReader(body))
+	if method == "POST" && !strings.HasSuffix(path, "/ack") && len(body) <= MaxMessage {
+		r.Header.Set("X-Kafumu-Work", pow.Mine([]byte(body), "box"+strings.TrimPrefix(path, "/api/box/"), time.Now()))
+	}
+	s.ServeHTTP(w, r)
 	return w
 }
 
@@ -129,3 +135,12 @@ func (c *testCache) Get(_ context.Context, k string) ([]byte, bool) {
 }
 func (c *testCache) Set(_ context.Context, k string, v []byte, _ time.Duration) { c.m[k] = v }
 func (c *testCache) Delete(_ context.Context, k string)                         { delete(c.m, k) }
+
+func TestPostNeedsWork(t *testing.T) {
+	s := serve(NewHandler(NewMemoryStore()))
+	w := httptest.NewRecorder()
+	s.ServeHTTP(w, httptest.NewRequest("POST", "/api/box/"+id, strings.NewReader("x")))
+	if w.Code != http.StatusPaymentRequired {
+		t.Errorf("post without work: %d", w.Code)
+	}
+}

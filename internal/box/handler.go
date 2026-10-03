@@ -11,6 +11,8 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/LaPingvino/kafumu/internal/pow"
 )
 
 // Handler serves the mailbox API under /api/box/. Requests carry no
@@ -62,6 +64,10 @@ func (h *Handler) Post(w http.ResponseWriter, r *http.Request) {
 	m, err := NewMessage(strings.TrimSpace(string(body)))
 	if err != nil || m.Data == "" {
 		http.Error(w, "message empty or too big", http.StatusRequestEntityTooLarge)
+		return
+	}
+	if err := pow.Check(r.Header.Get("X-Kafumu-Work"), body, "box"+id, time.Now()); err != nil {
+		http.Error(w, err.Error(), http.StatusPaymentRequired)
 		return
 	}
 	switch err := h.Store.Append(r.Context(), id, m); {

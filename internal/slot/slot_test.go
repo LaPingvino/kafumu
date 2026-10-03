@@ -5,6 +5,9 @@ import (
 	"net/http/httptest"
 	"strings"
 	"testing"
+	"time"
+
+	"github.com/LaPingvino/kafumu/internal/pow"
 )
 
 func TestSlot(t *testing.T) {
@@ -15,7 +18,11 @@ func TestSlot(t *testing.T) {
 	id := strings.Repeat("ab", 32)
 	call := func(method, body string) *httptest.ResponseRecorder {
 		w := httptest.NewRecorder()
-		mux.ServeHTTP(w, httptest.NewRequest(method, "/api/slot/"+id, strings.NewReader(body)))
+		r := httptest.NewRequest(method, "/api/slot/"+id, strings.NewReader(body))
+		if method == "PUT" {
+			r.Header.Set("X-Kafumu-Work", pow.Mine([]byte(body), "slot"+id, time.Now()))
+		}
+		mux.ServeHTTP(w, r)
 		return w
 	}
 	if w := call("GET", ""); !strings.Contains(w.Body.String(), `"tokens":[]`) {

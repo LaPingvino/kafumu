@@ -77,9 +77,26 @@
       }).then(function (pt) { return JSON.parse(dec.decode(pt)); });
     }
 
+    // Every write carries a small proof of work (pow.MinBits, ~1k SHA-1s),
+    // bound to the body and the box/slot: nothing for a person, a cost for bots.
+    var MIN_BITS = 10, SHA1 = (root.kafumuSHA1 || (typeof self !== "undefined" && self.kafumuSHA1));
+    function stamp(body, scope) {
+      return subtle.digest("SHA-256", enc.encode(body)).then(function (h) {
+        var date = new Date().toISOString().replace(/[-:T]/g, "").slice(0, 14);
+        var hb = new Uint8Array(h), s = "";
+        hb.forEach(function (b) { s += String.fromCharCode(b); });
+        var tail = ";" + date + ";" + btoa(s).replace(/\+/g, "-").replace(/\//g, "_") + ";#" + scope;
+        for (var i = 0; ; i++) {
+          if (SHA1.leadingZeros(SHA1.sha1(enc.encode(i + tail))) >= MIN_BITS) return i + ";" + date;
+        }
+      });
+    }
+
     // Box API. No cookies: the server must not link boxes to accounts.
     function post(box, body) {
-      return fetchFn(base + "/api/box/" + box, { method: "POST", body: body, credentials: "omit" })
+      return stamp(body, "box" + box).then(function (work) {
+        return fetchFn(base + "/api/box/" + box, { method: "POST", body: body, credentials: "omit", headers: { "X-Kafumu-Work": work } });
+      })
         .then(function (r) { if (!r.ok) throw new Error("box post " + r.status); });
     }
     function list(box) {
@@ -290,7 +307,10 @@
             var key = unb64(c.key);
             return Promise.all(hist.map(function (h) { return beacon(key, c.role, h.cell, h.day); })).then(function (toks) {
               return slotID(key, c.role).then(function (id) {
-                return fetchFn(base + "/api/slot/" + id, { method: "PUT", body: JSON.stringify(toks), credentials: "omit" });
+                var body = JSON.stringify(toks);
+                return stamp(body, "slot" + id).then(function (work) {
+                  return fetchFn(base + "/api/slot/" + id, { method: "PUT", body: body, credentials: "omit", headers: { "X-Kafumu-Work": work } });
+                });
               });
             }).then(function (r) {
               if (r.ok) { c.slotSig = sig; return store.putContact(c); }
