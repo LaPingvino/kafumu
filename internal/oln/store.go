@@ -1,0 +1,127 @@
+package oln
+
+import (
+	"context"
+	"errors"
+	"sync"
+	"time"
+
+	"cloud.google.com/go/datastore"
+)
+
+const (
+	noteKind   = "Note"
+	hiddenKind = "HiddenNote"
+)
+
+var errNotFound = errors.New("oln: not found")
+
+// DatastoreStore keeps notes in Datastore; the (cell, expires_at) index is
+// in index.yaml, and the daily purge removes expired notes.
+type DatastoreStore struct{ DB *datastore.Client }
+
+func (s *DatastoreStore) Get(ctx context.Context, id string) (*Note, error) {
+	var n Note
+	if err := s.DB.Get(ctx, datastore.NameKey(noteKind, id, nil), &n); err != nil {
+		return nil, errNotFound
+	}
+	n.ID = id
+	return &n, nil
+}
+
+func (s *DatastoreStore) Put(ctx context.Context, n *Note) error {
+	_, err := s.DB.Put(ctx, datastore.NameKey(noteKind, n.ID, nil), n)
+	return err
+}
+
+func (s *DatastoreStore) InCells(ctx context.Context, cells []string, now time.Time) ([]*Note, error) {
+	vals := make([]any, len(cells))
+	for i, c := range cells {
+		vals[i] = c
+	}
+	q := datastore.NewQuery(noteKind).FilterField("cell", "in", vals).FilterField("expires_at", ">", now).Limit(500)
+	var ns []*Note
+	keys, err := s.DB.GetAll(ctx, q, &ns)
+	for i, k := range keys {
+		ns[i].ID = k.Name
+	}
+	return ns, err
+}
+
+func (s *DatastoreStore) Hidden(ctx context.Context) (map[string]bool, error) {
+	keys, err := s.DB.GetAll(ctx, datastore.NewQuery(hiddenKind).KeysOnly().Limit(5000), nil)
+	h := map[string]bool{}
+	for _, k := range keys {
+		h[k.Name] = true
+	}
+	return h, err
+}
+
+func (s *DatastoreStore) Hide(ctx context.Context, id string) error {
+	_, err := s.DB.Put(ctx, datastore.NameKey(hiddenKind, id, nil), &struct {
+		At time.Time `datastore:"at,noindex"`
+	}{time.Now()})
+	return err
+}
+
+// MemoryStore is for local runs and tests.
+type MemoryStore struct {
+	mu     sync.Mutex
+	notes  map[string]Note
+	hidden map[string]bool
+}
+
+func NewMemoryStore() *MemoryStore {
+	return &MemoryStore{notes: map[string]Note{}, hidden: map[string]bool{}}
+}
+
+func (s *MemoryStore) Get(_ context.Context, id string) (*Note, error) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	n, ok := s.notes[id]
+	if !ok {
+		return nil, errNotFound
+	}
+	return &n, nil
+}
+
+func (s *MemoryStore) Put(_ context.Context, n *Note) error {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	s.notes[n.ID] = *n
+	return nil
+}
+
+func (s *MemoryStore) InCells(_ context.Context, cells []string, now time.Time) ([]*Note, error) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	want := map[string]bool{}
+	for _, c := range cells {
+		want[c] = true
+	}
+	var out []*Note
+	for _, n := range s.notes {
+		if want[n.Cell] && n.ExpiresAt.After(now) {
+			c := n
+			out = append(out, &c)
+		}
+	}
+	return out, nil
+}
+
+func (s *MemoryStore) Hidden(context.Context) (map[string]bool, error) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	h := map[string]bool{}
+	for k := range s.hidden {
+		h[k] = true
+	}
+	return h, nil
+}
+
+func (s *MemoryStore) Hide(_ context.Context, id string) error {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	s.hidden[id] = true
+	return nil
+}

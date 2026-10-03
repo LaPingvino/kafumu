@@ -15,8 +15,10 @@ env_variables:
   KAFUMU_LEGACY_ORIGINS: "https://lokumo.ew.r.appspot.com https://lokumo.appspot.com"
   KAFUMU_PASSKEYS: "1"
   KAFUMU_ATPROTO: "1"
-  # Donations. A PayPal.me link or hosted button would avoid showing the address.
-  KAFUMU_PAYPAL: "https://www.paypal.com/donate/?business=ikojba%40gmail.com&currency_code=EUR&item_name=Kafumu"
+  # Donations, the same channels as esperanto-kurso.net.
+  KAFUMU_PAYPAL: "https://www.paypal.com/paypalme/lapingvino"
+  KAFUMU_BUNQ: "https://bunq.me/lapingvino"
+  KAFUMU_BCH: "bitcoincash:qrrqxuwdh4j92vytr89n95xhvvcraugju53j7glf20"
 
 handlers:
   - url: /robots.txt

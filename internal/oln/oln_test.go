@@ -1,0 +1,86 @@
+package oln
+
+import (
+	"context"
+	"encoding/base64"
+	"errors"
+	"fmt"
+	"testing"
+	"time"
+)
+
+// mine is eolnpoc's CreatePoWMessage, with a fixed time.
+func mine(bitsWanted int, at time.Time, msg, keywords string) string {
+	format := "%d;" + at.UTC().Format("20060102150405") + ";" + base64.URLEncoding.EncodeToString([]byte(msg)) + ";" + keywords
+	for i := 0; ; i++ {
+		raw := fmt.Sprintf(format, i)
+		if Bits(raw) >= bitsWanted {
+			return raw
+		}
+	}
+}
+
+func TestPostAndRank(t *testing.T) {
+	ctx := context.Background()
+	now := time.Date(2026, 11, 10, 15, 0, 0, 0, time.UTC)
+	s := NewService(NewMemoryStore())
+	s.Now = func() time.Time { return now }
+
+	raw := mine(BaseBits, now, "Kafo ĉe Pavilono 2?", "#geo8ccgqw #langepo #WebSummit")
+	n, err := s.Post(ctx, raw)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if n.Cell != "8ccgqw" || n.Text != "Kafo ĉe Pavilono 2?" || len(n.Tags) != 3 || n.Tags[2] != "websummit" {
+		t.Errorf("note = %+v", n)
+	}
+	if got := n.ExpiresAt.Sub(n.At); got != BaseTTL*time.Duration(1<<(n.Bits-BaseBits)) && got != MaxTTL {
+		t.Errorf("ttl = %v for %d bits", got, n.Bits)
+	}
+	if again, err := s.Post(ctx, raw); err != nil || again.ID != n.ID {
+		t.Errorf("repost: %v", err)
+	}
+	for _, bad := range []struct {
+		raw  string
+		want error
+	}{
+		{"nonsense", ErrFormat},
+		{mine(BaseBits, now.Add(-20*time.Minute), "old", "#geo8ccgqw"), ErrClock},
+		{mine(BaseBits, now, "where?", "#hello"), ErrPlace},
+		{func() string { // too little work: find a hash with exactly 0 leading zero bits
+			for i := 0; ; i++ {
+				r := fmt.Sprintf("%d;%s;%s;#geo8ccgqw", i, now.Format("20060102150405"), base64.URLEncoding.EncodeToString([]byte("x")))
+				if Bits(r) == 0 {
+					return r
+				}
+			}
+		}(), ErrWork},
+	} {
+		if _, err := s.Post(ctx, bad.raw); !errors.Is(err, bad.want) {
+			t.Errorf("Post(%.30q) err = %v, want %v", bad.raw, err, bad.want)
+		}
+	}
+	strong, _ := s.Post(ctx, mine(BaseBits+4, now, "Lasting notice", "#geo8ccgqw"))
+	list, _ := s.InCells(ctx, []string{"8ccgqw"})
+	if len(list) != 2 || list[0].ID != strong.ID {
+		t.Errorf("more work should rank first: %+v", list)
+	}
+	s.Hide(ctx, strong.ID)
+	if list, _ = s.InCells(ctx, []string{"8ccgqw"}); len(list) != 1 {
+		t.Errorf("hidden note still listed")
+	}
+	now = now.Add(2 * time.Hour)
+	s.cells = map[string]cellEntry{}
+	if list, _ = s.InCells(ctx, []string{"8ccgqw"}); len(list) != 0 && list[0].Bits == BaseBits {
+		t.Errorf("1-hour note still listed after 2 hours: %+v", list)
+	}
+}
+
+func TestRequiredAndTTL(t *testing.T) {
+	if Required(0) != 14 || Required(30) != 15 || Required(90) != 16 || Required(1e9) != MaxBits {
+		t.Errorf("Required: %d %d %d", Required(0), Required(30), Required(90))
+	}
+	if TTL(14, 14) != time.Hour || TTL(18, 14) != 16*time.Hour || TTL(30, 14) != MaxTTL || TTL(13, 14) != 0 {
+		t.Error("TTL")
+	}
+}

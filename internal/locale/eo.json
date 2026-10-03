@@ -273,7 +273,7 @@
   "privacy.rights": "Vi povas vidi, eksporti kaj forigi ĉion, kion ni havas pri vi, el via konto.",
   "privacy.contact": "Kontakto",
   "patrons.card": "Pagi per karto",
-  "patrons.any_amount": "Ajna sumo, unufoje aŭ ĉiumonate. PayPal ankaŭ akceptas kartojn sen PayPal-konto.",
+  "patrons.any_amount": "Ajna sumo, unufoje aŭ ĉiumonate. PayPal akceptas kartojn sen konto; bunq funkcias kun ĉiu eŭropa banko.",
   "install.go": "Instali",
   "js.install_offer": "Instalu Kafumu — viaj kontaktoj estas pli sekuraj en la apo.",
   "js.install_ios": "Konsileto: tuŝu Konigi → „Aldoni al ĉefekrano“, por ke viaj kontaktoj restu ĉe vi.",

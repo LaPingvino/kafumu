@@ -186,13 +186,13 @@ func (h *Home) ShowMove(w http.ResponseWriter, r *http.Request) {
 // infoPage is a static-ish page with the money/contact links.
 type infoPage struct {
 	page
-	PayPal, Liberapay, Stripe, Contact string
+	PayPal, Bunq, BCH, Liberapay, Stripe, Contact string
 }
 
 // Info renders /patrons, /for-cafes and /privacy.
 func (h *Home) Info(name, titleKey string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		p := infoPage{page: h.newPage(r, ""), PayPal: h.Cfg.PayPal, Liberapay: h.Cfg.Liberapay, Stripe: h.Cfg.Stripe, Contact: h.Cfg.Contact}
+		p := infoPage{page: h.newPage(r, ""), PayPal: h.Cfg.PayPal, Bunq: h.Cfg.Bunq, BCH: h.Cfg.BCH, Liberapay: h.Cfg.Liberapay, Stripe: h.Cfg.Stripe, Contact: h.Cfg.Contact}
 		p.Title, p.Tab = locale.T(p.Lang, titleKey), "about"
 		h.render(w, name, p)
 	}

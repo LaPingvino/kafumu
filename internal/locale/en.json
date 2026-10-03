@@ -273,7 +273,7 @@
   "privacy.rights": "You can see, export and delete everything we hold about you from your account.",
   "privacy.contact": "Contact",
   "patrons.card": "Pay by card",
-  "patrons.any_amount": "Any amount, once or monthly. PayPal also takes cards without a PayPal account.",
+  "patrons.any_amount": "Any amount, once or every month. PayPal takes cards without an account; bunq works with any European bank.",
   "install.go": "Install",
   "js.install_offer": "Install Kafumu — your contacts stay safer in the app.",
   "js.install_ios": "Tip: tap Share → “Add to Home Screen” so your contacts stay with you.",

@@ -273,7 +273,7 @@
   "privacy.rights": "Pode ver, exportar e apagar tudo o que temos sobre si a partir da sua conta.",
   "privacy.contact": "Contacto",
   "patrons.card": "Pagar com cartão",
-  "patrons.any_amount": "Qualquer valor, uma vez ou todos os meses. O PayPal também aceita cartões sem conta PayPal.",
+  "patrons.any_amount": "Qualquer valor, uma vez ou todos os meses. O PayPal aceita cartões sem conta; o bunq funciona com qualquer banco europeu.",
   "install.go": "Instalar",
   "js.install_offer": "Instale o Kafumu — os seus contactos ficam mais seguros na app.",
   "js.install_ios": "Dica: toque em Partilhar → «Adicionar ao ecrã principal» para não perder os contactos.",

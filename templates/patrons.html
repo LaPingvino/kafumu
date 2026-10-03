@@ -4,12 +4,19 @@
   <p>{{t .Lang "patrons.intro"}}</p>
   <p>{{t .Lang "patrons.free"}}</p>
   <h2>{{t .Lang "patrons.how"}}</h2>
+  <p>{{t .Lang "patrons.coffee"}}</p>
   <div class="actions">
-    {{if .PayPal}}<a href="{{.PayPal}}" role="button" class="pill suggested" rel="noopener" target="_blank">{{t .Lang "patrons.coffee"}}</a>{{end}}
+    {{if .PayPal}}<a href="{{.PayPal}}" role="button" class="pill suggested" rel="noopener" target="_blank">☕ PayPal</a>{{end}}
+    {{if .Bunq}}<a href="{{.Bunq}}" role="button" class="pill" rel="noopener" target="_blank">bunq</a>{{end}}
     {{if .Stripe}}<a href="{{.Stripe}}" role="button" class="pill" rel="noopener" target="_blank">{{t .Lang "patrons.card"}}</a>{{end}}
     {{if .Liberapay}}<a href="{{.Liberapay}}" role="button" class="pill" rel="noopener" target="_blank">Liberapay</a>{{end}}
   </div>
-  {{if not (or .PayPal .Stripe .Liberapay)}}<p class="dim">{{t .Lang "patrons.soon"}}</p>{{end}}
+  {{if .BCH}}<details class="bch"><summary>Bitcoin Cash</summary>
+    <p><a href="{{.BCH}}"><img src="/static/bch-qr.png" alt="Bitcoin Cash QR" width="185" height="185" loading="lazy"></a></p>
+    <p class="inline-row"><input readonly value="{{.BCH}}" onclick="this.select()" aria-label="Bitcoin Cash">
+      <button type="button" onclick="navigator.clipboard&&navigator.clipboard.writeText(this.previousElementSibling.value);this.textContent='✓'">{{t .Lang "account.copy"}}</button></p>
+  </details>{{end}}
+  {{if not (or .PayPal .Bunq .BCH .Stripe .Liberapay)}}<p class="dim">{{t .Lang "patrons.soon"}}</p>{{end}}
   <p class="dim">{{t .Lang "patrons.any_amount"}}</p>
   <p class="dim">{{t .Lang "patrons.thanks"}}</p>
 </article>
