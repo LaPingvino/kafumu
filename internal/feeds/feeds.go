@@ -118,7 +118,7 @@ func toMeetup(ev *importer.Event, f Feed, host string) *meetup.Meetup {
 	return &meetup.Meetup{
 		ID: "f" + hex.EncodeToString(sum[:9]), AuthorID: "feed", Via: host,
 		Title: ev.Title, Text: ev.Text, Venue: ev.Venue, Link: link, Cell: cell,
-		StartAt: ev.Start.UTC(), EndAt: ev.End.UTC(), Tags: append([]string(nil), f.Tags...),
+		StartAt: ev.Start.UTC(), EndAt: ev.End.UTC(), Tags: append([]string(nil), f.Tags...), ATURI: ev.ATURI, ATCID: ev.ATCID,
 		CreatedAt: time.Now(),
 	}
 }

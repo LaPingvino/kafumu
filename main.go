@@ -74,6 +74,7 @@ func main() {
 		mux.HandleFunc("POST /oauth/login", at.Login)
 		mux.HandleFunc("GET /oauth/callback", at.Callback)
 		mux.HandleFunc("POST /oauth/disconnect", at.Disconnect)
+		mux.HandleFunc("POST /post", at.Post)
 	}
 	if cfg.Passkeys {
 		if pk := handler.NewPasskeys(accounts, cfg.Origin, kv); pk != nil {

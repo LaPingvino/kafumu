@@ -3,8 +3,11 @@ package handler
 import (
 	"log"
 	"net/http"
+	"strings"
+	"time"
 
 	"github.com/LaPingvino/kafumu/internal/atp"
+	"github.com/LaPingvino/kafumu/internal/geo"
 )
 
 // ATproto connects a Kafumu account to the person's own Bluesky/ATproto
@@ -66,4 +69,30 @@ func (h *ATproto) Disconnect(w http.ResponseWriter, r *http.Request) {
 		_ = h.Accounts.Svc.Save(r.Context(), u)
 	}
 	http.Redirect(w, r, "/account#atproto", http.StatusSeeOther)
+}
+
+// Post handles POST /post {text, cell}: a post in your own Bluesky account,
+// with the cell's #geo tag added if you didn't type it.
+func (h *ATproto) Post(w http.ResponseWriter, r *http.Request) {
+	u := UserFrom(r.Context())
+	cell := strings.ToLower(r.FormValue("cell"))
+	back := "/"
+	if geo.Valid(cell) {
+		back = "/?cell=" + cell
+	}
+	text := strings.TrimSpace(r.FormValue("text"))
+	if u == nil || u.DID == "" || text == "" || len([]rune(text)) > 300 {
+		http.Redirect(w, r, back, http.StatusSeeOther)
+		return
+	}
+	if geo.Valid(cell) && !strings.Contains(strings.ToLower(text), "#geo"+cell) {
+		text += "\n\n#geo" + cell
+	}
+	lang := h.Accounts.Home.newPage(r, "").Lang
+	if _, _, err := h.Svc.CreateRecord(r.Context(), u.DID, u.ATSession, "app.bsky.feed.post", atp.PostRecord(text, lang, time.Now())); err != nil {
+		log.Printf("atproto: post: %v", err)
+		http.Redirect(w, r, back+"&posted=0", http.StatusSeeOther)
+		return
+	}
+	http.Redirect(w, r, back+"&posted=1", http.StatusSeeOther)
 }

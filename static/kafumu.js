@@ -86,6 +86,12 @@
     document.querySelector(".cell-tag").hidden = false;
     $("cell-actions").hidden = false;
     $("compose").href = "https://bsky.app/intent/compose?text=" + encodeURIComponent("\n\n" + tag);
+    // Connected to ATproto: post from here, into your own account.
+    var comp = $("composer");
+    if (comp) {
+      comp.cell.value = c;
+      $("compose").onclick = function (e) { e.preventDefault(); comp.hidden = !comp.hidden; if (!comp.hidden) comp.text.focus(); };
+    }
     $("share").onclick = function (e) {
       e.preventDefault();
       var url = location.origin + "/?cell=" + c;

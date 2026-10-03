@@ -311,5 +311,8 @@
   "atproto.connect": "Connect",
   "atproto.signin": "Continue with Bluesky",
   "atproto.connected": "Connected as",
-  "atproto.disconnect": "Disconnect"
+  "atproto.disconnect": "Disconnect",
+  "post.label": "Post here as",
+  "post.placeholder": "What's happening around here? (#geo tag added for you)",
+  "post.send": "Post to Bluesky"
 }

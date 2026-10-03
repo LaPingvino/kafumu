@@ -311,5 +311,8 @@
   "atproto.connect": "Ligar",
   "atproto.signin": "Continuar com o Bluesky",
   "atproto.connected": "Ligado como",
-  "atproto.disconnect": "Desligar"
+  "atproto.disconnect": "Desligar",
+  "post.label": "Publicar aqui como",
+  "post.placeholder": "O que se passa por aqui? (a etiqueta #geo é juntada por si)",
+  "post.send": "Publicar no Bluesky"
 }

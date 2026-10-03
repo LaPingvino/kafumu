@@ -30,6 +30,9 @@ type Event struct {
 	Lat    float64   `json:"lat,omitempty"`
 	Lon    float64   `json:"lon,omitempty"`
 	HasGeo bool      `json:"hasGeo"`
+	// ATURI/ATCID identify an ATproto event record, when it came from one.
+	ATURI string `json:"-"`
+	ATCID string `json:"-"`
 }
 
 var ErrNoEvent = errors.New("importer: no event found on that page")

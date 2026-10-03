@@ -9,6 +9,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/LaPingvino/kafumu/internal/account"
+	"github.com/LaPingvino/kafumu/internal/atp"
 	"github.com/LaPingvino/kafumu/internal/feeds"
 	"github.com/LaPingvino/kafumu/internal/geo"
 	"github.com/LaPingvino/kafumu/internal/importer"
@@ -78,7 +80,27 @@ func (h *Meetups) Create(w http.ResponseWriter, r *http.Request) {
 		log.Printf("meetup: create: %v", err)
 		http.Error(w, "could not save the meetup", http.StatusInternalServerError)
 	default:
+		h.publishEvent(r, u, m)
 		http.Redirect(w, r, "/meetups/"+m.ID, http.StatusSeeOther)
+	}
+}
+
+// publishEvent also writes the meetup to the host's own ATproto repo when
+// they connected one. Failures are logged, never shown as a failed meetup.
+func (h *Meetups) publishEvent(r *http.Request, u *account.User, m *meetup.Meetup) {
+	if h.Home.ATproto == nil || u.DID == "" {
+		return
+	}
+	lat, lon := geo.Center(m.Cell)
+	link := h.Home.Cfg.Origin + "/meetups/" + m.ID
+	rec := atp.EventRecord(m.Title, m.Text, m.StartAt, m.EndAt, m.Venue, lat, lon, link, time.Now())
+	uri, cid, err := h.Home.ATproto.CreateRecord(r.Context(), u.DID, u.ATSession, "community.lexicon.calendar.event", rec)
+	if err != nil {
+		log.Printf("atproto: event: %v", err)
+		return
+	}
+	if _, err := h.Svc.Store.Update(r.Context(), m.ID, func(x *meetup.Meetup) error { x.ATURI, x.ATCID = uri, cid; return nil }); err != nil {
+		log.Printf("atproto: event uri: %v", err)
 	}
 }
 
@@ -105,8 +127,16 @@ func (h *Meetups) RSVP(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/account?next=/meetups/"+id, http.StatusSeeOther)
 		return
 	}
-	if _, _, err := h.Svc.Toggle(r.Context(), id, u.ID); err != nil && !errors.Is(err, meetup.ErrNotFound) {
+	going, m, err := h.Svc.Toggle(r.Context(), id, u.ID)
+	if err != nil && !errors.Is(err, meetup.ErrNotFound) {
 		log.Printf("meetup: rsvp: %v", err)
+	}
+	// "Going" to an event that exists on ATproto: say so in your own repo too.
+	if err == nil && going && m.ATURI != "" && m.ATCID != "" && u.DID != "" && h.Home.ATproto != nil {
+		if _, _, err := h.Home.ATproto.CreateRecord(r.Context(), u.DID, u.ATSession, "community.lexicon.calendar.rsvp",
+			atp.RSVPRecord(m.ATURI, m.ATCID, time.Now())); err != nil {
+			log.Printf("atproto: rsvp: %v", err)
+		}
 	}
 	http.Redirect(w, r, "/meetups/"+id, http.StatusSeeOther)
 }

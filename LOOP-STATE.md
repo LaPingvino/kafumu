@@ -170,8 +170,11 @@ event entries for language gatherings (only with verified dates/venues — never
       calendar events, RSVPs only), Datastore session store (90-day sessions, 15-min auth requests, purged
       daily), connect/disconnect on Account, "Continue with Bluesky" creates a Kafumu account; deleting the
       account revokes the session. Verified live up to Bluesky's consent page (PAR + DPoP nonce OK).
-- [ ] 13b. Write to the PDS: "also post to my Bluesky" for #geo posts, meetups as
-      community.lexicon.calendar.event records, RSVPs as .rsvp; link back from the meetup page.
+- [x] 13b. Writes to the PDS when connected: hosted meetups → community.lexicon.calendar.event (cell centre
+      as coarse geo + venue name, link back), uri+cid kept on the meetup; "I'm going" → .rsvp for any event
+      with uri+cid (ours, and imported Smoke Signal ones — feeds now keep uri+cid); Around's "Post here"
+      opens a composer → app.bsky.feed.post with hashtag facets (byte offsets tested) and #geo added.
+      Untested against a real PDS until Joop connects after the switch.
 - `LaPingvino/geotags` public repo: generator from GeoNames + language list, CC-BY; Kafumu vendors it.
 - [x] Language gazetteer: geotags' languages.json vendored (internal/langs), ISO 639-1→3 map; Around boosts
       posts whose hashtags (#esperanto, #learnjapanese…) or ATproto langs match your languages — from your

@@ -311,5 +311,8 @@
   "atproto.connect": "Koppelen",
   "atproto.signin": "Doorgaan met Bluesky",
   "atproto.connected": "Gekoppeld als",
-  "atproto.disconnect": "Ontkoppelen"
+  "atproto.disconnect": "Ontkoppelen",
+  "post.label": "Hier posten als",
+  "post.placeholder": "Wat gebeurt er hier? (de #geo-tag zetten we erbij)",
+  "post.send": "Posten op Bluesky"
 }

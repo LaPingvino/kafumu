@@ -311,5 +311,8 @@
   "atproto.connect": "Konekti",
   "atproto.signin": "Daŭrigi per Bluesky",
   "atproto.connected": "Konektita kiel",
-  "atproto.disconnect": "Malkonekti"
+  "atproto.disconnect": "Malkonekti",
+  "post.label": "Afiŝi ĉi tie kiel",
+  "post.placeholder": "Kio okazas ĉi-ĉirkaŭe? (la #geo-etikedo aldoniĝas por vi)",
+  "post.send": "Afiŝi ĉe Bluesky"
 }

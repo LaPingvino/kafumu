@@ -81,25 +81,26 @@ func (s *Service) Disconnect(ctx context.Context, did, sessionID string) error {
 }
 
 // CreateRecord writes a record to the person's own repo and returns its
-// at:// URI.
-func (s *Service) CreateRecord(ctx context.Context, did, sessionID, collection string, record map[string]any) (string, error) {
+// at:// URI and CID.
+func (s *Service) CreateRecord(ctx context.Context, did, sessionID, collection string, record map[string]any) (uri, cid string, err error) {
 	d, err := syntax.ParseDID(did)
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
 	sess, err := s.App.ResumeSession(ctx, d, sessionID)
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
 	c := sess.APIClient()
 	var out struct {
 		URI string `json:"uri"`
+		CID string `json:"cid"`
 	}
 	body := map[string]any{"repo": did, "collection": collection, "record": record}
 	if err := c.Post(ctx, "com.atproto.repo.createRecord", body, &out); err != nil {
-		return "", err
+		return "", "", err
 	}
-	return out.URI, nil
+	return out.URI, out.CID, nil
 }
 
 // Handle looks up the current handle for a DID on the public AppView.

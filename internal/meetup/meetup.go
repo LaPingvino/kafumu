@@ -32,7 +32,11 @@ type Meetup struct {
 	AuthorID   string `datastore:"author_id" json:"-"`
 	AuthorName string `datastore:"author_name,noindex" json:"author,omitempty"`
 	// Via names the public calendar an imported meetup came from.
-	Via       string    `datastore:"via,noindex" json:"via,omitempty"`
+	Via string `datastore:"via,noindex" json:"via,omitempty"`
+	// ATURI/ATCID point at the community.lexicon.calendar.event record,
+	// in the host's own repo, so RSVPs can reference it.
+	ATURI     string    `datastore:"at_uri,noindex" json:"at,omitempty"`
+	ATCID     string    `datastore:"at_cid,noindex" json:"-"`
 	Title     string    `datastore:"title,noindex" json:"title"`
 	Text      string    `datastore:"text,noindex" json:"text,omitempty"`
 	StartAt   time.Time `datastore:"start_at,noindex" json:"start"`

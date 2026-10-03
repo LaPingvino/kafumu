@@ -23,6 +23,8 @@ var ssLinkRE = regexp.MustCompile(`/(did:plc:[a-z0-9]{24})/([a-z0-9]{13})`)
 const maxATEvents = 60
 
 type eventRecord struct {
+	URI   string `json:"uri"`
+	CID   string `json:"cid"`
 	Value struct {
 		Name        string `json:"name"`
 		Description string `json:"description"`
@@ -152,7 +154,7 @@ func toATEvent(raw, link string) *importer.Event {
 		return nil
 	}
 	end, _ := time.Parse(time.RFC3339, v.EndsAt)
-	ev := &importer.Event{Title: v.Name, Start: start, End: end, Link: link}
+	ev := &importer.Event{Title: v.Name, Start: start, End: end, Link: link, ATURI: r.URI, ATCID: r.CID}
 	if len(v.Description) > 900 {
 		v.Description = strings.ToValidUTF8(v.Description[:900], "") + "…"
 	}

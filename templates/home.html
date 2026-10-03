@@ -8,6 +8,13 @@
     <a href="/meetups/new" role="button" class="pill">{{t .Lang "meetup.new_title"}}</a>
     <button type="button" id="change-area" class="pill">{{t .Lang "area.change"}}</button>
   </p>
+  {{if and .ATproto .User}}{{if .User.DID}}
+  <form id="composer" method="post" action="/post" class="card" style="padding:4px 16px 12px" hidden>
+    <input type="hidden" name="cell">
+    <label>{{t .Lang "post.label"}} <span class="dim">@{{.User.ATHandle}}</span>
+      <textarea name="text" rows="3" maxlength="300" placeholder="{{ts .Lang "post.placeholder"}}"></textarea></label>
+    <div class="actions"><button type="submit" class="pill">{{t .Lang "post.send"}}</button></div>
+  </form>{{end}}{{end}}
   <div id="picker" class="card" style="padding:4px 16px 12px" hidden>
     <h2>{{t .Lang "area.title"}}</h2>
     <div class="inline-row">
