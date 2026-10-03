@@ -302,5 +302,8 @@
   "passkey.explain": "Entre neste dispositivo com a impressão digital, o rosto ou o bloqueio de ecrã. A sua ligação de entrada continua a funcionar.",
   "passkey.add": "Adicionar chave de acesso",
   "js.passkey_added": "Chave de acesso adicionada. Da próxima vez basta «Entrar com uma chave de acesso».",
-  "js.passkey_failed": "Não funcionou:"
+  "js.passkey_failed": "Não funcionou:",
+  "js.travel": "✈️ Está em {place}.",
+  "js.travel_friends": "{n} dos seus contactos andaram por aqui esta semana.",
+  "js.travel_meetups": "{n} encontros por perto."
 }

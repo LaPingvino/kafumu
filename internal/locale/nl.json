@@ -302,5 +302,8 @@
   "passkey.explain": "Log op dit apparaat in met je vingerafdruk, gezicht of schermvergrendeling. Je inloglink blijft ook werken.",
   "passkey.add": "Passkey toevoegen",
   "js.passkey_added": "Passkey toegevoegd. Volgende keer is „Inloggen met een passkey” genoeg.",
-  "js.passkey_failed": "Dat werkte niet:"
+  "js.passkey_failed": "Dat werkte niet:",
+  "js.travel": "✈️ Je bent in {place}.",
+  "js.travel_friends": "{n} van je contacten waren hier deze week.",
+  "js.travel_meetups": "{n} bijeenkomsten hier."
 }

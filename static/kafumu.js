@@ -29,6 +29,8 @@
       }).then(function (hits) {
         var sec = $("friends-section"), list = $("friends");
         sec.hidden = !hits.length;
+        travel.friends = hits.length;
+        drawTravel();
         list.textContent = "";
         var today = new Date().toISOString().slice(0, 10), yesterday = new Date(Date.now() - 864e5).toISOString().slice(0, 10);
         hits.forEach(function (h) {
@@ -48,6 +50,36 @@
     }).catch(function () {});
   }
 
+  // Travel: your "home" cell is the one you've used most; somewhere more
+  // than 50 km away gets a short "you're in …" summary on top. All local.
+  function homeCell(c, gps) {
+    var counts = {};
+    try { counts = JSON.parse(localStorage.getItem("kafumu.cellCounts") || "{}"); } catch (e) {}
+    if (gps) {
+      counts[c] = (counts[c] || 0) + 1;
+      try { localStorage.setItem("kafumu.cellCounts", JSON.stringify(counts)); } catch (e) {}
+    }
+    var best = null;
+    Object.keys(counts).forEach(function (k) { if (!best || counts[k] > counts[best]) best = k; });
+    return best;
+  }
+  function kmBetween(a, b) {
+    var p = window.kafumuGeo.center(a), q = window.kafumuGeo.center(b), r = Math.PI / 180;
+    var x = (q[1] - p[1]) * r * Math.cos((p[0] + q[0]) / 2 * r), y = (q[0] - p[0]) * r;
+    return Math.sqrt(x * x + y * y) * 6371;
+  }
+  var travel = { place: "", friends: 0, meetups: 0, away: false };
+  function drawTravel() {
+    var el = $("travel");
+    if (!el) return;
+    el.hidden = !travel.away;
+    if (!travel.away) return;
+    var parts = [tr("travel", { place: travel.place || $("cell-tag").textContent })];
+    if (travel.friends) parts.push(tr("travel_friends", { n: travel.friends }));
+    if (travel.meetups) parts.push(tr("travel_meetups", { n: travel.meetups }));
+    el.textContent = parts.join(" ");
+  }
+
   function show(c, how, gps) {
     var tag = "#geo" + c;
     $("cell-tag").textContent = tag;
@@ -62,6 +94,9 @@
     };
     setStatus(how);
     try { localStorage.setItem("kafumu.lastCell", c); } catch (e) {}
+    var home = homeCell(c, gps);
+    travel = { place: "", friends: 0, meetups: 0, away: !!home && home !== c && kmBetween(home, c) > 50 };
+    drawTravel();
     load(c);
     friendsAround(c, !!gps);
   }
@@ -81,6 +116,9 @@
         (b.events || []).forEach(function (e) { ringOf[e.tag] = e.live ? 0 : 1; });
         showEvents(b.events || [], c);
         showMeetups(b.meetups || [], b.events || []);
+        travel.meetups = (b.meetups || []).length;
+        travel.place = ((b.places || [])[0] || {}).place || "";
+        drawTravel();
         showPeople(b.people || []);
         render(b.posts || [], ringOf, places, c);
         var named = (b.places || []).filter(function (pt) { return pt.weight >= 0.5; })

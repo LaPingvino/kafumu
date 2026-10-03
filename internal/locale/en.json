@@ -302,5 +302,8 @@
   "passkey.explain": "Sign in on this device with your fingerprint, face or screen lock. Your sign-in link keeps working too.",
   "passkey.add": "Add a passkey",
   "js.passkey_added": "Passkey added. Next time, “Sign in with a passkey” is enough.",
-  "js.passkey_failed": "That didn't work:"
+  "js.passkey_failed": "That didn't work:",
+  "js.travel": "✈️ You're in {place}.",
+  "js.travel_friends": "{n} of your contacts were around this week.",
+  "js.travel_meetups": "{n} meetups here."
 }

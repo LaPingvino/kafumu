@@ -302,5 +302,8 @@
   "passkey.explain": "Ensalutu en ĉi tiu aparato per fingrospuro, vizaĝo aŭ ekranŝlosilo. Via ensalutligilo plu funkcias.",
   "passkey.add": "Aldoni ensalutŝlosilon",
   "js.passkey_added": "Ensalutŝlosilo aldonita. Venontfoje sufiĉas „Ensaluti per ensalutŝlosilo“.",
-  "js.passkey_failed": "Tio ne funkciis:"
+  "js.passkey_failed": "Tio ne funkciis:",
+  "js.travel": "✈️ Vi estas en {place}.",
+  "js.travel_friends": "{n} el viaj kontaktoj estis ĉi tie ĉi-semajne.",
+  "js.travel_meetups": "{n} renkontiĝoj ĉi tie."
 }
