@@ -305,5 +305,11 @@
   "js.passkey_failed": "That didn't work:",
   "js.travel": "✈️ You're in {place}.",
   "js.travel_friends": "{n} of your contacts were around this week.",
-  "js.travel_meetups": "{n} meetups here."
+  "js.travel_meetups": "{n} meetups here.",
+  "atproto.title": "Bluesky / ATproto",
+  "atproto.explain": "Connect your Bluesky (or any ATproto) account, and the meetups and posts you make here are saved in your own account — yours, visible in any ATproto app.",
+  "atproto.connect": "Connect",
+  "atproto.signin": "Continue with Bluesky",
+  "atproto.connected": "Connected as",
+  "atproto.disconnect": "Disconnect"
 }

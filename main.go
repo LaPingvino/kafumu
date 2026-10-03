@@ -13,9 +13,11 @@ import (
 	"time"
 
 	"cloud.google.com/go/datastore"
+	"github.com/bluesky-social/indigo/atproto/auth/oauth"
 	"google.golang.org/appengine/v2"
 
 	"github.com/LaPingvino/kafumu/internal/account"
+	"github.com/LaPingvino/kafumu/internal/atp"
 	"github.com/LaPingvino/kafumu/internal/box"
 	"github.com/LaPingvino/kafumu/internal/bsky"
 	"github.com/LaPingvino/kafumu/internal/cache"
@@ -61,6 +63,18 @@ func main() {
 	mux.HandleFunc("GET /m", home.ShowMove)
 	mux.HandleFunc("GET /import", home.ShowImport)
 	mux.HandleFunc("GET /account/link.json", accounts.LinkJSON)
+	if cfg.ATproto {
+		var st oauth.ClientAuthStore = atp.NewMemoryStore()
+		if db != nil {
+			st = &atp.DatastoreStore{DB: db}
+		}
+		at := &handler.ATproto{Accounts: accounts, Svc: atp.New(cfg.Origin, cfg.Brand, st)}
+		home.ATproto = at.Svc
+		mux.HandleFunc("GET /oauth/client-metadata.json", at.Svc.Metadata)
+		mux.HandleFunc("POST /oauth/login", at.Login)
+		mux.HandleFunc("GET /oauth/callback", at.Callback)
+		mux.HandleFunc("POST /oauth/disconnect", at.Disconnect)
+	}
 	if cfg.Passkeys {
 		if pk := handler.NewPasskeys(accounts, cfg.Origin, kv); pk != nil {
 			mux.HandleFunc("POST /auth/passkey/register/begin", pk.RegisterBegin)

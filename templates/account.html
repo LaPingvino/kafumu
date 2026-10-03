@@ -4,6 +4,8 @@
   {{if .Error}}<p role="alert" class="error">{{.Error}}</p>{{end}}
   {{if not .User}}
     <p>{{t .Lang "account.why"}}</p>
+    {{if .ATproto}}<form method="post" action="/oauth/login" class="inline"><input name="handle" placeholder="you.bsky.social" autocomplete="username" aria-label="Handle">
+      <button type="submit" class="pill">{{t .Lang "atproto.signin"}}</button></form>{{end}}
     <p>{{t .Lang "account.what_we_keep"}}</p>
     <form method="post" action="/account/start"><input type="hidden" name="next" value="{{.Next}}"><button type="submit" class="pill">{{t .Lang "account.start"}}</button></form>
     {{if .Passkeys}}<p><button type="button" id="passkey-login" class="pill" hidden>🔑 {{t .Lang "passkey.signin"}}</button></p>
@@ -26,6 +28,16 @@
       <input name="username" value="{{.User.Username}}" placeholder="{{ts .Lang "account.name_placeholder"}}" pattern="[A-Za-z0-9_\-]{3,30}" aria-label="{{ts .Lang "account.name_title"}}">
       <button type="submit">{{t .Lang "account.save"}}</button>
     </form>
+
+    {{if .ATproto}}<h2 id="atproto">{{t .Lang "atproto.title"}}</h2>
+    {{if .User.DID}}
+      <p>{{t .Lang "atproto.connected"}} <strong>@{{.User.ATHandle}}</strong></p>
+      <form method="post" action="/oauth/disconnect"><button type="submit" class="secondary">{{t .Lang "atproto.disconnect"}}</button></form>
+    {{else}}
+      <p class="dim">{{t .Lang "atproto.explain"}}</p>
+      <form method="post" action="/oauth/login" class="inline"><input name="handle" placeholder="you.bsky.social" autocomplete="username" aria-label="Handle">
+        <button type="submit" class="pill">{{t .Lang "atproto.connect"}}</button></form>
+    {{end}}{{end}}
 
     <h2 id="profile">{{t .Lang "profile.title"}}</h2>
     <p class="dim">{{t .Lang "profile.explain"}}</p>

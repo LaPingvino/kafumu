@@ -38,6 +38,12 @@ type User struct {
 	// LastSeenAt drives inactivity cleanup; written at most hourly.
 	LastSeenAt time.Time `datastore:"last_seen_at"`
 
+	// ATproto: the person's own account, connected with OAuth so Kafumu can
+	// write posts, events and RSVPs to their PDS.
+	DID       string `datastore:"did,noindex"`
+	ATHandle  string `datastore:"at_handle,noindex"`
+	ATSession string `datastore:"at_session,noindex"`
+
 	// Public profile: shown only while VisibleUntil is in the future, and
 	// only in Cell's bundle. Discoverability is opt-in and time-boxed.
 	Cell         string    `datastore:"cell"`

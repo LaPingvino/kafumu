@@ -157,6 +157,9 @@ func (a *Accounts) SignOut(w http.ResponseWriter, r *http.Request) {
 // Delete handles POST /account/delete.
 func (a *Accounts) Delete(w http.ResponseWriter, r *http.Request) {
 	if u := UserFrom(r.Context()); u != nil && r.FormValue("confirm") == "yes" {
+		if u.DID != "" && a.Home.ATproto != nil {
+			_ = a.Home.ATproto.Disconnect(r.Context(), u.DID, u.ATSession)
+		}
 		if err := a.Svc.Delete(r.Context(), u); err != nil {
 			log.Printf("account: delete: %v", err)
 			http.Error(w, "could not delete account", http.StatusInternalServerError)

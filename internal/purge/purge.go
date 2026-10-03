@@ -21,10 +21,10 @@ const (
 )
 
 // Result counts what was deleted.
-type Result struct{ Meetups, Boxes, Slots, Users, Usernames int }
+type Result struct{ Meetups, Boxes, Slots, ATSessions, Users, Usernames int }
 
 func (r Result) String() string {
-	return fmt.Sprintf("meetups=%d boxes=%d slots=%d users=%d usernames=%d", r.Meetups, r.Boxes, r.Slots, r.Users, r.Usernames)
+	return fmt.Sprintf("meetups=%d boxes=%d slots=%d atproto=%d users=%d usernames=%d", r.Meetups, r.Boxes, r.Slots, r.ATSessions, r.Users, r.Usernames)
 }
 
 // Run deletes expired entities and idle accounts as of now.
@@ -34,11 +34,13 @@ func Run(ctx context.Context, db *datastore.Client, now time.Time) (Result, erro
 	for _, k := range []struct {
 		kind string
 		n    *int
-	}{{"Meetup", &r.Meetups}, {"Box", &r.Boxes}, {"Slot", &r.Slots}} {
+	}{{"Meetup", &r.Meetups}, {"Box", &r.Boxes}, {"Slot", &r.Slots}, {"ATSession", &r.ATSessions}, {"ATAuthRequest", &r.ATSessions}} {
 		q := datastore.NewQuery(k.kind).FilterField("expires_at", "<", now).KeysOnly().Limit(batch)
-		if *k.n, err = deleteAll(ctx, db, q); err != nil {
+		n, err := deleteAll(ctx, db, q)
+		if err != nil {
 			return r, fmt.Errorf("%s: %w", k.kind, err)
 		}
+		*k.n += n
 	}
 	// Accounts: everything idle for 30 days is a candidate; named ones are
 	// kept for a year.

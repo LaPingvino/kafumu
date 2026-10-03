@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/LaPingvino/kafumu/internal/account"
+	"github.com/LaPingvino/kafumu/internal/atp"
 	"github.com/LaPingvino/kafumu/internal/bsky"
 	"github.com/LaPingvino/kafumu/internal/config"
 	"github.com/LaPingvino/kafumu/internal/gazetteer"
@@ -33,6 +34,8 @@ type Home struct {
 	Tmpl *template.Template
 	Bsky *bsky.Client
 	Gaz  *gazetteer.Gazetteer
+	// ATproto, if set, lets people connect their own ATproto account.
+	ATproto *atp.Service
 	// Meetups and Accounts, if set, are included in bundles.
 	Meetups  *meetup.Service
 	Accounts *account.Service
@@ -50,8 +53,10 @@ type page struct {
 	MovedTo string
 	// Passkeys is true when passkeys work on this host.
 	Passkeys bool
-	Langs    []locale.Lang
-	User     *account.User
+	// ATproto is true when connecting an ATproto account works here.
+	ATproto bool
+	Langs   []locale.Lang
+	User    *account.User
 	// JS holds the "js." strings for client-side code.
 	JS map[string]string
 }
@@ -69,8 +74,8 @@ func (h *Home) newPage(r *http.Request, title string) page {
 		moved = canon
 	}
 	return page{Brand: h.Cfg.Brand, Title: title, Lang: lang, V: h.Cfg.Version, Langs: locale.Langs(), MovedTo: moved,
-		Passkeys: h.Cfg.Passkeys && moved == "",
-		User:     UserFrom(r.Context()), JS: locale.Prefix(lang, "js.")}
+		Passkeys: h.Cfg.Passkeys && moved == "", ATproto: h.ATproto != nil && moved == "",
+		User: UserFrom(r.Context()), JS: locale.Prefix(lang, "js.")}
 }
 
 // ShowHome renders the shell; the cell is computed on the device and the list

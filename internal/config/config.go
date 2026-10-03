@@ -25,6 +25,8 @@ type Config struct {
 	LegacyOrigins []string
 	// Passkeys are bound to Origin's domain; switched on with KAFUMU_PASSKEYS=1.
 	Passkeys bool
+	// ATproto OAuth (connect your Bluesky account); KAFUMU_ATPROTO=1.
+	ATproto bool
 	// Money and contact links; pages show "coming soon" while empty.
 	PayPal, Liberapay, Stripe, Contact string
 }
@@ -39,6 +41,7 @@ func Load() *Config {
 		PayPal:        os.Getenv("KAFUMU_PAYPAL"),
 		LegacyOrigins: strings.Fields(os.Getenv("KAFUMU_LEGACY_ORIGINS")),
 		Passkeys:      os.Getenv("KAFUMU_PASSKEYS") == "1",
+		ATproto:       os.Getenv("KAFUMU_ATPROTO") == "1",
 		Liberapay:     os.Getenv("KAFUMU_LIBERAPAY"),
 		Stripe:        os.Getenv("KAFUMU_STRIPE"),
 		Contact:       env("KAFUMU_CONTACT", "https://github.com/LaPingvino/kafumu/issues"),

@@ -11,8 +11,9 @@ pending. Prepared: www → apex redirect (CanonicalHost), and a move flow from t
 (banner → opens kafumu.com/import → origin-checked postMessage hands over the device backup and the
 sign-in link). When https://kafumu.com serves: set in app.yaml
 `KAFUMU_ORIGIN: "https://kafumu.com"` and
-`KAFUMU_LEGACY_ORIGINS: "https://lokumo.ew.r.appspot.com https://lokumo.appspot.com"`, deploy, then
-passkeys (RP ID kafumu.com) and ATproto OAuth (client metadata on kafumu.com).
+`KAFUMU_LEGACY_ORIGINS: "https://lokumo.ew.r.appspot.com https://lokumo.appspot.com"`,
+`KAFUMU_PASSKEYS: "1"`, `KAFUMU_ATPROTO: "1"`; deploy; run browser + passkey tests against kafumu.com;
+ask Joop to connect his Bluesky to test the OAuth callback.
 
 ## Target: Web Summit Lisbon, 9–12 Nov 2026 (MEO Arena / FIL, Parque das Nações)
 
@@ -164,8 +165,13 @@ event entries for language gatherings (only with verified dates/venues — never
       own PDS, keeps in-person events with `location.geo` (→ cell), imports them "via smokesignal.events".
       First run: 17 such events. Address-only events are geocoded via Nominatim (≤1 req/s, identifying UA,
       per-instance cache, ≤15 per sync): +6 placed on the first run.
-- [ ] ATproto OAuth so posts/events/RSVPs are written natively to the user's PDS (M2) — after kafumu.com
-      (OAuth client metadata must live on the final domain).
+- [x] 13a. ATproto OAuth (internal/atp on indigo's atproto/auth/oauth; OFF until KAFUMU_ATPROTO=1 at the
+      domain switch): public client, metadata at /oauth/client-metadata.json, granular scopes (posts,
+      calendar events, RSVPs only), Datastore session store (90-day sessions, 15-min auth requests, purged
+      daily), connect/disconnect on Account, "Continue with Bluesky" creates a Kafumu account; deleting the
+      account revokes the session. Verified live up to Bluesky's consent page (PAR + DPoP nonce OK).
+- [ ] 13b. Write to the PDS: "also post to my Bluesky" for #geo posts, meetups as
+      community.lexicon.calendar.event records, RSVPs as .rsvp; link back from the meetup page.
 - `LaPingvino/geotags` public repo: generator from GeoNames + language list, CC-BY; Kafumu vendors it.
 - [x] Language gazetteer: geotags' languages.json vendored (internal/langs), ISO 639-1→3 map; Around boosts
       posts whose hashtags (#esperanto, #learnjapanese…) or ATproto langs match your languages — from your

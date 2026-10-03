@@ -305,5 +305,11 @@
   "js.passkey_failed": "Não funcionou:",
   "js.travel": "✈️ Está em {place}.",
   "js.travel_friends": "{n} dos seus contactos andaram por aqui esta semana.",
-  "js.travel_meetups": "{n} encontros por perto."
+  "js.travel_meetups": "{n} encontros por perto.",
+  "atproto.title": "Bluesky / ATproto",
+  "atproto.explain": "Ligue a sua conta Bluesky (ou outra ATproto) e os encontros e publicações que fizer aqui ficam guardados na sua própria conta — seus, visíveis em qualquer app ATproto.",
+  "atproto.connect": "Ligar",
+  "atproto.signin": "Continuar com o Bluesky",
+  "atproto.connected": "Ligado como",
+  "atproto.disconnect": "Desligar"
 }
