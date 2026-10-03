@@ -33,17 +33,26 @@
     $("delete-persona").hidden = all.length < 2;
   }
 
+  // Local themes first: tags seen around you lately (counted on this device
+  // in Around), then the general suggestions.
+  function localTags() {
+    var counts = {};
+    try { counts = JSON.parse(localStorage.getItem("kafumu.localTags") || "{}"); } catch (e) {}
+    return Object.keys(counts).filter(function (t) { return counts[t] >= 1; })
+      .sort(function (a, z) { return counts[z] - counts[a]; }).slice(0, 10);
+  }
   function drawTags() {
-    var box = $("tag-chips"), tags = cur.card.tags || [];
+    var box = $("tag-chips"), tags = cur.card.tags || [], local = localTags();
     box.textContent = "";
     var seen = {};
-    P.SUGGESTED_TAGS.concat(tags).forEach(function (t) {
+    local.concat(P.SUGGESTED_TAGS).concat(tags).forEach(function (t) {
       if (seen[t.toLowerCase()]) return;
       seen[t.toLowerCase()] = true;
       var on = tags.some(function (x) { return x.toLowerCase() === t.toLowerCase(); });
-      var b = el("button", "chip" + (on ? " on" : ""), t);
+      var b = el("button", "chip" + (on ? " on" : ""), (local.indexOf(t) >= 0 ? "📍 " : "") + t);
       b.type = "button";
       b.setAttribute("aria-pressed", on);
+      if (local.indexOf(t) >= 0) b.title = T.local_theme || "Popular around here lately";
       b.onclick = function () {
         cur.card.tags = on ? tags.filter(function (x) { return x.toLowerCase() !== t.toLowerCase(); }) : tags.concat([t]);
         drawTags(); render();

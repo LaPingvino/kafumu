@@ -389,5 +389,6 @@
   "contacts.sort_near": "Plej proksimaj",
   "js.seen_near": "vidita {where} je {day}",
   "js.here_word": "proksime de vi",
-  "short.make": "Fari mallongan kodon (valida 1 horon)"
+  "short.make": "Fari mallongan kodon (valida 1 horon)",
+  "js.local_theme": "Populara ĉi-ĉirkaŭe lastatempe"
 }

@@ -389,5 +389,6 @@
   "contacts.sort_near": "Nearest",
   "js.seen_near": "seen {where} on {day}",
   "js.here_word": "near you",
-  "short.make": "Make a short code (valid 1 hour)"
+  "short.make": "Make a short code (valid 1 hour)",
+  "js.local_theme": "Popular around here lately"
 }

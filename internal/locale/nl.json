@@ -389,5 +389,6 @@
   "contacts.sort_near": "Dichtstbij",
   "js.seen_near": "gezien {where} op {day}",
   "js.here_word": "bij jou in de buurt",
-  "short.make": "Korte code maken (1 uur geldig)"
+  "short.make": "Korte code maken (1 uur geldig)",
+  "js.local_theme": "Populair hier in de buurt de laatste tijd"
 }

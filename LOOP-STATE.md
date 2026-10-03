@@ -238,7 +238,9 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       signed into the same account, sees "Your other device wants your data" + a short matching code on both
       screens → sends E2E-encrypted (server can't read). Requests expire in 15 min. Built: /account/move
       (GET/POST/DELETE, cache), static/move.js, browser-tested (C signs in with B's link, emoji match).
-- [ ] 17. Card themes from local activity (Joop): count tags seen in Around bundles (posts, meetups,
+- [x] 17. Card themes from local activity: Around keeps a decaying tag tally on the device (posts, meetups,
+      notes, people; not geo/lang/place/system tags); the card editor leads with 📍 local themes. Browser-tested.
+      Was: Card themes from local activity (Joop): count tags seen in Around bundles (posts, meetups,
       people, notes) on the device, per area; the card editor suggests the local ones first.
 - [ ] 15e. /oln.json per cell in eolnpoc's olnjson.Format for other OLN nodes.
 

@@ -82,6 +82,13 @@ try {
   await B.evaluate("(() => { [...document.querySelectorAll('#notes > li')].find(li => li.textContent.includes('pastel de nata')).querySelectorAll('button')[0].click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test answer: Manteigaria'; f.requestSubmit(); return true; })()");
   await B.waitFor("[...document.querySelectorAll('#notes > li')].some(li => li.textContent.includes('pastel de nata') && li.querySelector('.replies') && li.querySelector('.replies').textContent.includes('Manteigaria'))", "answer threaded under the question", 30000);
 
+  // Card themes from local activity: the "food" question tag shows up as a
+  // 📍 suggestion in A's card editor.
+  await A.goto(base + "/?cell=8ccgqx");
+  await A.waitFor("document.getElementById('notes').textContent.includes('pastel de nata')", "Around loaded for tag counting", 15000);
+  await A.goto(base + "/card");
+  await A.waitFor("[...document.querySelectorAll('#tag-chips .chip')].some(c => c.textContent === '📍 food')", "local theme suggested");
+
   // Views: language and interest filters apply on the device, from the URL.
   await A.goto(base + "/?cell=8ccgqx&lang=eng");
   await A.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN')", "message kept by lang=eng", 15000);
@@ -182,7 +189,7 @@ try {
     await C.waitFor("document.getElementById('contacts').textContent.includes('Ana')", "Ana moved to C");
   } finally { C.close(); }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device, meetup hosted and seen, findable profile seen, paid inbox message + connect back, OLN message + question/answer + views + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device, meetup hosted and seen, findable profile seen, paid inbox message + connect back, OLN message + question/answer + local themes + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

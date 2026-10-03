@@ -389,5 +389,6 @@
   "contacts.sort_near": "Mais perto",
   "js.seen_near": "visto {where} em {day}",
   "js.here_word": "perto de si",
-  "short.make": "Criar um código curto (válido 1 hora)"
+  "short.make": "Criar um código curto (válido 1 hora)",
+  "js.local_theme": "Popular por aqui ultimamente"
 }

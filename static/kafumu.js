@@ -89,6 +89,39 @@
     el.textContent = parts.join(" ");
   }
 
+  // countLocalTags keeps a small, decaying tally of the tags seen around
+  // here (on the device only), so the card editor can suggest local themes.
+  function countLocalTags(b) {
+    var counts = {}, seenIDs = [];
+    try { counts = JSON.parse(localStorage.getItem("kafumu.localTags") || "{}"); seenIDs = JSON.parse(localStorage.getItem("kafumu.localTagIDs") || "[]"); } catch (e) {}
+    var seen = {};
+    seenIDs.forEach(function (id) { seen[id] = true; });
+    var places = {};
+    (b.places || []).forEach(function (p) { places[p.tag] = true; });
+    // Each item counts once; Kafumu's own signals (local messages, meetups,
+    // people) weigh more than Bluesky posts, which often carry many tags.
+    function add(id, tags, weight, max) {
+      if (!id || seen[id]) return;
+      seen[id] = true; seenIDs.push(id);
+      (tags || []).slice(0, max).forEach(function (t) {
+        t = String(t || "").toLowerCase().replace(/^#/, "");
+        if (!t || t.length > 30 || /^\d+$/.test(t) || places[t] ||
+            /^(geo|lang[a-z]{3}$|re[0-9a-f]{10}$|ask$|coffee$)/.test(t)) return;
+        counts[t] = (counts[t] || 0) + weight;
+      });
+    }
+    (b.posts || []).forEach(function (p) { if (!p.bot) add(p.uri, p.tags, 0.3, 3); });
+    (b.meetups || []).forEach(function (m) { add("m" + m.id, m.tags, 3, 8); });
+    (b.notes || []).forEach(function (n) { add("n" + n.id, n.tags, 3, 8); });
+    (b.people || []).forEach(function (p) { add("p" + p.name, p.tags, 3, 8); });
+    var top = Object.keys(counts).sort(function (a, z) { return counts[z] - counts[a]; }).slice(0, 60), keep = {};
+    top.forEach(function (t) { keep[t] = Math.round(counts[t] * 10) / 10; });
+    try {
+      localStorage.setItem("kafumu.localTags", JSON.stringify(keep));
+      localStorage.setItem("kafumu.localTagIDs", JSON.stringify(seenIDs.slice(-800)));
+    } catch (e) {}
+  }
+
   // ---- Views: place + language + interest, filtered on the device ----
   var params = new URLSearchParams(location.search);
   var view = { lang: params.get("lang") || "", tag: (params.get("tag") || "").toLowerCase().replace(/^#/, ""),
@@ -402,6 +435,7 @@
     fetch("/bundle?cells=" + near.map(function (p) { return p[0]; }).join(","), fresh ? { cache: "reload" } : {})
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (b) {
+        countLocalTags(b);
         b = filterBundle(b);
         var places = {};
         (b.places || []).forEach(function (pt) { places[pt.tag] = pt; });
