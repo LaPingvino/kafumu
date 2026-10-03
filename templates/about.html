@@ -1,24 +1,16 @@
 {{template "head" .}}
 <article>
-  <h1>What is {{.Brand}}?</h1>
-  <p>{{.Brand}} answers one question: <strong>what is near me right now that I would want to know about?</strong>
-  Friends you've met who happen to be in town, meetups in a language you speak or a hobby you have,
-  and what people around here are saying.</p>
+  <h1>{{t .Lang "about.title"}}</h1>
+  <p>{{t .Lang "about.intro"}}</p>
 
-  <h2 id="geo">#geo cells: location as text</h2>
-  <p>Your device turns your position into the first six characters of its
-  <a href="https://maps.google.com/pluscodes/">plus code</a>, for example <code>#geo9f469v</code> for central Amsterdam.
-  That is an area of about 5.5 × 5.5 km. Coordinates never leave your device; only the cell does.</p>
-  <p>Because a cell is just a word, “what's near me” becomes a hashtag search that works on any network.
-  Add <code>#geo…</code> to a Bluesky post and everyone nearby using {{.Brand}} can see it — no account here needed.</p>
+  <h2 id="geo">{{t .Lang "about.geo_title"}}</h2>
+  <p>{{t .Lang "about.geo_1"}}</p>
+  <p>{{t .Lang "about.geo_2"}}</p>
 
-  <h2>Private by construction</h2>
-  <p>Private things (friends you've scanned, their contact details) stay on your device.
-  Public things live on public networks you control. The {{.Brand}} server keeps only what it must,
-  and most of that expires within days. We can't leak what we don't have.</p>
+  <h2>{{t .Lang "about.private_title"}}</h2>
+  <p>{{t .Lang "about.private"}}</p>
 
-  <h2>Free, forever</h2>
-  <p>Finding people, friends nearby, and hosting meetups will always be free.
-  {{.Brand}} is run by one person; if it helps you meet someone, you'll be able to chip in.</p>
+  <h2>{{t .Lang "about.free_title"}}</h2>
+  <p>{{t .Lang "about.free"}}</p>
 </article>
 {{template "foot" .}}

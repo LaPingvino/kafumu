@@ -19,7 +19,7 @@ var templateFS embed.FS
 
 func main() {
 	cfg := config.Load()
-	tmpl := template.Must(template.ParseFS(templateFS, "templates/*.html"))
+	tmpl := template.Must(template.New("").Funcs(handler.Funcs).ParseFS(templateFS, "templates/*.html"))
 
 	home := &handler.Home{Cfg: cfg, Tmpl: tmpl, Bsky: bsky.NewClient(), Gaz: gazetteer.Load()}
 

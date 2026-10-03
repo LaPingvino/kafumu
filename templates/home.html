@@ -1,16 +1,16 @@
 {{template "head" .}}
 <section id="here" data-cell="{{.Cell}}">
-  <p class="muted" id="status">Finding your cell… (only a ~5 km area is computed, on your device)</p>
+  <p class="muted" id="status">{{t .Lang "home.finding"}}</p>
   <h1 class="cell-tag" hidden><span id="cell-tag"></span></h1>
   <p id="cell-actions" hidden>
-    <a id="compose" role="button" class="outline" target="_blank" rel="noopener">Post here on Bluesky</a>
-    <a id="share" href="#" role="button" class="secondary outline">Share this cell</a>
+    <a id="compose" role="button" class="outline" target="_blank" rel="noopener">{{t .Lang "home.post_here"}}</a>
+    <a id="share" href="#" role="button" class="secondary outline">{{t .Lang "home.share"}}</a>
   </p>
   <details id="manual">
-    <summary>Pick a place yourself</summary>
+    <summary>{{t .Lang "home.pick_place"}}</summary>
     <form id="manual-form">
-      <input name="where" placeholder="#geo cell (9f469v), plus code (9F469VXJ+…), or lat,lon" aria-label="Place">
-      <button type="submit">Go</button>
+      <input name="where" placeholder="{{ts .Lang "home.pick_placeholder"}}" aria-label="{{ts .Lang "home.pick_place"}}">
+      <button type="submit">{{t .Lang "home.go"}}</button>
     </form>
   </details>
 </section>
@@ -18,9 +18,10 @@
 <article id="events" class="events" hidden></article>
 
 <section>
-  <h2>Around here</h2>
-  <ul id="list" class="list"><li class="muted">Nothing loaded yet.</li></ul>
+  <h2>{{t .Lang "home.around_here"}}</h2>
+  <ul id="list" class="list"><li class="muted">{{t .Lang "home.nothing_loaded"}}</li></ul>
   <p class="muted" id="list-note"></p>
 </section>
+<script>window.KAFUMU_T = {{.JS}};</script>
 <script src="/static/kafumu.js"></script>
 {{template "foot" .}}

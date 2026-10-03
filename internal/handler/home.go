@@ -15,6 +15,7 @@ import (
 	"github.com/LaPingvino/kafumu/internal/config"
 	"github.com/LaPingvino/kafumu/internal/gazetteer"
 	"github.com/LaPingvino/kafumu/internal/geo"
+	"github.com/LaPingvino/kafumu/internal/locale"
 )
 
 const (
@@ -36,6 +37,21 @@ type page struct {
 	Brand string
 	Title string
 	Cell  string
+	Lang  string
+	Langs []locale.Lang
+	// JS holds the "js." strings for client-side code.
+	JS map[string]string
+}
+
+// newPage fills the common fields. The language comes from the "lang" cookie
+// (set by the switcher, client-side) or Accept-Language; nothing is stored.
+func (h *Home) newPage(r *http.Request, title string) page {
+	choice := ""
+	if c, err := r.Cookie("lang"); err == nil {
+		choice = c.Value
+	}
+	lang := locale.Pick(choice, r.Header.Get("Accept-Language"))
+	return page{Brand: h.Cfg.Brand, Title: title, Lang: lang, Langs: locale.Langs(), JS: locale.Prefix(lang, "js.")}
 }
 
 // ShowHome renders the shell; the cell is computed on the device and the list
@@ -49,16 +65,21 @@ func (h *Home) ShowHome(w http.ResponseWriter, r *http.Request) {
 	if !geo.Valid(cell) {
 		cell = ""
 	}
-	h.render(w, "home.html", page{Brand: h.Cfg.Brand, Cell: cell})
+	p := h.newPage(r, "")
+	p.Cell = cell
+	h.render(w, "home.html", p)
 }
 
 // ShowAbout renders the static explanation page.
 func (h *Home) ShowAbout(w http.ResponseWriter, r *http.Request) {
-	h.render(w, "about.html", page{Brand: h.Cfg.Brand, Title: "About"})
+	p := h.newPage(r, "")
+	p.Title = locale.T(p.Lang, "nav.about")
+	h.render(w, "about.html", p)
 }
 
 func (h *Home) render(w http.ResponseWriter, name string, data any) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	w.Header().Set("Vary", "Cookie, Accept-Language")
 	if err := h.Tmpl.ExecuteTemplate(w, name, data); err != nil {
 		log.Printf("render %s: %v", name, err)
 	}
@@ -74,6 +95,13 @@ type bundle struct {
 	// Events are conferences and festivals here, upcoming or running.
 	Events []gazetteer.EventTag `json:"events"`
 	Posts  []bsky.Post          `json:"posts"`
+}
+
+// Funcs are the template functions. Translations come from our own files,
+// so they may contain markup.
+var Funcs = template.FuncMap{
+	"t":  func(lang, key string) template.HTML { return template.HTML(locale.T(lang, key)) },
+	"ts": locale.T,
 }
 
 // Bundle handles GET /bundle?cells=a,b,c. Bundles are per cell, not per user.

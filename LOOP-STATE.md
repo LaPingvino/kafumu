@@ -23,8 +23,9 @@ Everything before the event serves that; the rest of M1 follows after.
       posts, caps 2 posts per author. Central Amsterdam: 0 → 75 posts.
 - [x] 2. Lisbon area (Barreiro, Almada, Seixal, Parque das Nações…) + time-bound event tags:
       `#websummit` is local to the venue from 45 days before to the last day; banner + compose link.
-- [ ] 2b. UI in several languages from day one: EN, PT, EO, NL (simple locale JSON + Accept-Language
-      + switcher; reuse esperanto-kurso's locale approach). Esperanto early on purpose.
+- [x] 2b. UI in EN, PT (European), EO, NL: `internal/locale` (adapted from esperanto-kurso, English
+      fallback), cookie switcher set client-side (no server write), `js.*` strings handed to the client.
+      Test enforces identical keys and placeholders across languages.
 - [ ] 3. Accounts: copy esperanto-kurso auth; cookie `userID.token`, token stored hashed, Get-by-key;
       created lazily on first action; magic-link page; delete-account button. Passkeys right after.
 - [ ] 4. Device store + "my card": IndexedDB; a card you choose to share (name, what you do, links:

@@ -64,7 +64,15 @@
 
   var $ = function (id) { return document.getElementById(id); };
 
+  // tr looks up a UI string handed over by the server (window.KAFUMU_T).
+  function tr(key, vars) {
+    var s = (window.KAFUMU_T || {})[key] || key;
+    Object.keys(vars || {}).forEach(function (k) { s = s.split("{" + k + "}").join(vars[k]); });
+    return s;
+  }
+
   function setStatus(msg) { $("status").textContent = msg; }
+  function note(msg) { $("list-note").textContent = msg; }
 
   function show(c, how) {
     var tag = "#geo" + c;
@@ -76,7 +84,7 @@
       e.preventDefault();
       var url = location.origin + "/?cell=" + c;
       if (navigator.share) navigator.share({ title: tag, url: url }).catch(function () {});
-      else if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { setStatus("Link copied."); });
+      else if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { setStatus(tr("link_copied")); });
     };
     setStatus(how);
     try { localStorage.setItem("kafumu.lastCell", c); } catch (e) {}
@@ -87,7 +95,8 @@
     var near = rings(c, 2);
     var ringOf = {};
     near.forEach(function (p) { ringOf["geo" + p[0]] = p[1]; });
-    $("list").innerHTML = '<li class="muted">Looking around…</li>';
+    $("list").innerHTML = "";
+    note(tr("looking"));
     fetch("/bundle?cells=" + near.map(function (p) { return p[0]; }).join(","))
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (b) {
@@ -100,10 +109,10 @@
         var named = (b.places || []).filter(function (pt) { return pt.weight >= 0.5; })
           .slice(0, 3).map(function (pt) { return "#" + pt.tag; });
         $("list-note").textContent = named.length
-          ? "Also showing posts tagged " + named.join(", ") + " — people here already use those tags."
+          ? tr("also_tags", { tags: named.join(", ") })
           : "";
       })
-      .catch(function () { $("list").innerHTML = '<li class="muted">Could not load the area right now.</li>'; });
+      .catch(function () { $("list").innerHTML = ""; note(tr("load_failed")); });
   }
 
   function showEvents(events, c) {
@@ -116,12 +125,12 @@
       strong.textContent = e.name;
       p.appendChild(strong);
       p.appendChild(document.createTextNode(e.live
-        ? " is on here now. Posts tagged #" + e.tag + " show up below."
-        : " is coming here " + e.from + " – " + e.to + ". Tag posts #" + e.tag + " to be found."));
+        ? " " + tr("event_live", { name: "", tag: "#" + e.tag }).trim()
+        : " " + tr("event_upcoming", { name: "", from: e.from, to: e.to, tag: "#" + e.tag }).trim()));
       var a = document.createElement("a");
       a.href = "https://bsky.app/intent/compose?text=" + encodeURIComponent("\n\n#geo" + c + " #" + e.tag);
       a.target = "_blank"; a.rel = "noopener";
-      a.textContent = " Post with #" + e.tag;
+      a.textContent = " " + tr("post_with", { tag: "#" + e.tag });
       p.appendChild(a);
       box.appendChild(p);
     });
@@ -145,7 +154,7 @@
     if (!posts.length) {
       var li = document.createElement("li");
       li.className = "muted";
-      li.textContent = "Nothing tagged #geo" + c + " or its neighbours yet. Be the first: post with the tag above.";
+      li.textContent = tr("empty", { tag: "#geo" + c });
       list.appendChild(li);
       return;
     }
@@ -168,10 +177,10 @@
       meta.appendChild(who);
       var via = document.createElement("span");
       via.className = "badge";
-      if (p.via in ringOf) via.textContent = "#" + p.via + (ringOf[p.via] ? "" : " · here");
-      else via.textContent = "from #" + p.via + (places[p.via] && places[p.via].ambiguous ? " (may be elsewhere)" : "");
+      if (p.via in ringOf) via.textContent = "#" + p.via + (ringOf[p.via] ? "" : " · " + tr("here"));
+      else via.textContent = tr("from", { tag: "#" + p.via }) + (places[p.via] && places[p.via].ambiguous ? " " + tr("maybe_elsewhere") : "");
       meta.appendChild(via);
-      if (p.bot) { var b = document.createElement("span"); b.className = "badge"; b.textContent = "bot"; meta.appendChild(b); }
+      if (p.bot) { var b = document.createElement("span"); b.className = "badge"; b.textContent = tr("bot"); meta.appendChild(b); }
       var text = document.createElement("p");
       text.className = "text";
       text.textContent = p.text;
@@ -183,34 +192,34 @@
 
   function ago(iso) {
     var s = (Date.now() - new Date(iso).getTime()) / 1000;
-    if (s < 3600) return Math.max(1, Math.round(s / 60)) + " min ago";
-    if (s < 86400) return Math.round(s / 3600) + " h ago";
-    return Math.round(s / 86400) + " d ago";
+    if (s < 3600) return tr("min_ago", { n: Math.max(1, Math.round(s / 60)) });
+    if (s < 86400) return tr("h_ago", { n: Math.round(s / 3600) });
+    return tr("d_ago", { n: Math.round(s / 86400) });
   }
 
   function locate() {
-    if (!navigator.geolocation) { setStatus("No location available; pick a place below."); return; }
+    if (!navigator.geolocation) { setStatus(tr("no_location")); return; }
     navigator.geolocation.getCurrentPosition(function (pos) {
       // Round immediately: only the 5 km cell is kept.
-      show(cell(pos.coords.latitude, pos.coords.longitude), "Your cell, computed on this device:");
+      show(cell(pos.coords.latitude, pos.coords.longitude), tr("your_cell"));
     }, function () {
       var last = null;
       try { last = localStorage.getItem("kafumu.lastCell"); } catch (e) {}
-      if (last && validCell(last)) show(last, "Location unavailable; showing your last cell:");
-      else { setStatus("Location unavailable; pick a place below."); $("manual").open = true; }
+      if (last && validCell(last)) show(last, tr("last_cell"));
+      else { setStatus(tr("unavailable")); $("manual").open = true; }
     }, { enableHighAccuracy: false, timeout: 10000, maximumAge: 600000 });
   }
 
   $("manual-form").addEventListener("submit", function (e) {
     e.preventDefault();
     var c = parsePlace(this.where.value);
-    if (!c) { setStatus("That doesn't look like a cell, plus code or lat,lon."); return; }
+    if (!c) { setStatus(tr("bad_place")); return; }
     history.replaceState(null, "", "/?cell=" + c);
-    show(c, "Showing a chosen cell:");
+    show(c, tr("chosen_cell"));
   });
 
   var given = $("here").dataset.cell;
-  if (given && validCell(given)) show(given, "Showing a shared cell:");
+  if (given && validCell(given)) show(given, tr("shared_cell"));
   else locate();
 
   // Exposed for tests and the console.
