@@ -314,5 +314,10 @@
   "atproto.disconnect": "Desligar",
   "post.label": "Publicar aqui como",
   "post.placeholder": "O que se passa por aqui? (a etiqueta #geo é juntada por si)",
-  "post.send": "Publicar no Bluesky"
+  "post.send": "Publicar no Bluesky",
+  "push.signal": "☕ Alguém com quem se ligou enviou-lhe um sinal",
+  "push.enable": "Avisar-me de sinais",
+  "js.push_on": "🔔 Os sinais chegam até si, mesmo com o Kafumu fechado.",
+  "js.push_denied": "As notificações estão bloqueadas nas definições do navegador.",
+  "js.push_failed": "Não foi possível ativar as notificações."
 }

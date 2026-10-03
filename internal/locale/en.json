@@ -314,5 +314,10 @@
   "atproto.disconnect": "Disconnect",
   "post.label": "Post here as",
   "post.placeholder": "What's happening around here? (#geo tag added for you)",
-  "post.send": "Post to Bluesky"
+  "post.send": "Post to Bluesky",
+  "push.signal": "☕ Someone you've connected with sent you a signal",
+  "push.enable": "Notify me of signals",
+  "js.push_on": "🔔 Signals will reach you, even with Kafumu closed.",
+  "js.push_denied": "Notifications are blocked in your browser settings.",
+  "js.push_failed": "Couldn't turn on notifications."
 }

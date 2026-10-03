@@ -153,6 +153,13 @@ event entries for language gatherings (only with verified dates/venues — never
       grid of #geo blocks on OpenStreetMap tiles (static/area.js, attribution shown); tap a block to make it
       your area. "Change area" reopens it. Browser test covers search → map → tap.
 
+- [x] 14. Web Push for signals (internal/push, webpush-go): VAPID keys generated server-side and stored in
+      Datastore (never in the repo); /api/push/{key,subscribe,unsubscribe} (anonymous, credentials omit);
+      a subscription lists only the device's own inbox ids (+ invite/badge boxes) and a language; a mailbox
+      append notifies the subscriptions watching that box with a content-free, localized line; 404/410
+      drops the subscription; PushSub expires after 90 days (purged). Contacts: "🔔 Notify me of signals".
+      Arch Chromium has no push service (no GCM keys) → verify on a real phone.
+
 ## After the event (rest of M1)
 - [x] `LaPingvino/geotags` (public, /home/joop/geotags): 6,278 cities ≥100k from GeoNames (CC BY 4.0) with
       tag, native + curated aliases, radius from population, centre cell, ambiguity (duplicates, ≤3 chars,
@@ -175,13 +182,11 @@ event entries for language gatherings (only with verified dates/venues — never
       with uri+cid (ours, and imported Smoke Signal ones — feeds now keep uri+cid); Around's "Post here"
       opens a composer → app.bsky.feed.post with hashtag facets (byte offsets tested) and #geo added.
       Untested against a real PDS until Joop connects after the switch.
-- `LaPingvino/geotags` public repo: generator from GeoNames + language list, CC-BY; Kafumu vendors it.
 - [x] Language gazetteer: geotags' languages.json vendored (internal/langs), ISO 639-1→3 map; Around boosts
       posts whose hashtags (#esperanto, #learnjapanese…) or ATproto langs match your languages — from your
       profile, else the browser's — entirely on the device (bundles stay per cell). Badge shows the tag.
       `#langepo`-style canonical public tags: not yet (no posts use them; revisit with ATproto posting).
-- Client ranking: complementary language exchange, locally rare shared language.
-- `appengine.Main()` + memcache everywhere; Datastore TTL policies; purge cron; travel banner;
+- (done: memcache, purge cron, travel banner, own locale files; TTL policies replaced by the purge cron)
   UI locale from esperanto-kurso's locale files.
 
 ## Decisions taken without asking (Joop can overrule)

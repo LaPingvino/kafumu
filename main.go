@@ -25,8 +25,10 @@ import (
 	"github.com/LaPingvino/kafumu/internal/gazetteer"
 	"github.com/LaPingvino/kafumu/internal/handler"
 	"github.com/LaPingvino/kafumu/internal/importer"
+	"github.com/LaPingvino/kafumu/internal/locale"
 	"github.com/LaPingvino/kafumu/internal/meetup"
 	"github.com/LaPingvino/kafumu/internal/purge"
+	"github.com/LaPingvino/kafumu/internal/push"
 	"github.com/LaPingvino/kafumu/internal/slot"
 )
 
@@ -46,6 +48,12 @@ func main() {
 	home.Accounts = accounts.Svc
 	mailbox := box.NewHandler(&box.CachedStore{Store: boxes, Cache: kv})
 	slotAPI := slot.NewHandler(&slot.CachedStore{Store: slots, Cache: kv})
+	var pushStore push.Store = push.NewMemoryStore()
+	if db != nil {
+		pushStore = &push.DatastoreStore{DB: db}
+	}
+	pusher := &push.Service{Store: pushStore, Contact: cfg.Origin, Text: func(l string) string { return locale.T(l, "push.signal") }}
+	mailbox.OnAppend = pusher.Notify
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /", home.ShowHome)
@@ -112,6 +120,9 @@ func main() {
 	})
 	mux.HandleFunc("GET /api/slot/{id}", slotAPI.Get)
 	mux.HandleFunc("PUT /api/slot/{id}", slotAPI.Put)
+	mux.HandleFunc("GET /api/push/key", pusher.Key)
+	mux.HandleFunc("POST /api/push/subscribe", pusher.Subscribe)
+	mux.HandleFunc("POST /api/push/unsubscribe", pusher.Unsubscribe)
 	mux.HandleFunc("GET /api/box/{id}", mailbox.Get)
 	mux.HandleFunc("POST /api/box/{id}", mailbox.Post)
 	mux.HandleFunc("POST /api/box/{id}/ack", mailbox.Ack)

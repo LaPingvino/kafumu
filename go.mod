@@ -4,6 +4,7 @@ go 1.26
 
 require (
 	cloud.google.com/go/datastore v1.22.0
+	github.com/SherClockHolmes/webpush-go v1.4.0
 	github.com/bluesky-social/indigo v0.0.0-20260929184902-b2619d864df0
 	github.com/go-webauthn/webauthn v0.10.2
 	golang.org/x/text v0.41.0

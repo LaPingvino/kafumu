@@ -314,5 +314,10 @@
   "atproto.disconnect": "Ontkoppelen",
   "post.label": "Hier posten als",
   "post.placeholder": "Wat gebeurt er hier? (de #geo-tag zetten we erbij)",
-  "post.send": "Posten op Bluesky"
+  "post.send": "Posten op Bluesky",
+  "push.signal": "☕ Iemand met wie je verbonden bent heeft je een signaal gestuurd",
+  "push.enable": "Meld me signalen",
+  "js.push_on": "🔔 Signalen bereiken je, ook als Kafumu dicht is.",
+  "js.push_denied": "Meldingen zijn geblokkeerd in je browserinstellingen.",
+  "js.push_failed": "Kon meldingen niet aanzetten."
 }

@@ -1,6 +1,7 @@
 package box
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"io"
@@ -18,6 +19,8 @@ import (
 type Handler struct {
 	Store   Store
 	limiter *limiter
+	// OnAppend, if set, runs after a message lands (to wake the owner).
+	OnAppend func(ctx context.Context, box string)
 }
 
 // The per-IP limit is generous on purpose: at a conference thousands of
@@ -69,6 +72,9 @@ func (h *Handler) Post(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "unavailable", http.StatusServiceUnavailable)
 	default:
 		w.WriteHeader(http.StatusNoContent)
+		if h.OnAppend != nil {
+			h.OnAppend(r.Context(), id)
+		}
 	}
 }
 

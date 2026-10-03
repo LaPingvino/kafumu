@@ -314,5 +314,10 @@
   "atproto.disconnect": "Malkonekti",
   "post.label": "Afiŝi ĉi tie kiel",
   "post.placeholder": "Kio okazas ĉi-ĉirkaŭe? (la #geo-etikedo aldoniĝas por vi)",
-  "post.send": "Afiŝi ĉe Bluesky"
+  "post.send": "Afiŝi ĉe Bluesky",
+  "push.signal": "☕ Iu, kun kiu vi konektiĝis, sendis al vi signalon",
+  "push.enable": "Sciigi min pri signaloj",
+  "js.push_on": "🔔 Signaloj atingos vin, eĉ kun Kafumu fermita.",
+  "js.push_denied": "Sciigoj estas blokitaj en la agordoj de via retumilo.",
+  "js.push_failed": "Ne eblis ŝalti sciigojn."
 }
