@@ -214,3 +214,6 @@ article ul { padding-left: 1.2rem; }
 #place-results { list-style: none; padding: 0; margin: 4px 0; }
 #place-results li button { width: 100%; justify-content: flex-start; font-weight: 600; margin: 2px 0; background: transparent; }
 #place-results li button:hover { background: var(--button-hover); }
+/* Native dropdown lists don't inherit the dark theme everywhere. */
+select option { background: var(--headerbar-bg); color: var(--fg); }
+@media (prefers-color-scheme: dark) { select { color-scheme: dark; } }

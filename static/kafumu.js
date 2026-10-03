@@ -109,7 +109,8 @@
     window.kafumuOLN.post(text, olnKeywords(), bits, function (tries, ms) {
       if (ms > 0) pref("kafumu.hashrate", String(Math.round(tries / ms * 1000)));
       $("oln-status").textContent = tr("oln_working", { n: Math.round(tries / 1000) + "k" });
-    }).then(function () {
+    }).then(function (n) {
+      if (n && n.id) ownNotes.push(n);
       f.text.value = "";
       f.hidden = true;
       setStatus(tr("oln_sent", { s: Math.round((Date.now() - t0) / 1000) }));
@@ -134,7 +135,8 @@
           $("coffee-status").textContent = tr("oln_working", { n: Math.round(tries / 1000) + "k" });
         });
       });
-    }).then(function () {
+    }).then(function (n) {
+      if (n && n.id) ownNotes.push(n);
       $("coffee-status").textContent = tr("coffee_sent");
       load(currentCell, true);
       // Keep listening for people who join, like the Connect page does.
@@ -149,7 +151,12 @@
   };
 
   function hiddenNotes() { try { return JSON.parse(pref("kafumu.hiddenNotes") || "[]"); } catch (e) { return []; } }
+  var ownNotes = []; // shown at once, even if another instance's cache lags
   function showNotes(notes) {
+    var have = {};
+    notes.forEach(function (n) { have[n.id] = true; });
+    ownNotes = ownNotes.filter(function (n) { return new Date(n.expires) > Date.now() && n.cell && currentCell && rings(currentCell, 2).some(function (p) { return p[0] === n.cell; }); });
+    notes = ownNotes.filter(function (n) { return !have[n.id]; }).concat(notes);
     var hidden = hiddenNotes(), list = $("notes");
     notes = notes.filter(function (n) { return hidden.indexOf(n.id) < 0; });
     $("notes-section").hidden = !notes.length;

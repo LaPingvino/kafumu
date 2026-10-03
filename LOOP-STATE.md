@@ -198,6 +198,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       (friends-around hits give a day+cell per contact — device only).
 - [ ] 19. Short link code for connect codes (Joop): kafumu.com/j/XXXXXX → the /c#… invite, kept 1 h
       server-side (public key only; mention on /privacy). The full link is already shown under the QR.
+- [ ] 20. Profile language list = holywritings.net's 83 languages (from /home/joop/holywritings.db
+      `writings.language`: en, pt, fa, de, ja, nl, … gil, ch, nai-US/CA, haw, fo, ga) mapped to ISO 639-3
+      with native names, plus the conlangs and sign languages already listed. (UI translations stay
+      EN/PT/EO/NL unless Joop wants more.)
 - [ ] 17. Card themes from local activity (Joop): count tags seen in Around bundles (posts, meetups,
       people, notes) on the device, per area; the card editor suggests the local ones first.
 - [ ] 15e. /oln.json per cell in eolnpoc's olnjson.Format for other OLN nodes.
