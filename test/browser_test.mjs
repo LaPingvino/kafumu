@@ -59,14 +59,14 @@ try {
   await B.waitFor("!!document.querySelector('.signals button')", "B's signal buttons");
   await B.evaluate("document.querySelector('.signals button').click()");
   await B.waitFor("document.querySelector('.signals button').textContent.startsWith('✓')", "signal sent");
-  await A.goto(base + "/?cell=8ccgqw");
+  await A.goto(base + "/?cell=6fg222");
   await A.waitFor("!document.getElementById('signals-section').hidden && document.getElementById('signals').textContent.includes('Bea')", "B's signal in A's Around");
   // Local messages (OLN): A says something, mined in a worker; B sees it.
-  await A.goto(base + "/?cell=8ccgqx");
+  await A.goto(base + "/?cell=6fg223");
   await A.evaluate("(() => { document.getElementById('say').click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test: hi from the OLN'; f.requestSubmit(); return true; })()");
   await A.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN')", "A's message in Here now", 30000);
   for (let i = 0; ; i++) { // B's browser may hold a 30-second-old bundle
-    await B.goto(base + "/?cell=8ccgqx");
+    await B.goto(base + "/?cell=6fg223");
     try { await B.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN')", "B sees A's message", 8000); break; }
     catch (e) { if (i >= 6) throw e; }
   }
@@ -75,7 +75,7 @@ try {
   await A.evaluate("(() => { document.getElementById('ask').click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test: best pastel de nata nearby?'; f.tags.value = 'food'; f.requestSubmit(); return true; })()");
   await A.waitFor("document.getElementById('notes').textContent.includes('pastel de nata')", "A's question", 30000);
   for (let i = 0; ; i++) {
-    await B.goto(base + "/?cell=8ccgqx");
+    await B.goto(base + "/?cell=6fg223");
     try { await B.waitFor("[...document.querySelectorAll('#notes > li')].some(li => li.textContent.includes('pastel de nata') && li.querySelector('a[href*=\"/c#v1.\"]'))", "B sees the question with a private-answer button", 8000); break; }
     catch (e) { if (i >= 8) throw e; }
   }
@@ -84,27 +84,27 @@ try {
 
   // Card themes from local activity: the "food" question tag shows up as a
   // 📍 suggestion in A's card editor.
-  await A.goto(base + "/?cell=8ccgqx");
+  await A.goto(base + "/?cell=6fg223");
   await A.waitFor("document.getElementById('notes').textContent.includes('pastel de nata')", "Around loaded for tag counting", 15000);
   await A.goto(base + "/card");
   await A.waitFor("[...document.querySelectorAll('#tag-chips .chip')].some(c => c.textContent === '📍 food')", "local theme suggested");
 
   // Views: language and interest filters apply on the device, from the URL.
-  await A.goto(base + "/?cell=8ccgqx&lang=eng");
+  await A.goto(base + "/?cell=6fg223&lang=eng");
   await A.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN')", "message kept by lang=eng", 15000);
-  await A.goto(base + "/?cell=8ccgqx&tag=zzznothing&w=3");
+  await A.goto(base + "/?cell=6fg223&tag=zzznothing&w=3");
   await A.waitFor("document.getElementById('views').textContent.includes('#zzznothing')", "active filter chip");
   await sleep(2500);
   if (await A.evaluate("document.getElementById('notes').textContent.includes('hi from the OLN')")) throw new Error("tag filter didn't hide the message");
-  await A.goto(base + "/?cell=8ccgqx&tag=zzznothing&w=1"); // a bias keeps everything
+  await A.goto(base + "/?cell=6fg223&tag=zzznothing&w=1"); // a bias keeps everything
   await A.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN')", "message kept with a weak bias", 15000);
 
   // Who's up for coffee: A asks, B joins from the message and they connect.
-  await A.goto(base + "/?cell=8ccgqx");
+  await A.goto(base + "/?cell=6fg223");
   await A.evaluate("document.getElementById('coffee').click(); document.getElementById('coffee-go').click(); true");
   await A.waitFor("document.getElementById('coffee-status').textContent.length > 0 && !document.getElementById('coffee-status').textContent.includes('…')", "coffee asked", 30000);
   for (let i = 0; ; i++) {
-    await B.goto(base + "/?cell=8ccgqx");
+    await B.goto(base + "/?cell=6fg223");
     try { await B.waitFor("!!document.querySelector('#notes a[href*=\"/c#v1.\"]')", "Join button for B", 8000); break; }
     catch (e) { if (i >= 8) throw e; }
   }
@@ -117,11 +117,11 @@ try {
   await A.waitFor("!!document.querySelector('a[href=\"/meetups/new\"].suggested')", "continue link after account");
   await A.goto(base + "/meetups/new");
   await A.waitFor("!!document.getElementById('meetup-form')", "meetup form");
-  await A.evaluate("(() => { const f = document.getElementById('meetup-form'); f.title.value = 'Browser test kafo'; f.cell.value = '8ccgqw'; f.venue.value = 'Pavilion 2'; f.requestSubmit(); return true; })()");
+  await A.evaluate("(() => { const f = document.getElementById('meetup-form'); f.title.value = 'Browser test kafo'; f.cell.value = '6fg222'; f.venue.value = 'Pavilion 2'; f.requestSubmit(); return true; })()");
   await A.waitFor("location.pathname.startsWith('/meetups/') && document.querySelector('h1').textContent.includes('Browser test kafo')", "meetup page");
   // Other instances cache a cell's meetups for up to a minute: reload until it shows.
   for (let i = 0; ; i++) {
-    await B.goto(base + "/?cell=8ccgqw");
+    await B.goto(base + "/?cell=6fg222");
     try { await B.waitFor("document.getElementById('meetups').textContent.includes('Browser test kafo')", "meetup in B's Around", 8000); break; }
     catch (e) { if (i >= 10) throw e; }
   }
@@ -135,10 +135,10 @@ try {
   await A.evaluate(`(() => { const f = document.querySelector('form[action="/account/name"]'); f.username.value = "${nick}"; f.requestSubmit(); return true; })()`);
   await A.waitFor(`document.body.textContent.includes("@${nick}")`, "username set");
   await A.evaluate(`(() => { const s = document.getElementById('add-lang'); s.value = 'epo'; s.onchange(); const f = document.getElementById('profile-form');
-    f.cell.value = '8ccgqw'; f.visible_hours.value = '12'; f.where.value = 'test stand'; f.requestSubmit(); return true; })()`);
+    f.cell.value = '6fg222'; f.visible_hours.value = '12'; f.where.value = 'test stand'; f.requestSubmit(); return true; })()`);
   await A.waitFor("document.querySelector('[name=where]') && document.querySelector('[name=where]').value === 'test stand' && !!document.querySelector('select[name=level_epo]')", "profile saved");
   for (let i = 0; ; i++) {
-    await B.goto(base + "/?cell=8ccgqw");
+    await B.goto(base + "/?cell=6fg222");
     try { await B.waitFor(`document.getElementById('people').textContent.includes("${nick}")`, "A in B's People", 8000); break; }
     catch (e) { if (i >= 10) throw e; }
   }
@@ -148,7 +148,7 @@ try {
   await A.evaluate("(() => { document.getElementById('inbox-bits').value = '12'; const on = document.getElementById('inbox-on'); on.checked = true; on.onchange(); return true; })()");
   await A.waitFor("document.getElementById('inbox-status').textContent.length > 1", "inbox opened");
   for (let i = 0; ; i++) {
-    await B.goto(base + "/?cell=8ccgqw");
+    await B.goto(base + "/?cell=6fg222");
     try { await B.waitFor(`[...document.querySelectorAll('#people li')].some(li => li.textContent.includes("${nick}") && li.querySelector('button.pill-sm'))`, "write button on A", 8000); break; }
     catch (e) { if (i >= 10) throw e; }
   }
