@@ -25,7 +25,7 @@ node test/geo_test.mjs   # checks the client-side cell code against the Go vecto
 ## Deploying
 
 ```bash
-gcloud app deploy --project lokumo
+gcloud app deploy --project lokumo   # needs the app-engine-go component
 ```
 
 ## Lineage

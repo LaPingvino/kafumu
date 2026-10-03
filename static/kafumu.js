@@ -90,18 +90,32 @@
     $("list").innerHTML = '<li class="muted">Looking around…</li>';
     fetch("/bundle?cells=" + near.map(function (p) { return p[0]; }).join(","))
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-      .then(function (b) { render(b.posts || [], ringOf, c); })
+      .then(function (b) {
+        var places = {};
+        (b.places || []).forEach(function (pt) { places[pt.tag] = pt; });
+        render(b.posts || [], ringOf, places, c);
+        var named = (b.places || []).filter(function (pt) { return pt.weight >= 0.5; })
+          .slice(0, 3).map(function (pt) { return "#" + pt.tag; });
+        $("list-note").textContent = named.length
+          ? "Also showing posts tagged " + named.join(", ") + " — people here already use those tags."
+          : "";
+      })
       .catch(function () { $("list").innerHTML = '<li class="muted">Could not load the area right now.</li>'; });
   }
 
-  // score ranks on the device: nearer rings and fresher posts first, bots last.
-  function score(p, ringOf) {
+  // score ranks on the device: #geo posts before place-tag posts, nearer
+  // rings and fresher posts first, noisy (ambiguous, bot) posts last.
+  function score(p, ringOf, places) {
     var ageH = (Date.now() - new Date(p.createdAt).getTime()) / 36e5;
-    var ring = ringOf[p.via] || 0;
-    return -ageH / 24 - ring * 0.5 - (p.bot ? 5 : 0);
+    var s = -ageH / 24 - (p.bot ? 5 : 0);
+    if (p.via in ringOf) return s - ringOf[p.via] * 0.5;
+    var pt = places[p.via];
+    // A place-tag post that also carries a #geo tag of this area is strong.
+    var geoToo = (p.tags || []).some(function (t) { return t in ringOf; });
+    return s - (geoToo ? 0.5 : 2) - (1 - (pt ? pt.weight : 0)) * 3;
   }
 
-  function render(posts, ringOf, c) {
+  function render(posts, ringOf, places, c) {
     var list = $("list");
     list.textContent = "";
     if (!posts.length) {
@@ -111,7 +125,14 @@
       list.appendChild(li);
       return;
     }
-    posts.sort(function (a, b) { return score(b, ringOf) - score(a, ringOf); });
+    posts.sort(function (a, b) { return score(b, ringOf, places) - score(a, ringOf, places); });
+    // At most two posts per author, so one busy account (news feeds, flight
+    // trackers on #ams) can't fill the list.
+    var perAuthor = {};
+    posts = posts.filter(function (p) {
+      perAuthor[p.handle] = (perAuthor[p.handle] || 0) + 1;
+      return perAuthor[p.handle] <= 2;
+    });
     posts.slice(0, 50).forEach(function (p) {
       var li = document.createElement("li");
       if (p.bot) li.className = "bot";
@@ -123,7 +144,8 @@
       meta.appendChild(who);
       var via = document.createElement("span");
       via.className = "badge";
-      via.textContent = "#" + p.via + (ringOf[p.via] ? "" : " · here");
+      if (p.via in ringOf) via.textContent = "#" + p.via + (ringOf[p.via] ? "" : " · here");
+      else via.textContent = "from #" + p.via + (places[p.via] && places[p.via].ambiguous ? " (may be elsewhere)" : "");
       meta.appendChild(via);
       if (p.bot) { var b = document.createElement("span"); b.className = "badge"; b.textContent = "bot"; meta.appendChild(b); }
       var text = document.createElement("p");

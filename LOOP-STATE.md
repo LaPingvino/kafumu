@@ -6,13 +6,17 @@ and add anything learned to "Notes". Keep slices small; split a slice if it runs
 
 Production: https://lokumo.ew.r.appspot.com · Repo: https://github.com/LaPingvino/kafumu
 
+**Reminder for Joop's next check-in:** kafumu.com is bought — set up the GAE custom domain
+(`gcloud app domain-mappings create kafumu.com --project lokumo` + the DNS records it prints, managed
+cert), then set `KAFUMU_ORIGIN=https://kafumu.com` in app.yaml. Decide apex vs www before passkeys.
+
 ## M1 slices
 
 - [x] 0. Scaffold: `#geo` cells (Go + JS, cross-tested), home shell computing the cell on-device,
       `/bundle` from Bluesky `#geo` search with per-instance cache, `/about`, robots, IsBot, app.yaml.
-- [ ] 1. Place gazetteer v0: a small hand-made JSON of big cities (tag → cell bbox, weight,
-      ambiguity) embedded in the app; cell → place tags; `/bundle` also searches those tags; the client
-      labels such posts "from #amsterdam" and ranks them below `#geo` posts. Fixes the empty room.
+- [x] 1. Place gazetteer v0: 60 hand-picked cities (centre + radius → cells, aliases, ambiguity),
+      `/bundle` also searches the top 4 place tags; client labels "from #amsterdam", ranks below #geo
+      posts, caps 2 posts per author. Central Amsterdam: 0 → 75 posts.
 - [ ] 2. `LaPingvino/geotags` public repo: generator from GeoNames (cities15000, top ~500 by population,
       bbox → 6-char cells, ambiguity), plus the language list; CC-BY attribution. Kafumu vendors the JSON.
 - [ ] 3. Language gazetteer + canonical `lang:` tags (ISO 639-3, `#langepo`), embedded JSON with names.
@@ -39,6 +43,9 @@ Liberapay now, Stripe later · discoverability opt-in · "Kafumu" everywhere · 
 start (magic link re-binds them after a domain move).
 
 ## Notes
+- Deploy with the user-installed SDK: `~/google-cloud-sdk/bin/gcloud app deploy --project lokumo --quiet`
+  (the pacman gcloud lacks app-engine-go). Needs the sandbox disabled.
+- `#ams` is full of flight-tracker bots; short aliases are marked ambiguous and weigh less.
 - No posts on Bluesky carry `#geo…` tags yet (checked 2026-10-03): the gazetteer slice matters most.
 - `public.api.bsky.app` may 403 from some networks; client falls back to `api.bsky.app`.
 - AppView marks some authors with a `bot` label; the client downranks them.

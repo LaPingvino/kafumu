@@ -7,8 +7,8 @@ func TestCell(t *testing.T) {
 		lat, lon float64
 		want     string
 	}{
-		{52.3676, 4.9041, "9f469w"},   // Amsterdam
-		{52.3731, 4.8926, "9f469v"},   // Dam square
+		{52.3676, 4.9041, "9f469w"},    // Amsterdam
+		{52.3731, 4.8926, "9f469v"},    // Dam square
 		{-23.5505, -46.6333, "588mc9"}, // São Paulo
 		{0, 0, "6fg222"},
 		{89.99999, 179.99999, "cvxxxx"},

@@ -10,6 +10,7 @@ import (
 
 	"github.com/LaPingvino/kafumu/internal/bsky"
 	"github.com/LaPingvino/kafumu/internal/config"
+	"github.com/LaPingvino/kafumu/internal/gazetteer"
 	"github.com/LaPingvino/kafumu/internal/handler"
 )
 
@@ -20,7 +21,7 @@ func main() {
 	cfg := config.Load()
 	tmpl := template.Must(template.ParseFS(templateFS, "templates/*.html"))
 
-	home := &handler.Home{Cfg: cfg, Tmpl: tmpl, Bsky: bsky.NewClient()}
+	home := &handler.Home{Cfg: cfg, Tmpl: tmpl, Bsky: bsky.NewClient(), Gaz: gazetteer.Load()}
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /", home.ShowHome)

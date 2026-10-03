@@ -12,16 +12,22 @@ import (
 
 	"github.com/LaPingvino/kafumu/internal/bsky"
 	"github.com/LaPingvino/kafumu/internal/config"
+	"github.com/LaPingvino/kafumu/internal/gazetteer"
 	"github.com/LaPingvino/kafumu/internal/geo"
 )
 
-// maxBundleCells bounds a bundle request to rings 0–2 (5×5).
-const maxBundleCells = 25
+const (
+	// maxBundleCells bounds a bundle request to rings 0–2 (5×5).
+	maxBundleCells = 25
+	// maxPlaceTags bounds upstream searches for gazetteer place tags per bundle.
+	maxPlaceTags = 4
+)
 
 type Home struct {
 	Cfg  *config.Config
 	Tmpl *template.Template
 	Bsky *bsky.Client
+	Gaz  *gazetteer.Gazetteer
 }
 
 // page is the data every full page gets.
@@ -60,8 +66,11 @@ func (h *Home) render(w http.ResponseWriter, name string, data any) {
 // bundle is everything public and current for the requested cells. Ranking
 // happens on the device against tags and pairs the server never sees.
 type bundle struct {
-	Cells []string    `json:"cells"`
-	Posts []bsky.Post `json:"posts"`
+	Cells []string `json:"cells"`
+	// Places are the human hashtags that name this area (#amsterdam), with
+	// weights the client uses to rank posts found through them.
+	Places []gazetteer.PlaceTag `json:"places"`
+	Posts  []bsky.Post          `json:"posts"`
 }
 
 // Bundle handles GET /bundle?cells=a,b,c. Bundles are per cell, not per user.
@@ -83,11 +92,25 @@ func (h *Home) Bundle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	b := bundle{Cells: cells, Posts: []bsky.Post{}}
+	b := bundle{Cells: cells, Places: []gazetteer.PlaceTag{}, Posts: []bsky.Post{}}
+	tags := make([]string, 0, len(cells)+maxPlaceTags)
+	for _, c := range cells {
+		tags = append(tags, geo.Tag(c))
+	}
+	if h.Gaz != nil {
+		b.Places = h.Gaz.Tags(cells)
+		for i, pt := range b.Places {
+			if i == maxPlaceTags {
+				break
+			}
+			tags = append(tags, pt.Tag)
+		}
+	}
+
 	var mu sync.Mutex
 	var wg sync.WaitGroup
 	uris := map[string]bool{}
-	for _, c := range cells {
+	for _, tag := range tags {
 		wg.Add(1)
 		go func(tag string) {
 			defer wg.Done()
@@ -100,7 +123,7 @@ func (h *Home) Bundle(w http.ResponseWriter, r *http.Request) {
 					b.Posts = append(b.Posts, p)
 				}
 			}
-		}(geo.Tag(c))
+		}(tag)
 	}
 	wg.Wait()
 	sort.Slice(b.Posts, func(i, j int) bool { return b.Posts[i].CreatedAt.After(b.Posts[j].CreatedAt) })

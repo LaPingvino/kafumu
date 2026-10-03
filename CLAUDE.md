@@ -26,7 +26,7 @@ Coordinates never reach the server: only 6-char cells (`internal/geo`, mirrored 
 
 ## Working
 - `go vet ./... && go test ./... && node test/geo_test.mjs` before every commit (use GOCACHE=$TMPDIR/gocache in the sandbox).
-- Commit + push every loop tick. Deploy (`gcloud app deploy --project lokumo --quiet`) only when tests
+- Commit + push every loop tick. Deploy (`~/google-cloud-sdk/bin/gcloud app deploy --project lokumo --quiet`; the pacman gcloud lacks app-engine-go) only when tests
   are green and something user-visible changed — Cloud Build minutes are limited.
 - Never commit secrets. Config comes from env vars in app.yaml (non-secret only).
 - Domain is not final: brand/origin come from config (`KAFUMU_BRAND`, `KAFUMU_ORIGIN`).
