@@ -269,7 +269,7 @@
   "privacy.never_title": "Kion ni neniam havas",
   "privacy.never": "Viajn koordinatojn. Kun kiu vi estas konektita. La detalojn de viaj kontaktoj. Kio kongruis kun vi en via listo — tiu ordigo okazas en via telefono. Neniuj triapartaj spuriloj, neniuj reklamretoj.",
   "privacy.caveats_title": "Honestaj rimarkoj",
-  "privacy.caveats": "Konekta kodo enhavas unufojan ŝlosilon en la ligilo; kelkaj QR-skaniloj konservas historion, do skanu per via fotilo. Retumiloj povas forigi retejajn datumojn (Safari post semajno sen vizitoj) — instalu Kafumu sur via ĉefekrano kaj konservu sekurkopion. Kion vi afiŝas ĉe Bluesky estas publika tie, ne ĉi tie.",
+  "privacy.caveats": "Konekta kodo enhavas unufojan ŝlosilon en la ligilo; kelkaj QR-skaniloj konservas historion, do skanu per via fotilo. Retumiloj povas forigi retejajn datumojn (Safari post semajno sen vizitoj) — instalu Kafumu sur via ĉefekrano kaj konservu sekurkopion. Kion vi afiŝas ĉe Bluesky estas publika tie, ne ĉi tie. Mallongaj konektaj kodoj (kafumu.com/j/…) tenas la publikan ŝlosilon de invito dum unu horo.",
   "privacy.rights": "Vi povas vidi, eksporti kaj forigi ĉion, kion ni havas pri vi, el via konto.",
   "privacy.contact": "Kontakto",
   "patrons.card": "Pagi per karto",
@@ -388,5 +388,6 @@
   "contacts.sort_new": "Plej novaj",
   "contacts.sort_near": "Plej proksimaj",
   "js.seen_near": "vidita {where} je {day}",
-  "js.here_word": "proksime de vi"
+  "js.here_word": "proksime de vi",
+  "short.make": "Fari mallongan kodon (valida 1 horon)"
 }

@@ -426,7 +426,16 @@
       });
     }
 
-    return { inbox: inbox, writeTo: writeTo, readInbox: readInbox, connectBack: connectBack, checkIn: checkIn, around: around, invite: invite, accept: accept, moveSend: moveSend, moveReceive: moveReceive, checkInvite: checkInvite, checkContact: checkContact, send: send,
+    // shortLink asks for a short code for an invite payload (minimal work).
+    function shortLink(payload) {
+      var body = JSON.stringify({ payload: payload });
+      return stamp(body, "short").then(function (work) {
+        return fetchFn(base + "/api/short", { method: "POST", body: body, credentials: "omit", headers: { "X-Kafumu-Work": work } });
+      }).then(function (r) { if (!r.ok) throw new Error("short " + r.status); return r.json(); })
+        .then(function (j) { return { code: j.code, url: base + "/j/" + j.code }; });
+    }
+
+    return { shortLink: shortLink, inbox: inbox, writeTo: writeTo, readInbox: readInbox, connectBack: connectBack, checkIn: checkIn, around: around, invite: invite, accept: accept, moveSend: moveSend, moveReceive: moveReceive, checkInvite: checkInvite, checkContact: checkContact, send: send,
       _open: open, _boxOf: boxOf, _inviteBox: inviteBox, _unb64: unb64 };
   }
 

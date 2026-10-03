@@ -91,7 +91,19 @@
   function showCode() {
     var qrBox = $("qr"), link = $("invite-link"), list = $("new-contacts"), status = $("connect-status");
     var poller;
+    var shortBtn = $("make-short");
     function render(inv) {
+      if (shortBtn) {
+        $("short-code").textContent = "";
+        shortBtn.hidden = false;
+        shortBtn.onclick = function () {
+          shortBtn.disabled = true;
+          pair.shortLink(inv.payload).then(function (s) {
+            shortBtn.hidden = true;
+            $("short-code").textContent = s.url.replace(/^https?:\/\//, "");
+          }).catch(function () { shortBtn.disabled = false; });
+        };
+      }
       var q = qrcode(0, "M");
       q.addData(inv.url);
       q.make();

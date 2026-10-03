@@ -269,7 +269,7 @@
   "privacy.never_title": "Wat we nooit hebben",
   "privacy.never": "Je coördinaten. Met wie je verbonden bent. De gegevens van je contacten. Wat bij jou paste in je lijst — die rangschikking gebeurt op je telefoon. Geen trackers van derden, geen advertentienetwerken.",
   "privacy.caveats_title": "Eerlijke kanttekeningen",
-  "privacy.caveats": "Een verbindcode bevat een eenmalige sleutel in de link; sommige QR-scanner-apps bewaren een geschiedenis, dus scan met je camera-app. Browsers kunnen sitegegevens wissen (Safari na een week zonder bezoek) — zet Kafumu op je beginscherm en bewaar een back-up. Wat je op Bluesky plaatst is daar openbaar, niet hier.",
+  "privacy.caveats": "Een verbindcode bevat een eenmalige sleutel in de link; sommige QR-scanner-apps bewaren een geschiedenis, dus scan met je camera-app. Browsers kunnen sitegegevens wissen (Safari na een week zonder bezoek) — zet Kafumu op je beginscherm en bewaar een back-up. Wat je op Bluesky plaatst is daar openbaar, niet hier. Korte verbindcodes (kafumu.com/j/…) bewaren de publieke sleutel van een uitnodiging een uur.",
   "privacy.rights": "Je kunt alles wat we over je hebben bekijken, exporteren en verwijderen vanuit je account.",
   "privacy.contact": "Contact",
   "patrons.card": "Betalen met kaart",
@@ -388,5 +388,6 @@
   "contacts.sort_new": "Nieuwste",
   "contacts.sort_near": "Dichtstbij",
   "js.seen_near": "gezien {where} op {day}",
-  "js.here_word": "bij jou in de buurt"
+  "js.here_word": "bij jou in de buurt",
+  "short.make": "Korte code maken (1 uur geldig)"
 }

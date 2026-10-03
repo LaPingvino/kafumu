@@ -228,3 +228,4 @@ input[type="range"] { padding: 0; background: transparent; accent-color: var(--a
 .area-map .pan { position: absolute; z-index: 2; min-height: 30px; width: 34px; padding: 0; border-radius: 99px; background: rgba(255,255,255,.85); color: #333; font-size: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,.3); }
 .area-map { cursor: grab; }
 .move-code { font-size: 2rem; letter-spacing: .3rem; margin: .25rem 0; }
+.short-code { font-size: 1.3rem; letter-spacing: .08em; }

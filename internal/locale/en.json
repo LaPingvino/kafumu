@@ -269,7 +269,7 @@
   "privacy.never_title": "What we never have",
   "privacy.never": "Your coordinates. Who you're connected with. Your contacts' details. What matched you in your list — that ranking happens on your phone. No third-party trackers, no ad networks.",
   "privacy.caveats_title": "Honest caveats",
-  "privacy.caveats": "A connect code holds a one-time key in the link; some QR-scanner apps keep a history, so scan with your camera app. Browsers can delete site data (Safari after a week without visits) — install Kafumu to your home screen and keep a backup. Posts you make on Bluesky are public there, not here.",
+  "privacy.caveats": "A connect code holds a one-time key in the link; some QR-scanner apps keep a history, so scan with your camera app. Browsers can delete site data (Safari after a week without visits) — install Kafumu to your home screen and keep a backup. Posts you make on Bluesky are public there, not here. Short connect codes (kafumu.com/j/…) keep an invite's public key for an hour.",
   "privacy.rights": "You can see, export and delete everything we hold about you from your account.",
   "privacy.contact": "Contact",
   "patrons.card": "Pay by card",
@@ -388,5 +388,6 @@
   "contacts.sort_new": "Newest",
   "contacts.sort_near": "Nearest",
   "js.seen_near": "seen {where} on {day}",
-  "js.here_word": "near you"
+  "js.here_word": "near you",
+  "short.make": "Make a short code (valid 1 hour)"
 }

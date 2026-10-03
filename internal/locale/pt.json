@@ -269,7 +269,7 @@
   "privacy.never_title": "O que nunca temos",
   "privacy.never": "As suas coordenadas. Com quem está ligado. Os dados dos seus contactos. O que coincidiu consigo na sua lista — essa ordenação acontece no seu telemóvel. Sem rastreadores de terceiros, sem redes de anúncios.",
   "privacy.caveats_title": "Ressalvas honestas",
-  "privacy.caveats": "Um código de ligação tem uma chave de uso único na ligação; algumas apps de leitura de QR guardam histórico, por isso use a câmara. Os navegadores podem apagar dados de sites (o Safari ao fim de uma semana sem visitas) — instale o Kafumu no ecrã principal e guarde uma cópia. O que publica no Bluesky é público lá, não aqui.",
+  "privacy.caveats": "Um código de ligação tem uma chave de uso único na ligação; algumas apps de leitura de QR guardam histórico, por isso use a câmara. Os navegadores podem apagar dados de sites (o Safari ao fim de uma semana sem visitas) — instale o Kafumu no ecrã principal e guarde uma cópia. O que publica no Bluesky é público lá, não aqui. Os códigos curtos de ligação (kafumu.com/j/…) guardam a chave pública de um convite durante uma hora.",
   "privacy.rights": "Pode ver, exportar e apagar tudo o que temos sobre si a partir da sua conta.",
   "privacy.contact": "Contacto",
   "patrons.card": "Pagar com cartão",
@@ -388,5 +388,6 @@
   "contacts.sort_new": "Mais recentes",
   "contacts.sort_near": "Mais perto",
   "js.seen_near": "visto {where} em {day}",
-  "js.here_word": "perto de si"
+  "js.here_word": "perto de si",
+  "short.make": "Criar um código curto (válido 1 hora)"
 }

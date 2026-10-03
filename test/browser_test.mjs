@@ -37,7 +37,12 @@ try {
   const url = await A.evaluate("document.getElementById('invite-link').value");
   if (!/\/c#v1\./.test(url)) throw new Error("bad invite url " + url);
 
-  await B.goto(url);
+  // B follows the short code instead of the long link.
+  await A.evaluate("document.getElementById('make-short').click()");
+  await A.waitFor("document.getElementById('short-code').textContent.includes('/j/')", "short code");
+  const short = await A.evaluate("document.getElementById('short-code').textContent");
+  await B.goto(base + "/j/" + short.split("/j/")[1]);
+  await B.waitFor("location.hash === '#' + " + JSON.stringify(url.split("#")[1]), "short code leads to the connect link");
   await B.waitFor("!document.getElementById('name-form').hidden", "B's name form");
   await B.evaluate(fill("name-form", { name: "Bea" }));
   await B.waitFor("!document.getElementById('accept-area').hidden", "B's connect button");
@@ -177,7 +182,7 @@ try {
     await C.waitFor("document.getElementById('contacts').textContent.includes('Ana')", "Ana moved to C");
   } finally { C.close(); }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B scans, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device, meetup hosted and seen, findable profile seen, paid inbox message + connect back, OLN message + question/answer + views + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device, meetup hosted and seen, findable profile seen, paid inbox message + connect back, OLN message + question/answer + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }
