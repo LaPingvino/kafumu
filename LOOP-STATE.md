@@ -43,7 +43,10 @@ Everything before the event serves that; the rest of M1 follows after.
       header bar, view switcher in the header on wide screens and at the bottom on phones, boxed lists,
       cards, pill buttons, coffee accent from the GNOME brown palette, dark mode, safe-area insets.
       Tabs now: Around / My card / Account / About — Connect + Contacts slot in with 5c/6.
-- [ ] 5b. `static/pair.js` handshake (advisor-reviewed design): QR = `origin/c#<A's ephemeral P-256
+- [x] 5b. `static/pair.js` handshake, E2E-tested in `test/pair_test.mjs` (A↔B, A↔C, C can't read B's
+      hello, cards only as ciphertext, signals both ways). Known gap: anyone holding the QR can ack (delete)
+      hellos in the invite box — a nuisance, not a leak; fix later by signing acks or per-hello boxes.
+      Design (advisor-reviewed): QR = `origin/c#<A's ephemeral P-256
       public key + invite box id>`; scanner does ECDH with its own ephemeral key → HKDF → pair key, so
       every scanner gets its own key and can't read other scanners' hellos. Hello = scanner pubkey (clear)
       + AES-GCM(card). Box ids = HMAC(pairKey, label); direction in AES-GCM AAD. A's invite private key in

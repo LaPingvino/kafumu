@@ -25,7 +25,7 @@ Coordinates never reach the server: only 6-char cells (`internal/geo`, mirrored 
 - `max_instances: 3`. Unknown paths 404.
 
 ## Working
-- `go vet ./... && go test ./... && node test/geo_test.mjs && node test/device_test.mjs` before every commit (use GOCACHE=$TMPDIR/gocache in the sandbox).
+- `sh test/run.sh` before every commit: go vet/test, client JS units, and the pairing E2E against a local server.
 - Commit + push every loop tick. Deploy (`~/google-cloud-sdk/bin/gcloud app deploy --project lokumo --quiet`; the pacman gcloud lacks app-engine-go) only when tests
   are green and something user-visible changed — Cloud Build minutes are limited.
 - Never commit secrets. Config comes from env vars in app.yaml (non-secret only).
