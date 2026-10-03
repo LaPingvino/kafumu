@@ -46,6 +46,10 @@ func TestCreateListRSVP(t *testing.T) {
 		t.Error("second toggle should un-RSVP")
 	}
 
+	if err := s.Delete(ctx, m.ID, "u2"); !errors.Is(err, ErrNotFound) {
+		t.Errorf("non-author delete: %v", err)
+	}
+
 	// Over: gone from lists once it ended, gone entirely after the grace day.
 	now = m.EndAt.Add(time.Minute)
 	s.forget("8ccgqw")
@@ -68,5 +72,18 @@ func TestActiveLimit(t *testing.T) {
 	}
 	if err := s.Create(ctx, &Meetup{Title: "x", Cell: "8ccgqw", StartAt: time.Now().Add(time.Hour)}, "u", "u"); !errors.Is(err, ErrTooMany) {
 		t.Errorf("11th meetup: %v", err)
+	}
+}
+
+func TestDelete(t *testing.T) {
+	ctx := context.Background()
+	s := NewService(NewMemoryStore())
+	m := &Meetup{Title: "x", Cell: "8ccgqw", StartAt: time.Now().Add(time.Hour)}
+	s.Create(ctx, m, "u", "u")
+	if err := s.Delete(ctx, m.ID, "u"); err != nil {
+		t.Fatal(err)
+	}
+	if ms, _ := s.InCells(ctx, []string{"8ccgqw"}); len(ms) != 0 {
+		t.Errorf("deleted meetup listed")
 	}
 }

@@ -54,6 +54,7 @@ func main() {
 	mux.HandleFunc("POST /meetups", meetups.Create)
 	mux.HandleFunc("GET /meetups/{id}", meetups.Show)
 	mux.HandleFunc("POST /meetups/{id}/rsvp", meetups.RSVP)
+	mux.HandleFunc("POST /meetups/{id}/delete", meetups.Delete)
 	mux.HandleFunc("GET /api/box/{id}", mailbox.Get)
 	mux.HandleFunc("POST /api/box/{id}", mailbox.Post)
 	mux.HandleFunc("POST /api/box/{id}/ack", mailbox.Ack)

@@ -62,6 +62,7 @@ type Store interface {
 	ActiveBy(ctx context.Context, authorID string, now time.Time) (int, error)
 	// Update runs fn on the stored meetup in a transaction.
 	Update(ctx context.Context, id string, fn func(*Meetup) error) (*Meetup, error)
+	Delete(ctx context.Context, id string) error
 }
 
 // Validate cleans m and checks it; it sets defaults and ExpiresAt.
@@ -232,6 +233,22 @@ func (s *Service) InCells(ctx context.Context, cells []string) ([]*Meetup, error
 	}
 	sort.Slice(live, func(i, j int) bool { return live[i].StartAt.Before(live[j].StartAt) })
 	return live, nil
+}
+
+// Delete removes a meetup; only its author may.
+func (s *Service) Delete(ctx context.Context, id, userID string) error {
+	m, err := s.Store.Get(ctx, id)
+	if err != nil {
+		return err
+	}
+	if m.AuthorID != userID {
+		return ErrNotFound
+	}
+	if err := s.Store.Delete(ctx, id); err != nil {
+		return err
+	}
+	s.forget(m.Cell)
+	return nil
 }
 
 // HasRSVP reports whether userID is going to m.

@@ -174,5 +174,10 @@
   "meetup.host": "organizado por",
   "meetup.im_going": "Eu vou",
   "meetup.not_going": "Já não vou",
-  "meetup.share": "Partilhar"
+  "meetup.share": "Partilhar",
+  "home.meetups": "Encontros",
+  "js.now": "Agora",
+  "js.going_n": "{n} vão",
+  "meetup.delete": "Apagar",
+  "meetup.delete_confirm": "Apagar este encontro?"
 }

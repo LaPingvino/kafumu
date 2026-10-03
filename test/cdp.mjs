@@ -20,6 +20,11 @@ export async function browser(port) {
   let id = 0; const pending = new Map();
   ws.addEventListener("message", (e) => { const m = JSON.parse(e.data); if (pending.has(m.id)) { pending.get(m.id)(m); pending.delete(m.id); } });
   const send = (method, params = {}) => new Promise((r) => { pending.set(++id, r); ws.send(JSON.stringify({ id, method, params })); });
+  // Headless Chrome says "HeadlessChrome", which Kafumu treats as a bot.
+  await send("Network.setUserAgentOverride", {
+    userAgent: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0 Safari/537.36 kafumu-test",
+    acceptLanguage: "en",
+  });
   const evaluate = async (expr) => {
     const m = await send("Runtime.evaluate", { expression: expr, awaitPromise: true, returnByValue: true });
     if (m.result?.exceptionDetails) throw new Error(m.result.exceptionDetails.exception?.description || "eval failed");

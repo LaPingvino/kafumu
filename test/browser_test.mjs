@@ -35,6 +35,20 @@ try {
   await B.goto(base + "/contacts");
   await B.waitFor("document.getElementById('contacts').textContent.includes('Ana')", "Ana on B's contacts page");
   if (await B.evaluate("document.getElementById('contacts').textContent.includes('open source')")) throw new Error("unticked field was shared");
+  // Meetups: A makes an account on the way to hosting, B sees it in Around.
+  await A.goto(base + "/meetups/new");
+  await A.evaluate("document.querySelector('form[action=\"/account/start\"]').requestSubmit()");
+  await A.waitFor("!!document.querySelector('a[href=\"/meetups/new\"].suggested')", "continue link after account");
+  await A.goto(base + "/meetups/new");
+  await A.waitFor("!!document.getElementById('meetup-form')", "meetup form");
+  await A.evaluate("(() => { const f = document.getElementById('meetup-form'); f.title.value = 'Browser test kafo'; f.cell.value = '8ccgqw'; f.venue.value = 'Pavilion 2'; f.requestSubmit(); return true; })()");
+  await A.waitFor("location.pathname.startsWith('/meetups/') && document.querySelector('h1').textContent.includes('Browser test kafo')", "meetup page");
+  await B.goto(base + "/?cell=8ccgqw");
+  await B.waitFor("document.getElementById('meetups').textContent.includes('Browser test kafo')", "meetup in B's Around");
+  // Clean up (this test also runs against production).
+  await A.evaluate("window.confirm = () => true; document.querySelector('form[action$=\"/delete\"]').requestSubmit(); true");
+  await sleep(1000);
+
   // Share with self: a fresh browser (C) shows a move code, B sends everything.
   const C = await browser(9335);
   try {
@@ -50,7 +64,7 @@ try {
     await sleep(2000);
     await C.waitFor("document.getElementById('contacts').textContent.includes('Ana')", "Ana moved to C");
   } finally { C.close(); }
-  console.log("ok  connect pages in two browsers (A shows, B scans, both connected, both on Contacts, unticked field withheld, moved to a new device)");
+  console.log("ok  connect pages in two browsers (A shows, B scans, both connected, both on Contacts, unticked field withheld, moved to a new device, meetup hosted and seen)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

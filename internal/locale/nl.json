@@ -174,5 +174,10 @@
   "meetup.host": "georganiseerd door",
   "meetup.im_going": "Ik ga",
   "meetup.not_going": "Ik ga toch niet",
-  "meetup.share": "Delen"
+  "meetup.share": "Delen",
+  "home.meetups": "Bijeenkomsten",
+  "js.now": "Nu",
+  "js.going_n": "{n} gaan",
+  "meetup.delete": "Verwijderen",
+  "meetup.delete_confirm": "Deze bijeenkomst verwijderen?"
 }

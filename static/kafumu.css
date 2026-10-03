@@ -177,3 +177,7 @@ textarea { resize: vertical; }
 select[name="duration"] { display: flex; width: 100%; margin-top: 4px; font-weight: 400; }
 .meetup .when { font-size: 1.1rem; font-weight: 700; color: var(--accent); }
 .meetup .text { white-space: pre-wrap; }
+.meetup-row { display: block; color: var(--fg); }
+.meetup-row:hover { text-decoration: none; }
+.meetup-row .when { color: var(--accent); font-weight: 700; font-size: .85rem; }
+.meetup-row .meta { color: var(--dim); font-size: .85rem; }

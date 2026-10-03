@@ -18,12 +18,18 @@
 
 <div id="events" class="card events" hidden></div>
 
+<section id="meetups-section" hidden>
+  <h2>{{t .Lang "home.meetups"}}</h2>
+  <ul id="meetups" class="boxed-list"></ul>
+</section>
+
 <section>
   <h2>{{t .Lang "home.around_here"}}</h2>
   <ul id="list" class="boxed-list"><li class="muted">{{t .Lang "home.nothing_loaded"}}</li></ul>
   <p class="muted" id="list-note"></p>
 </section>
 <script>window.KAFUMU_T = {{.JS}};</script>
+<script src="/static/device.js?v={{.V}}"></script>
 <script src="/static/geo.js?v={{.V}}"></script>
 <script src="/static/kafumu.js?v={{.V}}"></script>
 {{template "foot" .}}

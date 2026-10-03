@@ -174,5 +174,10 @@
   "meetup.host": "hosted by",
   "meetup.im_going": "I'm going",
   "meetup.not_going": "Not going any more",
-  "meetup.share": "Share"
+  "meetup.share": "Share",
+  "home.meetups": "Meetups",
+  "js.now": "Now",
+  "js.going_n": "{n} going",
+  "meetup.delete": "Delete",
+  "meetup.delete_confirm": "Delete this meetup?"
 }

@@ -46,6 +46,7 @@
         // Event tags (#websummit) count as local as a #geo tag while they run.
         (b.events || []).forEach(function (e) { ringOf[e.tag] = e.live ? 0 : 1; });
         showEvents(b.events || [], c);
+        showMeetups(b.meetups || [], b.events || []);
         render(b.posts || [], ringOf, places, c);
         var named = (b.places || []).filter(function (pt) { return pt.weight >= 0.5; })
           .slice(0, 3).map(function (pt) { return "#" + pt.tag; });
@@ -54,6 +55,53 @@
           : "";
       })
       .catch(function () { $("list").innerHTML = ""; note(tr("load_failed")); });
+  }
+
+  // myTags: the tags on your personas, used only here on the device to
+  // rank meetups — the server never learns them.
+  var myTags = null;
+  function loadMyTags() {
+    if (myTags || !window.kafumuDevice) return Promise.resolve(myTags || {});
+    return window.kafumuDevice.personas.list().then(function (ps) {
+      myTags = {};
+      ps.forEach(function (p) { ((p.card && p.card.tags) || []).forEach(function (t) { myTags[t.toLowerCase().replace(/\s+/g, "")] = true; }); });
+      return myTags;
+    }).catch(function () { return (myTags = {}); });
+  }
+
+  function showMeetups(ms, events) {
+    var sec = $("meetups-section"), list = $("meetups");
+    sec.hidden = !ms.length;
+    if (!ms.length) return;
+    loadMyTags().then(function (mine) {
+      var live = {};
+      events.forEach(function (e) { live[e.tag] = true; });
+      function rank(m) {
+        var hits = (m.tags || []).filter(function (t) { return mine[t.replace(/\s+/g, "")] || live[t]; }).length;
+        var hours = (new Date(m.start) - Date.now()) / 36e5;
+        return hits * 24 - Math.max(hours, 0);
+      }
+      ms.sort(function (a, b) { return rank(b) - rank(a); });
+      list.textContent = "";
+      ms.slice(0, 12).forEach(function (m) {
+        var li = document.createElement("li"), a = document.createElement("a");
+        a.href = "/meetups/" + m.id;
+        a.className = "meetup-row";
+        var s = new Date(m.start), e = new Date(m.end), now = Date.now();
+        var when = document.createElement("div");
+        when.className = "when";
+        when.textContent = (s <= now && e > now ? tr("now") + " · " : s.toLocaleDateString(document.documentElement.lang, { weekday: "short", day: "numeric", month: "short" }) + " · ") +
+          s.toLocaleTimeString(document.documentElement.lang, { hour: "2-digit", minute: "2-digit" });
+        var title = document.createElement("strong");
+        title.textContent = m.title;
+        var meta = document.createElement("div");
+        meta.className = "meta";
+        meta.textContent = [m.venue, tr("going_n", { n: m.going })].concat((m.tags || []).map(function (t) { return "#" + t; })).filter(Boolean).join(" · ");
+        a.appendChild(when); a.appendChild(title); a.appendChild(meta);
+        li.appendChild(a);
+        list.appendChild(li);
+      });
+    });
   }
 
   function showEvents(events, c) {

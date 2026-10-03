@@ -174,5 +174,10 @@
   "meetup.host": "organizas",
   "meetup.im_going": "Mi venos",
   "meetup.not_going": "Mi ne plu venos",
-  "meetup.share": "Konigi"
+  "meetup.share": "Konigi",
+  "home.meetups": "Renkontiĝoj",
+  "js.now": "Nun",
+  "js.going_n": "{n} venos",
+  "meetup.delete": "Forigi",
+  "meetup.delete_confirm": "Ĉu forigi ĉi tiun renkontiĝon?"
 }

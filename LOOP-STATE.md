@@ -82,8 +82,10 @@ Everything before the event serves that; the rest of M1 follows after.
       2-min cache + one `IN` query for missing cells, included in /bundle; auto-tag #websummit when inside
       the event; "Host a meetup" button on Around; account `?next=` flow. Indexes: `gcloud app deploy
       index.yaml` (the `datastore indexes` command needs the Firestore API, which is off).
-- [ ] 7b. Meetups in the Around list (top section, soonest first, ranked by tag match), RSVP from the
-      list, browser test: host → appears for a second browser in the same cell → RSVP.
+- [x] 7b. Meetups section at the top of Around (ranked on the device: your persona tags + live event
+      tags, then soonest; "Now" for running ones), tap → meetup page; host can delete. Browser test: A
+      makes an account on the way to hosting, B sees it in Around, A deletes it. Test UA override in cdp.mjs
+      (HeadlessChrome is a bot to us).
 - [ ] 7. (rest) Meetups (fallback records, need account): "coffee at Pavilion 2, 15:00", side events, RSVP,
       tags `#websummit` + `lang:` + `tag:`; shown in the bundle; `.ics`.
 - [ ] 7b. Import events by link: paste a Luma / Meetup / any event URL → read its schema.org Event JSON-LD

@@ -106,3 +106,13 @@ func (h *Meetups) RSVP(w http.ResponseWriter, r *http.Request) {
 	}
 	http.Redirect(w, r, "/meetups/"+id, http.StatusSeeOther)
 }
+
+// Delete handles POST /meetups/{id}/delete by the host.
+func (h *Meetups) Delete(w http.ResponseWriter, r *http.Request) {
+	if u := UserFrom(r.Context()); u != nil {
+		if err := h.Svc.Delete(r.Context(), r.PathValue("id"), u.ID); err != nil && !errors.Is(err, meetup.ErrNotFound) {
+			log.Printf("meetup: delete: %v", err)
+		}
+	}
+	http.Redirect(w, r, "/", http.StatusSeeOther)
+}

@@ -34,6 +34,10 @@ func (s *DatastoreStore) Put(ctx context.Context, m *Meetup) error {
 	return err
 }
 
+func (s *DatastoreStore) Delete(ctx context.Context, id string) error {
+	return s.DB.Delete(ctx, s.key(id))
+}
+
 func (s *DatastoreStore) InCells(ctx context.Context, cells []string, now time.Time) ([]*Meetup, error) {
 	vals := make([]any, len(cells))
 	for i, c := range cells {
@@ -103,6 +107,13 @@ func (s *MemoryStore) Put(_ context.Context, m *Meetup) error {
 	c := *m
 	c.RSVPs = append([]string(nil), m.RSVPs...)
 	s.ms[m.ID] = c
+	return nil
+}
+
+func (s *MemoryStore) Delete(_ context.Context, id string) error {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	delete(s.ms, id)
 	return nil
 }
 
