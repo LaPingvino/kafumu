@@ -66,6 +66,8 @@ type Place struct {
 	Lat     float64  `json:"lat"`
 	Lon     float64  `json:"lon"`
 	Km      float64  `json:"km"`
+	// Population breaks ties: the bigger city's tag comes first.
+	Population int `json:"population,omitempty"`
 	// Ambiguous marks tags that also name other places (#paris, #london ON).
 	// Posts found through them rank lower on the device.
 	Ambiguous bool `json:"ambiguous,omitempty"`
@@ -77,6 +79,7 @@ type PlaceTag struct {
 	Place     string  `json:"place"`
 	Weight    float64 `json:"weight"`
 	Ambiguous bool    `json:"ambiguous,omitempty"`
+	dist      float64 // km from the nearest looked-at cell to the place's centre
 }
 
 // Gazetteer indexes places by the cell of their centre and events by the
@@ -233,9 +236,15 @@ func (g *Gazetteer) EventsAt(cells []string, now time.Time) []EventTag {
 // covering more of the requested cells, and unambiguous tags, weigh more.
 func (g *Gazetteer) Tags(cells []string) []PlaceTag {
 	hits := map[int]int{}
+	dist := map[int]float64{}
 	for _, c := range cells {
+		la, lo := geo.Center(strings.ToLower(c))
 		for _, i := range g.placesNear(strings.ToLower(c)) {
 			hits[i]++
+			d := distKm(la, lo, g.Places[i].Lat, g.Places[i].Lon)
+			if old, ok := dist[i]; !ok || d < old {
+				dist[i] = d
+			}
 		}
 	}
 	var out []PlaceTag
@@ -250,12 +259,17 @@ func (g *Gazetteer) Tags(cells []string) []PlaceTag {
 			if j > 0 {
 				tw *= 0.8 // aliases are noisier (#la, #sf, #rio)
 			}
-			out = append(out, PlaceTag{Tag: t, Place: p.Name, Weight: round2(tw), Ambiguous: p.Ambiguous || j > 0 && len(t) <= 3})
+			out = append(out, PlaceTag{Tag: t, Place: p.Name, Weight: round2(tw), Ambiguous: p.Ambiguous || j > 0 && len(t) <= 3, dist: dist[i]})
 		}
 	}
 	sort.Slice(out, func(i, j int) bool {
 		if out[i].Weight != out[j].Weight {
 			return out[i].Weight > out[j].Weight
+		}
+		// Equal coverage: the place you're actually in beats the big city
+		// whose radius reaches you (Barreiro before Lisbon).
+		if out[i].dist != out[j].dist {
+			return out[i].dist < out[j].dist
 		}
 		return out[i].Tag < out[j].Tag
 	})
