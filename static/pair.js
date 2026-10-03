@@ -236,7 +236,15 @@
           return msgs.reduce(function (p, msg) {
             return p.then(function () {
               done.push(msg.id);
-              return open(key, mine, msg.data).then(function (body) { got.push(body); if (body.t === "card") c.card = body.card || {}; })
+              return open(key, mine, msg.data).then(function (body) {
+                got.push(body);
+                if (body.t === "card") c.card = body.card || {};
+                if (body.t === "signal") {
+                  // Keep the last ten, newest first; "unread" until seen.
+                  c.signals = [{ s: String(body.s || "").slice(0, 20), text: String(body.text || "").slice(0, 140), at: body.at || new Date().toISOString(), unread: true }]
+                    .concat(c.signals || []).slice(0, 10);
+                }
+              })
                 .catch(function () {});
             });
           }, Promise.resolve()).then(function () {

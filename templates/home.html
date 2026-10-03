@@ -18,6 +18,11 @@
 
 <div id="events" class="card events" hidden></div>
 
+<section id="signals-section" hidden>
+  <h2>{{t .Lang "home.from_contacts"}}</h2>
+  <ul id="signals" class="boxed-list"></ul>
+</section>
+
 <section id="meetups-section" hidden>
   <h2>{{t .Lang "home.meetups"}}</h2>
   <ul id="meetups" class="boxed-list"></ul>
@@ -30,6 +35,7 @@
 </section>
 <script>window.KAFUMU_T = {{.JS}};</script>
 <script src="/static/device.js?v={{.V}}"></script>
+<script src="/static/pair.js?v={{.V}}"></script>
 <script src="/static/geo.js?v={{.V}}"></script>
 <script src="/static/kafumu.js?v={{.V}}"></script>
 {{template "foot" .}}

@@ -186,5 +186,13 @@
   "meetup.import_ok": "Filled in from the page — check and publish.",
   "meetup.import_failed": "Couldn't read an event from that page. Fill it in below.",
   "meetup.via": "via",
-  "js.via": "via {site}"
+  "js.via": "via {site}",
+  "js.sig_coffee": "☕ Around — coffee?",
+  "js.sig_here": "📍 I'm at",
+  "js.sig_thanks": "👋 Nice to meet you!",
+  "js.sig_btn_coffee": "☕ Coffee?",
+  "js.sig_btn_here": "📍 I'm at…",
+  "js.sig_btn_thanks": "👋 Nice to meet you",
+  "js.sig_where": "Where are you? (e.g. Pavilion 2 coffee bar)",
+  "home.from_contacts": "From your contacts"
 }

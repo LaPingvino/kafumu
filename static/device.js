@@ -126,6 +126,11 @@
     if (c.createdAt) head.appendChild(el("span", "dim", new Date(c.createdAt).toLocaleDateString()));
     li.appendChild(head);
     if (card.about) li.appendChild(el("p", "dim", card.about));
+    var sig = (c.signals || [])[0];
+    if (sig && !opts.preview) {
+      var sp = el("p", "signal" + (sig.unread ? " unread" : ""), signalText(sig, T) + " · " + ago(sig.at));
+      li.appendChild(sp);
+    }
     if (card.tags && card.tags.length) {
       var theirs = el("div", "chips");
       card.tags.forEach(function (t) { theirs.appendChild(el("span", "chip", t)); });
@@ -164,6 +169,22 @@
     });
     li.appendChild(row);
     if (opts.preview) return li;
+    if (opts.send && c.card) {
+      var srow = el("div", "actions signals");
+      SIGNALS.forEach(function (kind) {
+        var b = el("button", "pill-sm", T["sig_btn_" + kind] || kind);
+        b.type = "button";
+        b.onclick = function () {
+          var text = "";
+          if (kind === "here") { text = prompt(T.sig_where || "Where are you?") || ""; if (!text) return; }
+          b.disabled = true;
+          opts.send(c, { t: "signal", s: kind, text: text.slice(0, 140), at: new Date().toISOString() })
+            .then(function () { b.textContent = "✓ " + (T["sig_btn_" + kind] || kind); }, function () { b.disabled = false; });
+        };
+        srow.appendChild(b);
+      });
+      li.appendChild(srow);
+    }
     li.appendChild(mine);
     var note = el("input");
     note.placeholder = T.note_placeholder || "";
@@ -179,6 +200,20 @@
     }
     return li;
   }
+
+  // Canned signals: small, structured, no free-form chat (VISION.md).
+  var SIGNALS = ["coffee", "here", "thanks"];
+  function signalText(sig, T) {
+    var t = T["sig_" + sig.s] || sig.s;
+    return sig.text ? t + " " + sig.text : t;
+  }
+  function ago(iso) {
+    var s = (Date.now() - new Date(iso).getTime()) / 1000;
+    if (s < 3600) return (T0.min_ago || "{n} min ago").replace("{n}", Math.max(1, Math.round(s / 60)));
+    if (s < 86400) return (T0.h_ago || "{n} h ago").replace("{n}", Math.round(s / 3600));
+    return (T0.d_ago || "{n} d ago").replace("{n}", Math.round(s / 86400));
+  }
+  var T0 = (typeof window !== "undefined" && window.KAFUMU_T) || {};
 
   // vcards renders contacts as one vCard 3.0 file, for phone address books.
   function vcards(contacts) {
@@ -222,6 +257,6 @@
     setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
   }
 
-  window.kafumuDevice = { store: store, FIELDS: FIELDS, links: links, renderContact: renderContact, personas: personas,
+  window.kafumuDevice = { signalText: signalText, store: store, FIELDS: FIELDS, links: links, renderContact: renderContact, personas: personas,
     vcards: vcards, backup: backup, restore: restore, download: download };
 })();

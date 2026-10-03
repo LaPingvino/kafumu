@@ -186,5 +186,13 @@
   "meetup.import_ok": "Ingevuld vanaf de pagina — controleer en publiceer.",
   "meetup.import_failed": "Kon geen evenement van die pagina lezen. Vul het hieronder in.",
   "meetup.via": "via",
-  "js.via": "via {site}"
+  "js.via": "via {site}",
+  "js.sig_coffee": "☕ In de buurt — koffie?",
+  "js.sig_here": "📍 Ik ben bij",
+  "js.sig_thanks": "👋 Leuk je ontmoet te hebben!",
+  "js.sig_btn_coffee": "☕ Koffie?",
+  "js.sig_btn_here": "📍 Ik ben bij…",
+  "js.sig_btn_thanks": "👋 Leuk je te ontmoeten",
+  "js.sig_where": "Waar ben je? (bijv. koffiebar Paviljoen 2)",
+  "home.from_contacts": "Van je contacten"
 }

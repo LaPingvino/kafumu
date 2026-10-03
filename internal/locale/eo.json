@@ -186,5 +186,13 @@
   "meetup.import_ok": "Plenigita el la paĝo — kontrolu kaj publikigu.",
   "meetup.import_failed": "Ne eblis legi eventon el tiu paĝo. Plenigu sube.",
   "meetup.via": "el",
-  "js.via": "el {site}"
+  "js.via": "el {site}",
+  "js.sig_coffee": "☕ Proksime — ĉu kafo?",
+  "js.sig_here": "📍 Mi estas ĉe",
+  "js.sig_thanks": "👋 Plezure konatiĝis!",
+  "js.sig_btn_coffee": "☕ Kafo?",
+  "js.sig_btn_here": "📍 Mi estas ĉe…",
+  "js.sig_btn_thanks": "👋 Plezure",
+  "js.sig_where": "Kie vi estas? (ekz. kafejo de Pavilono 2)",
+  "home.from_contacts": "De viaj kontaktoj"
 }

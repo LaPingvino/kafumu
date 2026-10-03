@@ -35,6 +35,12 @@ try {
   await B.goto(base + "/contacts");
   await B.waitFor("document.getElementById('contacts').textContent.includes('Ana')", "Ana on B's contacts page");
   if (await B.evaluate("document.getElementById('contacts').textContent.includes('open source')")) throw new Error("unticked field was shared");
+  // Signals: B taps "Coffee?", A sees it in Around.
+  await B.waitFor("!!document.querySelector('.signals button')", "B's signal buttons");
+  await B.evaluate("document.querySelector('.signals button').click()");
+  await B.waitFor("document.querySelector('.signals button').textContent.startsWith('✓')", "signal sent");
+  await A.goto(base + "/?cell=8ccgqw");
+  await A.waitFor("!document.getElementById('signals-section').hidden && document.getElementById('signals').textContent.includes('Bea')", "B's signal in A's Around");
   // Meetups: A makes an account on the way to hosting, B sees it in Around.
   await A.goto(base + "/meetups/new");
   await A.evaluate("document.querySelector('form[action=\"/account/start\"]').requestSubmit()");
@@ -64,7 +70,7 @@ try {
     await sleep(2000);
     await C.waitFor("document.getElementById('contacts').textContent.includes('Ana')", "Ana moved to C");
   } finally { C.close(); }
-  console.log("ok  connect pages in two browsers (A shows, B scans, both connected, both on Contacts, unticked field withheld, moved to a new device, meetup hosted and seen)");
+  console.log("ok  connect pages in two browsers (A shows, B scans, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device, meetup hosted and seen)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

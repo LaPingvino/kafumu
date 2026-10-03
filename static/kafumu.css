@@ -181,3 +181,7 @@ select[name="duration"] { display: flex; width: 100%; margin-top: 4px; font-weig
 .meetup-row:hover { text-decoration: none; }
 .meetup-row .when { color: var(--accent); font-weight: 700; font-size: .85rem; }
 .meetup-row .meta { color: var(--dim); font-size: .85rem; }
+.signal { margin: .3rem 0; font-weight: 600; }
+.signal.unread { color: var(--accent); }
+.signal.unread::before { content: "● "; }
+.actions.signals { margin: .3rem 0 0; }

@@ -12,12 +12,20 @@
       list.textContent = "";
       empty.hidden = cs.length > 0;
       $("contacts-tools").hidden = cs.length === 0;
+      function send(c, msg) { return pair.send(c, msg); }
       cs.forEach(function (c) {
-        var li = dev.renderContact(c, T, { onDelete: function () { if (!list.children.length) show(); } });
+        var opts = { onDelete: function () { if (!list.children.length) show(); }, send: send };
+        var li = dev.renderContact(c, T, opts);
         li.dataset.search = JSON.stringify([c.card, c.note]).toLowerCase();
         list.appendChild(li);
-        // A card may still be on its way (they scanned, we haven't heard back).
-        if (!c.card) pair.checkContact(c).then(function () { if (c.card) list.replaceChild(dev.renderContact(c, T, { onDelete: show }), li); }).catch(function () {});
+        // Cards on their way and new signals: one mailbox read per contact.
+        pair.checkContact(c).then(function (got) {
+          if (!got.length) return;
+          var fresh = dev.renderContact(c, T, opts);
+          fresh.dataset.search = li.dataset.search;
+          list.replaceChild(fresh, li);
+          li = fresh;
+        }).catch(function () {});
       });
     });
   }
@@ -40,4 +48,15 @@
       .catch(function () { $("contacts-status").textContent = T.restore_failed || "Not a Kafumu backup."; });
   };
   show();
+  // Opening Contacts marks signals as seen.
+  setTimeout(function () {
+    dev.store.contacts().then(function (cs) {
+      cs.forEach(function (c) {
+        if ((c.signals || []).some(function (x) { return x.unread; })) {
+          c.signals.forEach(function (x) { x.unread = false; });
+          dev.store.putContact(c);
+        }
+      });
+    });
+  }, 4000);
 })();

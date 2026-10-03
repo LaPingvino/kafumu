@@ -100,7 +100,10 @@ Everything before the event serves that; the rest of M1 follows after.
       6 h (/cron/feeds, X-Appengine-Cron only) upserts upcoming 60 days as meetups "via luma.com" with
       stable ids, keeping Kafumu RSVPs. Seeded with luma.com/lisbon (19 events, 11 in central Lisbon).
       Add feeds: append to feeds.json (ics feeds without GEO need a "cell").
-- [ ] 8. Canned signals between scanned contacts: "I'm at the coffee bar", "join us at …".
+- [x] 8. Canned signals over the pair mailbox: ☕ Coffee? / 📍 I'm at… (short text) / 👋 Nice to meet you,
+      sent from each contact on /contacts; received into the contact (last 10, unread flag); Around shows
+      "From your contacts" (checks the 10 most recent contacts: ≤10 reads per open); opening Contacts
+      marks them seen. Browser test: B taps Coffee?, A sees it in Around. Push notifications: later (M2).
 - [ ] 9. Profile tags + discoverable people at the event (opt-in): languages, interests
       (opensource, esperanto, climate…), matched on the device.
 - [ ] 10. Friends around (slots/beacons): "who you scanned is still in Lisbon today".

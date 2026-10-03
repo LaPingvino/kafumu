@@ -207,6 +207,38 @@
     show(c, tr("chosen_cell"));
   });
 
+  // Signals from people you've connected with. Only recent contacts are
+  // checked on open (one mailbox read each), to keep this cheap.
+  function checkSignals() {
+    var dev = window.kafumuDevice;
+    if (!dev || !window.kafumuPair) return;
+    var pair = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin });
+    dev.store.contacts().then(function (cs) {
+      var recent = cs.filter(function (c) { return c.card; }).sort(function (a, b) {
+        var la = ((a.signals || [])[0] || {}).at || a.createdAt || "", lb = ((b.signals || [])[0] || {}).at || b.createdAt || "";
+        return lb.localeCompare(la);
+      }).slice(0, 10);
+      return Promise.all(recent.map(function (c) { return pair.checkContact(c).catch(function () { return []; }); })).then(function () {
+        var unread = recent.filter(function (c) { return (c.signals || []).some(function (x) { return x.unread; }); });
+        $("signals-section").hidden = !unread.length;
+        var list = $("signals");
+        list.textContent = "";
+        unread.forEach(function (c) {
+          var li = document.createElement("li"), a = document.createElement("a");
+          a.href = "/contacts";
+          a.className = "meetup-row";
+          var who = document.createElement("strong");
+          who.textContent = c.card.name || "?";
+          var what = document.createElement("div");
+          what.className = "meta";
+          what.textContent = dev.signalText(c.signals[0], window.KAFUMU_T || {});
+          a.appendChild(who); a.appendChild(what); li.appendChild(a); list.appendChild(li);
+        });
+      });
+    }).catch(function () {});
+  }
+  checkSignals();
+
   var given = $("here").dataset.cell;
   if (given && validCell(given)) show(given, tr("shared_cell"));
   else locate();
