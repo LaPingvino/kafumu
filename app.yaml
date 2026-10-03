@@ -38,6 +38,11 @@ handlers:
     static_dir: static
     secure: always
     expiration: "30d"
+  # Becoming admin needs App Engine's own admin login (checked again in code).
+  - url: /admin/initial
+    script: auto
+    secure: always
+    login: admin
   - url: /.*
     script: auto
     secure: always

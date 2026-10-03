@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"log"
@@ -213,8 +214,13 @@ func (h *Meetups) SyncFeeds(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
-	res := feeds.Sync(r.Context(), feeds.Load(), h.Importer, h.Svc.Store, time.Now())
+	w.Write([]byte(h.RunFeeds(r.Context()) + "\n"))
+}
+
+// RunFeeds syncs the public calendars now (cron, or by hand from /admin).
+func (h *Meetups) RunFeeds(ctx context.Context) string {
+	res := feeds.Sync(ctx, feeds.Load(), h.Importer, h.Svc.Store, time.Now())
 	h.Svc.ForgetAll()
 	log.Printf("feeds: %s", res)
-	w.Write([]byte(res.String() + "\n"))
+	return res.String()
 }

@@ -168,6 +168,9 @@ event entries for language gatherings (only with verified dates/venues — never
 ## OLN layer (Joop, 2026-10-03): local messages with time-biased PoW, views, Aardvark questions
 Design in VISION §4 "Local messages". Benchmark: pure-JS SHA-1 (static/sha1.js, verified against Node
 crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 18 ≈ 6 s, 20 ≈ 25 s.
+- [x] 16. Admin (Joop): /admin/initial behind App Engine `login: admin` grants the "admin" role to the
+      signed-in Kafumu account (his passkey); /admin: counts, hide OLN note, delete meetup, run feeds/purge
+      now (and see the result), recent errors. Role checked server-side on every admin route.
 - [ ] 15a. Server: internal/oln — parse/verify eolnpoc raw format (SHA-1 leading zeros), ±10 min clock
       window, adaptive required bits per cell (14 + log2(1 + last-hour count/30), ≤22), TTL from bits,
       dedupe by hash, length cap, per-cell cache like meetups, ≤50 per cell in the bundle (by priority),
@@ -178,6 +181,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       device; explore any place; multi-ring requests for big regions (holiday destinations).
 - [ ] 15d. Questions (Aardvark): ask with interest tags into a place's cells; question carries an
       invite payload; matching devices see "Questions for you"; answer privately (pair.js) or publicly.
+- [ ] 15f. Minimal PoW on mailbox posts (Joop: "no PoW should be minimal PoW"): ~10 bits over
+      nonce;date;base64url(sha256(body));#box<id>, ±10 min — instant for people, a cost for bots.
+- [ ] 15g. Per-peer price (Joop): people set the minimum bits for unsolicited messages to them (questions,
+      offers); commercial senders pay in work for what reaching you is worth to them.
 - [ ] 15e. /oln.json per cell in eolnpoc's olnjson.Format for other OLN nodes.
 
 ## After the event (rest of M1)

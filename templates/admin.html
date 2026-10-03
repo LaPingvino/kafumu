@@ -1,0 +1,18 @@
+{{template "head" .}}
+<h1>Admin</h1>
+{{if .Result}}<p class="card" style="padding:8px 16px"><code>{{.Result}}</code></p>{{end}}
+<div class="card" style="padding:4px 16px 12px">
+  <h2>Now</h2>
+  <ul>{{range $k, $v := .Counts}}<li>{{$k}}: <strong>{{$v}}</strong></li>{{end}}</ul>
+  <p class="dim small">Live (unexpired) entities; users in total.</p>
+</div>
+<div class="card" style="padding:4px 16px 12px">
+  <h2>Run a job now</h2>
+  <div class="actions">{{range .Jobs}}<form method="post" action="/admin/action"><input type="hidden" name="do" value="run"><input type="hidden" name="job" value="{{.}}"><button type="submit" class="pill">{{.}}</button></form>{{end}}</div>
+</div>
+<div class="card" style="padding:4px 16px 12px">
+  <h2>Moderate</h2>
+  <form method="post" action="/admin/action" class="inline"><input type="hidden" name="do" value="hide-note"><input name="id" placeholder="note id (sha1)"><button type="submit" class="contrast">Hide note</button></form>
+  <form method="post" action="/admin/action" class="inline" style="margin-top:8px"><input type="hidden" name="do" value="delete-meetup"><input name="id" placeholder="meetup id"><button type="submit" class="contrast">Delete meetup</button></form>
+</div>
+{{template "foot" .}}

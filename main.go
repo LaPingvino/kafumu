@@ -27,6 +27,7 @@ import (
 	"github.com/LaPingvino/kafumu/internal/importer"
 	"github.com/LaPingvino/kafumu/internal/locale"
 	"github.com/LaPingvino/kafumu/internal/meetup"
+	"github.com/LaPingvino/kafumu/internal/oln"
 	"github.com/LaPingvino/kafumu/internal/purge"
 	"github.com/LaPingvino/kafumu/internal/push"
 	"github.com/LaPingvino/kafumu/internal/slot"
@@ -108,16 +109,28 @@ func main() {
 	mux.HandleFunc("GET /meetups/{id}/ics", meetups.ICS)
 	mux.HandleFunc("GET /cal/{cell}", meetups.ICS)
 	mux.HandleFunc("GET /cron/feeds", meetups.SyncFeeds)
+	runPurge := func(ctx context.Context) string {
+		if db == nil {
+			return "no Datastore"
+		}
+		res, err := purge.Run(ctx, db, time.Now())
+		log.Printf("purge: %s err=%v", res, err)
+		return fmt.Sprintf("%s err=%v", res, err)
+	}
 	mux.HandleFunc("GET /cron/purge", func(w http.ResponseWriter, r *http.Request) {
 		// App Engine cron sets this header and strips it from outside requests.
-		if r.Header.Get("X-Appengine-Cron") != "true" || db == nil {
+		if r.Header.Get("X-Appengine-Cron") != "true" {
 			http.NotFound(w, r)
 			return
 		}
-		res, err := purge.Run(r.Context(), db, time.Now())
-		log.Printf("purge: %s err=%v", res, err)
-		fmt.Fprintf(w, "%s err=%v\n", res, err)
+		fmt.Fprintln(w, runPurge(r.Context()))
 	})
+	notes := oln.NewService(olnStore(db))
+	adminH := &handler.Admin{Home: home, Accounts: accounts, Meetups: meetups, Notes: notes, DB: db,
+		Jobs: map[string]func(context.Context) string{"purge": runPurge, "feeds": meetups.RunFeeds}}
+	mux.HandleFunc("GET /admin/initial", adminH.Initial)
+	mux.HandleFunc("GET /admin", adminH.Show)
+	mux.HandleFunc("POST /admin/action", adminH.Action)
 	mux.HandleFunc("GET /api/slot/{id}", slotAPI.Get)
 	mux.HandleFunc("PUT /api/slot/{id}", slotAPI.Put)
 	mux.HandleFunc("GET /api/push/key", pusher.Key)
@@ -154,4 +167,11 @@ func stores(cfg *config.Config) (account.Store, box.Store, meetup.Store, slot.St
 		log.Fatalf("datastore: %v", err)
 	}
 	return &account.DatastoreStore{DB: db}, &box.DatastoreStore{DB: db}, &meetup.DatastoreStore{DB: db}, &slot.DatastoreStore{DB: db}, db
+}
+
+func olnStore(db *datastore.Client) oln.Store {
+	if db == nil {
+		return oln.NewMemoryStore()
+	}
+	return &oln.DatastoreStore{DB: db}
 }
