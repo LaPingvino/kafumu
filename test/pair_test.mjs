@@ -59,5 +59,18 @@ const got = await A.pair.checkContact(aB);
 check(got.length === 1 && got[0].s === "coffee?", "A got B's signal");
 check((await B.pair.checkContact(cb)).length === 0, "B's own message is not in B's inbox");
 
+// Share with self: the new device shows a move code, the old one sends a
+// backup big enough to need several chunks.
+const N = device("new"), O = device("old");
+const mv = await N.pair.invite(false, "move");
+check(mv.url.includes("/m#v1."), "move url " + mv.url);
+check(mv.box !== (await N.pair.invite()).box, "move and invite boxes differ");
+const backup = { kafumu: 1, contacts: Array.from({ length: 40 }, (_, i) => ({ id: "c" + i, key: "k".repeat(43), card: { name: "Person " + i, about: "x".repeat(200) } })) };
+const chunks = await O.pair.moveSend(mv.payload, backup);
+check(chunks > 1, "backup split into chunks, got " + chunks);
+const got2 = await N.pair.moveReceive();
+check(got2 && got2.contacts.length === 40 && got2.contacts[39].card.name === "Person 39", "new device got the whole backup");
+check((await N.pair.moveReceive()) === null, "move chunks acked");
+
 if (fail) process.exit(1);
-console.log("ok  static/pair.js handshake (A↔B, A↔C, isolation, signal)");
+console.log("ok  static/pair.js handshake (A↔B, A↔C, isolation, signal) + move to new device");

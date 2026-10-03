@@ -138,5 +138,16 @@
   "js.new_persona": "Nova persona",
   "js.delete_persona_confirm": "Apagar esta persona deste dispositivo?",
   "js.add_tag": "+ etiqueta",
-  "js.share_what": "O que partilhar desta vez:"
+  "js.share_what": "O que partilhar desta vez:",
+  "move.title": "Mudar para outro dispositivo",
+  "move.receive_explain": "No seu NOVO telemóvel ou computador, toque abaixo e leia o código com a câmara do dispositivo ANTIGO. Tudo — personas, contactos, notas — é copiado, cifrado.",
+  "move.receive": "Este é o novo dispositivo — mostrar código",
+  "move.apply": "Adicionar a este dispositivo",
+  "move.send_explain": "Leu o código de mudança do seu outro dispositivo. Enviar-lhe uma cópia de tudo o que está neste?",
+  "move.send": "Enviar tudo",
+  "js.move_waiting": "Leia isto com a câmara do dispositivo antigo…",
+  "js.move_received": "Recebidos {n} contactos e {p} personas do outro dispositivo.",
+  "js.move_summary": "Serão copiados {n} contactos e {p} personas.",
+  "js.move_sent": "Enviado! Confirme no novo dispositivo.",
+  "js.move_too_big": "Demasiado para mudar por código. Use Descarregar cópia e Restaurar cópia."
 }

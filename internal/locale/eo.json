@@ -138,5 +138,16 @@
   "js.new_persona": "Nova persono",
   "js.delete_persona_confirm": "Ĉu forigi ĉi tiun personon el ĉi tiu aparato?",
   "js.add_tag": "+ etikedo",
-  "js.share_what": "Kion konigi ĉi-foje:"
+  "js.share_what": "Kion konigi ĉi-foje:",
+  "move.title": "Transloki al nova aparato",
+  "move.receive_explain": "En via NOVA telefono aŭ komputilo, tuŝu sube kaj skanu la kodon per la fotilo de via MALNOVA aparato. Ĉio — personoj, kontaktoj, notoj — kopiiĝas, ĉifrite.",
+  "move.receive": "Ĉi tio estas mia nova aparato — montri kodon",
+  "move.apply": "Aldoni al ĉi tiu aparato",
+  "move.send_explain": "Vi skanis la translokan kodon de via alia aparato. Ĉu sendi al ĝi kopion de ĉio en ĉi tiu?",
+  "move.send": "Sendi ĉion",
+  "js.move_waiting": "Skanu ĉi tion per la fotilo de via malnova aparato…",
+  "js.move_received": "Ricevis {n} kontaktojn kaj {p} personojn de via alia aparato.",
+  "js.move_summary": "{n} kontaktoj kaj {p} personoj estos kopiitaj.",
+  "js.move_sent": "Sendite! Konfirmu en via nova aparato.",
+  "js.move_too_big": "Tro multe por transloki per kodo. Uzu Elŝuti sekurkopion kaj Restarigi sekurkopion."
 }

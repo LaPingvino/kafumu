@@ -70,7 +70,11 @@ Everything before the event serves that; the rest of M1 follows after.
       its own fields and one-liners; the one-liner becomes pickable chips + free text. On /connect, before
       or while showing the code, tick which persona/fields to hand over this time (the hello/reply carries
       only those). The receiver can add their own chips/tags about the contact ("met at WS", "robotics").
-- [ ] 6c. Share with self: move everything (personas, contacts, notes, keys) to a new device by scanning
+- [x] 6c. Share with self: Contacts → "This is my new device — show code"; the old device scans it and
+      lands on /m#…, confirms, and sends its backup as encrypted chunks (≤30 × 5k chars) through the
+      same ECDH handshake (kind "move", own box); the new device confirms before merging. Tested in
+      pair_test (40 contacts, chunked) and the browser test (third browser receives).
+      Was: Share with self: move everything (personas, contacts, notes, keys) to a new device by scanning
       a "transfer" code — same ECDH handshake, a different message type, one-shot. Also JSON export/import.
       Lower priority than 6 export, but it IS the fix for the iOS Safari→home-screen storage split.
 - [ ] 7. Meetups (fallback records, need account): "coffee at Pavilion 2, 15:00", side events, RSVP,

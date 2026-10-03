@@ -132,6 +132,14 @@ func (h *Home) ShowContacts(w http.ResponseWriter, r *http.Request) {
 	h.render(w, "contacts.html", p)
 }
 
+// ShowMove renders the page a scanned move code opens on the old device.
+func (h *Home) ShowMove(w http.ResponseWriter, r *http.Request) {
+	p := h.newPage(r, "")
+	p.Title, p.Tab = locale.T(p.Lang, "move.title"), "contacts"
+	w.Header().Set("Referrer-Policy", "no-referrer")
+	h.render(w, "move.html", p)
+}
+
 // Funcs are the template functions. Translations come from our own files,
 // so they may contain markup.
 var Funcs = template.FuncMap{

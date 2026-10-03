@@ -138,5 +138,16 @@
   "js.new_persona": "Nieuwe persona",
   "js.delete_persona_confirm": "Deze persona van dit apparaat verwijderen?",
   "js.add_tag": "+ tag",
-  "js.share_what": "Wat deel je deze keer:"
+  "js.share_what": "Wat deel je deze keer:",
+  "move.title": "Naar een nieuw apparaat",
+  "move.receive_explain": "Tik op je NIEUWE telefoon of computer hieronder en scan de code met de camera van je OUDE apparaat. Alles — persona's, contacten, notities — wordt versleuteld overgezet.",
+  "move.receive": "Dit is mijn nieuwe apparaat — toon code",
+  "move.apply": "Toevoegen aan dit apparaat",
+  "move.send_explain": "Je hebt de verhuiscode van je andere apparaat gescand. Een kopie van alles op dit apparaat ernaartoe sturen?",
+  "move.send": "Alles versturen",
+  "js.move_waiting": "Scan dit met de camera van je oude apparaat…",
+  "js.move_received": "{n} contacten en {p} persona's ontvangen van je andere apparaat.",
+  "js.move_summary": "{n} contacten en {p} persona's worden gekopieerd.",
+  "js.move_sent": "Verstuurd! Bevestig op je nieuwe apparaat.",
+  "js.move_too_big": "Te veel om met een code over te zetten. Gebruik Back-up downloaden en Back-up terugzetten."
 }

@@ -92,28 +92,88 @@
       return fetchFn(base + "/api/box/" + box + "/ack", { method: "POST", body: JSON.stringify(ids), credentials: "omit" });
     }
 
-    function inviteBox(pubRaw) {
-      return subtle.digest("SHA-256", concat(enc.encode("kafumu invite v1|"), pubRaw)).then(hex);
+    function inviteBox(pubRaw, kind) {
+      return subtle.digest("SHA-256", concat(enc.encode("kafumu " + (kind || "invite") + " v1|"), pubRaw)).then(hex);
     }
 
     // invite returns the current invite (new one if none or expired). Its
     // private key stays in the device store, so late hellos still arrive
     // after the page is closed and reopened within the hour.
-    function invite(fresh) {
-      return store.get("invite").then(function (inv) {
+    // kind "move" is a share-with-self code: same keys, its own box and URL.
+    function invite(fresh, kind) {
+      kind = kind || "invite";
+      var key = kind === "invite" ? "invite" : "invite:" + kind;
+      return store.get(key).then(function (inv) {
         if (!fresh && inv && Date.now() - inv.createdAt < INVITE_TTL) return inv;
         return genKey().then(function (k) {
           return rawPub(k).then(function (pub) {
-            return inviteBox(pub).then(function (box) {
+            return inviteBox(pub, kind).then(function (box) {
               var inv = { priv: k.privateKey, pub: b64(pub), box: box, createdAt: Date.now() };
-              return store.set("invite", inv).then(function () { return inv; });
+              return store.set(key, inv).then(function () { return inv; });
             });
           });
         });
       }).then(function (inv) {
         inv.payload = "v1." + inv.pub;
-        inv.url = base + "/c#" + inv.payload;
+        inv.url = base + (kind === "move" ? "/m#" : "/c#") + inv.payload;
         return inv;
+      });
+    }
+
+    var CHUNK = 5000; // characters of JSON per message; ciphertext stays under the 8 KB box limit
+
+    // moveSend runs on the old device: send obj (a backup) to the new
+    // device that shows the move code, in encrypted chunks.
+    function moveSend(payload, obj) {
+      var m = /^v1\.([A-Za-z0-9_-]{80,100})$/.exec((payload || "").trim());
+      if (!m) return Promise.reject(new Error("not a Kafumu code"));
+      var aRaw = unb64(m[1]), text = JSON.stringify(obj), parts = [];
+      for (var i = 0; i < text.length; i += CHUNK) parts.push(text.slice(i, i + CHUNK));
+      if (parts.length > 30) return Promise.reject(new Error("too big to move by code; use a backup file"));
+      return genKey().then(function (k) {
+        return rawPub(k).then(function (bRaw) {
+          return Promise.all([pairKey(k.privateKey, aRaw, aRaw, bRaw), inviteBox(aRaw, "move")]).then(function (r) {
+            var key = r[0], box = r[1], pub = b64(bRaw);
+            return parts.reduce(function (p, part, i) {
+              return p.then(function () {
+                return seal(key, box, { t: "move", i: i, n: parts.length, part: part })
+                  .then(function (ct) { return post(box, JSON.stringify({ v: 1, pub: pub, ct: ct })); });
+              });
+            }, Promise.resolve()).then(function () { return parts.length; });
+          });
+        });
+      });
+    }
+
+    // moveReceive runs on the new device: returns the received object once
+    // every chunk from one sender has arrived, else null.
+    function moveReceive() {
+      return store.get("invite:move").then(function (inv) {
+        if (!inv) return null;
+        var aRaw = unb64(inv.pub);
+        return list(inv.box).then(function (msgs) {
+          var bySender = {}, ids = {};
+          return msgs.reduce(function (p, msg) {
+            return p.then(function () {
+              var env = JSON.parse(msg.data), bRaw = unb64(env.pub);
+              return pairKey(inv.priv, bRaw, aRaw, bRaw).then(function (key) { return open(key, inv.box, env.ct); })
+                .then(function (body) {
+                  if (body.t !== "move") return;
+                  (bySender[env.pub] = bySender[env.pub] || { n: body.n, parts: {} }).parts[body.i] = body.part;
+                  (ids[env.pub] = ids[env.pub] || []).push(msg.id);
+                }).catch(function () {});
+            });
+          }, Promise.resolve()).then(function () {
+            for (var pub in bySender) {
+              var s = bySender[pub], got = Object.keys(s.parts).length;
+              if (got < s.n) continue;
+              var text = "";
+              for (var i = 0; i < s.n; i++) text += s.parts[i];
+              return ack(inv.box, ids[pub]).then(function () { return JSON.parse(text); });
+            }
+            return null;
+          });
+        });
       });
     }
 
@@ -194,7 +254,7 @@
       });
     }
 
-    return { invite: invite, accept: accept, checkInvite: checkInvite, checkContact: checkContact, send: send,
+    return { invite: invite, accept: accept, moveSend: moveSend, moveReceive: moveReceive, checkInvite: checkInvite, checkContact: checkContact, send: send,
       _open: open, _boxOf: boxOf, _inviteBox: inviteBox, _unb64: unb64 };
   }
 

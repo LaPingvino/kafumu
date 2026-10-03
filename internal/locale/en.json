@@ -138,5 +138,16 @@
   "js.new_persona": "New persona",
   "js.delete_persona_confirm": "Delete this persona from this device?",
   "js.add_tag": "+ tag",
-  "js.share_what": "What to share this time:"
+  "js.share_what": "What to share this time:",
+  "move.title": "Move to a new device",
+  "move.receive_explain": "On your NEW phone or computer, tap below and scan the code with your OLD device's camera. Everything — personas, contacts, notes — is copied over, encrypted.",
+  "move.receive": "This is my new device — show code",
+  "move.apply": "Add to this device",
+  "move.send_explain": "You scanned the move code of your other device. Send it a copy of everything on this one?",
+  "move.send": "Send everything",
+  "js.move_waiting": "Scan this with your old device's camera…",
+  "js.move_received": "Received {n} contacts and {p} personas from your other device.",
+  "js.move_summary": "{n} contacts and {p} personas will be copied.",
+  "js.move_sent": "Sent! Confirm on your new device.",
+  "js.move_too_big": "Too much to move by code. Use Download backup and Restore backup instead."
 }

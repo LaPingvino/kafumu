@@ -35,7 +35,22 @@ try {
   await B.goto(base + "/contacts");
   await B.waitFor("document.getElementById('contacts').textContent.includes('Ana')", "Ana on B's contacts page");
   if (await B.evaluate("document.getElementById('contacts').textContent.includes('open source')")) throw new Error("unticked field was shared");
-  console.log("ok  connect pages in two browsers (A shows, B scans, both connected, both on Contacts, unticked field withheld)");
+  // Share with self: a fresh browser (C) shows a move code, B sends everything.
+  const C = await browser(9335);
+  try {
+    await C.goto(base + "/contacts");
+    await C.evaluate("document.getElementById('move-start').click()");
+    await C.waitFor("!!document.querySelector('#move-qr svg')", "C's move code");
+    const mv = await C.evaluate("(async () => (await window.kafumuPair.create({fetch, store: kafumuDevice.store, origin: location.origin}).invite(false, 'move')).url)()");
+    await B.goto(mv);
+    await B.evaluate("document.getElementById('move-send').click()");
+    await B.waitFor("document.getElementById('move-send').hidden", "B sent");
+    await C.waitFor("!document.getElementById('move-apply').hidden", "C received");
+    await C.evaluate("document.getElementById('move-apply').click()");
+    await sleep(2000);
+    await C.waitFor("document.getElementById('contacts').textContent.includes('Ana')", "Ana moved to C");
+  } finally { C.close(); }
+  console.log("ok  connect pages in two browsers (A shows, B scans, both connected, both on Contacts, unticked field withheld, moved to a new device)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

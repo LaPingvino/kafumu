@@ -1,0 +1,13 @@
+{{template "head" .}}
+<h1>{{t .Lang "move.title"}}</h1>
+<div class="card" style="padding:4px 16px 12px">
+  <p>{{t .Lang "move.send_explain"}}</p>
+  <p id="send-summary" class="dim"></p>
+  <div class="actions"><button type="button" id="move-send" class="pill suggested">{{t .Lang "move.send"}}</button></div>
+  <p id="send-status" class="dim" role="status"></p>
+</div>
+<script>window.KAFUMU_T = {{.JS}};</script>
+<script src="/static/device.js?v={{.V}}"></script>
+<script src="/static/pair.js?v={{.V}}"></script>
+<script src="/static/move.js?v={{.V}}"></script>
+{{template "foot" .}}
