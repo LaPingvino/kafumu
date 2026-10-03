@@ -20,7 +20,10 @@ type Handler struct {
 	limiter *limiter
 }
 
-func NewHandler(s Store) *Handler { return &Handler{Store: s, limiter: newLimiter(120, time.Minute)} }
+// The per-IP limit is generous on purpose: at a conference thousands of
+// people share a few NAT'd venue addresses. Memcache absorbs the reads;
+// per-box caps (size, count) bound the writes.
+func NewHandler(s Store) *Handler { return &Handler{Store: s, limiter: newLimiter(6000, time.Minute)} }
 
 // Get handles GET /api/box/{id}: pending messages, oldest first.
 func (h *Handler) Get(w http.ResponseWriter, r *http.Request) {

@@ -126,8 +126,14 @@ Everything before the event serves that; the rest of M1 follows after.
       "Share → Add to Home Screen" hint; dismissable). /badge: printable connect code for a badge or T-shirt,
       a 14-day "badge" invite (same box/URL as a normal invite); hellos via the badge are collected on any
       page with the device store. Pair E2E covers the badge.
-- [ ] 12b. Load test the bundle path; check free-tier quotas for ~1k users/day (Datastore reads/writes per
-      open, instance hours, outbound to the AppView); write the numbers into VISION/LOOP-STATE.
+- [x] 12b. Cost + load (2026-10-03). Per Around open, before: up to ~42 Datastore reads (≤10 box polls,
+      ≤30 slots, account, badge) → 1k users × 10 opens ≈ 420k reads/day vs 50k free (≈ €0.25/day overage).
+      Fix: App Engine bundled services (app_engine_apis, appengine.Main) + memcache in front of boxes (cache
+      dropped on write) and slots (cache set on write): empty/unchanged polls cost no Datastore read.
+      Load test on prod: 300 bundles @20 parallel p50 97 ms / p95 176 ms, 0 errors. Found: per-IP limits
+      (120/240 per min) would block a conference behind venue NAT → raised to 6000/min/instance; per-box
+      caps bound writes. Remaining write budget: slot rewrites ≈ contacts per user per new place-day (20k/day
+      free ≈ 1k users × 20 contacts); if it bites, move to one slot per user (needs a card-exchange change).
 
 ## Second beachhead: language events (Joop is a HYPIA member, visits language events)
 amikumu grew through Esperanto events. Aim to be the best tool at polyglot/Esperanto/language-café

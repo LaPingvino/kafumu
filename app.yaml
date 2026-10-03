@@ -1,6 +1,8 @@
 runtime: go127
 service: default
 instance_class: F1
+# Bundled services: memcache (free) fronts mailbox and slot reads.
+app_engine_apis: true
 
 # Cap scale-out so a crawler surge can't run up instance hours.
 automatic_scaling:

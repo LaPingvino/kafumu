@@ -153,11 +153,50 @@ func (h *Handler) check(w http.ResponseWriter, r *http.Request) (string, bool) {
 		h.start, h.count = time.Now(), map[string]int{}
 	}
 	h.count[ip]++
-	over := h.count[ip] > 240
+	over := h.count[ip] > 6000 // venues share a few NAT'd addresses; see box.NewHandler
 	h.mu.Unlock()
 	if over {
 		http.Error(w, "slow down", http.StatusTooManyRequests)
 		return "", false
 	}
 	return id, true
+}
+
+// CachedStore puts a cache in front of a Store; slot writes set the cached
+// copy directly, so reads almost never reach Datastore.
+type CachedStore struct {
+	Store Store
+	Cache interface {
+		Get(ctx context.Context, key string) ([]byte, bool)
+		Set(ctx context.Context, key string, val []byte, ttl time.Duration)
+	}
+}
+
+func (s *CachedStore) Get(ctx context.Context, id string) ([]string, error) {
+	if b, ok := s.Cache.Get(ctx, "slot:"+id); ok {
+		var t []string
+		if json.Unmarshal(b, &t) == nil {
+			return t, nil
+		}
+	}
+	t, err := s.Store.Get(ctx, id)
+	if err == nil {
+		if t == nil {
+			t = []string{}
+		}
+		if b, err := json.Marshal(t); err == nil {
+			s.Cache.Set(ctx, "slot:"+id, b, 6*time.Hour)
+		}
+	}
+	return t, err
+}
+
+func (s *CachedStore) Put(ctx context.Context, id string, tokens []string) error {
+	if err := s.Store.Put(ctx, id, tokens); err != nil {
+		return err
+	}
+	if b, err := json.Marshal(tokens); err == nil {
+		s.Cache.Set(ctx, "slot:"+id, b, 6*time.Hour)
+	}
+	return nil
 }

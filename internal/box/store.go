@@ -114,3 +114,44 @@ func (s *MemoryStore) Ack(_ context.Context, id string, ids []string) error {
 	}
 	return nil
 }
+
+// CachedStore puts a cache in front of a Store. Polls of empty or unchanged
+// boxes — almost all of them — are answered from the cache; every write
+// drops the cached copy so the next read sees it.
+type CachedStore struct {
+	Store Store
+	Cache interface {
+		Get(ctx context.Context, key string) ([]byte, bool)
+		Set(ctx context.Context, key string, val []byte, ttl time.Duration)
+		Delete(ctx context.Context, key string)
+	}
+}
+
+func (s *CachedStore) List(ctx context.Context, id string) ([]Message, error) {
+	if b, ok := s.Cache.Get(ctx, "box:"+id); ok {
+		var ms []Message
+		if json.Unmarshal(b, &ms) == nil {
+			return live(ms, time.Now()), nil
+		}
+	}
+	ms, err := s.Store.List(ctx, id)
+	if err != nil {
+		return nil, err
+	}
+	if b, err := json.Marshal(ms); err == nil {
+		s.Cache.Set(ctx, "box:"+id, b, time.Hour)
+	}
+	return ms, nil
+}
+
+func (s *CachedStore) Append(ctx context.Context, id string, m Message) error {
+	err := s.Store.Append(ctx, id, m)
+	s.Cache.Delete(ctx, "box:"+id)
+	return err
+}
+
+func (s *CachedStore) Ack(ctx context.Context, id string, ids []string) error {
+	err := s.Store.Ack(ctx, id, ids)
+	s.Cache.Delete(ctx, "box:"+id)
+	return err
+}

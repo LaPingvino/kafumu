@@ -11,10 +11,12 @@ import (
 	"os"
 
 	"cloud.google.com/go/datastore"
+	"google.golang.org/appengine/v2"
 
 	"github.com/LaPingvino/kafumu/internal/account"
 	"github.com/LaPingvino/kafumu/internal/box"
 	"github.com/LaPingvino/kafumu/internal/bsky"
+	"github.com/LaPingvino/kafumu/internal/cache"
 	"github.com/LaPingvino/kafumu/internal/config"
 	"github.com/LaPingvino/kafumu/internal/gazetteer"
 	"github.com/LaPingvino/kafumu/internal/handler"
@@ -36,8 +38,9 @@ func main() {
 	meetups := &handler.Meetups{Home: home, Svc: home.Meetups, Importer: importer.New()}
 	accounts := &handler.Accounts{Home: home, Svc: account.NewService(users)}
 	home.Accounts = accounts.Svc
-	mailbox := box.NewHandler(boxes)
-	slotAPI := slot.NewHandler(slots)
+	kv := cache.New()
+	mailbox := box.NewHandler(&box.CachedStore{Store: boxes, Cache: kv})
+	slotAPI := slot.NewHandler(&slot.CachedStore{Store: slots, Cache: kv})
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /", home.ShowHome)
@@ -78,8 +81,15 @@ func main() {
 	mux.HandleFunc("GET /sw.js", func(w http.ResponseWriter, r *http.Request) { http.ServeFile(w, r, "static/sw.js") })
 	mux.HandleFunc("GET /robots.txt", func(w http.ResponseWriter, r *http.Request) { http.ServeFile(w, r, "static/robots.txt") })
 
+	root := cache.Middleware(accounts.Middleware(mux))
+	if cache.OnAppEngine() {
+		// Bundled services (memcache) need appengine.Main to serve.
+		http.Handle("/", root)
+		appengine.Main()
+		return
+	}
 	log.Printf("%s listening on :%s", cfg.Brand, cfg.Port)
-	log.Fatal(http.ListenAndServe(":"+cfg.Port, accounts.Middleware(mux)))
+	log.Fatal(http.ListenAndServe(":"+cfg.Port, root))
 }
 
 // stores uses Datastore on App Engine (or with the emulator) and memory for

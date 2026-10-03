@@ -1,11 +1,13 @@
 package box
 
 import (
+	"context"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
+	"time"
 )
 
 const id = "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
@@ -85,3 +87,45 @@ func TestRateLimit(t *testing.T) {
 		t.Errorf("4th request: %d", w.Code)
 	}
 }
+
+// countingStore counts reads that reach the underlying store.
+type countingStore struct {
+	Store
+	reads int
+}
+
+func (c *countingStore) List(ctx context.Context, id string) ([]Message, error) {
+	c.reads++
+	return c.Store.List(ctx, id)
+}
+
+func TestCachedStore(t *testing.T) {
+	inner := &countingStore{Store: NewMemoryStore()}
+	s := &CachedStore{Store: inner, Cache: newTestCache()}
+	ctx := context.Background()
+	for i := 0; i < 5; i++ {
+		s.List(ctx, id)
+	}
+	if inner.reads != 1 {
+		t.Errorf("5 polls of an empty box cost %d reads, want 1", inner.reads)
+	}
+	m, _ := NewMessage("x")
+	s.Append(ctx, id, m)
+	if ms, _ := s.List(ctx, id); len(ms) != 1 {
+		t.Errorf("write not visible after append: %v", ms)
+	}
+	s.Ack(ctx, id, []string{m.ID})
+	if ms, _ := s.List(ctx, id); len(ms) != 0 {
+		t.Errorf("ack not visible: %v", ms)
+	}
+}
+
+type testCache struct{ m map[string][]byte }
+
+func newTestCache() *testCache { return &testCache{m: map[string][]byte{}} }
+func (c *testCache) Get(_ context.Context, k string) ([]byte, bool) {
+	v, ok := c.m[k]
+	return v, ok
+}
+func (c *testCache) Set(_ context.Context, k string, v []byte, _ time.Duration) { c.m[k] = v }
+func (c *testCache) Delete(_ context.Context, k string)                         { delete(c.m, k) }
