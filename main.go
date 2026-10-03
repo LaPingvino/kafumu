@@ -5,10 +5,12 @@ package main
 import (
 	"context"
 	"embed"
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"cloud.google.com/go/datastore"
 	"google.golang.org/appengine/v2"
@@ -22,6 +24,7 @@ import (
 	"github.com/LaPingvino/kafumu/internal/handler"
 	"github.com/LaPingvino/kafumu/internal/importer"
 	"github.com/LaPingvino/kafumu/internal/meetup"
+	"github.com/LaPingvino/kafumu/internal/purge"
 	"github.com/LaPingvino/kafumu/internal/slot"
 )
 
@@ -33,7 +36,7 @@ func main() {
 	tmpl := template.Must(template.New("").Funcs(handler.Funcs).ParseFS(templateFS, "templates/*.html"))
 
 	home := &handler.Home{Cfg: cfg, Tmpl: tmpl, Bsky: bsky.NewClient(), Gaz: gazetteer.Load()}
-	users, boxes, meetupStore, slots := stores(cfg)
+	users, boxes, meetupStore, slots, db := stores(cfg)
 	home.Meetups = meetup.NewService(meetupStore)
 	meetups := &handler.Meetups{Home: home, Svc: home.Meetups, Importer: importer.New()}
 	accounts := &handler.Accounts{Home: home, Svc: account.NewService(users)}
@@ -72,6 +75,16 @@ func main() {
 	mux.HandleFunc("GET /meetups/{id}/ics", meetups.ICS)
 	mux.HandleFunc("GET /cal/{cell}", meetups.ICS)
 	mux.HandleFunc("GET /cron/feeds", meetups.SyncFeeds)
+	mux.HandleFunc("GET /cron/purge", func(w http.ResponseWriter, r *http.Request) {
+		// App Engine cron sets this header and strips it from outside requests.
+		if r.Header.Get("X-Appengine-Cron") != "true" || db == nil {
+			http.NotFound(w, r)
+			return
+		}
+		res, err := purge.Run(r.Context(), db, time.Now())
+		log.Printf("purge: %s err=%v", res, err)
+		fmt.Fprintf(w, "%s err=%v\n", res, err)
+	})
 	mux.HandleFunc("GET /api/slot/{id}", slotAPI.Get)
 	mux.HandleFunc("PUT /api/slot/{id}", slotAPI.Put)
 	mux.HandleFunc("GET /api/box/{id}", mailbox.Get)
@@ -95,14 +108,14 @@ func main() {
 
 // stores uses Datastore on App Engine (or with the emulator) and memory for
 // plain local runs, so `go run .` needs no credentials.
-func stores(cfg *config.Config) (account.Store, box.Store, meetup.Store, slot.Store) {
+func stores(cfg *config.Config) (account.Store, box.Store, meetup.Store, slot.Store, *datastore.Client) {
 	if os.Getenv("GAE_ENV") == "" && os.Getenv("DATASTORE_EMULATOR_HOST") == "" {
 		log.Printf("stores: in memory (set DATASTORE_EMULATOR_HOST to use the emulator)")
-		return account.NewMemoryStore(), box.NewMemoryStore(), meetup.NewMemoryStore(), slot.NewMemoryStore()
+		return account.NewMemoryStore(), box.NewMemoryStore(), meetup.NewMemoryStore(), slot.NewMemoryStore(), nil
 	}
 	db, err := datastore.NewClient(context.Background(), cfg.ProjectID)
 	if err != nil {
 		log.Fatalf("datastore: %v", err)
 	}
-	return &account.DatastoreStore{DB: db}, &box.DatastoreStore{DB: db}, &meetup.DatastoreStore{DB: db}, &slot.DatastoreStore{DB: db}
+	return &account.DatastoreStore{DB: db}, &box.DatastoreStore{DB: db}, &meetup.DatastoreStore{DB: db}, &slot.DatastoreStore{DB: db}, db
 }

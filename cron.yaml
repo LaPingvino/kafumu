@@ -2,3 +2,6 @@ cron:
   - description: "Pull public event calendars (feeds.json) into meetups"
     url: /cron/feeds
     schedule: every 6 hours
+  - description: "Forget what /privacy promises to forget: expired meetups, mailboxes, slots, idle accounts"
+    url: /cron/purge
+    schedule: every 24 hours
