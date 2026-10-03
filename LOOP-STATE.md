@@ -242,7 +242,8 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       notes, people; not geo/lang/place/system tags); the card editor leads with 📍 local themes. Browser-tested.
       Was: Card themes from local activity (Joop): count tags seen in Around bundles (posts, meetups,
       people, notes) on the device, per area; the card editor suggests the local ones first.
-- [ ] 15e. /oln.json per cell in eolnpoc's olnjson.Format for other OLN nodes.
+- [x] 15e. /oln.json?cell=… (cell + ring 1) in eolnpoc's olnjson.Format: server info, messages (raw, ttl in
+      days, tags), tag index, push = /api/oln; CORS open, 60 s cache. Was: /oln.json per cell in eolnpoc's olnjson.Format for other OLN nodes.
 
 ## After the event (rest of M1)
 - [x] `LaPingvino/geotags` (public, /home/joop/geotags): 6,278 cities ≥100k from GeoNames (CC BY 4.0) with

@@ -144,6 +144,7 @@ func main() {
 	mux.HandleFunc("GET /api/slot/{id}", slotAPI.Get)
 	mux.HandleFunc("PUT /api/slot/{id}", slotAPI.Put)
 	mux.HandleFunc("POST /api/oln", notes.HandlePost)
+	mux.HandleFunc("GET /oln.json", notes.Export(cfg.Origin, cfg.Brand))
 	shorts := short.New(db)
 	mux.HandleFunc("POST /api/short", shorts.Make)
 	mux.HandleFunc("GET /j/{code}", shorts.Follow)

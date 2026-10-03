@@ -3,6 +3,7 @@ package oln
 import (
 	"context"
 	"encoding/base64"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http/httptest"
@@ -106,5 +107,24 @@ func TestHandlePost(t *testing.T) {
 		if w.Code != c.code {
 			t.Errorf("%.20q → %d, want %d: %s", c.raw, w.Code, c.code, w.Body)
 		}
+	}
+}
+
+func TestExport(t *testing.T) {
+	s := NewService(NewMemoryStore())
+	now := time.Now().UTC()
+	n, err := s.Post(context.Background(), mine(BaseBits, now, "Olá", "#geo8ccgmw #coffee"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	w := httptest.NewRecorder()
+	s.Export("https://kafumu.test", "Kafumu")(w, httptest.NewRequest("GET", "/oln.json?cell=8ccgmw", nil))
+	var f Format
+	if err := json.Unmarshal(w.Body.Bytes(), &f); err != nil {
+		t.Fatal(err)
+	}
+	m, ok := f.Messages[n.ID]
+	if !ok || m.Raw != n.Raw || Bits(m.Raw) < BaseBits || len(f.Index["#coffee"]) != 1 || f.Push[0] != "https://kafumu.test/api/oln" {
+		t.Errorf("export = %+v", f)
 	}
 }
