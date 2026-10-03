@@ -25,12 +25,15 @@
     return { stop: function () { stopped = true; clearTimeout(timer); }, restart: function () { stopped = false; start = Date.now(); clearTimeout(timer); tick(); } };
   }
 
-  function myCard() { return dev.store.get("card").then(function (c) { return c || {}; }); }
+  // myCard is what this share hands over: the chosen persona, chosen fields.
+  function myCard() { return dev.personas.shareCard(); }
 
-  // ensureName shows the inline name form when the card has no name yet.
+  // ensureName shows the inline name form when the chosen persona has no
+  // name yet (first-time visitors), then continues with the card to share.
   function ensureName(form, then) {
-    myCard().then(function (card) {
-      if (card.name) { form.hidden = true; then(card); return; }
+    dev.personas.choice().then(function (ch) {
+      var card = ch.persona.card || (ch.persona.card = {});
+      if (card.name) { form.hidden = true; myCard().then(then); return; }
       form.hidden = false;
       form.onsubmit = function (e) {
         e.preventDefault();
@@ -38,8 +41,47 @@
         if (form.elements.about && form.elements.about.value.trim()) card.about = form.elements.about.value.trim();
         if (!card.name) return;
         card.updatedAt = new Date().toISOString();
-        dev.store.set("card", card).then(function () { form.hidden = true; then(card); });
+        dev.personas.save(ch.all).then(function () { form.hidden = true; return myCard(); }).then(then);
       };
+    });
+  }
+
+  // drawPicker lets you choose, per share, which persona and which of its
+  // fields to hand over. The choice is remembered for next time.
+  function drawPicker(box, onChange) {
+    if (!box) return;
+    dev.personas.choice().then(function (ch) {
+      box.textContent = "";
+      if (ch.all.length > 1) {
+        var bar = el("div", "chips");
+        ch.all.forEach(function (p, i) {
+          var b = el("button", "chip" + (p === ch.persona ? " on" : ""), p.label || (p.card && p.card.name) || "#" + (i + 1));
+          b.type = "button";
+          b.onclick = function () { dev.personas.setChoice(p.id, null).then(function () { drawPicker(box, onChange); onChange(); }); };
+          bar.appendChild(b);
+        });
+        box.appendChild(bar);
+      }
+      var c = ch.persona.card || {}, fields = ch.fields;
+      var avail = dev.FIELDS.filter(function (f) { return f !== "name" && c[f]; });
+      if (c.tags && c.tags.length) avail.push("tags");
+      if (!avail.length) return;
+      var row = el("div", "chips");
+      avail.forEach(function (f) {
+        var on = !fields || fields.indexOf(f) >= 0;
+        var label = f === "tags" ? c.tags.join(", ") : (T["field_" + f] || (f === "about" ? c.about : f));
+        var b = el("button", "chip" + (on ? " on" : ""), (on ? "✓ " : "") + label);
+        b.type = "button";
+        b.setAttribute("aria-pressed", on);
+        b.onclick = function () {
+          var next = (fields || avail.slice()).filter(function (x) { return x !== f; });
+          if (!on) next.push(f);
+          dev.personas.setChoice(ch.persona.id, next).then(function () { drawPicker(box, onChange); onChange(); });
+        };
+        row.appendChild(b);
+      });
+      box.appendChild(el("p", "dim small", T.share_what || "What to share:"));
+      box.appendChild(row);
     });
   }
 
@@ -76,7 +118,7 @@
       if (navigator.share) navigator.share({ title: "Kafumu", url: link.value }).catch(function () {});
       else if (navigator.clipboard) navigator.clipboard.writeText(link.value).then(function () { status.textContent = tr("link_copied"); });
     };
-    ensureName($("name-form"), function () { $("code-area").hidden = false; start(false); });
+    ensureName($("name-form"), function () { $("code-area").hidden = false; drawPicker($("share-picker"), function () {}); start(false); });
   }
 
   // ---- /c#v1.… : someone showed me their code ----
@@ -84,7 +126,9 @@
     var payload = location.hash.slice(1), status = $("accept-status"), list = $("accepted");
     if (!/^v1\./.test(payload)) { status.textContent = tr("bad_code"); return; }
     ensureName($("name-form"), function (card) {
-      $("send-as").textContent = tr("send_as", { name: card.name });
+      function label() { myCard().then(function (c) { card = c; $("send-as").textContent = tr("send_as", { name: c.name }); }); }
+      label();
+      drawPicker($("share-picker"), label);
       $("accept-area").hidden = false;
       $("do-connect").onclick = function () {
         $("do-connect").disabled = true;

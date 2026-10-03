@@ -127,5 +127,16 @@
   "js.remove": "Remover",
   "js.remove_confirm": "Remover este contacto deste dispositivo?",
   "js.restored": "{n} contactos restaurados.",
-  "js.restore_failed": "Isso não é uma cópia do Kafumu."
+  "js.restore_failed": "Isso não é uma cópia do Kafumu.",
+  "card.personas": "Personas",
+  "card.field_label": "Persona (só você vê isto)",
+  "card.label_placeholder": "ex.: Trabalho, Esperanto, Amigos",
+  "card.field_tags": "Do que se ocupa — toque para escolher, ou junte os seus",
+  "card.custom_tag": "Escreva o seu e prima Enter",
+  "card.delete_persona": "Apagar esta persona",
+  "js.persona_n": "Persona {n}",
+  "js.new_persona": "Nova persona",
+  "js.delete_persona_confirm": "Apagar esta persona deste dispositivo?",
+  "js.add_tag": "+ etiqueta",
+  "js.share_what": "O que partilhar desta vez:"
 }

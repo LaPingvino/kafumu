@@ -127,5 +127,16 @@
   "js.remove": "Forigi",
   "js.remove_confirm": "Ĉu forigi ĉi tiun kontakton el ĉi tiu aparato?",
   "js.restored": "{n} kontaktoj restarigitaj.",
-  "js.restore_failed": "Tio ne estas Kafumu-sekurkopio."
+  "js.restore_failed": "Tio ne estas Kafumu-sekurkopio.",
+  "card.personas": "Personoj",
+  "card.field_label": "Persono (nur vi vidas tion)",
+  "card.label_placeholder": "ekz. Laboro, Esperanto, Amikoj",
+  "card.field_tags": "Pri kio vi okupiĝas — tuŝu por elekti, aŭ aldonu viajn",
+  "card.custom_tag": "Aldonu vian kaj premu Enigon",
+  "card.delete_persona": "Forigi ĉi tiun personon",
+  "js.persona_n": "Persono {n}",
+  "js.new_persona": "Nova persono",
+  "js.delete_persona_confirm": "Ĉu forigi ĉi tiun personon el ĉi tiu aparato?",
+  "js.add_tag": "+ etikedo",
+  "js.share_what": "Kion konigi ĉi-foje:"
 }

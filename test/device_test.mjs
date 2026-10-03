@@ -30,3 +30,16 @@ console.log("ok  static/device.js links");
   if (v.split("BEGIN:VCARD").length !== 2) { console.error("pending contact exported"); process.exit(1); }
   console.log("ok  static/device.js vcards");
 }
+
+// Personas: share hands over the name plus only the ticked fields.
+{
+  const { personas } = globalThis.kafumuDevice;
+  const p = { card: { name: "Ana", email: "a@b.pt", phone: "+351", linkedin: "ana", tags: ["AI", "Esperanto"] } };
+  const all = personas.share(p, null);
+  const some = personas.share(p, ["email"]);
+  const bad = [];
+  if (!(all.email && all.phone && all.linkedin && all.tags.length === 2)) bad.push("share all: " + JSON.stringify(all));
+  if (JSON.stringify(some) !== JSON.stringify({ name: "Ana", email: "a@b.pt" })) bad.push("share some: " + JSON.stringify(some));
+  if (bad.length) { console.error(bad.join("\n")); process.exit(1); }
+  console.log("ok  static/device.js personas.share");
+}

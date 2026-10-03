@@ -62,7 +62,11 @@ Everything before the event serves that; the rest of M1 follows after.
       Was: Contacts page: everyone you've scanned, notes, one-tap open of their links; export (vCard/JSON)
       — NON-NEGOTIABLE before the event: Safari evicts non-installed site data after 7 idle days, and an
       iOS home-screen PWA has separate storage from Safari (contacts don't carry over on install).
-- [ ] 6b. Personas, mix and match (Joop): several cards ("Work", "Esperanto", "Friends") each with
+- [x] 6b. Personas: several cards (label only you see), tag chips (suggested + your own), `personas.share`
+      hands over name + ticked fields only; per-share picker on /connect and /c (remembered); receiver's
+      own private tags on each contact; vCard CATEGORIES; backup includes personas. Browser test checks
+      an unticked field is withheld. `test/cdp.mjs` = reusable CDP driver.
+      Was: Personas, mix and match (Joop): several cards ("Work", "Esperanto", "Friends") each with
       its own fields and one-liners; the one-liner becomes pickable chips + free text. On /connect, before
       or while showing the code, tick which persona/fields to hand over this time (the hello/reply carries
       only those). The receiver can add their own chips/tags about the contact ("met at WS", "robotics").
@@ -103,6 +107,7 @@ Liberapay now, Stripe later · discoverability opt-in · "Kafumu" everywhere · 
 start (magic link re-binds them after a domain move).
 
 ## Notes
+- Don't trust `--dump-dom`/`--screenshot` for IndexedDB-driven UI (virtual time stalls IDB); use cdp.mjs.
 - Headless check: `chromium --headless=new --dump-dom` works outside the sandbox (needs a socket);
   run the server on PORT=18080 with absolute paths (TMPDIR differs outside the sandbox).
 - Joop (2026-10-03): "be daring, corrections are cheap"; ping his phone only for urgent things.

@@ -127,5 +127,16 @@
   "js.remove": "Remove",
   "js.remove_confirm": "Remove this contact from this device?",
   "js.restored": "Restored {n} contacts.",
-  "js.restore_failed": "That isn't a Kafumu backup."
+  "js.restore_failed": "That isn't a Kafumu backup.",
+  "card.personas": "Personas",
+  "card.field_label": "Persona (only you see this)",
+  "card.label_placeholder": "e.g. Work, Esperanto, Friends",
+  "card.field_tags": "What you're about — tap to pick, or add your own",
+  "card.custom_tag": "Add your own and press Enter",
+  "card.delete_persona": "Delete this persona",
+  "js.persona_n": "Persona {n}",
+  "js.new_persona": "New persona",
+  "js.delete_persona_confirm": "Delete this persona from this device?",
+  "js.add_tag": "+ tag",
+  "js.share_what": "What to share this time:"
 }

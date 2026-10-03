@@ -127,5 +127,16 @@
   "js.remove": "Verwijderen",
   "js.remove_confirm": "Dit contact van dit apparaat verwijderen?",
   "js.restored": "{n} contacten teruggezet.",
-  "js.restore_failed": "Dat is geen Kafumu-back-up."
+  "js.restore_failed": "Dat is geen Kafumu-back-up.",
+  "card.personas": "Persona's",
+  "card.field_label": "Persona (alleen jij ziet dit)",
+  "card.label_placeholder": "bijv. Werk, Esperanto, Vrienden",
+  "card.field_tags": "Waar je mee bezig bent — tik om te kiezen, of voeg je eigen toe",
+  "card.custom_tag": "Typ je eigen en druk op Enter",
+  "card.delete_persona": "Deze persona verwijderen",
+  "js.persona_n": "Persona {n}",
+  "js.new_persona": "Nieuwe persona",
+  "js.delete_persona_confirm": "Deze persona van dit apparaat verwijderen?",
+  "js.add_tag": "+ tag",
+  "js.share_what": "Wat deel je deze keer:"
 }

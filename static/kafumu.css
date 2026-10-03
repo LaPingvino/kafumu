@@ -162,3 +162,12 @@ footer { padding: 16px; }
 .contact > .contrast { margin-top: .5rem; }
 label.import { color: var(--fg); font-size: .95rem; margin: 0; }
 #contacts-tools input { margin: 8px 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin: .4rem 0; }
+.chip { font-size: .85rem; font-weight: 600; padding: 3px 12px; min-height: 28px; border-radius: 99px; background: var(--button-bg); color: var(--fg); border: 0; }
+span.chip { display: inline-flex; align-items: center; }
+.chip.on { background: var(--accent-bg); color: var(--accent-fg); }
+.chips.mine .chip { background: transparent; box-shadow: inset 0 0 0 1px var(--border); }
+.chip-input { width: 7.5em; min-height: 28px; padding: 3px 10px; border-radius: 99px; font-size: .85rem; margin: 0; display: inline-block; }
+.chip-input.wide { width: 100%; border-radius: 8px; }
+.chips.switch { margin: .25rem 0 .75rem; }
+.small { font-size: .85rem; margin: .5rem 0 0; }
