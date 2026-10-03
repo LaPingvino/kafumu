@@ -296,25 +296,78 @@
     return tr("d_ago", { n: Math.round(s / 86400) });
   }
 
-  function locate() {
-    if (!navigator.geolocation) { setStatus(tr("no_location")); return; }
+  // Location is only asked for after a tap. Once you've used it, later
+  // visits locate silently (the browser remembers the permission).
+  function pref(k, v) {
+    try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) {}
+    return null;
+  }
+  function locate(silent) {
+    if (!navigator.geolocation) { if (!silent) setStatus(tr("no_location")); return; }
+    if (!silent) setStatus(tr("locating"));
     navigator.geolocation.getCurrentPosition(function (pos) {
+      pref("kafumu.autoLocate", "1");
       // Round immediately: only the 5 km cell is kept.
-      show(cell(pos.coords.latitude, pos.coords.longitude), tr("your_cell"), true);
+      var c = cell(pos.coords.latitude, pos.coords.longitude);
+      $("picker").hidden = true;
+      show(c, tr("your_cell"), true);
     }, function () {
-      var last = null;
-      try { last = localStorage.getItem("kafumu.lastCell"); } catch (e) {}
-      if (last && validCell(last)) show(last, tr("last_cell"));
-      else { setStatus(tr("unavailable")); $("manual").open = true; }
+      if (!silent) { setStatus(tr("unavailable")); openPicker(); }
     }, { enableHighAccuracy: false, timeout: 10000, maximumAge: 600000 });
   }
+
+  function choose(c, how) {
+    history.replaceState(null, "", "/?cell=" + c);
+    show(c, how || tr("chosen_cell"));
+  }
+
+  function drawMap(around, selected) {
+    $("map-hint").hidden = false;
+    window.kafumuArea.render($("area-map-box"), around, selected, function (c) {
+      drawMap(around, c);
+      choose(c);
+    });
+  }
+
+  function openPicker() {
+    $("picker").hidden = false;
+    var cur = $("cell-tag").textContent.replace("#geo", "");
+    if (validCell(cur)) drawMap(cur, cur);
+  }
+
+  var searchTimer;
+  $("place-q").addEventListener("input", function () {
+    var q = this.value.trim();
+    clearTimeout(searchTimer);
+    if (q.length < 2) { $("place-results").textContent = ""; return; }
+    searchTimer = setTimeout(function () {
+      fetch("/places?q=" + encodeURIComponent(q)).then(function (r) { return r.json(); }).then(function (ms) {
+        var ul = $("place-results");
+        ul.textContent = "";
+        ms.forEach(function (m) {
+          var li = document.createElement("li"), b = document.createElement("button");
+          b.type = "button";
+          b.textContent = m.name + (m.country ? " · " + m.country : "") + "  #" + m.tag;
+          b.onclick = function () {
+            ul.textContent = "";
+            $("place-q").value = m.name;
+            drawMap(m.cell, m.cell);
+            choose(m.cell, tr("chosen_place", { place: m.name }));
+          };
+          li.appendChild(b); ul.appendChild(li);
+        });
+      }).catch(function () {});
+    }, 250);
+  });
+  $("locate").onclick = function () { locate(false); };
+  $("change-area").onclick = function () { if ($("picker").hidden) openPicker(); else $("picker").hidden = true; };
 
   $("manual-form").addEventListener("submit", function (e) {
     e.preventDefault();
     var c = parsePlace(this.where.value);
     if (!c) { setStatus(tr("bad_place")); return; }
-    history.replaceState(null, "", "/?cell=" + c);
-    show(c, tr("chosen_cell"));
+    drawMap(c, c);
+    choose(c);
   });
 
   // Signals from people you've connected with. Only recent contacts are
@@ -349,8 +402,10 @@
   }
   checkSignals();
 
-  var given = $("here").dataset.cell;
+  var given = $("here").dataset.cell, last = pref("kafumu.lastCell");
   if (given && validCell(given)) show(given, tr("shared_cell"));
-  else locate();
+  else if (pref("kafumu.autoLocate") === "1") { if (last && validCell(last)) show(last, tr("your_area")); locate(true); }
+  else if (last && validCell(last)) show(last, tr("your_area"));
+  else { setStatus(tr("pick_first")); openPicker(); }
 
 })();

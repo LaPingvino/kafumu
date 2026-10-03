@@ -4,6 +4,7 @@ go 1.24.0
 
 require (
 	cloud.google.com/go/datastore v1.22.0
+	golang.org/x/text v0.32.0
 	google.golang.org/appengine/v2 v2.0.6
 )
 
@@ -30,7 +31,6 @@ require (
 	golang.org/x/oauth2 v0.34.0 // indirect
 	golang.org/x/sync v0.19.0 // indirect
 	golang.org/x/sys v0.39.0 // indirect
-	golang.org/x/text v0.32.0 // indirect
 	golang.org/x/time v0.14.0 // indirect
 	google.golang.org/api v0.259.0 // indirect
 	google.golang.org/genproto v0.0.0-20251202230838-ff82c1b0f217 // indirect

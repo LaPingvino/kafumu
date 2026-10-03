@@ -282,5 +282,14 @@
   "badge.scan": "Leia para se ligar",
   "badge.print": "Imprimir",
   "badge.note": "Quem vir este código pode enviar-lhe o seu cartão — é essa a ideia. Só recebe o seu quando o seu telemóvel responder.",
-  "badge.new_confirm": "Criar um novo código? O impresso deixa de funcionar ao fim de duas semanas de qualquer forma."
+  "badge.new_confirm": "Criar um novo código? O impresso deixa de funcionar ao fim de duas semanas de qualquer forma.",
+  "area.change": "Mudar de zona",
+  "area.title": "A sua zona",
+  "area.search": "Procure uma cidade ou vila…",
+  "area.locate": "Usar a minha localização",
+  "area.tap_hint": "Toque num bloco para o tornar a sua zona (cerca de 5 × 5 km). Só o bloco é usado, nunca a sua posição exata.",
+  "js.locating": "A encontrar a sua zona…",
+  "js.chosen_place": "A mostrar {place}:",
+  "js.your_area": "A sua zona:",
+  "js.pick_first": "Onde está? Procure um lugar ou use a sua localização — nada é partilhado até escolher."
 }

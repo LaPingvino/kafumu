@@ -140,6 +140,12 @@ amikumu grew through Esperanto events. Aim to be the best tool at polyglot/Esper
 events early, so it spreads locally by word of mouth. Means: language tags + people matching early,
 event entries for language gatherings (only with verified dates/venues — never guessed), EO/PT/EN/NL UI.
 
+- [x] 12c. Area picker (Joop's idea): no location request on load any more. First visit: "Where are
+      you?" with search over the gazetteer (/places?q=, accent-insensitive, biggest first) and "📍 Use my
+      location" (after a tap; remembered, so later visits locate silently). Choosing a place draws a 7×7
+      grid of #geo blocks on OpenStreetMap tiles (static/area.js, attribution shown); tap a block to make it
+      your area. "Change area" reopens it. Browser test covers search → map → tap.
+
 ## After the event (rest of M1)
 - [x] `LaPingvino/geotags` (public, /home/joop/geotags): 6,278 cities ≥100k from GeoNames (CC BY 4.0) with
       tag, native + curated aliases, radius from population, centre cell, ambiguity (duplicates, ≤3 chars,

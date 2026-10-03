@@ -282,5 +282,14 @@
   "badge.scan": "Scan om te verbinden",
   "badge.print": "Afdrukken",
   "badge.note": "Iedereen die deze code ziet kan je zijn of haar kaartje sturen — dat is de bedoeling. Ze krijgen het jouwe pas als je telefoon antwoordt.",
-  "badge.new_confirm": "Een nieuwe code maken? De afgedrukte werkt hoe dan ook nog maar twee weken."
+  "badge.new_confirm": "Een nieuwe code maken? De afgedrukte werkt hoe dan ook nog maar twee weken.",
+  "area.change": "Gebied wijzigen",
+  "area.title": "Je gebied",
+  "area.search": "Zoek een stad of dorp…",
+  "area.locate": "Mijn locatie gebruiken",
+  "area.tap_hint": "Tik op een blok om het je gebied te maken (zo'n 5 × 5 km). Alleen het blok wordt gebruikt, nooit je precieze positie.",
+  "js.locating": "Je gebied zoeken…",
+  "js.chosen_place": "{place}:",
+  "js.your_area": "Je gebied:",
+  "js.pick_first": "Waar ben je? Zoek een plek of gebruik je locatie — er wordt niets gedeeld tot je kiest."
 }

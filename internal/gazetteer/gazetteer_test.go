@@ -87,3 +87,19 @@ func BenchmarkTags(b *testing.B) {
 		g.Tags(cells)
 	}
 }
+
+func TestSearch(t *testing.T) {
+	g := Load()
+	if m := g.Search("Lisbo", 5); len(m) == 0 || m[0].Tag != "lisbon" {
+		t.Errorf("Lisbo → %+v", m)
+	}
+	if m := g.Search("sao pau", 3); len(m) == 0 || m[0].Tag != "saopaulo" {
+		t.Errorf("sao pau → %+v", m)
+	}
+	if m := g.Search("barreiro", 3); len(m) == 0 || m[0].Cell != "8ccgmh" && m[0].Tag != "barreiro" {
+		t.Errorf("barreiro → %+v", m)
+	}
+	if m := g.Search("x", 3); m != nil {
+		t.Errorf("one letter searched: %+v", m)
+	}
+}

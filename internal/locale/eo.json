@@ -282,5 +282,14 @@
   "badge.scan": "Skanu por konektiĝi",
   "badge.print": "Presi",
   "badge.note": "Ĉiu, kiu vidas ĉi tiun kodon, povas sendi al vi sian karton — tio estas la celo. Ili ricevas la vian nur kiam via telefono respondas.",
-  "badge.new_confirm": "Ĉu fari novan kodon? La presita ĉiukaze ĉesos funkcii post du semajnoj."
+  "badge.new_confirm": "Ĉu fari novan kodon? La presita ĉiukaze ĉesos funkcii post du semajnoj.",
+  "area.change": "Ŝanĝi areon",
+  "area.title": "Via areo",
+  "area.search": "Serĉu urbon aŭ vilaĝon…",
+  "area.locate": "Uzi mian lokon",
+  "area.tap_hint": "Tuŝu blokon por fari ĝin via areo (ĉirkaŭ 5 × 5 km). Nur la bloko estas uzata, neniam via preciza pozicio.",
+  "js.locating": "Serĉante vian areon…",
+  "js.chosen_place": "Montrante {place}:",
+  "js.your_area": "Via areo:",
+  "js.pick_first": "Kie vi estas? Serĉu lokon aŭ uzu vian lokon — nenio estas konigata ĝis vi elektas."
 }

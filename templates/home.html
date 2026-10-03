@@ -1,19 +1,27 @@
 {{template "head" .}}
 <section id="here" data-cell="{{.Cell}}">
-  <p class="muted" id="status">{{t .Lang "home.finding"}}</p>
+  <p class="muted" id="status"></p>
   <h1 class="cell-tag" hidden><span id="cell-tag"></span></h1>
   <p id="cell-actions" class="actions" hidden>
     <a id="compose" role="button" class="suggested pill" target="_blank" rel="noopener">{{t .Lang "home.post_here"}}</a>
     <a id="share" href="#" role="button" class="pill">{{t .Lang "home.share"}}</a>
     <a href="/meetups/new" role="button" class="pill">{{t .Lang "meetup.new_title"}}</a>
+    <button type="button" id="change-area" class="pill">{{t .Lang "area.change"}}</button>
   </p>
-  <details id="manual">
-    <summary>{{t .Lang "home.pick_place"}}</summary>
-    <form id="manual-form">
+  <div id="picker" class="card" style="padding:4px 16px 12px" hidden>
+    <h2>{{t .Lang "area.title"}}</h2>
+    <div class="inline-row">
+      <input id="place-q" type="search" autocomplete="off" placeholder="{{ts .Lang "area.search"}}" aria-label="{{ts .Lang "area.search"}}">
+      <button type="button" id="locate">📍 {{t .Lang "area.locate"}}</button>
+    </div>
+    <ul id="place-results"></ul>
+    <div id="area-map-box"></div>
+    <p class="dim small" id="map-hint" hidden>{{t .Lang "area.tap_hint"}}</p>
+    <form id="manual-form" class="inline-row">
       <input name="where" placeholder="{{ts .Lang "home.pick_placeholder"}}" aria-label="{{ts .Lang "home.pick_place"}}">
       <button type="submit">{{t .Lang "home.go"}}</button>
     </form>
-  </details>
+  </div>
 </section>
 
 <div id="events" class="card events" hidden></div>
@@ -49,5 +57,6 @@
 <script src="/static/device.js?v={{.V}}"></script>
 <script src="/static/pair.js?v={{.V}}"></script>
 <script src="/static/geo.js?v={{.V}}"></script>
+<script src="/static/area.js?v={{.V}}"></script>
 <script src="/static/kafumu.js?v={{.V}}"></script>
 {{template "foot" .}}

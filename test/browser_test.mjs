@@ -11,6 +11,17 @@ const fill = (form, values) => `(() => { const f = document.getElementById(${JSO
 
 const A = await browser(9333), B = await browser(9334);
 try {
+  // Area picker: no location prompt on load; search, map, tap a block.
+  await A.goto(base + "/");
+  await A.waitFor("!document.getElementById('picker').hidden", "picker shown on first visit");
+  await A.evaluate("(() => { const q = document.getElementById('place-q'); q.value = 'Barreiro'; q.dispatchEvent(new Event('input')); return true; })()");
+  await A.waitFor("document.querySelectorAll('#place-results button').length > 0", "search results");
+  await A.evaluate("document.querySelector('#place-results button').click()");
+  await A.waitFor("document.querySelectorAll('.area-map .cell').length === 49", "7×7 cell grid");
+  const before = await A.evaluate("document.getElementById('cell-tag').textContent");
+  await A.evaluate("document.querySelectorAll('.area-map .cell')[10].click()");
+  await A.waitFor(`document.getElementById('cell-tag').textContent !== ${JSON.stringify(before)}`, "tapped block becomes the area");
+
   await A.goto(base + "/connect");
   await A.waitFor("!document.getElementById('name-form').hidden", "A's name form");
   await A.evaluate(fill("name-form", { name: "Ana", about: "open source" }));
@@ -93,6 +104,7 @@ try {
     await sleep(2000);
     await C.waitFor("document.getElementById('contacts').textContent.includes('Ana')", "Ana moved to C");
   } finally { C.close(); }
+  console.log("ok  area picker (search, 7×7 map, tap a block)");
   console.log("ok  connect pages in two browsers (A shows, B scans, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device, meetup hosted and seen, findable profile seen)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;

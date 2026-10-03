@@ -282,5 +282,14 @@
   "badge.scan": "Scan to connect",
   "badge.print": "Print",
   "badge.note": "Anyone who sees this code can send you their card — that's the idea. They only get yours when your phone answers.",
-  "badge.new_confirm": "Make a new code? The printed one will stop working after two weeks anyway."
+  "badge.new_confirm": "Make a new code? The printed one will stop working after two weeks anyway.",
+  "area.change": "Change area",
+  "area.title": "Your area",
+  "area.search": "Search a city or town…",
+  "area.locate": "Use my location",
+  "area.tap_hint": "Tap a block to make it your area (about 5 × 5 km). Only the block is used, never your exact position.",
+  "js.locating": "Finding your area…",
+  "js.chosen_place": "Showing {place}:",
+  "js.your_area": "Your area:",
+  "js.pick_first": "Where are you? Search a place or use your location — nothing is shared until you choose."
 }

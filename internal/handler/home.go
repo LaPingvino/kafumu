@@ -202,6 +202,19 @@ var Funcs = template.FuncMap{
 	},
 }
 
+// Places handles GET /places?q=lis: pick an area by name.
+func (h *Home) Places(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Cache-Control", "public, max-age=86400")
+	ms := []gazetteer.Match{}
+	if h.Gaz != nil {
+		if found := h.Gaz.Search(r.URL.Query().Get("q"), 8); found != nil {
+			ms = found
+		}
+	}
+	json.NewEncoder(w).Encode(ms)
+}
+
 // Bundle handles GET /bundle?cells=a,b,c. Bundles are per cell, not per user.
 func (h *Home) Bundle(w http.ResponseWriter, r *http.Request) {
 	if IsBot(r) {

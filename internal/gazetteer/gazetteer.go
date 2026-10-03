@@ -12,6 +12,9 @@ import (
 	"strings"
 	"sync"
 	"time"
+	"unicode"
+
+	"golang.org/x/text/unicode/norm"
 
 	"github.com/LaPingvino/kafumu/internal/geo"
 )
@@ -66,6 +69,7 @@ type Place struct {
 	Lat     float64  `json:"lat"`
 	Lon     float64  `json:"lon"`
 	Km      float64  `json:"km"`
+	Country string   `json:"country,omitempty"`
 	// Population breaks ties: the bigger city's tag comes first.
 	Population int `json:"population,omitempty"`
 	// Ambiguous marks tags that also name other places (#paris, #london ON).
@@ -285,3 +289,65 @@ func distKm(lat1, lon1, lat2, lon2 float64) float64 {
 }
 
 func round2(x float64) float64 { return math.Round(x*100) / 100 }
+
+// Match is a search result for picking an area by name.
+type Match struct {
+	Tag     string  `json:"tag"`
+	Name    string  `json:"name"`
+	Country string  `json:"country,omitempty"`
+	Lat     float64 `json:"lat"`
+	Lon     float64 `json:"lon"`
+	Km      float64 `json:"km"`
+	Cell    string  `json:"cell"`
+}
+
+// Search finds places whose tag, alias or name starts with q (accents and
+// spacing ignored), biggest first.
+func (g *Gazetteer) Search(q string, limit int) []Match {
+	q = fold(q)
+	if len(q) < 2 {
+		return nil
+	}
+	type hit struct {
+		i     int
+		exact bool
+	}
+	var hits []hit
+	for i, p := range g.Places {
+		keys := append([]string{p.Tag, fold(p.Name)}, p.Aliases...)
+		for _, k := range keys {
+			k = fold(k)
+			if strings.HasPrefix(k, q) {
+				hits = append(hits, hit{i, k == q})
+				break
+			}
+		}
+	}
+	sort.SliceStable(hits, func(a, b int) bool {
+		if hits[a].exact != hits[b].exact {
+			return hits[a].exact
+		}
+		return g.Places[hits[a].i].Population > g.Places[hits[b].i].Population
+	})
+	var out []Match
+	for _, h := range hits {
+		if len(out) == limit {
+			break
+		}
+		p := g.Places[h.i]
+		out = append(out, Match{Tag: p.Tag, Name: p.Name, Country: p.Country, Lat: p.Lat, Lon: p.Lon, Km: p.Km, Cell: geo.Cell(p.Lat, p.Lon)})
+	}
+	return out
+}
+
+// fold lowercases and strips accents and non-letters: "São Paulo" → "saopaulo".
+func fold(s string) string {
+	var b strings.Builder
+	for _, r := range norm.NFD.String(strings.ToLower(s)) {
+		if unicode.Is(unicode.Mn, r) || !(unicode.IsLetter(r) || unicode.IsDigit(r)) {
+			continue
+		}
+		b.WriteRune(r)
+	}
+	return b.String()
+}
