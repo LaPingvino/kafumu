@@ -6,7 +6,12 @@ and add anything learned to "Notes". Keep slices small; split a slice if it runs
 
 Production: https://lokumo.ew.r.appspot.com · Repo: https://github.com/LaPingvino/kafumu
 
-**Domain (2026-10-03):** Joop set up DNS; App Engine mappings for kafumu.com + www exist, managed certs
+**Domain: LIVE (2026-10-03 ~18:30).** https://kafumu.com serves (managed certs OK after re-requesting them
+— the first attempt failed with FAILED_RETRYING_NOT_VISIBLE before DNS had propagated). Switched on:
+KAFUMU_ORIGIN=kafumu.com, legacy-origin move banner (verified moving a contact from appspot in prod),
+passkeys (prod test passes; fixed a cross-instance stale-cache bug in passkey sign-in), ATproto OAuth
+(Bluesky fetched our client metadata; consent page reached). Waiting on Joop: connect Bluesky once.
+Old notes: Joop set up DNS; App Engine mappings for kafumu.com + www exist, managed certs
 pending. Prepared: www → apex redirect (CanonicalHost), and a move flow from the old appspot origin
 (banner → opens kafumu.com/import → origin-checked postMessage hands over the device backup and the
 sign-in link). When https://kafumu.com serves: set in app.yaml

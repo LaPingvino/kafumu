@@ -375,8 +375,16 @@ func (s *Service) AddPasskey(ctx context.Context, u *User, c webauthn.Credential
 	return s.Save(ctx, u)
 }
 
-// ByID returns a user by id (for passkey logins).
-func (s *Service) ByID(ctx context.Context, id string) (*User, error) { return s.get(ctx, id) }
+// ByID returns a user by id, read fresh from the store: passkey logins
+// must see a credential added a moment ago on another instance.
+func (s *Service) ByID(ctx context.Context, id string) (*User, error) {
+	u, err := s.Store.Get(ctx, id)
+	if err == nil {
+		u.ID = id
+		s.remember(u)
+	}
+	return u, err
+}
 
 // NewSession returns a cookie value for u with a fresh session token, for
 // passkey sign-ins (the link token is stored hashed, so it can't be reused).

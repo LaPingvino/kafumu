@@ -10,7 +10,11 @@ automatic_scaling:
 
 env_variables:
   KAFUMU_BRAND: "Kafumu"
-  KAFUMU_ORIGIN: "https://lokumo.ew.r.appspot.com"
+  KAFUMU_ORIGIN: "https://kafumu.com"
+  # The old address offers to move people's device data to kafumu.com.
+  KAFUMU_LEGACY_ORIGINS: "https://lokumo.ew.r.appspot.com https://lokumo.appspot.com"
+  KAFUMU_PASSKEYS: "1"
+  KAFUMU_ATPROTO: "1"
   # Donations. A PayPal.me link or hosted button would avoid showing the address.
   KAFUMU_PAYPAL: "https://www.paypal.com/donate/?business=ikojba%40gmail.com&currency_code=EUR&item_name=Kafumu"
 
