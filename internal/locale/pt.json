@@ -358,5 +358,12 @@
   "js.w0": "ignorar",
   "js.w1": "preferir um pouco",
   "js.w2": "preferir muito",
-  "js.w3": "só estes"
+  "js.w3": "só estes",
+  "ask.button": "Perguntar por aqui",
+  "js.ask_label": "Uma pergunta para quem está por perto — quem souber pode responder em público ou em privado.",
+  "js.ask_placeholder": "Onde há um bom sítio para um café calmo com wifi?",
+  "js.ask_answering": "A responder: {q}",
+  "js.ask_for_you": "para si",
+  "js.ask_private": "Responder em privado",
+  "js.ask_public": "Responder"
 }

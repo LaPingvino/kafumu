@@ -358,5 +358,12 @@
   "js.w0": "negeren",
   "js.w1": "een beetje voorkeur",
   "js.w2": "sterke voorkeur",
-  "js.w3": "alleen deze"
+  "js.w3": "alleen deze",
+  "ask.button": "Rondvragen",
+  "js.ask_label": "Een vraag voor mensen hier in de buurt — wie het weet kan openbaar of privé antwoorden.",
+  "js.ask_placeholder": "Waar is een fijne plek voor rustige koffie en wifi?",
+  "js.ask_answering": "Antwoord op: {q}",
+  "js.ask_for_you": "voor jou",
+  "js.ask_private": "Privé antwoorden",
+  "js.ask_public": "Antwoorden"
 }

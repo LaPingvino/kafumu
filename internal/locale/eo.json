@@ -358,5 +358,12 @@
   "js.w0": "ignori",
   "js.w1": "iom preferi",
   "js.w2": "forte preferi",
-  "js.w3": "nur tiujn"
+  "js.w3": "nur tiujn",
+  "ask.button": "Demandi ĉirkaŭe",
+  "js.ask_label": "Demando por homoj ĉi-ĉirkaŭe — kiu scias, povas respondi publike aŭ private.",
+  "js.ask_placeholder": "Kie estas bona loko por trankvila kafo kun vifio?",
+  "js.ask_answering": "Respondante: {q}",
+  "js.ask_for_you": "por vi",
+  "js.ask_private": "Respondi private",
+  "js.ask_public": "Respondi"
 }

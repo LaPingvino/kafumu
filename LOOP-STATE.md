@@ -194,7 +194,11 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       OLN keywords (prefilled from the current view).
       Was: Views: filter chips (language, interest) + URL params (?cell=&lang=&tag=) applied on the
       device; explore any place; multi-ring requests for big regions (holiday destinations).
-- [ ] 15d. Questions (Aardvark): ask with interest tags into a place's cells; question carries an
+- [x] 15d. Questions, Aardvark-style: "❓ Ask around" = an OLN note tagged #ask (+ language/interests,
+      any place via Explore) carrying a connect code; "★ for you" when its tags match your card/profile tags
+      or languages (device-side); answers: "🔒 Answer privately" (Join → connect) or "💬 Answer" = a note
+      tagged #re<10-hex id>, threaded under the question. Swipe a message sideways to hide it (Joop).
+      Browser test: ask → other browser answers publicly → threaded. Was: Questions (Aardvark): ask with interest tags into a place's cells; question carries an
       invite payload; matching devices see "Questions for you"; answer privately (pair.js) or publicly.
 - [ ] 15f. Minimal PoW on mailbox posts (Joop: "no PoW should be minimal PoW"): ~10 bits over
       nonce;date;base64url(sha256(body));#box<id>, ±10 min — instant for people, a cost for bots.

@@ -54,13 +54,25 @@ try {
   await A.waitFor("!document.getElementById('signals-section').hidden && document.getElementById('signals').textContent.includes('Bea')", "B's signal in A's Around");
   // Local messages (OLN): A says something, mined in a worker; B sees it.
   await A.goto(base + "/?cell=8ccgqx");
-  await A.evaluate("document.getElementById('say').click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test: hi from the OLN'; f.requestSubmit(); true");
+  await A.evaluate("(() => { document.getElementById('say').click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test: hi from the OLN'; f.requestSubmit(); return true; })()");
   await A.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN')", "A's message in Here now", 30000);
   for (let i = 0; ; i++) { // B's browser may hold a 30-second-old bundle
     await B.goto(base + "/?cell=8ccgqx");
     try { await B.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN')", "B sees A's message", 8000); break; }
     catch (e) { if (i >= 6) throw e; }
   }
+  // Questions: A asks; B gets it (with a private-answer button) and answers
+  // publicly; the answer shows under the question.
+  await A.evaluate("(() => { document.getElementById('ask').click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test: best pastel de nata nearby?'; f.tags.value = 'food'; f.requestSubmit(); return true; })()");
+  await A.waitFor("document.getElementById('notes').textContent.includes('pastel de nata')", "A's question", 30000);
+  for (let i = 0; ; i++) {
+    await B.goto(base + "/?cell=8ccgqx");
+    try { await B.waitFor("[...document.querySelectorAll('#notes > li')].some(li => li.textContent.includes('pastel de nata') && li.querySelector('a[href*=\"/c#v1.\"]'))", "B sees the question with a private-answer button", 8000); break; }
+    catch (e) { if (i >= 8) throw e; }
+  }
+  await B.evaluate("(() => { [...document.querySelectorAll('#notes > li')].find(li => li.textContent.includes('pastel de nata')).querySelectorAll('button')[0].click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test answer: Manteigaria'; f.requestSubmit(); return true; })()");
+  await B.waitFor("[...document.querySelectorAll('#notes > li')].some(li => li.textContent.includes('pastel de nata') && li.querySelector('.replies') && li.querySelector('.replies').textContent.includes('Manteigaria'))", "answer threaded under the question", 30000);
+
   // Views: language and interest filters apply on the device, from the URL.
   await A.goto(base + "/?cell=8ccgqx&lang=eng");
   await A.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN')", "message kept by lang=eng", 15000);
@@ -136,7 +148,7 @@ try {
     await C.waitFor("document.getElementById('contacts').textContent.includes('Ana')", "Ana moved to C");
   } finally { C.close(); }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B scans, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device, meetup hosted and seen, findable profile seen, OLN message + views + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B scans, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device, meetup hosted and seen, findable profile seen, OLN message + question/answer + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

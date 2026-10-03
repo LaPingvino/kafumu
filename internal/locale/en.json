@@ -358,5 +358,12 @@
   "js.w0": "ignore",
   "js.w1": "prefer a little",
   "js.w2": "prefer strongly",
-  "js.w3": "only these"
+  "js.w3": "only these",
+  "ask.button": "Ask around",
+  "js.ask_label": "A question for people around here — those who know can answer publicly or privately.",
+  "js.ask_placeholder": "Where's a good place for a quiet coffee and wifi?",
+  "js.ask_answering": "Answering: {q}",
+  "js.ask_for_you": "for you",
+  "js.ask_private": "Answer privately",
+  "js.ask_public": "Answer"
 }

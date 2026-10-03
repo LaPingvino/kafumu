@@ -174,14 +174,25 @@
     var f = $("oln-form");
     if (f) $("oln-status").textContent = tr("oln_cost", { time: estimate(requiredBits + parseInt(f.extra.value, 10)) });
   }
+  // The composer has three modes: say, ask (a question with a connect code
+  // for private answers), and a public answer to a question.
+  var composeMode = {};
+  function openComposer(mode) {
+    composeMode = mode || {};
+    var f = $("oln-form");
+    f.hidden = false;
+    $("oln-mode").textContent = composeMode.ask ? "❓ " + tr("ask_label") : composeMode.re ? "💬 " + tr("ask_answering", { q: (composeMode.about || "").replace(/https?:\/\/\S+/, "").slice(0, 80) }) : "";
+    f.text.placeholder = composeMode.ask ? tr("ask_placeholder") : f.text.dataset.say;
+    if (!f.lang.value) f.lang.value = view.lang || ((window.KAFUMU_ME || {}).from1 || {})[document.documentElement.lang] || "";
+    if (!f.tags.value && view.tag) f.tags.value = view.tag;
+    updateEstimate(); f.text.focus();
+    f.scrollIntoView({ block: "nearest" });
+  }
+  $("ask").onclick = function () { if ($("oln-form").hidden || !composeMode.ask) openComposer({ ask: true }); else $("oln-form").hidden = true; };
   $("say").onclick = function () {
-    var f = $("oln-form"); f.hidden = !f.hidden;
-    if (!f.hidden) {
-      // Start from the current view: its language and interest are likely what you're talking about.
-      if (!f.lang.value) f.lang.value = view.lang || ((window.KAFUMU_ME || {}).from1 || {})[document.documentElement.lang] || "";
-      if (!f.tags.value && view.tag) f.tags.value = view.tag;
-      updateEstimate(); f.text.focus();
-    }
+    var f = $("oln-form");
+    if (!f.hidden && !composeMode.ask && !composeMode.re) { f.hidden = true; return; }
+    openComposer({}); // starts from the current view's language and interest
   };
   $("oln-form").extra.onchange = updateEstimate;
   $("oln-form").addEventListener("submit", function (e) {
@@ -189,12 +200,20 @@
     var f = this, text = f.text.value.trim(), bits = requiredBits + parseInt(f.extra.value, 10);
     if (!text || !currentCell) return;
     f.querySelector("button[type=submit]").disabled = true;
-    var t0 = Date.now();
-    window.kafumuOLN.post(text, olnKeywords(), bits, function (tries, ms) {
+    var t0 = Date.now(), keywords = olnKeywords(), ready = Promise.resolve();
+    if (composeMode.re) keywords += " #re" + composeMode.re.slice(0, 10);
+    if (composeMode.ask) {
+      keywords += " #ask";
+      // A question carries a connect code, so answers can also come privately.
+      var dev = window.kafumuDevice, pair = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin });
+      ready = pair.invite(false).then(function (inv) { text += "\n" + inv.url; });
+    }
+    ready.then(function () { return window.kafumuOLN.post(text, keywords, bits, function (tries, ms) {
       if (ms > 0) pref("kafumu.hashrate", String(Math.round(tries / ms * 1000)));
       $("oln-status").textContent = tr("oln_working", { n: Math.round(tries / 1000) + "k" });
-    }).then(function (n) {
+    }); }).then(function (n) {
       if (n && n.id) ownNotes.push(n);
+      composeMode = {};
       f.text.value = "";
       f.hidden = true;
       setStatus(tr("oln_sent", { s: Math.round((Date.now() - t0) / 1000) }));
@@ -236,6 +255,68 @@
 
   function hiddenNotes() { try { return JSON.parse(pref("kafumu.hiddenNotes") || "[]"); } catch (e) { return []; } }
   var ownNotes = []; // shown at once, even if another instance's cache lags
+  // Notes, questions and answers. A question is a note tagged #ask (with a
+  // connect code for private answers); a public answer is tagged #re<id>
+  // and shown under it. Questions matching your own tags come first.
+  function noteItem(n, opts) {
+    var li = document.createElement("li");
+    var meta = document.createElement("div");
+    meta.className = "meta";
+    var left = Math.max(0, (new Date(n.expires) - Date.now()) / 36e5);
+    meta.textContent = (opts.forYou ? "★ " + tr("ask_for_you") + " · " : "") + ago(n.at) + " · ⚡" + n.bits + " · " +
+      tr("oln_left", { h: left < 1 ? "<1" : Math.round(left) }) +
+      (n.tags || []).filter(function (t) { return !/^(geo|re[0-9a-f]{10}$|ask$)/.test(t); }).map(function (t) { return " #" + t; }).join("");
+    var text = document.createElement("p");
+    text.className = "text";
+    var m = n.text.match(/https?:\/\/[^\s]+\/c#v1\.[A-Za-z0-9_-]+/);
+    text.textContent = (opts.question ? "❓ " : "") + (m ? n.text.replace(m[0], "").trim() : n.text);
+    li.appendChild(meta); li.appendChild(text);
+    var row = document.createElement("div");
+    row.className = "actions";
+    if (m && m[0].indexOf(location.origin + "/c#") === 0) {
+      var join = document.createElement("a");
+      join.href = m[0]; join.setAttribute("role", "button"); join.className = "pill-sm suggested";
+      join.textContent = opts.question ? "🔒 " + tr("ask_private") : "☕ " + tr("coffee_join");
+      row.appendChild(join);
+    }
+    if (opts.question) {
+      var ans = document.createElement("button");
+      ans.type = "button"; ans.className = "pill-sm"; ans.textContent = "💬 " + tr("ask_public");
+      ans.onclick = function () { openComposer({ re: n.id, about: n.text }); };
+      row.appendChild(ans);
+    }
+    function hideIt() { var h = hiddenNotes(); h.push(n.id); pref("kafumu.hiddenNotes", JSON.stringify(h.slice(-500))); li.remove(); }
+    var hide = document.createElement("button");
+    hide.type = "button"; hide.className = "pill-sm"; hide.textContent = tr("oln_hide");
+    hide.onclick = hideIt;
+    row.appendChild(hide);
+    li.appendChild(row);
+    swipeAway(li, hideIt);
+    return li;
+  }
+
+  // swipeAway: drag an item sideways past a third of its width to hide it.
+  function swipeAway(el, done) {
+    var x0 = null, y0 = 0, dx = 0;
+    el.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; dx = 0; el.style.transition = "none"; }, { passive: true });
+    el.addEventListener("touchmove", function (e) {
+      if (x0 === null) return;
+      dx = e.touches[0].clientX - x0;
+      if (Math.abs(e.touches[0].clientY - y0) > Math.abs(dx)) { x0 = null; el.style.transform = ""; return; } // scrolling
+      el.style.transform = "translateX(" + dx + "px)";
+      el.style.opacity = String(Math.max(0.2, 1 - Math.abs(dx) / el.offsetWidth));
+    }, { passive: true });
+    el.addEventListener("touchend", function () {
+      if (x0 === null) return;
+      x0 = null;
+      el.style.transition = "transform .2s, opacity .2s";
+      if (Math.abs(dx) > el.offsetWidth / 3) {
+        el.style.transform = "translateX(" + (dx > 0 ? "" : "-") + "110%)"; el.style.opacity = "0";
+        setTimeout(done, 200);
+      } else { el.style.transform = ""; el.style.opacity = ""; }
+    });
+  }
+
   function showNotes(notes) {
     var have = {};
     notes.forEach(function (n) { have[n.id] = true; });
@@ -245,30 +326,30 @@
     notes = notes.filter(function (n) { return hidden.indexOf(n.id) < 0; });
     $("notes-section").hidden = !notes.length;
     list.textContent = "";
-    notes.forEach(function (n) {
-      var li = document.createElement("li");
-      var meta = document.createElement("div");
-      meta.className = "meta";
-      var left = Math.max(0, (new Date(n.expires) - Date.now()) / 36e5);
-      meta.textContent = ago(n.at) + " · ⚡" + n.bits + " · " + tr("oln_left", { h: left < 1 ? "<1" : Math.round(left) }) +
-        (n.tags || []).filter(function (t) { return t.indexOf("geo") !== 0; }).map(function (t) { return " #" + t; }).join("");
-      var text = document.createElement("p");
-      text.className = "text";
-      // A connect code in the message becomes a Join button.
-      var m = n.text.match(/https?:\/\/[^\s]+\/c#v1\.[A-Za-z0-9_-]+/);
-      text.textContent = m ? n.text.replace(m[0], "").trim() : n.text;
-      var hide = document.createElement("button");
-      hide.type = "button"; hide.className = "pill-sm"; hide.textContent = tr("oln_hide");
-      hide.onclick = function () { var h = hiddenNotes(); h.push(n.id); pref("kafumu.hiddenNotes", JSON.stringify(h.slice(-500))); li.remove(); };
-      li.appendChild(meta); li.appendChild(text);
-      if (m && m[0].indexOf(location.origin + "/c#") === 0) {
-        var join = document.createElement("a");
-        join.href = m[0]; join.setAttribute("role", "button"); join.className = "pill-sm suggested";
-        join.textContent = "☕ " + tr("coffee_join");
-        li.appendChild(join);
-      }
-      li.appendChild(hide);
-      list.appendChild(li);
+    loadMyTags().then(function (mine) {
+      var me = window.KAFUMU_ME || {};
+      (me.tags || []).forEach(function (t) { mine[t.toLowerCase().replace(/\s+/g, "")] = true; });
+      (me.langs || []).forEach(function (l) { mine["lang" + l.split("/")[0]] = true; });
+      var replies = {};
+      notes.forEach(function (n) {
+        (n.tags || []).forEach(function (t) { var r = /^re([0-9a-f]{10})$/.exec(t); if (r) (replies[r[1]] = replies[r[1]] || []).push(n); });
+      });
+      var isReply = function (n) { return (n.tags || []).some(function (t) { return /^re[0-9a-f]{10}$/.test(t); }); };
+      var isAsk = function (n) { return (n.tags || []).indexOf("ask") >= 0; };
+      var forYou = function (n) { return isAsk(n) && (n.tags || []).some(function (t) { return t !== "ask" && mine[t]; }); };
+      var top = notes.filter(function (n) { return !isReply(n); });
+      top.sort(function (a, z) { return forYou(z) - forYou(a); }); // stable: keeps the ranking otherwise
+      top.forEach(function (n) {
+        var li = noteItem(n, { question: isAsk(n), forYou: forYou(n) });
+        var rs = replies[n.id.slice(0, 10)];
+        if (rs) {
+          var ul = document.createElement("ul");
+          ul.className = "replies";
+          rs.slice().reverse().forEach(function (r) { ul.appendChild(noteItem(r, {})); });
+          li.appendChild(ul);
+        }
+        list.appendChild(li);
+      });
     });
   }
 

@@ -6,6 +6,7 @@
   <p id="cell-actions" class="actions" hidden>
     <button type="button" id="coffee" class="suggested pill">☕ {{t .Lang "coffee.button"}}</button>
     <button type="button" id="say" class="pill">💬 {{t .Lang "oln.say"}}</button>
+    <button type="button" id="ask" class="pill">❓ {{t .Lang "ask.button"}}</button>
     <a id="share" href="#" role="button" class="pill">{{t .Lang "home.share"}}</a>
     <a href="/meetups/new" role="button" class="pill">{{t .Lang "meetup.new_title"}}</a>
     <button type="button" id="change-area" class="pill">{{t .Lang "area.change"}}</button>
@@ -25,7 +26,8 @@
     <p class="dim small" id="coffee-status" role="status"></p>
   </div>
   <form id="oln-form" class="card" style="padding:4px 16px 12px" hidden>
-    <label>{{t .Lang "oln.label"}}<textarea name="text" rows="3" maxlength="500" placeholder="{{ts .Lang "oln.placeholder"}}"></textarea></label>
+    <p id="oln-mode" class="why"></p>
+    <label>{{t .Lang "oln.label"}}<textarea name="text" rows="3" maxlength="500" placeholder="{{ts .Lang "oln.placeholder"}}" data-say="{{ts .Lang "oln.placeholder"}}"></textarea></label>
     <div class="grid view-filters">
       <label>{{t .Lang "view.language"}}
         <select name="lang"><option value="">—</option>
