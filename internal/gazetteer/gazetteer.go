@@ -10,10 +10,18 @@ import (
 	"math"
 	"sort"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/LaPingvino/kafumu/internal/geo"
 )
+
+// places_geonames.json is vendored from github.com/LaPingvino/geotags
+// (derived from GeoNames, CC BY 4.0). places.json holds hand-made entries
+// (small towns, local nicknames) that override it by tag.
+//
+//go:embed places_geonames.json
+var geonamesJSON []byte
 
 //go:embed places.json
 var placesJSON []byte
@@ -71,21 +79,31 @@ type PlaceTag struct {
 	Ambiguous bool    `json:"ambiguous,omitempty"`
 }
 
-// Gazetteer indexes places and events by the cells they cover.
+// Gazetteer indexes places by the cell of their centre and events by the
+// cells they cover. Place lookups search outward from a cell, so thousands
+// of cities cost a few thousand map entries, not a map per covered cell.
 type Gazetteer struct {
 	Places  []Place
 	Events  []Event
-	byCell  map[string][]int
+	byHome  map[string][]int
+	maxKm   float64
 	evCells []map[string]bool
+
+	mu   sync.Mutex
+	near map[string][]int // memo for placesNear
 }
 
 // Load returns the embedded gazetteer. It panics on bad data: the file is
 // part of the build and covered by tests.
 func Load() *Gazetteer {
-	var places []Place
-	if err := json.Unmarshal(placesJSON, &places); err != nil {
+	var places, hand []Place
+	if err := json.Unmarshal(geonamesJSON, &places); err != nil {
+		panic("gazetteer: geonames: " + err.Error())
+	}
+	if err := json.Unmarshal(placesJSON, &hand); err != nil {
 		panic("gazetteer: places: " + err.Error())
 	}
+	places = merge(places, hand)
 	var events []Event
 	if err := json.Unmarshal(eventsJSON, &events); err != nil {
 		panic("gazetteer: events: " + err.Error())
@@ -105,13 +123,65 @@ func Load() *Gazetteer {
 // New indexes places by every cell whose centre lies within the place radius
 // (plus the place's own cell, so tiny places still cover something).
 func New(places []Place) *Gazetteer {
-	g := &Gazetteer{Places: places, byCell: map[string][]int{}}
+	g := &Gazetteer{Places: places, byHome: map[string][]int{}}
 	for i, p := range places {
-		for _, c := range cover(p.Lat, p.Lon, p.Km) {
-			g.byCell[c] = append(g.byCell[c], i)
-		}
+		h := geo.Cell(p.Lat, p.Lon)
+		g.byHome[h] = append(g.byHome[h], i)
+		g.maxKm = math.Max(g.maxKm, p.Km)
 	}
 	return g
+}
+
+// merge lets hand-made entries replace generated ones with the same tag (or
+// an alias of it) and appends the rest.
+func merge(gen, hand []Place) []Place {
+	drop := map[string]bool{}
+	for _, h := range hand {
+		drop[h.Tag] = true
+	}
+	out := hand
+	for _, p := range gen {
+		if !drop[p.Tag] {
+			out = append(out, p)
+		}
+	}
+	return out
+}
+
+// placesNear returns the places whose radius covers cell's centre,
+// memoised per cell (the set of cells people look at is small).
+func (g *Gazetteer) placesNear(cell string) []int {
+	g.mu.Lock()
+	if v, ok := g.near[cell]; ok {
+		g.mu.Unlock()
+		return v
+	}
+	g.mu.Unlock()
+	v := g.searchNear(cell)
+	g.mu.Lock()
+	if g.near == nil || len(g.near) > 50000 {
+		g.near = map[string][]int{}
+	}
+	g.near[cell] = v
+	g.mu.Unlock()
+	return v
+}
+
+func (g *Gazetteer) searchNear(cell string) []int {
+	lat, lon := geo.Center(cell)
+	rings := int(math.Ceil(g.maxKm/(geo.CellDeg*111.32*math.Max(math.Cos(lat*math.Pi/180), 0.2)))) + 1
+	var out []int
+	for r := 0; r <= rings; r++ {
+		for _, c := range geo.Ring(cell, r) {
+			for _, i := range g.byHome[c] {
+				p := g.Places[i]
+				if distKm(p.Lat, p.Lon, lat, lon) <= math.Max(p.Km, 2.8) {
+					out = append(out, i)
+				}
+			}
+		}
+	}
+	return out
 }
 
 // cover returns the cell of (lat, lon) plus every cell whose centre lies
@@ -164,7 +234,7 @@ func (g *Gazetteer) EventsAt(cells []string, now time.Time) []EventTag {
 func (g *Gazetteer) Tags(cells []string) []PlaceTag {
 	hits := map[int]int{}
 	for _, c := range cells {
-		for _, i := range g.byCell[strings.ToLower(c)] {
+		for _, i := range g.placesNear(strings.ToLower(c)) {
 			hits[i]++
 		}
 	}

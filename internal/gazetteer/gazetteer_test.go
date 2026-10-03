@@ -9,16 +9,17 @@ import (
 
 func TestLoadAndLookup(t *testing.T) {
 	g := Load()
-	if len(g.Places) < 50 {
+	if len(g.Places) < 5000 {
 		t.Fatalf("only %d places", len(g.Places))
 	}
-	seen := map[string]bool{}
+	// A tag naming several places (Lincoln, Santa Cruz) must be flagged.
+	byTag := map[string][]Place{}
 	for _, p := range g.Places {
-		for _, tag := range append([]string{p.Tag}, p.Aliases...) {
-			if seen[tag] {
-				t.Errorf("duplicate tag %q", tag)
-			}
-			seen[tag] = true
+		byTag[p.Tag] = append(byTag[p.Tag], p)
+	}
+	for tag, ps := range byTag {
+		if len(ps) > 1 && !ps[0].Ambiguous {
+			t.Errorf("duplicate tag %q not marked ambiguous", tag)
 		}
 	}
 
@@ -30,6 +31,9 @@ func TestLoadAndLookup(t *testing.T) {
 	if tags[0].Weight != 1 {
 		t.Errorf("amsterdam weight = %v, want 1 (all 9 cells covered)", tags[0].Weight)
 	}
+	if !hasTag(tags, "mokum") {
+		t.Errorf("curated alias missing: %+v", tags[:3])
+	}
 
 	// The middle of the North Sea has no place tags.
 	if got := g.Tags([]string{geo.Cell(54.5, 3.0)}); len(got) != 0 {
@@ -37,7 +41,7 @@ func TestLoadAndLookup(t *testing.T) {
 	}
 
 	// Ambiguous places weigh less than unambiguous ones at full coverage.
-	for _, pt := range g.Tags([]string{geo.Cell(48.857, 2.352)}) {
+	for _, pt := range g.Tags([]string{geo.Cell(48.857, 2.352)}) { // #paris: also Paris Hilton
 		if pt.Tag == "paris" && (pt.Weight != 0.5 || !pt.Ambiguous) {
 			t.Errorf("paris = %+v", pt)
 		}
@@ -64,5 +68,22 @@ func TestEvents(t *testing.T) {
 	}
 	if tags := g.Tags(barreiro); len(tags) == 0 || tags[0].Tag != "barreiro" {
 		t.Errorf("Barreiro tags = %+v", tags)
+	}
+}
+
+func hasTag(ts []PlaceTag, tag string) bool {
+	for _, t := range ts {
+		if t.Tag == tag {
+			return true
+		}
+	}
+	return false
+}
+
+func BenchmarkTags(b *testing.B) {
+	g := Load()
+	cells := geo.Rings(geo.Cell(38.72, -9.14), 2)
+	for i := 0; i < b.N; i++ {
+		g.Tags(cells)
 	}
 }

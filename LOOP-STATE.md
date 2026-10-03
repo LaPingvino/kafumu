@@ -141,6 +141,12 @@ events early, so it spreads locally by word of mouth. Means: language tags + peo
 event entries for language gatherings (only with verified dates/venues — never guessed), EO/PT/EN/NL UI.
 
 ## After the event (rest of M1)
+- [x] `LaPingvino/geotags` (public, /home/joop/geotags): 6,278 cities ≥100k from GeoNames (CC BY 4.0) with
+      tag, native + curated aliases, radius from population, centre cell, ambiguity (duplicates, ≤3 chars,
+      curated noisy.json: #paris, #nice, #reading…); languages.json (≈75 language hashtags → 639-3, weight);
+      gen/ regenerates. Kafumu vendors places.json as internal/gazetteer/places_geonames.json; its own
+      places.json now only holds what GeoNames lacks (Barreiro, Parque das Nações, Wageningen…). Lookup
+      searches outward from a cell over centre cells (memoised) instead of precomputing coverage.
 - ATproto events: read `community.lexicon.calendar.event`/`.rsvp` (Smoke Signal) into bundles by
   location → cell; then ATproto OAuth so RSVPs/events are written natively to the user's PDS (M2).
 - `LaPingvino/geotags` public repo: generator from GeoNames + language list, CC-BY; Kafumu vendors it.
