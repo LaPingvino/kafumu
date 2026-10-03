@@ -61,7 +61,11 @@ try {
   await B.waitFor("document.getElementById('accept-status').textContent.includes('Ana')", "B connected with Ana");
   await A.waitFor("document.getElementById('new-contacts').textContent.includes('Bea')", "A sees Bea");
   if (await B.evaluate("location.hash") !== "") throw new Error("code left in B's URL");
-  console.log("ok  connect pages in two browsers (A shows, B scans, both connected)");
+  await A.goto(base + "/contacts");
+  await A.waitFor("document.getElementById('contacts').textContent.includes('Bea')", "Bea on A's contacts page");
+  await B.goto(base + "/contacts");
+  await B.waitFor("document.getElementById('contacts').textContent.includes('Ana')", "Ana on B's contacts page");
+  console.log("ok  connect pages in two browsers (A shows, B scans, both connected, both on Contacts)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

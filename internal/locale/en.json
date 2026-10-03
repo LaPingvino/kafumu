@@ -112,5 +112,20 @@
   "js.their_card_later": "Their card hasn't arrived yet; it will show up on Contacts when it does.",
   "js.network_retry": "Couldn't reach the server. Check your connection and try again.",
   "js.waiting_card": "Waiting for their card…",
-  "js.note_placeholder": "Private note (where you met, what to talk about)"
+  "js.note_placeholder": "Private note (where you met, what to talk about)",
+  "nav.contacts": "Contacts",
+  "contacts.title": "Contacts",
+  "contacts.empty": "No one yet. Show your code to someone, or scan theirs.",
+  "contacts.go_connect": "Connect →",
+  "contacts.filter": "Search names, notes…",
+  "contacts.keep_title": "Keep them safe",
+  "contacts.keep_explain": "Your contacts live only on this device. Browsers can delete site data (Safari does after a week without visits), so save a copy.",
+  "contacts.export_vcf": "Save to address book (.vcf)",
+  "contacts.export_json": "Download backup",
+  "contacts.import_json": "Restore backup",
+  "contacts.backup_warning": "The backup contains the private keys of your connections. Keep it like a password.",
+  "js.remove": "Remove",
+  "js.remove_confirm": "Remove this contact from this device?",
+  "js.restored": "Restored {n} contacts.",
+  "js.restore_failed": "That isn't a Kafumu backup."
 }

@@ -158,3 +158,7 @@ footer { padding: 16px; }
 .about-link { margin-left: auto; color: var(--fg); padding: 8px; border-radius: 8px; display: flex; }
 .about-link:hover { background: var(--button-hover); }
 .headerbar .about-link + select { margin-left: 0; }
+.contact-head { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.contact > .contrast { margin-top: .5rem; }
+label.import { color: var(--fg); font-size: .95rem; margin: 0; }
+#contacts-tools input { margin: 8px 0; }

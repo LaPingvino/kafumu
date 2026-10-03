@@ -71,5 +71,79 @@
     return out;
   }
 
-  window.kafumuDevice = { store: store, FIELDS: FIELDS, links: links };
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+
+  // renderContact draws one contact: name, one-liner, one-tap links and a
+  // private note saved on change. opts.onDelete adds a remove button.
+  function renderContact(c, T, opts) {
+    T = T || {}; opts = opts || {};
+    var li = el("li", "contact"), card = c.card || {};
+    var head = el("div", "contact-head");
+    head.appendChild(el("strong", null, card.name || T.waiting_card || "…"));
+    if (c.createdAt) head.appendChild(el("span", "dim", new Date(c.createdAt).toLocaleDateString()));
+    li.appendChild(head);
+    if (card.about) li.appendChild(el("p", "dim", card.about));
+    var row = el("div", "actions");
+    links(card).forEach(function (l) {
+      var a = el("a", "pill-sm", T["field_" + l.field] || l.field);
+      a.href = l.href; a.target = "_blank"; a.rel = "noopener"; a.setAttribute("role", "button");
+      row.appendChild(a);
+    });
+    li.appendChild(row);
+    var note = el("input");
+    note.placeholder = T.note_placeholder || "";
+    note.value = c.note || "";
+    note.setAttribute("aria-label", T.note_placeholder || "note");
+    note.addEventListener("change", function () { c.note = note.value; store.putContact(c); });
+    li.appendChild(note);
+    if (opts.onDelete) {
+      var del = el("button", "contrast pill-sm", T.remove || "Remove");
+      del.type = "button";
+      del.onclick = function () { if (confirm(T.remove_confirm || "Remove?")) store.deleteContact(c.id).then(function () { li.remove(); opts.onDelete(c); }); };
+      li.appendChild(del);
+    }
+    return li;
+  }
+
+  // vcards renders contacts as one vCard 3.0 file, for phone address books.
+  function vcards(contacts) {
+    function esc(s) { return String(s).replace(/\\/g, "\\\\").replace(/\n/g, "\\n").replace(/([,;])/g, "\\$1"); }
+    return contacts.filter(function (c) { return c.card && c.card.name; }).map(function (c) {
+      var k = c.card, lines = ["BEGIN:VCARD", "VERSION:3.0", "FN:" + esc(k.name)];
+      if (k.email) lines.push("EMAIL:" + esc(k.email));
+      if (k.phone) lines.push("TEL:" + esc(k.phone));
+      if (k.whatsapp && k.whatsapp !== k.phone) lines.push("TEL;TYPE=CELL:" + esc(k.whatsapp));
+      links(k).forEach(function (l) { if (/^https:/.test(l.href)) lines.push("URL:" + l.href); });
+      var note = [k.about, c.note, "Kafumu " + (c.createdAt || "").slice(0, 10)].filter(Boolean).join(" — ");
+      lines.push("NOTE:" + esc(note), "END:VCARD");
+      return lines.join("\r\n");
+    }).join("\r\n") + "\r\n";
+  }
+
+  // backup is everything on this device, including pair keys: treat the
+  // file like a password. restore merges it back in.
+  function backup() {
+    return Promise.all([store.get("card"), store.contacts()]).then(function (r) {
+      return { kafumu: 1, exportedAt: new Date().toISOString(), card: r[0] || {}, contacts: r[1] || [] };
+    });
+  }
+  function restore(data) {
+    if (!data || data.kafumu !== 1 || !Array.isArray(data.contacts)) return Promise.reject(new Error("not a Kafumu backup"));
+    return store.get("card").then(function (mine) {
+      var steps = data.contacts.map(function (c) { return store.putContact(c); });
+      if ((!mine || !mine.name) && data.card) steps.push(store.set("card", data.card));
+      return Promise.all(steps).then(function () { return data.contacts.length; });
+    });
+  }
+
+  function download(name, type, text) {
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([text], { type: type }));
+    a.download = name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+  }
+
+  window.kafumuDevice = { store: store, FIELDS: FIELDS, links: links, renderContact: renderContact,
+    vcards: vcards, backup: backup, restore: restore, download: download };
 })();

@@ -56,7 +56,10 @@ Everything before the event serves that; the rest of M1 follows after.
       name, explicit "Connect and share my card", 3 retries, code removed from the URL, no-referrer,
       install hint). Backoff 2 s → 5 s → stop at 3 min. Tabs: Around / Connect / My card / Account, About
       in the header. `test/browser_test.mjs` drives two headless Chromiums over CDP: A shows, B scans.
-- [ ] 6. Contacts page: everyone you've scanned, notes, one-tap open of their links; export (vCard/JSON)
+- [x] 6. `/contacts` tab: everyone you've connected with (newest first, search, notes, remove, late
+      cards fetched on open), "Save to address book" (.vcf, tested escaping) and backup/restore JSON
+      (includes pair keys — warned). Contact rendering shared via device.js. Browser test covers it.
+      Was: Contacts page: everyone you've scanned, notes, one-tap open of their links; export (vCard/JSON)
       — NON-NEGOTIABLE before the event: Safari evicts non-installed site data after 7 idle days, and an
       iOS home-screen PWA has separate storage from Safari (contacts don't carry over on install).
 - [ ] 6b. Personas, mix and match (Joop): several cards ("Work", "Esperanto", "Friends") each with

@@ -1,0 +1,23 @@
+{{template "head" .}}
+<h1>{{t .Lang "contacts.title"}}</h1>
+<p id="contacts-empty" class="dim" hidden>{{t .Lang "contacts.empty"}} <a href="/connect">{{t .Lang "contacts.go_connect"}}</a></p>
+<div id="contacts-tools" hidden>
+  <input id="contacts-filter" type="search" placeholder="{{ts .Lang "contacts.filter"}}" aria-label="{{ts .Lang "contacts.filter"}}">
+</div>
+<ul id="contacts" class="boxed-list"></ul>
+<div class="card" style="padding:4px 16px 12px">
+  <h2>{{t .Lang "contacts.keep_title"}}</h2>
+  <p class="dim">{{t .Lang "contacts.keep_explain"}}</p>
+  <div class="actions">
+    <button type="button" id="export-vcf" class="pill">{{t .Lang "contacts.export_vcf"}}</button>
+    <button type="button" id="export-json" class="pill">{{t .Lang "contacts.export_json"}}</button>
+    <label class="pill import" role="button">{{t .Lang "contacts.import_json"}}<input id="import-json" type="file" accept="application/json,.json" hidden></label>
+  </div>
+  <p class="dim"><small>{{t .Lang "contacts.backup_warning"}}</small></p>
+  <p id="contacts-status" class="dim" role="status"></p>
+</div>
+<script>window.KAFUMU_T = {{.JS}};</script>
+<script src="/static/device.js"></script>
+<script src="/static/pair.js"></script>
+<script src="/static/contacts.js"></script>
+{{template "foot" .}}

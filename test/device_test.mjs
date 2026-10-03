@@ -18,3 +18,15 @@ if (got.website && !got.website.startsWith("https://")) { console.error("unsafe 
 for (const href of Object.values(got)) if (/^javascript:/i.test(href)) { console.error("javascript: link", href); fail++; }
 if (fail) process.exit(1);
 console.log("ok  static/device.js links");
+
+// vCard export escapes and skips contacts without a card.
+{
+  const v = globalThis.kafumuDevice.vcards([
+    { card: { name: "Ana; Silva", email: "a@b.pt", about: "open source, coffee" }, note: "met at\nWS", createdAt: "2026-11-10T10:00:00Z" },
+    { card: null },
+  ]);
+  const want = ["BEGIN:VCARD", "FN:Ana\\; Silva", "EMAIL:a@b.pt", "NOTE:open source\\, coffee — met at\\nWS — Kafumu 2026-11-10", "END:VCARD"];
+  for (const w of want) if (!v.includes(w)) { console.error("vcard missing", JSON.stringify(w), "in", JSON.stringify(v)); process.exit(1); }
+  if (v.split("BEGIN:VCARD").length !== 2) { console.error("pending contact exported"); process.exit(1); }
+  console.log("ok  static/device.js vcards");
+}

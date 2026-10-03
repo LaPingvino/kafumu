@@ -112,5 +112,20 @@
   "js.their_card_later": "O cartão ainda não chegou; aparecerá em Contactos quando chegar.",
   "js.network_retry": "Não foi possível contactar o servidor. Verifique a ligação e tente de novo.",
   "js.waiting_card": "À espera do cartão…",
-  "js.note_placeholder": "Nota privada (onde se conheceram, de que falar)"
+  "js.note_placeholder": "Nota privada (onde se conheceram, de que falar)",
+  "nav.contacts": "Contactos",
+  "contacts.title": "Contactos",
+  "contacts.empty": "Ainda ninguém. Mostre o seu código a alguém, ou leia o de outra pessoa.",
+  "contacts.go_connect": "Ligar →",
+  "contacts.filter": "Pesquisar nomes, notas…",
+  "contacts.keep_title": "Guarde-os em segurança",
+  "contacts.keep_explain": "Os seus contactos vivem só neste dispositivo. Os navegadores podem apagar dados dos sites (o Safari fá-lo ao fim de uma semana sem visitas), por isso guarde uma cópia.",
+  "contacts.export_vcf": "Guardar nos contactos (.vcf)",
+  "contacts.export_json": "Descarregar cópia",
+  "contacts.import_json": "Restaurar cópia",
+  "contacts.backup_warning": "A cópia contém as chaves privadas das suas ligações. Guarde-a como uma palavra-passe.",
+  "js.remove": "Remover",
+  "js.remove_confirm": "Remover este contacto deste dispositivo?",
+  "js.restored": "{n} contactos restaurados.",
+  "js.restore_failed": "Isso não é uma cópia do Kafumu."
 }

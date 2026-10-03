@@ -124,6 +124,13 @@ func (h *Home) ShowAccept(w http.ResponseWriter, r *http.Request) {
 	h.render(w, "accept.html", p)
 }
 
+// ShowContacts renders the contacts list; contacts live on the device.
+func (h *Home) ShowContacts(w http.ResponseWriter, r *http.Request) {
+	p := h.newPage(r, "")
+	p.Title, p.Tab = locale.T(p.Lang, "contacts.title"), "contacts"
+	h.render(w, "contacts.html", p)
+}
+
 // Funcs are the template functions. Translations come from our own files,
 // so they may contain markup.
 var Funcs = template.FuncMap{

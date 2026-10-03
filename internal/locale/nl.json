@@ -112,5 +112,20 @@
   "js.their_card_later": "Hun kaartje is nog niet binnen; het verschijnt bij Contacten zodra het er is.",
   "js.network_retry": "De server is niet bereikbaar. Controleer je verbinding en probeer het opnieuw.",
   "js.waiting_card": "Wachten op hun kaartje…",
-  "js.note_placeholder": "Privénotitie (waar jullie elkaar ontmoetten, waarover te praten)"
+  "js.note_placeholder": "Privénotitie (waar jullie elkaar ontmoetten, waarover te praten)",
+  "nav.contacts": "Contacten",
+  "contacts.title": "Contacten",
+  "contacts.empty": "Nog niemand. Laat iemand je code zien, of scan die van een ander.",
+  "contacts.go_connect": "Verbinden →",
+  "contacts.filter": "Zoek namen, notities…",
+  "contacts.keep_title": "Bewaar ze goed",
+  "contacts.keep_explain": "Je contacten staan alleen op dit apparaat. Browsers kunnen sitegegevens wissen (Safari doet dat na een week zonder bezoek), dus bewaar een kopie.",
+  "contacts.export_vcf": "Opslaan in adresboek (.vcf)",
+  "contacts.export_json": "Back-up downloaden",
+  "contacts.import_json": "Back-up terugzetten",
+  "contacts.backup_warning": "De back-up bevat de privésleutels van je verbindingen. Bewaar hem als een wachtwoord.",
+  "js.remove": "Verwijderen",
+  "js.remove_confirm": "Dit contact van dit apparaat verwijderen?",
+  "js.restored": "{n} contacten teruggezet.",
+  "js.restore_failed": "Dat is geen Kafumu-back-up."
 }

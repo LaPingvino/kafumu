@@ -112,5 +112,20 @@
   "js.their_card_later": "Ilia karto ankoraŭ ne alvenis; ĝi aperos en Kontaktoj, kiam ĝi alvenos.",
   "js.network_retry": "Ne eblis atingi la servilon. Kontrolu vian konekton kaj provu denove.",
   "js.waiting_card": "Atendante ilian karton…",
-  "js.note_placeholder": "Privata noto (kie vi renkontiĝis, pri kio paroli)"
+  "js.note_placeholder": "Privata noto (kie vi renkontiĝis, pri kio paroli)",
+  "nav.contacts": "Kontaktoj",
+  "contacts.title": "Kontaktoj",
+  "contacts.empty": "Ankoraŭ neniu. Montru vian kodon al iu, aŭ skanu ies kodon.",
+  "contacts.go_connect": "Konektiĝi →",
+  "contacts.filter": "Serĉi nomojn, notojn…",
+  "contacts.keep_title": "Gardu ilin",
+  "contacts.keep_explain": "Viaj kontaktoj loĝas nur en ĉi tiu aparato. Retumiloj povas forigi retejajn datumojn (Safari faras tion post semajno sen vizitoj), do konservu kopion.",
+  "contacts.export_vcf": "Konservi en adresaro (.vcf)",
+  "contacts.export_json": "Elŝuti sekurkopion",
+  "contacts.import_json": "Restarigi sekurkopion",
+  "contacts.backup_warning": "La sekurkopio enhavas la privatajn ŝlosilojn de viaj konektoj. Gardu ĝin kiel pasvorton.",
+  "js.remove": "Forigi",
+  "js.remove_confirm": "Ĉu forigi ĉi tiun kontakton el ĉi tiu aparato?",
+  "js.restored": "{n} kontaktoj restarigitaj.",
+  "js.restore_failed": "Tio ne estas Kafumu-sekurkopio."
 }

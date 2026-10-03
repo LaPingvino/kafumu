@@ -43,27 +43,7 @@
     });
   }
 
-  // contactItem renders one contact with their links and a private note.
-  function contactItem(c) {
-    var li = el("li", "contact");
-    var card = c.card || {};
-    li.appendChild(el("strong", null, card.name || tr("waiting_card")));
-    if (card.about) li.appendChild(el("p", "dim", card.about));
-    var links = el("div", "actions");
-    dev.links(card).forEach(function (l) {
-      var a = el("a", "pill-sm", T["field_" + l.field] || l.field);
-      a.href = l.href; a.target = "_blank"; a.rel = "noopener"; a.setAttribute("role", "button");
-      links.appendChild(a);
-    });
-    li.appendChild(links);
-    var note = el("input");
-    note.placeholder = tr("note_placeholder");
-    note.value = c.note || "";
-    note.setAttribute("aria-label", tr("note_placeholder"));
-    note.addEventListener("change", function () { c.note = note.value; dev.store.putContact(c); });
-    li.appendChild(note);
-    return li;
-  }
+  function contactItem(c) { return dev.renderContact(c, T); }
 
   // ---- /connect: show my code ----
   function showCode() {
