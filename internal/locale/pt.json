@@ -352,5 +352,11 @@
   "view.apply": "Mostrar",
   "view.save": "Guardar esta vista",
   "js.view_name": "Dê um nome a esta vista (fica neste dispositivo):",
-  "js.view_remove": "Remover a vista guardada «{name}»?"
+  "js.view_remove": "Remover a vista guardada «{name}»?",
+  "view.strength": "Com que força",
+  "oln.tags": "Interesses",
+  "js.w0": "ignorar",
+  "js.w1": "preferir um pouco",
+  "js.w2": "preferir muito",
+  "js.w3": "só estes"
 }

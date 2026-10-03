@@ -352,5 +352,11 @@
   "view.apply": "Tonen",
   "view.save": "Deze weergave bewaren",
   "js.view_name": "Geef deze weergave een naam (blijft op dit apparaat):",
-  "js.view_remove": "De bewaarde weergave „{name}” verwijderen?"
+  "js.view_remove": "De bewaarde weergave „{name}” verwijderen?",
+  "view.strength": "Hoe sterk",
+  "oln.tags": "Interesses",
+  "js.w0": "negeren",
+  "js.w1": "een beetje voorkeur",
+  "js.w2": "sterke voorkeur",
+  "js.w3": "alleen deze"
 }

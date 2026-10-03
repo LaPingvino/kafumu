@@ -352,5 +352,11 @@
   "view.apply": "Show",
   "view.save": "Save this view",
   "js.view_name": "Name this view (kept on this device):",
-  "js.view_remove": "Remove the saved view “{name}”?"
+  "js.view_remove": "Remove the saved view “{name}”?",
+  "view.strength": "How strongly",
+  "oln.tags": "Interests",
+  "js.w0": "ignore",
+  "js.w1": "prefer a little",
+  "js.w2": "prefer strongly",
+  "js.w3": "only these"
 }

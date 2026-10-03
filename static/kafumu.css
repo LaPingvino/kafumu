@@ -220,3 +220,4 @@ select option { background: var(--headerbar-bg); color: var(--fg); }
 #views { margin: .5rem 0 0; }
 #views a.chip:hover { text-decoration: none; }
 .view-filters select { width: 100%; font-weight: 400; display: flex; margin-top: 4px; }
+input[type="range"] { padding: 0; background: transparent; accent-color: var(--accent-bg); }

@@ -82,12 +82,15 @@
 
   // ---- Views: place + language + interest, filtered on the device ----
   var params = new URLSearchParams(location.search);
-  var view = { lang: params.get("lang") || "", tag: (params.get("tag") || "").toLowerCase().replace(/^#/, "") };
+  var view = { lang: params.get("lang") || "", tag: (params.get("tag") || "").toLowerCase().replace(/^#/, ""),
+    // 0 off · 1 boost · 2 strong boost · 3 only matching
+    strength: Math.max(0, Math.min(3, parseInt(params.get("w") || "2", 10))) };
   function viewURL(c) {
     var q = new URLSearchParams();
     if (c) q.set("cell", c);
     if (view.lang) q.set("lang", view.lang);
     if (view.tag) q.set("tag", view.tag);
+    if ((view.lang || view.tag) && view.strength !== 2) q.set("w", String(view.strength));
     return "/?" + q.toString();
   }
   // langTagsFor: every hashtag that means language code (lang:epo → #langepo, #esperanto…).
@@ -96,8 +99,11 @@
     Object.keys(me.langTags || {}).forEach(function (t) { if ((me.langTags[t].codes || []).indexOf(code) >= 0) out[t] = true; });
     return out;
   }
+  // filterBundle marks what matches the view (_match) and, at full strength,
+  // keeps only that; lower strengths become a ranking bias.
   function filterBundle(b) {
-    if (!view.lang && !view.tag) return b;
+    if ((!view.lang && !view.tag) || view.strength === 0) return b;
+    var only = view.strength === 3;
     var me = window.KAFUMU_ME || {}, lt = view.lang ? langTagsFor(view.lang) : null, tag = view.tag;
     function tagsOK(tags, text) {
       tags = (tags || []).map(function (t) { return String(t).toLowerCase(); });
@@ -105,14 +111,22 @@
       if (tag && tags.indexOf(tag) < 0 && !new RegExp("#" + tag.replace(/[^\p{L}\p{N}_]/gu, "") + "\\b", "iu").test(text || "")) return false;
       return true;
     }
-    b.posts = (b.posts || []).filter(function (p) {
+    function mark(list, ok) {
+      list = (list || []).map(function (x) { x._match = ok(x); return x; });
+      if (only) return list.filter(function (x) { return x._match; });
+      // Bias: matching items first, otherwise keep the existing order.
+      return list.map(function (x, i) { return [x, i]; }).sort(function (a, z) {
+        return (z[0]._match - a[0]._match) * view.strength || a[1] - z[1];
+      }).map(function (p) { return p[0]; });
+    }
+    b.posts = mark(b.posts, function (p) {
       var langOK = lt && (p.langs || []).some(function (l) { return (me.from1 || {})[l.slice(0, 2)] === view.lang; });
       if (langOK && !tag) return true;
-      return tagsOK(p.tags, p.text) || (langOK && tagsOK(p.tags.concat(["lang" + view.lang]), p.text));
+      return tagsOK(p.tags, p.text) || (langOK && tagsOK((p.tags || []).concat(["lang" + view.lang]), p.text));
     });
-    b.meetups = (b.meetups || []).filter(function (m) { return tagsOK(m.tags, m.title + " " + (m.text || "")); });
-    b.notes = (b.notes || []).filter(function (n) { return tagsOK(n.tags, n.text); });
-    b.people = (b.people || []).filter(function (p) {
+    b.meetups = mark(b.meetups, function (m) { return tagsOK(m.tags, m.title + " " + (m.text || "")); });
+    b.notes = mark(b.notes, function (n) { return tagsOK(n.tags, n.text); });
+    b.people = mark(b.people, function (p) {
       if (view.lang && !(p.langs || []).some(function (l) { return l.split("/")[0] === view.lang; })) return false;
       return !tag || (p.tags || []).indexOf(tag) >= 0;
     });
@@ -145,9 +159,14 @@
     return s < 1 ? "< 1 s" : s < 90 ? Math.round(s) + " s" : Math.round(s / 60) + " min";
   }
   function olnKeywords() {
-    var me = window.KAFUMU_ME || {}, ui = document.documentElement.lang, code = (me.from1 || {})[ui];
+    var me = window.KAFUMU_ME || {}, f = $("oln-form");
+    var code = (f && f.lang.value) || (me.from1 || {})[document.documentElement.lang];
     var ks = ["#geo" + currentCell];
     if (code) ks.push("#lang" + code);
+    ((f && f.tags.value) || "").split(/[,\s]+/).forEach(function (t) {
+      t = t.trim().toLowerCase().replace(/^#/, "").replace(/[^\p{L}\p{N}_]/gu, "");
+      if (t && ks.length < 10) ks.push("#" + t);
+    });
     liveEvents.forEach(function (t) { ks.push("#" + t); });
     return ks.join(" ");
   }
@@ -155,7 +174,15 @@
     var f = $("oln-form");
     if (f) $("oln-status").textContent = tr("oln_cost", { time: estimate(requiredBits + parseInt(f.extra.value, 10)) });
   }
-  $("say").onclick = function () { var f = $("oln-form"); f.hidden = !f.hidden; if (!f.hidden) { updateEstimate(); f.text.focus(); } };
+  $("say").onclick = function () {
+    var f = $("oln-form"); f.hidden = !f.hidden;
+    if (!f.hidden) {
+      // Start from the current view: its language and interest are likely what you're talking about.
+      if (!f.lang.value) f.lang.value = view.lang || ((window.KAFUMU_ME || {}).from1 || {})[document.documentElement.lang] || "";
+      if (!f.tags.value && view.tag) f.tags.value = view.tag;
+      updateEstimate(); f.text.focus();
+    }
+  };
   $("oln-form").extra.onchange = updateEstimate;
   $("oln-form").addEventListener("submit", function (e) {
     e.preventDefault();
@@ -454,7 +481,7 @@
   function score(p, ringOf, places) {
     var ageH = (Date.now() - new Date(p.createdAt).getTime()) / 36e5;
     var lm = langMatch(p);
-    var s = -ageH / 24 - (p.bot ? 5 : 0) + (lm.tag ? 2 : 0) + (lm.lang ? 0.5 : 0);
+    var s = -ageH / 24 - (p.bot ? 5 : 0) + (lm.tag ? 2 : 0) + (lm.lang ? 0.5 : 0) + (p._match ? view.strength * 3 : 0);
     if (p.via in ringOf) return s - ringOf[p.via] * 0.5;
     var pt = places[p.via];
     // A place-tag post that also carries a #geo tag of this area is strong.
@@ -577,11 +604,16 @@
     }, 250);
   });
   $("locate").onclick = function () { locate(false); };
+  var strengthNames = [tr("w0"), tr("w1"), tr("w2"), tr("w3")];
+  $("view-strength").value = String(view.strength);
+  $("view-strength-label").textContent = strengthNames[view.strength];
+  $("view-strength").oninput = function () { $("view-strength-label").textContent = strengthNames[this.value]; };
   $("view-lang").value = view.lang;
   $("view-tag").value = view.tag;
   $("view-apply").onclick = function () {
     view.lang = $("view-lang").value;
     view.tag = $("view-tag").value.trim().toLowerCase().replace(/^#/, "").replace(/\s+/g, "");
+    view.strength = parseInt($("view-strength").value, 10);
     if (currentCell) choose(currentCell, $("status").textContent);
     drawViews();
   };

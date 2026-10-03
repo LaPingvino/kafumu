@@ -26,6 +26,13 @@
   </div>
   <form id="oln-form" class="card" style="padding:4px 16px 12px" hidden>
     <label>{{t .Lang "oln.label"}}<textarea name="text" rows="3" maxlength="500" placeholder="{{ts .Lang "oln.placeholder"}}"></textarea></label>
+    <div class="grid view-filters">
+      <label>{{t .Lang "view.language"}}
+        <select name="lang"><option value="">—</option>
+          {{range langs}}<option value="{{.Code}}">{{.Native}}{{if ne .Native .English}} ({{.English}}){{end}}</option>{{end}}
+        </select></label>
+      <label>{{t .Lang "oln.tags"}}<input name="tags" placeholder="coffee, esperanto, surf" autocomplete="off"></label>
+    </div>
     <div class="inline-row">
       <select name="extra" aria-label="{{ts .Lang "oln.lasts"}}">
         <option value="0">{{t .Lang "oln.hour"}}</option>
@@ -51,6 +58,9 @@
         </select></label>
       <label>{{t .Lang "view.interest"}}<input id="view-tag" placeholder="surf, esperanto, jazz…" autocomplete="off"></label>
     </div>
+    <label>{{t .Lang "view.strength"}}
+      <input id="view-strength" type="range" min="0" max="3" step="1" value="2" list="strength-marks">
+      <span class="dim small" id="view-strength-label"></span></label>
     <div class="actions"><button type="button" id="view-apply" class="pill">{{t .Lang "view.apply"}}</button>
       <button type="button" id="view-save" class="pill">☆ {{t .Lang "view.save"}}</button></div>
     <div id="area-map-box"></div>

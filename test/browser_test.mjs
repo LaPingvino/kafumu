@@ -64,10 +64,12 @@ try {
   // Views: language and interest filters apply on the device, from the URL.
   await A.goto(base + "/?cell=8ccgqx&lang=eng");
   await A.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN')", "message kept by lang=eng", 15000);
-  await A.goto(base + "/?cell=8ccgqx&tag=zzznothing");
+  await A.goto(base + "/?cell=8ccgqx&tag=zzznothing&w=3");
   await A.waitFor("document.getElementById('views').textContent.includes('#zzznothing')", "active filter chip");
   await sleep(2500);
   if (await A.evaluate("document.getElementById('notes').textContent.includes('hi from the OLN')")) throw new Error("tag filter didn't hide the message");
+  await A.goto(base + "/?cell=8ccgqx&tag=zzznothing&w=1"); // a bias keeps everything
+  await A.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN')", "message kept with a weak bias", 15000);
 
   // Who's up for coffee: A asks, B joins from the message and they connect.
   await A.goto(base + "/?cell=8ccgqx");

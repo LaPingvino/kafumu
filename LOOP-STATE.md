@@ -189,6 +189,9 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       filters the bundle on the device (posts by hashtags or ATproto langs, meetups, notes, people); shareable
       URL ?cell=&lang=&tag=; "☆ Save this view" kept on the device as chips (long-press to remove), active
       filter chip with ×. Browser-tested. Still open: multi-ring bundles for big regions.
+      + (Joop) biases, not just filters: strength slider (ignore / prefer a little / prefer strongly / only
+      these, URL w=0..3); matches move up with the weight. Composer: language + interest tags go into the
+      OLN keywords (prefilled from the current view).
       Was: Views: filter chips (language, interest) + URL params (?cell=&lang=&tag=) applied on the
       device; explore any place; multi-ring requests for big regions (holiday destinations).
 - [ ] 15d. Questions (Aardvark): ask with interest tags into a place's cells; question carries an
