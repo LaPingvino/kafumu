@@ -10,3 +10,4 @@
 *.json.key
 service-account*.json
 .env
+WEB-INF/

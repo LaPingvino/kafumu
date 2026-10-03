@@ -26,9 +26,13 @@ fi
 # Datastore-backed code against the emulator, when the SDK has it.
 emu="$HOME/google-cloud-sdk/platform/cloud-datastore-emulator/cloud_datastore_emulator"
 if [ -x "$emu" ] && command -v java >/dev/null 2>&1 && [ -z "$SKIP_EMULATOR" ]; then
-  "$emu" start --host=localhost --port=8432 --store_on_disk=false --consistency=1.0 >/dev/null 2>&1 &
+  # Own process group (setsid) so the whole emulator, java included, can be
+  # stopped by group; run it from TMPDIR so its WEB-INF/ lands there.
+  (cd "${TMPDIR:-/tmp}" && exec setsid "$emu" start --host=localhost --port=8432 --store_on_disk=false --consistency=1.0) >/dev/null 2>&1 &
   emupid=$!
-  trap 'kill $pid ${pid2:-} $emupid 2>/dev/null; pkill -f CloudDatastore.jar 2>/dev/null' EXIT
+  sleep 1
+  emupgid=$(ps -o pgid= -p "$emupid" 2>/dev/null | tr -d ' ')
+  trap 'kill $pid ${pid2:-} 2>/dev/null; [ -n "$emupgid" ] && kill -- -"$emupgid" 2>/dev/null' EXIT
   for i in $(seq 1 30); do curl -s localhost:8432 >/dev/null 2>&1 && break; sleep 1; done
   DATASTORE_EMULATOR_HOST=localhost:8432 go test ./internal/purge/
 fi

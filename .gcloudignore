@@ -5,3 +5,4 @@
 test/
 *.md
 *_test.go
+WEB-INF/
