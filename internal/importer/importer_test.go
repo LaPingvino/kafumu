@@ -51,3 +51,33 @@ func TestRefusesPrivateAddresses(t *testing.T) {
 		}
 	}
 }
+
+func TestParseAllItemList(t *testing.T) {
+	page := `<script type="application/ld+json">{"@type":"ItemList","itemListElement":[
+	{"@type":"ListItem","item":{"@type":"Event","name":"A","startDate":"2026-11-10T10:00:00Z","location":{"geo":{"latitude":38.7,"longitude":-9.1}}}},
+	{"@type":"ListItem","item":{"@type":"Event","name":"B","startDate":"2026-11-11T10:00:00Z"}}]}</script>`
+	evs := ParseAll(page)
+	if len(evs) != 2 || evs[0].Title != "A" || !evs[0].HasGeo || evs[1].HasGeo {
+		t.Errorf("ParseAll = %+v", evs)
+	}
+}
+
+func TestParseICS(t *testing.T) {
+	cal := "BEGIN:VCALENDAR\r\nBEGIN:VEVENT\r\nSUMMARY:Esperanto\\, kafo\r\nDTSTART;TZID=Europe/Lisbon:20261110T150000\r\n" +
+		"DTEND:20261110T170000Z\r\nLOCATION:Café X\\, Lisboa\r\nGEO:38.71;-9.14\r\nURL:https://luma.com/x\r\n" +
+		"DESCRIPTION:Line one\\nline two that is long enough to be\r\n  folded\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nSUMMARY:no time\r\nEND:VEVENT\r\nEND:VCALENDAR\r\n"
+	evs := ParseICS(cal)
+	if len(evs) != 1 {
+		t.Fatalf("got %d events", len(evs))
+	}
+	e := evs[0]
+	if e.Title != "Esperanto, kafo" || e.Venue != "Café X, Lisboa" || !e.HasGeo || e.Link != "https://luma.com/x" {
+		t.Errorf("event = %+v", e)
+	}
+	if e.Start.UTC().Hour() != 15 { // Lisbon is UTC+0 in November
+		t.Errorf("start = %v", e.Start)
+	}
+	if e.Text != "Line one\nline two that is long enough to be folded" {
+		t.Errorf("text = %q", e.Text)
+	}
+}

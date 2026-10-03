@@ -6,7 +6,7 @@
   <p class="dim">#geo{{.M.Cell}}{{range .M.Tags}} · #{{.}}{{end}}</p>
   {{if .M.Text}}<p class="text">{{.M.Text}}</p>{{end}}
   {{if .M.Link}}<p><a href="{{.M.Link}}" rel="noopener nofollow ugc" target="_blank">{{.M.Link}}</a></p>{{end}}
-  <p><strong>{{.M.Going}}</strong> {{t .Lang "meetup.going"}}{{if .M.AuthorName}} · {{t .Lang "meetup.host"}} @{{.M.AuthorName}}{{end}}</p>
+  <p><strong>{{.M.Going}}</strong> {{t .Lang "meetup.going"}}{{if .M.Via}} · {{t .Lang "meetup.via"}} {{.M.Via}}{{else if .M.AuthorName}} · {{t .Lang "meetup.host"}} @{{.M.AuthorName}}{{end}}</p>
   <div class="actions">
     <form method="post" action="/meetups/{{.M.ID}}/rsvp">
       {{if .Going}}<button type="submit" class="secondary pill">{{t .Lang "meetup.not_going"}}</button>

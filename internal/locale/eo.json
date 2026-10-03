@@ -184,5 +184,7 @@
   "meetup.import_label": "Ĉu jam en Luma, Meetup aŭ aliloke? Algluu la ligilon",
   "meetup.import": "Importi",
   "meetup.import_ok": "Plenigita el la paĝo — kontrolu kaj publikigu.",
-  "meetup.import_failed": "Ne eblis legi eventon el tiu paĝo. Plenigu sube."
+  "meetup.import_failed": "Ne eblis legi eventon el tiu paĝo. Plenigu sube.",
+  "meetup.via": "el",
+  "js.via": "el {site}"
 }

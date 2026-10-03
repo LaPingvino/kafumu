@@ -96,7 +96,7 @@
         title.textContent = m.title;
         var meta = document.createElement("div");
         meta.className = "meta";
-        meta.textContent = [m.venue, tr("going_n", { n: m.going })].concat((m.tags || []).map(function (t) { return "#" + t; })).filter(Boolean).join(" · ");
+        meta.textContent = [m.venue, m.via ? tr("via", { site: m.via }) : tr("going_n", { n: m.going })].concat((m.tags || []).map(function (t) { return "#" + t; })).filter(Boolean).join(" · ");
         a.appendChild(when); a.appendChild(title); a.appendChild(meta);
         li.appendChild(a);
         list.appendChild(li);

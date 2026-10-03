@@ -184,5 +184,7 @@
   "meetup.import_label": "Already on Luma, Meetup or elsewhere? Paste the link",
   "meetup.import": "Import",
   "meetup.import_ok": "Filled in from the page — check and publish.",
-  "meetup.import_failed": "Couldn't read an event from that page. Fill it in below."
+  "meetup.import_failed": "Couldn't read an event from that page. Fill it in below.",
+  "meetup.via": "via",
+  "js.via": "via {site}"
 }

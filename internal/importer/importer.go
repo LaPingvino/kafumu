@@ -135,37 +135,71 @@ var ldRE = regexp.MustCompile(`(?is)<script[^>]+type=["']?application/ld\+json["
 
 // Parse finds the first schema.org Event in a page's JSON-LD.
 func Parse(page string) (*Event, error) {
+	all := ParseAll(page)
+	if len(all) == 0 {
+		return nil, ErrNoEvent
+	}
+	return all[0], nil
+}
+
+// ParseAll returns every schema.org Event in a page's JSON-LD, including
+// those inside ItemLists (Luma city and calendar pages) and @graphs.
+func ParseAll(page string) []*Event {
+	var out []*Event
 	for _, m := range ldRE.FindAllStringSubmatch(page, -1) {
 		var v any
 		if json.Unmarshal([]byte(strings.TrimSpace(m[1])), &v) != nil {
 			continue
 		}
-		if obj := findEvent(v); obj != nil {
-			if ev := toEvent(obj); ev != nil {
-				return ev, nil
+		walkEvents(v, func(o map[string]any) {
+			if ev := toEvent(o); ev != nil {
+				out = append(out, ev)
 			}
-		}
+		})
 	}
-	return nil, ErrNoEvent
+	return out
 }
 
-func findEvent(v any) map[string]any {
+func walkEvents(v any, fn func(map[string]any)) {
 	switch x := v.(type) {
 	case []any:
 		for _, e := range x {
-			if f := findEvent(e); f != nil {
-				return f
-			}
+			walkEvents(e, fn)
 		}
 	case map[string]any:
 		if isEvent(x["@type"]) {
-			return x
+			fn(x)
+			return
 		}
-		if g, ok := x["@graph"]; ok {
-			return findEvent(g)
+		for _, k := range []string{"@graph", "itemListElement", "item", "subEvent"} {
+			if c, ok := x[k]; ok {
+				walkEvents(c, fn)
+			}
 		}
 	}
-	return nil
+}
+
+// Get fetches a page's body with the same safety rules as Fetch.
+func (im *Importer) Get(ctx context.Context, raw string) (string, error) {
+	u, err := url.Parse(strings.TrimSpace(raw))
+	if err != nil || (u.Scheme != "https" && u.Scheme != "http") || u.Host == "" {
+		return "", errors.New("importer: not a web link")
+	}
+	req, err := http.NewRequestWithContext(ctx, "GET", u.String(), nil)
+	if err != nil {
+		return "", err
+	}
+	req.Header.Set("User-Agent", "Mozilla/5.0 (compatible; Kafumu event import; +https://github.com/LaPingvino/kafumu)")
+	resp, err := im.Client.Do(req)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return "", fmt.Errorf("importer: %s answered %d", u.Host, resp.StatusCode)
+	}
+	b, err := io.ReadAll(io.LimitReader(resp.Body, 3<<20))
+	return string(b), err
 }
 
 func isEvent(t any) bool {

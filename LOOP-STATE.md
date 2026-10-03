@@ -95,7 +95,11 @@ Everything before the event serves that; the rest of M1 follows after.
       Was: Import events by link: paste a Luma / Meetup / any event URL → read its schema.org Event JSON-LD
       (server fetch, cached) → title, time, venue, link; tag with cell + #websummit etc. Most Web Summit
       side events live on Luma, so this is high value before the event.
-- [ ] 7c. Subscribe to calendars: Luma calendar / Meetup group iCal feeds per cell (cron, cached).
+- [x] 7c. Calendar feeds (`internal/feeds`, curated `feeds.json`): JSON-LD pages incl. ItemLists (Luma
+      city/calendar pages) and iCal (Luma calendars, Meetup groups; TZID via embedded tzdata). Cron every
+      6 h (/cron/feeds, X-Appengine-Cron only) upserts upcoming 60 days as meetups "via luma.com" with
+      stable ids, keeping Kafumu RSVPs. Seeded with luma.com/lisbon (19 events, 11 in central Lisbon).
+      Add feeds: append to feeds.json (ics feeds without GEO need a "cell").
 - [ ] 8. Canned signals between scanned contacts: "I'm at the coffee bar", "join us at …".
 - [ ] 9. Profile tags + discoverable people at the event (opt-in): languages, interests
       (opensource, esperanto, climate…), matched on the device.

@@ -9,6 +9,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/LaPingvino/kafumu/internal/feeds"
 	"github.com/LaPingvino/kafumu/internal/geo"
 	"github.com/LaPingvino/kafumu/internal/importer"
 	"github.com/LaPingvino/kafumu/internal/locale"
@@ -173,4 +174,17 @@ func (h *Meetups) Import(w http.ResponseWriter, r *http.Request) {
 		out["cell"] = geo.Cell(ev.Lat, ev.Lon)
 	}
 	json.NewEncoder(w).Encode(out)
+}
+
+// SyncFeeds handles GET /cron/feeds, run by App Engine cron (which sets
+// X-Appengine-Cron; App Engine strips that header from outside requests).
+func (h *Meetups) SyncFeeds(w http.ResponseWriter, r *http.Request) {
+	if r.Header.Get("X-Appengine-Cron") != "true" {
+		http.NotFound(w, r)
+		return
+	}
+	res := feeds.Sync(r.Context(), feeds.Load(), h.Importer, h.Svc.Store, time.Now())
+	h.Svc.ForgetAll()
+	log.Printf("feeds: %s", res)
+	w.Write([]byte(res.String() + "\n"))
 }

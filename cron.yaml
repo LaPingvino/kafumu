@@ -1,0 +1,4 @@
+cron:
+  - description: "Pull public event calendars (feeds.json) into meetups"
+    url: /cron/feeds
+    schedule: every 6 hours

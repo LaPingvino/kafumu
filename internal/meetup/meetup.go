@@ -28,20 +28,22 @@ const (
 
 // Meetup is one gathering. RSVPs are account ids, never shown to anyone.
 type Meetup struct {
-	ID         string    `datastore:"-" json:"id"`
-	AuthorID   string    `datastore:"author_id" json:"-"`
-	AuthorName string    `datastore:"author_name,noindex" json:"author,omitempty"`
-	Title      string    `datastore:"title,noindex" json:"title"`
-	Text       string    `datastore:"text,noindex" json:"text,omitempty"`
-	StartAt    time.Time `datastore:"start_at,noindex" json:"start"`
-	EndAt      time.Time `datastore:"end_at,noindex" json:"end"`
-	Venue      string    `datastore:"venue,noindex" json:"venue,omitempty"`
-	Link       string    `datastore:"link,noindex" json:"link,omitempty"`
-	Cell       string    `datastore:"cell" json:"cell"`
-	Tags       []string  `datastore:"tags,noindex" json:"tags,omitempty"`
-	RSVPs      []string  `datastore:"rsvps,noindex" json:"-"`
-	Going      int       `datastore:"-" json:"going"`
-	CreatedAt  time.Time `datastore:"created_at,noindex" json:"-"`
+	ID         string `datastore:"-" json:"id"`
+	AuthorID   string `datastore:"author_id" json:"-"`
+	AuthorName string `datastore:"author_name,noindex" json:"author,omitempty"`
+	// Via names the public calendar an imported meetup came from.
+	Via       string    `datastore:"via,noindex" json:"via,omitempty"`
+	Title     string    `datastore:"title,noindex" json:"title"`
+	Text      string    `datastore:"text,noindex" json:"text,omitempty"`
+	StartAt   time.Time `datastore:"start_at,noindex" json:"start"`
+	EndAt     time.Time `datastore:"end_at,noindex" json:"end"`
+	Venue     string    `datastore:"venue,noindex" json:"venue,omitempty"`
+	Link      string    `datastore:"link,noindex" json:"link,omitempty"`
+	Cell      string    `datastore:"cell" json:"cell"`
+	Tags      []string  `datastore:"tags,noindex" json:"tags,omitempty"`
+	RSVPs     []string  `datastore:"rsvps,noindex" json:"-"`
+	Going     int       `datastore:"-" json:"going"`
+	CreatedAt time.Time `datastore:"created_at,noindex" json:"-"`
 	// ExpiresAt drives the Datastore TTL policy and the live filter.
 	ExpiresAt time.Time `datastore:"expires_at" json:"-"`
 }
@@ -259,6 +261,13 @@ func (m *Meetup) HasRSVP(userID string) bool {
 		}
 	}
 	return false
+}
+
+// ForgetAll drops the per-cell cache (after a feed sync).
+func (s *Service) ForgetAll() {
+	s.mu.Lock()
+	s.cells = map[string]cellEntry{}
+	s.mu.Unlock()
 }
 
 func (s *Service) forget(cell string) {
