@@ -156,7 +156,8 @@ event entries for language gatherings (only with verified dates/venues — never
 - [x] ATproto events (read): feed kind "smokesignal" reads event links from smokesignal.events, resolves
       each DID via plc.directory, fetches the `community.lexicon.calendar.event` record from the author's
       own PDS, keeps in-person events with `location.geo` (→ cell), imports them "via smokesignal.events".
-      First run: 17 such events. Address-only events need geocoding (later).
+      First run: 17 such events. Address-only events are geocoded via Nominatim (≤1 req/s, identifying UA,
+      per-instance cache, ≤15 per sync): +6 placed on the first run.
 - [ ] ATproto OAuth so posts/events/RSVPs are written natively to the user's PDS (M2) — after kafumu.com
       (OAuth client metadata must live on the final domain).
 - `LaPingvino/geotags` public repo: generator from GeoNames + language list, CC-BY; Kafumu vendors it.

@@ -57,6 +57,10 @@ func TestATEvent(t *testing.T) {
 	if ev == nil || !ev.HasGeo || ev.Venue != "FIL" || ev.Title != "Kafo" {
 		t.Fatalf("event = %+v", ev)
 	}
+	addrOnly := `{"value":{"name":"Kafo","startsAt":"2026-11-10T15:00:00Z","locations":[{"$type":"community.lexicon.location.address","name":"Café X","street":"Rua Y 1","locality":"Lisboa"}]}}`
+	if ev := toATEvent(addrOnly, ""); ev == nil || ev.HasGeo || ev.Venue != "Café X, Rua Y 1, Lisboa" {
+		t.Errorf("address-only event = %+v", ev)
+	}
 	virtual := strings.Replace(raw, "#inperson", "#virtual", 1)
 	if toATEvent(virtual, "") != nil {
 		t.Error("virtual event imported")

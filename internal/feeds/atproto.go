@@ -7,6 +7,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/LaPingvino/kafumu/internal/importer"
@@ -74,7 +75,70 @@ func atprotoEvents(ctx context.Context, im *importer.Importer, page string) []*i
 			out = append(out, ev)
 		}
 	}
+	// Address-only events: look the address up, politely (see geocode).
+	looked := 0
+	for _, ev := range out {
+		if ev.HasGeo || looked >= maxGeocodes {
+			continue
+		}
+		looked++
+		if lat, lon, ok := geocode(ctx, im, ev.Venue); ok {
+			ev.Lat, ev.Lon, ev.HasGeo = lat, lon, true
+		}
+	}
 	return out
+}
+
+const maxGeocodes = 15
+
+var (
+	geoMu    sync.Mutex
+	geoCache = map[string][3]float64{} // address → lat, lon, ok(1/0)
+	geoLast  time.Time
+)
+
+// geocode asks OpenStreetMap's Nominatim for an address, within its usage
+// policy: one request per second, an identifying user agent, results kept
+// (per instance) so the same address is never asked twice.
+func geocode(ctx context.Context, im *importer.Importer, addr string) (float64, float64, bool) {
+	addr = strings.TrimSpace(addr)
+	if len(addr) < 6 {
+		return 0, 0, false
+	}
+	geoMu.Lock()
+	if c, ok := geoCache[addr]; ok {
+		geoMu.Unlock()
+		return c[0], c[1], c[2] == 1
+	}
+	if wait := time.Second - time.Since(geoLast); wait > 0 {
+		time.Sleep(wait)
+	}
+	geoLast = time.Now()
+	geoMu.Unlock()
+
+	raw, err := im.Get(ctx, "https://nominatim.openstreetmap.org/search?"+url.Values{
+		"format": {"jsonv2"}, "limit": {"1"}, "q": {addr}}.Encode())
+	var res []struct {
+		Lat string `json:"lat"`
+		Lon string `json:"lon"`
+	}
+	lat, lon, ok := 0.0, 0.0, false
+	if err == nil && json.Unmarshal([]byte(raw), &res) == nil && len(res) > 0 {
+		var e1, e2 error
+		lat, e1 = strconv.ParseFloat(res[0].Lat, 64)
+		lon, e2 = strconv.ParseFloat(res[0].Lon, 64)
+		ok = e1 == nil && e2 == nil
+	}
+	if err == nil { // don't cache network failures
+		geoMu.Lock()
+		f := 0.0
+		if ok {
+			f = 1
+		}
+		geoCache[addr] = [3]float64{lat, lon, f}
+		geoMu.Unlock()
+	}
+	return lat, lon, ok
 }
 
 func toATEvent(raw, link string) *importer.Event {
@@ -108,8 +172,8 @@ func toATEvent(raw, link string) *importer.Event {
 			ev.Venue = strings.Trim(strings.Join([]string{l.Name, l.Street, l.Locality}, ", "), ", ")
 		}
 	}
-	if !ev.HasGeo {
-		return nil // no coordinates, no cell; geocoding addresses is a later step
+	if !ev.HasGeo && ev.Venue == "" {
+		return nil // nowhere to put it
 	}
 	return ev
 }
