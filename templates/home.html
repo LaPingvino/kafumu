@@ -3,7 +3,8 @@
   <p class="muted" id="status"></p>
   <h1 class="cell-tag" hidden><span id="cell-tag"></span></h1>
   <p id="cell-actions" class="actions" hidden>
-    <a id="compose" role="button" class="suggested pill" target="_blank" rel="noopener">{{t .Lang "home.post_here"}}</a>
+    <button type="button" id="coffee" class="suggested pill">☕ {{t .Lang "coffee.button"}}</button>
+    <button type="button" id="say" class="pill">💬 {{t .Lang "oln.say"}}</button>
     <a id="share" href="#" role="button" class="pill">{{t .Lang "home.share"}}</a>
     <a href="/meetups/new" role="button" class="pill">{{t .Lang "meetup.new_title"}}</a>
     <button type="button" id="change-area" class="pill">{{t .Lang "area.change"}}</button>
@@ -15,6 +16,26 @@
       <textarea name="text" rows="3" maxlength="300" placeholder="{{ts .Lang "post.placeholder"}}"></textarea></label>
     <div class="actions"><button type="submit" class="pill">{{t .Lang "post.send"}}</button></div>
   </form>{{end}}{{end}}
+  <div id="coffee-card" class="card" style="padding:4px 16px 12px" hidden>
+    <h2>☕ {{t .Lang "coffee.button"}}</h2>
+    <p>{{t .Lang "coffee.explain1"}}</p>
+    <p class="dim">{{t .Lang "coffee.explain2"}}</p>
+    <div class="actions"><button type="button" id="coffee-go" class="pill suggested">{{t .Lang "coffee.go"}}</button></div>
+    <p class="dim small" id="coffee-status" role="status"></p>
+  </div>
+  <form id="oln-form" class="card" style="padding:4px 16px 12px" hidden>
+    <label>{{t .Lang "oln.label"}}<textarea name="text" rows="3" maxlength="500" placeholder="{{ts .Lang "oln.placeholder"}}"></textarea></label>
+    <div class="inline-row">
+      <select name="extra" aria-label="{{ts .Lang "oln.lasts"}}">
+        <option value="0">{{t .Lang "oln.hour"}}</option>
+        <option value="4">{{t .Lang "oln.day"}}</option>
+        <option value="8">{{t .Lang "oln.week"}}</option>
+      </select>
+      <button type="submit" class="pill">{{t .Lang "oln.send"}}</button>
+    </div>
+    <p class="dim small" id="oln-status" role="status"></p>
+    <p class="dim small">{{t .Lang "oln.explain"}} <a id="compose" target="_blank" rel="noopener">{{t .Lang "oln.bluesky"}}</a></p>
+  </form>
   <div id="picker" class="card" style="padding:4px 16px 12px" hidden>
     <h2>{{t .Lang "area.title"}}</h2>
     <div class="inline-row">
@@ -34,6 +55,11 @@
 <div id="events" class="card events" hidden></div>
 
 <div id="travel" class="card events" hidden></div>
+
+<section id="notes-section" hidden>
+  <h2>{{t .Lang "oln.here_now"}}</h2>
+  <ul id="notes" class="boxed-list"></ul>
+</section>
 
 <section id="friends-section" hidden>
   <h2>{{t .Lang "home.friends_around"}}</h2>
@@ -67,5 +93,6 @@
 <script src="/static/pair.js?v={{.V}}"></script>
 <script src="/static/geo.js?v={{.V}}"></script>
 <script src="/static/area.js?v={{.V}}"></script>
+<script src="/static/oln.js?v={{.V}}"></script>
 <script src="/static/kafumu.js?v={{.V}}"></script>
 {{template "foot" .}}

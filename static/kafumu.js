@@ -80,18 +80,120 @@
     el.textContent = parts.join(" ");
   }
 
+  // ---- Local messages (OLN): Kafumu's own channel, first class ----
+  var currentCell = "", requiredBits = 14, liveEvents = [];
+  function hashrate() { var r = parseFloat(pref("kafumu.hashrate") || "0"); return r > 1000 ? r : 40000; }
+  function estimate(bits) {
+    var s = Math.pow(2, bits) / hashrate();
+    return s < 1 ? "< 1 s" : s < 90 ? Math.round(s) + " s" : Math.round(s / 60) + " min";
+  }
+  function olnKeywords() {
+    var me = window.KAFUMU_ME || {}, ui = document.documentElement.lang, code = (me.from1 || {})[ui];
+    var ks = ["#geo" + currentCell];
+    if (code) ks.push("#lang" + code);
+    liveEvents.forEach(function (t) { ks.push("#" + t); });
+    return ks.join(" ");
+  }
+  function updateEstimate() {
+    var f = $("oln-form");
+    if (f) $("oln-status").textContent = tr("oln_cost", { time: estimate(requiredBits + parseInt(f.extra.value, 10)) });
+  }
+  $("say").onclick = function () { var f = $("oln-form"); f.hidden = !f.hidden; if (!f.hidden) { updateEstimate(); f.text.focus(); } };
+  $("oln-form").extra.onchange = updateEstimate;
+  $("oln-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var f = this, text = f.text.value.trim(), bits = requiredBits + parseInt(f.extra.value, 10);
+    if (!text || !currentCell) return;
+    f.querySelector("button[type=submit]").disabled = true;
+    var t0 = Date.now();
+    window.kafumuOLN.post(text, olnKeywords(), bits, function (tries, ms) {
+      if (ms > 0) pref("kafumu.hashrate", String(Math.round(tries / ms * 1000)));
+      $("oln-status").textContent = tr("oln_working", { n: Math.round(tries / 1000) + "k" });
+    }).then(function () {
+      f.text.value = "";
+      f.hidden = true;
+      setStatus(tr("oln_sent", { s: Math.round((Date.now() - t0) / 1000) }));
+      load(currentCell, true);
+    }).catch(function (err) {
+      $("oln-status").textContent = tr("oln_failed") + " " + err.message;
+    }).then(function () { f.querySelector("button[type=submit]").disabled = false; });
+  });
+
+  // "Who's up for coffee?": a local message carrying your connect code, so
+  // whoever taps Join swaps cards with you (only what your persona shares).
+  $("coffee").onclick = function () { var c = $("coffee-card"); c.hidden = !c.hidden; };
+  $("coffee-go").onclick = function () {
+    var btn = this, dev = window.kafumuDevice;
+    if (!dev || !window.kafumuPair || !currentCell) return;
+    btn.disabled = true;
+    var pair = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin });
+    dev.personas.shareCard().then(function (card) {
+      return pair.invite(false).then(function (inv) {
+        var text = tr("coffee_text", { name: card.name || "" }).trim() + "\n" + inv.url;
+        return window.kafumuOLN.post(text, olnKeywords() + " #coffee", requiredBits, function (tries) {
+          $("coffee-status").textContent = tr("oln_working", { n: Math.round(tries / 1000) + "k" });
+        });
+      });
+    }).then(function () {
+      $("coffee-status").textContent = tr("coffee_sent");
+      load(currentCell, true);
+      // Keep listening for people who join, like the Connect page does.
+      var pairer = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin });
+      var until = Date.now() + 30 * 60 * 1000;
+      (function listen() {
+        dev.personas.shareCard().then(function (card) { return pairer.checkInvite(card); }).then(function (added) {
+          if (added.length) $("coffee-status").textContent = tr("coffee_joined", { names: added.map(function (c) { return c.card.name; }).join(", ") });
+        }).catch(function () {}).then(function () { if (Date.now() < until) setTimeout(listen, 10000); });
+      })();
+    }).catch(function (err) { $("coffee-status").textContent = tr("oln_failed") + " " + err.message; btn.disabled = false; });
+  };
+
+  function hiddenNotes() { try { return JSON.parse(pref("kafumu.hiddenNotes") || "[]"); } catch (e) { return []; } }
+  function showNotes(notes) {
+    var hidden = hiddenNotes(), list = $("notes");
+    notes = notes.filter(function (n) { return hidden.indexOf(n.id) < 0; });
+    $("notes-section").hidden = !notes.length;
+    list.textContent = "";
+    notes.forEach(function (n) {
+      var li = document.createElement("li");
+      var meta = document.createElement("div");
+      meta.className = "meta";
+      var left = Math.max(0, (new Date(n.expires) - Date.now()) / 36e5);
+      meta.textContent = ago(n.at) + " · ⚡" + n.bits + " · " + tr("oln_left", { h: left < 1 ? "<1" : Math.round(left) }) +
+        (n.tags || []).filter(function (t) { return t.indexOf("geo") !== 0; }).map(function (t) { return " #" + t; }).join("");
+      var text = document.createElement("p");
+      text.className = "text";
+      // A connect code in the message becomes a Join button.
+      var m = n.text.match(/https?:\/\/[^\s]+\/c#v1\.[A-Za-z0-9_-]+/);
+      text.textContent = m ? n.text.replace(m[0], "").trim() : n.text;
+      var hide = document.createElement("button");
+      hide.type = "button"; hide.className = "pill-sm"; hide.textContent = tr("oln_hide");
+      hide.onclick = function () { var h = hiddenNotes(); h.push(n.id); pref("kafumu.hiddenNotes", JSON.stringify(h.slice(-500))); li.remove(); };
+      li.appendChild(meta); li.appendChild(text);
+      if (m && m[0].indexOf(location.origin + "/c#") === 0) {
+        var join = document.createElement("a");
+        join.href = m[0]; join.setAttribute("role", "button"); join.className = "pill-sm suggested";
+        join.textContent = "☕ " + tr("coffee_join");
+        li.appendChild(join);
+      }
+      li.appendChild(hide);
+      list.appendChild(li);
+    });
+  }
+
   function show(c, how, gps) {
     var tag = "#geo" + c;
     $("cell-tag").textContent = tag;
     document.querySelector(".cell-tag").hidden = false;
     $("cell-actions").hidden = false;
     $("compose").href = "https://bsky.app/intent/compose?text=" + encodeURIComponent("\n\n" + tag);
-    // Connected to ATproto: post from here, into your own account.
+    // Connected to ATproto: Bluesky posts from here, into your own account.
     var comp = $("composer");
     if (comp) {
       comp.cell.value = c;
       $("compose").onclick = function (e) { e.preventDefault(); comp.hidden = !comp.hidden; if (!comp.hidden) comp.text.focus(); };
     }
+    currentCell = c;
     $("share").onclick = function (e) {
       e.preventDefault();
       var url = location.origin + "/?cell=" + c;
@@ -107,13 +209,14 @@
     friendsAround(c, !!gps);
   }
 
-  function load(c) {
+  // fresh skips the browser's 30-second cache (after your own post).
+  function load(c, fresh) {
     var near = rings(c, 2);
     var ringOf = {};
     near.forEach(function (p) { ringOf["geo" + p[0]] = p[1]; });
     $("list").innerHTML = "";
     note(tr("looking"));
-    fetch("/bundle?cells=" + near.map(function (p) { return p[0]; }).join(","))
+    fetch("/bundle?cells=" + near.map(function (p) { return p[0]; }).join(","), fresh ? { cache: "reload" } : {})
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (b) {
         var places = {};
@@ -121,6 +224,9 @@
         // Event tags (#websummit) count as local as a #geo tag while they run.
         (b.events || []).forEach(function (e) { ringOf[e.tag] = e.live ? 0 : 1; });
         showEvents(b.events || [], c);
+        requiredBits = b.requiredBits || 14;
+        liveEvents = (b.events || []).filter(function (e) { return e.live; }).map(function (e) { return e.tag; });
+        showNotes(b.notes || []);
         showMeetups(b.meetups || [], b.events || []);
         travel.meetups = (b.meetups || []).length;
         travel.place = ((b.places || [])[0] || {}).place || "";

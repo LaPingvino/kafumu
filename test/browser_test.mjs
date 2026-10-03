@@ -52,6 +52,26 @@ try {
   await B.waitFor("document.querySelector('.signals button').textContent.startsWith('✓')", "signal sent");
   await A.goto(base + "/?cell=8ccgqw");
   await A.waitFor("!document.getElementById('signals-section').hidden && document.getElementById('signals').textContent.includes('Bea')", "B's signal in A's Around");
+  // Local messages (OLN): A says something, mined in a worker; B sees it.
+  await A.goto(base + "/?cell=8ccgqx");
+  await A.evaluate("document.getElementById('say').click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test: hi from the OLN'; f.requestSubmit(); true");
+  await A.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN')", "A's message in Here now", 30000);
+  for (let i = 0; ; i++) { // B's browser may hold a 30-second-old bundle
+    await B.goto(base + "/?cell=8ccgqx");
+    try { await B.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN')", "B sees A's message", 8000); break; }
+    catch (e) { if (i >= 6) throw e; }
+  }
+  // Who's up for coffee: A asks, B joins from the message and they connect.
+  await A.evaluate("document.getElementById('coffee').click(); document.getElementById('coffee-go').click(); true");
+  await A.waitFor("document.getElementById('coffee-status').textContent.length > 0 && !document.getElementById('coffee-status').textContent.includes('…')", "coffee asked", 30000);
+  for (let i = 0; ; i++) {
+    await B.goto(base + "/?cell=8ccgqx");
+    try { await B.waitFor("!!document.querySelector('#notes a[href*=\"/c#v1.\"]')", "Join button for B", 8000); break; }
+    catch (e) { if (i >= 8) throw e; }
+  }
+  await B.evaluate("location.href = document.querySelector('#notes a[href*=\"/c#v1.\"]').href; true");
+  await B.waitFor("!document.getElementById('accept-area').hidden", "B on the connect page from Join");
+
   // Meetups: A makes an account on the way to hosting, B sees it in Around.
   await A.goto(base + "/meetups/new");
   await A.evaluate("document.querySelector('form[action=\"/account/start\"]').requestSubmit()");
@@ -105,7 +125,7 @@ try {
     await C.waitFor("document.getElementById('contacts').textContent.includes('Ana')", "Ana moved to C");
   } finally { C.close(); }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B scans, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device, meetup hosted and seen, findable profile seen)");
+  console.log("ok  connect pages in two browsers (A shows, B scans, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device, meetup hosted and seen, findable profile seen, OLN message + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

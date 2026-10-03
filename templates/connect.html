@@ -12,7 +12,8 @@
       <button type="button" id="new-code" class="pill">{{t .Lang "connect.new_code"}}</button>
       <button type="button" id="listen-again" class="pill" hidden>{{t .Lang "connect.listen_again"}}</button>
     </div>
-    <input id="invite-link" readonly hidden>
+    <p class="inline-row"><input id="invite-link" readonly onclick="this.select()" aria-label="{{ts .Lang "connect.share_link"}}">
+      <button type="button" onclick="navigator.clipboard&&navigator.clipboard.writeText(document.getElementById('invite-link').value);this.textContent='✓'">{{t .Lang "account.copy"}}</button></p>
   </div>
   <p class="dim"><small>{{t .Lang "connect.privacy"}}</small></p>
   <p><a href="/badge">🖨 {{t .Lang "badge.title"}}</a></p>

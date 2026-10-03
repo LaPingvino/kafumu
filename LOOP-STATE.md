@@ -178,7 +178,12 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       window, adaptive required bits per cell (14 + log2(1 + last-hour count/30), ≤22), TTL from bits,
       dedupe by hash, length cap, per-cell cache like meetups, ≤50 per cell in the bundle (by priority),
       admin hidden set; POST /api/oln; bundle field `notes` + `requiredBits`.
-- [ ] 15b. Client: mining Web Worker (sha1.js) with progress, composer in Around ("Say something here",
+- [x] 15b. OLN first class (Joop): Around's main actions are "☕ Who's up for coffee?" (explains pairing;
+      posts a local message carrying your connect code; others get a Join button) and "💬 Say something
+      here" (no account; choose ~1 h / ~1 day / a week; cost estimate from this device's hashrate; mined in a
+      Web Worker; retries with +1 bit on 402). "Here now" is the first feed section (⚡bits, time left, hide on
+      the device). Bluesky is the secondary "or post on Bluesky". Report (PoW'd) still to do.
+      Was: Client: mining Web Worker (sha1.js) with progress, composer in Around ("Say something here",
       no account), "Around here now" section ranked bits+recency, hide/report (report = PoW'd message).
 - [ ] 15c. Views: filter chips (language, interest) + URL params (?cell=&lang=&tag=) applied on the
       device; explore any place; multi-ring requests for big regions (holiday destinations).
@@ -188,6 +193,11 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       nonce;date;base64url(sha256(body));#box<id>, ±10 min — instant for people, a cost for bots.
 - [ ] 15g. Per-peer price (Joop): people set the minimum bits for unsolicited messages to them (questions,
       offers); commercial senders pay in work for what reaching you is worth to them.
+- [ ] 18. "Your area" → a general search & saved views UI (Joop): search place/language/interest, save a
+      view (on the device), switch between views; Contacts: sort by distance from where they were last seen
+      (friends-around hits give a day+cell per contact — device only).
+- [ ] 19. Short link code for connect codes (Joop): kafumu.com/j/XXXXXX → the /c#… invite, kept 1 h
+      server-side (public key only; mention on /privacy). The full link is already shown under the QR.
 - [ ] 17. Card themes from local activity (Joop): count tags seen in Around bundles (posts, meetups,
       people, notes) on the device, per area; the card editor suggests the local ones first.
 - [ ] 15e. /oln.json per cell in eolnpoc's olnjson.Format for other OLN nodes.
