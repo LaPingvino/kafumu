@@ -23,6 +23,8 @@ Everything before the event serves that; the rest of M1 follows after.
       posts, caps 2 posts per author. Central Amsterdam: 0 → 75 posts.
 - [x] 2. Lisbon area (Barreiro, Almada, Seixal, Parque das Nações…) + time-bound event tags:
       `#websummit` is local to the venue from 45 days before to the last day; banner + compose link.
+- [ ] 2b. UI in several languages from day one: EN, PT, EO, NL (simple locale JSON + Accept-Language
+      + switcher; reuse esperanto-kurso's locale approach). Esperanto early on purpose.
 - [ ] 3. Accounts: copy esperanto-kurso auth; cookie `userID.token`, token stored hashed, Get-by-key;
       created lazily on first action; magic-link page; delete-account button. Passkeys right after.
 - [ ] 4. Device store + "my card": IndexedDB; a card you choose to share (name, what you do, links:
@@ -41,6 +43,11 @@ Everything before the event serves that; the rest of M1 follows after.
 - [ ] 12. Event polish: install prompt (PWA), offline shell, printable QR for a badge/T-shirt, PT/EN UI.
       Load test the bundle path; check free-tier quotas for ~1k users/day.
 
+## Second beachhead: language events (Joop is a HYPIA member, visits language events)
+amikumu grew through Esperanto events. Aim to be the best tool at polyglot/Esperanto/language-café
+events early, so it spreads locally by word of mouth. Means: language tags + people matching early,
+event entries for language gatherings (only with verified dates/venues — never guessed), EO/PT/EN/NL UI.
+
 ## After the event (rest of M1)
 - `LaPingvino/geotags` public repo: generator from GeoNames + language list, CC-BY; Kafumu vendors it.
 - Language gazetteer + canonical `lang:` tags (ISO 639-3, `#langepo`).
@@ -54,6 +61,7 @@ Liberapay now, Stripe later · discoverability opt-in · "Kafumu" everywhere · 
 start (magic link re-binds them after a domain move).
 
 ## Notes
+- Joop (2026-10-03): "be daring, corrections are cheap"; ping his phone only for urgent things.
 - Deploy with the user-installed SDK: `~/google-cloud-sdk/bin/gcloud app deploy --project lokumo --quiet`
   (the pacman gcloud lacks app-engine-go). Needs the sandbox disabled.
 - `#ams` is full of flight-tracker bots; short aliases are marked ambiguous and weigh less.
