@@ -35,10 +35,21 @@ Everything before the event serves that; the rest of M1 follows after.
 - [x] 4. `static/device.js` (IndexedDB kv + contacts, storage.persist, link normalisation tested in
       `test/device_test.mjs`) and `/card`: name, one-liner, email/phone/WhatsApp/Signal/Telegram/Bluesky/
       LinkedIn/website, live preview, stored only on the device. No account needed.
-- [ ] 5. Scan to connect: QR with K + mailbox id; scanner sends its card encrypted via the mailbox
-      (`Box`, memcache + TTL); both sides end up with each other's card + a private note
-      ("met at WS, robotics, coffee Thu"). This is the conference killer feature.
-- [ ] 6. Contacts page: everyone you've scanned, notes, one-tap open of their links; export (vCard/CSV).
+- [x] 5a. Mailbox API (`internal/box`): `/api/box/{id}` GET/POST + `/ack`; 64-hex ids, ≤8 KB, ≤32
+      msgs, 7-day TTL, one Datastore entity per box (one Get per poll), ack-to-delete, per-IP limit,
+      unknown == empty. ~60 reads per pairing with backoff polling → memcache slice later.
+      Ops for Joop: Datastore TTL policy on `Box.expires_at` (one-time gcloud command).
+- [ ] 5b. `static/pair.js` handshake (advisor-reviewed design): QR = `origin/c#<A's ephemeral P-256
+      public key + invite box id>`; scanner does ECDH with its own ephemeral key → HKDF → pair key, so
+      every scanner gets its own key and can't read other scanners' hellos. Hello = scanner pubkey (clear)
+      + AES-GCM(card). Box ids = HMAC(pairKey, label); direction in AES-GCM AAD. A's invite private key in
+      IndexedDB ~1 h. Node E2E test of A↔B (and A↔B,C isolation) against the local Go server.
+- [ ] 5c. `/connect` (client-side QR, vendored qrcodegen + licence) and `/c` landing: works for a
+      first-time visitor (asks only for a name inline), retries, backoff polling 2 s → 5 s → stop at 3 min,
+      "Connected with Ana" + note field, nudge to install.
+- [ ] 6. Contacts page: everyone you've scanned, notes, one-tap open of their links; export (vCard/JSON)
+      — NON-NEGOTIABLE before the event: Safari evicts non-installed site data after 7 idle days, and an
+      iOS home-screen PWA has separate storage from Safari (contacts don't carry over on install).
 - [ ] 7. Meetups (fallback records, need account): "coffee at Pavilion 2, 15:00", side events, RSVP,
       tags `#websummit` + `lang:` + `tag:`; shown in the bundle; `.ics`.
 - [ ] 8. Canned signals between scanned contacts: "I'm at the coffee bar", "join us at …".
