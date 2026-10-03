@@ -17,9 +17,12 @@ handlers:
   - url: /favicon.ico
     static_files: static/icon.svg
     upload: static/icon.svg
+  # Pages reference assets as /static/x.js?v=<deploy>, so they can be cached
+  # long without ever mixing versions.
   - url: /static
     static_dir: static
     secure: always
+    expiration: "30d"
   - url: /.*
     script: auto
     secure: always

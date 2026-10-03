@@ -11,7 +11,7 @@
 <ul id="accepted" class="boxed-list"></ul>
 <p id="install-hint" class="card dim" hidden style="padding:12px 16px">{{t .Lang "accept.install_hint"}}</p>
 <script>window.KAFUMU_T = {{.JS}};</script>
-<script src="/static/device.js"></script>
-<script src="/static/pair.js"></script>
-<script src="/static/connect.js"></script>
+<script src="/static/device.js?v={{.V}}"></script>
+<script src="/static/pair.js?v={{.V}}"></script>
+<script src="/static/connect.js?v={{.V}}"></script>
 {{template "foot" .}}

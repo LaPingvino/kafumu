@@ -2,7 +2,11 @@
 // brand and domain (kafumu.com is not final) are one app.yaml edit away.
 package config
 
-import "os"
+import (
+	"os"
+	"strconv"
+	"time"
+)
 
 type Config struct {
 	Port      string
@@ -12,6 +16,9 @@ type Config struct {
 	// Passkeys bind to its host; after a domain move users sign in once with
 	// their magic link and add a new passkey.
 	Origin string
+	// Version tags static asset URLs (?v=…). App Engine sets GAE_VERSION per
+	// deploy; locally the start time does.
+	Version string
 }
 
 func Load() *Config {
@@ -20,6 +27,7 @@ func Load() *Config {
 		ProjectID: env("GOOGLE_CLOUD_PROJECT", "lokumo"),
 		Brand:     env("KAFUMU_BRAND", "Kafumu"),
 		Origin:    env("KAFUMU_ORIGIN", "http://localhost:8080"),
+		Version:   env("GAE_VERSION", strconv.FormatInt(time.Now().Unix(), 36)),
 	}
 }
 

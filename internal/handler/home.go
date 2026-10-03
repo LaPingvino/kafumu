@@ -40,6 +40,7 @@ type page struct {
 	Tab   string // active view-switcher tab
 	Cell  string
 	Lang  string
+	V     string // asset version, so a deploy never mixes old and new JS
 	Langs []locale.Lang
 	User  *account.User
 	// JS holds the "js." strings for client-side code.
@@ -54,7 +55,7 @@ func (h *Home) newPage(r *http.Request, title string) page {
 		choice = c.Value
 	}
 	lang := locale.Pick(choice, r.Header.Get("Accept-Language"))
-	return page{Brand: h.Cfg.Brand, Title: title, Lang: lang, Langs: locale.Langs(),
+	return page{Brand: h.Cfg.Brand, Title: title, Lang: lang, V: h.Cfg.Version, Langs: locale.Langs(),
 		User: UserFrom(r.Context()), JS: locale.Prefix(lang, "js.")}
 }
 
