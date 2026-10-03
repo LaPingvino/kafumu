@@ -19,3 +19,17 @@ func TestTags(t *testing.T) {
 		}
 	}
 }
+
+// The holywritings.net languages (from Joop's holywritings.db) are all
+// pickable.
+func TestHolywritingsLanguages(t *testing.T) {
+	for _, code := range []string{"eng", "por", "fas", "deu", "jpn", "nld", "ron", "cat", "pol", "aze", "ell", "isl", "cmn",
+		"spa", "fra", "kor", "hat", "tha", "hin", "dan", "bul", "tgl", "ita", "mal", "hye", "rus", "hun", "kir", "urd", "ara",
+		"slk", "ind", "fin", "swe", "lav", "afr", "nor", "bos", "sqi", "vie", "kan", "mlg", "ben", "lug", "kal", "cym", "bis",
+		"hrv", "est", "mlt", "her", "epo", "fij", "slv", "amh", "tpi", "srn", "gil", "cha", "nai", "ukr", "fry", "eus", "bel",
+		"mah", "lit", "sot", "ces", "cnr", "cos", "mri", "pap", "ltz", "ipk", "tam", "nep", "haw", "khm", "fao", "gle"} {
+		if Names[code] == "" {
+			t.Errorf("%s missing", code)
+		}
+	}
+}

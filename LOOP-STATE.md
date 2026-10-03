@@ -228,7 +228,8 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       ShortCode entity 1 h (purged), /j/{code} → /c#…; "Make a short code" on Connect; privacy caveat added;
       browser test follows the short code. Was: Short link code for connect codes (Joop): kafumu.com/j/XXXXXX → the /c#… invite, kept 1 h
       server-side (public key only; mention on /privacy). The full link is already shown under the QR.
-- [ ] 20. Profile language list = holywritings.net's 83 languages (from /home/joop/holywritings.db
+- [x] 20. Profile language list: + the holywritings.net languages (afr, amh, aze, … haw, ipk, kal, mah, tpi,
+      srn, gil, cha, nai…), with native names and 639-1 mappings; test lists all 82 codes. Was: Profile language list = holywritings.net's 83 languages (from /home/joop/holywritings.db
       `writings.language`: en, pt, fa, de, ja, nl, … gil, ch, nai-US/CA, haw, fo, ga) mapped to ISO 639-3
       with native names, plus the conlangs and sign languages already listed. (UI translations stay
       EN/PT/EO/NL unless Joop wants more.)
