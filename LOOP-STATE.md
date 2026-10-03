@@ -59,6 +59,13 @@ Everything before the event serves that; the rest of M1 follows after.
 - [ ] 6. Contacts page: everyone you've scanned, notes, one-tap open of their links; export (vCard/JSON)
       — NON-NEGOTIABLE before the event: Safari evicts non-installed site data after 7 idle days, and an
       iOS home-screen PWA has separate storage from Safari (contacts don't carry over on install).
+- [ ] 6b. Personas, mix and match (Joop): several cards ("Work", "Esperanto", "Friends") each with
+      its own fields and one-liners; the one-liner becomes pickable chips + free text. On /connect, before
+      or while showing the code, tick which persona/fields to hand over this time (the hello/reply carries
+      only those). The receiver can add their own chips/tags about the contact ("met at WS", "robotics").
+- [ ] 6c. Share with self: move everything (personas, contacts, notes, keys) to a new device by scanning
+      a "transfer" code — same ECDH handshake, a different message type, one-shot. Also JSON export/import.
+      Lower priority than 6 export, but it IS the fix for the iOS Safari→home-screen storage split.
 - [ ] 7. Meetups (fallback records, need account): "coffee at Pavilion 2, 15:00", side events, RSVP,
       tags `#websummit` + `lang:` + `tag:`; shown in the bundle; `.ics`.
 - [ ] 7b. Import events by link: paste a Luma / Meetup / any event URL → read its schema.org Event JSON-LD
