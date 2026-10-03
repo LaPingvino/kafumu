@@ -365,5 +365,17 @@
   "js.ask_answering": "A responder: {q}",
   "js.ask_for_you": "para si",
   "js.ask_private": "Responder em privado",
-  "js.ask_public": "Responder"
+  "js.ask_public": "Responder",
+  "inbox.let_write": "Deixar quem me encontra escrever-me",
+  "inbox.price": "Preço por mensagem",
+  "inbox.explain": "Uma mensagem para si custa a quem a envia este trabalho do telemóvel — suba-o para afastar o que não lhes valha a pena. As mensagens são cifradas para o seu dispositivo.",
+  "inbox.messages": "Mensagens para si",
+  "js.inbox_of_work": "de trabalho por mensagem",
+  "js.inbox_open": "Aberta: quem o encontrar pode escrever-lhe.",
+  "js.inbox_closed": "Fechada.",
+  "js.inbox_write": "Escrever (≈ {cost} de trabalho)",
+  "js.inbox_share_card": "Partilhar o meu cartão, para se poderem ligar",
+  "js.inbox_sent": "Enviada ({s} s de trabalho).",
+  "js.inbox_anonymous": "Alguém",
+  "js.inbox_connect": "Ligar"
 }

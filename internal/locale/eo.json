@@ -365,5 +365,17 @@
   "js.ask_answering": "Respondante: {q}",
   "js.ask_for_you": "por vi",
   "js.ask_private": "Respondi private",
-  "js.ask_public": "Respondi"
+  "js.ask_public": "Respondi",
+  "inbox.let_write": "Lasi homojn, kiuj trovas min, skribi al mi",
+  "inbox.price": "Prezo po mesaĝo",
+  "inbox.explain": "Mesaĝo al vi kostas al la sendanto tiom da telefona laboro — plialtigu ĝin por forteni ĉion, kio ne valoras al ili. Mesaĝoj estas ĉifritaj al via aparato.",
+  "inbox.messages": "Mesaĝoj al vi",
+  "js.inbox_of_work": "da laboro po mesaĝo",
+  "js.inbox_open": "Malfermita: homoj, kiuj trovas vin, povas skribi al vi.",
+  "js.inbox_closed": "Fermita.",
+  "js.inbox_write": "Skribi (≈ {cost} da laboro)",
+  "js.inbox_share_card": "Konigi mian karton, por ke ili povu konektiĝi",
+  "js.inbox_sent": "Sendita ({s} s da laboro).",
+  "js.inbox_anonymous": "Iu",
+  "js.inbox_connect": "Konektiĝi"
 }

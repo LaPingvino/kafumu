@@ -365,5 +365,17 @@
   "js.ask_answering": "Answering: {q}",
   "js.ask_for_you": "for you",
   "js.ask_private": "Answer privately",
-  "js.ask_public": "Answer"
+  "js.ask_public": "Answer",
+  "inbox.let_write": "Let people who find me write to me",
+  "inbox.price": "Price per message",
+  "inbox.explain": "A message to you costs the sender this much phone work — make it higher to keep out anything that isn't worth it to them. Messages are encrypted to your device.",
+  "inbox.messages": "Messages to you",
+  "js.inbox_of_work": "of work per message",
+  "js.inbox_open": "Open: people who find you can write to you.",
+  "js.inbox_closed": "Closed.",
+  "js.inbox_write": "Write (≈ {cost} of work)",
+  "js.inbox_share_card": "Share my card, so they can connect back",
+  "js.inbox_sent": "Sent ({s} s of work).",
+  "js.inbox_anonymous": "Someone",
+  "js.inbox_connect": "Connect"
 }

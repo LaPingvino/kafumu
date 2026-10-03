@@ -223,3 +223,5 @@ select option { background: var(--headerbar-bg); color: var(--fg); }
 input[type="range"] { padding: 0; background: transparent; accent-color: var(--accent-bg); }
 .replies { list-style: none; padding-left: 14px; margin: 6px 0 0; border-left: 2px solid var(--border); }
 .replies li { padding: 6px 0; }
+.inbox-settings { border: 0; padding: 0; margin: .5rem 0; }
+.inbox-settings input[type=checkbox] { display: inline; width: auto; margin-right: .4rem; min-height: 0; }

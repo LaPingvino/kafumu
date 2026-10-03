@@ -4,6 +4,10 @@
 <div id="contacts-tools" hidden>
   <input id="contacts-filter" type="search" placeholder="{{ts .Lang "contacts.filter"}}" aria-label="{{ts .Lang "contacts.filter"}}">
 </div>
+<section id="inbox-section" hidden>
+  <h2>✉️ {{t .Lang "inbox.messages"}}</h2>
+  <ul id="inbox-msgs" class="boxed-list"></ul>
+</section>
 <ul id="contacts" class="boxed-list"></ul>
 <p class="actions"><button type="button" id="push-on" class="pill" hidden>🔔 {{t .Lang "push.enable"}}</button> <span id="push-state" class="dim small"></span></p>
 <div class="card" style="padding:4px 16px 12px">

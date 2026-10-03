@@ -79,8 +79,12 @@ func TestPostAndRank(t *testing.T) {
 }
 
 func TestRequiredAndTTL(t *testing.T) {
-	if Required(0) != 14 || Required(30) != 15 || Required(90) != 16 || Required(1e9) != MaxBits {
-		t.Errorf("Required: %d %d %d", Required(0), Required(30), Required(90))
+	if Required(0, 0) != 12 || Required(30, 0) != 13 || Required(90, 0) != 14 || Required(1e9, 0) != MaxBits {
+		t.Errorf("Required: %d %d %d", Required(0, 0), Required(30, 0), Required(90, 0))
+	}
+	// A burst: 75 messages in ten minutes → 4 doublings.
+	if Required(75, 75) != 16 {
+		t.Errorf("burst Required = %d, want 16", Required(75, 75))
 	}
 	if TTL(14, 14) != time.Hour || TTL(18, 14) != 16*time.Hour || TTL(30, 14) != MaxTTL || TTL(13, 14) != 0 {
 		t.Error("TTL")

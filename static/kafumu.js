@@ -152,7 +152,7 @@
   }
 
   // ---- Local messages (OLN): Kafumu's own channel, first class ----
-  var currentCell = "", requiredBits = 14, liveEvents = [];
+  var currentCell = "", requiredBits = 12, liveEvents = [];
   function hashrate() { var r = parseFloat(pref("kafumu.hashrate") || "0"); return r > 1000 ? r : 40000; }
   function estimate(bits) {
     var s = Math.pow(2, bits) / hashrate();
@@ -399,7 +399,7 @@
         // Event tags (#websummit) count as local as a #geo tag while they run.
         (b.events || []).forEach(function (e) { ringOf[e.tag] = e.live ? 0 : 1; });
         showEvents(b.events || [], c);
-        requiredBits = b.requiredBits || 14;
+        requiredBits = b.requiredBits || 12;
         liveEvents = (b.events || []).filter(function (e) { return e.live; }).map(function (e) { return e.tag; });
         showNotes(b.notes || []);
         showMeetups(b.meetups || [], b.events || []);
@@ -500,7 +500,7 @@
     people.slice(0, 20).forEach(function (p) {
       var li = document.createElement("li");
       var head = document.createElement("strong");
-      head.textContent = "@" + p.name;
+      head.textContent = "@" + p.name + (p.inbox ? " ✉️" : "");
       li.appendChild(head);
       if (p._why.length) { var w = document.createElement("div"); w.className = "why"; w.textContent = p._why.slice(0, 3).join(" · "); li.appendChild(w); }
       var meta = document.createElement("div");
@@ -509,8 +509,48 @@
         var x = l.split("/"); return name(x[0]) + (x[1] === "learning" ? " (" + tr("learning") + ")" : "");
       }).join(", ")].filter(Boolean).join(" · ");
       li.appendChild(meta);
+      if (p.inbox && window.kafumuPair && window.kafumuOLN) li.appendChild(writeBox(p));
       list.appendChild(li);
     });
+  }
+
+  // writeBox: write to someone's public inbox, paying their price in work.
+  function writeBox(p) {
+    var wrap = document.createElement("div"), btn = document.createElement("button");
+    btn.type = "button"; btn.className = "pill-sm";
+    var s = Math.pow(2, p.inbox.bits) / hashrate();
+    btn.textContent = "✉️ " + tr("inbox_write", { cost: s < 90 ? Math.max(1, Math.round(s)) + " s" : Math.round(s / 60) + " min" });
+    wrap.appendChild(btn);
+    btn.onclick = function () {
+      btn.hidden = true;
+      var f = document.createElement("form");
+      f.innerHTML = '<textarea rows="2" maxlength="1000"></textarea><label class="small"><input type="checkbox" checked> ' +
+        tr("inbox_share_card") + '</label><div class="actions"><button type="submit" class="pill-sm suggested"></button></div><p class="dim small"></p>';
+      f.querySelector("button").textContent = tr("oln_send") || "Send";
+      wrap.appendChild(f);
+      f.querySelector("textarea").focus();
+      f.onsubmit = function (e) {
+        e.preventDefault();
+        var text = f.querySelector("textarea").value.trim(), st = f.querySelector("p");
+        if (!text) return;
+        f.querySelector("button").disabled = true;
+        var dev = window.kafumuDevice, pair = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin });
+        var t0 = Date.now();
+        (f.querySelector("input").checked ? dev.personas.shareCard() : Promise.resolve(null)).then(function (card) {
+          st.textContent = tr("oln_working", { n: "…" });
+          return pair.writeTo(p.inbox, text, card, function (tail, bits) {
+            return window.kafumuOLN.mineTail(tail, bits, function (tries, ms) {
+              if (ms > 0) pref("kafumu.hashrate", String(Math.round(tries / ms * 1000)));
+              st.textContent = tr("oln_working", { n: Math.round(tries / 1000) + "k" });
+            });
+          });
+        }).then(function () {
+          st.textContent = tr("inbox_sent", { s: Math.round((Date.now() - t0) / 1000) });
+          f.querySelector("textarea").value = "";
+        }).catch(function (err) { st.textContent = tr("oln_failed") + " " + err.message; f.querySelector("button").disabled = false; });
+      };
+    };
+    return wrap;
   }
 
   function showEvents(events, c) {

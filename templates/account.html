@@ -66,6 +66,13 @@
           <option value="72">{{t .Lang "profile.three_days"}}</option>
           <option value="168">{{t .Lang "profile.week"}}</option>
         </select></label>
+      <fieldset class="inbox-settings">
+        <label><input type="checkbox" id="inbox-on"{{if .User.InboxBox}} checked{{end}}> ✉️ {{t .Lang "inbox.let_write"}}</label>
+        <label>{{t .Lang "inbox.price"}} <span class="dim small" id="inbox-price-hint"></span>
+          <input type="range" id="inbox-bits" min="12" max="24" step="1" value="{{if .User.InboxBits}}{{.User.InboxBits}}{{else}}16{{end}}"></label>
+        <p class="dim small">{{t .Lang "inbox.explain"}}</p>
+        <p class="dim small" id="inbox-status" role="status"></p>
+      </fieldset>
       {{if .Visible}}<p class="dim small">{{t .Lang "profile.visible_until"}} {{.User.VisibleUntil.Format "2006-01-02 15:04 MST"}}</p>{{end}}
       <div class="actions"><button type="submit" class="pill">{{t .Lang "account.save"}}</button></div>
     </form>
@@ -103,4 +110,31 @@
   {{end}}
 </article>
 {{if .Passkeys}}<script>window.KAFUMU_T = window.KAFUMU_T || {{.JS}};</script><script src="/static/passkey.js?v={{.V}}"></script>{{end}}
+{{if .User}}<script>window.KAFUMU_T = window.KAFUMU_T || {{.JS}};</script>
+<script src="/static/device.js?v={{.V}}"></script>
+<script src="/static/sha1.js?v={{.V}}"></script>
+<script src="/static/pair.js?v={{.V}}"></script>
+<script>
+(function () {
+  var T = window.KAFUMU_T || {}, on = document.getElementById("inbox-on"), bits = document.getElementById("inbox-bits");
+  if (!on) return;
+  var pair = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: window.kafumuDevice.store, origin: location.origin });
+  function hint() {
+    var rate = 40000; try { rate = parseFloat(localStorage.getItem("kafumu.hashrate")) || rate; } catch (e) {}
+    var s = Math.pow(2, +bits.value) / rate;
+    document.getElementById("inbox-price-hint").textContent = "≈ " + (s < 90 ? Math.max(1, Math.round(s)) + " s" : Math.round(s / 60) + " min") + " " + (T.inbox_of_work || "of work per message");
+  }
+  function save() {
+    var st = document.getElementById("inbox-status");
+    (on.checked ? pair.inbox().then(function (ib) { return new URLSearchParams({ box: ib.box, pub: ib.pub, bits: bits.value }); })
+                : Promise.resolve(new URLSearchParams({ close: "1" })))
+      .then(function (body) { return fetch("/account/inbox", { method: "POST", body: body, credentials: "same-origin" }); })
+      .then(function (r) { st.textContent = r.ok ? (on.checked ? (T.inbox_open || "Open.") : (T.inbox_closed || "Closed.")) : "!"; });
+  }
+  hint();
+  bits.oninput = hint;
+  bits.onchange = function () { if (on.checked) save(); };
+  on.onchange = save;
+})();
+</script>{{end}}
 {{template "foot" .}}

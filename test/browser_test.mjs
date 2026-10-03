@@ -126,6 +126,24 @@ try {
     try { await B.waitFor(`document.getElementById('people').textContent.includes("${nick}")`, "A in B's People", 8000); break; }
     catch (e) { if (i >= 10) throw e; }
   }
+  // Public inbox: A opens one at 12 bits; B writes from People with a card;
+  // A reads it in Contacts and connects back.
+  await A.goto(base + "/account");
+  await A.evaluate("(() => { document.getElementById('inbox-bits').value = '12'; const on = document.getElementById('inbox-on'); on.checked = true; on.onchange(); return true; })()");
+  await A.waitFor("document.getElementById('inbox-status').textContent.length > 1", "inbox opened");
+  for (let i = 0; ; i++) {
+    await B.goto(base + "/?cell=8ccgqw");
+    try { await B.waitFor(`[...document.querySelectorAll('#people li')].some(li => li.textContent.includes("${nick}") && li.querySelector('button.pill-sm'))`, "write button on A", 8000); break; }
+    catch (e) { if (i >= 10) throw e; }
+  }
+  await B.evaluate(`(() => { const li = [...document.querySelectorAll('#people li')].find(l => l.textContent.includes("${nick}")); li.querySelector('button.pill-sm').click();
+    li.querySelector('textarea').value = 'Browser test: inbox hello'; li.querySelector('form').requestSubmit(); return true; })()`);
+  await B.waitFor("[...document.querySelectorAll('#people li form p')].some(p => /\\(\\d+ s/.test(p.textContent))", "inbox message sent", 60000);
+  await A.goto(base + "/contacts");
+  await A.waitFor("document.getElementById('inbox-msgs').textContent.includes('inbox hello')", "A reads the inbox message", 20000);
+  await A.evaluate("document.querySelector('#inbox-msgs button.suggested').click()");
+  await A.waitFor("document.getElementById('contacts').textContent.includes('Bea')", "connected back with Bea");
+
   // Hide again.
   await A.goto(base + "/account");
   await A.evaluate("(() => { const f = document.getElementById('profile-form'); f.visible_hours.value = '0'; f.requestSubmit(); return true; })()");
@@ -148,7 +166,7 @@ try {
     await C.waitFor("document.getElementById('contacts').textContent.includes('Ana')", "Ana moved to C");
   } finally { C.close(); }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B scans, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device, meetup hosted and seen, findable profile seen, OLN message + question/answer + views + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B scans, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device, meetup hosted and seen, findable profile seen, paid inbox message + connect back, OLN message + question/answer + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

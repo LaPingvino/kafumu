@@ -4,7 +4,9 @@
 importScripts("sha1.js");
 onmessage = function (e) {
   var d = e.data, enc = new TextEncoder(), H = self.kafumuSHA1;
-  var tail = ";" + d.date + ";" + d.b64 + ";" + d.keywords;
+  // Either an OLN message (date, b64, keywords) or any ready-made tail
+  // (the mailbox work stamp: ";<date>;<b64 sha256>;#box<id>").
+  var tail = d.tail || (";" + d.date + ";" + d.b64 + ";" + d.keywords);
   var start = Math.floor(Math.random() * 1e9), t0 = Date.now();
   for (var i = 0; ; i++) {
     var raw = (start + i) + tail;

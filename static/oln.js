@@ -33,5 +33,15 @@
     });
   }
 
-  root.kafumuOLN = { mine: mine, post: post, b64url: b64url, utcStamp: utcStamp };
+  // mineTail mines any "<nonce><tail>" in the worker (for priced inboxes).
+  function mineTail(tail, bits, onProgress) {
+    return new Promise(function (resolve, reject) {
+      var w = new Worker("/static/olnworker.js");
+      w.onmessage = function (e) { if (e.data.done) { w.terminate(); resolve(e.data.raw); } else if (onProgress) onProgress(e.data.tries, e.data.ms); };
+      w.onerror = function (e) { w.terminate(); reject(e); };
+      w.postMessage({ tail: tail, bits: bits });
+    });
+  }
+
+  root.kafumuOLN = { mineTail: mineTail, mine: mine, post: post, b64url: b64url, utcStamp: utcStamp };
 })(window);

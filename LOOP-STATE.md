@@ -208,7 +208,12 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
 - [x] 15g-a. Per-peer price, server: public inbox on the account (box id + device-made ECDH public key +
       price 12–24 bits), POST /account/inbox, InboxPrice entity (box id → bits, 1-min cache) enforced on
       mailbox writes (CheckBits), Person in bundles carries {box, pub, bits}; deleting the account drops it.
-- [ ] 15g-b. Per-peer price, client: open/close inbox + price slider (time hint) in Be findable; "✉️ Write"
+- [x] 15g-b. Per-peer price, client (browser-tested): Be findable → "✉️ Let people who find me write to me"
+      + price slider with a time hint; People shows ✉️ and "Write (≈ N of work)" — encrypted to their key,
+      mined at their price in the worker, card optional; Contacts → "Messages to you" (decrypted on the
+      device, Connect back = pair from the envelope); the inbox is in the push subscription.
+      Also (Joop): OLN base 12 bits; difficulty follows the busier of last hour and last 10 min (bursts dear).
+      Was: Per-peer price, client: open/close inbox + price slider (time hint) in Be findable; "✉️ Write"
       on People (encrypt to their key, mine at their price in the worker, optional card); Contacts "✉️ Messages
       to you" (decrypt on device, Connect back = pair from the envelope).
 - [ ] 15g. (was) Per-peer price (Joop): people set the minimum bits for unsolicited messages to them (questions,

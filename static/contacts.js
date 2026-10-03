@@ -49,13 +49,53 @@
   };
   show();
 
+  // Messages to your public inbox: decrypted here; Connect makes a contact.
+  function showInbox() {
+    pair.readInbox().then(function (msgs) {
+      var sec = $("inbox-section"), ul = $("inbox-msgs");
+      sec.hidden = !msgs.length;
+      ul.textContent = "";
+      msgs.forEach(function (m) {
+        var li = document.createElement("li");
+        var who = document.createElement("strong");
+        who.textContent = (m.card && m.card.name) || (T.inbox_anonymous || "Someone");
+        var meta = document.createElement("span");
+        meta.className = "dim"; meta.textContent = " · " + new Date(m.at).toLocaleString();
+        var p = document.createElement("p");
+        p.className = "text"; p.textContent = m.text;
+        li.appendChild(who); li.appendChild(meta); li.appendChild(p);
+        var row = document.createElement("div");
+        row.className = "actions";
+        if (m.card) {
+          var c = document.createElement("button");
+          c.type = "button"; c.className = "pill-sm suggested"; c.textContent = T.inbox_connect || "Connect";
+          c.onclick = function () { dev.personas.shareCard().then(function (card) { return pair.connectBack(m, card); }).then(function () { forget(m); show(); }); };
+          row.appendChild(c);
+        }
+        var x = document.createElement("button");
+        x.type = "button"; x.className = "pill-sm"; x.textContent = T.remove || "Remove";
+        x.onclick = function () { forget(m); };
+        row.appendChild(x);
+        li.appendChild(row);
+        ul.appendChild(li);
+      });
+    }).catch(function () {});
+  }
+  function forget(m) {
+    dev.store.get("inboxMsgs").then(function (ms) {
+      return dev.store.set("inboxMsgs", (ms || []).filter(function (x) { return x.id !== m.id; }));
+    }).then(showInbox);
+  }
+  showInbox();
+
   // Push: watch our own inboxes (one per contact, plus invite codes) so a
   // signal wakes the phone. The server only learns endpoint ↔ random ids.
   function inboxes() {
     return Promise.all([dev.store.contacts(), dev.store.get("invite"), dev.store.get("invite:badge")]).then(function (r) {
       var ids = r[0].map(function (c) { return pair._boxOf(pair._unb64(c.key), c.role); });
       [r[1], r[2]].forEach(function (inv) { if (inv && inv.box) ids.push(Promise.resolve(inv.box)); });
-      return Promise.all(ids);
+      ids.push(dev.store.get("publicInbox").then(function (ib) { return ib && ib.box; }));
+      return Promise.all(ids).then(function (all) { return all.filter(Boolean); });
     });
   }
   function b64ToBytes(s) { s = s.replace(/-/g, "+").replace(/_/g, "/"); while (s.length % 4) s += "="; return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }); }

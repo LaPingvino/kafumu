@@ -29,7 +29,7 @@ import (
 )
 
 const (
-	BaseBits  = 14 // ≈ 0.4 s on a phone
+	BaseBits  = 12 // ≈ 0.1 s on a phone: cheap once, expensive in bulk
 	MaxBits   = 22
 	BaseTTL   = time.Hour
 	MaxTTL    = 7 * 24 * time.Hour // as in eolnpoc
@@ -38,6 +38,7 @@ const (
 	MaxRaw    = 2000
 	PerBundle = 50
 	busyPer   = 30 // messages per hour per doubling of difficulty
+	burstPer  = 5  // messages per 10 minutes per doubling: bursts get dear fast
 )
 
 var (
@@ -139,10 +140,13 @@ func TTL(bitsDone, required int) time.Duration {
 	return min(BaseTTL<<extra, MaxTTL)
 }
 
-// Required is the difficulty for a cell given its messages in the last hour.
-func Required(lastHour int) int {
-	r := BaseBits + int(math.Floor(math.Log2(1+float64(lastHour)/busyPer)))
-	return min(r, MaxBits)
+// Required is the difficulty for a cell given its messages in the last hour
+// and the last ten minutes: whichever is busier sets the price, so a burst
+// (a bot batching messages) doubles the work every few messages.
+func Required(lastHour, last10 int) int {
+	hour := math.Log2(1 + float64(lastHour)/busyPer)
+	burst := math.Log2(1 + float64(last10)/burstPer)
+	return min(BaseBits+int(math.Floor(math.Max(hour, burst))), MaxBits)
 }
 
 // Priority ranks notes as eolnpoc does, minus hops: work plus remaining life.
@@ -190,13 +194,17 @@ func (s *Service) RequiredFor(ctx context.Context, cell string) int {
 	if err != nil {
 		return BaseBits
 	}
-	hourAgo, n := s.Now().Add(-time.Hour), 0
+	now := s.Now()
+	hour, ten := 0, 0
 	for _, x := range ns {
-		if x.At.After(hourAgo) {
-			n++
+		if x.At.After(now.Add(-time.Hour)) {
+			hour++
+		}
+		if x.At.After(now.Add(-10 * time.Minute)) {
+			ten++
 		}
 	}
-	return Required(n)
+	return Required(hour, ten)
 }
 
 // Post verifies and stores a raw message; an identical message is accepted

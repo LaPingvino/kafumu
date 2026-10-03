@@ -84,6 +84,22 @@ check((await B.pair.checkContact(cb)).length === 0, "B's own message is not in B
   check(got.length === 1 && got[0].card.name === "Dai", "badge scan arrives");
 }
 
+// Public inbox: E opens one; F (a stranger) writes with a card at E's
+// price; E reads it, connects back, and F receives E's card.
+{
+  const E = device("E"), F = device("F");
+  const ib = await E.pair.inbox();
+  check(/^[0-9a-f]{64}$/.test(ib.box), "inbox box id");
+  const pending = await F.pair.writeTo({ box: ib.box, pub: ib.pub, bits: 10 }, "Hi, saw you're into Esperanto!", { name: "Fay" });
+  check(pending && pending.card === null, "F waits for E's card");
+  const msgs = await E.pair.readInbox();
+  check(msgs.length === 1 && msgs[0].text.includes("Esperanto") && msgs[0].card.name === "Fay", "E reads F's message");
+  const c = await E.pair.connectBack(msgs[0], { name: "Eve" });
+  check(c.card.name === "Fay", "E has Fay as a contact");
+  await F.pair.checkContact(pending);
+  check((await F.store.contacts())[0].card.name === "Eve", "F gets Eve's card");
+}
+
 // Share with self: the new device shows a move code, the old one sends a
 // backup big enough to need several chunks.
 const N = device("new"), O = device("old");
@@ -98,4 +114,4 @@ check(got2 && got2.contacts.length === 40 && got2.contacts[39].card.name === "Pe
 check((await N.pair.moveReceive()) === null, "move chunks acked");
 
 if (fail) process.exit(1);
-console.log("ok  static/pair.js handshake (A↔B, A↔C, isolation, signal) + friends around + badge + move to new device");
+console.log("ok  static/pair.js handshake (A↔B, A↔C, isolation, signal) + friends around + badge + public inbox + move to new device");

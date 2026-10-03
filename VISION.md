@@ -142,7 +142,8 @@ Two halves, both opt-in, neither paywalls anything. **Proximity, signalling, sea
 `#geo<cell>`, `#lang<code>`, interests; (3) the server sees the message text and its tags — public by
 nature — and nothing linking it to a person; (4) TTL = 1 h × 2^(bits − required), capped at 7 days, so
 casual chatter is cheap and short and a lasting notice costs a few seconds of phone work; required bits
-start at 14 and rise with the cell's recent volume; (5) ranked on the device: PoW bits + recency, as in
+start at 12 (well under a second: cheap once, expensive in bulk) and rise with the busier of the cell's
+last hour and last ten minutes, so a burst doubles the price every few messages; (5) ranked on the device: PoW bits + recency, as in
 eolnpoc's priority. The raw message is byte-compatible with eolnpoc —
 `nonce;YYYYMMDDhhmmss;base64url(message);keywords`, valid when SHA-1 has the required leading zero
 bits — and the timestamp must be within ±10 minutes of the server's clock, which stops pre-mined

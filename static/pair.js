@@ -80,14 +80,17 @@
     // Every write carries a small proof of work (pow.MinBits, ~1k SHA-1s),
     // bound to the body and the box/slot: nothing for a person, a cost for bots.
     var MIN_BITS = 10, SHA1 = (root.kafumuSHA1 || (typeof self !== "undefined" && self.kafumuSHA1));
-    function stamp(body, scope) {
+    // stamp mines synchronously at MIN_BITS; with bits and an async miner
+    // (opts.mineTail, a Web Worker) it can pay a public inbox's price.
+    function stamp(body, scope, bits, mineTail) {
       return subtle.digest("SHA-256", enc.encode(body)).then(function (h) {
         var date = new Date().toISOString().replace(/[-:T]/g, "").slice(0, 14);
         var hb = new Uint8Array(h), s = "";
         hb.forEach(function (b) { s += String.fromCharCode(b); });
         var tail = ";" + date + ";" + btoa(s).replace(/\+/g, "-").replace(/\//g, "_") + ";#" + scope;
+        if (bits && bits > MIN_BITS && mineTail) return mineTail(tail, bits).then(function (raw) { return raw.split(";")[0] + ";" + date; });
         for (var i = 0; ; i++) {
-          if (SHA1.leadingZeros(SHA1.sha1(enc.encode(i + tail))) >= MIN_BITS) return i + ";" + date;
+          if (SHA1.leadingZeros(SHA1.sha1(enc.encode(i + tail))) >= (bits || MIN_BITS)) return i + ";" + date;
         }
       });
     }
@@ -345,7 +348,85 @@
       })).then(function (rs) { return rs.filter(Boolean).sort(function (a, b) { return b.day.localeCompare(a.day); }); });
     }
 
-    return { checkIn: checkIn, around: around, invite: invite, accept: accept, moveSend: moveSend, moveReceive: moveReceive, checkInvite: checkInvite, checkContact: checkContact, send: send,
+    // ---- Public inbox: strangers who found you can write, paying your price ----
+    function inbox() {
+      return store.get("publicInbox").then(function (ib) {
+        if (ib) return ib;
+        return genKey().then(function (k) {
+          return rawPub(k).then(function (pub) {
+            var box = hex(cryptoObj.getRandomValues(new Uint8Array(32)));
+            ib = { priv: k.privateKey, pub: b64(pub), box: box };
+            return store.set("publicInbox", ib).then(function () { return ib; });
+          });
+        });
+      });
+    }
+
+    // writeTo sends text (and, if given, a card) to someone's public inbox.
+    // With a card it's also a hello: a pending contact waits for theirs.
+    function writeTo(target, text, card, mineTail) {
+      var aRaw = unb64(target.pub);
+      return genKey().then(function (k) {
+        return rawPub(k).then(function (bRaw) {
+          return pairKey(k.privateKey, aRaw, aRaw, bRaw).then(function (key) {
+            return seal(key, target.box, { t: "inbox", text: text, card: card || null }).then(function (ct) {
+              var body = JSON.stringify({ v: 1, pub: b64(bRaw), ct: ct });
+              return stamp(body, "box" + target.box, target.bits, mineTail).then(function (work) {
+                return fetchFn(base + "/api/box/" + target.box, { method: "POST", body: body, credentials: "omit", headers: { "X-Kafumu-Work": work } });
+              }).then(function (r) {
+                if (!r.ok) throw new Error("inbox " + r.status);
+                if (!card) return null;
+                return contactID(key).then(function (id) {
+                  var c = { id: id, key: b64(key), role: 1, card: null, note: "", createdAt: new Date().toISOString() };
+                  return store.putContact(c).then(function () { return c; });
+                });
+              });
+            });
+          });
+        });
+      });
+    }
+
+    // readInbox decrypts new messages to our public inbox, keeps them in the
+    // device store ("inboxMsgs") and acks them. Returns all kept messages.
+    function readInbox() {
+      return store.get("publicInbox").then(function (ib) {
+        if (!ib) return [];
+        var aRaw = unb64(ib.pub);
+        return Promise.all([list(ib.box), store.get("inboxMsgs")]).then(function (r) {
+          var msgs = r[0], kept = r[1] || [], done = [];
+          return msgs.reduce(function (p, msg) {
+            return p.then(function () {
+              done.push(msg.id);
+              var env = JSON.parse(msg.data), bRaw = unb64(env.pub);
+              return pairKey(ib.priv, bRaw, aRaw, bRaw).then(function (key) {
+                return open(key, ib.box, env.ct).then(function (body) {
+                  if (body.t !== "inbox") return;
+                  kept.unshift({ id: msg.id, at: msg.at, text: String(body.text || "").slice(0, 2000), card: body.card || null, key: b64(key) });
+                });
+              }).catch(function () {});
+            });
+          }, Promise.resolve()).then(function () {
+            kept = kept.slice(0, 100);
+            return store.set("inboxMsgs", kept).then(function () { return ack(ib.box, done); }).then(function () { return kept; });
+          });
+        });
+      });
+    }
+
+    // connectBack turns an inbox message with a card into a contact and
+    // answers with our card, like a scanned hello.
+    function connectBack(m, myCard) {
+      var key = unb64(m.key);
+      return contactID(key).then(function (id) {
+        var c = { id: id, key: m.key, role: 0, card: m.card || {}, note: "", createdAt: new Date().toISOString() };
+        return boxOf(key, 1).then(function (theirs) {
+          return seal(key, theirs, { t: "card", card: myCard || {} }).then(function (ct) { return post(theirs, ct); });
+        }).then(function () { return store.putContact(c); }).then(function () { return c; });
+      });
+    }
+
+    return { inbox: inbox, writeTo: writeTo, readInbox: readInbox, connectBack: connectBack, checkIn: checkIn, around: around, invite: invite, accept: accept, moveSend: moveSend, moveReceive: moveReceive, checkInvite: checkInvite, checkContact: checkContact, send: send,
       _open: open, _boxOf: boxOf, _inviteBox: inviteBox, _unb64: unb64 };
   }
 

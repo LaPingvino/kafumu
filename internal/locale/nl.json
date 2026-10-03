@@ -365,5 +365,17 @@
   "js.ask_answering": "Antwoord op: {q}",
   "js.ask_for_you": "voor jou",
   "js.ask_private": "Privé antwoorden",
-  "js.ask_public": "Antwoorden"
+  "js.ask_public": "Antwoorden",
+  "inbox.let_write": "Laat mensen die me vinden me schrijven",
+  "inbox.price": "Prijs per bericht",
+  "inbox.explain": "Een bericht aan jou kost de afzender zoveel telefoonwerk — zet het hoger om weg te houden wat het hun niet waard is. Berichten zijn versleuteld voor jouw apparaat.",
+  "inbox.messages": "Berichten aan jou",
+  "js.inbox_of_work": "werk per bericht",
+  "js.inbox_open": "Open: mensen die je vinden kunnen je schrijven.",
+  "js.inbox_closed": "Gesloten.",
+  "js.inbox_write": "Schrijven (≈ {cost} werk)",
+  "js.inbox_share_card": "Mijn kaartje delen, zodat ze terug kunnen verbinden",
+  "js.inbox_sent": "Verstuurd ({s} s werk).",
+  "js.inbox_anonymous": "Iemand",
+  "js.inbox_connect": "Verbinden"
 }
