@@ -185,6 +185,8 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       nonce;date;base64url(sha256(body));#box<id>, ±10 min — instant for people, a cost for bots.
 - [ ] 15g. Per-peer price (Joop): people set the minimum bits for unsolicited messages to them (questions,
       offers); commercial senders pay in work for what reaching you is worth to them.
+- [ ] 17. Card themes from local activity (Joop): count tags seen in Around bundles (posts, meetups,
+      people, notes) on the device, per area; the card editor suggests the local ones first.
 - [ ] 15e. /oln.json per cell in eolnpoc's olnjson.Format for other OLN nodes.
 
 ## After the event (rest of M1)
