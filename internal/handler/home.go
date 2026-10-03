@@ -75,7 +75,7 @@ func (h *Home) ShowHome(w http.ResponseWriter, r *http.Request) {
 	if !geo.Valid(cell) {
 		cell = ""
 	}
-	p := homePage{page: h.newPage(r, ""), LangNames: langs.Names}
+	p := homePage{page: h.newPage(r, ""), LangNames: langs.Names, LangTags: langs.Tags, From1: langs.From1}
 	p.Tab, p.Cell = "around", cell
 	if u := p.User; u != nil {
 		p.MyLangs, p.MyTags = u.Langs, u.Tags
@@ -89,6 +89,8 @@ type homePage struct {
 	page
 	MyLangs, MyTags []string
 	LangNames       map[string]string
+	LangTags        map[string]langs.Tag
+	From1           map[string]string
 }
 
 // ShowAbout renders the static explanation page.

@@ -150,7 +150,10 @@ event entries for language gatherings (only with verified dates/venues — never
 - ATproto events: read `community.lexicon.calendar.event`/`.rsvp` (Smoke Signal) into bundles by
   location → cell; then ATproto OAuth so RSVPs/events are written natively to the user's PDS (M2).
 - `LaPingvino/geotags` public repo: generator from GeoNames + language list, CC-BY; Kafumu vendors it.
-- Language gazetteer + canonical `lang:` tags (ISO 639-3, `#langepo`).
+- [x] Language gazetteer: geotags' languages.json vendored (internal/langs), ISO 639-1→3 map; Around boosts
+      posts whose hashtags (#esperanto, #learnjapanese…) or ATproto langs match your languages — from your
+      profile, else the browser's — entirely on the device (bundles stay per cell). Badge shows the tag.
+      `#langepo`-style canonical public tags: not yet (no posts use them; revisit with ATproto posting).
 - Client ranking: complementary language exchange, locally rare shared language.
 - `appengine.Main()` + memcache everywhere; Datastore TTL policies; purge cron; travel banner;
   UI locale from esperanto-kurso's locale files.

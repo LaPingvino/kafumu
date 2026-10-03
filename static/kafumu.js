@@ -209,11 +209,35 @@
     });
   }
 
+  // myLangs: the languages to favour, as 639-3 codes — from your profile, or
+  // from the browser's languages when you have none. Never sent anywhere.
+  var myLangs = (function () {
+    var me = window.KAFUMU_ME || {}, out = {};
+    (me.langs || []).forEach(function (l) { out[l.split("/")[0]] = true; });
+    if (!Object.keys(out).length) (navigator.languages || []).forEach(function (l) {
+      var c = (me.from1 || {})[l.slice(0, 2).toLowerCase()];
+      if (c) out[c] = true;
+    });
+    return out;
+  })();
+
+  // langMatch: a language hashtag or the post's own language in your list.
+  function langMatch(p) {
+    var me = window.KAFUMU_ME || {}, tags = me.langTags || {}, from1 = me.from1 || {}, hit = "";
+    (p.tags || []).forEach(function (t) {
+      var lt = tags[t];
+      if (lt && (lt.codes.length === 0 ? false : lt.codes.some(function (c) { return myLangs[c]; }))) hit = "#" + t;
+    });
+    var postLang = ((p.langs || [])[0] || "").slice(0, 2);
+    return { tag: hit, lang: !!myLangs[from1[postLang]] };
+  }
+
   // score ranks on the device: #geo posts before place-tag posts, nearer
-  // rings and fresher posts first, noisy (ambiguous, bot) posts last.
+  // rings and fresher posts first, your languages up, noisy posts last.
   function score(p, ringOf, places) {
     var ageH = (Date.now() - new Date(p.createdAt).getTime()) / 36e5;
-    var s = -ageH / 24 - (p.bot ? 5 : 0);
+    var lm = langMatch(p);
+    var s = -ageH / 24 - (p.bot ? 5 : 0) + (lm.tag ? 2 : 0) + (lm.lang ? 0.5 : 0);
     if (p.via in ringOf) return s - ringOf[p.via] * 0.5;
     var pt = places[p.via];
     // A place-tag post that also carries a #geo tag of this area is strong.
@@ -254,6 +278,8 @@
       else via.textContent = tr("from", { tag: "#" + p.via }) + (places[p.via] && places[p.via].ambiguous ? " " + tr("maybe_elsewhere") : "");
       meta.appendChild(via);
       if (p.bot) { var b = document.createElement("span"); b.className = "badge"; b.textContent = tr("bot"); meta.appendChild(b); }
+      var lm = langMatch(p);
+      if (lm.tag) { var lb = document.createElement("span"); lb.className = "badge lang"; lb.textContent = lm.tag; meta.appendChild(lb); }
       var text = document.createElement("p");
       text.className = "text";
       text.textContent = p.text;

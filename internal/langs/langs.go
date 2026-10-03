@@ -3,7 +3,48 @@
 // English and native names.
 package langs
 
-import "sort"
+import (
+	_ "embed"
+	"encoding/json"
+	"sort"
+)
+
+// languages.json is vendored from github.com/LaPingvino/geotags: hashtags
+// people use for languages → ISO 639-3 codes (empty = any language).
+//
+//go:embed languages.json
+var tagsJSON []byte
+
+// Tag is a language hashtag.
+type Tag struct {
+	Tag    string   `json:"tag"`
+	Codes  []string `json:"codes"`
+	Weight float64  `json:"weight"`
+}
+
+// Tags maps hashtag → codes and weight, for ranking on the device.
+var Tags = func() map[string]Tag {
+	var ts []Tag
+	if err := json.Unmarshal(tagsJSON, &ts); err != nil {
+		panic("langs: " + err.Error())
+	}
+	m := map[string]Tag{}
+	for _, t := range ts {
+		m[t.Tag] = t
+	}
+	return m
+}()
+
+// From1 maps ISO 639-1 (what ATproto posts and browsers use) to 639-3.
+var From1 = map[string]string{
+	"ar": "ara", "bg": "bul", "bn": "ben", "ca": "cat", "cs": "ces", "cy": "cym", "da": "dan", "de": "deu",
+	"el": "ell", "en": "eng", "eo": "epo", "es": "spa", "et": "est", "eu": "eus", "fa": "fas", "fi": "fin",
+	"fr": "fra", "fy": "fry", "ga": "gle", "gl": "glg", "he": "heb", "hi": "hin", "hr": "hrv", "hu": "hun",
+	"ia": "ina", "id": "ind", "io": "ido", "is": "isl", "it": "ita", "ja": "jpn", "ka": "kat", "ko": "kor",
+	"lt": "lit", "lv": "lav", "ms": "msa", "nl": "nld", "no": "nor", "nb": "nor", "nn": "nor", "pl": "pol",
+	"pt": "por", "ro": "ron", "ru": "rus", "sk": "slk", "sl": "slv", "sq": "sqi", "sr": "srp", "sv": "swe",
+	"sw": "swa", "th": "tha", "tr": "tur", "uk": "ukr", "ur": "urd", "vi": "vie", "yi": "yid", "zh": "cmn", "zu": "zul",
+}
 
 // Lang is one language.
 type Lang struct {

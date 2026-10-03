@@ -202,3 +202,4 @@ article ul { padding-left: 1.2rem; }
 .badge-sheet { text-align: center; }
 .badge-sheet .qr { width: min(80vw, 9cm); }
 .badge-sheet h1 { margin: .5rem 0 0; }
+.badge.lang { background: var(--accent-bg); color: var(--accent-fg); }
