@@ -34,7 +34,7 @@ func Run(ctx context.Context, db *datastore.Client, now time.Time) (Result, erro
 	for _, k := range []struct {
 		kind string
 		n    *int
-	}{{"Meetup", &r.Meetups}, {"Box", &r.Boxes}, {"Slot", &r.Slots}, {"ATSession", &r.ATSessions}, {"ATAuthRequest", &r.ATSessions}, {"PushSub", &r.Boxes}} {
+	}{{"Meetup", &r.Meetups}, {"Box", &r.Boxes}, {"Slot", &r.Slots}, {"ATSession", &r.ATSessions}, {"ATAuthRequest", &r.ATSessions}, {"PushSub", &r.Boxes}, {"Note", &r.Meetups}} {
 		q := datastore.NewQuery(k.kind).FilterField("expires_at", "<", now).KeysOnly().Limit(batch)
 		n, err := deleteAll(ctx, db, q)
 		if err != nil {

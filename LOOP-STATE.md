@@ -171,7 +171,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
 - [x] 16. Admin (Joop): /admin/initial behind App Engine `login: admin` grants the "admin" role to the
       signed-in Kafumu account (his passkey); /admin: counts, hide OLN note, delete meetup, run feeds/purge
       now (and see the result), recent errors. Role checked server-side on every admin route.
-- [ ] 15a. Server: internal/oln — parse/verify eolnpoc raw format (SHA-1 leading zeros), ±10 min clock
+- [x] 15a. Server: internal/oln wired: POST /api/oln (402 when the work is short), bundle `notes` (≤50
+      by priority) + `requiredBits`, Note index, purge. Interop verified: a message mined by eolnpoc's own
+      CreatePoWMessage validates (UTC). eolnpoc formats the date in LOCAL time → Joop: use time.Now().UTC().
+      Was: Server: internal/oln — parse/verify eolnpoc raw format (SHA-1 leading zeros), ±10 min clock
       window, adaptive required bits per cell (14 + log2(1 + last-hour count/30), ≤22), TTL from bits,
       dedupe by hash, length cap, per-cell cache like meetups, ≤50 per cell in the bundle (by priority),
       admin hidden set; POST /api/oln; bundle field `notes` + `requiredBits`.

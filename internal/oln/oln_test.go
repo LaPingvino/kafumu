@@ -5,6 +5,8 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
+	"net/http/httptest"
+	"strings"
 	"testing"
 	"time"
 )
@@ -82,5 +84,23 @@ func TestRequiredAndTTL(t *testing.T) {
 	}
 	if TTL(14, 14) != time.Hour || TTL(18, 14) != 16*time.Hour || TTL(30, 14) != MaxTTL || TTL(13, 14) != 0 {
 		t.Error("TTL")
+	}
+}
+
+func TestHandlePost(t *testing.T) {
+	s := NewService(NewMemoryStore())
+	now := time.Now().UTC()
+	for _, c := range []struct {
+		raw  string
+		code int
+	}{
+		{mine(BaseBits, now, "Olá Barreiro", "#geo8ccgmw #langpor"), 200},
+		{"garbage", 400},
+	} {
+		w := httptest.NewRecorder()
+		s.HandlePost(w, httptest.NewRequest("POST", "/api/oln", strings.NewReader(c.raw)))
+		if w.Code != c.code {
+			t.Errorf("%.20q → %d, want %d: %s", c.raw, w.Code, c.code, w.Body)
+		}
 	}
 }

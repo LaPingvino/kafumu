@@ -20,6 +20,7 @@ import (
 	"github.com/LaPingvino/kafumu/internal/langs"
 	"github.com/LaPingvino/kafumu/internal/locale"
 	"github.com/LaPingvino/kafumu/internal/meetup"
+	"github.com/LaPingvino/kafumu/internal/oln"
 )
 
 const (
@@ -34,6 +35,8 @@ type Home struct {
 	Tmpl *template.Template
 	Bsky *bsky.Client
 	Gaz  *gazetteer.Gazetteer
+	// Notes, if set, are the OLN local messages included in bundles.
+	Notes *oln.Service
 	// ATproto, if set, lets people connect their own ATproto account.
 	ATproto *atp.Service
 	// Meetups and Accounts, if set, are included in bundles.
@@ -131,6 +134,10 @@ type bundle struct {
 	Places []gazetteer.PlaceTag `json:"places"`
 	// Events are conferences and festivals here, upcoming or running.
 	Events []gazetteer.EventTag `json:"events"`
+	// Notes are local OLN messages (proof of work, no account), and
+	// RequiredBits is what a new message in the first cell must carry.
+	Notes        []*oln.Note `json:"notes"`
+	RequiredBits int         `json:"requiredBits"`
 	// People who chose to be discoverable here, unranked (the device ranks).
 	People []account.Person `json:"people"`
 	// Meetups hosted on Kafumu in these cells, soonest first.
@@ -274,7 +281,18 @@ func (h *Home) Bundle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	b := bundle{Cells: cells, Places: []gazetteer.PlaceTag{}, Events: []gazetteer.EventTag{}, Meetups: []*meetup.Meetup{}, People: []account.Person{}, Posts: []bsky.Post{}}
+	b := bundle{Cells: cells, Places: []gazetteer.PlaceTag{}, Events: []gazetteer.EventTag{}, Meetups: []*meetup.Meetup{}, People: []account.Person{}, Notes: []*oln.Note{}, Posts: []bsky.Post{}}
+	if h.Notes != nil {
+		if ns, err := h.Notes.InCells(r.Context(), cells); err != nil {
+			log.Printf("bundle: notes: %v", err)
+		} else if ns != nil {
+			if len(ns) > oln.PerBundle {
+				ns = ns[:oln.PerBundle]
+			}
+			b.Notes = ns
+		}
+		b.RequiredBits = h.Notes.RequiredFor(r.Context(), cells[0])
+	}
 	if h.Accounts != nil {
 		if ps, err := h.Accounts.People(r.Context(), cells); err != nil {
 			log.Printf("bundle: people: %v", err)

@@ -44,6 +44,8 @@ func main() {
 	users, boxes, meetupStore, slots, db := stores(cfg)
 	kv := cache.New()
 	home.Meetups = meetup.NewService(meetupStore)
+	notes := oln.NewService(olnStore(db))
+	home.Notes = notes
 	meetups := &handler.Meetups{Home: home, Svc: home.Meetups, Importer: importer.New()}
 	accounts := &handler.Accounts{Home: home, Svc: account.NewService(users)}
 	home.Accounts = accounts.Svc
@@ -125,7 +127,6 @@ func main() {
 		}
 		fmt.Fprintln(w, runPurge(r.Context()))
 	})
-	notes := oln.NewService(olnStore(db))
 	adminH := &handler.Admin{Home: home, Accounts: accounts, Meetups: meetups, Notes: notes, DB: db,
 		Jobs: map[string]func(context.Context) string{"purge": runPurge, "feeds": meetups.RunFeeds}}
 	mux.HandleFunc("GET /admin/initial", adminH.Initial)
@@ -133,6 +134,7 @@ func main() {
 	mux.HandleFunc("POST /admin/action", adminH.Action)
 	mux.HandleFunc("GET /api/slot/{id}", slotAPI.Get)
 	mux.HandleFunc("PUT /api/slot/{id}", slotAPI.Put)
+	mux.HandleFunc("POST /api/oln", notes.HandlePost)
 	mux.HandleFunc("GET /api/push/key", pusher.Key)
 	mux.HandleFunc("POST /api/push/subscribe", pusher.Subscribe)
 	mux.HandleFunc("POST /api/push/unsubscribe", pusher.Unsubscribe)

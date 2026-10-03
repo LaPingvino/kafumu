@@ -13,3 +13,7 @@ indexes:
     properties:
       - name: cell
       - name: visible_until
+  - kind: Note
+    properties:
+      - name: cell
+      - name: expires_at
