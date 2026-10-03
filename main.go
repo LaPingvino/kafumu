@@ -20,6 +20,7 @@ import (
 	"github.com/LaPingvino/kafumu/internal/handler"
 	"github.com/LaPingvino/kafumu/internal/importer"
 	"github.com/LaPingvino/kafumu/internal/meetup"
+	"github.com/LaPingvino/kafumu/internal/slot"
 )
 
 //go:embed templates/*.html
@@ -30,12 +31,13 @@ func main() {
 	tmpl := template.Must(template.New("").Funcs(handler.Funcs).ParseFS(templateFS, "templates/*.html"))
 
 	home := &handler.Home{Cfg: cfg, Tmpl: tmpl, Bsky: bsky.NewClient(), Gaz: gazetteer.Load()}
-	users, boxes, meetupStore := stores(cfg)
+	users, boxes, meetupStore, slots := stores(cfg)
 	home.Meetups = meetup.NewService(meetupStore)
 	meetups := &handler.Meetups{Home: home, Svc: home.Meetups, Importer: importer.New()}
 	accounts := &handler.Accounts{Home: home, Svc: account.NewService(users)}
 	home.Accounts = accounts.Svc
 	mailbox := box.NewHandler(boxes)
+	slotAPI := slot.NewHandler(slots)
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /", home.ShowHome)
@@ -62,6 +64,8 @@ func main() {
 	mux.HandleFunc("GET /meetups/{id}/ics", meetups.ICS)
 	mux.HandleFunc("GET /cal/{cell}", meetups.ICS)
 	mux.HandleFunc("GET /cron/feeds", meetups.SyncFeeds)
+	mux.HandleFunc("GET /api/slot/{id}", slotAPI.Get)
+	mux.HandleFunc("PUT /api/slot/{id}", slotAPI.Put)
 	mux.HandleFunc("GET /api/box/{id}", mailbox.Get)
 	mux.HandleFunc("POST /api/box/{id}", mailbox.Post)
 	mux.HandleFunc("POST /api/box/{id}/ack", mailbox.Ack)
@@ -75,14 +79,14 @@ func main() {
 
 // stores uses Datastore on App Engine (or with the emulator) and memory for
 // plain local runs, so `go run .` needs no credentials.
-func stores(cfg *config.Config) (account.Store, box.Store, meetup.Store) {
+func stores(cfg *config.Config) (account.Store, box.Store, meetup.Store, slot.Store) {
 	if os.Getenv("GAE_ENV") == "" && os.Getenv("DATASTORE_EMULATOR_HOST") == "" {
 		log.Printf("stores: in memory (set DATASTORE_EMULATOR_HOST to use the emulator)")
-		return account.NewMemoryStore(), box.NewMemoryStore(), meetup.NewMemoryStore()
+		return account.NewMemoryStore(), box.NewMemoryStore(), meetup.NewMemoryStore(), slot.NewMemoryStore()
 	}
 	db, err := datastore.NewClient(context.Background(), cfg.ProjectID)
 	if err != nil {
 		log.Fatalf("datastore: %v", err)
 	}
-	return &account.DatastoreStore{DB: db}, &box.DatastoreStore{DB: db}, &meetup.DatastoreStore{DB: db}
+	return &account.DatastoreStore{DB: db}, &box.DatastoreStore{DB: db}, &meetup.DatastoreStore{DB: db}, &slot.DatastoreStore{DB: db}
 }

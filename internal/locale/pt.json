@@ -219,5 +219,11 @@
   "js.speaks_learning": "Fala {lang}, que está a aprender",
   "js.learns_speak": "Aprende {lang}, que fala",
   "js.rare_shared": "Também fala {lang}",
-  "js.learning": "a aprender"
+  "js.learning": "a aprender",
+  "home.friends_around": "Amigos por perto",
+  "home.friends_note": "Só as pessoas com quem se ligou podem ver isto, com precisão de dia e ~5 km; o servidor vê códigos aleatórios.",
+  "js.today": "hoje",
+  "js.yesterday": "ontem",
+  "js.was_here": "esteve aqui {when}",
+  "js.was_nearby": "esteve perto {when}"
 }

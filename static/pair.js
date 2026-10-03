@@ -262,7 +262,66 @@
       });
     }
 
-    return { invite: invite, accept: accept, moveSend: moveSend, moveReceive: moveReceive, checkInvite: checkInvite, checkContact: checkContact, send: send,
+    // ---- Friends around: day-level, cell-level, compared on the device ----
+    function day(d) { return (d || new Date()).toISOString().slice(0, 10); }
+    function beacon(key, role, cell, dayStr) {
+      return hmacHex(key, "beacon|" + role + "|" + cell + "|" + dayStr).then(function (h) { return h.slice(0, 32); });
+    }
+    function slotID(key, role) { return hmacHex(key, "slot" + role); }
+
+    // checkIn records that we were in cell today and, for every contact whose
+    // slot doesn't reflect that yet, rewrites our slot for them: the tokens of
+    // each (cell, day) of the last week. Returns the number of slots written.
+    function checkIn(cell, contacts, now) {
+      now = now || new Date();
+      var today = day(now), weekAgo = day(new Date(now.getTime() - 7 * 864e5));
+      return store.get("checkins").then(function (hist) {
+        hist = (hist || []).filter(function (h) { return h.day > weekAgo; });
+        if (!hist.some(function (h) { return h.cell === cell && h.day === today; })) hist.push({ cell: cell, day: today });
+        hist = hist.slice(-40);
+        var sig = hist.map(function (h) { return h.cell + h.day; }).join(",");
+        return store.set("checkins", hist).then(function () {
+          var due = contacts.filter(function (c) { return c.card && c.slotSig !== sig; });
+          return Promise.all(due.map(function (c) {
+            var key = unb64(c.key);
+            return Promise.all(hist.map(function (h) { return beacon(key, c.role, h.cell, h.day); })).then(function (toks) {
+              return slotID(key, c.role).then(function (id) {
+                return fetchFn(base + "/api/slot/" + id, { method: "PUT", body: JSON.stringify(toks), credentials: "omit" });
+              });
+            }).then(function (r) {
+              if (r.ok) { c.slotSig = sig; return store.putContact(c); }
+            }).catch(function () {});
+          })).then(function () { return due.length; });
+        });
+      });
+    }
+
+    // around reports which contacts were in or next to cells during the last
+    // week, most recent first: [{contact, day, near}] (near: a neighbour
+    // cell rather than cells[0]). One slot read per contact.
+    function around(cells, contacts, now) {
+      now = now || new Date();
+      var days = [];
+      for (var i = 0; i < 7; i++) days.push(day(new Date(now.getTime() - i * 864e5)));
+      return Promise.all(contacts.filter(function (c) { return c.card; }).map(function (c) {
+        var key = unb64(c.key), theirs = 1 - c.role;
+        return slotID(key, theirs).then(function (id) {
+          return fetchFn(base + "/api/slot/" + id, { credentials: "omit", cache: "no-store" });
+        }).then(function (r) { return r.ok ? r.json() : { tokens: [] }; }).then(function (j) {
+          var have = {};
+          (j.tokens || []).forEach(function (t) { have[t] = true; });
+          if (!(j.tokens || []).length) return null;
+          var tries = [];
+          days.forEach(function (d) { cells.forEach(function (cl, ci) { tries.push({ d: d, near: ci > 0, cl: cl }); }); });
+          return Promise.all(tries.map(function (t) { return beacon(key, theirs, t.cl, t.d); })).then(function (toks) {
+            for (var i = 0; i < toks.length; i++) if (have[toks[i]]) return { contact: c, day: tries[i].d, near: tries[i].near };
+            return null;
+          });
+        }).catch(function () { return null; });
+      })).then(function (rs) { return rs.filter(Boolean).sort(function (a, b) { return b.day.localeCompare(a.day); }); });
+    }
+
+    return { checkIn: checkIn, around: around, invite: invite, accept: accept, moveSend: moveSend, moveReceive: moveReceive, checkInvite: checkInvite, checkContact: checkContact, send: send,
       _open: open, _boxOf: boxOf, _inviteBox: inviteBox, _unb64: unb64 };
   }
 

@@ -59,6 +59,20 @@ const got = await A.pair.checkContact(aB);
 check(got.length === 1 && got[0].s === "coffee?", "A got B's signal");
 check((await B.pair.checkContact(cb)).length === 0, "B's own message is not in B's inbox");
 
+// Friends around: B checks in at the venue today; A, one cell away, sees B.
+{
+  const venue = "8ccgqw", next = "8ccgqx";
+  const bc = (await B.store.contacts())[0], ac = (await A.store.contacts()).find(c => c.card.name === "Bea");
+  check(await B.pair.checkIn(venue, [bc]) === 1, "B wrote one slot");
+  check(await B.pair.checkIn(venue, [bc]) === 0, "same cell-day: no rewrite");
+  const hits = await A.pair.around([next, venue], [ac]);
+  check(hits.length === 1 && hits[0].contact.card.name === "Bea" && hits[0].near, "A sees Bea nearby: " + JSON.stringify(hits.map(h => h.day)));
+  const far = await A.pair.around(["9f469v"], [ac]);
+  check(far.length === 0, "not seen from Amsterdam");
+  const raw = await (await fetch(`${base}/api/slot/${"0".repeat(64)}`)).json();
+  check(Array.isArray(raw.tokens), "slot api answers");
+}
+
 // Share with self: the new device shows a move code, the old one sends a
 // backup big enough to need several chunks.
 const N = device("new"), O = device("old");
@@ -73,4 +87,4 @@ check(got2 && got2.contacts.length === 40 && got2.contacts[39].card.name === "Pe
 check((await N.pair.moveReceive()) === null, "move chunks acked");
 
 if (fail) process.exit(1);
-console.log("ok  static/pair.js handshake (A↔B, A↔C, isolation, signal) + move to new device");
+console.log("ok  static/pair.js handshake (A↔B, A↔C, isolation, signal) + friends around + move to new device");

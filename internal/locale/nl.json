@@ -219,5 +219,11 @@
   "js.speaks_learning": "Spreekt {lang}, dat jij leert",
   "js.learns_speak": "Leert {lang}, dat jij spreekt",
   "js.rare_shared": "Spreekt ook {lang}",
-  "js.learning": "aan het leren"
+  "js.learning": "aan het leren",
+  "home.friends_around": "Vrienden in de buurt",
+  "home.friends_note": "Alleen mensen met wie je verbonden bent zien dit, op dag- en ~5 km-niveau; de server ziet willekeurige codes.",
+  "js.today": "vandaag",
+  "js.yesterday": "gisteren",
+  "js.was_here": "was hier {when}",
+  "js.was_nearby": "was in de buurt {when}"
 }

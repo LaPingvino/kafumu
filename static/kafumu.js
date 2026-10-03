@@ -15,7 +15,40 @@
   function setStatus(msg) { $("status").textContent = msg; }
   function note(msg) { $("list-note").textContent = msg; }
 
-  function show(c, how) {
+  // friendsAround: check in (only from a real location fix) and show which
+  // of your contacts were in or next to this cell this week.
+  function friendsAround(c, gps) {
+    var dev = window.kafumuDevice;
+    if (!dev || !window.kafumuPair) return;
+    var pair = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin });
+    dev.store.contacts().then(function (cs) {
+      cs = cs.filter(function (x) { return x.card; });
+      if (!cs.length) return;
+      return (gps ? pair.checkIn(c, cs) : Promise.resolve()).then(function () {
+        return pair.around(rings(c, 1).map(function (p) { return p[0]; }), cs.slice(0, 30));
+      }).then(function (hits) {
+        var sec = $("friends-section"), list = $("friends");
+        sec.hidden = !hits.length;
+        list.textContent = "";
+        var today = new Date().toISOString().slice(0, 10), yesterday = new Date(Date.now() - 864e5).toISOString().slice(0, 10);
+        hits.forEach(function (h) {
+          var li = document.createElement("li"), a = document.createElement("a");
+          a.href = "/contacts";
+          a.className = "meetup-row";
+          var who = document.createElement("strong");
+          who.textContent = h.contact.card.name;
+          var when = h.day === today ? tr("today") : h.day === yesterday ? tr("yesterday")
+            : new Date(h.day + "T12:00:00Z").toLocaleDateString(document.documentElement.lang, { weekday: "long" });
+          var meta = document.createElement("div");
+          meta.className = "meta";
+          meta.textContent = tr(h.near ? "was_nearby" : "was_here", { when: when });
+          a.appendChild(who); a.appendChild(meta); li.appendChild(a); list.appendChild(li);
+        });
+      });
+    }).catch(function () {});
+  }
+
+  function show(c, how, gps) {
     var tag = "#geo" + c;
     $("cell-tag").textContent = tag;
     document.querySelector(".cell-tag").hidden = false;
@@ -30,6 +63,7 @@
     setStatus(how);
     try { localStorage.setItem("kafumu.lastCell", c); } catch (e) {}
     load(c);
+    friendsAround(c, !!gps);
   }
 
   function load(c) {
@@ -240,7 +274,7 @@
     if (!navigator.geolocation) { setStatus(tr("no_location")); return; }
     navigator.geolocation.getCurrentPosition(function (pos) {
       // Round immediately: only the 5 km cell is kept.
-      show(cell(pos.coords.latitude, pos.coords.longitude), tr("your_cell"));
+      show(cell(pos.coords.latitude, pos.coords.longitude), tr("your_cell"), true);
     }, function () {
       var last = null;
       try { last = localStorage.getItem("kafumu.lastCell"); } catch (e) {}

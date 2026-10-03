@@ -112,7 +112,11 @@ Everything before the event serves that; the rest of M1 follows after.
       the reason shown. Strangers can't message. Bundle browser cache cut to 30 s (was 5 min: stale people).
       Was: Profile tags + discoverable people at the event (opt-in): languages, interests
       (opensource, esperanto, climate…), matched on the device.
-- [ ] 10. Friends around (slots/beacons): "who you scanned is still in Lisbon today".
+- [x] 10. Friends around (`internal/slot`, pair.js checkIn/around): per pair and direction one random-keyed
+      slot of ≤64 opaque tokens HMAC(pairKey, role, cell, UTC day) for the last week's check-ins (8-day
+      TTL). Check-in only from a real GPS fix; a slot is rewritten only when the week's cell-days change.
+      The friend fetches one slot per contact (≤30) and compares 3×3 cells × 7 days on the device: "Ana was
+      here today / nearby on Tuesday". Server sees random ids and random-looking tokens. Tested in pair E2E.
 - [ ] 11. `/patrons` + `/for-cafes` pages (Liberapay, Stripe Payment Link), privacy page with data table.
 - [ ] 12. Event polish: install prompt (PWA), offline shell, printable QR for a badge/T-shirt, PT/EN UI.
       Load test the bundle path; check free-tier quotas for ~1k users/day.

@@ -219,5 +219,11 @@
   "js.speaks_learning": "Parolas {lang}, kiun vi lernas",
   "js.learns_speak": "Lernas {lang}, kiun vi parolas",
   "js.rare_shared": "Ankaŭ parolas {lang}",
-  "js.learning": "lernata"
+  "js.learning": "lernata",
+  "home.friends_around": "Amikoj proksime",
+  "home.friends_note": "Nur homoj, kun kiuj vi konektiĝis, povas vidi tion, je precizeco de tago kaj ~5 km; la servilo vidas hazardajn kodojn.",
+  "js.today": "hodiaŭ",
+  "js.yesterday": "hieraŭ",
+  "js.was_here": "estis ĉi tie {when}",
+  "js.was_nearby": "estis proksime {when}"
 }
