@@ -147,8 +147,12 @@ event entries for language gatherings (only with verified dates/venues — never
       gen/ regenerates. Kafumu vendors places.json as internal/gazetteer/places_geonames.json; its own
       places.json now only holds what GeoNames lacks (Barreiro, Parque das Nações, Wageningen…). Lookup
       searches outward from a cell over centre cells (memoised) instead of precomputing coverage.
-- ATproto events: read `community.lexicon.calendar.event`/`.rsvp` (Smoke Signal) into bundles by
-  location → cell; then ATproto OAuth so RSVPs/events are written natively to the user's PDS (M2).
+- [x] ATproto events (read): feed kind "smokesignal" reads event links from smokesignal.events, resolves
+      each DID via plc.directory, fetches the `community.lexicon.calendar.event` record from the author's
+      own PDS, keeps in-person events with `location.geo` (→ cell), imports them "via smokesignal.events".
+      First run: 17 such events. Address-only events need geocoding (later).
+- [ ] ATproto OAuth so posts/events/RSVPs are written natively to the user's PDS (M2) — after kafumu.com
+      (OAuth client metadata must live on the final domain).
 - `LaPingvino/geotags` public repo: generator from GeoNames + language list, CC-BY; Kafumu vendors it.
 - [x] Language gazetteer: geotags' languages.json vendored (internal/langs), ISO 639-1→3 map; Around boosts
       posts whose hashtags (#esperanto, #learnjapanese…) or ATproto langs match your languages — from your

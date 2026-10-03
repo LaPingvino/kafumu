@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 	"time"
 
@@ -46,5 +47,18 @@ func TestSyncKeepsRSVPs(t *testing.T) {
 	ms, _ = store.InCells(context.Background(), []string{"8ccgqw"}, now)
 	if len(ms) != 1 || len(ms[0].RSVPs) != 1 {
 		t.Errorf("after resync: %+v", ms)
+	}
+}
+
+func TestATEvent(t *testing.T) {
+	raw := `{"value":{"name":"Kafo","startsAt":"2026-11-10T15:00:00Z","mode":"community.lexicon.calendar.event#inperson",
+	"locations":[{"$type":"community.lexicon.location.geo","latitude":"38.768","longitude":"-9.094","name":"FIL"}]}}`
+	ev := toATEvent(raw, "https://smokesignal.events/x/y")
+	if ev == nil || !ev.HasGeo || ev.Venue != "FIL" || ev.Title != "Kafo" {
+		t.Fatalf("event = %+v", ev)
+	}
+	virtual := strings.Replace(raw, "#inperson", "#virtual", 1)
+	if toATEvent(virtual, "") != nil {
+		t.Error("virtual event imported")
 	}
 }

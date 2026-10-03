@@ -1,3 +1,4 @@
 [
-  {"url": "https://luma.com/lisbon", "kind": "jsonld", "tags": ["lisbon"], "note": "Luma's popular events in Lisbon"}
+  {"url": "https://luma.com/lisbon", "kind": "jsonld", "tags": ["lisbon"], "note": "Luma's popular events in Lisbon"},
+  {"url": "https://smokesignal.events/", "kind": "smokesignal", "note": "Recent ATproto events on Smoke Signal; in-person ones with coordinates"}
 ]

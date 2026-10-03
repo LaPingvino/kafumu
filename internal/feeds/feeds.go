@@ -27,7 +27,7 @@ var feedsJSON []byte
 // Feed is one source of events.
 type Feed struct {
 	URL  string   `json:"url"`
-	Kind string   `json:"kind"` // "jsonld" (a page with schema.org Events) or "ics"
+	Kind string   `json:"kind"` // "jsonld" (schema.org Events), "ics", or "smokesignal" (ATproto events)
 	Tags []string `json:"tags,omitempty"`
 	// Cell places events that carry no coordinates (most iCal feeds).
 	Cell string `json:"cell,omitempty"`
@@ -57,16 +57,20 @@ func Sync(ctx context.Context, fs []Feed, im *importer.Importer, store meetup.St
 	var r Result
 	for _, f := range fs {
 		r.Feeds++
-		body, err := im.Get(ctx, f.URL)
-		if err != nil {
-			r.Errors = append(r.Errors, err.Error())
-			continue
-		}
 		var evs []*importer.Event
-		if f.Kind == "ics" {
-			evs = importer.ParseICS(body)
+		if f.Kind == "smokesignal" {
+			evs = atprotoEvents(ctx, im, f.URL)
 		} else {
-			evs = importer.ParseAll(body)
+			body, err := im.Get(ctx, f.URL)
+			if err != nil {
+				r.Errors = append(r.Errors, err.Error())
+				continue
+			}
+			if f.Kind == "ics" {
+				evs = importer.ParseICS(body)
+			} else {
+				evs = importer.ParseAll(body)
+			}
 		}
 		host := hostOf(f.URL)
 		for _, ev := range evs {
