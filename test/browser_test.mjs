@@ -154,17 +154,24 @@ try {
   await sleep(800);
 
 
-  // Share with self: a fresh browser (C) shows a move code, B sends everything.
+  // Move to a new device, bound to the account: B makes an account; C signs
+  // in with B's link and asks; B sees the request and sends; C gets B's data.
   const C = await browser(9335);
   try {
+    await B.goto(base + "/account");
+    await B.evaluate("document.querySelector('form[action=\"/account/start\"]').requestSubmit()");
+    await B.waitFor("!!document.querySelector('.magic input')", "B's account");
+    const link = await B.evaluate("document.querySelector('.magic input').value");
+    await C.goto(link.replace(/^https?:\/\/[^/]+/, base));
     await C.goto(base + "/contacts");
     await C.evaluate("document.getElementById('move-start').click()");
-    await C.waitFor("!!document.querySelector('#move-qr svg')", "C's move code");
-    const mv = await C.evaluate("(async () => (await window.kafumuPair.create({fetch, store: kafumuDevice.store, origin: location.origin}).invite(false, 'move')).url)()");
-    await B.goto(mv);
+    await C.waitFor("document.getElementById('move-code').textContent.length > 0", "C's move code");
+    const emoji = await C.evaluate("document.getElementById('move-code').textContent");
+    await B.goto(base + "/contacts");
+    await B.waitFor("!document.getElementById('move-offer').hidden", "B sees the move request");
+    if (await B.evaluate("document.getElementById('move-offer-code').textContent") !== emoji) throw new Error("emoji differ");
     await B.evaluate("document.getElementById('move-send').click()");
-    await B.waitFor("document.getElementById('move-send').hidden", "B sent");
-    await C.waitFor("!document.getElementById('move-apply').hidden", "C received");
+    await C.waitFor("!document.getElementById('move-apply').hidden", "C received", 30000);
     await C.evaluate("document.getElementById('move-apply').click()");
     await sleep(2000);
     await C.waitFor("document.getElementById('contacts').textContent.includes('Ana')", "Ana moved to C");

@@ -1,62 +1,80 @@
-// Share with self: move everything to a new device by scanning a code.
-// The NEW device shows the code (Contacts → Move here); the OLD device scans
-// it, lands on /m#…, and sends an encrypted copy of everything.
+// Moving to a new device, bound to your account: the new device (signed in
+// with your link or passkey) asks; another device signed into the same
+// account sees the request and sends everything, end-to-end encrypted to
+// the new device's key. Both show the same four emoji to compare.
 (function () {
   "use strict";
   var T = window.KAFUMU_T || {}, dev = window.kafumuDevice;
   var pair = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin });
   var $ = function (id) { return document.getElementById(id); };
   function tr(k, v) { var s = T[k] || k; Object.keys(v || {}).forEach(function (n) { s = s.split("{" + n + "}").join(v[n]); }); return s; }
+  var EMOJI = "🐙🎸🌵🚲🍋🦊🌙⚓🍄🎈🐝🧭🍉🦉🌻🚂🐳🎲🍩🦋🌈🔔🥥🐢🎻🍒🦒🌊🔭🍀🐧🎯🍕🦀🌋🧩🍇🐼🎺🍓🦜🌵🚀🐞🎨🍑🦔🌍🔑🍔🐬🎤🍐🦄❄️🧲🍪🐌🎹🍊🦩🌴🛶🍯".match(/(\p{Extended_Pictographic}\uFE0F?)/gu);
+  function code(pub) {
+    return crypto.subtle.digest("SHA-256", new TextEncoder().encode(pub)).then(function (h) {
+      return Array.from(new Uint8Array(h).slice(0, 4), function (b) { return EMOJI[b % EMOJI.length]; }).join(" ");
+    });
+  }
+  function account(method, body) {
+    return fetch("/account/move", { method: method, body: body, credentials: "same-origin" });
+  }
 
-  // New device: show the move code and wait for the copy.
+  // New device: ask.
   var start = $("move-start");
   if (start) start.onclick = function () {
+    var status = $("move-status");
+    $("move-area").hidden = false;
     start.hidden = true;
-    var area = $("move-area"), status = $("move-status");
-    area.hidden = false;
     pair.invite(true, "move").then(function (inv) {
-      var q = qrcode(0, "M"); q.addData(inv.url); q.make();
-      $("move-qr").innerHTML = q.createSvgTag({ cellSize: 6, margin: 2, scalable: true });
-      status.textContent = tr("move_waiting");
-      var began = Date.now();
-      (function tick() {
-        pair.moveReceive().then(function (data) {
-          if (!data) {
-            if (Date.now() - began > 300000) { status.textContent = tr("stopped_listening"); start.hidden = false; return; }
-            setTimeout(tick, Date.now() - began < 30000 ? 2000 : 5000);
-            return;
-          }
-          $("move-qr").innerHTML = "";
-          var n = (data.contacts || []).length, p = (data.personas || []).length;
-          status.textContent = tr("move_received", { n: n, p: p });
-          var ok = $("move-apply");
-          ok.hidden = false;
-          ok.onclick = function () {
-            ok.hidden = true;
-            dev.restore(data).then(function (count) { status.textContent = tr("restored", { n: count }); setTimeout(function () { location.reload(); }, 1200); });
-          };
-        }, function () { setTimeout(tick, 5000); });
-      })();
-    });
+      return account("POST", new URLSearchParams({ box: inv.box, pub: inv.pub })).then(function (r) {
+        if (r.status === 401) { status.textContent = tr("move_sign_in"); start.hidden = false; throw new Error("signed out"); }
+        return code(inv.pub);
+      }).then(function (c) {
+        $("move-code").textContent = c;
+        status.textContent = tr("move_waiting_other");
+        var began = Date.now();
+        (function tick() {
+          pair.moveReceive().then(function (data) {
+            if (!data) {
+              if (Date.now() - began > 15 * 60 * 1000) { status.textContent = tr("stopped_listening"); start.hidden = false; return; }
+              setTimeout(tick, Date.now() - began < 60000 ? 2000 : 5000);
+              return;
+            }
+            status.textContent = tr("move_received", { n: (data.contacts || []).length, p: (data.personas || []).length });
+            var ok = $("move-apply");
+            ok.hidden = false;
+            ok.onclick = function () {
+              ok.hidden = true;
+              dev.restore(data).then(function (n) { status.textContent = tr("restored", { n: n }); account("DELETE"); setTimeout(function () { location.reload(); }, 1200); });
+            };
+          }, function () { setTimeout(tick, 5000); });
+        })();
+      });
+    }).catch(function () {});
   };
 
-  // Old device: it scanned the new device's code.
-  var send = $("move-send");
-  if (send) {
-    var payload = location.hash.slice(1), status = $("send-status");
-    if (!/^v1\./.test(payload)) { status.textContent = tr("bad_code"); send.hidden = true; return; }
-    dev.backup().then(function (b) { $("send-summary").textContent = tr("move_summary", { n: b.contacts.length, p: (b.personas || []).length }); });
-    send.onclick = function () {
-      send.disabled = true;
-      status.textContent = tr("connecting");
-      dev.backup().then(function (b) { return pair.moveSend(payload, b); }).then(function () {
-        history.replaceState(null, "", "/m");
-        send.hidden = true;
-        status.textContent = tr("move_sent");
-      }, function (err) {
-        send.disabled = false;
-        status.textContent = /too big/.test(err.message) ? tr("move_too_big") : tr("network_retry");
+  // Old device: is another device of ours asking?
+  var offer = $("move-offer");
+  if (offer) {
+    Promise.all([account("GET").then(function (r) { return r.ok ? r.json() : {}; }), dev.store.get("invite:move")]).then(function (r) {
+      var req = r[0], mine = r[1];
+      if (!req.box || (mine && mine.box === req.box)) return; // none, or it's this device's own request
+      return code(req.pub).then(function (c) {
+        $("move-offer-code").textContent = c;
+        offer.hidden = false;
+        $("move-send").onclick = function () {
+          var b = this;
+          b.disabled = true;
+          $("move-offer-status").textContent = tr("connecting");
+          dev.backup().then(function (bk) { return pair.moveSend("v1." + req.pub, bk); }).then(function () {
+            $("move-offer-status").textContent = tr("move_sent");
+            b.hidden = true;
+          }, function (err) {
+            b.disabled = false;
+            $("move-offer-status").textContent = /too big/.test(err.message) ? tr("move_too_big") : tr("network_retry");
+          });
+        };
+        $("move-ignore").onclick = function () { account("DELETE"); offer.hidden = true; };
       });
-    };
+    }).catch(function () {});
   }
 })();

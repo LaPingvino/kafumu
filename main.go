@@ -60,6 +60,7 @@ func main() {
 	prices := box.NewPrices(db)
 	mailbox.Price = prices.Price
 	accounts.Prices = prices
+	accounts.Cache = kv
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /", home.ShowHome)
@@ -103,6 +104,9 @@ func main() {
 	mux.HandleFunc("POST /account/name", accounts.SetName)
 	mux.HandleFunc("POST /account/profile", accounts.SetProfile)
 	mux.HandleFunc("POST /account/inbox", accounts.SetInbox)
+	mux.HandleFunc("GET /account/move", accounts.MoveRequest)
+	mux.HandleFunc("POST /account/move", accounts.MoveRequest)
+	mux.HandleFunc("DELETE /account/move", accounts.MoveRequest)
 	mux.HandleFunc("POST /account/signout", accounts.SignOut)
 	mux.HandleFunc("POST /account/delete", accounts.Delete)
 	mux.HandleFunc("GET /auth/link", accounts.Link)

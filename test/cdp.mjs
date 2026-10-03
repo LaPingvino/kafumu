@@ -27,7 +27,7 @@ export async function browser(port) {
   });
   const evaluate = async (expr) => {
     const m = await send("Runtime.evaluate", { expression: expr, awaitPromise: true, returnByValue: true });
-    if (m.result?.exceptionDetails) throw new Error(m.result.exceptionDetails.exception?.description || "eval failed");
+    if (m.result?.exceptionDetails) throw new Error((m.result.exceptionDetails.exception?.description || "eval failed") + "\n  in: " + expr.slice(0, 160));
     return m.result?.result?.value;
   };
   return {
@@ -35,7 +35,8 @@ export async function browser(port) {
     goto: async (url) => { await send("Page.navigate", { url }); await sleep(800); },
     evaluate,
     waitFor: async (expr, what, ms = 20000) => {
-      for (const end = Date.now() + ms; Date.now() < end; await sleep(250)) if (await evaluate(expr)) return;
+      // A condition that throws (page mid-navigation) counts as "not yet".
+      for (const end = Date.now() + ms; Date.now() < end; await sleep(250)) if (await evaluate(expr).catch(() => false)) return;
       throw new Error("timed out waiting for " + what + "; page says: " + await evaluate("document.body.innerText.slice(0, 400)"));
     },
     close: () => { ws.close(); proc.kill(); setTimeout(() => rmSync(dir, { recursive: true, force: true }), 500); },

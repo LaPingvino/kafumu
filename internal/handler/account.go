@@ -7,11 +7,13 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
 
 	"github.com/LaPingvino/kafumu/internal/account"
+	"github.com/LaPingvino/kafumu/internal/cache"
 	"github.com/LaPingvino/kafumu/internal/langs"
 	"github.com/LaPingvino/kafumu/internal/locale"
 )
@@ -32,6 +34,8 @@ type Accounts struct {
 	Svc  *account.Service
 	// Prices records public-inbox prices for the mailbox to enforce.
 	Prices account.InboxPrices
+	// Cache holds short-lived move requests between your own devices.
+	Cache cache.Cache
 }
 
 // Middleware resolves the "k" cookie. It never creates an account: page views
@@ -249,3 +253,49 @@ func (a *Accounts) SetInbox(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusNoContent)
 }
+
+// Account-bound moves: a new device signed into this account asks for the
+// data; another device signed into the same account sees the request and
+// sends it end-to-end encrypted to the new device's key. No code to scan,
+// so nothing to substitute. Requests live 15 minutes in the cache.
+
+type moveRequest struct {
+	Box string `json:"box"`
+	Pub string `json:"pub"`
+	At  int64  `json:"at"`
+}
+
+// MoveRequest handles POST /account/move {box, pub} (new device) and
+// GET /account/move (old device: is there a request?) and DELETE.
+func (a *Accounts) MoveRequest(w http.ResponseWriter, r *http.Request) {
+	u := UserFrom(r.Context())
+	if u == nil || a.Cache == nil {
+		http.Error(w, "sign in first", http.StatusUnauthorized)
+		return
+	}
+	key := "move:" + u.ID
+	w.Header().Set("Cache-Control", "no-store")
+	switch r.Method {
+	case http.MethodPost:
+		m := moveRequest{Box: r.FormValue("box"), Pub: r.FormValue("pub"), At: time.Now().Unix()}
+		if !boxIDRE.MatchString(m.Box) || len(m.Pub) < 80 || len(m.Pub) > 100 {
+			http.Error(w, "bad request", http.StatusBadRequest)
+			return
+		}
+		b, _ := json.Marshal(m)
+		a.Cache.Set(r.Context(), key, b, 15*time.Minute)
+		w.WriteHeader(http.StatusNoContent)
+	case http.MethodDelete:
+		a.Cache.Delete(r.Context(), key)
+		w.WriteHeader(http.StatusNoContent)
+	default:
+		w.Header().Set("Content-Type", "application/json")
+		if b, ok := a.Cache.Get(r.Context(), key); ok {
+			w.Write(b)
+			return
+		}
+		w.Write([]byte("{}"))
+	}
+}
+
+var boxIDRE = regexp.MustCompile(`^[0-9a-f]{64}$`)

@@ -141,7 +141,7 @@
   "js.share_what": "Wat deel je deze keer:",
   "move.title": "Naar een nieuw apparaat",
   "move.receive_explain": "Tik op je NIEUWE telefoon of computer hieronder en scan de code met de camera van je OUDE apparaat. Alles — persona's, contacten, notities — wordt versleuteld overgezet.",
-  "move.receive": "Dit is mijn nieuwe apparaat — toon code",
+  "move.receive": "Mijn gegevens naar dit apparaat halen",
   "move.apply": "Toevoegen aan dit apparaat",
   "move.send_explain": "Je hebt de verhuiscode van je andere apparaat gescand. Een kopie van alles op dit apparaat ernaartoe sturen?",
   "move.send": "Alles versturen",
@@ -377,5 +377,11 @@
   "js.inbox_share_card": "Mijn kaartje delen, zodat ze terug kunnen verbinden",
   "js.inbox_sent": "Verstuurd ({s} s werk).",
   "js.inbox_anonymous": "Iemand",
-  "js.inbox_connect": "Verbinden"
+  "js.inbox_connect": "Verbinden",
+  "move.account_explain": "Log op je NIEUWE telefoon of computer in met je link of passkey en tik hieronder. Je andere apparaat, ingelogd op hetzelfde account, biedt aan alles te sturen — versleuteld, de server kan het niet lezen.",
+  "move.offer": "Een ander apparaat op je account wil je contacten en kaartjes.",
+  "move.offer_check": "Stuur alleen als je nieuwe apparaat precies deze vier emoji toont.",
+  "move.ignore": "Niet ik — negeren",
+  "js.move_sign_in": "Log eerst in (Account → je link of passkey) en probeer het opnieuw.",
+  "js.move_waiting_other": "Open Kafumu → Contacten op je andere apparaat en kijk of het deze emoji toont."
 }

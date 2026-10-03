@@ -141,7 +141,7 @@
   "js.share_what": "Kion konigi ĉi-foje:",
   "move.title": "Transloki al nova aparato",
   "move.receive_explain": "En via NOVA telefono aŭ komputilo, tuŝu sube kaj skanu la kodon per la fotilo de via MALNOVA aparato. Ĉio — personoj, kontaktoj, notoj — kopiiĝas, ĉifrite.",
-  "move.receive": "Ĉi tio estas mia nova aparato — montri kodon",
+  "move.receive": "Transloki miajn datumojn al ĉi tiu aparato",
   "move.apply": "Aldoni al ĉi tiu aparato",
   "move.send_explain": "Vi skanis la translokan kodon de via alia aparato. Ĉu sendi al ĝi kopion de ĉio en ĉi tiu?",
   "move.send": "Sendi ĉion",
@@ -377,5 +377,11 @@
   "js.inbox_share_card": "Konigi mian karton, por ke ili povu konektiĝi",
   "js.inbox_sent": "Sendita ({s} s da laboro).",
   "js.inbox_anonymous": "Iu",
-  "js.inbox_connect": "Konektiĝi"
+  "js.inbox_connect": "Konektiĝi",
+  "move.account_explain": "En via NOVA telefono aŭ komputilo, ensalutu per via ligilo aŭ ensalutŝlosilo kaj tuŝu sube. Via alia aparato, ensalutinta en la sama konto, proponos sendi ĉion — ĉifrite, la servilo ne povas legi ĝin.",
+  "move.offer": "Alia aparato ensalutinta en via konto volas viajn kontaktojn kaj kartojn.",
+  "move.offer_check": "Sendu nur se via nova aparato montras ĝuste ĉi tiujn kvar emoĝiojn.",
+  "move.ignore": "Ne mi — ignori",
+  "js.move_sign_in": "Unue ensalutu (Konto → via ligilo aŭ ensalutŝlosilo), poste provu denove.",
+  "js.move_waiting_other": "Malfermu Kafumu → Kontaktoj en via alia aparato kaj kontrolu, ke ĝi montras ĉi tiujn emoĝiojn."
 }

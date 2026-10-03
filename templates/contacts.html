@@ -21,12 +21,20 @@
   <p class="dim"><small>{{t .Lang "contacts.backup_warning"}}</small></p>
   <p id="contacts-status" class="dim" role="status"></p>
 </div>
+<div id="move-offer" class="card events" style="padding:8px 16px" hidden>
+  <p><strong>{{t .Lang "move.offer"}}</strong></p>
+  <p class="move-code" id="move-offer-code"></p>
+  <p class="dim small">{{t .Lang "move.offer_check"}}</p>
+  <div class="actions"><button type="button" id="move-send" class="pill suggested">{{t .Lang "move.send"}}</button>
+    <button type="button" id="move-ignore" class="pill">{{t .Lang "move.ignore"}}</button></div>
+  <p id="move-offer-status" class="dim small" role="status"></p>
+</div>
 <div class="card" style="padding:4px 16px 12px">
   <h2>{{t .Lang "move.title"}}</h2>
-  <p class="dim">{{t .Lang "move.receive_explain"}}</p>
+  <p class="dim">{{t .Lang "move.account_explain"}}</p>
   <div class="actions"><button type="button" id="move-start" class="pill">{{t .Lang "move.receive"}}</button></div>
   <div id="move-area" hidden>
-    <div id="move-qr" class="qr"></div>
+    <p class="move-code" id="move-code"></p>
     <p id="move-status" class="dim" role="status"></p>
     <div class="actions"><button type="button" id="move-apply" class="pill suggested" hidden>{{t .Lang "move.apply"}}</button></div>
   </div>

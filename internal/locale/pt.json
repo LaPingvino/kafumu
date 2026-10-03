@@ -141,7 +141,7 @@
   "js.share_what": "O que partilhar desta vez:",
   "move.title": "Mudar para outro dispositivo",
   "move.receive_explain": "No seu NOVO telemóvel ou computador, toque abaixo e leia o código com a câmara do dispositivo ANTIGO. Tudo — personas, contactos, notas — é copiado, cifrado.",
-  "move.receive": "Este é o novo dispositivo — mostrar código",
+  "move.receive": "Mudar os meus dados para este dispositivo",
   "move.apply": "Adicionar a este dispositivo",
   "move.send_explain": "Leu o código de mudança do seu outro dispositivo. Enviar-lhe uma cópia de tudo o que está neste?",
   "move.send": "Enviar tudo",
@@ -377,5 +377,11 @@
   "js.inbox_share_card": "Partilhar o meu cartão, para se poderem ligar",
   "js.inbox_sent": "Enviada ({s} s de trabalho).",
   "js.inbox_anonymous": "Alguém",
-  "js.inbox_connect": "Ligar"
+  "js.inbox_connect": "Ligar",
+  "move.account_explain": "No seu NOVO telemóvel ou computador, entre com a sua ligação ou chave de acesso e toque abaixo. O outro dispositivo, com a mesma conta, oferece-se para enviar tudo — cifrado, o servidor não o consegue ler.",
+  "move.offer": "Outro dispositivo com a sua conta quer os seus contactos e cartões.",
+  "move.offer_check": "Só envie se o novo dispositivo mostrar exatamente estes quatro emoji.",
+  "move.ignore": "Não fui eu — ignorar",
+  "js.move_sign_in": "Entre primeiro (Conta → a sua ligação ou chave de acesso) e tente outra vez.",
+  "js.move_waiting_other": "Abra Kafumu → Contactos no outro dispositivo e confirme que mostra estes emoji."
 }

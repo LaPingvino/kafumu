@@ -141,7 +141,7 @@
   "js.share_what": "What to share this time:",
   "move.title": "Move to a new device",
   "move.receive_explain": "On your NEW phone or computer, tap below and scan the code with your OLD device's camera. Everything — personas, contacts, notes — is copied over, encrypted.",
-  "move.receive": "This is my new device — show code",
+  "move.receive": "Move my data to this device",
   "move.apply": "Add to this device",
   "move.send_explain": "You scanned the move code of your other device. Send it a copy of everything on this one?",
   "move.send": "Send everything",
@@ -377,5 +377,11 @@
   "js.inbox_share_card": "Share my card, so they can connect back",
   "js.inbox_sent": "Sent ({s} s of work).",
   "js.inbox_anonymous": "Someone",
-  "js.inbox_connect": "Connect"
+  "js.inbox_connect": "Connect",
+  "move.account_explain": "On your NEW phone or computer, sign in with your link or passkey and tap below. Your other device, signed into the same account, will offer to send everything — encrypted, the server can't read it.",
+  "move.offer": "Another device signed into your account wants your contacts and cards.",
+  "move.offer_check": "Only send if your new device shows exactly these four emoji.",
+  "move.ignore": "Not me — ignore",
+  "js.move_sign_in": "Sign in first (Account → your link or passkey), then try again.",
+  "js.move_waiting_other": "Open Kafumu → Contacts on your other device and check that it shows these emoji."
 }
