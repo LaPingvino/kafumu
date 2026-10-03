@@ -61,7 +61,16 @@ try {
     try { await B.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN')", "B sees A's message", 8000); break; }
     catch (e) { if (i >= 6) throw e; }
   }
+  // Views: language and interest filters apply on the device, from the URL.
+  await A.goto(base + "/?cell=8ccgqx&lang=eng");
+  await A.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN')", "message kept by lang=eng", 15000);
+  await A.goto(base + "/?cell=8ccgqx&tag=zzznothing");
+  await A.waitFor("document.getElementById('views').textContent.includes('#zzznothing')", "active filter chip");
+  await sleep(2500);
+  if (await A.evaluate("document.getElementById('notes').textContent.includes('hi from the OLN')")) throw new Error("tag filter didn't hide the message");
+
   // Who's up for coffee: A asks, B joins from the message and they connect.
+  await A.goto(base + "/?cell=8ccgqx");
   await A.evaluate("document.getElementById('coffee').click(); document.getElementById('coffee-go').click(); true");
   await A.waitFor("document.getElementById('coffee-status').textContent.length > 0 && !document.getElementById('coffee-status').textContent.includes('…')", "coffee asked", 30000);
   for (let i = 0; ; i++) {
@@ -125,7 +134,7 @@ try {
     await C.waitFor("document.getElementById('contacts').textContent.includes('Ana')", "Ana moved to C");
   } finally { C.close(); }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B scans, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device, meetup hosted and seen, findable profile seen, OLN message + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B scans, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device, meetup hosted and seen, findable profile seen, OLN message + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

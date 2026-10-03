@@ -1,5 +1,6 @@
 {{template "head" .}}
 <section id="here" data-cell="{{.Cell}}">
+  <div id="views" class="chips"></div>
   <p class="muted" id="status"></p>
   <h1 class="cell-tag" hidden><span id="cell-tag"></span></h1>
   <p id="cell-actions" class="actions" hidden>
@@ -37,12 +38,21 @@
     <p class="dim small">{{t .Lang "oln.explain"}} <a id="compose" target="_blank" rel="noopener">{{t .Lang "oln.bluesky"}}</a></p>
   </form>
   <div id="picker" class="card" style="padding:4px 16px 12px" hidden>
-    <h2>{{t .Lang "area.title"}}</h2>
+    <h2>{{t .Lang "view.title"}}</h2>
     <div class="inline-row">
       <input id="place-q" type="search" autocomplete="off" placeholder="{{ts .Lang "area.search"}}" aria-label="{{ts .Lang "area.search"}}">
       <button type="button" id="locate">📍 {{t .Lang "area.locate"}}</button>
     </div>
     <ul id="place-results"></ul>
+    <div class="grid view-filters">
+      <label>{{t .Lang "view.language"}}
+        <select id="view-lang"><option value="">{{t .Lang "view.any"}}</option>
+          {{range langs}}<option value="{{.Code}}">{{.Native}}{{if ne .Native .English}} ({{.English}}){{end}}</option>{{end}}
+        </select></label>
+      <label>{{t .Lang "view.interest"}}<input id="view-tag" placeholder="surf, esperanto, jazz…" autocomplete="off"></label>
+    </div>
+    <div class="actions"><button type="button" id="view-apply" class="pill">{{t .Lang "view.apply"}}</button>
+      <button type="button" id="view-save" class="pill">☆ {{t .Lang "view.save"}}</button></div>
     <div id="area-map-box"></div>
     <p class="dim small" id="map-hint" hidden>{{t .Lang "area.tap_hint"}}</p>
     <form id="manual-form" class="inline-row">

@@ -344,5 +344,13 @@
   "js.coffee_text": "☕ Quem quer um café? {name}",
   "js.coffee_sent": "Perguntado! Mantenha esta página aberta — verá quem se junta.",
   "js.coffee_joined": "Ligado a {names} — veja Contactos.",
-  "js.coffee_join": "Juntar-me"
+  "js.coffee_join": "Juntar-me",
+  "view.title": "Explorar",
+  "view.language": "Língua",
+  "view.interest": "Interesse",
+  "view.any": "Qualquer língua",
+  "view.apply": "Mostrar",
+  "view.save": "Guardar esta vista",
+  "js.view_name": "Dê um nome a esta vista (fica neste dispositivo):",
+  "js.view_remove": "Remover a vista guardada «{name}»?"
 }

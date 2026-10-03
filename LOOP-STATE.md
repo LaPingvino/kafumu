@@ -185,7 +185,11 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       the device). Bluesky is the secondary "or post on Bluesky". Report (PoW'd) still to do.
       Was: Client: mining Web Worker (sha1.js) with progress, composer in Around ("Say something here",
       no account), "Around here now" section ranked bits+recency, hide/report (report = PoW'd message).
-- [ ] 15c. Views: filter chips (language, interest) + URL params (?cell=&lang=&tag=) applied on the
+- [x] 15c+18. Explore (was "Your area"): place (search/map/location) + language (full list) + interest;
+      filters the bundle on the device (posts by hashtags or ATproto langs, meetups, notes, people); shareable
+      URL ?cell=&lang=&tag=; "☆ Save this view" kept on the device as chips (long-press to remove), active
+      filter chip with ×. Browser-tested. Still open: multi-ring bundles for big regions.
+      Was: Views: filter chips (language, interest) + URL params (?cell=&lang=&tag=) applied on the
       device; explore any place; multi-ring requests for big regions (holiday destinations).
 - [ ] 15d. Questions (Aardvark): ask with interest tags into a place's cells; question carries an
       invite payload; matching devices see "Questions for you"; answer privately (pair.js) or publicly.
@@ -193,9 +197,8 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       nonce;date;base64url(sha256(body));#box<id>, ±10 min — instant for people, a cost for bots.
 - [ ] 15g. Per-peer price (Joop): people set the minimum bits for unsolicited messages to them (questions,
       offers); commercial senders pay in work for what reaching you is worth to them.
-- [ ] 18. "Your area" → a general search & saved views UI (Joop): search place/language/interest, save a
-      view (on the device), switch between views; Contacts: sort by distance from where they were last seen
-      (friends-around hits give a day+cell per contact — device only).
+- [ ] 18b. Contacts: sort by distance from where they were last seen (friends-around hits give a day+cell
+      per contact — device only).
 - [ ] 19. Short link code for connect codes (Joop): kafumu.com/j/XXXXXX → the /c#… invite, kept 1 h
       server-side (public key only; mention on /privacy). The full link is already shown under the QR.
 - [ ] 20. Profile language list = holywritings.net's 83 languages (from /home/joop/holywritings.db

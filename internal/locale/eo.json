@@ -344,5 +344,13 @@
   "js.coffee_text": "☕ Kiu emas kafumi? {name}",
   "js.coffee_sent": "Demandite! Tenu ĉi tiun paĝon malfermita — vi vidos, kiu aliĝas.",
   "js.coffee_joined": "Konektita kun {names} — vidu Kontaktojn.",
-  "js.coffee_join": "Aliĝi"
+  "js.coffee_join": "Aliĝi",
+  "view.title": "Esplori",
+  "view.language": "Lingvo",
+  "view.interest": "Intereso",
+  "view.any": "Ajna lingvo",
+  "view.apply": "Montri",
+  "view.save": "Konservi ĉi tiun vidon",
+  "js.view_name": "Nomu ĉi tiun vidon (konservata en ĉi tiu aparato):",
+  "js.view_remove": "Ĉu forigi la konservitan vidon „{name}“?"
 }

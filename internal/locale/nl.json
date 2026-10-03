@@ -344,5 +344,13 @@
   "js.coffee_text": "☕ Wie heeft zin in koffie? {name}",
   "js.coffee_sent": "Gevraagd! Houd deze pagina open — je ziet wie meedoet.",
   "js.coffee_joined": "Verbonden met {names} — zie Contacten.",
-  "js.coffee_join": "Meedoen"
+  "js.coffee_join": "Meedoen",
+  "view.title": "Verkennen",
+  "view.language": "Taal",
+  "view.interest": "Interesse",
+  "view.any": "Elke taal",
+  "view.apply": "Tonen",
+  "view.save": "Deze weergave bewaren",
+  "js.view_name": "Geef deze weergave een naam (blijft op dit apparaat):",
+  "js.view_remove": "De bewaarde weergave „{name}” verwijderen?"
 }

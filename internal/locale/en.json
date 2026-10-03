@@ -344,5 +344,13 @@
   "js.coffee_text": "☕ Who's up for coffee? {name}",
   "js.coffee_sent": "Asked! Keep this page open — you'll see who joins.",
   "js.coffee_joined": "Connected with {names} — see Contacts.",
-  "js.coffee_join": "Join"
+  "js.coffee_join": "Join",
+  "view.title": "Explore",
+  "view.language": "Language",
+  "view.interest": "Interest",
+  "view.any": "Any language",
+  "view.apply": "Show",
+  "view.save": "Save this view",
+  "js.view_name": "Name this view (kept on this device):",
+  "js.view_remove": "Remove the saved view “{name}”?"
 }

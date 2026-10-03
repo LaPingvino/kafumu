@@ -80,6 +80,63 @@
     el.textContent = parts.join(" ");
   }
 
+  // ---- Views: place + language + interest, filtered on the device ----
+  var params = new URLSearchParams(location.search);
+  var view = { lang: params.get("lang") || "", tag: (params.get("tag") || "").toLowerCase().replace(/^#/, "") };
+  function viewURL(c) {
+    var q = new URLSearchParams();
+    if (c) q.set("cell", c);
+    if (view.lang) q.set("lang", view.lang);
+    if (view.tag) q.set("tag", view.tag);
+    return "/?" + q.toString();
+  }
+  // langTagsFor: every hashtag that means language code (lang:epo → #langepo, #esperanto…).
+  function langTagsFor(code) {
+    var me = window.KAFUMU_ME || {}, out = { ["lang" + code]: true };
+    Object.keys(me.langTags || {}).forEach(function (t) { if ((me.langTags[t].codes || []).indexOf(code) >= 0) out[t] = true; });
+    return out;
+  }
+  function filterBundle(b) {
+    if (!view.lang && !view.tag) return b;
+    var me = window.KAFUMU_ME || {}, lt = view.lang ? langTagsFor(view.lang) : null, tag = view.tag;
+    function tagsOK(tags, text) {
+      tags = (tags || []).map(function (t) { return String(t).toLowerCase(); });
+      if (lt && !tags.some(function (t) { return lt[t]; })) return false;
+      if (tag && tags.indexOf(tag) < 0 && !new RegExp("#" + tag.replace(/[^\p{L}\p{N}_]/gu, "") + "\\b", "iu").test(text || "")) return false;
+      return true;
+    }
+    b.posts = (b.posts || []).filter(function (p) {
+      var langOK = lt && (p.langs || []).some(function (l) { return (me.from1 || {})[l.slice(0, 2)] === view.lang; });
+      if (langOK && !tag) return true;
+      return tagsOK(p.tags, p.text) || (langOK && tagsOK(p.tags.concat(["lang" + view.lang]), p.text));
+    });
+    b.meetups = (b.meetups || []).filter(function (m) { return tagsOK(m.tags, m.title + " " + (m.text || "")); });
+    b.notes = (b.notes || []).filter(function (n) { return tagsOK(n.tags, n.text); });
+    b.people = (b.people || []).filter(function (p) {
+      if (view.lang && !(p.langs || []).some(function (l) { return l.split("/")[0] === view.lang; })) return false;
+      return !tag || (p.tags || []).indexOf(tag) >= 0;
+    });
+    return b;
+  }
+  function savedViews() { try { return JSON.parse(pref("kafumu.views") || "[]"); } catch (e) { return []; } }
+  function drawViews() {
+    var box = $("views"), vs = savedViews(), cur = viewURL(currentCell);
+    box.textContent = "";
+    vs.forEach(function (v, i) {
+      var a = document.createElement("a");
+      a.className = "chip" + (v.url === cur ? " on" : "");
+      a.href = v.url; a.textContent = "☆ " + v.name;
+      a.oncontextmenu = function (e) { e.preventDefault(); if (confirm(tr("view_remove", { name: v.name }))) { vs.splice(i, 1); pref("kafumu.views", JSON.stringify(vs)); drawViews(); } };
+      box.appendChild(a);
+    });
+    if (view.lang || view.tag) {
+      var clear = document.createElement("a");
+      clear.className = "chip"; clear.href = viewURL(currentCell).replace(/&?(lang|tag)=[^&]*/g, "").replace("?&", "?");
+      clear.textContent = "× " + [view.lang ? ((window.KAFUMU_ME || {}).names || {})[view.lang] || view.lang : "", view.tag ? "#" + view.tag : ""].filter(Boolean).join(" ");
+      box.appendChild(clear);
+    }
+  }
+
   // ---- Local messages (OLN): Kafumu's own channel, first class ----
   var currentCell = "", requiredBits = 14, liveEvents = [];
   function hashrate() { var r = parseFloat(pref("kafumu.hashrate") || "0"); return r > 1000 ? r : 40000; }
@@ -209,6 +266,8 @@
     };
     setStatus(how);
     try { localStorage.setItem("kafumu.lastCell", c); } catch (e) {}
+    currentCell = c;
+    drawViews();
     var home = homeCell(c, gps);
     travel = { place: "", friends: 0, meetups: 0, away: !!home && home !== c && kmBetween(home, c) > 50 };
     drawTravel();
@@ -226,6 +285,7 @@
     fetch("/bundle?cells=" + near.map(function (p) { return p[0]; }).join(","), fresh ? { cache: "reload" } : {})
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (b) {
+        b = filterBundle(b);
         var places = {};
         (b.places || []).forEach(function (pt) { places[pt.tag] = pt; });
         // Event tags (#websummit) count as local as a #geo tag while they run.
@@ -474,7 +534,7 @@
   }
 
   function choose(c, how) {
-    history.replaceState(null, "", "/?cell=" + c);
+    history.replaceState(null, "", viewURL(c));
     show(c, how || tr("chosen_cell"));
   }
 
@@ -517,6 +577,24 @@
     }, 250);
   });
   $("locate").onclick = function () { locate(false); };
+  $("view-lang").value = view.lang;
+  $("view-tag").value = view.tag;
+  $("view-apply").onclick = function () {
+    view.lang = $("view-lang").value;
+    view.tag = $("view-tag").value.trim().toLowerCase().replace(/^#/, "").replace(/\s+/g, "");
+    if (currentCell) choose(currentCell, $("status").textContent);
+    drawViews();
+  };
+  $("view-save").onclick = function () {
+    $("view-apply").onclick();
+    var place = travel.place || ((window.kafumuGeo && currentCell) ? "#geo" + currentCell : "");
+    var name = prompt(tr("view_name"), [place, view.lang ? ((window.KAFUMU_ME || {}).names || {})[view.lang] : "", view.tag ? "#" + view.tag : ""].filter(Boolean).join(" · "));
+    if (!name) return;
+    var vs = savedViews().filter(function (v) { return v.name !== name; });
+    vs.push({ name: name.slice(0, 40), url: viewURL(currentCell) });
+    pref("kafumu.views", JSON.stringify(vs.slice(-12)));
+    drawViews();
+  };
   $("change-area").onclick = function () { if ($("picker").hidden) openPicker(); else $("picker").hidden = true; };
 
   $("manual-form").addEventListener("submit", function (e) {
