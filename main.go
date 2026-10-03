@@ -59,6 +59,8 @@ func main() {
 	mux.HandleFunc("GET /c", home.ShowAccept)
 	mux.HandleFunc("GET /contacts", home.ShowContacts)
 	mux.HandleFunc("GET /m", home.ShowMove)
+	mux.HandleFunc("GET /import", home.ShowImport)
+	mux.HandleFunc("GET /account/link.json", accounts.LinkJSON)
 	mux.HandleFunc("GET /account", accounts.Show)
 	mux.HandleFunc("POST /account/start", accounts.Start)
 	mux.HandleFunc("POST /account/name", accounts.SetName)
@@ -95,7 +97,7 @@ func main() {
 	mux.HandleFunc("GET /sw.js", func(w http.ResponseWriter, r *http.Request) { http.ServeFile(w, r, "static/sw.js") })
 	mux.HandleFunc("GET /robots.txt", func(w http.ResponseWriter, r *http.Request) { http.ServeFile(w, r, "static/robots.txt") })
 
-	root := cache.Middleware(accounts.Middleware(mux))
+	root := cache.Middleware(home.CanonicalHost(accounts.Middleware(mux)))
 	if cache.OnAppEngine() {
 		// Bundled services (memcache) need appengine.Main to serve.
 		http.Handle("/", root)

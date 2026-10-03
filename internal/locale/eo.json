@@ -291,5 +291,10 @@
   "js.locating": "Serĉante vian areon…",
   "js.chosen_place": "Montrante {place}:",
   "js.your_area": "Via areo:",
-  "js.pick_first": "Kie vi estas? Serĉu lokon aŭ uzu vian lokon — nenio estas konigata ĝis vi elektas."
+  "js.pick_first": "Kie vi estas? Serĉu lokon aŭ uzu vian lokon — nenio estas konigata ĝis vi elektas.",
+  "moved.text": "Kafumu nun loĝas ĉe kafumu.com. Kunportu viajn kontaktojn kaj konton per unu tuŝo.",
+  "moved.go": "Transloki al kafumu.com",
+  "moved.waiting": "Ricevante viajn datumojn de la malnova adreso…",
+  "moved.done": "{n} kontaktoj translokitaj. Ni kondukas vin hejmen…",
+  "js.moved_popup": "Bonvolu permesi ŝprucfenestrojn por ĉi tiu retejo, kaj tuŝu denove."
 }

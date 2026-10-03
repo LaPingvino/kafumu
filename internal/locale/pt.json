@@ -291,5 +291,10 @@
   "js.locating": "A encontrar a sua zona…",
   "js.chosen_place": "A mostrar {place}:",
   "js.your_area": "A sua zona:",
-  "js.pick_first": "Onde está? Procure um lugar ou use a sua localização — nada é partilhado até escolher."
+  "js.pick_first": "Onde está? Procure um lugar ou use a sua localização — nada é partilhado até escolher.",
+  "moved.text": "O Kafumu está agora em kafumu.com. Leve os seus contactos e a sua conta com um toque.",
+  "moved.go": "Mudar para kafumu.com",
+  "moved.waiting": "A receber os seus dados do endereço antigo…",
+  "moved.done": "{n} contactos mudados. A levá-lo para o início…",
+  "js.moved_popup": "Permita janelas pop-up para este site e toque outra vez."
 }

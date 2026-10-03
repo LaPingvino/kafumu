@@ -5,6 +5,7 @@ package config
 import (
 	"os"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -19,21 +20,25 @@ type Config struct {
 	// Version tags static asset URLs (?v=…). App Engine sets GAE_VERSION per
 	// deploy; locally the start time does.
 	Version string
+	// LegacyOrigins are where Kafumu used to live (the appspot address);
+	// pages there offer to move your device data to Origin.
+	LegacyOrigins []string
 	// Money and contact links; pages show "coming soon" while empty.
 	PayPal, Liberapay, Stripe, Contact string
 }
 
 func Load() *Config {
 	return &Config{
-		Port:      env("PORT", "8080"),
-		ProjectID: env("GOOGLE_CLOUD_PROJECT", "lokumo"),
-		Brand:     env("KAFUMU_BRAND", "Kafumu"),
-		Origin:    env("KAFUMU_ORIGIN", "http://localhost:8080"),
-		Version:   env("GAE_VERSION", strconv.FormatInt(time.Now().Unix(), 36)),
-		PayPal:    os.Getenv("KAFUMU_PAYPAL"),
-		Liberapay: os.Getenv("KAFUMU_LIBERAPAY"),
-		Stripe:    os.Getenv("KAFUMU_STRIPE"),
-		Contact:   env("KAFUMU_CONTACT", "https://github.com/LaPingvino/kafumu/issues"),
+		Port:          env("PORT", "8080"),
+		ProjectID:     env("GOOGLE_CLOUD_PROJECT", "lokumo"),
+		Brand:         env("KAFUMU_BRAND", "Kafumu"),
+		Origin:        env("KAFUMU_ORIGIN", "http://localhost:8080"),
+		Version:       env("GAE_VERSION", strconv.FormatInt(time.Now().Unix(), 36)),
+		PayPal:        os.Getenv("KAFUMU_PAYPAL"),
+		LegacyOrigins: strings.Fields(os.Getenv("KAFUMU_LEGACY_ORIGINS")),
+		Liberapay:     os.Getenv("KAFUMU_LIBERAPAY"),
+		Stripe:        os.Getenv("KAFUMU_STRIPE"),
+		Contact:       env("KAFUMU_CONTACT", "https://github.com/LaPingvino/kafumu/issues"),
 	}
 }
 

@@ -46,8 +46,10 @@ type page struct {
 	Cell  string
 	Lang  string
 	V     string // asset version, so a deploy never mixes old and new JS
-	Langs []locale.Lang
-	User  *account.User
+	// MovedTo is set on a legacy origin: the canonical origin to move to.
+	MovedTo string
+	Langs   []locale.Lang
+	User    *account.User
 	// JS holds the "js." strings for client-side code.
 	JS map[string]string
 }
@@ -60,7 +62,11 @@ func (h *Home) newPage(r *http.Request, title string) page {
 		choice = c.Value
 	}
 	lang := locale.Pick(choice, r.Header.Get("Accept-Language"))
-	return page{Brand: h.Cfg.Brand, Title: title, Lang: lang, V: h.Cfg.Version, Langs: locale.Langs(),
+	moved := ""
+	if canon := h.Cfg.Origin; canon != "" && len(h.Cfg.LegacyOrigins) > 0 && !strings.HasSuffix(canon, "://"+r.Host) {
+		moved = canon
+	}
+	return page{Brand: h.Cfg.Brand, Title: title, Lang: lang, V: h.Cfg.Version, Langs: locale.Langs(), MovedTo: moved,
 		User: UserFrom(r.Context()), JS: locale.Prefix(lang, "js.")}
 }
 
@@ -182,6 +188,32 @@ func (h *Home) Info(name, titleKey string) http.HandlerFunc {
 		p.Title, p.Tab = locale.T(p.Lang, titleKey), "about"
 		h.render(w, name, p)
 	}
+}
+
+// ShowImport renders /import: the receiving end of a move from a legacy
+// origin. It accepts device data only from the configured legacy origins.
+func (h *Home) ShowImport(w http.ResponseWriter, r *http.Request) {
+	p := struct {
+		page
+		From []string
+	}{page: h.newPage(r, ""), From: h.Cfg.LegacyOrigins}
+	p.Title = locale.T(p.Lang, "move.title")
+	h.render(w, "import.html", p)
+}
+
+// CanonicalHost redirects www.<domain> to the canonical origin.
+func (h *Home) CanonicalHost(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if canon := h.Cfg.Origin; strings.HasPrefix(r.Host, "www.") && strings.HasSuffix(canon, "://"+strings.TrimPrefix(r.Host, "www.")) {
+			code := http.StatusMovedPermanently
+			if r.Method != http.MethodGet && r.Method != http.MethodHead {
+				code = http.StatusPermanentRedirect
+			}
+			http.Redirect(w, r, canon+r.URL.RequestURI(), code)
+			return
+		}
+		next.ServeHTTP(w, r)
+	})
 }
 
 // Funcs are the template functions. Translations come from our own files,

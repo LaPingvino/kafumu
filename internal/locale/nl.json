@@ -291,5 +291,10 @@
   "js.locating": "Je gebied zoeken…",
   "js.chosen_place": "{place}:",
   "js.your_area": "Je gebied:",
-  "js.pick_first": "Waar ben je? Zoek een plek of gebruik je locatie — er wordt niets gedeeld tot je kiest."
+  "js.pick_first": "Waar ben je? Zoek een plek of gebruik je locatie — er wordt niets gedeeld tot je kiest.",
+  "moved.text": "Kafumu woont nu op kafumu.com. Neem je contacten en account mee met één tik.",
+  "moved.go": "Naar kafumu.com",
+  "moved.waiting": "Je gegevens van het oude adres ontvangen…",
+  "moved.done": "{n} contacten verhuisd. Even naar het begin…",
+  "js.moved_popup": "Sta pop-ups toe voor deze site en tik opnieuw."
 }

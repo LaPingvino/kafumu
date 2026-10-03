@@ -1,0 +1,24 @@
+{{template "head" .}}
+<article>
+  <h1>{{t .Lang "move.title"}}</h1>
+  <p id="import-status" class="dim">{{t .Lang "moved.waiting"}}</p>
+</article>
+<script>window.KAFUMU_T = {{.JS}}; window.KAFUMU_FROM = {{.From}} || [];</script>
+<script src="/static/device.js?v={{.V}}"></script>
+<script>
+(function () {
+  var st = document.getElementById("import-status"), from = window.KAFUMU_FROM, done = false;
+  window.addEventListener("message", function (e) {
+    if (done || from.indexOf(e.origin) < 0 || !e.data || e.data.kafumu !== "migrate") return;
+    done = true;
+    window.kafumuDevice.restore(e.data.backup).then(function (n) {
+      e.source.postMessage({ kafumu: "done" }, e.origin);
+      st.textContent = ({{ts .Lang "moved.done"}}).replace("{n}", n);
+      var link = e.data.link || "";
+      setTimeout(function () { location.href = /^https:\/\/[^/]+\/auth\/link\?k=/.test(link) && link.indexOf(location.origin + "/") === 0 ? link : "/"; }, 1500);
+    }).catch(function () { st.textContent = {{ts .Lang "js.restore_failed"}}; });
+  });
+  if (window.opener) from.forEach(function (o) { window.opener.postMessage({ kafumu: "ready" }, o); });
+})();
+</script>
+{{template "foot" .}}

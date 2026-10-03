@@ -2,6 +2,7 @@ package handler
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"html/template"
 	"log"
@@ -207,4 +208,16 @@ func (a *Accounts) SetProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	http.Redirect(w, r, "/account#profile", http.StatusSeeOther)
+}
+
+// LinkJSON handles GET /account/link.json: this device's sign-in link on
+// the canonical origin, for moving to it. Same-origin only (cookie).
+func (a *Accounts) LinkJSON(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Cache-Control", "no-store")
+	if UserFrom(r.Context()) == nil {
+		w.Write([]byte("{}"))
+		return
+	}
+	json.NewEncoder(w).Encode(map[string]string{"link": a.Home.Cfg.Origin + "/auth/link?k=" + template.URLQueryEscaper(mustCookie(r))})
 }

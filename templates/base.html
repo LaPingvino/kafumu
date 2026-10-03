@@ -28,6 +28,10 @@
       {{range .Langs}}<option value="{{.Code}}"{{if eq .Code $.Lang}} selected{{end}}>{{.Name}}</option>{{end}}
     </select>
   </header>
+  {{if .MovedTo}}<div id="moved-bar" class="install-bar" data-to="{{.MovedTo}}"><span class="text">{{t .Lang "moved.text"}}</span>
+    <button type="button" class="go pill-sm" id="moved-go">{{t .Lang "moved.go"}}</button></div>
+  <script src="/static/device.js?v={{.V}}"></script>
+  <script src="/static/migrate.js?v={{.V}}" defer></script>{{end}}
   <div id="install-bar" class="install-bar" hidden><span class="text"></span>
     <button type="button" class="go pill-sm">{{t .Lang "install.go"}}</button><button type="button" class="no pill-sm">×</button></div>
   <main class="clamp">

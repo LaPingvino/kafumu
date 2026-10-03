@@ -291,5 +291,10 @@
   "js.locating": "Finding your area…",
   "js.chosen_place": "Showing {place}:",
   "js.your_area": "Your area:",
-  "js.pick_first": "Where are you? Search a place or use your location — nothing is shared until you choose."
+  "js.pick_first": "Where are you? Search a place or use your location — nothing is shared until you choose.",
+  "moved.text": "Kafumu now lives at kafumu.com. Bring your contacts and account along in one tap.",
+  "moved.go": "Move to kafumu.com",
+  "moved.waiting": "Receiving your data from the old address…",
+  "moved.done": "Moved {n} contacts. Taking you home…",
+  "js.moved_popup": "Please allow pop-ups for this site, then tap again."
 }

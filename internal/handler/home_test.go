@@ -77,3 +77,24 @@ func TestBundleNeverReturnsNullLists(t *testing.T) {
 		t.Errorf("bundle has null lists: %s", body)
 	}
 }
+
+func TestCanonicalHost(t *testing.T) {
+	h := &Home{Cfg: &config.Config{Origin: "https://kafumu.com"}}
+	ok := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) { w.WriteHeader(204) })
+	for _, c := range []struct {
+		method, url string
+		code        int
+		loc         string
+	}{
+		{"GET", "https://www.kafumu.com/meetups/x?y=1", 301, "https://kafumu.com/meetups/x?y=1"},
+		{"POST", "https://www.kafumu.com/api/box/abc", 308, "https://kafumu.com/api/box/abc"},
+		{"GET", "https://kafumu.com/", 204, ""},
+		{"GET", "https://lokumo.ew.r.appspot.com/", 204, ""}, // legacy origin: the page offers the move instead
+	} {
+		w := httptest.NewRecorder()
+		h.CanonicalHost(ok).ServeHTTP(w, httptest.NewRequest(c.method, c.url, nil))
+		if w.Code != c.code || w.Header().Get("Location") != c.loc {
+			t.Errorf("%s %s → %d %q", c.method, c.url, w.Code, w.Header().Get("Location"))
+		}
+	}
+}

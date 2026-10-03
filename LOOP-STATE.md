@@ -6,9 +6,13 @@ and add anything learned to "Notes". Keep slices small; split a slice if it runs
 
 Production: https://lokumo.ew.r.appspot.com · Repo: https://github.com/LaPingvino/kafumu
 
-**Reminder for Joop's next check-in:** kafumu.com is bought — set up the GAE custom domain
-(`gcloud app domain-mappings create kafumu.com --project lokumo` + the DNS records it prints, managed
-cert), then set `KAFUMU_ORIGIN=https://kafumu.com` in app.yaml. Decide apex vs www before passkeys.
+**Domain (2026-10-03):** Joop set up DNS; App Engine mappings for kafumu.com + www exist, managed certs
+pending. Prepared: www → apex redirect (CanonicalHost), and a move flow from the old appspot origin
+(banner → opens kafumu.com/import → origin-checked postMessage hands over the device backup and the
+sign-in link). When https://kafumu.com serves: set in app.yaml
+`KAFUMU_ORIGIN: "https://kafumu.com"` and
+`KAFUMU_LEGACY_ORIGINS: "https://lokumo.ew.r.appspot.com https://lokumo.appspot.com"`, deploy, then
+passkeys (RP ID kafumu.com) and ATproto OAuth (client metadata on kafumu.com).
 
 ## Target: Web Summit Lisbon, 9–12 Nov 2026 (MEO Arena / FIL, Parque das Nações)
 
