@@ -29,6 +29,36 @@ var geonamesJSON []byte
 //go:embed places.json
 var placesJSON []byte
 
+// towns.json (geotags): every place of 15k+ people, for search only.
+//
+//go:embed towns.json
+var townsJSON []byte
+
+type town struct {
+	name, country string
+	lat, lon      float64
+	key           string // folded name
+}
+
+var towns = func() []town {
+	var rows [][]any
+	if err := json.Unmarshal(townsJSON, &rows); err != nil {
+		panic("gazetteer: towns: " + err.Error())
+	}
+	out := make([]town, 0, len(rows))
+	for _, r := range rows {
+		if len(r) != 4 {
+			continue
+		}
+		n, _ := r[0].(string)
+		cc, _ := r[1].(string)
+		la, _ := r[2].(float64)
+		lo, _ := r[3].(float64)
+		out = append(out, town{n, cc, la, lo, fold(n)})
+	}
+	return out
+}()
+
 //go:embed events.json
 var eventsJSON []byte
 
@@ -330,12 +360,30 @@ func (g *Gazetteer) Search(q string, limit int) []Match {
 		return g.Places[hits[a].i].Population > g.Places[hits[b].i].Population
 	})
 	var out []Match
+	seen := map[string]bool{}
 	for _, h := range hits {
 		if len(out) == limit {
 			break
 		}
 		p := g.Places[h.i]
+		seen[fold(p.Name)+p.Country] = true
+		if p.Country == "" {
+			seen[fold(p.Name)+"*"] = true // hand entries lack a country: a town of that name is the same place
+		}
 		out = append(out, Match{Tag: p.Tag, Name: p.Name, Country: p.Country, Lat: p.Lat, Lon: p.Lon, Km: p.Km, Cell: geo.Cell(p.Lat, p.Lon)})
+	}
+	// Then smaller towns (15k+), exact names first.
+	for pass := 0; pass < 2 && len(out) < limit; pass++ {
+		for _, t := range towns {
+			if len(out) == limit {
+				break
+			}
+			if (pass == 0 && t.key != q) || (pass == 1 && (t.key == q || !strings.HasPrefix(t.key, q))) || seen[t.key+t.country] || seen[t.key+"*"] && pass == 0 {
+				continue
+			}
+			seen[t.key+t.country] = true
+			out = append(out, Match{Name: t.name, Country: t.country, Lat: t.lat, Lon: t.lon, Km: 3, Cell: geo.Cell(t.lat, t.lon)})
+		}
 	}
 	return out
 }

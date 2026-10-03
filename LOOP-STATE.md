@@ -165,6 +165,9 @@ event entries for language gatherings (only with verified dates/venues — never
       drops the subscription; PushSub expires after 90 days (purged). Contacts: "🔔 Notify me of signals".
       Arch Chromium has no push service (no GCM keys) → verify on a real phone.
 
+- [x] 12d. Map panning (arrows + drag, a cell per block width) and search finds towns of 15k+ (geotags
+      towns.json, search only — not place tags): Ede works.
+
 ## OLN layer (Joop, 2026-10-03): local messages with time-biased PoW, views, Aardvark questions
 Design in VISION §4 "Local messages". Benchmark: pure-JS SHA-1 (static/sha1.js, verified against Node
 crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 18 ≈ 6 s, 20 ≈ 25 s.
@@ -226,6 +229,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       `writings.language`: en, pt, fa, de, ja, nl, … gil, ch, nai-US/CA, haw, fo, ga) mapped to ISO 639-3
       with native names, plus the conlangs and sign languages already listed. (UI translations stay
       EN/PT/EO/NL unless Joop wants more.)
+- [ ] 21. Account-bound move (Joop, replaces the QR move — code substitution could leak everything): new
+      device signed in (link/passkey) registers a move request {box, pub} on the account; the old device,
+      signed into the same account, sees "Your other device wants your data" + a short matching code on both
+      screens → sends E2E-encrypted (server can't read). Requests expire in 15 min.
 - [ ] 17. Card themes from local activity (Joop): count tags seen in Around bundles (posts, meetups,
       people, notes) on the device, per area; the card editor suggests the local ones first.
 - [ ] 15e. /oln.json per cell in eolnpoc's olnjson.Format for other OLN nodes.

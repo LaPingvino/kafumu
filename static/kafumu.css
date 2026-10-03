@@ -225,3 +225,5 @@ input[type="range"] { padding: 0; background: transparent; accent-color: var(--a
 .replies li { padding: 6px 0; }
 .inbox-settings { border: 0; padding: 0; margin: .5rem 0; }
 .inbox-settings input[type=checkbox] { display: inline; width: auto; margin-right: .4rem; min-height: 0; }
+.area-map .pan { position: absolute; z-index: 2; min-height: 30px; width: 34px; padding: 0; border-radius: 99px; background: rgba(255,255,255,.85); color: #333; font-size: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,.3); }
+.area-map { cursor: grab; }

@@ -10,9 +10,16 @@
     return (1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2 * 256 * Math.pow(2, z);
   }
 
+  // shift moves a cell by (dx, dy) cells.
+  function shift(c, dx, dy) {
+    var ctr = G.center(c);
+    return G.cell(Math.max(-89.9, Math.min(89.9, ctr[0] + dy * 0.05)), ctr[1] + dx * 0.05);
+  }
+
   // render draws the grid around centre cell `around` into el, marks
-  // `selected`, and calls onPick(cell) when a block is tapped.
-  function render(el, around, selected, onPick) {
+  // `selected`, and calls onPick(cell) when a block is tapped. Arrows and
+  // dragging move the grid (onMove(newAround)).
+  function render(el, around, selected, onPick, onMove) {
     var ctr = G.center(around), half = (N + 0.5) * 0.05;
     var west = ctr[1] - half, east = ctr[1] + half, north = ctr[0] + half, south = ctr[0] - half;
     var width = Math.min(el.clientWidth || 340, 520);
@@ -47,6 +54,33 @@
       b.onclick = function () { onPick(c); };
       map.appendChild(b);
     });
+    if (onMove) {
+      [["↑", 0, 3, "top:4px;left:50%;transform:translateX(-50%)"], ["↓", 0, -3, "bottom:22px;left:50%;transform:translateX(-50%)"],
+       ["←", -3, 0, "left:4px;top:50%;transform:translateY(-50%)"], ["→", 3, 0, "right:4px;top:50%;transform:translateY(-50%)"]].forEach(function (a) {
+        var b = document.createElement("button");
+        b.type = "button"; b.className = "pan"; b.textContent = a[0]; b.style.cssText = a[3];
+        b.onclick = function (e) { e.stopPropagation(); onMove(shift(around, a[1], a[2])); };
+        map.appendChild(b);
+      });
+      // Drag to move: a drag of a block's width moves one cell.
+      var start = null, moved = false, cellPx = (x(ctr[1] + 0.025, z) - x(ctr[1] - 0.025, z));
+      map.addEventListener("pointerdown", function (e) { if (e.target.className === "pan") return; start = [e.clientX, e.clientY]; moved = false; });
+      map.addEventListener("pointermove", function (e) {
+        if (!start) return;
+        var dx = e.clientX - start[0], dy = e.clientY - start[1];
+        if (Math.abs(dx) + Math.abs(dy) > 8) { moved = true; map.style.transform = "translate(" + dx + "px," + dy + "px)"; }
+      });
+      var end = function (e) {
+        if (!start) return;
+        var dx = Math.round((e.clientX - start[0]) / cellPx), dy = Math.round((e.clientY - start[1]) / cellPx);
+        start = null; map.style.transform = "";
+        if (moved && (dx || dy)) onMove(shift(around, -dx, dy));
+      };
+      map.addEventListener("pointerup", end);
+      map.addEventListener("pointercancel", function () { start = null; map.style.transform = ""; });
+      // A drag must not also count as tapping a block.
+      map.addEventListener("click", function (e) { if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; } }, true);
+    }
     var attr = document.createElement("small");
     attr.className = "attr";
     attr.innerHTML = '© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>';
@@ -54,5 +88,5 @@
     el.appendChild(map);
   }
 
-  root.kafumuArea = { render: render };
+  root.kafumuArea = { render: render, shift: shift };
 })(window);

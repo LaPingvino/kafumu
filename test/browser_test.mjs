@@ -18,6 +18,10 @@ try {
   await A.waitFor("document.querySelectorAll('#place-results button').length > 0", "search results");
   await A.evaluate("document.querySelector('#place-results button').click()");
   await A.waitFor("document.querySelectorAll('.area-map .cell').length === 49", "7×7 cell grid");
+  // Pan east with the arrow: the grid moves, so its first block changes.
+  const firstBefore = await A.evaluate("document.querySelector('.area-map .cell').title");
+  await A.evaluate("[...document.querySelectorAll('.area-map .pan')].find(b => b.textContent === '→').click()");
+  await A.waitFor(`document.querySelector('.area-map .cell').title !== ${JSON.stringify(firstBefore)}`, "map panned");
   const before = await A.evaluate("document.getElementById('cell-tag').textContent");
   await A.evaluate("document.querySelectorAll('.area-map .cell')[10].click()");
   await A.waitFor(`document.getElementById('cell-tag').textContent !== ${JSON.stringify(before)}`, "tapped block becomes the area");

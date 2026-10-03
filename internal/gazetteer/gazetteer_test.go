@@ -99,7 +99,19 @@ func TestSearch(t *testing.T) {
 	if m := g.Search("barreiro", 3); len(m) == 0 || m[0].Cell != "8ccgmh" && m[0].Tag != "barreiro" {
 		t.Errorf("barreiro → %+v", m)
 	}
+	if m := g.Search("Ede", 8); !hasMatch(m, "Ede", "NL") {
+		t.Errorf("Ede → %+v", m)
+	}
 	if m := g.Search("x", 3); m != nil {
 		t.Errorf("one letter searched: %+v", m)
 	}
+}
+
+func hasMatch(ms []Match, name, cc string) bool {
+	for _, m := range ms {
+		if m.Name == name && m.Country == cc {
+			return true
+		}
+	}
+	return false
 }

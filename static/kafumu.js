@@ -691,7 +691,7 @@
     window.kafumuArea.render($("area-map-box"), around, selected, function (c) {
       drawMap(around, c);
       choose(c);
-    });
+    }, function (next) { drawMap(next, selected); });
   }
 
   function openPicker() {
@@ -712,7 +712,7 @@
         ms.forEach(function (m) {
           var li = document.createElement("li"), b = document.createElement("button");
           b.type = "button";
-          b.textContent = m.name + (m.country ? " · " + m.country : "") + "  #" + m.tag;
+          b.textContent = m.name + (m.country ? " · " + m.country : "") + (m.tag ? "  #" + m.tag : "");
           b.onclick = function () {
             ul.textContent = "";
             $("place-q").value = m.name;
