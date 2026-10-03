@@ -84,6 +84,13 @@ func (c *Client) SearchTag(ctx context.Context, tag string, limit int) []Post {
 	return posts
 }
 
+// Prime stores posts for tag in the cache, as if fetched now. For tests.
+func (c *Client) Prime(tag string, limit int, posts []Post) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.cache[fmt.Sprintf("%s/%d", tag, limit)] = cached{posts: posts, at: time.Now()}
+}
+
 func (c *Client) fetch(ctx context.Context, tag string, limit int) ([]Post, error) {
 	q := url.Values{"q": {"#" + tag}, "tag": {tag}, "limit": {fmt.Sprint(limit)}, "sort": {"latest"}}
 	var lastErr error

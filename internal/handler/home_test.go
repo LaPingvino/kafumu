@@ -4,10 +4,13 @@ import (
 	"html/template"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
+	"time"
 
 	"github.com/LaPingvino/kafumu/internal/bsky"
 	"github.com/LaPingvino/kafumu/internal/config"
+	"github.com/LaPingvino/kafumu/internal/gazetteer"
 )
 
 func newHome() *Home {
@@ -15,6 +18,7 @@ func newHome() *Home {
 		Cfg:  &config.Config{Brand: "Kafumu"},
 		Tmpl: template.Must(template.New("home.html").Parse(`{{.Cell}}`)),
 		Bsky: bsky.NewClient(),
+		Gaz:  gazetteer.Load(),
 	}
 }
 
@@ -59,5 +63,17 @@ func TestHomeOnlyAtRootAndValidCell(t *testing.T) {
 	h.ShowHome(w, httptest.NewRequest("GET", "/?cell=9F469V", nil))
 	if w.Body.String() != "9f469v" {
 		t.Errorf("cell = %q", w.Body.String())
+	}
+}
+
+func TestBundleNeverReturnsNullLists(t *testing.T) {
+	h := newHome()
+	h.Bsky.TTL = time.Hour
+	// Pre-fill the cache so the test never reaches the network.
+	h.Bsky.Prime("geo6fg222", 25, nil)
+	w := httptest.NewRecorder()
+	h.Bundle(w, browser(httptest.NewRequest("GET", "/bundle?cells=6fg222", nil)))
+	if body := w.Body.String(); strings.Contains(body, "null") {
+		t.Errorf("bundle has null lists: %s", body)
 	}
 }

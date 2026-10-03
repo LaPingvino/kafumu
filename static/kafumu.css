@@ -11,3 +11,5 @@
 .badge { font-size: .75em; border: 1px solid var(--pico-muted-border-color); border-radius: 1em; padding: 0 .5em; margin-left: .25em; }
 #manual-form { display: flex; gap: .5rem; }
 #manual-form input { flex: 1; }
+.events { border-left: 4px solid var(--pico-primary); }
+.events p { margin: 0; }

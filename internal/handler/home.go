@@ -9,6 +9,7 @@ import (
 	"sort"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/LaPingvino/kafumu/internal/bsky"
 	"github.com/LaPingvino/kafumu/internal/config"
@@ -70,6 +71,8 @@ type bundle struct {
 	// Places are the human hashtags that name this area (#amsterdam), with
 	// weights the client uses to rank posts found through them.
 	Places []gazetteer.PlaceTag `json:"places"`
+	// Events are conferences and festivals here, upcoming or running.
+	Events []gazetteer.EventTag `json:"events"`
 	Posts  []bsky.Post          `json:"posts"`
 }
 
@@ -92,13 +95,21 @@ func (h *Home) Bundle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	b := bundle{Cells: cells, Places: []gazetteer.PlaceTag{}, Posts: []bsky.Post{}}
+	b := bundle{Cells: cells, Places: []gazetteer.PlaceTag{}, Events: []gazetteer.EventTag{}, Posts: []bsky.Post{}}
 	tags := make([]string, 0, len(cells)+maxPlaceTags)
 	for _, c := range cells {
 		tags = append(tags, geo.Tag(c))
 	}
 	if h.Gaz != nil {
-		b.Places = h.Gaz.Tags(cells)
+		if ev := h.Gaz.EventsAt(cells, time.Now()); ev != nil {
+			b.Events = ev
+		}
+		for _, e := range b.Events {
+			tags = append(tags, e.Tag)
+		}
+		if pt := h.Gaz.Tags(cells); pt != nil {
+			b.Places = pt
+		}
 		for i, pt := range b.Places {
 			if i == maxPlaceTags {
 				break

@@ -2,6 +2,7 @@ package gazetteer
 
 import (
 	"testing"
+	"time"
 
 	"github.com/LaPingvino/kafumu/internal/geo"
 )
@@ -40,5 +41,28 @@ func TestLoadAndLookup(t *testing.T) {
 		if pt.Tag == "paris" && (pt.Weight != 0.5 || !pt.Ambiguous) {
 			t.Errorf("paris = %+v", pt)
 		}
+	}
+}
+
+func TestEvents(t *testing.T) {
+	g := Load()
+	arena := []string{geo.Cell(38.768, -9.094)}
+	barreiro := []string{geo.Cell(38.663, -9.072)}
+	day := func(s string) time.Time { tm, _ := time.Parse("2006-01-02 15:04", s); return tm }
+
+	if ev := g.EventsAt(arena, day("2026-11-10 10:00")); len(ev) != 1 || ev[0].Tag != "websummit" || !ev[0].Live {
+		t.Errorf("during: %+v", ev)
+	}
+	if ev := g.EventsAt(arena, day("2026-10-03 10:00")); len(ev) != 1 || ev[0].Live {
+		t.Errorf("five weeks before: %+v", ev)
+	}
+	if ev := g.EventsAt(arena, day("2026-11-20 10:00")); len(ev) != 0 {
+		t.Errorf("after: %+v", ev)
+	}
+	if ev := g.EventsAt(barreiro, day("2026-11-10 10:00")); len(ev) != 0 {
+		t.Errorf("Barreiro is not at the venue: %+v", ev)
+	}
+	if tags := g.Tags(barreiro); len(tags) == 0 || tags[0].Tag != "barreiro" {
+		t.Errorf("Barreiro tags = %+v", tags)
 	}
 }

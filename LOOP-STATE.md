@@ -10,32 +10,43 @@ Production: https://lokumo.ew.r.appspot.com · Repo: https://github.com/LaPingvi
 (`gcloud app domain-mappings create kafumu.com --project lokumo` + the DNS records it prints, managed
 cert), then set `KAFUMU_ORIGIN=https://kafumu.com` in app.yaml. Decide apex vs www before passkeys.
 
-## M1 slices
+## Target: Web Summit Lisbon, 9–12 Nov 2026 (MEO Arena / FIL, Parque das Nações)
+
+Joop lives in Barreiro and has Open Source tickets. Goal: Kafumu is the less clunky way to meet
+people there — scan someone, keep the note on your phone, see side events and who's around for coffee.
+Everything before the event serves that; the rest of M1 follows after.
 
 - [x] 0. Scaffold: `#geo` cells (Go + JS, cross-tested), home shell computing the cell on-device,
       `/bundle` from Bluesky `#geo` search with per-instance cache, `/about`, robots, IsBot, app.yaml.
 - [x] 1. Place gazetteer v0: 60 hand-picked cities (centre + radius → cells, aliases, ambiguity),
       `/bundle` also searches the top 4 place tags; client labels "from #amsterdam", ranks below #geo
       posts, caps 2 posts per author. Central Amsterdam: 0 → 75 posts.
-- [ ] 2. `LaPingvino/geotags` public repo: generator from GeoNames (cities15000, top ~500 by population,
-      bbox → 6-char cells, ambiguity), plus the language list; CC-BY attribution. Kafumu vendors the JSON.
-- [ ] 3. Language gazetteer + canonical `lang:` tags (ISO 639-3, `#langepo`), embedded JSON with names.
-- [ ] 4. Accounts: copy esperanto-kurso auth; cookie `userID.token`, token stored hashed, Get-by-key;
-      created lazily on first action; magic-link page; delete-account button.
-- [ ] 5. Passkeys (go-webauthn) on the current origin; magic link stays the recovery path.
-- [ ] 6. Profile: username, `lang:xxx/level` picker, hobby tags, home cell, `Discoverable` (opt-in).
-- [ ] 7. People in the bundle: discoverable profiles per cell, in-memory cache + `CellMeta` version.
-- [ ] 8. Client ranking: complementary language exchange, locally-rare shared language, hobbies.
-- [ ] 9. Switch to `appengine.Main()` + memcache (bundled services), cache layer interface with an
-      in-memory fallback for local runs.
-- [ ] 10. Device store: IndexedDB pairs + contact notes; pairing QR show/scan; mailbox handshake (`Box`).
-- [ ] 11. Slots + beacons: check-in on open, "friends around today / this week" on the home list.
-- [ ] 12. Contact notes UI and canned signals ("I'm around, coffee?", "here's my number").
-- [ ] 13. Meetups (fallback records): create, list in bundle, RSVP; expiry.
-- [ ] 14. `.ics` feeds per cell/tag and per user.
-- [ ] 15. `/patrons`: Liberapay link + Stripe Payment Link placeholders, gentle copy.
-- [ ] 16. Travel banner; daily purge cron; Datastore TTL policies; privacy page with the data table.
-- [ ] 17. UI locale from esperanto-kurso's locale files.
+- [x] 2. Lisbon area (Barreiro, Almada, Seixal, Parque das Nações…) + time-bound event tags:
+      `#websummit` is local to the venue from 45 days before to the last day; banner + compose link.
+- [ ] 3. Accounts: copy esperanto-kurso auth; cookie `userID.token`, token stored hashed, Get-by-key;
+      created lazily on first action; magic-link page; delete-account button. Passkeys right after.
+- [ ] 4. Device store + "my card": IndexedDB; a card you choose to share (name, what you do, links:
+      LinkedIn/Bluesky/Signal/WhatsApp/email). Works without an account.
+- [ ] 5. Scan to connect: QR with K + mailbox id; scanner sends its card encrypted via the mailbox
+      (`Box`, memcache + TTL); both sides end up with each other's card + a private note
+      ("met at WS, robotics, coffee Thu"). This is the conference killer feature.
+- [ ] 6. Contacts page: everyone you've scanned, notes, one-tap open of their links; export (vCard/CSV).
+- [ ] 7. Meetups (fallback records, need account): "coffee at Pavilion 2, 15:00", side events, RSVP,
+      tags `#websummit` + `lang:` + `tag:`; shown in the bundle; `.ics`.
+- [ ] 8. Canned signals between scanned contacts: "I'm at the coffee bar", "join us at …".
+- [ ] 9. Profile tags + discoverable people at the event (opt-in): languages, interests
+      (opensource, esperanto, climate…), matched on the device.
+- [ ] 10. Friends around (slots/beacons): "who you scanned is still in Lisbon today".
+- [ ] 11. `/patrons` + `/for-cafes` pages (Liberapay, Stripe Payment Link), privacy page with data table.
+- [ ] 12. Event polish: install prompt (PWA), offline shell, printable QR for a badge/T-shirt, PT/EN UI.
+      Load test the bundle path; check free-tier quotas for ~1k users/day.
+
+## After the event (rest of M1)
+- `LaPingvino/geotags` public repo: generator from GeoNames + language list, CC-BY; Kafumu vendors it.
+- Language gazetteer + canonical `lang:` tags (ISO 639-3, `#langepo`).
+- Client ranking: complementary language exchange, locally rare shared language.
+- `appengine.Main()` + memcache everywhere; Datastore TTL policies; purge cron; travel banner;
+  UI locale from esperanto-kurso's locale files.
 
 ## Decisions taken without asking (Joop can overrule)
 6-char cells only · export-QR for multi-device · `#langepo` + gazetteer · curated gazetteers ·

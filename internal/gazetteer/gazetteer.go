@@ -10,12 +10,45 @@ import (
 	"math"
 	"sort"
 	"strings"
+	"time"
 
 	"github.com/LaPingvino/kafumu/internal/geo"
 )
 
 //go:embed places.json
 var placesJSON []byte
+
+//go:embed events.json
+var eventsJSON []byte
+
+// Event is a time-bound place tag: a conference or festival whose hashtag
+// (#websummit) is local only while it runs.
+type Event struct {
+	Tag     string   `json:"tag"`
+	Aliases []string `json:"aliases,omitempty"`
+	Name    string   `json:"name"`
+	Lat     float64  `json:"lat"`
+	Lon     float64  `json:"lon"`
+	Km      float64  `json:"km"`
+	From    string   `json:"from"` // YYYY-MM-DD, local dates, inclusive
+	To      string   `json:"to"`
+	URL     string   `json:"url,omitempty"`
+}
+
+// EventTag is an event reachable from a cell around now.
+type EventTag struct {
+	Tag  string   `json:"tag"`
+	Also []string `json:"also,omitempty"`
+	Name string   `json:"name"`
+	From string   `json:"from"`
+	To   string   `json:"to"`
+	URL  string   `json:"url,omitempty"`
+	// Live is true during the event; before it the tag is shown as upcoming.
+	Live bool `json:"live"`
+}
+
+// eventLead is how long before an event its tag starts showing up locally.
+const eventLead = 45 * 24 * time.Hour
 
 // Place is one city or area and the hashtags that name it.
 type Place struct {
@@ -38,10 +71,12 @@ type PlaceTag struct {
 	Ambiguous bool    `json:"ambiguous,omitempty"`
 }
 
-// Gazetteer indexes places by the cells they cover.
+// Gazetteer indexes places and events by the cells they cover.
 type Gazetteer struct {
-	Places []Place
-	byCell map[string][]int
+	Places  []Place
+	Events  []Event
+	byCell  map[string][]int
+	evCells []map[string]bool
 }
 
 // Load returns the embedded gazetteer. It panics on bad data: the file is
@@ -49,9 +84,22 @@ type Gazetteer struct {
 func Load() *Gazetteer {
 	var places []Place
 	if err := json.Unmarshal(placesJSON, &places); err != nil {
-		panic("gazetteer: " + err.Error())
+		panic("gazetteer: places: " + err.Error())
 	}
-	return New(places)
+	var events []Event
+	if err := json.Unmarshal(eventsJSON, &events); err != nil {
+		panic("gazetteer: events: " + err.Error())
+	}
+	g := New(places)
+	g.Events = events
+	for _, e := range events {
+		set := map[string]bool{}
+		for _, c := range cover(e.Lat, e.Lon, e.Km) {
+			set[c] = true
+		}
+		g.evCells = append(g.evCells, set)
+	}
+	return g
 }
 
 // New indexes places by every cell whose centre lies within the place radius
@@ -59,21 +107,56 @@ func Load() *Gazetteer {
 func New(places []Place) *Gazetteer {
 	g := &Gazetteer{Places: places, byCell: map[string][]int{}}
 	for i, p := range places {
-		home := geo.Cell(p.Lat, p.Lon)
-		g.byCell[home] = append(g.byCell[home], i)
-		// Rings are 0.05° tall; widen in longitude by 1/cos(lat).
-		latKm := geo.CellDeg * 111.32
-		r := int(math.Ceil(p.Km/(latKm*math.Max(math.Cos(p.Lat*math.Pi/180), 0.2)))) + 1
-		for k := 1; k <= r; k++ {
-			for _, c := range geo.Ring(home, k) {
-				la, lo := geo.Center(c)
-				if distKm(p.Lat, p.Lon, la, lo) <= p.Km {
-					g.byCell[c] = append(g.byCell[c], i)
-				}
-			}
+		for _, c := range cover(p.Lat, p.Lon, p.Km) {
+			g.byCell[c] = append(g.byCell[c], i)
 		}
 	}
 	return g
+}
+
+// cover returns the cell of (lat, lon) plus every cell whose centre lies
+// within km of it, so tiny places still cover something.
+func cover(lat, lon, km float64) []string {
+	home := geo.Cell(lat, lon)
+	out := []string{home}
+	// Rings are 0.05° tall; widen in longitude by 1/cos(lat).
+	latKm := geo.CellDeg * 111.32
+	r := int(math.Ceil(km/(latKm*math.Max(math.Cos(lat*math.Pi/180), 0.2)))) + 1
+	for k := 1; k <= r; k++ {
+		for _, c := range geo.Ring(home, k) {
+			la, lo := geo.Center(c)
+			if distKm(lat, lon, la, lo) <= km {
+				out = append(out, c)
+			}
+		}
+	}
+	return out
+}
+
+// EventsAt returns events touching any of cells that are upcoming (within
+// eventLead) or running at now.
+func (g *Gazetteer) EventsAt(cells []string, now time.Time) []EventTag {
+	var out []EventTag
+	for i, e := range g.Events {
+		from, err1 := time.Parse("2006-01-02", e.From)
+		to, err2 := time.Parse("2006-01-02", e.To)
+		if err1 != nil || err2 != nil {
+			continue
+		}
+		// Generous edges: dates are local and evenings run late.
+		start, end := from.Add(-12*time.Hour), to.Add(36*time.Hour)
+		if now.Before(start.Add(-eventLead)) || now.After(end) {
+			continue
+		}
+		for _, c := range cells {
+			if g.evCells[i][strings.ToLower(c)] {
+				out = append(out, EventTag{Tag: e.Tag, Also: e.Aliases, Name: e.Name,
+					From: e.From, To: e.To, URL: e.URL, Live: !now.Before(start)})
+				break
+			}
+		}
+	}
+	return out
 }
 
 // Tags returns the place hashtags for a set of cells, strongest first. A tag

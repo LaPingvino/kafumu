@@ -93,6 +93,9 @@
       .then(function (b) {
         var places = {};
         (b.places || []).forEach(function (pt) { places[pt.tag] = pt; });
+        // Event tags (#websummit) count as local as a #geo tag while they run.
+        (b.events || []).forEach(function (e) { ringOf[e.tag] = e.live ? 0 : 1; });
+        showEvents(b.events || [], c);
         render(b.posts || [], ringOf, places, c);
         var named = (b.places || []).filter(function (pt) { return pt.weight >= 0.5; })
           .slice(0, 3).map(function (pt) { return "#" + pt.tag; });
@@ -101,6 +104,27 @@
           : "";
       })
       .catch(function () { $("list").innerHTML = '<li class="muted">Could not load the area right now.</li>'; });
+  }
+
+  function showEvents(events, c) {
+    var box = $("events");
+    box.textContent = "";
+    box.hidden = !events.length;
+    events.forEach(function (e) {
+      var p = document.createElement("p");
+      var strong = document.createElement("strong");
+      strong.textContent = e.name;
+      p.appendChild(strong);
+      p.appendChild(document.createTextNode(e.live
+        ? " is on here now. Posts tagged #" + e.tag + " show up below."
+        : " is coming here " + e.from + " – " + e.to + ". Tag posts #" + e.tag + " to be found."));
+      var a = document.createElement("a");
+      a.href = "https://bsky.app/intent/compose?text=" + encodeURIComponent("\n\n#geo" + c + " #" + e.tag);
+      a.target = "_blank"; a.rel = "noopener";
+      a.textContent = " Post with #" + e.tag;
+      p.appendChild(a);
+      box.appendChild(p);
+    });
   }
 
   // score ranks on the device: #geo posts before place-tag posts, nearer
