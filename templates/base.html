@@ -10,6 +10,7 @@
   <link rel="manifest" href="/static/manifest.json">
   <link rel="icon" href="/static/icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/static/kafumu.css?v={{.V}}">
+  <script>window.KAFUMU_V = {{.V}};</script>
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -53,7 +54,7 @@
     <a href="/privacy">{{t .Lang "privacy.title"}}</a> · <a href="/patrons">{{t .Lang "patrons.title"}}</a> · <a href="/for-cafes">{{t .Lang "cafes.title"}}</a></small>
   </footer>
   <nav class="switcher bottom" aria-label="{{.Brand}}">{{template "tabs" .}}</nav>
-  <script>window.KAFUMU_T = window.KAFUMU_T || {{.JS}};</script>
+  <script>window.KAFUMU_T = window.KAFUMU_T || {{.JS}}; window.KAFUMU_V = {{.V}};</script>
   <script src="/static/app.js?v={{.V}}" defer></script>
 </body>
 </html>

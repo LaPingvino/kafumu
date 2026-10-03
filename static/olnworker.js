@@ -1,7 +1,7 @@
 // Mines an OLN message in the background: finds a nonce so that
 // SHA-1("<nonce>;<date>;<base64url>;<keywords>") has `bits` leading zero
 // bits — eolnpoc's format. Posts progress so the page can show it.
-importScripts("sha1.js");
+importScripts("sha1.js" + location.search); // same version as this worker
 onmessage = function (e) {
   var d = e.data, enc = new TextEncoder(), H = self.kafumuSHA1;
   // Either an OLN message (date, b64, keywords) or any ready-made tail

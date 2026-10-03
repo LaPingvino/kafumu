@@ -7,12 +7,15 @@
     bytes.forEach(function (b) { s += String.fromCharCode(b); });
     return btoa(s).replace(/\+/g, "-").replace(/\//g, "_"); // padded, like Go's URLEncoding
   }
+  // Versioned like every asset, or a cached old worker answers new requests.
+  // (read at use: the version is set at the end of the page)
+  function workerURL() { return "/static/olnworker.js?v=" + encodeURIComponent(root.KAFUMU_V || ""); }
   function utcStamp(d) { return d.toISOString().replace(/[-:T]/g, "").slice(0, 14); }
 
   // mine resolves with the raw message; onProgress(tries, ms) while working.
   function mine(text, keywords, bits, onProgress) {
     return new Promise(function (resolve, reject) {
-      var w = new Worker("/static/olnworker.js");
+      var w = new Worker(workerURL());
       w.onmessage = function (e) {
         if (e.data.done) { w.terminate(); resolve(e.data); } else if (onProgress) onProgress(e.data.tries, e.data.ms);
       };
@@ -36,7 +39,7 @@
   // mineTail mines any "<nonce><tail>" in the worker (for priced inboxes).
   function mineTail(tail, bits, onProgress) {
     return new Promise(function (resolve, reject) {
-      var w = new Worker("/static/olnworker.js");
+      var w = new Worker(workerURL());
       w.onmessage = function (e) { if (e.data.done) { w.terminate(); resolve(e.data.raw); } else if (onProgress) onProgress(e.data.tries, e.data.ms); };
       w.onerror = function (e) { w.terminate(); reject(e); };
       w.postMessage({ tail: tail, bits: bits });
