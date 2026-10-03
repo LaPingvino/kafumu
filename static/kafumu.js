@@ -31,6 +31,15 @@
         sec.hidden = !hits.length;
         travel.friends = hits.length;
         drawTravel();
+        // Remember where each friend was last seen (on this device only), for
+        // "Nearest" in Contacts.
+        hits.forEach(function (h) {
+          var c = h.contact, ls = c.lastSeen || {};
+          if (!ls.day || h.day > ls.day || (h.day === ls.day && !h.near)) {
+            c.lastSeen = { cell: h.cell, day: h.day };
+            window.kafumuDevice.store.putContact(c);
+          }
+        });
         list.textContent = "";
         var today = new Date().toISOString().slice(0, 10), yesterday = new Date(Date.now() - 864e5).toISOString().slice(0, 10);
         hits.forEach(function (h) {

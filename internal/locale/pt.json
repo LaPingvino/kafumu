@@ -383,5 +383,10 @@
   "move.offer_check": "Só envie se o novo dispositivo mostrar exatamente estes quatro emoji.",
   "move.ignore": "Não fui eu — ignorar",
   "js.move_sign_in": "Entre primeiro (Conta → a sua ligação ou chave de acesso) e tente outra vez.",
-  "js.move_waiting_other": "Abra Kafumu → Contactos no outro dispositivo e confirme que mostra estes emoji."
+  "js.move_waiting_other": "Abra Kafumu → Contactos no outro dispositivo e confirme que mostra estes emoji.",
+  "contacts.sort": "Ordenar",
+  "contacts.sort_new": "Mais recentes",
+  "contacts.sort_near": "Mais perto",
+  "js.seen_near": "visto {where} em {day}",
+  "js.here_word": "perto de si"
 }

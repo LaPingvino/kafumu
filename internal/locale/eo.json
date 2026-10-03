@@ -383,5 +383,10 @@
   "move.offer_check": "Sendu nur se via nova aparato montras ĝuste ĉi tiujn kvar emoĝiojn.",
   "move.ignore": "Ne mi — ignori",
   "js.move_sign_in": "Unue ensalutu (Konto → via ligilo aŭ ensalutŝlosilo), poste provu denove.",
-  "js.move_waiting_other": "Malfermu Kafumu → Kontaktoj en via alia aparato kaj kontrolu, ke ĝi montras ĉi tiujn emoĝiojn."
+  "js.move_waiting_other": "Malfermu Kafumu → Kontaktoj en via alia aparato kaj kontrolu, ke ĝi montras ĉi tiujn emoĝiojn.",
+  "contacts.sort": "Ordigi",
+  "contacts.sort_new": "Plej novaj",
+  "contacts.sort_near": "Plej proksimaj",
+  "js.seen_near": "vidita {where} je {day}",
+  "js.here_word": "proksime de vi"
 }

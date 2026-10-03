@@ -68,6 +68,7 @@ check((await B.pair.checkContact(cb)).length === 0, "B's own message is not in B
   check(await B.pair.checkIn(venue, [bc]) === 0, "same cell-day: no rewrite");
   const hits = await A.pair.around([next, venue], [ac]);
   check(hits.length === 1 && hits[0].contact.card.name === "Bea" && hits[0].near, "A sees Bea nearby: " + JSON.stringify(hits.map(h => h.day)));
+  check(hits[0].cell === venue, "the hit says where (for Nearest in Contacts)");
   const far = await A.pair.around(["9f469v"], [ac]);
   check(far.length === 0, "not seen from Amsterdam");
   const raw = await (await fetch(`${base}/api/slot/${"0".repeat(64)}`)).json();

@@ -219,9 +219,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       Was: Per-peer price, client: open/close inbox + price slider (time hint) in Be findable; "✉️ Write"
       on People (encrypt to their key, mine at their price in the worker, optional card); Contacts "✉️ Messages
       to you" (decrypt on device, Connect back = pair from the envelope).
-- [ ] 15g. (was) Per-peer price (Joop): people set the minimum bits for unsolicited messages to them (questions,
+- [x] 15g. (done as 15g-a/b) Per-peer price (Joop): people set the minimum bits for unsolicited messages to them (questions,
       offers); commercial senders pay in work for what reaching you is worth to them.
-- [ ] 18b. Contacts: sort by distance from where they were last seen (friends-around hits give a day+cell
+- [x] 18b. Contacts: "Nearest" sort + "📍 seen 12 km on Tuesday" from friends-around hits stored per contact
+      on the device (lastSeen {cell, day}); distance from your current area. Was: sort by distance from where they were last seen (friends-around hits give a day+cell
       per contact — device only).
 - [ ] 19. Short link code for connect codes (Joop): kafumu.com/j/XXXXXX → the /c#… invite, kept 1 h
       server-side (public key only; mention on /privacy). The full link is already shown under the QR.

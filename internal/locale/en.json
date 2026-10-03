@@ -383,5 +383,10 @@
   "move.offer_check": "Only send if your new device shows exactly these four emoji.",
   "move.ignore": "Not me — ignore",
   "js.move_sign_in": "Sign in first (Account → your link or passkey), then try again.",
-  "js.move_waiting_other": "Open Kafumu → Contacts on your other device and check that it shows these emoji."
+  "js.move_waiting_other": "Open Kafumu → Contacts on your other device and check that it shows these emoji.",
+  "contacts.sort": "Sort",
+  "contacts.sort_new": "Newest",
+  "contacts.sort_near": "Nearest",
+  "js.seen_near": "seen {where} on {day}",
+  "js.here_word": "near you"
 }

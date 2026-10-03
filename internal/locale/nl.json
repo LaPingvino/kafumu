@@ -383,5 +383,10 @@
   "move.offer_check": "Stuur alleen als je nieuwe apparaat precies deze vier emoji toont.",
   "move.ignore": "Niet ik — negeren",
   "js.move_sign_in": "Log eerst in (Account → je link of passkey) en probeer het opnieuw.",
-  "js.move_waiting_other": "Open Kafumu → Contacten op je andere apparaat en kijk of het deze emoji toont."
+  "js.move_waiting_other": "Open Kafumu → Contacten op je andere apparaat en kijk of het deze emoji toont.",
+  "contacts.sort": "Sorteren",
+  "contacts.sort_new": "Nieuwste",
+  "contacts.sort_near": "Dichtstbij",
+  "js.seen_near": "gezien {where} op {day}",
+  "js.here_word": "bij jou in de buurt"
 }

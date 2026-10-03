@@ -341,7 +341,7 @@
           var tries = [];
           days.forEach(function (d) { cells.forEach(function (cl, ci) { tries.push({ d: d, near: ci > 0, cl: cl }); }); });
           return Promise.all(tries.map(function (t) { return beacon(key, theirs, t.cl, t.d); })).then(function (toks) {
-            for (var i = 0; i < toks.length; i++) if (have[toks[i]]) return { contact: c, day: tries[i].d, near: tries[i].near };
+            for (var i = 0; i < toks.length; i++) if (have[toks[i]]) return { contact: c, day: tries[i].d, near: tries[i].near, cell: tries[i].cl };
             return null;
           });
         }).catch(function () { return null; });

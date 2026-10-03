@@ -9,6 +9,7 @@
   function show() {
     dev.store.contacts().then(function (cs) {
       cs.sort(function (a, b) { return (b.createdAt || "").localeCompare(a.createdAt || ""); });
+      if (sortBy() === "near") cs = byDistance(cs);
       list.textContent = "";
       empty.hidden = cs.length > 0;
       $("contacts-tools").hidden = cs.length === 0;
@@ -16,6 +17,13 @@
       cs.forEach(function (c) {
         var opts = { onDelete: function () { if (!list.children.length) show(); }, send: send };
         var li = dev.renderContact(c, T, opts);
+        if (c.lastSeen) {
+          var seen = document.createElement("p");
+          seen.className = "dim small";
+          seen.textContent = "📍 " + (T.seen_near || "seen near {where} on {day}").replace("{where}", distLabel(c.lastSeen.cell))
+            .replace("{day}", new Date(c.lastSeen.day + "T12:00:00Z").toLocaleDateString(document.documentElement.lang, { weekday: "long", day: "numeric", month: "short" }));
+          li.insertBefore(seen, li.children[1] || null);
+        }
         li.dataset.search = JSON.stringify([c.card, c.note]).toLowerCase();
         list.appendChild(li);
         // Cards on their way and new signals: one mailbox read per contact.
@@ -28,6 +36,35 @@
         }).catch(function () {});
       });
     });
+  }
+
+  // "Nearest": by distance from your current area to where each contact was
+  // last seen (friends around, on this device). Unknown ones go last.
+  function here() { try { return localStorage.getItem("kafumu.lastCell"); } catch (e) { return null; } }
+  function km(a, b) {
+    var G = window.kafumuGeo, p = G.center(a), q = G.center(b), r = Math.PI / 180;
+    var x = (q[1] - p[1]) * r * Math.cos((p[0] + q[0]) / 2 * r), y = (q[0] - p[0]) * r;
+    return Math.sqrt(x * x + y * y) * 6371;
+  }
+  function distLabel(cell) {
+    var h = here();
+    if (!h || !window.kafumuGeo) return "#geo" + cell;
+    var d = km(h, cell);
+    return d < 8 ? (T.here_word || "here") : Math.round(d) + " km";
+  }
+  function byDistance(cs) {
+    var h = here();
+    if (!h || !window.kafumuGeo) return cs;
+    return cs.slice().sort(function (a, b) {
+      var da = a.lastSeen ? km(h, a.lastSeen.cell) : Infinity, db = b.lastSeen ? km(h, b.lastSeen.cell) : Infinity;
+      return da - db;
+    });
+  }
+  function sortBy() { try { return localStorage.getItem("kafumu.contactSort") || "new"; } catch (e) { return "new"; } }
+  var sortSel = $("contacts-sort");
+  if (sortSel) {
+    sortSel.value = sortBy();
+    sortSel.onchange = function () { try { localStorage.setItem("kafumu.contactSort", sortSel.value); } catch (e) {} show(); };
   }
 
   filter.addEventListener("input", function () {
