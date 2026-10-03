@@ -179,5 +179,10 @@
   "js.now": "Agora",
   "js.going_n": "{n} vão",
   "meetup.delete": "Apagar",
-  "meetup.delete_confirm": "Apagar este encontro?"
+  "meetup.delete_confirm": "Apagar este encontro?",
+  "meetup.add_calendar": "Adicionar ao calendário",
+  "meetup.import_label": "Já está no Luma, Meetup ou noutro sítio? Cole a ligação",
+  "meetup.import": "Importar",
+  "meetup.import_ok": "Preenchido a partir da página — verifique e publique.",
+  "meetup.import_failed": "Não foi possível ler um evento dessa página. Preencha abaixo."
 }

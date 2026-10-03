@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"encoding/json"
 	"errors"
 	"log"
 	"net/http"
@@ -9,14 +10,16 @@ import (
 	"time"
 
 	"github.com/LaPingvino/kafumu/internal/geo"
+	"github.com/LaPingvino/kafumu/internal/importer"
 	"github.com/LaPingvino/kafumu/internal/locale"
 	"github.com/LaPingvino/kafumu/internal/meetup"
 )
 
 // Meetups handles hosting and joining meetups. Hosting is free, always.
 type Meetups struct {
-	Home *Home
-	Svc  *meetup.Service
+	Home     *Home
+	Svc      *meetup.Service
+	Importer *importer.Importer
 }
 
 type meetupPage struct {
@@ -115,4 +118,59 @@ func (h *Meetups) Delete(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	http.Redirect(w, r, "/", http.StatusSeeOther)
+}
+
+// ICS handles GET /meetups/{id}/ics and GET /cal/{cell}: add to calendar.
+func (h *Meetups) ICS(w http.ResponseWriter, r *http.Request) {
+	var ms []*meetup.Meetup
+	name := h.Home.Cfg.Brand
+	if id := r.PathValue("id"); id != "" {
+		m, err := h.Svc.Get(r.Context(), id)
+		if err != nil {
+			http.NotFound(w, r)
+			return
+		}
+		ms, name = []*meetup.Meetup{m}, m.Title
+	} else {
+		cell := strings.TrimSuffix(strings.ToLower(r.PathValue("cell")), ".ics")
+		if !geo.Valid(cell) || IsBot(r) && r.Header.Get("Accept") == "" {
+			http.NotFound(w, r)
+			return
+		}
+		var err error
+		if ms, err = h.Svc.InCells(r.Context(), geo.Rings(cell, 1)); err != nil {
+			http.Error(w, "unavailable", http.StatusServiceUnavailable)
+			return
+		}
+		name += " #geo" + cell
+	}
+	w.Header().Set("Content-Type", "text/calendar; charset=utf-8")
+	w.Header().Set("Cache-Control", "public, max-age=600")
+	w.Write([]byte(meetup.ICS(name, h.Home.Cfg.Origin, ms)))
+}
+
+// Import handles POST /meetups/import {url}: read an event page (Luma,
+// Meetup, anything with schema.org Event data) to prefill the form.
+// Accounts only, so the importer can't be used as an open fetch proxy.
+func (h *Meetups) Import(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	if UserFrom(r.Context()) == nil || h.Importer == nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(w).Encode(map[string]string{"error": "account"})
+		return
+	}
+	ev, err := h.Importer.Fetch(r.Context(), r.FormValue("url"))
+	if err != nil {
+		w.WriteHeader(http.StatusUnprocessableEntity)
+		json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
+		return
+	}
+	out := map[string]any{"title": ev.Title, "start": ev.Start.UTC().Format(time.RFC3339), "venue": ev.Venue, "text": ev.Text, "link": ev.Link}
+	if !ev.End.IsZero() {
+		out["minutes"] = int(ev.End.Sub(ev.Start).Minutes())
+	}
+	if ev.HasGeo {
+		out["cell"] = geo.Cell(ev.Lat, ev.Lon)
+	}
+	json.NewEncoder(w).Encode(out)
 }

@@ -179,5 +179,10 @@
   "js.now": "Nun",
   "js.going_n": "{n} venos",
   "meetup.delete": "Forigi",
-  "meetup.delete_confirm": "Ĉu forigi ĉi tiun renkontiĝon?"
+  "meetup.delete_confirm": "Ĉu forigi ĉi tiun renkontiĝon?",
+  "meetup.add_calendar": "Aldoni al kalendaro",
+  "meetup.import_label": "Ĉu jam en Luma, Meetup aŭ aliloke? Algluu la ligilon",
+  "meetup.import": "Importi",
+  "meetup.import_ok": "Plenigita el la paĝo — kontrolu kaj publikigu.",
+  "meetup.import_failed": "Ne eblis legi eventon el tiu paĝo. Plenigu sube."
 }

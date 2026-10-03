@@ -18,6 +18,7 @@ import (
 	"github.com/LaPingvino/kafumu/internal/config"
 	"github.com/LaPingvino/kafumu/internal/gazetteer"
 	"github.com/LaPingvino/kafumu/internal/handler"
+	"github.com/LaPingvino/kafumu/internal/importer"
 	"github.com/LaPingvino/kafumu/internal/meetup"
 )
 
@@ -31,7 +32,7 @@ func main() {
 	home := &handler.Home{Cfg: cfg, Tmpl: tmpl, Bsky: bsky.NewClient(), Gaz: gazetteer.Load()}
 	users, boxes, meetupStore := stores(cfg)
 	home.Meetups = meetup.NewService(meetupStore)
-	meetups := &handler.Meetups{Home: home, Svc: home.Meetups}
+	meetups := &handler.Meetups{Home: home, Svc: home.Meetups, Importer: importer.New()}
 	accounts := &handler.Accounts{Home: home, Svc: account.NewService(users)}
 	mailbox := box.NewHandler(boxes)
 
@@ -52,9 +53,12 @@ func main() {
 	mux.HandleFunc("GET /auth/link", accounts.Link)
 	mux.HandleFunc("GET /meetups/new", meetups.New)
 	mux.HandleFunc("POST /meetups", meetups.Create)
+	mux.HandleFunc("POST /meetups/import", meetups.Import)
 	mux.HandleFunc("GET /meetups/{id}", meetups.Show)
 	mux.HandleFunc("POST /meetups/{id}/rsvp", meetups.RSVP)
 	mux.HandleFunc("POST /meetups/{id}/delete", meetups.Delete)
+	mux.HandleFunc("GET /meetups/{id}/ics", meetups.ICS)
+	mux.HandleFunc("GET /cal/{cell}", meetups.ICS)
 	mux.HandleFunc("GET /api/box/{id}", mailbox.Get)
 	mux.HandleFunc("POST /api/box/{id}", mailbox.Post)
 	mux.HandleFunc("POST /api/box/{id}/ack", mailbox.Ack)

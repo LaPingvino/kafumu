@@ -9,6 +9,11 @@
       <button type="submit" class="pill">{{t .Lang "account.start"}}</button></form>
   </div>
 {{else}}
+<form id="import-form" class="card" style="padding:4px 16px 12px">
+  <label>{{t .Lang "meetup.import_label"}}
+    <span class="inline-row"><input name="url" type="url" placeholder="https://luma.com/…"><button type="submit">{{t .Lang "meetup.import"}}</button></span></label>
+  <p id="import-status" class="dim small" role="status"></p>
+</form>
 <form id="meetup-form" method="post" action="/meetups" class="card" style="padding:4px 16px 12px">
   <label>{{t .Lang "meetup.field_title"}}<input name="title" required maxlength="100" placeholder="{{ts .Lang "meetup.title_placeholder"}}"></label>
   <div class="grid">
@@ -40,6 +45,30 @@
   document.getElementById("use-location").onclick = function () {
     navigator.geolocation && navigator.geolocation.getCurrentPosition(function (p) { f.cell.value = G.cell(p.coords.latitude, p.coords.longitude); });
   };
+  var imp = document.getElementById("import-form"), st = document.getElementById("import-status");
+  imp.addEventListener("submit", function (e) {
+    e.preventDefault();
+    st.textContent = "…";
+    fetch("/meetups/import", { method: "POST", body: new URLSearchParams({ url: imp.url.value }) })
+      .then(function (r) { return r.json(); })
+      .then(function (ev) {
+        if (ev.error) { st.textContent = {{ts .Lang "meetup.import_failed"}}; return; }
+        f.title.value = ev.title || "";
+        var d = new Date(ev.start);
+        f.start.value = new Date(d.getTime() - d.getTimezoneOffset() * 60e3).toISOString().slice(0, 16);
+        if (ev.minutes) {
+          var best = f.duration.options[0];
+          Array.prototype.forEach.call(f.duration.options, function (o) { if (Math.abs(o.value - ev.minutes) < Math.abs(best.value - ev.minutes)) best = o; });
+          f.duration.value = best.value;
+        }
+        f.venue.value = ev.venue || "";
+        f.text.value = ev.text || "";
+        f.link.value = ev.link || imp.url.value;
+        if (ev.cell) f.cell.value = ev.cell;
+        st.textContent = {{ts .Lang "meetup.import_ok"}};
+      })
+      .catch(function () { st.textContent = {{ts .Lang "meetup.import_failed"}}; });
+  });
   f.addEventListener("submit", function () {
     f.cell.value = f.cell.value.toLowerCase();
     if (f.start.value) f.start_iso.value = new Date(f.start.value).toISOString();

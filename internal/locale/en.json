@@ -179,5 +179,10 @@
   "js.now": "Now",
   "js.going_n": "{n} going",
   "meetup.delete": "Delete",
-  "meetup.delete_confirm": "Delete this meetup?"
+  "meetup.delete_confirm": "Delete this meetup?",
+  "meetup.add_calendar": "Add to calendar",
+  "meetup.import_label": "Already on Luma, Meetup or elsewhere? Paste the link",
+  "meetup.import": "Import",
+  "meetup.import_ok": "Filled in from the page — check and publish.",
+  "meetup.import_failed": "Couldn't read an event from that page. Fill it in below."
 }

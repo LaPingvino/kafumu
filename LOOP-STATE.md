@@ -86,9 +86,13 @@ Everything before the event serves that; the rest of M1 follows after.
       tags, then soonest; "Now" for running ones), tap → meetup page; host can delete. Browser test: A
       makes an account on the way to hosting, B sees it in Around, A deletes it. Test UA override in cdp.mjs
       (HeadlessChrome is a bot to us).
-- [ ] 7. (rest) Meetups (fallback records, need account): "coffee at Pavilion 2, 15:00", side events, RSVP,
+- [x] 7 (rest). `.ics`: /meetups/{id}/ics ("Add to calendar") and /cal/{cell} (cell + ring 1), RFC 5545
+      folding, tested. Was: Meetups (fallback records, need account): "coffee at Pavilion 2, 15:00", side events, RSVP,
       tags `#websummit` + `lang:` + `tag:`; shown in the bundle; `.ics`.
-- [ ] 7b. Import events by link: paste a Luma / Meetup / any event URL → read its schema.org Event JSON-LD
+- [x] 7b'. Import by link (`internal/importer`): paste a Luma/Meetup/any URL on /meetups/new → schema.org
+      Event JSON-LD (incl. @graph, type arrays, geo → cell) prefills the form. Safe fetch: public IPs only
+      (dial Control), 3 MB, 12 s, ≤4 redirects, 10-min cache, accounts only. Verified live on luma.com.
+      Was: Import events by link: paste a Luma / Meetup / any event URL → read its schema.org Event JSON-LD
       (server fetch, cached) → title, time, venue, link; tag with cell + #websummit etc. Most Web Summit
       side events live on Luma, so this is high value before the event.
 - [ ] 7c. Subscribe to calendars: Luma calendar / Meetup group iCal feeds per cell (cron, cached).

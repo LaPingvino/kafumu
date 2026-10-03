@@ -179,5 +179,10 @@
   "js.now": "Nu",
   "js.going_n": "{n} gaan",
   "meetup.delete": "Verwijderen",
-  "meetup.delete_confirm": "Deze bijeenkomst verwijderen?"
+  "meetup.delete_confirm": "Deze bijeenkomst verwijderen?",
+  "meetup.add_calendar": "Toevoegen aan agenda",
+  "meetup.import_label": "Staat het al op Luma, Meetup of elders? Plak de link",
+  "meetup.import": "Importeren",
+  "meetup.import_ok": "Ingevuld vanaf de pagina — controleer en publiceer.",
+  "meetup.import_failed": "Kon geen evenement van die pagina lezen. Vul het hieronder in."
 }

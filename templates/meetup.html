@@ -14,6 +14,7 @@
     </form>
     {{if .Mine}}<form method="post" action="/meetups/{{.M.ID}}/delete" onsubmit="return confirm(this.dataset.q)" data-q="{{ts .Lang "meetup.delete_confirm"}}">
       <button type="submit" class="contrast">{{t .Lang "meetup.delete"}}</button></form>{{end}}
+    <a href="/meetups/{{.M.ID}}/ics" role="button" class="pill">{{t .Lang "meetup.add_calendar"}}</a>
     <button type="button" class="pill" onclick="navigator.share?navigator.share({title:document.title,url:location.href}).catch(function(){}):navigator.clipboard&&navigator.clipboard.writeText(location.href)">{{t .Lang "meetup.share"}}</button>
   </div>
 </article>
