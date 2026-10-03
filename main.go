@@ -37,11 +37,11 @@ func main() {
 
 	home := &handler.Home{Cfg: cfg, Tmpl: tmpl, Bsky: bsky.NewClient(), Gaz: gazetteer.Load()}
 	users, boxes, meetupStore, slots, db := stores(cfg)
+	kv := cache.New()
 	home.Meetups = meetup.NewService(meetupStore)
 	meetups := &handler.Meetups{Home: home, Svc: home.Meetups, Importer: importer.New()}
 	accounts := &handler.Accounts{Home: home, Svc: account.NewService(users)}
 	home.Accounts = accounts.Svc
-	kv := cache.New()
 	mailbox := box.NewHandler(&box.CachedStore{Store: boxes, Cache: kv})
 	slotAPI := slot.NewHandler(&slot.CachedStore{Store: slots, Cache: kv})
 
@@ -61,6 +61,14 @@ func main() {
 	mux.HandleFunc("GET /m", home.ShowMove)
 	mux.HandleFunc("GET /import", home.ShowImport)
 	mux.HandleFunc("GET /account/link.json", accounts.LinkJSON)
+	if cfg.Passkeys {
+		if pk := handler.NewPasskeys(accounts, cfg.Origin, kv); pk != nil {
+			mux.HandleFunc("POST /auth/passkey/register/begin", pk.RegisterBegin)
+			mux.HandleFunc("POST /auth/passkey/register/finish", pk.RegisterFinish)
+			mux.HandleFunc("POST /auth/passkey/login/begin", pk.LoginBegin)
+			mux.HandleFunc("POST /auth/passkey/login/finish", pk.LoginFinish)
+		}
+	}
 	mux.HandleFunc("GET /account", accounts.Show)
 	mux.HandleFunc("POST /account/start", accounts.Start)
 	mux.HandleFunc("POST /account/name", accounts.SetName)

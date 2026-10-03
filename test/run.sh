@@ -23,6 +23,15 @@ if command -v chromium >/dev/null 2>&1 && [ -z "$SKIP_BROWSER" ]; then
   sleep 1
   node test/browser_test.mjs http://localhost:18082
 fi
+# Passkeys with Chrome's virtual authenticator.
+if command -v chromium >/dev/null 2>&1 && [ -z "$SKIP_BROWSER" ]; then
+  PORT=18095 KAFUMU_ORIGIN=http://localhost:18095 KAFUMU_PASSKEYS=1 "$bin" >/dev/null 2>&1 &
+  pid3=$!
+  trap 'kill $pid ${pid2:-} $pid3 2>/dev/null' EXIT
+  sleep 1
+  node test/passkey_test.mjs http://localhost:18095
+fi
+
 # Datastore-backed code against the emulator, when the SDK has it.
 emu="$HOME/google-cloud-sdk/platform/cloud-datastore-emulator/cloud_datastore_emulator"
 if [ -x "$emu" ] && command -v java >/dev/null 2>&1 && [ -z "$SKIP_EMULATOR" ]; then
@@ -32,7 +41,7 @@ if [ -x "$emu" ] && command -v java >/dev/null 2>&1 && [ -z "$SKIP_EMULATOR" ]; 
   emupid=$!
   sleep 1
   emupgid=$(ps -o pgid= -p "$emupid" 2>/dev/null | tr -d ' ')
-  trap 'kill $pid ${pid2:-} 2>/dev/null; [ -n "$emupgid" ] && kill -- -"$emupgid" 2>/dev/null' EXIT
+  trap 'kill $pid ${pid2:-} ${pid3:-} 2>/dev/null; [ -n "$emupgid" ] && kill -- -"$emupgid" 2>/dev/null' EXIT
   for i in $(seq 1 30); do curl -s localhost:8432 >/dev/null 2>&1 && break; sleep 1; done
   DATASTORE_EMULATOR_HOST=localhost:8432 go test ./internal/purge/
 fi

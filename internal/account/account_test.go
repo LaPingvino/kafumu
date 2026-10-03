@@ -81,3 +81,27 @@ func TestProfile(t *testing.T) {
 		t.Errorf("hidden user still visible")
 	}
 }
+
+func TestNewSessionKeepsLink(t *testing.T) {
+	ctx := context.Background()
+	s := NewService(NewMemoryStore())
+	u, link, _ := s.Create(ctx, "en")
+	sess, err := s.NewSession(ctx, u)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, c := range []string{link, sess} {
+		if _, err := s.Resolve(ctx, c); err != nil {
+			t.Errorf("%q no longer works: %v", c, err)
+		}
+	}
+	for i := 0; i < 6; i++ {
+		s.NewSession(ctx, u)
+	}
+	if _, err := s.Resolve(ctx, sess); err == nil {
+		t.Error("oldest session should have been dropped after five more")
+	}
+	if _, err := s.Resolve(ctx, link); err != nil {
+		t.Errorf("link broke: %v", err)
+	}
+}

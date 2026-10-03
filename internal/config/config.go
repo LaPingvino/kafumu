@@ -23,6 +23,8 @@ type Config struct {
 	// LegacyOrigins are where Kafumu used to live (the appspot address);
 	// pages there offer to move your device data to Origin.
 	LegacyOrigins []string
+	// Passkeys are bound to Origin's domain; switched on with KAFUMU_PASSKEYS=1.
+	Passkeys bool
 	// Money and contact links; pages show "coming soon" while empty.
 	PayPal, Liberapay, Stripe, Contact string
 }
@@ -36,6 +38,7 @@ func Load() *Config {
 		Version:       env("GAE_VERSION", strconv.FormatInt(time.Now().Unix(), 36)),
 		PayPal:        os.Getenv("KAFUMU_PAYPAL"),
 		LegacyOrigins: strings.Fields(os.Getenv("KAFUMU_LEGACY_ORIGINS")),
+		Passkeys:      os.Getenv("KAFUMU_PASSKEYS") == "1",
 		Liberapay:     os.Getenv("KAFUMU_LIBERAPAY"),
 		Stripe:        os.Getenv("KAFUMU_STRIPE"),
 		Contact:       env("KAFUMU_CONTACT", "https://github.com/LaPingvino/kafumu/issues"),

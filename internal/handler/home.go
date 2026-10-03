@@ -48,8 +48,10 @@ type page struct {
 	V     string // asset version, so a deploy never mixes old and new JS
 	// MovedTo is set on a legacy origin: the canonical origin to move to.
 	MovedTo string
-	Langs   []locale.Lang
-	User    *account.User
+	// Passkeys is true when passkeys work on this host.
+	Passkeys bool
+	Langs    []locale.Lang
+	User     *account.User
 	// JS holds the "js." strings for client-side code.
 	JS map[string]string
 }
@@ -67,7 +69,8 @@ func (h *Home) newPage(r *http.Request, title string) page {
 		moved = canon
 	}
 	return page{Brand: h.Cfg.Brand, Title: title, Lang: lang, V: h.Cfg.Version, Langs: locale.Langs(), MovedTo: moved,
-		User: UserFrom(r.Context()), JS: locale.Prefix(lang, "js.")}
+		Passkeys: h.Cfg.Passkeys && moved == "",
+		User:     UserFrom(r.Context()), JS: locale.Prefix(lang, "js.")}
 }
 
 // ShowHome renders the shell; the cell is computed on the device and the list

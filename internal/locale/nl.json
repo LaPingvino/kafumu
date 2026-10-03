@@ -296,5 +296,11 @@
   "moved.go": "Naar kafumu.com",
   "moved.waiting": "Je gegevens van het oude adres ontvangen…",
   "moved.done": "{n} contacten verhuisd. Even naar het begin…",
-  "js.moved_popup": "Sta pop-ups toe voor deze site en tik opnieuw."
+  "js.moved_popup": "Sta pop-ups toe voor deze site en tik opnieuw.",
+  "passkey.signin": "Inloggen met een passkey",
+  "passkey.title": "Passkey",
+  "passkey.explain": "Log op dit apparaat in met je vingerafdruk, gezicht of schermvergrendeling. Je inloglink blijft ook werken.",
+  "passkey.add": "Passkey toevoegen",
+  "js.passkey_added": "Passkey toegevoegd. Volgende keer is „Inloggen met een passkey” genoeg.",
+  "js.passkey_failed": "Dat werkte niet:"
 }

@@ -296,5 +296,11 @@
   "moved.go": "Transloki al kafumu.com",
   "moved.waiting": "Ricevante viajn datumojn de la malnova adreso…",
   "moved.done": "{n} kontaktoj translokitaj. Ni kondukas vin hejmen…",
-  "js.moved_popup": "Bonvolu permesi ŝprucfenestrojn por ĉi tiu retejo, kaj tuŝu denove."
+  "js.moved_popup": "Bonvolu permesi ŝprucfenestrojn por ĉi tiu retejo, kaj tuŝu denove.",
+  "passkey.signin": "Ensaluti per ensalutŝlosilo",
+  "passkey.title": "Ensalutŝlosilo",
+  "passkey.explain": "Ensalutu en ĉi tiu aparato per fingrospuro, vizaĝo aŭ ekranŝlosilo. Via ensalutligilo plu funkcias.",
+  "passkey.add": "Aldoni ensalutŝlosilon",
+  "js.passkey_added": "Ensalutŝlosilo aldonita. Venontfoje sufiĉas „Ensaluti per ensalutŝlosilo“.",
+  "js.passkey_failed": "Tio ne funkciis:"
 }

@@ -296,5 +296,11 @@
   "moved.go": "Move to kafumu.com",
   "moved.waiting": "Receiving your data from the old address…",
   "moved.done": "Moved {n} contacts. Taking you home…",
-  "js.moved_popup": "Please allow pop-ups for this site, then tap again."
+  "js.moved_popup": "Please allow pop-ups for this site, then tap again.",
+  "passkey.signin": "Sign in with a passkey",
+  "passkey.title": "Passkey",
+  "passkey.explain": "Sign in on this device with your fingerprint, face or screen lock. Your sign-in link keeps working too.",
+  "passkey.add": "Add a passkey",
+  "js.passkey_added": "Passkey added. Next time, “Sign in with a passkey” is enough.",
+  "js.passkey_failed": "That didn't work:"
 }

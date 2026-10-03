@@ -34,8 +34,10 @@ Everything before the event serves that; the rest of M1 follows after.
       for bots), cookie `id.token`, sha256 token hash, Get-by-key + 1-min instance cache, LastSeen hourly,
       usernames as separate keyed entities (transactional uniqueness), magic link, sign out, delete.
       Memory store for local runs. No email/phone collected.
-- [ ] 3b. Passkeys (go-webauthn) — deliberately AFTER kafumu.com is mapped (passkeys bind to the
-      domain; registering on appspot now would break on the move). Magic link is the recovery path.
+- [x] 3b. Passkeys built, OFF until the domain switch (KAFUMU_PASSKEYS=1, RP ID = Origin's host, www
+      allowed as origin): discoverable (resident key required — esperanto-kurso likely lacks this),
+      WebAuthn sessions in memcache (5 min), passkey sign-in adds a session token (last 5 kept) so the
+      magic link and other devices keep working. test/passkey_test.mjs: Chrome virtual authenticator.
 - [x] 4. `static/device.js` (IndexedDB kv + contacts, storage.persist, link normalisation tested in
       `test/device_test.mjs`) and `/card`: name, one-liner, email/phone/WhatsApp/Signal/Telegram/Bluesky/
       LinkedIn/website, live preview, stored only on the device. No account needed.

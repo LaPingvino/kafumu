@@ -12,17 +12,23 @@ import (
 	"crypto/subtle"
 	"encoding/base64"
 	"encoding/hex"
+	"encoding/json"
 	"errors"
 	"regexp"
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/go-webauthn/webauthn/webauthn"
 )
 
 // User is the whole server-side account.
 type User struct {
-	ID        string    `datastore:"-"`
-	TokenHash string    `datastore:"token_hash,noindex"`
+	ID        string `datastore:"-"`
+	TokenHash string `datastore:"token_hash,noindex"`
+	// Sessions are extra token hashes from passkey sign-ins (newest last,
+	// at most five), so signing in elsewhere never invalidates the link.
+	Sessions  []string  `datastore:"sessions,noindex"`
 	Username  string    `datastore:"username"`
 	Role      string    `datastore:"role,noindex"` // "" or "admin"
 	Lang      string    `datastore:"lang,noindex"`
@@ -133,7 +139,11 @@ func (s *Service) Resolve(ctx context.Context, cred string) (*User, error) {
 	if err != nil {
 		return nil, err
 	}
-	if subtle.ConstantTimeCompare([]byte(u.TokenHash), []byte(hash(tok))) != 1 {
+	h, ok := []byte(hash(tok)), subtle.ConstantTimeCompare([]byte(u.TokenHash), []byte(hash(tok))) == 1
+	for _, s := range u.Sessions {
+		ok = ok || subtle.ConstantTimeCompare([]byte(s), h) == 1
+	}
+	if !ok {
 		return nil, ErrNotFound
 	}
 	if time.Since(u.LastSeenAt) > time.Hour {
@@ -325,4 +335,53 @@ func random(n int) (string, error) {
 func hash(tok string) string {
 	sum := sha256.Sum256([]byte(tok))
 	return hex.EncodeToString(sum[:])
+}
+
+// WebAuthn (passkeys). The user handle is the account id, so a discoverable
+// login finds the account without a username.
+func (u *User) WebAuthnID() []byte          { return []byte(u.ID) }
+func (u *User) WebAuthnName() string        { return u.label() }
+func (u *User) WebAuthnDisplayName() string { return u.label() }
+func (u *User) WebAuthnIcon() string        { return "" }
+func (u *User) WebAuthnCredentials() []webauthn.Credential {
+	var cs []webauthn.Credential
+	if len(u.Passkeys) > 0 {
+		_ = json.Unmarshal(u.Passkeys, &cs)
+	}
+	return cs
+}
+
+func (u *User) label() string {
+	if u.Username != "" {
+		return "@" + u.Username
+	}
+	return "Kafumu " + u.ID[:6]
+}
+
+// AddPasskey stores a new credential on u.
+func (s *Service) AddPasskey(ctx context.Context, u *User, c webauthn.Credential) error {
+	cs := append(u.WebAuthnCredentials(), c)
+	b, err := json.Marshal(cs)
+	if err != nil {
+		return err
+	}
+	u.Passkeys = b
+	return s.Save(ctx, u)
+}
+
+// ByID returns a user by id (for passkey logins).
+func (s *Service) ByID(ctx context.Context, id string) (*User, error) { return s.get(ctx, id) }
+
+// NewSession returns a cookie value for u with a fresh session token, for
+// passkey sign-ins (the link token is stored hashed, so it can't be reused).
+func (s *Service) NewSession(ctx context.Context, u *User) (string, error) {
+	tok, err := random(24)
+	if err != nil {
+		return "", err
+	}
+	u.Sessions = append(u.Sessions, hash(tok))
+	if len(u.Sessions) > 5 {
+		u.Sessions = u.Sessions[len(u.Sessions)-5:]
+	}
+	return u.ID + "." + tok, s.Save(ctx, u)
 }

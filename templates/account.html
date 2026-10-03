@@ -6,6 +6,8 @@
     <p>{{t .Lang "account.why"}}</p>
     <p>{{t .Lang "account.what_we_keep"}}</p>
     <form method="post" action="/account/start"><input type="hidden" name="next" value="{{.Next}}"><button type="submit" class="pill">{{t .Lang "account.start"}}</button></form>
+    {{if .Passkeys}}<p><button type="button" id="passkey-login" class="pill" hidden>🔑 {{t .Lang "passkey.signin"}}</button></p>
+    <p id="passkey-status" class="dim small" role="status"></p>{{end}}
   {{else}}
     {{if .New}}<p><strong>{{t .Lang "account.created"}}</strong></p>{{end}}
     {{if .Next}}<p><a href="{{.Next}}" role="button" class="pill suggested">{{t .Lang "account.continue"}}</a></p>{{end}}
@@ -13,6 +15,11 @@
     <p>{{t .Lang "account.link_explain"}}</p>
     <p class="magic"><input readonly value="{{.MagicURL}}" onclick="this.select()" aria-label="{{ts .Lang "account.link_title"}}">
       <button type="button" class="secondary" onclick="navigator.clipboard&&navigator.clipboard.writeText(this.previousElementSibling.value);this.textContent='✓'">{{t .Lang "account.copy"}}</button></p>
+
+    {{if .Passkeys}}<h2>{{t .Lang "passkey.title"}}</h2>
+    <p class="dim">{{t .Lang "passkey.explain"}}</p>
+    <p><button type="button" id="passkey-add" class="pill" hidden>🔑 {{t .Lang "passkey.add"}}</button></p>
+    <p id="passkey-status" class="dim small" role="status"></p>{{end}}
 
     <h2>{{t .Lang "account.name_title"}}</h2>
     <form method="post" action="/account/name" class="inline">
@@ -83,4 +90,5 @@
     </div>
   {{end}}
 </article>
+{{if .Passkeys}}<script>window.KAFUMU_T = window.KAFUMU_T || {{.JS}};</script><script src="/static/passkey.js?v={{.V}}"></script>{{end}}
 {{template "foot" .}}

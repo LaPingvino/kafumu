@@ -296,5 +296,11 @@
   "moved.go": "Mudar para kafumu.com",
   "moved.waiting": "A receber os seus dados do endereço antigo…",
   "moved.done": "{n} contactos mudados. A levá-lo para o início…",
-  "js.moved_popup": "Permita janelas pop-up para este site e toque outra vez."
+  "js.moved_popup": "Permita janelas pop-up para este site e toque outra vez.",
+  "passkey.signin": "Entrar com uma chave de acesso",
+  "passkey.title": "Chave de acesso",
+  "passkey.explain": "Entre neste dispositivo com a impressão digital, o rosto ou o bloqueio de ecrã. A sua ligação de entrada continua a funcionar.",
+  "passkey.add": "Adicionar chave de acesso",
+  "js.passkey_added": "Chave de acesso adicionada. Da próxima vez basta «Entrar com uma chave de acesso».",
+  "js.passkey_failed": "Não funcionou:"
 }
