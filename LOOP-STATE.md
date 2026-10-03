@@ -30,9 +30,11 @@ Everything before the event serves that; the rest of M1 follows after.
       for bots), cookie `id.token`, sha256 token hash, Get-by-key + 1-min instance cache, LastSeen hourly,
       usernames as separate keyed entities (transactional uniqueness), magic link, sign out, delete.
       Memory store for local runs. No email/phone collected.
-- [ ] 3b. Passkeys (go-webauthn) on the current origin; magic link stays the recovery path.
-- [ ] 4. Device store + "my card": IndexedDB; a card you choose to share (name, what you do, links:
-      LinkedIn/Bluesky/Signal/WhatsApp/email). Works without an account.
+- [ ] 3b. Passkeys (go-webauthn) — deliberately AFTER kafumu.com is mapped (passkeys bind to the
+      domain; registering on appspot now would break on the move). Magic link is the recovery path.
+- [x] 4. `static/device.js` (IndexedDB kv + contacts, storage.persist, link normalisation tested in
+      `test/device_test.mjs`) and `/card`: name, one-liner, email/phone/WhatsApp/Signal/Telegram/Bluesky/
+      LinkedIn/website, live preview, stored only on the device. No account needed.
 - [ ] 5. Scan to connect: QR with K + mailbox id; scanner sends its card encrypted via the mailbox
       (`Box`, memcache + TTL); both sides end up with each other's card + a private note
       ("met at WS, robotics, coffee Thu"). This is the conference killer feature.
@@ -65,6 +67,8 @@ Liberapay now, Stripe later · discoverability opt-in · "Kafumu" everywhere · 
 start (magic link re-binds them after a domain move).
 
 ## Notes
+- Headless check: `chromium --headless=new --dump-dom` works outside the sandbox (needs a socket);
+  run the server on PORT=18080 with absolute paths (TMPDIR differs outside the sandbox).
 - Joop (2026-10-03): "be daring, corrections are cheap"; ping his phone only for urgent things.
 - Deploy with the user-installed SDK: `~/google-cloud-sdk/bin/gcloud app deploy --project lokumo --quiet`
   (the pacman gcloud lacks app-engine-go). Needs the sandbox disabled.

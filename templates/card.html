@@ -1,0 +1,30 @@
+{{template "head" .}}
+<article>
+  <h1>{{t .Lang "card.title"}}</h1>
+  <p>{{t .Lang "card.explain"}}</p>
+  <div class="grid">
+    <form id="card-form" autocomplete="on">
+      <label>{{t .Lang "card.field_name"}}<input name="name" autocomplete="name" maxlength="80"></label>
+      <label>{{t .Lang "card.field_about"}}<input name="about" maxlength="160" placeholder="{{ts .Lang "card.about_placeholder"}}"></label>
+      <label>{{t .Lang "card.field_email"}}<input name="email" type="email" autocomplete="email"></label>
+      <label>{{t .Lang "card.field_phone"}}<input name="phone" type="tel" autocomplete="tel"></label>
+      <label>WhatsApp<input name="whatsapp" type="tel" placeholder="+351…"></label>
+      <label>Signal<input name="signal" placeholder="+351… / signal.me/…"></label>
+      <label>Telegram<input name="telegram" placeholder="@…"></label>
+      <label>Bluesky<input name="bluesky" placeholder="you.bsky.social"></label>
+      <label>LinkedIn<input name="linkedin" placeholder="linkedin.com/in/…"></label>
+      <label>{{t .Lang "card.field_website"}}<input name="website" type="url" autocomplete="url"></label>
+      <button type="submit">{{t .Lang "card.save"}}</button>
+      <p id="card-status" class="muted" role="status"></p>
+    </form>
+    <aside>
+      <p class="muted">{{t .Lang "card.preview"}}</p>
+      <article id="card-preview" class="card-preview"></article>
+      <p class="muted"><small>{{t .Lang "card.private_note"}}</small></p>
+    </aside>
+  </div>
+</article>
+<script>window.KAFUMU_T = {{.JS}};</script>
+<script src="/static/device.js"></script>
+<script src="/static/card.js"></script>
+{{template "foot" .}}

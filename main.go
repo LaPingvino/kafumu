@@ -33,6 +33,7 @@ func main() {
 	mux.HandleFunc("GET /", home.ShowHome)
 	mux.HandleFunc("GET /about", home.ShowAbout)
 	mux.HandleFunc("GET /bundle", home.Bundle)
+	mux.HandleFunc("GET /card", home.ShowCard)
 	mux.HandleFunc("GET /account", accounts.Show)
 	mux.HandleFunc("POST /account/start", accounts.Start)
 	mux.HandleFunc("POST /account/name", accounts.SetName)

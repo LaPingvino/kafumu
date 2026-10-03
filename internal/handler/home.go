@@ -100,6 +100,13 @@ type bundle struct {
 	Posts  []bsky.Post          `json:"posts"`
 }
 
+// ShowCard renders the "my card" editor; the card itself lives on the device.
+func (h *Home) ShowCard(w http.ResponseWriter, r *http.Request) {
+	p := h.newPage(r, "")
+	p.Title = locale.T(p.Lang, "card.title")
+	h.render(w, "card.html", p)
+}
+
 // Funcs are the template functions. Translations come from our own files,
 // so they may contain markup.
 var Funcs = template.FuncMap{

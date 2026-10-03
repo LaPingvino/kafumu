@@ -16,6 +16,7 @@
     <nav>
       <ul><li><a href="/" class="brand">☕ {{.Brand}}</a></li></ul>
       <ul>
+        <li><a href="/card">{{t .Lang "nav.card"}}</a></li>
         <li><a href="/about">{{t .Lang "nav.about"}}</a></li>
         <li><a href="/account">{{if .User}}{{if .User.Username}}@{{.User.Username}}{{else}}{{t .Lang "nav.account"}}{{end}}{{else}}{{t .Lang "nav.signin"}}{{end}}</a></li>
         <li>
