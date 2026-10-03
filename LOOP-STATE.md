@@ -26,8 +26,11 @@ Everything before the event serves that; the rest of M1 follows after.
 - [x] 2b. UI in EN, PT (European), EO, NL: `internal/locale` (adapted from esperanto-kurso, English
       fallback), cookie switcher set client-side (no server write), `js.*` strings handed to the client.
       Test enforces identical keys and placeholders across languages.
-- [ ] 3. Accounts: copy esperanto-kurso auth; cookie `userID.token`, token stored hashed, Get-by-key;
-      created lazily on first action; magic-link page; delete-account button. Passkeys right after.
+- [x] 3. Accounts (`internal/account`): created only by an explicit POST (never on page views, never
+      for bots), cookie `id.token`, sha256 token hash, Get-by-key + 1-min instance cache, LastSeen hourly,
+      usernames as separate keyed entities (transactional uniqueness), magic link, sign out, delete.
+      Memory store for local runs. No email/phone collected.
+- [ ] 3b. Passkeys (go-webauthn) on the current origin; magic link stays the recovery path.
 - [ ] 4. Device store + "my card": IndexedDB; a card you choose to share (name, what you do, links:
       LinkedIn/Bluesky/Signal/WhatsApp/email). Works without an account.
 - [ ] 5. Scan to connect: QR with K + mailbox id; scanner sends its card encrypted via the mailbox

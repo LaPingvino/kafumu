@@ -17,6 +17,7 @@
       <ul><li><a href="/" class="brand">☕ {{.Brand}}</a></li></ul>
       <ul>
         <li><a href="/about">{{t .Lang "nav.about"}}</a></li>
+        <li><a href="/account">{{if .User}}{{if .User.Username}}@{{.User.Username}}{{else}}{{t .Lang "nav.account"}}{{end}}{{else}}{{t .Lang "nav.signin"}}{{end}}</a></li>
         <li>
           <select id="lang" aria-label="{{ts .Lang "nav.language"}}" onchange="document.cookie='lang='+this.value+';path=/;max-age=31536000;samesite=lax';location.reload()">
             {{range .Langs}}<option value="{{.Code}}"{{if eq .Code $.Lang}} selected{{end}}>{{.Name}}</option>{{end}}

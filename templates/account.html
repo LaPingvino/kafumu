@@ -1,0 +1,30 @@
+{{template "head" .}}
+<article>
+  <h1>{{t .Lang "account.title"}}</h1>
+  {{if .Error}}<p role="alert" class="error">{{.Error}}</p>{{end}}
+  {{if not .User}}
+    <p>{{t .Lang "account.why"}}</p>
+    <p>{{t .Lang "account.what_we_keep"}}</p>
+    <form method="post" action="/account/start"><button type="submit">{{t .Lang "account.start"}}</button></form>
+  {{else}}
+    {{if .New}}<p><strong>{{t .Lang "account.created"}}</strong></p>{{end}}
+    <h2>{{t .Lang "account.link_title"}}</h2>
+    <p>{{t .Lang "account.link_explain"}}</p>
+    <p class="magic"><input readonly value="{{.MagicURL}}" onclick="this.select()" aria-label="{{ts .Lang "account.link_title"}}">
+      <button type="button" class="secondary" onclick="navigator.clipboard&&navigator.clipboard.writeText(this.previousElementSibling.value);this.textContent='✓'">{{t .Lang "account.copy"}}</button></p>
+
+    <h2>{{t .Lang "account.name_title"}}</h2>
+    <form method="post" action="/account/name" class="inline">
+      <input name="username" value="{{.User.Username}}" placeholder="{{ts .Lang "account.name_placeholder"}}" pattern="[A-Za-z0-9_\-]{3,30}" aria-label="{{ts .Lang "account.name_title"}}">
+      <button type="submit">{{t .Lang "account.save"}}</button>
+    </form>
+
+    <h2>{{t .Lang "account.leave_title"}}</h2>
+    <form method="post" action="/account/signout"><button type="submit" class="secondary outline">{{t .Lang "account.signout"}}</button></form>
+    <form method="post" action="/account/delete" onsubmit="return confirm(this.dataset.q)" data-q="{{ts .Lang "account.delete_confirm"}}">
+      <input type="hidden" name="confirm" value="yes">
+      <button type="submit" class="contrast outline">{{t .Lang "account.delete"}}</button>
+    </form>
+  {{end}}
+</article>
+{{template "foot" .}}

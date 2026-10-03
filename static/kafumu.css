@@ -13,3 +13,6 @@
 #manual-form input { flex: 1; }
 .events { border-left: 4px solid var(--pico-primary); }
 .events p { margin: 0; }
+.magic, form.inline { display: flex; gap: .5rem; }
+.magic input, form.inline input { flex: 1; }
+.error { color: var(--pico-del-color); }

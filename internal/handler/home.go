@@ -11,6 +11,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/LaPingvino/kafumu/internal/account"
 	"github.com/LaPingvino/kafumu/internal/bsky"
 	"github.com/LaPingvino/kafumu/internal/config"
 	"github.com/LaPingvino/kafumu/internal/gazetteer"
@@ -39,6 +40,7 @@ type page struct {
 	Cell  string
 	Lang  string
 	Langs []locale.Lang
+	User  *account.User
 	// JS holds the "js." strings for client-side code.
 	JS map[string]string
 }
@@ -51,7 +53,8 @@ func (h *Home) newPage(r *http.Request, title string) page {
 		choice = c.Value
 	}
 	lang := locale.Pick(choice, r.Header.Get("Accept-Language"))
-	return page{Brand: h.Cfg.Brand, Title: title, Lang: lang, Langs: locale.Langs(), JS: locale.Prefix(lang, "js.")}
+	return page{Brand: h.Cfg.Brand, Title: title, Lang: lang, Langs: locale.Langs(),
+		User: UserFrom(r.Context()), JS: locale.Prefix(lang, "js.")}
 }
 
 // ShowHome renders the shell; the cell is computed on the device and the list
