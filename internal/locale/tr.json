@@ -465,5 +465,8 @@
   "js.chip_edit": "Etiketleri düzenle: × kaldırır",
   "js.ask_far": "{tags} için · {km} km uzakta",
   "js.filter_here": "{what}: burada {n}.",
-  "js.filter_few": "{what}: burada {n}, bu yüzden aşağıda başka yerlerden {tag} var."
+  "js.filter_few": "{what}: burada {n}, bu yüzden aşağıda başka yerlerden {tag} var.",
+  "olnpage.title": "Open Location Network",
+  "olnpage.lead": "Kafumu'nun yerel mesajları, herkesin okuyabildiği, yazabildiği ve düğüm çalıştırabildiği açık bir ağın parçası. Nasıl çalıştığı ve nasıl bağlanılacağı burada.",
+  "olnpage.link": "Open Location Network nasıl çalışır"
 }

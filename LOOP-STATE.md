@@ -391,7 +391,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       Browser-tested (👍 1 under a message). Was: React to anything (Joop, OLN): every card (local message, meetup, person, Bluesky post) gets a
       reply/react action that posts a local message tagged #re<id> (or #re<hash of the uri/id> for posts,
       meetups, people), threaded under it like answers; quick emoji reactions as tiny PoW messages.
-- [ ] 44. NEXT (Joop asked again). /oln page (Joop): what the Open Location Network is (local messages as text + #geo tags, proof of work
+- [x] 44. /oln: what OLN is (place as #geo text, PoW instead of accounts, TTL doubling per bit, busy areas ask
+      more), eolnpoc and format compatibility, the line format, GET /oln.json, POST /api/oln (+ new GET
+      /api/oln/required?cell=), a JS mining snippet (verified end to end against a local server), GET /api/asks,
+      running your own node. Title/lead in all 23 languages, body in English. Linked from About. Was: /oln page (Joop): what the Open Location Network is (local messages as text + #geo tags, proof of work
       instead of accounts, time-biased validity), the eolnpoc proof of concept (link, how its format works),
       and how to integrate: GET /oln.json?cell=… (olnjson.Format), POST /api/oln (raw nonce;date;b64;keywords,
       SHA-1 leading zeros, current required bits from the bundle), with a curl/JS example. Linked from About.

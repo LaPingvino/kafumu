@@ -465,5 +465,8 @@
   "js.chip_edit": "Sửa chip: × để bỏ",
   "js.ask_far": "về {tags} · cách {km} km",
   "js.filter_here": "{what}: {n} ở đây.",
-  "js.filter_few": "{what}: {n} ở đây, nên {tag} từ nơi khác hiện ở bên dưới."
+  "js.filter_few": "{what}: {n} ở đây, nên {tag} từ nơi khác hiện ở bên dưới.",
+  "olnpage.title": "Open Location Network",
+  "olnpage.lead": "Tin nhắn địa phương của Kafumu là một phần của mạng mở mà ai cũng có thể đọc, ghi và chạy một nút. Đây là cách nó hoạt động và cách kết nối.",
+  "olnpage.link": "Open Location Network hoạt động thế nào"
 }

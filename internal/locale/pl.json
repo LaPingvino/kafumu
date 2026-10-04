@@ -465,5 +465,8 @@
   "js.chip_edit": "Edytuj swoje etykiety: × usuwa",
   "js.ask_far": "dla {tags} · {km} km stąd",
   "js.filter_here": "{what}: tutaj {n}.",
-  "js.filter_few": "{what}: tutaj {n}, więc niżej {tag} z innych miejsc."
+  "js.filter_few": "{what}: tutaj {n}, więc niżej {tag} z innych miejsc.",
+  "olnpage.title": "Open Location Network",
+  "olnpage.lead": "Lokalne wiadomości Kafumu są częścią otwartej sieci, z której każdy może czytać, do której może pisać i w której może uruchomić węzeł. Oto jak działa i jak się podłączyć.",
+  "olnpage.link": "Jak działa Open Location Network"
 }

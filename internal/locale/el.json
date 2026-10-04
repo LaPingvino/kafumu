@@ -465,5 +465,8 @@
   "js.chip_edit": "Επεξεργασία: το × αφαιρεί",
   "js.ask_far": "για {tags} · {km} χλμ. μακριά",
   "js.filter_here": "{what}: {n} εδώ.",
-  "js.filter_few": "{what}: {n} εδώ, οπότε παρακάτω {tag} από αλλού."
+  "js.filter_few": "{what}: {n} εδώ, οπότε παρακάτω {tag} από αλλού.",
+  "olnpage.title": "Open Location Network",
+  "olnpage.lead": "Τα τοπικά μηνύματα του Kafumu είναι μέρος ενός ανοιχτού δικτύου, από το οποίο ο καθένας μπορεί να διαβάζει, να γράφει και να τρέχει κόμβο. Δες πώς λειτουργεί και πώς συνδέεσαι.",
+  "olnpage.link": "Πώς λειτουργεί το Open Location Network"
 }

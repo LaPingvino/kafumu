@@ -465,5 +465,8 @@
   "js.chip_edit": "Je chips bewerken: × verwijdert",
   "js.ask_far": "voor {tags} · {km} km verderop",
   "js.filter_here": "{what}: {n} hier.",
-  "js.filter_few": "{what}: {n} hier, dus {tag} van elders staat hieronder."
+  "js.filter_few": "{what}: {n} hier, dus {tag} van elders staat hieronder.",
+  "olnpage.title": "Het Open Location Network",
+  "olnpage.lead": "De lokale berichten van Kafumu horen bij een open netwerk waar iedereen uit kan lezen, naar kan schrijven en een node voor kan draaien. Zo werkt het en zo sluit je aan.",
+  "olnpage.link": "Hoe het Open Location Network werkt"
 }

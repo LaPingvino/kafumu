@@ -1,0 +1,71 @@
+{{template "head" .}}
+<article class="doc">
+  <h1>{{t .Lang "olnpage.title"}}</h1>
+  <p>{{t .Lang "olnpage.lead"}}</p>
+
+  <h2>What it is</h2>
+  <p>The <strong>Open Location Network</strong> is a way to leave short public messages <em>at a place</em> without
+  accounts, servers you must trust, or location tracking. A message is plain text plus hashtags. The place is a
+  hashtag too: <code>#geo</code> followed by the first six characters of the area's
+  <a href="https://maps.google.com/pluscodes/">plus code</a> (about 5 km across), e.g. <code>#geo8ccgmw</code>.
+  Anyone can store, index and pass these messages on; a node is just something that does that.</p>
+  <p>Instead of an account, every message carries a small <strong>proof of work</strong>: the sender's device tries
+  numbers until the message's SHA-1 hash starts with enough zero bits. One message costs a phone a fraction of a
+  second; a thousand cost a spammer real time. More work buys a longer life: a message lives one hour at the
+  required work and twice as long for every extra bit (up to a week). When an area gets busy, the required work
+  goes up a little, so floods price themselves out.</p>
+
+  <h2>The proof of concept</h2>
+  <p>OLN started as <a href="https://github.com/LaPingvino/eolnpoc">eolnpoc</a>, a small Go proof of concept from long
+  before Kafumu, and Kafumu speaks its format exactly, so messages move between the two unchanged. Kafumu is one
+  OLN node: its local messages, questions, answers and reactions are all OLN messages.</p>
+
+  <h2>The message format</h2>
+  <pre><code>nonce;YYYYMMDDhhmmss;base64url(text);#geo8ccgmw #langeng #coffee</code></pre>
+  <ul>
+    <li><strong>nonce</strong>: the number the sender searched for.</li>
+    <li><strong>date</strong>: when it was made, in UTC; nodes accept a ±10 minute clock difference.</li>
+    <li><strong>text</strong>: the message, UTF-8, base64url without padding.</li>
+    <li><strong>keywords</strong>: space-separated hashtags; exactly one <code>#geo…</code> cell. Kafumu also uses
+      <code>#lang&lt;iso639-3&gt;</code>, <code>#ask</code> for questions and <code>#re&lt;10 hex&gt;</code> for answers
+      and reactions.</li>
+  </ul>
+  <p>The work is the number of leading zero bits of <code>SHA-1</code> over the whole line. The message id is the hex
+  SHA-1 of the line.</p>
+
+  <h2>Reading: GET /oln.json</h2>
+  <p>Live messages of a cell and its neighbours, in eolnpoc's <code>olnjson</code> format (server info, messages by id,
+  a tag index, and where to push):</p>
+  <pre><code>curl 'https://kafumu.com/oln.json?cell=8ccgmw'</code></pre>
+
+  <h2>Writing: POST /api/oln</h2>
+  <p>First ask how much work the cell currently wants, then mine and post the raw line:</p>
+  <pre><code>curl 'https://kafumu.com/api/oln/required?cell=8ccgmw'      # {"bits": 12}
+curl -X POST --data-binary 'nonce;20261004183000;SGVsbG8;#geo8ccgmw' https://kafumu.com/api/oln</code></pre>
+  <p>Answers: <code>200</code> with the stored message (and its expiry), <code>402</code> when the work is too low
+  (mine more bits), <code>400</code> for a malformed line, a clock off by more than ten minutes, or not exactly one
+  <code>#geo</code> cell.</p>
+  <p>Mining in JavaScript, in a few lines:</p>
+  <pre><code>// sha1 → leading zero bits; try nonces until there are enough.
+async function mine(text, keywords, bits) {
+  const date = new Date().toISOString().replace(/[-:T]/g, "").slice(0, 14);
+  const b64 = btoa(String.fromCharCode(...new TextEncoder().encode(text)))
+    .replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  for (let n = 0; ; n++) {
+    const line = `${n};${date};${b64};${keywords}`;
+    const h = new Uint8Array(await crypto.subtle.digest("SHA-1", new TextEncoder().encode(line)));
+    let z = 0; for (const b of h) { if (b === 0) { z += 8; continue; } z += Math.clz32(b) - 24; break; }
+    if (z >= bits) return line;
+  }
+}</code></pre>
+
+  <h2>Questions by subject: GET /api/asks</h2>
+  <p>Live questions (<code>#ask</code>) about any of the given subjects, from anywhere; filter by distance yourself:</p>
+  <pre><code>curl 'https://kafumu.com/api/asks?tags=opensource,esperanto'</code></pre>
+
+  <h2>Run your own node</h2>
+  <p>Store messages you receive, serve them as <code>oln.json</code>, accept posts with enough work, and pull from or
+  push to other nodes (Kafumu lists <code>/api/oln</code> as its push address). The source of Kafumu is
+  <a href="https://github.com/LaPingvino/kafumu">open</a>, and so is <a href="https://github.com/LaPingvino/eolnpoc">eolnpoc</a>.</p>
+</article>
+{{template "foot" .}}

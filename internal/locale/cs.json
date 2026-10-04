@@ -465,5 +465,8 @@
   "js.chip_edit": "Upravit štítky: × odebere",
   "js.ask_far": "k {tags} · {km} km odsud",
   "js.filter_here": "{what}: tady {n}.",
-  "js.filter_few": "{what}: tady {n}, proto níž {tag} odjinud."
+  "js.filter_few": "{what}: tady {n}, proto níž {tag} odjinud.",
+  "olnpage.title": "Open Location Network",
+  "olnpage.lead": "Místní zprávy Kafumu jsou součástí otevřené sítě, ze které může kdokoli číst, do které může psát a pro kterou může provozovat uzel. Takhle funguje a takhle se připojíš.",
+  "olnpage.link": "Jak funguje Open Location Network"
 }

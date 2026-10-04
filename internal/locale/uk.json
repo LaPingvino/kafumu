@@ -465,5 +465,8 @@
   "js.chip_edit": "Редагувати мітки: × прибирає",
   "js.ask_far": "щодо {tags} · {km} км звідси",
   "js.filter_here": "{what}: тут {n}.",
-  "js.filter_few": "{what}: тут {n}, тож нижче {tag} з інших місць."
+  "js.filter_few": "{what}: тут {n}, тож нижче {tag} з інших місць.",
+  "olnpage.title": "Open Location Network",
+  "olnpage.lead": "Місцеві повідомлення Kafumu — частина відкритої мережі: будь-хто може читати з неї, писати в неї й запускати свій вузол. Ось як вона працює і як під'єднатися.",
+  "olnpage.link": "Як працює Open Location Network"
 }

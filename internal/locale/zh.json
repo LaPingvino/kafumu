@@ -465,5 +465,8 @@
   "js.chip_edit": "编辑标签：× 移除",
   "js.ask_far": "关于 {tags} · {km} 公里外",
   "js.filter_here": "{what}：这里有 {n} 条。",
-  "js.filter_few": "{what}：这里有 {n} 条，下面显示其他地方的 {tag}。"
+  "js.filter_few": "{what}：这里有 {n} 条，下面显示其他地方的 {tag}。",
+  "olnpage.title": "开放位置网络",
+  "olnpage.lead": "Kafumu 的本地消息属于一个开放网络，任何人都可以读取、写入并运行节点。这里介绍它的原理和接入方式。",
+  "olnpage.link": "开放位置网络如何运作"
 }

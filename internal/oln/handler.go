@@ -3,6 +3,7 @@ package oln
 import (
 	"encoding/json"
 	"errors"
+	"github.com/LaPingvino/kafumu/internal/geo"
 	"io"
 	"log"
 	"net/http"
@@ -58,4 +59,18 @@ func (s *Service) HandleAsks(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Cache-Control", "public, max-age=60")
 	json.NewEncoder(w).Encode(ns)
+}
+
+// HandleRequired is GET /api/oln/required?cell=…: the work (bits) a new
+// message in that cell needs right now.
+func (s *Service) HandleRequired(w http.ResponseWriter, r *http.Request) {
+	cell := strings.ToLower(r.URL.Query().Get("cell"))
+	if !geo.Valid(cell) {
+		http.Error(w, "want ?cell=<6-char #geo cell>", http.StatusBadRequest)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Cache-Control", "public, max-age=30")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	json.NewEncoder(w).Encode(map[string]int{"bits": s.RequiredFor(r.Context(), cell)})
 }

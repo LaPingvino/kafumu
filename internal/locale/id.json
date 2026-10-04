@@ -465,5 +465,8 @@
   "js.chip_edit": "Ubah chip: × menghapus",
   "js.ask_far": "untuk {tags} · {km} km jauhnya",
   "js.filter_here": "{what}: {n} di sini.",
-  "js.filter_few": "{what}: {n} di sini, jadi {tag} dari tempat lain ditampilkan di bawah."
+  "js.filter_few": "{what}: {n} di sini, jadi {tag} dari tempat lain ditampilkan di bawah.",
+  "olnpage.title": "Open Location Network",
+  "olnpage.lead": "Pesan lokal Kafumu adalah bagian dari jaringan terbuka yang bisa dibaca, ditulisi, dan dijalankan node-nya oleh siapa saja. Begini cara kerjanya dan cara terhubung.",
+  "olnpage.link": "Cara kerja Open Location Network"
 }

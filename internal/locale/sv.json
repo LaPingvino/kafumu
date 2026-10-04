@@ -465,5 +465,8 @@
   "js.chip_edit": "Redigera dina chips: × tar bort",
   "js.ask_far": "om {tags} · {km} km bort",
   "js.filter_here": "{what}: {n} här.",
-  "js.filter_few": "{what}: {n} här, så {tag} från andra ställen visas nedan."
+  "js.filter_few": "{what}: {n} här, så {tag} från andra ställen visas nedan.",
+  "olnpage.title": "Open Location Network",
+  "olnpage.lead": "Kafumus lokala meddelanden är en del av ett öppet nätverk som vem som helst kan läsa från, skriva till och köra en nod för. Så här fungerar det och så ansluter du.",
+  "olnpage.link": "Så fungerar Open Location Network"
 }

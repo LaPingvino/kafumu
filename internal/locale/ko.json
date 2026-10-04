@@ -465,5 +465,8 @@
   "js.chip_edit": "칩 편집: ×로 제거",
   "js.ask_far": "{tags} · {km}km 거리",
   "js.filter_here": "{what}: 여기 {n}개.",
-  "js.filter_few": "{what}: 여기 {n}개. 아래에 다른 곳의 {tag}를 보여 줘요."
+  "js.filter_few": "{what}: 여기 {n}개. 아래에 다른 곳의 {tag}를 보여 줘요.",
+  "olnpage.title": "Open Location Network",
+  "olnpage.lead": "Kafumu의 로컬 메시지는 누구나 읽고 쓰고 노드를 운영할 수 있는 열린 네트워크의 일부예요. 작동 방식과 연결 방법을 소개해요.",
+  "olnpage.link": "Open Location Network는 어떻게 작동하나요"
 }

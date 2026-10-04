@@ -465,5 +465,8 @@
   "js.chip_edit": "Edit your chips: × removes",
   "js.ask_far": "for {tags} · {km} km away",
   "js.filter_here": "{what}: {n} here.",
-  "js.filter_few": "{what}: {n} here, so {tag} from elsewhere is shown below."
+  "js.filter_few": "{what}: {n} here, so {tag} from elsewhere is shown below.",
+  "olnpage.title": "The Open Location Network",
+  "olnpage.lead": "Kafumu's local messages are part of an open network anyone can read from, write to and run a node of. Here's how it works and how to connect.",
+  "olnpage.link": "How the Open Location Network works"
 }

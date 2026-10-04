@@ -465,5 +465,8 @@
   "js.chip_edit": "Chips bearbeiten: × entfernt",
   "js.ask_far": "zu {tags} · {km} km entfernt",
   "js.filter_here": "{what}: {n} hier.",
-  "js.filter_few": "{what}: {n} hier, deshalb unten {tag} von anderswo."
+  "js.filter_few": "{what}: {n} hier, deshalb unten {tag} von anderswo.",
+  "olnpage.title": "Das Open Location Network",
+  "olnpage.lead": "Kafumus lokale Nachrichten sind Teil eines offenen Netzes, aus dem alle lesen, in das alle schreiben und für das alle einen Knoten betreiben können. So funktioniert es und so schließt du dich an.",
+  "olnpage.link": "Wie das Open Location Network funktioniert"
 }

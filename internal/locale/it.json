@@ -465,5 +465,8 @@
   "js.chip_edit": "Modifica i tuoi chip: × rimuove",
   "js.ask_far": "per {tags} · a {km} km",
   "js.filter_here": "{what}: {n} qui.",
-  "js.filter_few": "{what}: {n} qui, quindi sotto trovi {tag} da altrove."
+  "js.filter_few": "{what}: {n} qui, quindi sotto trovi {tag} da altrove.",
+  "olnpage.title": "L'Open Location Network",
+  "olnpage.lead": "I messaggi locali di Kafumu fanno parte di una rete aperta in cui chiunque può leggere, scrivere e gestire un nodo. Ecco come funziona e come collegarsi.",
+  "olnpage.link": "Come funziona l'Open Location Network"
 }

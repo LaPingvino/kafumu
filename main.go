@@ -75,6 +75,7 @@ func main() {
 	mux.HandleFunc("GET /patrons", home.Info("patrons.html", "patrons.title"))
 	mux.HandleFunc("GET /for-cafes", home.Info("cafes.html", "cafes.title"))
 	mux.HandleFunc("GET /privacy", home.Info("privacy.html", "privacy.title"))
+	mux.HandleFunc("GET /oln", home.Info("oln.html", "olnpage.title"))
 	mux.HandleFunc("GET /bundle", home.Bundle)
 	mux.HandleFunc("GET /places", home.Places)
 	mux.HandleFunc("GET /tagposts", home.TagPosts)
@@ -153,6 +154,7 @@ func main() {
 	mux.HandleFunc("GET /api/slot/{id}", slotAPI.Get)
 	mux.HandleFunc("PUT /api/slot/{id}", slotAPI.Put)
 	mux.HandleFunc("POST /api/oln", notes.HandlePost)
+	mux.HandleFunc("GET /api/oln/required", notes.HandleRequired)
 	mux.HandleFunc("GET /api/asks", func(w http.ResponseWriter, r *http.Request) {
 		if handler.IsBot(r) {
 			http.Error(w, "not for robots", http.StatusForbidden)

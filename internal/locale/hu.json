@@ -465,5 +465,8 @@
   "js.chip_edit": "Címkék szerkesztése: × eltávolít",
   "js.ask_far": "téma: {tags} · {km} km-re",
   "js.filter_here": "{what}: itt {n}.",
-  "js.filter_few": "{what}: itt {n}, ezért lent máshonnan: {tag}."
+  "js.filter_few": "{what}: itt {n}, ezért lent máshonnan: {tag}.",
+  "olnpage.title": "Open Location Network",
+  "olnpage.lead": "A Kafumu helyi üzenetei egy nyílt hálózat részei, amelyből bárki olvashat, amelybe bárki írhat, és amelyhez bárki futtathat csomópontot. Így működik, és így csatlakozhatsz.",
+  "olnpage.link": "Így működik az Open Location Network"
 }
