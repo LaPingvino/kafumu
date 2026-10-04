@@ -287,7 +287,8 @@ start (magic link re-binds them after a domain move).
   people served by another instance (the host's own instance forgets at once).
 - Cron: "every N hours" without `synchronized` counts from deploy time; now clock-aligned (feeds 00/06/
   12/18 UTC, purge 04:00). Feeds VERIFIED 2026-10-04 00:00 UTC (50 events, 40 saved, 0 errors; Lisbon
-  shows Luma meetups). Purge: verify the 04:00 UTC run in the logs — /privacy depends on it.
+  shows Luma meetups). Purge VERIFIED 2026-10-04 04:00 UTC (meetups+notes=38, boxes+pushsubs+short=3,
+  atproto=1, users=0, err=nil): /privacy's retention promises hold in production.
 - Browser tests post into cells 6fg222/6fg223 (0°,0°, open sea) so production runs never show up anywhere real.
 - Joop (2026-10-03): "be daring, corrections are cheap"; ping his phone only for urgent things.
 - Datastore indexes: `~/google-cloud-sdk/bin/gcloud app deploy index.yaml --project lokumo`.
