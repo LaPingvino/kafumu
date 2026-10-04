@@ -273,3 +273,7 @@ input[type="range"] { padding: 0; background: transparent; accent-color: var(--a
 /* Reactions under any card */
 .pill-sm.react { padding: 4px 8px; min-width: 0; }
 .reactions { margin: 4px 0 2px; font-size: .95rem; letter-spacing: .02em; }
+
+/* Filter chips above the feed */
+.filter-chips { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; margin: .5rem 0; scrollbar-width: none; }
+.filter-chips .chip { white-space: nowrap; }

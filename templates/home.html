@@ -105,6 +105,7 @@
 <!-- One feed (Joop): contacts, local messages, meetups, people and Bluesky
      as cards in one list, ranked on the device; chips filter by kind. -->
 <section id="feed-section">
+  <div id="filter-chips" class="chips filter-chips" role="group" hidden></div>
   <div id="feed-kinds" class="chips" role="group"></div>
   <ul id="feed" class="boxed-list feed"><li class="muted">{{t .Lang "home.nothing_loaded"}}</li></ul>
   <p class="muted" id="list-note"></p>

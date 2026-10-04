@@ -395,14 +395,56 @@
     BG: "bul", HR: "hrv", RS: "srp", SI: "slv", EE: "est", LV: "lav", LT: "lit", JP: "jpn", KR: "kor", CN: "cmn", TW: "cmn",
     VN: "vie", TH: "tha", ID: "ind", MY: "msa", IL: "heb", EG: "ara", MA: "ara", SA: "ara", AE: "ara", IR: "fas", IN: "hin",
     PK: "urd", BD: "ben", KE: "swa", TZ: "swa", GE: "kat", AM: "hye", AL: "sqi", CV: "por", CU: "spa", DO: "spa", VE: "spa" };
-  var learnLang = "";
+  var learnLang = "", learnNeeded = false;
+  // ---- Filter chips: events, the local language, interests ----
+  // Tapping one narrows Around to it (another tap clears it). Events and
+  // interests filter strictly; a language boosts (it's broader).
+  function drawFilterChips(b) {
+    var box = $("filter-chips"), me = window.KAFUMU_ME || {};
+    box.textContent = "";
+    var chips = [], seen = {};
+    function add(kind, value, label) {
+      var k = kind + ":" + value;
+      if (!value || seen[k]) return;
+      seen[k] = true; chips.push({ kind: kind, value: value, label: label });
+    }
+    (b.events || []).forEach(function (e) { add("tag", e.tag, (e.live ? "🔴 " : "📅 ") + "#" + e.tag); });
+    if (learnLang && (me.names || {})[learnLang]) add("lang", learnLang, "🗣 " + me.names[learnLang]);
+    if (view.lang && view.lang !== learnLang) add("lang", view.lang, "🗣 " + ((me.names || {})[view.lang] || view.lang));
+    var counts = {};
+    try { counts = JSON.parse(localStorage.getItem("kafumu.localTags") || "{}"); } catch (e) {}
+    Object.keys(counts).sort(function (a, z) { return counts[z] - counts[a]; }).slice(0, 6).forEach(function (t) { add("tag", t, "#" + t); });
+    (me.tags || []).slice(0, 6).forEach(function (t) { add("tag", t.toLowerCase().replace(/\s+/g, ""), "#" + t.toLowerCase().replace(/\s+/g, "")); });
+    if (view.tag) add("tag", view.tag, "#" + view.tag);
+    chips.forEach(function (c) {
+      var on = c.kind === "tag" ? view.tag === c.value : view.lang === c.value;
+      var a = document.createElement("a");
+      a.className = "chip" + (on ? " on" : "");
+      a.setAttribute("aria-pressed", on);
+      a.textContent = (on ? "✓ " : "") + c.label;
+      var next = { lang: view.lang, tag: view.tag, strength: view.strength };
+      if (c.kind === "tag") { next.tag = on ? "" : c.value; next.strength = on ? 2 : 3; }
+      else { next.lang = on ? "" : c.value; }
+      var q = new URLSearchParams();
+      q.set("cell", currentCell);
+      if (next.lang) q.set("lang", next.lang);
+      if (next.tag) q.set("tag", next.tag);
+      if ((next.lang || next.tag) && next.strength !== 2) q.set("w", String(next.strength));
+      a.href = "/?" + q.toString();
+      box.appendChild(a);
+    });
+    box.hidden = !chips.length;
+    // Looking at a language you don't speak: the learn card comes along.
+    if (view.lang && view.lang === learnLang && learnNeeded) $("learn-card").hidden = false;
+  }
   function offerLearn(country) {
     var me = window.KAFUMU_ME || {}, code = COUNTRY_LANG[country] || "", b = $("learn");
     var speaks = (me.langs || []).some(function (l) { var p = l.split("/"); return p[0] === code && p[1] !== "learning"; }) ||
       (me.from1 || {})[document.documentElement.lang] === code;
     learnLang = code;
-    b.hidden = !code || speaks || !(me.names || {})[code];
-    if (b.hidden) return;
+    learnNeeded = !!code && !speaks && !!(me.names || {})[code];
+    b.hidden = true; // offered as the language chip in the filter row instead
+    if (!learnNeeded) return;
     var name = me.names[code];
     b.textContent = "🗣 " + tr("learn_btn", { lang: name });
     $("learn-title").textContent = "🗣 " + tr("learn_btn", { lang: name });
@@ -665,8 +707,12 @@
         // A human heading: "Barreiro" or "Areeiro, Lisbon", the cell tag below.
         if (b.near && b.near.country) { try { localStorage.setItem("kafumu.country", b.near.country); } catch (e) {} }
         offerLearn(b.near ? b.near.country : "");
+        drawFilterChips(b);
         if (b.near && b.near.name) {
-          $("place-name").textContent = b.near.name + (b.near.city ? ", " + b.near.city : "");
+          var placeText = b.near.name + (b.near.city ? ", " + b.near.city : "");
+          // With a filter on, the heading says what you're looking at here.
+          var langName = view.lang ? (((window.KAFUMU_ME || {}).names || {})[view.lang] || view.lang) : "";
+          $("place-name").textContent = view.tag ? "#" + view.tag + " · " + placeText : langName ? "🗣 " + langName + " · " + placeText : placeText;
           document.querySelector(".cell-tag").classList.add("named");
           // The cloud: neighbourhoods and villages around, small.
           var also = $("place-also");

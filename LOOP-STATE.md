@@ -407,6 +407,11 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       Paid: a brand for your community/organisation. Accounts: separate per brand domain (Joop: passkeys are
       bound to their domain); the shared layer is the network (#geo cells, OLN, connect codes), not accounts.
       Open: pricing.
+- [x] 49a. Filter chips row above the feed: events (🔴 live / 📅 upcoming), the local language (🗣, replaces the
+      Learn button; the learn card opens with it when you don't speak it), top local tags and your interests.
+      Tap = filter (tags strict, w=3; language boosts), tap again = clear. Heading becomes "#tag · Place" /
+      "🗣 Language · Place". Browser-tested in Lisbon (🗣 Portuguese, #websummit). 49b next: widen + Elsewhere +
+      interest synonyms.
 - [ ] 49. PRIORITY. Filter chips on Around (Joop): one row of tappable hashtags that narrow Around: running
       or upcoming events (#websummit), the local language (merges the 🗣 Learn button into this), interests
       (yours + local themes). Tapping one sets the view; the heading becomes "#websummit in Lisbon".
