@@ -396,5 +396,6 @@
   "js.unnamed": "iemand nieuws",
   "js.alias_placeholder": "Jouw naam voor hen",
   "js.send_my_card": "Stuur mijn kaartje",
-  "js.card_sent": "Kaartje verstuurd"
+  "js.card_sent": "Kaartje verstuurd",
+  "connect.save_name": "Toevoegen aan mijn kaartje"
 }

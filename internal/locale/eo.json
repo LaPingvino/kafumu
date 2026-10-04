@@ -396,5 +396,6 @@
   "js.unnamed": "iu nova",
   "js.alias_placeholder": "Via nomo por ri",
   "js.send_my_card": "Sendi mian karton",
-  "js.card_sent": "Karto sendita"
+  "js.card_sent": "Karto sendita",
+  "connect.save_name": "Aldoni al mia karto"
 }

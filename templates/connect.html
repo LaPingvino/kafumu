@@ -1,7 +1,6 @@
 {{template "head" .}}
 <h1>{{t .Lang "connect.title"}}</h1>
 <p class="dim">{{t .Lang "connect.explain"}}</p>
-{{template "nameform" .}}
 <div id="code-area" hidden>
   <div id="share-picker"></div>
   <div class="card qr-card">
@@ -16,6 +15,7 @@
       <button type="button" onclick="navigator.clipboard&&navigator.clipboard.writeText(document.getElementById('invite-link').value);this.textContent='✓'">{{t .Lang "account.copy"}}</button></p>
     <p><button type="button" id="make-short" class="pill-sm">{{t .Lang "short.make"}}</button> <strong id="short-code" class="short-code"></strong></p>
   </div>
+  {{template "nameform" .}}
   <p class="dim"><small>{{t .Lang "connect.privacy"}}</small></p>
   <p><a href="/badge">🖨 {{t .Lang "badge.title"}}</a></p>
   <ul id="new-contacts" class="boxed-list"></ul>

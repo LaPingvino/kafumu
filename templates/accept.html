@@ -1,7 +1,6 @@
 {{template "head" .}}
 <h1>{{t .Lang "accept.title"}}</h1>
 <p class="dim">{{t .Lang "accept.explain"}}</p>
-{{template "nameform" .}}
 <div id="accept-area" class="card" hidden>
   <p id="send-as"></p>
   <div id="share-picker"></div>
@@ -9,6 +8,7 @@
   <p class="dim"><small>{{t .Lang "connect.privacy"}}</small></p>
 </div>
 <p id="accept-status" class="dim" role="status"></p>
+{{template "nameform" .}}
 <ul id="accepted" class="boxed-list"></ul>
 <p id="install-hint" class="card dim" hidden style="padding:12px 16px">{{t .Lang "accept.install_hint"}}</p>
 <script>window.KAFUMU_T = {{.JS}};</script>
