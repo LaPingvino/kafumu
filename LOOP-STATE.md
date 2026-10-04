@@ -286,7 +286,8 @@ start (magic link re-binds them after a domain move).
 - Meetup lists are cached per instance for 60 s: a new meetup can take up to a minute to appear for
   people served by another instance (the host's own instance forgets at once).
 - Cron: "every N hours" without `synchronized` counts from deploy time; now clock-aligned (feeds 00/06/
-  12/18 UTC, purge 04:00). Verify the first purge run in the logs — /privacy depends on it.
+  12/18 UTC, purge 04:00). Feeds VERIFIED 2026-10-04 00:00 UTC (50 events, 40 saved, 0 errors; Lisbon
+  shows Luma meetups). Purge: verify the 04:00 UTC run in the logs — /privacy depends on it.
 - Browser tests post into cells 6fg222/6fg223 (0°,0°, open sea) so production runs never show up anywhere real.
 - Joop (2026-10-03): "be daring, corrections are cheap"; ping his phone only for urgent things.
 - Datastore indexes: `~/google-cloud-sdk/bin/gcloud app deploy index.yaml --project lokumo`.
