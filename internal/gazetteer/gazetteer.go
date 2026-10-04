@@ -128,6 +128,8 @@ type Gazetteer struct {
 
 	mu   sync.Mutex
 	near map[string][]int // memo for placesNear
+
+	placeTags map[string]bool // every place tag and alias, folded
 }
 
 // Load returns the embedded gazetteer. It panics on bad data: the file is
@@ -160,8 +162,12 @@ func Load() *Gazetteer {
 // New indexes places by every cell whose centre lies within the place radius
 // (plus the place's own cell, so tiny places still cover something).
 func New(places []Place) *Gazetteer {
-	g := &Gazetteer{Places: places, byHome: map[string][]int{}}
+	g := &Gazetteer{Places: places, byHome: map[string][]int{}, placeTags: map[string]bool{}}
 	for i, p := range places {
+		g.placeTags[fold(p.Tag)] = true
+		for _, a := range p.Aliases {
+			g.placeTags[fold(a)] = true
+		}
 		h := geo.Cell(p.Lat, p.Lon)
 		g.byHome[h] = append(g.byHome[h], i)
 		g.maxKm = math.Max(g.maxKm, p.Km)
@@ -447,4 +453,17 @@ func (g *Gazetteer) Nearest(cell string) *Near {
 		best.City = city
 	}
 	return best
+}
+
+// CountPlaces counts the tags that name a city (any city, anywhere). A post
+// tagging many of them ("#London #Paris #Berlin…") is aimed at every place
+// at once, so it says little about this one.
+func (g *Gazetteer) CountPlaces(tags []string) int {
+	n := 0
+	for _, t := range tags {
+		if g.placeTags[fold(t)] {
+			n++
+		}
+	}
+	return n
 }

@@ -430,5 +430,6 @@
   "js.reason_wrong_place": "Malĝusta loko",
   "js.reason_other": "Alia",
   "js.report_sending": "Sendante…",
-  "js.reported": "Raportita, dankon. Kaŝita ĉi tie."
+  "js.reported": "Raportita, dankon. Kaŝita ĉi tie.",
+  "js.tags_n_cities": "etikedas {n} urbojn"
 }

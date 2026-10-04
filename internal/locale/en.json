@@ -430,5 +430,6 @@
   "js.reason_wrong_place": "Wrong place",
   "js.reason_other": "Other",
   "js.report_sending": "Sending…",
-  "js.reported": "Reported, thanks. Hidden here."
+  "js.reported": "Reported, thanks. Hidden here.",
+  "js.tags_n_cities": "tags {n} cities"
 }

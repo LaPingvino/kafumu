@@ -376,6 +376,11 @@ func (h *Home) Bundle(w http.ResponseWriter, r *http.Request) {
 	}
 	wg.Wait()
 	sort.Slice(b.Posts, func(i, j int) bool { return b.Posts[i].CreatedAt.After(b.Posts[j].CreatedAt) })
+	if h.Gaz != nil {
+		for i := range b.Posts {
+			b.Posts[i].PlaceTags = h.Gaz.CountPlaces(b.Posts[i].Tags)
+		}
+	}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Cache-Control", "public, max-age=30") // people and meetups change; posts are cached server-side anyway

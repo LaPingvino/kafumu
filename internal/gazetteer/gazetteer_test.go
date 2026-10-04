@@ -135,3 +135,10 @@ func TestNearest(t *testing.T) {
 		t.Errorf("open sea named %+v", n)
 	}
 }
+
+func TestCountPlaces(t *testing.T) {
+	g := Load()
+	if n := g.CountPlaces([]string{"london", "Paris", "berlin", "coffee", "websummit"}); n != 3 {
+		t.Errorf("CountPlaces = %d, want 3", n)
+	}
+}

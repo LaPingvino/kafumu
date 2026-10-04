@@ -302,7 +302,8 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       reported first) with hide / dismiss / delete; items with several reports fold on the device meanwhile.
       Top-bar ⚙ for admins: done.
 
-- [ ] 31. Reliability: Bluesky posts tagging many places (≥5 city tags: "#London #Paris #Berlin…") rank
+- [x] 31. Gazetteer.CountPlaces (all city tags + aliases) → post.placeTags in the bundle; device score: ≥5 city
+      tags −8 with a "tags N cities" badge, new account −1, labels −3, engagement up to +1. Was: Reliability: Bluesky posts tagging many places (≥5 city tags: "#London #Paris #Berlin…") rank
       far down with a "tags N cities" badge; new accounts and labelled posts weigh less in the score.
 
 - [ ] 32. Naming cloud (Joop: Lunteren shows as Bennekom): towns < 15k are missing, so the nearest-name

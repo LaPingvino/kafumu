@@ -791,6 +791,12 @@
     var ageH = (Date.now() - new Date(p.createdAt).getTime()) / 36e5;
     var lm = langMatch(p);
     var s = -ageH / 24 - (p.bot ? 5 : 0) + (lm.tag ? 2 : 0) + (lm.lang ? 0.5 : 0) + (p._match ? view.strength * 3 : 0);
+    // Reliability: posts aimed at many cities at once, brand-new accounts and
+    // moderation labels weigh less; real engagement a little more.
+    if ((p.placeTags || 0) >= 5) s -= 8;
+    if (p.since && Date.now() - new Date(p.since) < 30 * 864e5) s -= 1;
+    if ((p.labels || []).length) s -= 3;
+    s += Math.min(1, Math.log10(1 + (p.likes || 0) + 2 * (p.reposts || 0) + (p.replies || 0)) / 2);
     if (p.via in ringOf) return s - ringOf[p.via] * 0.5;
     var pt = places[p.via];
     // A place-tag post that also carries a #geo tag of this area is strong.
@@ -863,6 +869,7 @@
     else via.textContent = tr("from", { tag: "#" + p.via }) + (places[p.via] && places[p.via].ambiguous ? " " + tr("maybe_elsewhere") : "");
     meta.appendChild(via);
     if (p.bot) meta.appendChild(span("badge", tr("bot")));
+    if ((p.placeTags || 0) >= 5) meta.appendChild(span("badge warn", tr("tags_n_cities", { n: p.placeTags })));
     var lm = langMatch(p);
     if (lm.tag) meta.appendChild(span("badge lang", lm.tag));
     (p.labels || []).forEach(function (l) { meta.appendChild(span("badge warn", "⚠ " + l)); });

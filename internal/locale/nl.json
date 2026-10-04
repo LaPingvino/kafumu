@@ -430,5 +430,6 @@
   "js.reason_wrong_place": "Verkeerde plek",
   "js.reason_other": "Anders",
   "js.report_sending": "Versturen…",
-  "js.reported": "Gemeld, dank je. Hier verborgen."
+  "js.reported": "Gemeld, dank je. Hier verborgen.",
+  "js.tags_n_cities": "tagt {n} steden"
 }

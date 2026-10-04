@@ -430,5 +430,6 @@
   "js.reason_wrong_place": "Lugar errado",
   "js.reason_other": "Outro",
   "js.report_sending": "A enviar…",
-  "js.reported": "Denunciado, obrigado. Escondido aqui."
+  "js.reported": "Denunciado, obrigado. Escondido aqui.",
+  "js.tags_n_cities": "marca {n} cidades"
 }

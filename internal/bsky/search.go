@@ -40,6 +40,8 @@ type Post struct {
 	Replies int        `json:"replies,omitempty"`
 	Since   *time.Time `json:"since,omitempty"`
 	Labels  []string   `json:"labels,omitempty"`
+	// PlaceTags: how many city hashtags the post carries (set by the bundle).
+	PlaceTags int `json:"placeTags,omitempty"`
 }
 
 // Client searches the AppView with a per-instance TTL cache, so a busy cell
