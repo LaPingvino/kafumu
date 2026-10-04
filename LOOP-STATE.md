@@ -370,6 +370,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       instead of accounts, time-biased validity), the eolnpoc proof of concept (link, how its format works),
       and how to integrate: GET /oln.json?cell=… (olnjson.Format), POST /api/oln (raw nonce;date;b64;keywords,
       SHA-1 leading zeros, current required bits from the bundle), with a curl/JS example. Linked from About.
+- [ ] 45. OPEN DESIGN (with Joop, not a tick): a better model for paid services. Joop (2026-10-04): the
+      "For cafés and venues" page "isn't well thought out", "we'll need a better model for paid services".
+      Constraints from VISION: core use free forever, Lichess-style patrons, relevance instead of ads, nothing
+      that buys visibility over what's actually near and relevant. Don't build until Joop picks a direction.
 - [ ] 39. Post with or without your name (Joop): a local message can carry your account name (signed by the
       server as @name, linkable to your profile) or stay anonymous; anonymous ones rank lower and expire
       sooner (shorter TTL at the same work), named ones get the normal TTL and a trust bonus.
