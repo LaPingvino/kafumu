@@ -324,6 +324,8 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       "Ni kafumu" = let's have a coffee together, with esperanto-kurso.net.
 - [x] 34a. UI languages batch 1: es, de, fr, it (444 keys each, placeholders/HTML verified, du/tu forms;
       notes for a native-speaker pass: à/en/au before places (fr), gendered forms, "{from}–{to}" as dates).
+- [x] 34b. UI languages batch 2: pl, ru, uk, tr (plurals as "label: {n}", case-free phrasing around place
+      names). 12 UI languages now. Next batches: cs sv da ro hu el · ja ko zh id vi · ar fa he ur (RTL) · hi bn sw tok.
 - [ ] 34. More UI languages (Joop: "4 is too few"): the 32 locales of esperanto-kurso.net (ar bn cs da de
       el en eo es fa fr he hi hu id it ja ko nl pl pt ro ru sv sw tok tr uk ur vi zh), translating Kafumu's
       strings; RTL (ar fa he ur) via dir="rtl". Plus a gentle esperanto-kurso.net nudge where it fits (the

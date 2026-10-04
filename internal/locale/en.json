@@ -328,7 +328,7 @@
   "oln.day": "Stays about a day",
   "oln.week": "Stays a week",
   "oln.send": "Send",
-  "oln.explain": "Your phone does a little work to send it — that keeps spam away, no account needed. Longer messages cost more work.",
+  "oln.explain": "Your phone does a little work to send it — that keeps spam away, no account needed. Messages that stay up longer cost more work.",
   "oln.bluesky": "Or post on Bluesky instead.",
   "oln.here_now": "Here now",
   "js.oln_cost": "Takes about {time} on this device.",
