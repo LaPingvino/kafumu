@@ -22,12 +22,18 @@
   <h2>Accounts</h2>
   <form method="get" action="/admin" class="inline-row"><input name="s" value="{{.Search}}" placeholder="name prefix or account id"><button type="submit">Search</button></form>
   {{if .Areas}}<p class="dim small">Accounts by area: {{range .Areas}}<a href="/?cell={{.Cell}}">#geo{{.Cell}}</a> {{.N}} · {{end}}</p>{{end}}
-  {{if .Users}}{{range .Groups}}<details class="area-group"{{if le (len .Users) 5}} open{{end}}>
+  {{if .Users}}<form id="bulk" method="post" action="/admin/action" class="inline-row bulk" onsubmit="return this.querySelectorAll('input').length && confirm('Apply to ' + document.querySelectorAll('input[name=ids]:checked').length + ' accounts?')">
+    <input type="hidden" name="do" value="bulk">
+    <label class="small"><input type="checkbox" onclick="document.querySelectorAll('input[name=ids]').forEach(c => c.checked = this.checked)"> Select all shown ({{len .Users}})</label>
+    <select name="bulk"><option value="delete">Delete</option><option value="day">Keep 1 day (purge when idle)</option><option value="keep">Keep forever</option><option value="normal">Normal retention</option></select>
+    <button type="submit" class="pill-sm contrast">Apply to selected</button>
+  </form>
+  {{range .Groups}}<details class="area-group"{{if le (len .Users) 5}} open{{end}}>
     <summary>{{if .Cell}}#geo{{.Cell}}{{else}}no area set{{end}} · {{len .Users}}</summary>
     <ul class="boxed-list admin-users">{{range .Users}}<li>
-    <div><strong>{{if .Username}}@{{.Username}}{{else}}<span class="dim">(no name)</span>{{end}}</strong>
+    <div><input type="checkbox" name="ids" value="{{.ID}}" form="bulk" aria-label="select"> <strong>{{if .Username}}@{{.Username}}{{else}}<span class="dim">(no name)</span>{{end}}</strong>
       <span class="dim small"> · {{slice .ID 0 8}} · since {{.CreatedAt.Format "2 Jan 2006"}} · seen {{.LastSeenAt.Format "2 Jan 15:04"}}</span></div>
-    <div class="dim small">{{if .Role}}<span class="badge">{{.Role}}</span> {{end}}🔑 {{.Passkeys}}{{if .Synced}} · 🔄 synced{{end}}{{if .ATHandle}} · 🦋 @{{.ATHandle}}{{end}}{{if .Cell}} · #geo{{.Cell}}{{end}}{{if eq .KeepDays -1}} · kept forever{{end}}</div>
+    <div class="dim small">{{if .Role}}<span class="badge">{{.Role}}</span> {{end}}🔑 {{.Passkeys}}{{if .Synced}} · 🔄 synced{{end}}{{if .ATHandle}} · 🦋 @{{.ATHandle}}{{end}}{{if .Cell}} · #geo{{.Cell}}{{end}}{{if eq .KeepDays -1}} · kept forever{{else if gt .KeepDays 0}} · kept {{.KeepDays}} d{{end}}</div>
     <div class="actions">
       <form method="post" action="/admin/action" class="inline-row"><input type="hidden" name="id" value="{{.ID}}"><input type="hidden" name="do" value="role">
         <select name="role">{{$r := .Role}}{{range $.Roles}}<option value="{{.}}"{{if eq . $r}} selected{{end}}>{{if .}}{{.}}{{else}}user{{end}}</option>{{end}}</select><button type="submit" class="pill-sm">Set role</button></form>

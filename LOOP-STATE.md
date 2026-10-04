@@ -340,6 +340,12 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       other. Fix: acks become per-device read marks (mailbox keeps messages until TTL); signals dedupe by id.
       Fallback without PRF: the existing account-bound move.
 
+- [x] 38c. Admin bulk actions: checkboxes + "select all shown", apply delete / keep 1 day / keep forever /
+      normal retention; searches list up to 300; purge candidates are accounts idle ≥1 day (keep rules decide).
+- [ ] 39. Post with or without your name (Joop): a local message can carry your account name (signed by the
+      server as @name, linkable to your profile) or stay anonymous; anonymous ones rank lower and expire
+      sooner (shorter TTL at the same work), named ones get the normal TTL and a trust bonus.
+
 **Idle-tick rule (Joop):** when no slice is open, a tick is not idle: use the app in a real browser
 (test/cdp.mjs), pick one area, and make it look and work a bit nicer. Fix one concrete thing per tick.
 

@@ -55,7 +55,7 @@ func TestAdminPageRenders(t *testing.T) {
 	w := httptest.NewRecorder()
 	home.render(w, "admin.html", p)
 	body := w.Body.String()
-	for _, want := range []string{"@joop", "🔑 2", "🔄 synced", "#geo8ccgmw · 1", "Accounts by area", "buy now", "spam 2", "https://bsky.app/profile/did:plc:x/post/abc", "kept forever", `value="moderator"`, "Set role", ">3<"} {
+	for _, want := range []string{"@joop", "🔑 2", "🔄 synced", "#geo8ccgmw · 1", "Accounts by area", `name="ids"`, "Apply to selected", "buy now", "spam 2", "https://bsky.app/profile/did:plc:x/post/abc", "kept forever", `value="moderator"`, "Set role", ">3<"} {
 		if !strings.Contains(body, want) {
 			t.Errorf("admin page lacks %q", want)
 		}

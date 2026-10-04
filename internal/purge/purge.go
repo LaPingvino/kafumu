@@ -42,9 +42,10 @@ func Run(ctx context.Context, db *datastore.Client, now time.Time) (Result, erro
 		}
 		*k.n += n
 	}
-	// Accounts: everything idle for 30 days is a candidate; named ones are
-	// kept for a year.
-	q := datastore.NewQuery("User").FilterField("last_seen_at", "<", now.Add(-AnonymousIdle)).Limit(batch)
+	// Accounts: everything idle for a day is a candidate (an admin may set
+	// a short keep); anonymous ones go after 30 days, named ones after a
+	// year, unless keep_days says otherwise.
+	q := datastore.NewQuery("User").FilterField("last_seen_at", "<", now.Add(-24*time.Hour)).Order("last_seen_at").Limit(batch)
 	var us []struct {
 		Username   string    `datastore:"username"`
 		LastSeenAt time.Time `datastore:"last_seen_at"`

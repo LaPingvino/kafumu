@@ -216,7 +216,7 @@ func (a *Admin) findUsers(ctx context.Context, s string) []adminUser {
 	}
 	q := datastore.NewQuery("User").FilterField("username", ">", "").Order("username").Limit(50)
 	if s != "" {
-		q = datastore.NewQuery("User").FilterField("username", ">=", s).FilterField("username", "<", s+"\uffff").Order("username").Limit(50)
+		q = datastore.NewQuery("User").FilterField("username", ">=", s).FilterField("username", "<", s+"\uffff").Order("username").Limit(300)
 	}
 	keys, err := a.DB.GetAll(ctx, q.KeysOnly(), nil)
 	if err != nil {
@@ -286,6 +286,8 @@ func (a *Admin) Action(w http.ResponseWriter, r *http.Request) {
 		}
 	case "role", "rename", "unname", "keep", "delete-user":
 		res = a.userAction(r, id)
+	case "bulk":
+		res = a.bulkAction(r)
 	case "run":
 		if job, ok := a.Jobs[r.FormValue("job")]; ok {
 			res = r.FormValue("job") + ": " + job(ctx)
@@ -379,4 +381,41 @@ func (a *Admin) areas(ctx context.Context) []areaCount {
 		out = out[:20]
 	}
 	return out
+}
+
+// bulkAction applies one action to the ticked accounts: delete, keep for
+// a day (the purge removes them once idle that long), keep forever, or
+// back to normal retention. Your own account is skipped.
+func (a *Admin) bulkAction(r *http.Request) string {
+	ctx, me := r.Context(), UserFrom(r.Context())
+	act, n, skipped := r.FormValue("bulk"), 0, 0
+	for _, id := range r.Form["ids"] {
+		u, err := a.Accounts.Svc.ByID(ctx, id)
+		if err != nil || u == nil || u.ID == me.ID {
+			skipped++
+			continue
+		}
+		switch act {
+		case "delete":
+			if a.Accounts.Vault != nil {
+				_ = a.Accounts.Vault.Delete(ctx, u.ID)
+			}
+			err = a.Accounts.Svc.Delete(ctx, u)
+		case "day", "keep", "normal":
+			u.KeepDays = map[string]int{"day": 1, "keep": -1, "normal": 0}[act]
+			err = a.Accounts.Svc.Save(ctx, u)
+		default:
+			return "unknown bulk action"
+		}
+		if err != nil {
+			skipped++
+			continue
+		}
+		n++
+	}
+	res := fmt.Sprintf("%s: %d accounts", act, n)
+	if skipped > 0 {
+		res += fmt.Sprintf(" (%d skipped)", skipped)
+	}
+	return res
 }
