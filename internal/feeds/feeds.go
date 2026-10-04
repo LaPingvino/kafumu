@@ -103,7 +103,9 @@ func Sync(ctx context.Context, fs []Feed, im *importer.Importer, store meetup.St
 
 func toMeetup(ev *importer.Event, f Feed, host string) *meetup.Meetup {
 	cell := strings.ToLower(f.Cell)
-	if ev.HasGeo {
+	// 0°,0° ("null island") is a missing location written as zeros, not an
+	// event in the Gulf of Guinea.
+	if ev.HasGeo && (ev.Lat != 0 || ev.Lon != 0) {
 		cell = geo.Cell(ev.Lat, ev.Lon)
 	}
 	if !geo.Valid(cell) {

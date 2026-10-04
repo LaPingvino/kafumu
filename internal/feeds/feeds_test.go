@@ -66,3 +66,12 @@ func TestATEvent(t *testing.T) {
 		t.Error("virtual event imported")
 	}
 }
+
+// Zeros for coordinates mean "unknown", not 0°,0°: the feed's own cell
+// (or nothing) is used instead.
+func TestNullIsland(t *testing.T) {
+	f := Feed{URL: "https://example.com/feed", Cell: ""}
+	if m := toMeetup(&importer.Event{Title: "x", Start: time.Now().Add(time.Hour), HasGeo: true}, f, "example.com"); m != nil {
+		t.Errorf("null-island event kept in %s", m.Cell)
+	}
+}

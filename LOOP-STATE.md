@@ -287,6 +287,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       stats (accounts named/anon, active 1/7/30 d, passkeys, ATproto-linked, findable people, inboxes,
       meetups by source, notes by cell, vaults), a named-accounts list with search; per account: rename,
       roles (admin / moderator / trusted host), reset keep-days, delete; moderation: hide a meetup or note.
+      Report tool (Joop): a "Report" action on every card (local message, meetup, person, Bluesky post):
+      reason chips (spam, scam, harassment, wrong place, other), PoW-paid like everything else (no account
+      needed), stored as a short-TTL Report entity keyed to the item; the admin gets a queue (newest, most
+      reported first) with hide / dismiss / delete; items with several reports fold on the device meanwhile.
       Top-bar ⚙ for admins: done.
 
 - [ ] 31. Reliability: Bluesky posts tagging many places (≥5 city tags: "#London #Paris #Berlin…") rank

@@ -98,7 +98,11 @@ try {
 
   // Views: language and interest filters apply on the device, from the URL.
   await A.goto(base + "/?cell=6fg223&lang=eng");
-  await A.waitFor("document.getElementById('feed').textContent.includes('hi from the OLN " + RUN + "')", "message kept by lang=eng", 15000);
+  // Another instance may not have this run's message yet (60 s cache).
+  for (let i = 0; ; i++) {
+    try { await A.waitFor("document.getElementById('feed').textContent.includes('hi from the OLN " + RUN + "')", "message kept by lang=eng", 15000); break; }
+    catch (e) { if (i >= 4) throw e; await A.goto(base + "/?cell=6fg223&lang=eng"); }
+  }
   await A.goto(base + "/?cell=6fg223&tag=zzznothing&w=3");
   await A.waitFor("document.getElementById('views').textContent.includes('#zzznothing')", "active filter chip");
   await sleep(2500);
