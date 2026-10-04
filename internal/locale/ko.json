@@ -482,5 +482,10 @@
   "js.field_tiktok": "TikTok",
   "js.field_youtube": "YouTube",
   "built.title": "어떻게 만들었나요",
-  "built.lead": "Kafumu는 AI 어시스턴트와 함께 작성되며, AI가 나오기 훨씬 전에 세운 계획을 바탕으로 해요. 그게 무슨 뜻인지 설명해요."
+  "built.lead": "Kafumu는 AI 어시스턴트와 함께 작성되며, AI가 나오기 훨씬 전에 세운 계획을 바탕으로 해요. 그게 무슨 뜻인지 설명해요.",
+  "contacts.sort_quiet": "90일 이상 조용함",
+  "contacts.remove_quiet": "모두 삭제",
+  "js.quiet_for": "{n}일째 조용함",
+  "js.quiet_n": "90일 이상 조용한 연락처: {n}개.",
+  "js.remove_quiet_confirm": "이 연락처들을 삭제할까요? 연결이 끊겼거나 사용되지 않을 수 있어요."
 }

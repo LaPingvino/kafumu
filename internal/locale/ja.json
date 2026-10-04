@@ -482,5 +482,10 @@
   "js.field_tiktok": "TikTok",
   "js.field_youtube": "YouTube",
   "built.title": "どうやって作られたか",
-  "built.lead": "Kafumu は AI アシスタントと一緒に書かれています。土台は AI が登場するずっと前に作った計画です。その意味をここに書きます。"
+  "built.lead": "Kafumu は AI アシスタントと一緒に書かれています。土台は AI が登場するずっと前に作った計画です。その意味をここに書きます。",
+  "contacts.sort_quiet": "90日以上反応なし",
+  "contacts.remove_quiet": "すべて削除",
+  "js.quiet_for": "{n}日間反応なし",
+  "js.quiet_n": "90日以上反応のない連絡先：{n}件。",
+  "js.remove_quiet_confirm": "これらの連絡先を削除しますか？つながりが切れているか、使われていないかもしれません。"
 }

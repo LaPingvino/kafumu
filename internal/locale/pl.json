@@ -482,5 +482,10 @@
   "js.field_tiktok": "TikTok",
   "js.field_youtube": "YouTube",
   "built.title": "Jak to powstało",
-  "built.lead": "Kafumu jest pisane z asystentem AI, według planów sprzed czasów AI. Oto co to oznacza."
+  "built.lead": "Kafumu jest pisane z asystentem AI, według planów sprzed czasów AI. Oto co to oznacza.",
+  "contacts.sort_quiet": "Cisza 90+ dni",
+  "contacts.remove_quiet": "Usuń wszystkie",
+  "js.quiet_for": "cisza od dni: {n}",
+  "js.quiet_n": "Kontakty w ciszy od 90+ dni: {n}.",
+  "js.remove_quiet_confirm": "Usunąć te kontakty? Połączenie może być zerwane lub nieużywane."
 }

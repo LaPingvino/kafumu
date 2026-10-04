@@ -482,5 +482,10 @@
   "js.field_tiktok": "TikTok",
   "js.field_youtube": "YouTube",
   "built.title": "Hogyan készült",
-  "built.lead": "A Kafumu egy MI-asszisztenssel készül, jóval az MI előtt kidolgozott tervek alapján. Ezt jelenti."
+  "built.lead": "A Kafumu egy MI-asszisztenssel készül, jóval az MI előtt kidolgozott tervek alapján. Ezt jelenti.",
+  "contacts.sort_quiet": "90+ napja csendes",
+  "contacts.remove_quiet": "Mind eltávolítása",
+  "js.quiet_for": "csendes napok: {n}",
+  "js.quiet_n": "90+ napja csendes kapcsolatok: {n}.",
+  "js.remove_quiet_confirm": "Eltávolítod ezeket a kapcsolatokat? A kapcsolat lehet, hogy megszakadt vagy nem használják."
 }

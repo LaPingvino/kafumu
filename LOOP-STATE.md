@@ -463,10 +463,18 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
 - [x] 55. Account nudge (Joop): with contacts or a card on this device but no way back in, pages (Around,
       Connect, Contacts, My card) show a dismissable bar: not signed in → "make an account with a passkey";
       signed in without username or passkey → "add a username and a passkey". Dismissed: a week. Browser-tested.
-- [ ] 56. Last seen per contact (Joop: "clean up your list when connections break"): c.lastHeard = last time
+- [x] 56. Last seen per contact: c.lastHeard set whenever anything arrives (pair.checkContact); a weekly
+      {t:"alive"} per contact from Contacts (X-Kafumu-Quiet: no push); contact head shows "💤 quiet for N days"
+      from 14 days; sort option "Quiet 90+ days" lists only those with "Remove all" (tombstoned, synced).
+      Was: Last seen per contact (Joop: "clean up your list when connections break"): c.lastHeard = last time
       anything arrived from them (card, signal, chat, check-in); a light weekly "alive" ping per contact when
       the app opens (one mailbox write each, only to contacts not heard from in a week); Contacts shows "last
       heard 3 months ago" and a "Quiet for 90+ days" filter with "Remove all" (tombstoned, synced).
+- [ ] 57. NEXT. Named links (Joop): kafumu.com/@name, a long-lived connect link for a named account (e.g. "have
+      a coffee with Joop at Web Summit", and on printed badges). The owner's device keeps a long-lived invite key
+      (like the badge code) and registers its public payload under the username (Handle entity: name → payload,
+      renewed whenever the owner opens the app, expires after 90 days unused). /@name shows the card preview and
+      "Connect"; scans become contacts like any code. Badges print kafumu.com/@name when there is one.
 - [ ] 39. Post with or without your name (Joop): a local message can carry your account name (signed by the
       server as @name, linkable to your profile) or stay anonymous; anonymous ones rank lower and expire
       sooner (shorter TTL at the same work), named ones get the normal TTL and a trust bonus.

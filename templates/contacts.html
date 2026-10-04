@@ -7,8 +7,11 @@
     <select id="contacts-sort" class="flat" aria-label="{{ts .Lang "contacts.sort"}}">
       <option value="new">{{t .Lang "contacts.sort_new"}}</option>
       <option value="near">{{t .Lang "contacts.sort_near"}}</option>
+      <option value="quiet">{{t .Lang "contacts.sort_quiet"}}</option>
     </select>
   </div>
+  <p id="quiet-tools" class="dim small" hidden><span id="quiet-count"></span>
+    <button type="button" id="remove-quiet" class="pill-sm contrast">{{t .Lang "contacts.remove_quiet"}}</button></p>
 </div>
 <section id="inbox-section" hidden>
   <h2>✉️ {{t .Lang "inbox.messages"}}</h2>

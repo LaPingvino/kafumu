@@ -482,5 +482,10 @@
   "js.field_tiktok": "TikTok",
   "js.field_youtube": "YouTube",
   "built.title": "Cum a fost făcut",
-  "built.lead": "Kafumu e scris cu un asistent AI, după planuri făcute cu mult înainte să existe AI. Iată ce înseamnă asta."
+  "built.lead": "Kafumu e scris cu un asistent AI, după planuri făcute cu mult înainte să existe AI. Iată ce înseamnă asta.",
+  "contacts.sort_quiet": "Tăcuți de 90+ zile",
+  "contacts.remove_quiet": "Elimină-i pe toți",
+  "js.quiet_for": "tăcut de {n} zile",
+  "js.quiet_n": "Contacte tăcute de 90+ zile: {n}.",
+  "js.remove_quiet_confirm": "Elimini aceste contacte? Legătura poate fi ruptă sau nefolosită."
 }

@@ -482,5 +482,10 @@
   "js.field_tiktok": "TikTok",
   "js.field_youtube": "YouTube",
   "built.title": "Bagaimana ini dibuat",
-  "built.lead": "Kafumu ditulis dengan asisten AI, berdasarkan rencana yang dibuat jauh sebelum AI ada. Ini artinya."
+  "built.lead": "Kafumu ditulis dengan asisten AI, berdasarkan rencana yang dibuat jauh sebelum AI ada. Ini artinya.",
+  "contacts.sort_quiet": "Diam 90+ hari",
+  "contacts.remove_quiet": "Hapus semua",
+  "js.quiet_for": "diam {n} hari",
+  "js.quiet_n": "{n} kontak diam selama 90+ hari.",
+  "js.remove_quiet_confirm": "Hapus kontak ini? Koneksinya mungkin rusak atau tidak dipakai."
 }

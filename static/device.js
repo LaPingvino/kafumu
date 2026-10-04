@@ -180,6 +180,10 @@
 
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
 
+  // quietDays: days since anything arrived from this contact (or since you
+  // connected, if nothing ever did).
+  function quietDays(c) { return Math.floor((Date.now() - new Date(c.lastHeard || c.createdAt || Date.now())) / 864e5); }
+
   // renderContact draws one contact: name, one-liner, one-tap links and a
   // private note saved on change. opts.onDelete adds a remove button.
   function renderContact(c, T, opts) {
@@ -198,6 +202,8 @@
       head.appendChild(alias);
     }
     if (c.createdAt) head.appendChild(el("span", "dim", new Date(c.createdAt).toLocaleDateString(window.KAFUMU_LOCALE, { day: "numeric", month: "short", year: "numeric" })));
+    var quiet = quietDays(c);
+    if (quiet >= 14 && !opts.preview) head.appendChild(el("span", "dim small", "· 💤 " + (T.quiet_for || "quiet for {n} days").replace("{n}", quiet)));
     li.appendChild(head);
     if (card.about) li.appendChild(el("p", "dim", card.about));
     var sig = (c.signals || [])[0];
@@ -573,7 +579,7 @@
   else if (typeof document !== "undefined") document.addEventListener("DOMContentLoaded", function () { if (signedIn()) sync(); });
 
   window.kafumuDevice = { signalText: signalText, store: store, FIELDS: FIELDS, links: links, renderContact: renderContact, personas: personas,
-    vcards: vcards, backup: backup, restore: restore, download: download, sync: sync,
+    vcards: vcards, backup: backup, restore: restore, download: download, sync: sync, quietDays: quietDays,
     // chips: your filter-chip row ({pinned: [...], hidden: [...], at}); a
     // localStorage mirror lets Around draw it without waiting.
     chips: {

@@ -482,5 +482,10 @@
   "js.field_tiktok": "TikTok",
   "js.field_youtube": "YouTube",
   "built.title": "How this was built",
-  "built.lead": "Kafumu is written with an AI assistant, on plans made long before AI existed. Here's what that means."
+  "built.lead": "Kafumu is written with an AI assistant, on plans made long before AI existed. Here's what that means.",
+  "contacts.sort_quiet": "Quiet 90+ days",
+  "contacts.remove_quiet": "Remove all of them",
+  "js.quiet_for": "quiet for {n} days",
+  "js.quiet_n": "{n} contacts quiet for 90+ days.",
+  "js.remove_quiet_confirm": "Remove these contacts? Their connection may be broken or unused."
 }

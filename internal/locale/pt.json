@@ -482,5 +482,10 @@
   "js.field_tiktok": "TikTok",
   "js.field_youtube": "YouTube",
   "built.title": "Como isto foi feito",
-  "built.lead": "O Kafumu é escrito com um assistente de IA, a partir de planos feitos muito antes de a IA existir. Eis o que isso significa."
+  "built.lead": "O Kafumu é escrito com um assistente de IA, a partir de planos feitos muito antes de a IA existir. Eis o que isso significa.",
+  "contacts.sort_quiet": "Em silêncio há 90+ dias",
+  "contacts.remove_quiet": "Remover todos",
+  "js.quiet_for": "em silêncio há {n} dias",
+  "js.quiet_n": "{n} contactos em silêncio há 90+ dias.",
+  "js.remove_quiet_confirm": "Remover estes contactos? A ligação pode estar quebrada ou sem uso."
 }

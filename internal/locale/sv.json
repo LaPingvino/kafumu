@@ -482,5 +482,10 @@
   "js.field_tiktok": "TikTok",
   "js.field_youtube": "YouTube",
   "built.title": "Så här byggdes det",
-  "built.lead": "Kafumu skrivs med en AI-assistent, efter planer från långt innan AI fanns. Det här betyder det."
+  "built.lead": "Kafumu skrivs med en AI-assistent, efter planer från långt innan AI fanns. Det här betyder det.",
+  "contacts.sort_quiet": "Tysta 90+ dagar",
+  "contacts.remove_quiet": "Ta bort alla",
+  "js.quiet_for": "tyst i {n} dagar",
+  "js.quiet_n": "{n} kontakter har varit tysta i 90+ dagar.",
+  "js.remove_quiet_confirm": "Ta bort de här kontakterna? Kopplingen kan vara bruten eller oanvänd."
 }

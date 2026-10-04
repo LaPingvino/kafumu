@@ -96,9 +96,12 @@
     }
 
     // Box API. No cookies: the server must not link boxes to accounts.
-    function post(box, body) {
+    // quiet: don't wake the owner with a push (the weekly "alive").
+    function post(box, body, quiet) {
       return stamp(body, "box" + box).then(function (work) {
-        return fetchFn(base + "/api/box/" + box, { method: "POST", body: body, credentials: "omit", headers: { "X-Kafumu-Work": work } });
+        var h = { "X-Kafumu-Work": work };
+        if (quiet) h["X-Kafumu-Quiet"] = "1";
+        return fetchFn(base + "/api/box/" + box, { method: "POST", body: body, credentials: "omit", headers: h });
       })
         .then(function (r) { if (!r.ok) throw new Error("box post " + r.status); });
     }
@@ -294,6 +297,9 @@
                 .catch(function () {});
             });
           }, Promise.resolve()).then(function () {
+            // Anything from them (card, signal, chat, the weekly "alive")
+            // means the connection still works.
+            if (got.length) c.lastHeard = new Date().toISOString();
             return (got.length ? store.putContact(c) : Promise.resolve()).then(function () { return ack(mine, done); });
           }).then(function () { return got; });
         });
@@ -304,7 +310,7 @@
     function send(c, obj) {
       var key = unb64(c.key);
       return boxOf(key, 1 - c.role).then(function (theirs) {
-        return seal(key, theirs, obj).then(function (ct) { return post(theirs, ct); });
+        return seal(key, theirs, obj).then(function (ct) { return post(theirs, ct, obj && obj.t === "alive"); });
       });
     }
 

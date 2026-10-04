@@ -36,6 +36,18 @@
     dev.store.contacts().then(function (cs) {
       cs.sort(function (a, b) { return (b.createdAt || "").localeCompare(a.createdAt || ""); });
       if (sortBy() === "near") cs = byDistance(cs);
+      // Quiet for 90+ days: only those, most silent first, with "remove all".
+      var quietMode = sortBy() === "quiet";
+      if (quietMode) cs = cs.filter(function (c) { return dev.quietDays(c) >= 90; }).sort(function (a, b) { return dev.quietDays(b) - dev.quietDays(a); });
+      $("quiet-tools").hidden = !quietMode;
+      if (quietMode) {
+        $("quiet-count").textContent = (T.quiet_n || "{n} contacts quiet for 90+ days.").replace("{n}", cs.length) + " ";
+        $("remove-quiet").hidden = !cs.length;
+        $("remove-quiet").onclick = function () {
+          if (!confirm(T.remove_quiet_confirm || "Remove these contacts?")) return;
+          cs.reduce(function (p, c) { return p.then(function () { return dev.store.deleteContact(c.id); }); }, Promise.resolve()).then(show);
+        };
+      }
       list.textContent = "";
       empty.hidden = cs.length > 0;
       $("contacts-tools").hidden = cs.length === 0;
@@ -118,6 +130,19 @@
       .catch(function () { $("contacts-status").textContent = T.restore_failed || "Not a Kafumu backup."; });
   };
   takeInvites().then(function (n) { if (n) show(); });
+  // A weekly "alive" to each contact (one small encrypted message), so both
+  // sides can tell a connection still works.
+  function pingQuietly() {
+    dev.store.contacts().then(function (cs) {
+      var week = 7 * 864e5;
+      cs.filter(function (c) { return !c.lastPing || Date.now() - new Date(c.lastPing) > week; }).slice(0, 30).reduce(function (p, c) {
+        return p.then(function () {
+          return pair.send(c, { t: "alive", at: new Date().toISOString() }).then(function () { c.lastPing = new Date().toISOString(); return dev.store.putContact(c); }).catch(function () {});
+        });
+      }, Promise.resolve());
+    }).catch(function () {});
+  }
+  setTimeout(pingQuietly, 3000);
   show();
 
   // Messages to your public inbox: decrypted here; Connect makes a contact.

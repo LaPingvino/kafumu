@@ -482,5 +482,10 @@
   "js.field_tiktok": "TikTok",
   "js.field_youtube": "YouTube",
   "built.title": "Kiel ĉi tio estis farita",
-  "built.lead": "Kafumu estas verkita kun AI-asistanto, laŭ planoj faritaj longe antaŭ ol AI ekzistis. Jen kion tio signifas."
+  "built.lead": "Kafumu estas verkita kun AI-asistanto, laŭ planoj faritaj longe antaŭ ol AI ekzistis. Jen kion tio signifas.",
+  "contacts.sort_quiet": "Silentaj 90+ tagojn",
+  "contacts.remove_quiet": "Forigi ĉiujn",
+  "js.quiet_for": "silenta de {n} tagoj",
+  "js.quiet_n": "{n} kontaktoj silentaj de 90+ tagoj.",
+  "js.remove_quiet_confirm": "Ĉu forigi ĉi tiujn kontaktojn? Ilia konekto eble estas rompita aŭ neuzata."
 }

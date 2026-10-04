@@ -85,7 +85,8 @@ func (h *Handler) Post(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "unavailable", http.StatusServiceUnavailable)
 	default:
 		w.WriteHeader(http.StatusNoContent)
-		if h.OnAppend != nil {
+		// A quiet message (the weekly "alive" between contacts) wakes no one.
+		if h.OnAppend != nil && r.Header.Get("X-Kafumu-Quiet") != "1" {
 			h.OnAppend(r.Context(), id)
 		}
 	}

@@ -482,5 +482,10 @@
   "js.field_tiktok": "TikTok",
   "js.field_youtube": "YouTube",
   "built.title": "Bu nasıl yapıldı",
-  "built.lead": "Kafumu, yapay zekâdan çok önce yapılmış planlara göre bir yapay zekâ asistanıyla yazılıyor. İşte bunun anlamı."
+  "built.lead": "Kafumu, yapay zekâdan çok önce yapılmış planlara göre bir yapay zekâ asistanıyla yazılıyor. İşte bunun anlamı.",
+  "contacts.sort_quiet": "90+ gündür sessiz",
+  "contacts.remove_quiet": "Hepsini kaldır",
+  "js.quiet_for": "{n} gündür sessiz",
+  "js.quiet_n": "90+ gündür sessiz kişi: {n}.",
+  "js.remove_quiet_confirm": "Bu kişiler kaldırılsın mı? Bağlantı kopmuş ya da kullanılmıyor olabilir."
 }

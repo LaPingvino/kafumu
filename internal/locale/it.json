@@ -482,5 +482,10 @@
   "js.field_tiktok": "TikTok",
   "js.field_youtube": "YouTube",
   "built.title": "Com'è fatto",
-  "built.lead": "Kafumu è scritto con un assistente IA, su piani fatti molto prima che l'IA esistesse. Ecco cosa significa."
+  "built.lead": "Kafumu è scritto con un assistente IA, su piani fatti molto prima che l'IA esistesse. Ecco cosa significa.",
+  "contacts.sort_quiet": "In silenzio da 90+ giorni",
+  "contacts.remove_quiet": "Rimuovili tutti",
+  "js.quiet_for": "in silenzio da {n} giorni",
+  "js.quiet_n": "{n} contatti in silenzio da 90+ giorni.",
+  "js.remove_quiet_confirm": "Rimuovere questi contatti? Il collegamento potrebbe essere interrotto o inutilizzato."
 }

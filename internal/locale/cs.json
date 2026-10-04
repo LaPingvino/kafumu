@@ -482,5 +482,10 @@
   "js.field_tiktok": "TikTok",
   "js.field_youtube": "YouTube",
   "built.title": "Jak to vzniklo",
-  "built.lead": "Kafumu se píše s asistentem AI podle plánů, které vznikly dávno před AI. Tady je, co to znamená."
+  "built.lead": "Kafumu se píše s asistentem AI podle plánů, které vznikly dávno před AI. Tady je, co to znamená.",
+  "contacts.sort_quiet": "Ticho 90+ dní",
+  "contacts.remove_quiet": "Odebrat všechny",
+  "js.quiet_for": "ticho dní: {n}",
+  "js.quiet_n": "Kontaktů tichých 90+ dní: {n}.",
+  "js.remove_quiet_confirm": "Odebrat tyto kontakty? Spojení je možná přerušené nebo nepoužívané."
 }

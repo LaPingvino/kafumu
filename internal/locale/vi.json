@@ -482,5 +482,10 @@
   "js.field_tiktok": "TikTok",
   "js.field_youtube": "YouTube",
   "built.title": "Cách trang này được làm",
-  "built.lead": "Kafumu được viết cùng trợ lý AI, dựa trên những kế hoạch có từ lâu trước khi có AI. Đây là ý nghĩa của điều đó."
+  "built.lead": "Kafumu được viết cùng trợ lý AI, dựa trên những kế hoạch có từ lâu trước khi có AI. Đây là ý nghĩa của điều đó.",
+  "contacts.sort_quiet": "Im lặng 90+ ngày",
+  "contacts.remove_quiet": "Xóa tất cả",
+  "js.quiet_for": "im lặng {n} ngày",
+  "js.quiet_n": "{n} liên hệ im lặng 90+ ngày.",
+  "js.remove_quiet_confirm": "Xóa các liên hệ này? Kết nối có thể đã hỏng hoặc không còn dùng."
 }
