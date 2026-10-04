@@ -487,5 +487,12 @@
   "contacts.remove_quiet": "Odebrat všechny",
   "js.quiet_for": "ticho dní: {n}",
   "js.quiet_n": "Kontaktů tichých 90+ dní: {n}.",
-  "js.remove_quiet_confirm": "Odebrat tyto kontakty? Spojení je možná přerušené nebo nepoužívané."
+  "js.remove_quiet_confirm": "Odebrat tyto kontakty? Spojení je možná přerušené nebo nepoužívané.",
+  "handle.title": "Tvůj odkaz",
+  "handle.explain": "Odkaz, který vždy vede ke spojení s tebou: do bia, na slide nebo na jmenovku. Používá kód uložený v tomto zařízení, obnovovaný při otevření aplikace.",
+  "handle.on": "Zapnout a sdílet",
+  "js.handle_live": "Aktivní",
+  "js.handle_device": "Aktivní, z tohoto zařízení. Občas otevři Kafumu, ať funguje dál.",
+  "js.accept_from": "{name} tě zve ke spojení",
+  "handle.off": "Vypnout"
 }

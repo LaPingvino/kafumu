@@ -28,8 +28,8 @@
   // not only on Connect, and answer with your card.
   function takeInvites() {
     return dev.personas.shareCard().then(function (card) {
-      return Promise.all([pair.checkInvite(card), pair.checkInvite(card, "badge")]);
-    }).then(function (r) { return r[0].length + r[1].length; }).catch(function () { return 0; });
+      return Promise.all([pair.checkInvite(card), pair.checkInvite(card, "badge"), pair.checkInvite(card, "named")]);
+    }).then(function (r) { return r[0].length + r[1].length + r[2].length; }).catch(function () { return 0; });
   }
 
   function show() {
@@ -130,6 +130,10 @@
       .catch(function () { $("contacts-status").textContent = T.restore_failed || "Not a Kafumu backup."; });
   };
   takeInvites().then(function (n) { if (n) show(); });
+  // Your kafumu.com/@name link, if on: renewed weekly from this device.
+  dev.store.get("handle").then(function (h) {
+    if (h && document.body.dataset.named && Date.now() - h.at > 7 * 864e5) pair.namedLink().catch(function () {});
+  });
   // A weekly "alive" to each contact (one small encrypted message), so both
   // sides can tell a connection still works.
   function pingQuietly() {

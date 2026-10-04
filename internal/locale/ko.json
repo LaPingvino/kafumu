@@ -487,5 +487,12 @@
   "contacts.remove_quiet": "모두 삭제",
   "js.quiet_for": "{n}일째 조용함",
   "js.quiet_n": "90일 이상 조용한 연락처: {n}개.",
-  "js.remove_quiet_confirm": "이 연락처들을 삭제할까요? 연결이 끊겼거나 사용되지 않을 수 있어요."
+  "js.remove_quiet_confirm": "이 연락처들을 삭제할까요? 연결이 끊겼거나 사용되지 않을 수 있어요.",
+  "handle.title": "내 링크",
+  "handle.explain": "언제나 나와 연결되는 링크예요. 소개란, 슬라이드, 명찰에 넣어 보세요. 이 기기에 저장된 코드를 쓰며 앱을 열면 갱신돼요.",
+  "handle.on": "켜고 공유하기",
+  "js.handle_live": "활성",
+  "js.handle_device": "이 기기에서 활성화됨. 가끔 Kafumu를 열어 유지해 주세요.",
+  "js.accept_from": "{name}님이 연결을 초대했어요",
+  "handle.off": "끄기"
 }

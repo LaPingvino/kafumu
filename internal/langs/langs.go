@@ -43,7 +43,7 @@ var From1 = map[string]string{
 	"ia": "ina", "id": "ind", "io": "ido", "is": "isl", "it": "ita", "ja": "jpn", "ka": "kat", "ko": "kor",
 	"lt": "lit", "lv": "lav", "ms": "msa", "nl": "nld", "no": "nor", "nb": "nor", "nn": "nor", "pl": "pol",
 	"pt": "por", "ro": "ron", "ru": "rus", "sk": "slk", "sl": "slv", "sq": "sqi", "sr": "srp", "sv": "swe",
-	"sw": "swa", "th": "tha", "tr": "tur", "uk": "ukr", "ur": "urd", "vi": "vie", "yi": "yid", "zh": "cmn", "zu": "zul",
+	"sw": "swa", "th": "tha", "tr": "tur", "uk": "ukr", "ur": "urd", "vi": "vie", "yi": "yid", "zh": "cmn", "zh-hant": "cmn", "zu": "zul",
 	"af": "afr", "am": "amh", "az": "aze", "be": "bel", "bi": "bis", "bs": "bos", "ch": "cha", "co": "cos", "fj": "fij",
 	"fo": "fao", "ht": "hat", "hy": "hye", "hz": "her", "ik": "ipk", "kl": "kal", "km": "khm", "kn": "kan", "ky": "kir",
 	"lb": "ltz", "lg": "lug", "mg": "mlg", "mh": "mah", "mi": "mri", "ml": "mal", "mt": "mlt", "ne": "nep", "st": "sot",

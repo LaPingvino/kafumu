@@ -487,5 +487,12 @@
   "contacts.remove_quiet": "Remove all of them",
   "js.quiet_for": "quiet for {n} days",
   "js.quiet_n": "{n} contacts quiet for 90+ days.",
-  "js.remove_quiet_confirm": "Remove these contacts? Their connection may be broken or unused."
+  "js.remove_quiet_confirm": "Remove these contacts? Their connection may be broken or unused.",
+  "handle.title": "Your link",
+  "handle.explain": "A link that always leads to connecting with you: put it in your bio, on a slide or on your badge. It uses a code kept on this device, renewed when you open the app.",
+  "handle.on": "Turn on and share",
+  "js.handle_live": "Live",
+  "js.handle_device": "Live, from this device. Open Kafumu now and then to keep it going.",
+  "js.accept_from": "{name} invites you to connect",
+  "handle.off": "Turn off"
 }

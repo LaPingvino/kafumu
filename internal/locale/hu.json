@@ -487,5 +487,12 @@
   "contacts.remove_quiet": "Mind eltávolítása",
   "js.quiet_for": "csendes napok: {n}",
   "js.quiet_n": "90+ napja csendes kapcsolatok: {n}.",
-  "js.remove_quiet_confirm": "Eltávolítod ezeket a kapcsolatokat? A kapcsolat lehet, hogy megszakadt vagy nem használják."
+  "js.remove_quiet_confirm": "Eltávolítod ezeket a kapcsolatokat? A kapcsolat lehet, hogy megszakadt vagy nem használják.",
+  "handle.title": "A linked",
+  "handle.explain": "Egy link, ami mindig a veled való kapcsolódáshoz vezet: a bemutatkozásodba, egy diára vagy a kitűződre. Az eszközön tárolt kódot használ, ami az app megnyitásakor megújul.",
+  "handle.on": "Bekapcsolás és megosztás",
+  "js.handle_live": "Aktív",
+  "js.handle_device": "Aktív, erről az eszközről. Nyisd meg néha a Kafumut, hogy működjön.",
+  "js.accept_from": "Meghívás kapcsolódásra: {name}",
+  "handle.off": "Kikapcsolás"
 }

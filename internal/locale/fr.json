@@ -487,5 +487,12 @@
   "contacts.remove_quiet": "Tous les retirer",
   "js.quiet_for": "silencieux depuis {n} jours",
   "js.quiet_n": "{n} contacts silencieux depuis 90+ jours.",
-  "js.remove_quiet_confirm": "Retirer ces contacts ? Le lien est peut-être rompu ou inutilisé."
+  "js.remove_quiet_confirm": "Retirer ces contacts ? Le lien est peut-être rompu ou inutilisé.",
+  "handle.title": "Ton lien",
+  "handle.explain": "Un lien qui mène toujours à se connecter avec toi : dans ta bio, sur une diapo ou sur ton badge. Il utilise un code gardé sur cet appareil, renouvelé quand tu ouvres l'appli.",
+  "handle.on": "Activer et partager",
+  "js.handle_live": "Actif",
+  "js.handle_device": "Actif, depuis cet appareil. Ouvre Kafumu de temps en temps pour le garder actif.",
+  "js.accept_from": "{name} t'invite à te connecter",
+  "handle.off": "Désactiver"
 }

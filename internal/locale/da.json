@@ -487,5 +487,12 @@
   "contacts.remove_quiet": "Fjern dem alle",
   "js.quiet_for": "stille i {n} dage",
   "js.quiet_n": "{n} kontakter har været stille i 90+ dage.",
-  "js.remove_quiet_confirm": "Fjern disse kontakter? Forbindelsen kan være brudt eller ubrugt."
+  "js.remove_quiet_confirm": "Fjern disse kontakter? Forbindelsen kan være brudt eller ubrugt.",
+  "handle.title": "Dit link",
+  "handle.explain": "Et link, der altid fører til at forbinde med dig: i din bio, på et slide eller på dit navneskilt. Det bruger en kode på denne enhed, som fornyes, når du åbner appen.",
+  "handle.on": "Slå til og del",
+  "js.handle_live": "Aktivt",
+  "js.handle_device": "Aktivt, fra denne enhed. Åbn Kafumu en gang imellem for at holde det i gang.",
+  "js.accept_from": "{name} inviterer dig til at forbinde",
+  "handle.off": "Slå fra"
 }

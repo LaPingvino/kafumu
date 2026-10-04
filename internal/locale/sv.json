@@ -487,5 +487,12 @@
   "contacts.remove_quiet": "Ta bort alla",
   "js.quiet_for": "tyst i {n} dagar",
   "js.quiet_n": "{n} kontakter har varit tysta i 90+ dagar.",
-  "js.remove_quiet_confirm": "Ta bort de här kontakterna? Kopplingen kan vara bruten eller oanvänd."
+  "js.remove_quiet_confirm": "Ta bort de här kontakterna? Kopplingen kan vara bruten eller oanvänd.",
+  "handle.title": "Din länk",
+  "handle.explain": "En länk som alltid leder till att koppla ihop med dig: i din bio, på en bild eller på din namnbricka. Den använder en kod på den här enheten som förnyas när du öppnar appen.",
+  "handle.on": "Slå på och dela",
+  "js.handle_live": "Aktiv",
+  "js.handle_device": "Aktiv, från den här enheten. Öppna Kafumu då och då så att den fortsätter fungera.",
+  "js.accept_from": "{name} bjuder in dig att koppla ihop",
+  "handle.off": "Stäng av"
 }

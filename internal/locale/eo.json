@@ -487,5 +487,12 @@
   "contacts.remove_quiet": "Forigi ĉiujn",
   "js.quiet_for": "silenta de {n} tagoj",
   "js.quiet_n": "{n} kontaktoj silentaj de 90+ tagoj.",
-  "js.remove_quiet_confirm": "Ĉu forigi ĉi tiujn kontaktojn? Ilia konekto eble estas rompita aŭ neuzata."
+  "js.remove_quiet_confirm": "Ĉu forigi ĉi tiujn kontaktojn? Ilia konekto eble estas rompita aŭ neuzata.",
+  "handle.title": "Via ligilo",
+  "handle.explain": "Ligilo, kiu ĉiam kondukas al konektiĝo kun vi: en via bio, sur lumbildo aŭ sur via insigno. Ĝi uzas kodon konservitan en ĉi tiu aparato, renovigatan kiam vi malfermas la apon.",
+  "handle.on": "Ŝalti kaj kunhavigi",
+  "js.handle_live": "Aktiva",
+  "js.handle_device": "Aktiva, de ĉi tiu aparato. Malfermu Kafumu de tempo al tempo por teni ĝin viva.",
+  "js.accept_from": "{name} invitas vin konektiĝi",
+  "handle.off": "Malŝalti"
 }

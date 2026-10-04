@@ -41,6 +41,8 @@ type Home struct {
 	Gaz  *gazetteer.Gazetteer
 	// Notes, if set, are the OLN local messages included in bundles.
 	Notes *oln.Service
+	// FollowHandle, if set, serves kafumu.com/@name links.
+	FollowHandle func(w http.ResponseWriter, r *http.Request, name string)
 	// Reports, if set, hides what moderators hid (posts, people) from bundles.
 	Reports *report.Service
 	// ATproto, if set, lets people connect their own ATproto account.
@@ -90,6 +92,10 @@ func (h *Home) newPage(r *http.Request, title string) page {
 // ShowHome renders the shell; the cell is computed on the device and the list
 // is filled from /bundle, so the server never sees coordinates.
 func (h *Home) ShowHome(w http.ResponseWriter, r *http.Request) {
+	if strings.HasPrefix(r.URL.Path, "/@") && h.FollowHandle != nil {
+		h.FollowHandle(w, r, strings.TrimPrefix(r.URL.Path, "/@"))
+		return
+	}
 	if r.URL.Path != "/" {
 		http.NotFound(w, r)
 		return

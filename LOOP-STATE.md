@@ -470,7 +470,11 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       anything arrived from them (card, signal, chat, check-in); a light weekly "alive" ping per contact when
       the app opens (one mailbox write each, only to contacts not heard from in a week); Contacts shows "last
       heard 3 months ago" and a "Quiet for 90+ days" filter with "Remove all" (tombstoned, synced).
-- [ ] 57. NEXT. Named links (Joop): kafumu.com/@name, a long-lived connect link for a named account (e.g. "have
+- [x] 57. Named links: Handle entity (username → public invite payload, 90 days, purged), PUT/DELETE /api/handle,
+      /@name → /c?from=name#payload ("@name invites you to connect"); a long-lived "named" invite on the device
+      (box = invite), taken in on Around/Contacts and renewed weekly; Findable has "Your link" (off by default,
+      turn on and share / turn off). Badge printing of /@name still to do. Plus zh-hant (Taiwan vocabulary;
+      zh-TW/HK/MO/Hant pick it), zh labelled 简体中文. Was: NEXT. Named links (Joop): kafumu.com/@name, a long-lived connect link for a named account (e.g. "have
       a coffee with Joop at Web Summit", and on printed badges). The owner's device keeps a long-lived invite key
       (like the badge code) and registers its public payload under the username (Handle entity: name → payload,
       renewed whenever the owner opens the app, expires after 90 days unused). /@name shows the card preview and

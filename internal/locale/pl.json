@@ -487,5 +487,12 @@
   "contacts.remove_quiet": "Usuń wszystkie",
   "js.quiet_for": "cisza od dni: {n}",
   "js.quiet_n": "Kontakty w ciszy od 90+ dni: {n}.",
-  "js.remove_quiet_confirm": "Usunąć te kontakty? Połączenie może być zerwane lub nieużywane."
+  "js.remove_quiet_confirm": "Usunąć te kontakty? Połączenie może być zerwane lub nieużywane.",
+  "handle.title": "Twój link",
+  "handle.explain": "Link, który zawsze prowadzi do połączenia z tobą: w bio, na slajdzie albo na identyfikatorze. Korzysta z kodu na tym urządzeniu, odnawianego, gdy otwierasz aplikację.",
+  "handle.on": "Włącz i udostępnij",
+  "js.handle_live": "Aktywny",
+  "js.handle_device": "Aktywny, z tego urządzenia. Otwieraj Kafumu od czasu do czasu, żeby działał.",
+  "js.accept_from": "Zaproszenie do połączenia od: {name}",
+  "handle.off": "Wyłącz"
 }

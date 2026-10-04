@@ -487,5 +487,12 @@
   "contacts.remove_quiet": "Hepsini kaldır",
   "js.quiet_for": "{n} gündür sessiz",
   "js.quiet_n": "90+ gündür sessiz kişi: {n}.",
-  "js.remove_quiet_confirm": "Bu kişiler kaldırılsın mı? Bağlantı kopmuş ya da kullanılmıyor olabilir."
+  "js.remove_quiet_confirm": "Bu kişiler kaldırılsın mı? Bağlantı kopmuş ya da kullanılmıyor olabilir.",
+  "handle.title": "Bağlantın",
+  "handle.explain": "Her zaman seninle bağlantı kurmaya götüren bir bağlantı: biyografinde, bir slaytta ya da yaka kartında. Bu cihazda tutulan, uygulamayı açtığında yenilenen bir kod kullanır.",
+  "handle.on": "Aç ve paylaş",
+  "js.handle_live": "Etkin",
+  "js.handle_device": "Etkin, bu cihazdan. Çalışmaya devam etmesi için Kafumu'yu ara sıra aç.",
+  "js.accept_from": "{name} seni bağlantı kurmaya davet ediyor",
+  "handle.off": "Kapat"
 }

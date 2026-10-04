@@ -1,5 +1,5 @@
 {
-  "lang.self": "中文",
+  "lang.self": "简体中文",
   "meta.description": "此刻你附近有什么值得知道的？城里的朋友、用你的语言举办的聚会、本地动态——全程不追踪。",
   "nav.about": "关于",
   "nav.language": "语言",
@@ -487,5 +487,12 @@
   "contacts.remove_quiet": "全部移除",
   "js.quiet_for": "已 {n} 天无动静",
   "js.quiet_n": "90 天以上无动静的联系人：{n} 个。",
-  "js.remove_quiet_confirm": "移除这些联系人吗？连接可能已断开或不再使用。"
+  "js.remove_quiet_confirm": "移除这些联系人吗？连接可能已断开或不再使用。",
+  "handle.title": "你的链接",
+  "handle.explain": "一个总能让别人和你建立联系的链接：放在简介里、幻灯片上或胸牌上。它使用保存在这台设备上的代码，打开应用时会自动续期。",
+  "handle.on": "开启并分享",
+  "js.handle_live": "已开启",
+  "js.handle_device": "已从这台设备开启。偶尔打开 Kafumu 让它保持有效。",
+  "js.accept_from": "{name} 邀请你建立联系",
+  "handle.off": "关闭"
 }

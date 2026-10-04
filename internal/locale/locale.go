@@ -90,6 +90,10 @@ func Pick(choice, acceptLang string) string {
 		if Supported(tag) {
 			return tag
 		}
+		// Chinese: Taiwan, Hong Kong, Macau and explicit Hant get Traditional.
+		if t := traditional(tag); t != "" && Supported(t) {
+			return t
+		}
 		if p := strings.SplitN(tag, "-", 2)[0]; Supported(p) {
 			return p
 		}
@@ -105,4 +109,17 @@ func Keys(lang string) []string {
 	}
 	sort.Strings(out)
 	return out
+}
+
+// traditional maps Chinese tags that mean Traditional script to "zh-hant".
+func traditional(tag string) string {
+	if !strings.HasPrefix(tag, "zh") {
+		return ""
+	}
+	for _, t := range []string{"hant", "tw", "hk", "mo"} {
+		if strings.Contains(tag, "-"+t) {
+			return "zh-hant"
+		}
+	}
+	return ""
 }

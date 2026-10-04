@@ -23,6 +23,7 @@ import (
 	"github.com/LaPingvino/kafumu/internal/cache"
 	"github.com/LaPingvino/kafumu/internal/config"
 	"github.com/LaPingvino/kafumu/internal/gazetteer"
+	"github.com/LaPingvino/kafumu/internal/handle"
 	"github.com/LaPingvino/kafumu/internal/handler"
 	"github.com/LaPingvino/kafumu/internal/importer"
 	"github.com/LaPingvino/kafumu/internal/locale"
@@ -64,6 +65,8 @@ func main() {
 	mailbox.Price = prices.Price
 	accounts.Prices = prices
 	accounts.Cache = kv
+	accounts.Handles = handle.New(db)
+	home.FollowHandle = accounts.FollowHandle
 	accounts.Vault = vault.NewMemoryStore()
 	if db != nil {
 		accounts.Vault = &vault.DatastoreStore{DB: db}
@@ -74,7 +77,9 @@ func main() {
 	mux.HandleFunc("GET /about", home.ShowAbout)
 	mux.HandleFunc("GET /patrons", home.Info("patrons.html", "patrons.title"))
 	// The venues page is gone until there's a model worth describing (Joop).
-	mux.HandleFunc("GET /for-cafes", func(w http.ResponseWriter, r *http.Request) { http.Redirect(w, r, "/about", http.StatusMovedPermanently) })
+	mux.HandleFunc("GET /for-cafes", func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, "/about", http.StatusMovedPermanently)
+	})
 	mux.HandleFunc("GET /privacy", home.Info("privacy.html", "privacy.title"))
 	mux.HandleFunc("GET /oln", home.Info("oln.html", "olnpage.title"))
 	mux.HandleFunc("GET /built", home.Info("built.html", "built.title"))
@@ -119,6 +124,8 @@ func main() {
 	mux.HandleFunc("GET /account/move", accounts.MoveRequest)
 	mux.HandleFunc("POST /account/move", accounts.MoveRequest)
 	mux.HandleFunc("DELETE /account/move", accounts.MoveRequest)
+	mux.HandleFunc("PUT /api/handle", accounts.SetHandle)
+	mux.HandleFunc("DELETE /api/handle", accounts.DeleteHandle)
 	mux.HandleFunc("GET /api/vault", accounts.VaultAPI)
 	mux.HandleFunc("PUT /api/vault", accounts.VaultAPI)
 	mux.HandleFunc("POST /account/signout", accounts.SignOut)

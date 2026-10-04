@@ -125,7 +125,8 @@
     // kind "move" is a share-with-self code: same keys, its own box and URL.
     // kind "badge" is a connect code meant for printing: same box and URL as
     // a normal invite, but it lives two weeks.
-    var TTL = { invite: INVITE_TTL, badge: 14 * 864e5, move: INVITE_TTL };
+    // kind "named" is the code behind kafumu.com/@name: like a badge, lives 90 days.
+    var TTL = { invite: INVITE_TTL, badge: 14 * 864e5, named: 90 * 864e5, move: INVITE_TTL };
     function invite(fresh, kind) {
       kind = kind || "invite";
       var key = kind === "invite" ? "invite" : "invite:" + kind;
@@ -140,7 +141,7 @@
         }) : Promise.resolve();
         return keepOld.then(genKey).then(function (k) {
           return rawPub(k).then(function (pub) {
-            return inviteBox(pub, kind === "badge" ? "invite" : kind).then(function (box) {
+            return inviteBox(pub, kind === "badge" || kind === "named" ? "invite" : kind).then(function (box) {
               var inv = { priv: k.privateKey, pub: b64(pub), box: box, createdAt: Date.now() };
               return store.set(key, inv).then(function () { return inv; });
             });
@@ -233,9 +234,9 @@
     // checkInvite is run by the inviter: turn hellos into contacts and answer
     // each with our card. Returns the new contacts.
     function checkInvite(myCard, kind) {
-      var key = kind === "badge" ? "invite:badge" : "invite";
+      var key = kind && kind !== "invite" ? "invite:" + kind : "invite";
       // The current code, plus (for screen codes) the ones it replaced.
-      return Promise.all([store.get(key), kind === "badge" ? Promise.resolve([]) : store.get("invites:old")]).then(function (r) {
+      return Promise.all([store.get(key), kind && kind !== "invite" ? Promise.resolve([]) : store.get("invites:old")]).then(function (r) {
         var all = [r[0]].concat(r[1] || []).filter(Boolean);
         return all.reduce(function (p, inv) {
           return p.then(function (acc) { return checkOne(inv, inv.kind || kind).then(function (got) { return acc.concat(got); }); });
@@ -471,7 +472,16 @@
       }).then(function (r) { if (!r.ok) throw new Error("report " + r.status); });
     }
 
-    return { report: report, shortLink: shortLink, inbox: inbox, writeTo: writeTo, readInbox: readInbox, connectBack: connectBack, checkIn: checkIn, around: around, invite: invite, accept: accept, moveSend: moveSend, moveReceive: moveReceive, checkInvite: checkInvite, checkContact: checkContact, send: send,
+    // namedLink registers (or renews) this device's long-lived code as your
+    // kafumu.com/@name link. Signed-in, named accounts only.
+    function namedLink() {
+      return invite(false, "named").then(function (inv) {
+        return fetchFn(base + "/api/handle", { method: "PUT", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ payload: inv.payload }) });
+      }).then(function (r) { if (!r.ok) throw new Error("handle " + r.status); return r.json(); })
+        .then(function (j) { return store.set("handle", { url: j.url, at: Date.now() }).then(function () { return j.url; }); });
+    }
+
+    return { report: report, namedLink: namedLink, shortLink: shortLink, inbox: inbox, writeTo: writeTo, readInbox: readInbox, connectBack: connectBack, checkIn: checkIn, around: around, invite: invite, accept: accept, moveSend: moveSend, moveReceive: moveReceive, checkInvite: checkInvite, checkContact: checkContact, send: send,
       _open: open, _boxOf: boxOf, _inviteBox: inviteBox, _unb64: unb64 };
   }
 

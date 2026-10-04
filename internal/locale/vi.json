@@ -487,5 +487,12 @@
   "contacts.remove_quiet": "Xóa tất cả",
   "js.quiet_for": "im lặng {n} ngày",
   "js.quiet_n": "{n} liên hệ im lặng 90+ ngày.",
-  "js.remove_quiet_confirm": "Xóa các liên hệ này? Kết nối có thể đã hỏng hoặc không còn dùng."
+  "js.remove_quiet_confirm": "Xóa các liên hệ này? Kết nối có thể đã hỏng hoặc không còn dùng.",
+  "handle.title": "Liên kết của bạn",
+  "handle.explain": "Một liên kết luôn dẫn đến việc kết nối với bạn: trong phần giới thiệu, trên slide hay trên thẻ tên. Nó dùng một mã lưu trên thiết bị này, được gia hạn khi bạn mở ứng dụng.",
+  "handle.on": "Bật và chia sẻ",
+  "js.handle_live": "Đang hoạt động",
+  "js.handle_device": "Đang hoạt động, từ thiết bị này. Thỉnh thoảng mở Kafumu để giữ cho nó hoạt động.",
+  "js.accept_from": "{name} mời bạn kết nối",
+  "handle.off": "Tắt"
 }

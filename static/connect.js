@@ -150,6 +150,8 @@
   // ---- /c#v1.… : someone showed me their code ----
   function acceptCode() {
     var payload = location.hash.slice(1), status = $("accept-status"), list = $("accepted");
+    var from = new URLSearchParams(location.search).get("from");
+    if (from && /^[a-z0-9_-]{3,30}$/.test(from) && $("accept-from")) { $("accept-from").textContent = tr("accept_from", { name: "@" + from }); $("accept-from").hidden = false; }
     if (!/^v1\./.test(payload)) { status.textContent = tr("bad_code"); return; }
     var made = null;
     ensureName($("name-form"), function (card) {

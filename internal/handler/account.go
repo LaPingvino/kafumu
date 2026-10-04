@@ -4,11 +4,13 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"github.com/LaPingvino/kafumu/internal/handle"
 	"github.com/LaPingvino/kafumu/internal/vault"
 	"html/template"
 	"io"
 	"log"
 	"net/http"
+	"net/url"
 	"regexp"
 	"strconv"
 	"strings"
@@ -40,6 +42,8 @@ type Accounts struct {
 	Cache cache.Cache
 	// Vault holds each account's encrypted cards and contacts (device sync).
 	Vault vault.Store
+	// Handles maps usernames to long-lived connect codes (kafumu.com/@name).
+	Handles *handle.Store
 }
 
 // Middleware resolves the "k" cookie. It never creates an account: page views
@@ -189,6 +193,9 @@ func (a *Accounts) Delete(w http.ResponseWriter, r *http.Request) {
 		}
 		if a.Vault != nil {
 			_ = a.Vault.Delete(r.Context(), u.ID)
+		}
+		if a.Handles != nil && u.Username != "" {
+			_ = a.Handles.Delete(r.Context(), u.Username)
 		}
 		if err := a.Svc.Delete(r.Context(), u); err != nil {
 			log.Printf("account: delete: %v", err)
@@ -370,4 +377,57 @@ func (a *Accounts) VaultAPI(w http.ResponseWriter, r *http.Request) {
 		out.Version, out.Data = v.Version, string(v.Data)
 	}
 	json.NewEncoder(w).Encode(out)
+}
+
+// SetHandle handles PUT /api/handle {payload}: your kafumu.com/@name link
+// now leads to this connect code (renewed by your device; 90 days).
+func (a *Accounts) SetHandle(w http.ResponseWriter, r *http.Request) {
+	u := UserFrom(r.Context())
+	if u == nil || u.Username == "" || a.Handles == nil || IsBot(r) {
+		http.Error(w, "a named account is needed", http.StatusUnauthorized)
+		return
+	}
+	var in struct {
+		Payload string `json:"payload"`
+	}
+	if err := json.NewDecoder(io.LimitReader(r.Body, 1024)).Decode(&in); err != nil || !handle.PayloadRE.MatchString(in.Payload) {
+		http.Error(w, "want {payload: v1.…}", http.StatusBadRequest)
+		return
+	}
+	if err := a.Handles.Set(r.Context(), u.Username, u.ID, in.Payload, time.Now()); err != nil {
+		http.Error(w, "unavailable", http.StatusServiceUnavailable)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{"url": a.Home.Cfg.Origin + "/@" + u.Username})
+}
+
+// FollowHandle serves /@name: to that person's connect code, marked as theirs.
+func (a *Accounts) FollowHandle(w http.ResponseWriter, r *http.Request, name string) {
+	name = strings.ToLower(name)
+	if a.Handles == nil || !account.ValidUsername(name) {
+		http.NotFound(w, r)
+		return
+	}
+	payload, ok := a.Handles.Get(r.Context(), name, time.Now())
+	if !ok {
+		http.NotFound(w, r)
+		return
+	}
+	w.Header().Set("Cache-Control", "no-store")
+	http.Redirect(w, r, "/c?from="+url.QueryEscape(name)+"#"+payload, http.StatusFound)
+}
+
+// DeleteHandle handles DELETE /api/handle: your kafumu.com/@name link stops working.
+func (a *Accounts) DeleteHandle(w http.ResponseWriter, r *http.Request) {
+	u := UserFrom(r.Context())
+	if u == nil || u.Username == "" || a.Handles == nil {
+		http.Error(w, "a named account is needed", http.StatusUnauthorized)
+		return
+	}
+	if err := a.Handles.Delete(r.Context(), u.Username); err != nil {
+		http.Error(w, "unavailable", http.StatusServiceUnavailable)
+		return
+	}
+	w.WriteHeader(http.StatusNoContent)
 }

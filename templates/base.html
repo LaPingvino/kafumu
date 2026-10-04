@@ -13,7 +13,7 @@
   <script>window.KAFUMU_V = {{.V}};
     // Dates follow the UI language, but never US-style: English is en-GB
     // (day before month, 24-hour clock).
-    window.KAFUMU_LOCALE = ({ en: "en-GB", pt: "pt-PT", nl: "nl-NL", eo: "eo" })[document.documentElement.lang] || document.documentElement.lang;</script>
+    window.KAFUMU_LOCALE = ({ en: "en-GB", pt: "pt-PT", nl: "nl-NL", eo: "eo", zh: "zh-Hans", "zh-hant": "zh-Hant-TW" })[document.documentElement.lang] || document.documentElement.lang;</script>
 </head>
 <body{{if .User}} data-signed-in="1"{{if .User.Username}} data-named="1"{{end}}{{if .User.Passkeys}} data-passkey="1"{{end}}{{end}}>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">

@@ -204,6 +204,13 @@ try {
     try { await B.waitFor(`document.getElementById('feed').textContent.includes("${nick}")`, "A in B's People", 8000); break; }
     catch (e) { if (i >= 10) throw e; }
   }
+  // Named link: A turns on kafumu.com/@nick; B following it lands on Connect, "from @nick".
+  await A.goto(base + "/findable");
+  await A.waitFor("!!document.getElementById('handle-on') && document.getElementById('handle-off').hidden", "named link starts off");
+  await A.evaluate("navigator.share = undefined; document.getElementById('handle-on').click(); true");
+  await A.waitFor("document.getElementById('handle-on').textContent.startsWith('✓')", "named link live");
+  await B.goto(base + "/@" + nick);
+  await B.waitFor(`/^#v1\\./.test(location.hash) && !document.getElementById('accept-from').hidden && document.getElementById('accept-from').textContent.includes("@${nick}")`, "named link leads to connect");
   // Public inbox: A opens one at 12 bits; B writes from People with a card;
   // A reads it in Contacts and connects back.
   await A.goto(base + "/findable");
@@ -334,7 +341,7 @@ try {
     await X.evaluate("fetch('/account/delete', { method: 'POST', body: new URLSearchParams({ confirm: 'yes' }), credentials: 'same-origin' }).then(() => true)");
   }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, findable profile seen, paid inbox message + connect back, OLN message + reaction + elsewhere + travelling + report + question/answer + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, findable profile seen, named link, paid inbox message + connect back, OLN message + reaction + elsewhere + travelling + report + question/answer + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

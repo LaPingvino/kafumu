@@ -487,5 +487,12 @@
   "contacts.remove_quiet": "すべて削除",
   "js.quiet_for": "{n}日間反応なし",
   "js.quiet_n": "90日以上反応のない連絡先：{n}件。",
-  "js.remove_quiet_confirm": "これらの連絡先を削除しますか？つながりが切れているか、使われていないかもしれません。"
+  "js.remove_quiet_confirm": "これらの連絡先を削除しますか？つながりが切れているか、使われていないかもしれません。",
+  "handle.title": "あなたのリンク",
+  "handle.explain": "いつでもあなたとつながれるリンクです。プロフィール、スライド、名札に。この端末に保存されたコードを使い、アプリを開くと更新されます。",
+  "handle.on": "有効にして共有",
+  "js.handle_live": "有効",
+  "js.handle_device": "この端末から有効です。ときどき Kafumu を開いて有効に保ってください。",
+  "js.accept_from": "{name} からつながりの招待",
+  "handle.off": "オフにする"
 }

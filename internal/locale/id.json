@@ -487,5 +487,12 @@
   "contacts.remove_quiet": "Hapus semua",
   "js.quiet_for": "diam {n} hari",
   "js.quiet_n": "{n} kontak diam selama 90+ hari.",
-  "js.remove_quiet_confirm": "Hapus kontak ini? Koneksinya mungkin rusak atau tidak dipakai."
+  "js.remove_quiet_confirm": "Hapus kontak ini? Koneksinya mungkin rusak atau tidak dipakai.",
+  "handle.title": "Tautanmu",
+  "handle.explain": "Tautan yang selalu mengarah untuk terhubung denganmu: di bio, di slide, atau di tanda pengenalmu. Memakai kode di perangkat ini, diperbarui saat kamu membuka aplikasi.",
+  "handle.on": "Aktifkan dan bagikan",
+  "js.handle_live": "Aktif",
+  "js.handle_device": "Aktif, dari perangkat ini. Buka Kafumu sesekali agar tetap aktif.",
+  "js.accept_from": "{name} mengajakmu terhubung",
+  "handle.off": "Matikan"
 }

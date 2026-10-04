@@ -487,5 +487,12 @@
   "contacts.remove_quiet": "Elimină-i pe toți",
   "js.quiet_for": "tăcut de {n} zile",
   "js.quiet_n": "Contacte tăcute de 90+ zile: {n}.",
-  "js.remove_quiet_confirm": "Elimini aceste contacte? Legătura poate fi ruptă sau nefolosită."
+  "js.remove_quiet_confirm": "Elimini aceste contacte? Legătura poate fi ruptă sau nefolosită.",
+  "handle.title": "Linkul tău",
+  "handle.explain": "Un link care duce mereu la conectarea cu tine: în bio, pe un slide sau pe ecusonul tău. Folosește un cod păstrat pe acest dispozitiv, reînnoit când deschizi aplicația.",
+  "handle.on": "Activează și distribuie",
+  "js.handle_live": "Activ",
+  "js.handle_device": "Activ, de pe acest dispozitiv. Deschide Kafumu din când în când ca să rămână activ.",
+  "js.accept_from": "{name} te invită să vă conectați",
+  "handle.off": "Dezactivează"
 }

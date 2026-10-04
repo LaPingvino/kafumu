@@ -487,5 +487,12 @@
   "contacts.remove_quiet": "Allemaal verwijderen",
   "js.quiet_for": "{n} dagen stil",
   "js.quiet_n": "{n} contacten zijn 90+ dagen stil.",
-  "js.remove_quiet_confirm": "Deze contacten verwijderen? De verbinding is misschien kapot of ongebruikt."
+  "js.remove_quiet_confirm": "Deze contacten verwijderen? De verbinding is misschien kapot of ongebruikt.",
+  "handle.title": "Jouw link",
+  "handle.explain": "Een link die altijd leidt tot verbinden met jou: in je bio, op een slide of op je badge. Hij gebruikt een code op dit apparaat, vernieuwd als je de app opent.",
+  "handle.on": "Aanzetten en delen",
+  "js.handle_live": "Actief",
+  "js.handle_device": "Actief, vanaf dit apparaat. Open Kafumu af en toe om hem actief te houden.",
+  "js.accept_from": "{name} nodigt je uit om te verbinden",
+  "handle.off": "Uitzetten"
 }
