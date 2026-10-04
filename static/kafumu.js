@@ -491,7 +491,18 @@
       var o = document.createElement("option"); o.value = code; o.textContent = short(code); langs.appendChild(o);
     });
     langs.onchange = function () { var v = langs.value; if (!v) return; pin("lang:" + v).then(function () { location.href = chipURL("lang", v, false); }); };
-    box.appendChild(langs);
+    // Small until tapped: "🗣 +" and "# +" open their picker in place.
+    function opener(label, title, open) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "chip"; b.textContent = label; b.title = title;
+      b.onclick = function () { b.replaceWith(open()); };
+      return b;
+    }
+    box.appendChild(opener("🗣 +", tr("chip_lang"), function () {
+      langs.hidden = false;
+      setTimeout(function () { langs.focus(); try { langs.showPicker(); } catch (e) {} }, 0);
+      return langs;
+    }));
     var subj = document.createElement("form");
     subj.className = "chip-subject";
     var inp = document.createElement("input");
@@ -500,7 +511,7 @@
     TAG_GROUPS.forEach(function (g) { var o = document.createElement("option"); o.value = "#" + g[0]; dl.appendChild(o); });
     subj.appendChild(inp); subj.appendChild(dl);
     subj.onsubmit = function (e) { e.preventDefault(); var t = normTag(inp.value); if (!t) return; pin("tag:" + t).then(function () { location.href = chipURL("tag", t, false); }); };
-    box.appendChild(subj);
+    box.appendChild(opener("# +", tr("chip_subject"), function () { setTimeout(function () { inp.focus(); }, 0); return subj; }));
     var edit = document.createElement("button");
     edit.type = "button"; edit.className = "chip" + (editChips ? " on" : "");
     edit.textContent = editChips ? "✓" : "✎"; edit.title = tr("chip_edit");
