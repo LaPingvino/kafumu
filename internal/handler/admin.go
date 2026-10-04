@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/LaPingvino/kafumu/internal/account"
+	"github.com/LaPingvino/kafumu/internal/report"
 	"html/template"
 	"log"
 	"net/http"
@@ -29,6 +30,7 @@ type Admin struct {
 	Meetups  *Meetups
 	Notes    *oln.Service
 	DB       *datastore.Client
+	Reports  *report.Service
 	// Jobs are the cron jobs, runnable by hand: name → run.
 	Jobs map[string]func(ctx context.Context) string
 }
@@ -60,7 +62,7 @@ with your passkey or sign-in link at <a href="/account">/account</a> — and com
 }
 
 func (a *Admin) admin(w http.ResponseWriter, r *http.Request) bool {
-	if u := UserFrom(r.Context()); u != nil && u.Role == "admin" {
+	if u := UserFrom(r.Context()); u != nil && (u.Role == "admin" || u.Role == "moderator") {
 		return true
 	}
 	http.NotFound(w, r)
@@ -74,13 +76,29 @@ type adminPage struct {
 	Jobs   []string
 	Search string
 	Users  []adminUser
+	Groups []userGroup
+	Areas  []areaCount
 	Roles  []string
+	Queue  []report.Item
+	// Full is an admin (accounts, jobs); a moderator sees only the queue.
+	Full bool
 }
 
 type stat struct {
 	Label string
 	N     int
 	Note  string
+}
+
+// userGroup: named accounts in one area (#geo cell; "" = none set).
+type userGroup struct {
+	Cell  string
+	Users []adminUser
+}
+
+type areaCount struct {
+	Cell string
+	N    int
 }
 
 type adminUser struct {
@@ -95,13 +113,24 @@ var adminRoles = []string{"", "host", "moderator", "admin"}
 
 func (a *Admin) count(ctx context.Context, q *datastore.Query) int {
 	res, err := a.DB.RunAggregationQuery(ctx, q.NewAggregationQuery().WithCount("n"))
+	if err == nil {
+		switch v := res["n"].(type) {
+		case int64:
+			return int(v)
+		case int:
+			return v
+		}
+		log.Printf("admin: count: unexpected %T", res["n"])
+	} else {
+		log.Printf("admin: count: %v", err)
+	}
+	// Fallback: count keys (small reads), capped.
+	keys, err := a.DB.GetAll(ctx, q.KeysOnly().Limit(10000), nil)
 	if err != nil {
+		log.Printf("admin: count keys: %v", err)
 		return -1
 	}
-	if v, ok := res["n"].(int64); ok {
-		return int(v)
-	}
-	return -1
+	return len(keys)
 }
 
 // Show handles GET /admin: numbers first, then accounts, jobs, moderation.
@@ -112,6 +141,16 @@ func (a *Admin) Show(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 	p := adminPage{page: a.Home.newPage(r, "Admin"), Result: r.URL.Query().Get("r"), Search: strings.TrimSpace(r.URL.Query().Get("s"))}
 	p.Tab, p.Roles = "admin", adminRoles
+	p.Full = UserFrom(ctx).Role == "admin"
+	if a.Reports != nil {
+		if q, err := a.Reports.Queue(ctx, time.Now()); err == nil {
+			p.Queue = q
+		}
+	}
+	if !p.Full {
+		a.Home.render(w, "admin.html", p)
+		return
+	}
 	for name := range a.Jobs {
 		p.Jobs = append(p.Jobs, name)
 	}
@@ -138,6 +177,17 @@ func (a *Admin) Show(w http.ResponseWriter, r *http.Request) {
 			{"Bluesky linked", a.count(ctx, live("ATSession")), "OAuth sessions"},
 		}
 		p.Users = a.findUsers(ctx, p.Search)
+		by := map[string]int{}
+		for _, u := range p.Users {
+			if _, ok := by[u.Cell]; !ok {
+				by[u.Cell] = len(p.Groups)
+				p.Groups = append(p.Groups, userGroup{Cell: u.Cell})
+			}
+			g := &p.Groups[by[u.Cell]]
+			g.Users = append(g.Users, u)
+		}
+		sort.SliceStable(p.Groups, func(i, j int) bool { return len(p.Groups[i].Users) < len(p.Groups[j].Users) })
+		p.Areas = a.areas(ctx)
 	}
 	a.Home.render(w, "admin.html", p)
 }
@@ -187,7 +237,40 @@ func (a *Admin) Action(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	ctx, id, res := r.Context(), strings.TrimSpace(r.FormValue("id")), ""
-	switch r.FormValue("do") {
+	do := r.FormValue("do")
+	if UserFrom(ctx).Role != "admin" && do != "hide-note" && do != "delete-meetup" && do != "report-hide" && do != "report-dismiss" {
+		http.NotFound(w, r)
+		return
+	}
+	switch do {
+	case "report-dismiss":
+		if err := a.Reports.Dismiss(ctx, r.FormValue("kind"), id); err != nil {
+			res = "dismiss failed: " + err.Error()
+		} else {
+			res = "dismissed reports on " + id
+		}
+	case "report-hide":
+		// Notes and meetups have their own removal; posts and people are
+		// kept out of bundles.
+		var err error
+		switch r.FormValue("kind") {
+		case "note":
+			if err = a.Notes.Hide(ctx, id); err == nil {
+				err = a.Reports.Dismiss(ctx, "note", id)
+			}
+		case "meetup":
+			if err = a.Meetups.Svc.Store.Delete(ctx, id); err == nil {
+				a.Meetups.Svc.ForgetAll()
+				err = a.Reports.Dismiss(ctx, "meetup", id)
+			}
+		default:
+			err = a.Reports.Hide(ctx, r.FormValue("kind"), id)
+		}
+		if err != nil {
+			res = "hide failed: " + err.Error()
+		} else {
+			res = "hid " + r.FormValue("kind") + " " + id
+		}
 	case "hide-note":
 		if err := a.Notes.Hide(ctx, id); err != nil {
 			res = "hide failed: " + err.Error()
@@ -269,4 +352,31 @@ func (a *Admin) userAction(r *http.Request, id string) string {
 		return who + " deleted"
 	}
 	return ""
+}
+
+// areas counts all accounts (named or not) per #geo cell they set, busiest
+// first, from a projection on the indexed cell field.
+func (a *Admin) areas(ctx context.Context) []areaCount {
+	var rows []struct {
+		Cell string `datastore:"cell"`
+	}
+	if _, err := a.DB.GetAll(ctx, datastore.NewQuery("User").Project("cell").Limit(10000), &rows); err != nil {
+		log.Printf("admin: areas: %v", err)
+		return nil
+	}
+	n := map[string]int{}
+	for _, r := range rows {
+		if r.Cell != "" {
+			n[r.Cell]++
+		}
+	}
+	out := make([]areaCount, 0, len(n))
+	for c, k := range n {
+		out = append(out, areaCount{c, k})
+	}
+	sort.Slice(out, func(i, j int) bool { return out[i].N > out[j].N })
+	if len(out) > 20 {
+		out = out[:20]
+	}
+	return out
 }

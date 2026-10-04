@@ -421,5 +421,14 @@
   "about.name": "<em>Ni kafumu</em> is Esperanto voor „laten we samen koffie drinken”: de taal is gemaakt om mensen over grenzen heen te ontmoeten. Nieuwsgierig? <a href=\"https://esperanto-kurso.net\">esperanto-kurso.net</a> leert het je gratis, van dezelfde maker.",
   "sync.on": "Gesynchroniseerd met je andere ingelogde apparaten.",
   "sync.needs_key_title": "Je kaartjes en contacten staan op je andere apparaat",
-  "sync.needs_key": "Haal ze één keer hierheen, met je andere apparaat open en ingelogd. Daarna blijft alles vanzelf gelijk: versleuteld, de server kan het niet lezen."
+  "sync.needs_key": "Haal ze één keer hierheen, met je andere apparaat open en ingelogd. Daarna blijft alles vanzelf gelijk: versleuteld, de server kan het niet lezen.",
+  "js.report": "Melden",
+  "js.report_why": "Wat is er mis?",
+  "js.reason_spam": "Spam",
+  "js.reason_scam": "Oplichting",
+  "js.reason_harassment": "Intimidatie",
+  "js.reason_wrong_place": "Verkeerde plek",
+  "js.reason_other": "Anders",
+  "js.report_sending": "Versturen…",
+  "js.reported": "Gemeld, dank je. Hier verborgen."
 }

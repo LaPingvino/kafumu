@@ -255,3 +255,8 @@ input[type="range"] { padding: 0; background: transparent; accent-color: var(--a
 .stat strong { font-size: 1.6rem; line-height: 1.1; }
 .admin-users .actions { gap: 6px; flex-wrap: wrap; margin-top: 6px; }
 .admin-users .actions form { margin: 0; }
+
+/* Report: a quiet flag at the end of a card's actions. */
+.pill-sm.report { margin-left: auto; opacity: .55; }
+.pill-sm.report:hover { opacity: 1; }
+.report-reasons { align-items: center; gap: 6px; }

@@ -287,7 +287,12 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       local messages, mailboxes, push, Bluesky linked) via aggregation counts; accounts list (named, search by
       prefix or id) with role (user/host/moderator/admin), rename, release name, keep forever, delete (+vault).
       Render-tested. 38b (report tool + queue) next.
-- [ ] 38. Admin worth opening (Joop: "doesn't show a lot yet, not even stats"), like esperanto-kurso.net's:
+- [x] 38b. Report tool: ⚑ on local messages, Bluesky posts, people and meetups → reason chips → stamped
+      POST /api/report (internal/report: 30-day Report, keyed by stamp); /admin queue (most reported first)
+      with Hide (note hide / meetup delete / 90-day Hidden set for posts and people, filtered from bundles)
+      and Dismiss; moderators see /admin with only the queue. Admin: counts log errors and fall back to a
+      keys-only count; accounts grouped per area (details), "accounts by area" line. Browser tests delete
+      their accounts afterwards. Was: 38. Admin worth opening (Joop: "doesn't show a lot yet, not even stats"), like esperanto-kurso.net's:
       stats (accounts named/anon, active 1/7/30 d, passkeys, ATproto-linked, findable people, inboxes,
       meetups by source, notes by cell, vaults), a named-accounts list with search; per account: rename,
       roles (admin / moderator / trusted host), reset keep-days, delete; moderation: hide a meetup or note.

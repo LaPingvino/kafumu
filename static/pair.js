@@ -435,7 +435,15 @@
         .then(function (j) { return { code: j.code, url: base + "/j/" + j.code }; });
     }
 
-    return { shortLink: shortLink, inbox: inbox, writeTo: writeTo, readInbox: readInbox, connectBack: connectBack, checkIn: checkIn, around: around, invite: invite, accept: accept, moveSend: moveSend, moveReceive: moveReceive, checkInvite: checkInvite, checkContact: checkContact, send: send,
+    // report flags a card for the moderators, paying minimal work, no account.
+    function report(obj) {
+      var body = JSON.stringify(obj);
+      return stamp(body, "report").then(function (work) {
+        return fetchFn(base + "/api/report", { method: "POST", body: body, credentials: "omit", headers: { "X-Kafumu-Work": work } });
+      }).then(function (r) { if (!r.ok) throw new Error("report " + r.status); });
+    }
+
+    return { report: report, shortLink: shortLink, inbox: inbox, writeTo: writeTo, readInbox: readInbox, connectBack: connectBack, checkIn: checkIn, around: around, invite: invite, accept: accept, moveSend: moveSend, moveReceive: moveReceive, checkInvite: checkInvite, checkContact: checkContact, send: send,
       _open: open, _boxOf: boxOf, _inviteBox: inviteBox, _unb64: unb64 };
   }
 

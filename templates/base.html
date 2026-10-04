@@ -27,7 +27,7 @@
   <header class="headerbar">
     <a href="/" class="title">☕ {{.Brand}}</a>
     <nav class="switcher top" aria-label="{{.Brand}}">{{template "tabs" .}}</nav>
-    {{if .User}}{{if eq .User.Role "admin"}}<a href="/admin" class="about-link" title="Admin"{{if eq .Tab "admin"}} aria-current="page"{{end}}>⚙</a>{{end}}{{end}}
+    {{if .User}}{{if or (eq .User.Role "admin") (eq .User.Role "moderator")}}<a href="/admin" class="about-link" title="Admin"{{if eq .Tab "admin"}} aria-current="page"{{end}}>⚙</a>{{end}}{{end}}
     <a href="/about" class="about-link" title="{{ts .Lang "nav.about"}}"{{if eq .Tab "about"}} aria-current="page"{{end}}><svg width="16" height="16"><use href="#i-about"/></svg></a>
     <select id="lang" class="flat" aria-label="{{ts .Lang "nav.language"}}" onchange="document.cookie='lang='+this.value+';path=/;max-age=31536000;samesite=lax';location.reload()">
       {{range .Langs}}<option value="{{.Code}}"{{if eq .Code $.Lang}} selected{{end}}>{{.Name}}</option>{{end}}

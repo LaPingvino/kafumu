@@ -3,6 +3,7 @@ package handler
 
 import (
 	"encoding/json"
+	"github.com/LaPingvino/kafumu/internal/report"
 	"html/template"
 	"log"
 	"net/http"
@@ -38,6 +39,8 @@ type Home struct {
 	Gaz  *gazetteer.Gazetteer
 	// Notes, if set, are the OLN local messages included in bundles.
 	Notes *oln.Service
+	// Reports, if set, hides what moderators hid (posts, people) from bundles.
+	Reports *report.Service
 	// ATproto, if set, lets people connect their own ATproto account.
 	ATproto *atp.Service
 	// Meetups and Accounts, if set, are included in bundles.
@@ -240,6 +243,14 @@ var Funcs = template.FuncMap{
 	"t":     func(lang, key string) template.HTML { return template.HTML(locale.T(lang, key)) },
 	"ts":    locale.T,
 	"venue": meetup.CleanVenue,
+	// bskyURL: at://did/app.bsky.feed.post/rkey → its bsky.app page.
+	"bskyURL": func(uri string) string {
+		p := strings.Split(strings.TrimPrefix(uri, "at://"), "/")
+		if len(p) == 3 {
+			return "https://bsky.app/profile/" + p[0] + "/post/" + p[2]
+		}
+		return "https://bsky.app"
+	},
 	// host shows a link by its site: "luma.com".
 	"host": func(link string) string {
 		if u, err := url.Parse(link); err == nil && u.Host != "" {
@@ -308,7 +319,11 @@ func (h *Home) Bundle(w http.ResponseWriter, r *http.Request) {
 		if ps, err := h.Accounts.People(r.Context(), cells); err != nil {
 			log.Printf("bundle: people: %v", err)
 		} else if ps != nil {
-			b.People = ps
+			for _, p := range ps {
+				if h.Reports == nil || !h.Reports.Hidden(r.Context(), "person", p.Name) {
+					b.People = append(b.People, p)
+				}
+			}
 		}
 	}
 	if h.Meetups != nil {
@@ -352,7 +367,7 @@ func (h *Home) Bundle(w http.ResponseWriter, r *http.Request) {
 			mu.Lock()
 			defer mu.Unlock()
 			for _, p := range posts {
-				if !uris[p.URI] {
+				if !uris[p.URI] && (h.Reports == nil || !h.Reports.Hidden(r.Context(), "post", p.URI)) {
 					uris[p.URI] = true
 					b.Posts = append(b.Posts, p)
 				}

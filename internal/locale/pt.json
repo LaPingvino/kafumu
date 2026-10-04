@@ -421,5 +421,14 @@
   "about.name": "<em>Ni kafumu</em> quer dizer “vamos tomar um café juntos” em esperanto, uma língua feita para conhecer pessoas além das fronteiras. Curioso? O <a href=\"https://esperanto-kurso.net\">esperanto-kurso.net</a> ensina-a de graça, do mesmo autor.",
   "sync.on": "Sincronizado com os teus outros dispositivos com sessão iniciada.",
   "sync.needs_key_title": "Os teus cartões e contactos estão no outro dispositivo",
-  "sync.needs_key": "Traz-os para aqui uma vez, com o outro dispositivo aberto e com sessão iniciada. Depois, tudo fica sincronizado sozinho: encriptado, o servidor não o consegue ler."
+  "sync.needs_key": "Traz-os para aqui uma vez, com o outro dispositivo aberto e com sessão iniciada. Depois, tudo fica sincronizado sozinho: encriptado, o servidor não o consegue ler.",
+  "js.report": "Denunciar",
+  "js.report_why": "O que se passa?",
+  "js.reason_spam": "Spam",
+  "js.reason_scam": "Burla",
+  "js.reason_harassment": "Assédio",
+  "js.reason_wrong_place": "Lugar errado",
+  "js.reason_other": "Outro",
+  "js.report_sending": "A enviar…",
+  "js.reported": "Denunciado, obrigado. Escondido aqui."
 }

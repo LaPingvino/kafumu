@@ -419,9 +419,40 @@
     hide.type = "button"; hide.className = "pill-sm"; hide.textContent = tr("oln_hide");
     hide.onclick = hideIt;
     row.appendChild(hide);
+    row.appendChild(reportButton("note", n.id, n.text, li, hideIt));
     li.appendChild(row);
     swipeAway(li, hideIt);
     return li;
+  }
+
+  // reportButton: ⚑ → reason chips → a stamped report; the card then goes
+  // away on this device. Moderators see it in /admin.
+  var REASONS = ["spam", "scam", "harassment", "wrong-place", "other"];
+  function reportButton(kind, item, snippet, li, onHidden) {
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "pill-sm report"; b.textContent = "⚑"; b.title = tr("report");
+    b.setAttribute("aria-label", tr("report"));
+    b.onclick = function (e) {
+      e.preventDefault(); e.stopPropagation();
+      var row = document.createElement("div");
+      row.className = "chips report-reasons";
+      row.appendChild(Object.assign(document.createElement("span"), { className: "dim small", textContent: tr("report_why") }));
+      REASONS.forEach(function (r) {
+        var c = document.createElement("button");
+        c.type = "button"; c.className = "chip"; c.textContent = tr("reason_" + r.replace("-", "_"));
+        c.onclick = function (e) {
+          e.preventDefault(); e.stopPropagation();
+          row.textContent = tr("report_sending");
+          var pair = window.kafumuPair && window.kafumuPair.create({ fetch: window.fetch.bind(window), store: window.kafumuDevice.store, origin: location.origin });
+          pair.report({ kind: kind, item: item, reason: r, snippet: String(snippet || "").slice(0, 200), cell: currentCell })
+            .then(function () { row.textContent = "✓ " + tr("reported"); setTimeout(function () { if (onHidden) onHidden(); else li.remove(); }, 1200); },
+              function () { row.textContent = tr("oln_failed"); });
+        };
+        row.appendChild(c);
+      });
+      b.replaceWith(row);
+    };
+    return b;
   }
 
   // swipeAway: drag an item sideways past a third of its width to hide it.
@@ -608,6 +639,10 @@
         meta.textContent = [m.venue, m.via ? tr("via", { site: m.via }) : tr("going_n", { n: m.going })].concat((m.tags || []).map(function (t) { return "#" + t; })).filter(Boolean).join(" · ");
         a.appendChild(when); a.appendChild(title); a.appendChild(meta);
         li.appendChild(a);
+        var mrow = document.createElement("div");
+        mrow.className = "actions";
+        mrow.appendChild(reportButton("meetup", m.id, m.title, li));
+        li.appendChild(mrow);
         list.appendChild(li);
       });
     });
@@ -659,6 +694,10 @@
       }).join(", ")].filter(Boolean).join(" · ");
       li.appendChild(meta);
       if (p.inbox && window.kafumuPair && window.kafumuOLN) li.appendChild(writeBox(p));
+      var prow = document.createElement("div");
+      prow.className = "actions";
+      prow.appendChild(reportButton("person", p.name, "@" + p.name + (p.bio ? ": " + p.bio : ""), li));
+      li.appendChild(prow);
       list.appendChild(li);
     });
   }
@@ -852,6 +891,7 @@
     hide.type = "button"; hide.className = "pill-sm"; hide.textContent = tr("oln_hide");
     hide.onclick = hideIt;
     row.appendChild(hide);
+    row.appendChild(reportButton("post", p.uri, (p.handle ? "@" + p.handle + ": " : "") + p.text, li, hideIt));
     li.appendChild(row);
     swipeAway(li, hideIt);
     return li;

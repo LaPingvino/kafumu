@@ -9,6 +9,7 @@ import (
 	"testing"
 
 	"github.com/LaPingvino/kafumu/internal/account"
+	"github.com/LaPingvino/kafumu/internal/report"
 )
 
 func TestAdminGate(t *testing.T) {
@@ -48,11 +49,13 @@ func TestAdminPageRenders(t *testing.T) {
 	_, home, _ := newServerWithMeetups(t)
 	u := &account.User{ID: "0123456789abcdef", Username: "joop", Role: "admin", KeepDays: -1, ATHandle: "joop.example", Cell: "8ccgmw"}
 	p := adminPage{page: home.newPage(httptest.NewRequest("GET", "/admin", nil), "Admin"), Roles: adminRoles,
-		Stats: []stat{{"Accounts", 3, "all"}, {"Push", -1, ""}}, Users: []adminUser{{User: u, Passkeys: 2, Synced: true}}, Jobs: []string{"feeds"}}
+		Stats: []stat{{"Accounts", 3, "all"}, {"Push", -1, ""}}, Users: []adminUser{{User: u, Passkeys: 2, Synced: true}}, Groups: []userGroup{{Cell: "8ccgmw", Users: []adminUser{{User: u, Passkeys: 2, Synced: true}}}},
+		Areas: []areaCount{{"8ccgmw", 4}}, Jobs: []string{"feeds"}, Full: true,
+		Queue: []report.Item{{Kind: "post", Item: "at://did:plc:x/app.bsky.feed.post/abc", Snippet: "buy now", Reasons: map[string]int{"spam": 2}, Count: 2}}}
 	w := httptest.NewRecorder()
 	home.render(w, "admin.html", p)
 	body := w.Body.String()
-	for _, want := range []string{"@joop", "🔑 2", "🔄 synced", "kept forever", `value="moderator"`, "Set role", ">3<"} {
+	for _, want := range []string{"@joop", "🔑 2", "🔄 synced", "#geo8ccgmw · 1", "Accounts by area", "buy now", "spam 2", "https://bsky.app/profile/did:plc:x/post/abc", "kept forever", `value="moderator"`, "Set role", ">3<"} {
 		if !strings.Contains(body, want) {
 			t.Errorf("admin page lacks %q", want)
 		}

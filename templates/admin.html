@@ -1,13 +1,30 @@
 {{template "head" .}}
 <h1>Admin</h1>
 {{if .Result}}<p class="card" style="padding:8px 16px"><code>{{.Result}}</code></p>{{end}}
+<div class="card" style="padding:4px 16px 12px">
+  <h2>Reports{{if .Queue}} ({{len .Queue}}){{end}}</h2>
+  {{if .Queue}}<ul class="boxed-list admin-users">{{range .Queue}}<li>
+    <div><span class="badge">{{.Kind}}</span> <strong>{{.Count}}×</strong>{{range $r, $n := .Reasons}} <span class="badge warn">{{$r}}{{if gt $n 1}} {{$n}}{{end}}</span>{{end}}
+      <span class="dim small"> · {{.Last.Format "2 Jan 15:04"}}{{if .Cell}} · <a href="/?cell={{.Cell}}">#geo{{.Cell}}</a>{{end}}</span></div>
+    {{if .Snippet}}<p class="text">{{.Snippet}}</p>{{end}}
+    <div class="dim small"><code>{{.Item}}</code>{{if eq .Kind "meetup"}} · <a href="/meetups/{{.Item}}">open</a>{{end}}{{if eq .Kind "post"}} · <a href="{{bskyURL .Item}}" rel="noopener" target="_blank">on Bluesky</a>{{end}}</div>
+    <div class="actions">
+      <form method="post" action="/admin/action"><input type="hidden" name="do" value="report-hide"><input type="hidden" name="kind" value="{{.Kind}}"><input type="hidden" name="id" value="{{.Item}}"><button type="submit" class="pill-sm contrast">{{if eq .Kind "meetup"}}Delete meetup{{else}}Hide{{end}}</button></form>
+      <form method="post" action="/admin/action"><input type="hidden" name="do" value="report-dismiss"><input type="hidden" name="kind" value="{{.Kind}}"><input type="hidden" name="id" value="{{.Item}}"><button type="submit" class="pill-sm">Dismiss</button></form>
+    </div>
+  </li>{{end}}</ul>{{else}}<p class="dim">Nothing reported.</p>{{end}}
+</div>
+{{if .Full}}
 <div class="stats">
   {{range .Stats}}<div class="stat card"><strong>{{if lt .N 0}}–{{else}}{{.N}}{{end}}</strong><span>{{.Label}}</span>{{if .Note}}<small class="dim">{{.Note}}</small>{{end}}</div>{{end}}
 </div>
 <div class="card" style="padding:4px 16px 12px">
   <h2>Accounts</h2>
   <form method="get" action="/admin" class="inline-row"><input name="s" value="{{.Search}}" placeholder="name prefix or account id"><button type="submit">Search</button></form>
-  {{if .Users}}<ul class="boxed-list admin-users">{{range .Users}}<li>
+  {{if .Areas}}<p class="dim small">Accounts by area: {{range .Areas}}<a href="/?cell={{.Cell}}">#geo{{.Cell}}</a> {{.N}} · {{end}}</p>{{end}}
+  {{if .Users}}{{range .Groups}}<details class="area-group"{{if le (len .Users) 5}} open{{end}}>
+    <summary>{{if .Cell}}#geo{{.Cell}}{{else}}no area set{{end}} · {{len .Users}}</summary>
+    <ul class="boxed-list admin-users">{{range .Users}}<li>
     <div><strong>{{if .Username}}@{{.Username}}{{else}}<span class="dim">(no name)</span>{{end}}</strong>
       <span class="dim small"> · {{slice .ID 0 8}} · since {{.CreatedAt.Format "2 Jan 2006"}} · seen {{.LastSeenAt.Format "2 Jan 15:04"}}</span></div>
     <div class="dim small">{{if .Role}}<span class="badge">{{.Role}}</span> {{end}}🔑 {{.Passkeys}}{{if .Synced}} · 🔄 synced{{end}}{{if .ATHandle}} · 🦋 @{{.ATHandle}}{{end}}{{if .Cell}} · #geo{{.Cell}}{{end}}{{if eq .KeepDays -1}} · kept forever{{end}}</div>
@@ -20,12 +37,14 @@
       <form method="post" action="/admin/action"><input type="hidden" name="id" value="{{.ID}}"><input type="hidden" name="do" value="keep"><button type="submit" class="pill-sm">{{if eq .KeepDays -1}}Normal retention{{else}}Keep forever{{end}}</button></form>
       <form method="post" action="/admin/action" onsubmit="return confirm('Delete this account for good?')"><input type="hidden" name="id" value="{{.ID}}"><input type="hidden" name="do" value="delete-user"><button type="submit" class="pill-sm contrast">Delete</button></form>
     </div>
-  </li>{{end}}</ul>{{else}}<p class="dim">{{if .Search}}Nothing found for “{{.Search}}”.{{else}}No named accounts yet.{{end}}</p>{{end}}
+  </li>{{end}}</ul>
+  </details>{{end}}{{else}}<p class="dim">{{if .Search}}Nothing found for “{{.Search}}”.{{else}}No named accounts yet.{{end}}</p>{{end}}
 </div>
 <div class="card" style="padding:4px 16px 12px">
   <h2>Run a job now</h2>
   <div class="actions">{{range .Jobs}}<form method="post" action="/admin/action"><input type="hidden" name="do" value="run"><input type="hidden" name="job" value="{{.}}"><button type="submit" class="pill">{{.}}</button></form>{{end}}</div>
 </div>
+{{end}}
 <div class="card" style="padding:4px 16px 12px">
   <h2>Moderate</h2>
   <form method="post" action="/admin/action" class="inline"><input type="hidden" name="do" value="hide-note"><input name="id" placeholder="note id (sha1)"><button type="submit" class="contrast">Hide note</button></form>

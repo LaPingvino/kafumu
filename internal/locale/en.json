@@ -421,5 +421,14 @@
   "about.name": "<em>Ni kafumu</em> is Esperanto for “let's have a coffee together”: the language was made for meeting people across borders. Curious? <a href=\"https://esperanto-kurso.net\">esperanto-kurso.net</a> teaches it for free, from the same maker.",
   "sync.on": "Synced with your other signed-in devices.",
   "sync.needs_key_title": "Your cards and contacts are on your other device",
-  "sync.needs_key": "Get them here once, with your other device open and signed in. After that, everything stays in sync on its own: encrypted, the server can't read it."
+  "sync.needs_key": "Get them here once, with your other device open and signed in. After that, everything stays in sync on its own: encrypted, the server can't read it.",
+  "js.report": "Report",
+  "js.report_why": "What's wrong?",
+  "js.reason_spam": "Spam",
+  "js.reason_scam": "Scam",
+  "js.reason_harassment": "Harassment",
+  "js.reason_wrong_place": "Wrong place",
+  "js.reason_other": "Other",
+  "js.report_sending": "Sending…",
+  "js.reported": "Reported, thanks. Hidden here."
 }

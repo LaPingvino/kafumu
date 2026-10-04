@@ -30,6 +30,7 @@ import (
 	"github.com/LaPingvino/kafumu/internal/oln"
 	"github.com/LaPingvino/kafumu/internal/purge"
 	"github.com/LaPingvino/kafumu/internal/push"
+	"github.com/LaPingvino/kafumu/internal/report"
 	"github.com/LaPingvino/kafumu/internal/short"
 	"github.com/LaPingvino/kafumu/internal/slot"
 	"github.com/LaPingvino/kafumu/internal/vault"
@@ -152,6 +153,10 @@ func main() {
 	mux.HandleFunc("PUT /api/slot/{id}", slotAPI.Put)
 	mux.HandleFunc("POST /api/oln", notes.HandlePost)
 	mux.HandleFunc("GET /oln.json", notes.Export(cfg.Origin, cfg.Brand))
+	reports := report.New(db)
+	home.Reports = reports
+	adminH.Reports = reports
+	mux.HandleFunc("POST /api/report", reports.Handle)
 	shorts := short.New(db)
 	mux.HandleFunc("POST /api/short", shorts.Make)
 	mux.HandleFunc("GET /j/{code}", shorts.Follow)
