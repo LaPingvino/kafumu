@@ -9,6 +9,8 @@ const fill = (form, values) => `(() => { const f = document.getElementById(${JSO
   ${Object.entries(values).map(([k, v]) => `f.elements[${JSON.stringify(k)}].value = ${JSON.stringify(v)};`).join("")}
   f.requestSubmit(); return true; })()`;
 
+// Unique per run: production keeps earlier runs' messages for a while.
+const RUN = Date.now().toString(36);
 const A = await browser(9333), B = await browser(9334);
 try {
   // Area picker: no location prompt on load; search, map, tap a block.
@@ -63,16 +65,16 @@ try {
   await A.waitFor("!document.getElementById('signals-section').hidden && document.getElementById('signals').textContent.includes('Bea')", "B's signal in A's Around");
   // Local messages (OLN): A says something, mined in a worker; B sees it.
   await A.goto(base + "/?cell=6fg223");
-  await A.evaluate("(() => { document.getElementById('say').click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test: hi from the OLN'; f.requestSubmit(); return true; })()");
-  await A.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN')", "A's message in Here now", 30000);
+  await A.evaluate("(() => { document.getElementById('say').click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test: hi from the OLN " + RUN + "'; f.requestSubmit(); return true; })()");
+  await A.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN " + RUN + "')", "A's message in Here now", 30000);
   // Joop saw messages twice: two loads in a row must still show each once.
   await A.evaluate("document.getElementById('view-apply').click(); document.getElementById('view-apply').click(); true");
   await sleep(3000);
-  const copies = await A.evaluate("document.getElementById('notes').textContent.split('hi from the OLN').length - 1");
+  const copies = await A.evaluate("document.getElementById('notes').textContent.split('hi from the OLN " + RUN + "').length - 1");
   if (copies !== 1) throw new Error("message shown " + copies + " times");
   for (let i = 0; ; i++) { // B's browser may hold a 30-second-old bundle
     await B.goto(base + "/?cell=6fg223");
-    try { await B.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN')", "B sees A's message", 8000); break; }
+    try { await B.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN " + RUN + "')", "B sees A's message", 8000); break; }
     catch (e) { if (i >= 6) throw e; }
   }
   // Questions: A asks; B gets it (with a private-answer button) and answers
@@ -96,13 +98,13 @@ try {
 
   // Views: language and interest filters apply on the device, from the URL.
   await A.goto(base + "/?cell=6fg223&lang=eng");
-  await A.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN')", "message kept by lang=eng", 15000);
+  await A.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN " + RUN + "')", "message kept by lang=eng", 15000);
   await A.goto(base + "/?cell=6fg223&tag=zzznothing&w=3");
   await A.waitFor("document.getElementById('views').textContent.includes('#zzznothing')", "active filter chip");
   await sleep(2500);
-  if (await A.evaluate("document.getElementById('notes').textContent.includes('hi from the OLN')")) throw new Error("tag filter didn't hide the message");
+  if (await A.evaluate("document.getElementById('notes').textContent.includes('hi from the OLN " + RUN + "')")) throw new Error("tag filter didn't hide the message");
   await A.goto(base + "/?cell=6fg223&tag=zzznothing&w=1"); // a bias keeps everything
-  await A.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN')", "message kept with a weak bias", 15000);
+  await A.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN " + RUN + "')", "message kept with a weak bias", 15000);
 
   // Who's up for coffee: A asks, B joins from the message and they connect.
   await A.goto(base + "/?cell=6fg223");

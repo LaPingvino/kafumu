@@ -22,8 +22,8 @@
 (function () {
   var el = document.querySelector(".when"), s = new Date(el.dataset.start), e = new Date(el.dataset.end);
   var day = { weekday: "short", day: "numeric", month: "short" }, hm = { hour: "2-digit", minute: "2-digit" };
-  el.textContent = s.toLocaleDateString(document.documentElement.lang, day) + " · " +
-    s.toLocaleTimeString(document.documentElement.lang, hm) + "–" + e.toLocaleTimeString(document.documentElement.lang, hm);
+  el.textContent = s.toLocaleDateString(window.KAFUMU_LOCALE, day) + " · " +
+    s.toLocaleTimeString(window.KAFUMU_LOCALE, hm) + "–" + e.toLocaleTimeString(window.KAFUMU_LOCALE, hm);
 })();
 </script>
 {{template "foot" .}}

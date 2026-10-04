@@ -21,7 +21,7 @@
           var seen = document.createElement("p");
           seen.className = "dim small";
           seen.textContent = "📍 " + (T.seen_near || "seen near {where} on {day}").replace("{where}", distLabel(c.lastSeen.cell))
-            .replace("{day}", new Date(c.lastSeen.day + "T12:00:00Z").toLocaleDateString(document.documentElement.lang, { weekday: "long", day: "numeric", month: "short" }));
+            .replace("{day}", new Date(c.lastSeen.day + "T12:00:00Z").toLocaleDateString(window.KAFUMU_LOCALE, { weekday: "long", day: "numeric", month: "short" }));
           li.insertBefore(seen, li.children[1] || null);
         }
         li.dataset.search = JSON.stringify([c.card, c.note]).toLowerCase();
@@ -97,7 +97,7 @@
         var who = document.createElement("strong");
         who.textContent = (m.card && m.card.name) || (T.inbox_anonymous || "Someone");
         var meta = document.createElement("span");
-        meta.className = "dim"; meta.textContent = " · " + new Date(m.at).toLocaleString();
+        meta.className = "dim"; meta.textContent = " · " + new Date(m.at).toLocaleString(window.KAFUMU_LOCALE, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
         var p = document.createElement("p");
         p.className = "text"; p.textContent = m.text;
         li.appendChild(who); li.appendChild(meta); li.appendChild(p);

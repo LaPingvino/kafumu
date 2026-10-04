@@ -49,7 +49,7 @@
           var who = document.createElement("strong");
           who.textContent = h.contact.card.name;
           var when = h.day === today ? tr("today") : h.day === yesterday ? tr("yesterday")
-            : new Date(h.day + "T12:00:00Z").toLocaleDateString(document.documentElement.lang, { weekday: "long" });
+            : new Date(h.day + "T12:00:00Z").toLocaleDateString(window.KAFUMU_LOCALE, { weekday: "long" });
           var meta = document.createElement("div");
           meta.className = "meta";
           meta.textContent = tr(h.near ? "was_nearby" : "was_here", { when: when });
@@ -499,8 +499,8 @@
         var s = new Date(m.start), e = new Date(m.end), now = Date.now();
         var when = document.createElement("div");
         when.className = "when";
-        when.textContent = (s <= now && e > now ? tr("now") + " · " : s.toLocaleDateString(document.documentElement.lang, { weekday: "short", day: "numeric", month: "short" }) + " · ") +
-          s.toLocaleTimeString(document.documentElement.lang, { hour: "2-digit", minute: "2-digit" });
+        when.textContent = (s <= now && e > now ? tr("now") + " · " : s.toLocaleDateString(window.KAFUMU_LOCALE, { weekday: "short", day: "numeric", month: "short" }) + " · ") +
+          s.toLocaleTimeString(window.KAFUMU_LOCALE, { hour: "2-digit", minute: "2-digit" });
         var title = document.createElement("strong");
         title.textContent = m.title;
         var meta = document.createElement("div");

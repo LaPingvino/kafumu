@@ -123,7 +123,7 @@
     var li = el("li", "contact"), card = c.card || {};
     var head = el("div", "contact-head");
     head.appendChild(el("strong", null, card.name || T.waiting_card || "…"));
-    if (c.createdAt) head.appendChild(el("span", "dim", new Date(c.createdAt).toLocaleDateString()));
+    if (c.createdAt) head.appendChild(el("span", "dim", new Date(c.createdAt).toLocaleDateString(window.KAFUMU_LOCALE, { day: "numeric", month: "short", year: "numeric" })));
     li.appendChild(head);
     if (card.about) li.appendChild(el("p", "dim", card.about));
     var sig = (c.signals || [])[0];
