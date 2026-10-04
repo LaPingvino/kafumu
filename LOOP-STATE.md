@@ -260,7 +260,8 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       (towns 15k+ and cities within 20 km; city added when within 8 km), the #geo tag as a caption.
 
 - [x] 26. Polish: Around's first screen: coffee/say/ask stay big; change area, share and host a meetup
-      move to a smaller outlined row, so the content starts higher.
+      move to a smaller outlined row, so the content starts higher. "suggested" buttons (coffee, Connect,
+      device move, print badge) now actually get the accent colour; only links and submits did.
 
 **Idle-tick rule (Joop):** when no slice is open, a tick is not idle: use the app in a real browser
 (test/cdp.mjs), pick one area, and make it look and work a bit nicer. Fix one concrete thing per tick.

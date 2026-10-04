@@ -110,7 +110,7 @@ button, [role="button"], select {
   display: inline-flex; align-items: center; justify-content: center; gap: .4rem; text-decoration: none;
 }
 button:hover, [role="button"]:hover { background: var(--button-hover); text-decoration: none; }
-button[type="submit"]:not(.secondary):not(.contrast), [role="button"].suggested {
+button[type="submit"]:not(.secondary):not(.contrast), button.suggested, [role="button"].suggested {
   background: var(--accent-bg); color: var(--accent-fg);
 }
 button[type="submit"]:not(.secondary):not(.contrast):hover { filter: brightness(1.08); }
