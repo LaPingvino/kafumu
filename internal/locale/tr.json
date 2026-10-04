@@ -448,5 +448,11 @@
   "learn.profile": "Profilime ekle",
   "js.learn_btn": "Dil öğren: {lang}",
   "js.learn_explain": "Önce {lang} için buluşmaları, yerel mesajları ve insanları gör (onu konuşup senin dilini öğrenmek isteyenler en üstte) ya da yakındakilere bir kahve eşliğinde pratik yapmak istediğini bildir.",
-  "js.learn_text": "🗣 Dil öğreniyorum: {lang}. Kahve eşliğinde sohbet etmek isteyen var mı? {name}"
+  "js.learn_text": "🗣 Dil öğreniyorum: {lang}. Kahve eşliğinde sohbet etmek isteyen var mı? {name}",
+  "js.chat": "Sohbet",
+  "js.chat_empty": "Henüz mesaj yok. Onları yalnızca ikiniz okuyabilirsiniz.",
+  "js.chat_placeholder": "Mesaj",
+  "js.chat_send": "Gönder",
+  "js.dup_hint": "Başka bir kişiyle aynı mı?",
+  "js.dup_remove": "Bunu kaldır"
 }

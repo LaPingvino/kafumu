@@ -448,5 +448,11 @@
   "learn.profile": "Hozzáadás a profilomhoz",
   "js.learn_btn": "Tanuld: {lang}",
   "js.learn_explain": "Lásd elöl a találkozókat, helyi üzeneteket és embereket ehhez a nyelvhez: {lang} (felül azok, akik beszélik, és a te nyelvedet szeretnék tanulni), vagy jelezd a közelben lévőknek, hogy szívesen gyakorolnál egy kávé mellett.",
-  "js.learn_text": "🗣 Tanulom: {lang}. Van kedve valakinek beszélgetni egy kávé mellett? {name}"
+  "js.learn_text": "🗣 Tanulom: {lang}. Van kedve valakinek beszélgetni egy kávé mellett? {name}",
+  "js.chat": "Csevegés",
+  "js.chat_empty": "Még nincs üzenet. Csak ti ketten olvashatjátok.",
+  "js.chat_placeholder": "Üzenet",
+  "js.chat_send": "Küldés",
+  "js.dup_hint": "Ugyanaz a személy, mint egy másik kapcsolat?",
+  "js.dup_remove": "Ennek eltávolítása"
 }

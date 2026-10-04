@@ -448,5 +448,11 @@
   "learn.profile": "Adaugă în profilul meu",
   "js.learn_btn": "Învață {lang}",
   "js.learn_explain": "Vezi întâi întâlnirile, mesajele locale și oamenii pentru {lang} (cei care o vorbesc și vor să-ți învețe limba sunt sus) sau anunță-i pe cei din apropiere că ai vrea să exersezi la o cafea.",
-  "js.learn_text": "🗣 Învăț {lang}, are cineva chef de o conversație la o cafea? {name}"
+  "js.learn_text": "🗣 Învăț {lang}, are cineva chef de o conversație la o cafea? {name}",
+  "js.chat": "Chat",
+  "js.chat_empty": "Încă nu sunt mesaje. Doar voi doi le puteți citi.",
+  "js.chat_placeholder": "Mesaj",
+  "js.chat_send": "Trimite",
+  "js.dup_hint": "Aceeași persoană ca alt contact?",
+  "js.dup_remove": "Elimină-l pe acesta"
 }

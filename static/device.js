@@ -237,6 +237,70 @@
       };
       li.appendChild(give);
     }
+    // Chat: end-to-end encrypted over the pair's mailbox, stored in the
+    // contact (synced to your own devices).
+    if (opts.send && !opts.preview) {
+      var unread = c.unreadMsgs || 0;
+      var chatBtn = el("button", "pill-sm" + (unread ? " suggested" : ""), "💬 " + (T.chat || "Chat") + (unread ? " (" + unread + ")" : ""));
+      chatBtn.type = "button";
+      var thread = el("div", "chat");
+      thread.hidden = true;
+      function drawThread() {
+        var log = thread.querySelector(".chat-log") || thread.appendChild(el("div", "chat-log"));
+        log.textContent = "";
+        (c.messages || []).forEach(function (m) {
+          var b = el("div", "bubble" + (m.me ? " me" : ""), m.text);
+          b.title = new Date(m.at).toLocaleString(window.KAFUMU_LOCALE);
+          log.appendChild(b);
+        });
+        if (!(c.messages || []).length) log.appendChild(el("p", "dim small", T.chat_empty || "No messages yet."));
+        log.scrollTop = log.scrollHeight;
+      }
+      var form = el("form", "chat-form");
+      var input = el("input");
+      input.placeholder = T.chat_placeholder || "Message";
+      input.maxLength = 2000;
+      var sendBtn = el("button", "pill-sm suggested", T.chat_send || "Send");
+      sendBtn.type = "submit";
+      form.appendChild(input); form.appendChild(sendBtn);
+      form.onsubmit = function (e) {
+        e.preventDefault();
+        var text = input.value.trim();
+        if (!text) return;
+        sendBtn.disabled = true;
+        var msg = { t: "msg", text: text, at: new Date().toISOString() };
+        opts.send(c, msg).then(function () {
+          c.messages = (c.messages || []).concat([{ me: true, text: text, at: msg.at }]).slice(-200);
+          input.value = "";
+          return store.putContact(c);
+        }).then(drawThread, function () { input.placeholder = T.network_retry || "Try again"; })
+          .then(function () { sendBtn.disabled = false; input.focus(); });
+      };
+      chatBtn.onclick = function () {
+        thread.hidden = !thread.hidden;
+        if (thread.hidden) return;
+        if (!thread.contains(form)) thread.appendChild(form);
+        drawThread();
+        if (c.unreadMsgs) { c.unreadMsgs = 0; store.putContact(c); chatBtn.textContent = "💬 " + (T.chat || "Chat"); chatBtn.classList.remove("suggested"); }
+        input.focus();
+        // While open, look for replies every few seconds.
+        (function poll() {
+          if (thread.hidden || !document.body.contains(thread) || !opts.check) return;
+          opts.check(c).then(function (got) { if (got && got.length) { c.unreadMsgs = 0; store.putContact(c); drawThread(); } })
+            .catch(function () {}).then(function () { setTimeout(poll, 4000); });
+        })();
+      };
+      li.appendChild(chatBtn);
+      li.appendChild(thread);
+    }
+    if (opts.duplicateOf) {
+      var dup = el("p", "dim small", (T.dup_hint || "Same person as another contact?") + " ");
+      var rm = el("button", "pill-sm", T.dup_remove || "Remove this one");
+      rm.type = "button";
+      rm.onclick = function () { store.deleteContact(c.id).then(function () { li.remove(); if (opts.onDelete) opts.onDelete(c); }); };
+      dup.appendChild(rm);
+      li.appendChild(dup);
+    }
     if (opts.send) {
       var srow = el("div", "actions signals");
       SIGNALS.forEach(function (kind) {

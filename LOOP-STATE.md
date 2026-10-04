@@ -371,6 +371,14 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       (or "New code", or coffee) overwrote the old one with its private key, so later uses of an old link
       were unreadable. Now replaced codes (up to 20, kept a week) are checked too. Pair E2E test added.
       Known gap: codes are per device (not in the vault); a link shared from the phone arrives on the phone.
+- [x] 47. Chat with contacts (Joop: "no chat option"): 💬 Chat per contact, end-to-end encrypted ({t:"msg"} over
+      the pair mailbox), kept in the contact (last 200; synced to your devices), unread count, polls while open.
+      Duplicates (same name): the newer offers "Remove this one"; removed contacts are never re-created by a
+      late hello (tombstone check in checkInvite). Browser-tested both ways.
+- [ ] 48. Chat over encrypted OLN (Joop: "best to use encrypted OLN for the messages"): send chat messages as OLN
+      messages whose text is the pair-encrypted ciphertext and whose only keyword is an unguessable pair tag
+      (#p<hmac(pairkey, "chat"|day)>, no #geo); the server indexes notes by that tag too (GET /api/oln?tag=…),
+      normal PoW and TTL; federatable via other OLN nodes. Contact record/UI unchanged; mailbox stays for hellos.
 - [ ] 41. "How this was built" page (Joop): honest note that the code is written with LLM help ("vibecoded"),
       built on plans and experience from long before LLMs (whenwhere, OLN, lokumo, amikumu…), and that it
       would not be viable for one person without that help (burn-out). Linked from About and the footer.

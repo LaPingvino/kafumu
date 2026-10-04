@@ -251,6 +251,9 @@
                 return open(key, inv.box, hello.ct).then(function (body) {
                   if (body.t !== "hello") return;
                   return contactID(key).then(function (id) {
+                    return store.get("tombstones").then(function (ts) { return (ts || {})[id] ? null : id; });
+                  }).then(function (id) {
+                    if (!id) return; // you removed this contact: a late hello must not bring it back
                     var c = { id: id, key: b64(key), role: 0, card: body.card || {}, note: "", createdAt: new Date().toISOString(), cardSent: !!(myCard && myCard.name) };
                     return boxOf(key, 1).then(function (theirs) {
                       return seal(key, theirs, { t: "card", card: myCard || {} }).then(function (ct) { return post(theirs, ct); });
@@ -277,6 +280,11 @@
               return open(key, mine, msg.data).then(function (body) {
                 got.push(body);
                 if (body.t === "card") c.card = body.card || {};
+                if (body.t === "msg" && body.text) {
+                  // Chat: kept in the contact (so it syncs to your devices), last 200.
+                  c.messages = (c.messages || []).concat([{ me: false, text: String(body.text).slice(0, 2000), at: body.at || new Date().toISOString() }]).slice(-200);
+                  c.unreadMsgs = (c.unreadMsgs || 0) + 1;
+                }
                 if (body.t === "signal") {
                   // Keep the last ten, newest first; "unread" until seen.
                   c.signals = [{ s: String(body.s || "").slice(0, 20), text: String(body.text || "").slice(0, 140), at: body.at || new Date().toISOString(), unread: true }]

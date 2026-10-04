@@ -448,5 +448,11 @@
   "learn.profile": "Lägg till i min profil",
   "js.learn_btn": "Lär dig {lang}",
   "js.learn_explain": "Se träffar, lokala meddelanden och folk för {lang} först (de som talar det och vill lära sig ditt språk högst upp), eller låt folk i närheten veta att du gärna övar över en fika.",
-  "js.learn_text": "🗣 Lär mig {lang}, någon sugen på att prata över en fika? {name}"
+  "js.learn_text": "🗣 Lär mig {lang}, någon sugen på att prata över en fika? {name}",
+  "js.chat": "Chatt",
+  "js.chat_empty": "Inga meddelanden än. Bara ni två kan läsa dem.",
+  "js.chat_placeholder": "Meddelande",
+  "js.chat_send": "Skicka",
+  "js.dup_hint": "Samma person som en annan kontakt?",
+  "js.dup_remove": "Ta bort den här"
 }

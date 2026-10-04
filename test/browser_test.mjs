@@ -63,6 +63,15 @@ try {
   await B.waitFor("document.querySelector('.signals button').textContent.startsWith('✓')", "signal sent");
   await A.goto(base + "/?cell=6fg222");
   await A.waitFor("document.getElementById('feed').textContent.includes('Bea')", "B's signal in A's Around");
+  // Chat: B writes to Ana; A opens the chat with Bea and reads it.
+  await B.goto(base + "/contacts");
+  await B.waitFor("[...document.querySelectorAll('#contacts li button')].some(b => b.textContent.includes('Chat'))", "B's chat button");
+  await B.evaluate("(() => { const li = [...document.querySelectorAll('#contacts li')].find(l => l.textContent.includes('Ana')); [...li.querySelectorAll('button')].find(b => b.textContent.includes('Chat')).click(); const f = li.querySelector('.chat-form'); f.querySelector('input').value = 'hallo " + RUN + "'; f.requestSubmit(); return true; })()");
+  await B.waitFor("[...document.querySelectorAll('.bubble.me')].some(b => b.textContent === 'hallo " + RUN + "')", "B's message in the thread");
+  await A.goto(base + "/contacts");
+  await A.waitFor("[...document.querySelectorAll('#contacts li button')].some(b => b.textContent.includes('Chat (1)'))", "A sees an unread chat", 15000);
+  await A.evaluate("(() => { const li = [...document.querySelectorAll('#contacts li')].find(l => l.textContent.includes('Bea')); [...li.querySelectorAll('button')].find(b => b.textContent.includes('Chat')).click(); return true; })()");
+  await A.waitFor("[...document.querySelectorAll('.bubble:not(.me)')].some(b => b.textContent === 'hallo " + RUN + "')", "A reads B's message");
   // Local messages (OLN): A says something, mined in a worker; B sees it.
   await A.goto(base + "/?cell=6fg223");
   await A.evaluate("(() => { document.getElementById('say').click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test: hi from the OLN " + RUN + "'; f.requestSubmit(); return true; })()");
@@ -289,7 +298,7 @@ try {
     await X.evaluate("fetch('/account/delete', { method: 'POST', body: new URLSearchParams({ confirm: 'yes' }), credentials: 'same-origin' }).then(() => true)");
   }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, findable profile seen, paid inbox message + connect back, OLN message + report + question/answer + local themes + learn the local language + views + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, findable profile seen, paid inbox message + connect back, OLN message + report + question/answer + local themes + learn the local language + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

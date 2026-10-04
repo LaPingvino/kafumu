@@ -40,8 +40,15 @@
       empty.hidden = cs.length > 0;
       $("contacts-tools").hidden = cs.length === 0;
       function send(c, msg) { return pair.send(c, msg); }
+      // The same person twice (e.g. they used two of your links): the newer
+      // one offers to remove itself.
+      var byName = {};
+      cs.slice().sort(function (a, b) { return (a.createdAt || "").localeCompare(b.createdAt || ""); }).forEach(function (c) {
+        var n = c.card && c.card.name && c.card.name.trim().toLowerCase();
+        if (n) { if (byName[n]) c._dup = byName[n]; else byName[n] = c.id; }
+      });
       cs.forEach(function (c) {
-        var opts = { onDelete: function () { if (!list.children.length) show(); }, send: send };
+        var opts = { onDelete: function () { if (!list.children.length) show(); }, send: send, check: function (x) { return pair.checkContact(x); }, duplicateOf: c._dup };
         var li = dev.renderContact(c, T, opts);
         if (c.lastSeen) {
           var seen = document.createElement("p");

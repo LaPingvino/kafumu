@@ -448,5 +448,11 @@
   "learn.profile": "Přidat do mého profilu",
   "js.learn_btn": "Učit se: {lang}",
   "js.learn_explain": "Zobraz nejdřív setkání, místní zprávy a lidi pro jazyk {lang} (nahoře ti, kdo jím mluví a chtějí se naučit tvůj jazyk), nebo dej lidem poblíž vědět, že by sis rád zapovídal u kafe.",
-  "js.learn_text": "🗣 Učím se: {lang}. Má někdo chuť popovídat si u kafe? {name}"
+  "js.learn_text": "🗣 Učím se: {lang}. Má někdo chuť popovídat si u kafe? {name}",
+  "js.chat": "Chat",
+  "js.chat_empty": "Zatím žádné zprávy. Číst je můžete jen vy dva.",
+  "js.chat_placeholder": "Zpráva",
+  "js.chat_send": "Odeslat",
+  "js.dup_hint": "Stejný člověk jako jiný kontakt?",
+  "js.dup_remove": "Odebrat tento"
 }

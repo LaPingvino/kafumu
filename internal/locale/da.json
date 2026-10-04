@@ -448,5 +448,11 @@
   "learn.profile": "Tilføj det til min profil",
   "js.learn_btn": "Lær {lang}",
   "js.learn_explain": "Se meetups, lokale beskeder og folk for {lang} først (folk, der taler det og vil lære dit sprog, øverst), eller lad folk i nærheden vide, at du gerne vil øve dig over en kop kaffe.",
-  "js.learn_text": "🗣 Lærer {lang} — nogen, der er friske på en snak over en kop kaffe? {name}"
+  "js.learn_text": "🗣 Lærer {lang} — nogen, der er friske på en snak over en kop kaffe? {name}",
+  "js.chat": "Chat",
+  "js.chat_empty": "Ingen beskeder endnu. Kun I to kan læse dem.",
+  "js.chat_placeholder": "Besked",
+  "js.chat_send": "Send",
+  "js.dup_hint": "Samme person som en anden kontakt?",
+  "js.dup_remove": "Fjern denne"
 }

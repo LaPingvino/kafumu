@@ -448,5 +448,11 @@
   "learn.profile": "Ajouter à mon profil",
   "js.learn_btn": "Apprendre le {lang}",
   "js.learn_explain": "Vois d'abord les rencontres, messages locaux et personnes pour {lang} (ceux qui la parlent et veulent apprendre ta langue en tête), ou fais savoir autour de toi que tu aimerais pratiquer autour d'un café.",
-  "js.learn_text": "🗣 J'apprends {lang}, quelqu'un pour discuter autour d'un café ? {name}"
+  "js.learn_text": "🗣 J'apprends {lang}, quelqu'un pour discuter autour d'un café ? {name}",
+  "js.chat": "Discussion",
+  "js.chat_empty": "Pas encore de messages. Vous seuls pouvez les lire.",
+  "js.chat_placeholder": "Message",
+  "js.chat_send": "Envoyer",
+  "js.dup_hint": "La même personne qu'un autre contact ?",
+  "js.dup_remove": "Retirer celui-ci"
 }

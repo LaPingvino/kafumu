@@ -448,5 +448,11 @@
   "learn.profile": "Zu meinem Profil hinzufügen",
   "js.learn_btn": "{lang} lernen",
   "js.learn_explain": "Sieh zuerst Treffen, lokale Nachrichten und Leute für {lang} (wer es spricht und deine Sprache lernen will, ganz oben), oder lass Leute in der Nähe wissen, dass du gern bei einem Kaffee übst.",
-  "js.learn_text": "🗣 Ich lerne {lang}, hat jemand Lust auf einen Plausch bei einem Kaffee? {name}"
+  "js.learn_text": "🗣 Ich lerne {lang}, hat jemand Lust auf einen Plausch bei einem Kaffee? {name}",
+  "js.chat": "Chat",
+  "js.chat_empty": "Noch keine Nachrichten. Nur ihr beide könnt sie lesen.",
+  "js.chat_placeholder": "Nachricht",
+  "js.chat_send": "Senden",
+  "js.dup_hint": "Dieselbe Person wie ein anderer Kontakt?",
+  "js.dup_remove": "Diesen entfernen"
 }

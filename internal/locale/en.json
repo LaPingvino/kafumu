@@ -448,5 +448,11 @@
   "learn.profile": "Add it to my profile",
   "js.learn_btn": "Learn {lang}",
   "js.learn_explain": "See meetups, local messages and people for {lang} first (people who speak it, and want to learn your language, at the top), or let people nearby know you'd love to practise over a coffee.",
-  "js.learn_text": "🗣 Learning {lang}, anyone up for a chat over coffee? {name}"
+  "js.learn_text": "🗣 Learning {lang}, anyone up for a chat over coffee? {name}",
+  "js.chat": "Chat",
+  "js.chat_empty": "No messages yet. Only you two can read them.",
+  "js.chat_placeholder": "Message",
+  "js.chat_send": "Send",
+  "js.dup_hint": "Same person as another contact?",
+  "js.dup_remove": "Remove this one"
 }

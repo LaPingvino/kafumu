@@ -448,5 +448,11 @@
   "learn.profile": "Toevoegen aan mijn profiel",
   "js.learn_btn": "{lang} leren",
   "js.learn_explain": "Zie eerst meetups, lokale berichten en mensen voor {lang} (wie het spreekt en jouw taal wil leren bovenaan), of laat mensen in de buurt weten dat je graag oefent bij een kop koffie.",
-  "js.learn_text": "🗣 Ik leer {lang}, iemand zin in een praatje bij een koffie? {name}"
+  "js.learn_text": "🗣 Ik leer {lang}, iemand zin in een praatje bij een koffie? {name}",
+  "js.chat": "Chat",
+  "js.chat_empty": "Nog geen berichten. Alleen jullie tweeën kunnen ze lezen.",
+  "js.chat_placeholder": "Bericht",
+  "js.chat_send": "Versturen",
+  "js.dup_hint": "Dezelfde persoon als een ander contact?",
+  "js.dup_remove": "Deze verwijderen"
 }
