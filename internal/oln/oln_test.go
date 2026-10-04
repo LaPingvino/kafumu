@@ -146,3 +146,25 @@ func TestAsks(t *testing.T) {
 		t.Fatalf("asks = %+v (q.Asks %v)", got, q.Asks)
 	}
 }
+
+// Private messages: no place, one pair tag; a week's life at base work;
+// fetched by tag, never in an area's list.
+func TestPairMessages(t *testing.T) {
+	s := NewService(NewMemoryStore())
+	now := time.Now().UTC()
+	tag := "p0123456789abcdef0123456789abcdef"
+	n, err := s.Post(context.Background(), mine(BaseBits, now, "c2VjcmV0", "#"+tag))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if n.Cell != "" || n.ExpiresAt.Sub(n.At) != PairTTL {
+		t.Fatalf("pair note = %+v", n)
+	}
+	got, _ := s.ForPair(context.Background(), tag)
+	if len(got) != 1 || got[0].ID != n.ID {
+		t.Fatalf("for pair = %+v", got)
+	}
+	if _, err := s.Post(context.Background(), mine(BaseBits, now, "no place", "#coffee")); err != ErrPlace {
+		t.Fatalf("placeless public note = %v", err)
+	}
+}

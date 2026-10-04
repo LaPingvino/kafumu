@@ -37,7 +37,7 @@ const (
 	MaxTTL    = 7 * 24 * time.Hour // as in eolnpoc
 	Window    = 10 * time.Minute
 	MaxText   = 500
-	MaxRaw    = 2000
+	MaxRaw    = 4000 // a chat line is ciphertext inside base64: room for 500 characters
 	PerBundle = 50
 	busyPer   = 30 // messages per hour per doubling of difficulty
 	burstPer  = 5  // messages per 10 minutes per doubling: bursts get dear fast
@@ -63,6 +63,8 @@ type Note struct {
 	// Asks: a question's subjects (its tags minus #geo, #lang…, #re…, #ask),
 	// indexed so people with those interests can find it from further away.
 	Asks []string `datastore:"asks" json:"-"`
+	// Pair: a private message's pair tag (indexed); empty for public ones.
+	Pair string `datastore:"pair" json:"-"`
 }
 
 // Bits counts the leading zero bits of SHA-1(raw).
@@ -126,6 +128,11 @@ func Parse(raw string, now time.Time) (*Note, error) {
 			tags = append(tags, t)
 		}
 	}
+	// A private message (chat between two contacts) has no place: its only
+	// keyword is the pair's tag, #p<32 hex>, and its text is ciphertext.
+	if len(cells) == 0 && len(tags) == 1 && pairTag.MatchString(tags[0]) {
+		return &Note{ID: ID(raw), Raw: raw, Text: text, Tags: tags, Pair: tags[0], Bits: Bits(raw), At: at}, nil
+	}
 	if len(cells) != 1 {
 		return nil, ErrPlace
 	}
@@ -181,9 +188,30 @@ type Store interface {
 	Hide(ctx context.Context, id string) error
 	// AskedAbout returns live questions with subject tag (any distance).
 	AskedAbout(ctx context.Context, tag string, now time.Time) ([]*Note, error)
+	// ByPair returns live private messages under a pair tag.
+	ByPair(ctx context.Context, tag string, now time.Time) ([]*Note, error)
 }
 
 var reTag = regexp.MustCompile(`^re[0-9a-f]{10}$`)
+
+var pairTag = regexp.MustCompile(`^p[0-9a-f]{32}$`)
+
+// PairTTL: a private message waits a week for the other side, at base work
+// (a phone shouldn't mine for half a minute per chat line).
+const PairTTL = 7 * 24 * time.Hour
+
+// ForPair returns the live private messages under a pair tag, oldest first.
+func (s *Service) ForPair(ctx context.Context, tag string) ([]*Note, error) {
+	if !pairTag.MatchString(tag) {
+		return nil, ErrFormat
+	}
+	ns, err := s.Store.ByPair(ctx, tag, s.Now())
+	if err != nil {
+		return nil, err
+	}
+	sort.Slice(ns, func(i, j int) bool { return ns[i].At.Before(ns[j].At) })
+	return ns, nil
+}
 
 // MaxAskTags bounds one /api/asks request.
 const MaxAskTags = 8
@@ -275,6 +303,13 @@ func (s *Service) Post(ctx context.Context, raw string) (*Note, error) {
 	}
 	if old, err := s.Store.Get(ctx, n.ID); err == nil {
 		return old, nil
+	}
+	if n.Pair != "" {
+		if n.Bits < BaseBits {
+			return nil, ErrWork
+		}
+		n.ExpiresAt = n.At.Add(PairTTL)
+		return n, s.Store.Put(ctx, n)
 	}
 	req := s.RequiredFor(ctx, n.Cell)
 	if n.Bits < req {

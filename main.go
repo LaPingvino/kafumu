@@ -165,6 +165,7 @@ func main() {
 	mux.HandleFunc("PUT /api/slot/{id}", slotAPI.Put)
 	mux.HandleFunc("POST /api/oln", notes.HandlePost)
 	mux.HandleFunc("GET /api/oln/required", notes.HandleRequired)
+	mux.HandleFunc("GET /api/oln/pair/{tag}", notes.HandlePair)
 	mux.HandleFunc("GET /api/asks", func(w http.ResponseWriter, r *http.Request) {
 		if handler.IsBot(r) {
 			http.Error(w, "not for robots", http.StatusForbidden)

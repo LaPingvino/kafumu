@@ -293,7 +293,7 @@
       var form = el("form", "chat-form");
       var input = el("input");
       input.placeholder = T.chat_placeholder || "Message";
-      input.maxLength = 2000;
+      input.maxLength = 500;
       var sendBtn = el("button", "pill-sm suggested", T.chat_send || "Send");
       sendBtn.type = "submit";
       form.appendChild(input); form.appendChild(sendBtn);

@@ -481,7 +481,41 @@
         .then(function (j) { return store.set("handle", { url: j.url, at: Date.now() }).then(function () { return j.url; }); });
     }
 
-    return { report: report, namedLink: namedLink, shortLink: shortLink, inbox: inbox, writeTo: writeTo, readInbox: readInbox, connectBack: connectBack, checkIn: checkIn, around: around, invite: invite, accept: accept, moveSend: moveSend, moveReceive: moveReceive, checkInvite: checkInvite, checkContact: checkContact, send: send,
+    // ---- Chat over encrypted OLN ----
+    // A chat line to role r is a private OLN message under #p<hmac(pair key,
+    // "chat"+r)>, its text sealed with the pair key. mine(text, keywords,
+    // bits) is the OLN miner (passed in; it runs in a worker).
+    function chatTag(key, role) { return hmacHex(key, "chat" + role).then(function (h) { return "p" + h.slice(0, 32); }); }
+    function sendChat(c, text, mine) {
+      var key = unb64(c.key), at = new Date().toISOString();
+      return Promise.all([chatTag(key, 1 - c.role), seal(key, "chat", { text: String(text).slice(0, 500), at: at })]).then(function (r) {
+        return mine(r[1], "#" + r[0], 12);
+      }).then(function () { return at; });
+    }
+    // readChat folds new lines from them into c.messages; returns how many.
+    function readChat(c) {
+      var key = unb64(c.key);
+      return chatTag(key, c.role).then(function (tag) {
+        return fetchFn(base + "/api/oln/pair/" + tag, { credentials: "omit" }).then(function (r) { return r.ok ? r.json() : []; });
+      }).then(function (ms) {
+        var seen = {};
+        (c.chatSeen || []).forEach(function (id) { seen[id] = true; });
+        var fresh = ms.filter(function (m) { return !seen[m.id]; });
+        return fresh.reduce(function (p, m) {
+          return p.then(function (n) {
+            c.chatSeen = (c.chatSeen || []).concat([m.id]).slice(-300);
+            return open(key, "chat", m.text).then(function (body) {
+              c.messages = (c.messages || []).concat([{ me: false, text: String(body.text || "").slice(0, 2000), at: body.at || m.at }]).slice(-200);
+              c.unreadMsgs = (c.unreadMsgs || 0) + 1;
+              c.lastHeard = new Date().toISOString();
+              return n + 1;
+            }, function () { return n; }); // not for us, or tampered
+          });
+        }, Promise.resolve(0)).then(function (n) { return (fresh.length ? store.putContact(c) : Promise.resolve()).then(function () { return n; }); });
+      });
+    }
+
+    return { sendChat: sendChat, readChat: readChat, report: report, namedLink: namedLink, shortLink: shortLink, inbox: inbox, writeTo: writeTo, readInbox: readInbox, connectBack: connectBack, checkIn: checkIn, around: around, invite: invite, accept: accept, moveSend: moveSend, moveReceive: moveReceive, checkInvite: checkInvite, checkContact: checkContact, send: send,
       _open: open, _boxOf: boxOf, _inviteBox: inviteBox, _unb64: unb64 };
   }
 

@@ -51,7 +51,13 @@
       list.textContent = "";
       empty.hidden = cs.length > 0;
       $("contacts-tools").hidden = cs.length === 0;
-      function send(c, msg) { return pair.send(c, msg); }
+      // Chat lines go over encrypted OLN (mined in a worker); the rest
+      // (cards, signals, alive) over the pair mailbox.
+      function send(c, msg) {
+        if (msg.t === "msg" && window.kafumuOLN) return pair.sendChat(c, msg.text, function (text, kw, bits) { return window.kafumuOLN.post(text, kw, bits, function () {}); });
+        return pair.send(c, msg);
+      }
+      function check(c) { return pair.checkContact(c).then(function (got) { return pair.readChat(c).then(function (n) { return n ? got.concat([{ t: "msg" }]) : got; }); }); }
       // The same person twice (e.g. they used two of your links): the newer
       // one offers to remove itself.
       var byName = {};
@@ -60,7 +66,7 @@
         if (n) { if (byName[n]) c._dup = byName[n]; else byName[n] = c.id; }
       });
       cs.forEach(function (c) {
-        var opts = { onDelete: function () { if (!list.children.length) show(); }, send: send, check: function (x) { return pair.checkContact(x); }, duplicateOf: c._dup };
+        var opts = { onDelete: function () { if (!list.children.length) show(); }, send: send, check: check, duplicateOf: c._dup };
         var li = dev.renderContact(c, T, opts);
         if (c.lastSeen) {
           var seen = document.createElement("p");
@@ -72,7 +78,7 @@
         li.dataset.search = JSON.stringify([c.card, c.alias, c.note]).toLowerCase();
         list.appendChild(li);
         // Cards on their way and new signals: one mailbox read per contact.
-        pair.checkContact(c).then(function (got) {
+        check(c).then(function (got) {
           if (!got.length) return;
           var fresh = dev.renderContact(c, T, opts);
           fresh.dataset.search = li.dataset.search;

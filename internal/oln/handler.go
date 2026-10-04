@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"strings"
+	"time"
 )
 
 // HandlePost handles POST /api/oln with a raw message as the body. No
@@ -73,4 +74,30 @@ func (s *Service) HandleRequired(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Cache-Control", "public, max-age=30")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	json.NewEncoder(w).Encode(map[string]int{"bits": s.RequiredFor(r.Context(), cell)})
+}
+
+// HandlePair is GET /api/oln/pair/{tag}: the private messages waiting under
+// a pair tag (unguessable; their text is ciphertext only the pair can read).
+func (s *Service) HandlePair(w http.ResponseWriter, r *http.Request) {
+	ns, err := s.ForPair(r.Context(), r.PathValue("tag"))
+	if errors.Is(err, ErrFormat) {
+		http.Error(w, "bad tag", http.StatusBadRequest)
+		return
+	}
+	if err != nil {
+		http.Error(w, "unavailable", http.StatusServiceUnavailable)
+		return
+	}
+	type msg struct {
+		ID   string    `json:"id"`
+		Text string    `json:"text"`
+		At   time.Time `json:"at"`
+	}
+	out := make([]msg, 0, len(ns))
+	for _, n := range ns {
+		out = append(out, msg{n.ID, n.Text, n.At})
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Cache-Control", "no-store")
+	json.NewEncoder(w).Encode(out)
 }

@@ -382,7 +382,11 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       the pair mailbox), kept in the contact (last 200; synced to your devices), unread count, polls while open.
       Duplicates (same name): the newer offers "Remove this one"; removed contacts are never re-created by a
       late hello (tombstone check in checkInvite). Browser-tested both ways.
-- [ ] 48. Chat over encrypted OLN (Joop: "best to use encrypted OLN for the messages"): send chat messages as OLN
+- [x] 48. Chat over encrypted OLN: a private OLN message = no #geo, one keyword #p<32 hex = hmac(pair key,
+      "chat"+recipient role), text sealed with the pair key; base work, 7-day life, indexed by Note.Pair, read via
+      GET /api/oln/pair/{tag} (never in area lists or oln.json); Contacts sends chat lines that way (mined in the
+      worker) and reads them on load and while a thread is open; cards/signals/alive stay on the mailbox. MaxRaw
+      4000, chat lines ≤ 500 chars. Browser chat test passes over OLN. Was: Chat over encrypted OLN (Joop: "best to use encrypted OLN for the messages"): send chat messages as OLN
       messages whose text is the pair-encrypted ciphertext and whose only keyword is an unguessable pair tag
       (#p<hmac(pairkey, "chat"|day)>, no #geo); the server indexes notes by that tag too (GET /api/oln?tag=…),
       normal PoW and TTL; federatable via other OLN nodes. Contact record/UI unchanged; mailbox stays for hellos.
@@ -491,6 +495,11 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       short guided tour on the page itself: step by step it highlights the area heading ("this is where you
       are, as a #geo cell"), coffee/say/ask, the filter chips, the feed kinds, Connect, Contacts, My card and
       Findable, each with one plain sentence; Next/Back/Done; remembers it was seen; all languages.
+- [ ] 59. Repeats cost more (Joop: "we want the useful kind of directed spam"): the same message text (normalised)
+      posted again to another area or subject within a day needs sharply more work (e.g. +4 bits per repeat), and
+      exact repeats in the same area are dropped; per node. Location already makes untargeted spam expensive.
+- [ ] 60. Eventa Servo (Esperanto events, Joop): its API (eventaservo.org/api/v2) needs a key; ask them for one
+      (or for a public per-country iCal), then it is one more entry in the feeds list (internal/feeds).
 - [ ] 39. Post with or without your name (Joop): a local message can carry your account name (signed by the
       server as @name, linkable to your profile) or stay anonymous; anonymous ones rank lower and expire
       sooner (shorter TTL at the same work), named ones get the normal TTL and a trust bonus.

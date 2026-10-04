@@ -157,3 +157,34 @@ func (s *MemoryStore) AskedAbout(_ context.Context, tag string, now time.Time) (
 	}
 	return out, nil
 }
+
+func (s *DatastoreStore) ByPair(ctx context.Context, tag string, now time.Time) ([]*Note, error) {
+	var ns []*Note
+	keys, err := s.DB.GetAll(ctx, datastore.NewQuery(noteKind).FilterField("pair", "=", tag).Limit(200), &ns)
+	if err != nil {
+		if _, ok := err.(*datastore.ErrFieldMismatch); !ok {
+			return nil, err
+		}
+	}
+	out := ns[:0]
+	for i, n := range ns {
+		n.ID = keys[i].Name
+		if n.ExpiresAt.After(now) {
+			out = append(out, n)
+		}
+	}
+	return out, nil
+}
+
+func (s *MemoryStore) ByPair(_ context.Context, tag string, now time.Time) ([]*Note, error) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	var out []*Note
+	for _, n := range s.notes {
+		if n.Pair == tag && n.ExpiresAt.After(now) {
+			c := n
+			out = append(out, &c)
+		}
+	}
+	return out, nil
+}
