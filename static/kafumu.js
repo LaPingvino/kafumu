@@ -165,6 +165,17 @@
     if (travel.friends) parts.push(tr("travel_friends", { n: travel.friends }));
     if (travel.meetups) parts.push(tr("travel_meetups", { n: travel.meetups }));
     el.textContent = parts.join(" ");
+    // Travelling: offer to be findable here for a while, and a look at your card.
+    var p = document.createElement("p");
+    p.textContent = tr("travel_visible") + " ";
+    var go = document.createElement("a");
+    go.setAttribute("role", "button"); go.className = "pill-sm suggested";
+    go.href = "/account?cell=" + currentCell + "#profile"; go.textContent = tr("travel_be_visible");
+    var card = document.createElement("a");
+    card.setAttribute("role", "button"); card.className = "pill-sm";
+    card.href = "/card"; card.textContent = tr("travel_card");
+    p.appendChild(go); p.appendChild(document.createTextNode(" ")); p.appendChild(card);
+    el.appendChild(p);
   }
 
   // countLocalTags keeps a small, decaying tally of the tags seen around

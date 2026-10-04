@@ -456,5 +456,8 @@
   "js.dup_hint": "Ĉu la sama persono kiel alia kontakto?",
   "js.dup_remove": "Forigi ĉi tiun",
   "js.react": "Reagi",
-  "js.elsewhere": "Aliloke · {tag}"
+  "js.elsewhere": "Aliloke · {tag}",
+  "js.travel_visible": "Ŝajnas, ke vi vojaĝas. Ĉu vi volas esti videbla en la regiono dum vi estas ĉi tie?",
+  "js.travel_be_visible": "Esti trovebla ĉi tie",
+  "js.travel_card": "Kontroli mian karton"
 }

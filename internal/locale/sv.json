@@ -456,5 +456,8 @@
   "js.dup_hint": "Samma person som en annan kontakt?",
   "js.dup_remove": "Ta bort den här",
   "js.react": "Reagera",
-  "js.elsewhere": "På andra ställen · {tag}"
+  "js.elsewhere": "På andra ställen · {tag}",
+  "js.travel_visible": "Det ser ut som att du reser. Vill du synas i området medan du är här?",
+  "js.travel_be_visible": "Synas här",
+  "js.travel_card": "Titta på mitt kort"
 }

@@ -456,5 +456,8 @@
   "js.dup_hint": "Dezelfde persoon als een ander contact?",
   "js.dup_remove": "Deze verwijderen",
   "js.react": "Reageren",
-  "js.elsewhere": "Elders · {tag}"
+  "js.elsewhere": "Elders · {tag}",
+  "js.travel_visible": "Het lijkt erop dat je op reis bent. Wil je zichtbaar zijn in de buurt zolang je hier bent?",
+  "js.travel_be_visible": "Hier vindbaar zijn",
+  "js.travel_card": "Mijn kaartje bekijken"
 }

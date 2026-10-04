@@ -429,6 +429,15 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       GET /asks?tags=… returns live #ask notes with any of those tags (one indexed query per tag, cached
       60 s); the device of someone with those interests shows them in Around (ranked by distance, wider
       radius than ordinary messages) and, opt-in, as a push. The asker sees "reaches people into #x nearby".
+- [x] 52. Travelling prompt: away > 50 km from your usual area, the travel note adds "It looks like you're
+      travelling. Want to be visible in the area while you're here?" → "Be findable here" (/account?cell=…:
+      area filled in, a few days' visibility pre-selected) and "Check my card". Browser-tested.
+- [ ] 53. Business accounts (Joop's paid model, answers 45): a business/organisation account on the server
+      (name, kind, contact), first month free; personal accounts added/removed as its managers; it can host
+      meetups and post as the business, and later its own brand (46). After the trial it pops up in the admin
+      panel ("trial ended: contact?") for Joop to reach out and set up a contract; status trial/active/paused.
+      Advertised on event labels: the Web Summit card (and any event found automatically, 36) gets "Here with
+      your company? Business account, first month free".
 - [ ] 39. Post with or without your name (Joop): a local message can carry your account name (signed by the
       server as @name, linkable to your profile) or stay anonymous; anonymous ones rank lower and expire
       sooner (shorter TTL at the same work), named ones get the normal TTL and a trust bonus.

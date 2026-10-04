@@ -456,5 +456,8 @@
   "js.dup_hint": "和另一个联系人是同一个人？",
   "js.dup_remove": "移除这个",
   "js.react": "回应",
-  "js.elsewhere": "其他地方 · {tag}"
+  "js.elsewhere": "其他地方 · {tag}",
+  "js.travel_visible": "看起来你在旅行。想在这里期间让附近的人看到你吗？",
+  "js.travel_be_visible": "在这里可被找到",
+  "js.travel_card": "查看我的名片"
 }

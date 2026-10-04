@@ -456,5 +456,8 @@
   "js.dup_hint": "Orang yang sama dengan kontak lain?",
   "js.dup_remove": "Hapus yang ini",
   "js.react": "Tanggapi",
-  "js.elsewhere": "Di tempat lain · {tag}"
+  "js.elsewhere": "Di tempat lain · {tag}",
+  "js.travel_visible": "Sepertinya kamu sedang bepergian. Mau terlihat di area ini selama kamu di sini?",
+  "js.travel_be_visible": "Terlihat di sini",
+  "js.travel_card": "Lihat kartuku"
 }

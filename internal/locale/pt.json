@@ -456,5 +456,8 @@
   "js.dup_hint": "É a mesma pessoa que outro contacto?",
   "js.dup_remove": "Remover este",
   "js.react": "Reagir",
-  "js.elsewhere": "Noutros lugares · {tag}"
+  "js.elsewhere": "Noutros lugares · {tag}",
+  "js.travel_visible": "Parece que estás a viajar. Queres ficar visível na zona enquanto estás cá?",
+  "js.travel_be_visible": "Ficar visível aqui",
+  "js.travel_card": "Ver o meu cartão"
 }

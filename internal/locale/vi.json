@@ -456,5 +456,8 @@
   "js.dup_hint": "Cùng một người với liên hệ khác?",
   "js.dup_remove": "Gỡ liên hệ này",
   "js.react": "Phản hồi",
-  "js.elsewhere": "Nơi khác · {tag}"
+  "js.elsewhere": "Nơi khác · {tag}",
+  "js.travel_visible": "Có vẻ như bạn đang đi du lịch. Bạn có muốn hiển thị trong khu vực khi ở đây không?",
+  "js.travel_be_visible": "Hiển thị ở đây",
+  "js.travel_card": "Xem danh thiếp"
 }

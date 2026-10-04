@@ -456,5 +456,8 @@
   "js.dup_hint": "Aceeași persoană ca alt contact?",
   "js.dup_remove": "Elimină-l pe acesta",
   "js.react": "Reacționează",
-  "js.elsewhere": "În alte locuri · {tag}"
+  "js.elsewhere": "În alte locuri · {tag}",
+  "js.travel_visible": "Se pare că ești în călătorie. Vrei să fii vizibil în zonă cât timp ești aici?",
+  "js.travel_be_visible": "Fii vizibil aici",
+  "js.travel_card": "Vezi cardul meu"
 }

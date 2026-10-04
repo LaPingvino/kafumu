@@ -456,5 +456,8 @@
   "js.dup_hint": "다른 연락처와 같은 사람인가요?",
   "js.dup_remove": "이 항목 삭제",
   "js.react": "반응하기",
-  "js.elsewhere": "다른 곳 · {tag}"
+  "js.elsewhere": "다른 곳 · {tag}",
+  "js.travel_visible": "여행 중인 것 같아요. 여기 있는 동안 이 지역에서 보이도록 할까요?",
+  "js.travel_be_visible": "여기서 보이기",
+  "js.travel_card": "내 카드 확인"
 }

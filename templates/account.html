@@ -83,6 +83,16 @@
     <script>
     (function () {
       var f = document.getElementById("profile-form"), add = document.getElementById("add-lang");
+      // Arriving from "you're travelling" (?cell=…): fill in that area and
+      // suggest a few days of visibility.
+      var given = new URLSearchParams(location.search).get("cell");
+      if (given && /^[23456789cfghjmpqrvwx]{6}$/.test(given)) {
+        f.cell.value = given;
+        var vis = f.visible_hours, best = null;
+        Array.prototype.forEach.call(vis.options, function (o) { var h = parseInt(o.value, 10); if (h > 0 && h <= 168 && (!best || h > parseInt(best.value, 10))) best = o; });
+        if (best && vis.value === "0") vis.value = best.value;
+        f.scrollIntoView({ block: "start" });
+      }
       add.onchange = function () {
         var code = add.value; add.value = "";
         if (!code || f.querySelector('input[name="lang"][value="' + code + '"]')) return;

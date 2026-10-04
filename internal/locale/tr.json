@@ -456,5 +456,8 @@
   "js.dup_hint": "Başka bir kişiyle aynı mı?",
   "js.dup_remove": "Bunu kaldır",
   "js.react": "Tepki ver",
-  "js.elsewhere": "Başka yerlerde · {tag}"
+  "js.elsewhere": "Başka yerlerde · {tag}",
+  "js.travel_visible": "Seyahatte gibisin. Buradayken bu bölgede görünür olmak ister misin?",
+  "js.travel_be_visible": "Burada görünür ol",
+  "js.travel_card": "Kartıma bak"
 }

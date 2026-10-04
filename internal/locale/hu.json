@@ -456,5 +456,8 @@
   "js.dup_hint": "Ugyanaz a személy, mint egy másik kapcsolat?",
   "js.dup_remove": "Ennek eltávolítása",
   "js.react": "Reagálás",
-  "js.elsewhere": "Máshol · {tag}"
+  "js.elsewhere": "Máshol · {tag}",
+  "js.travel_visible": "Úgy tűnik, utazol. Szeretnél látható lenni a környéken, amíg itt vagy?",
+  "js.travel_be_visible": "Legyél itt látható",
+  "js.travel_card": "Névjegyem megnézése"
 }
