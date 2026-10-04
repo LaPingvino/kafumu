@@ -462,5 +462,8 @@
   "js.travel_card": "Zkontrolovat vizitku",
   "js.chip_lang": "Jakýkoli jazyk",
   "js.chip_subject": "Jakékoli téma",
-  "js.chip_edit": "Upravit štítky: × odebere"
+  "js.chip_edit": "Upravit štítky: × odebere",
+  "js.ask_far": "k {tags} · {km} km odsud",
+  "js.filter_here": "{what}: tady {n}.",
+  "js.filter_few": "{what}: tady {n}, proto níž {tag} odjinud."
 }

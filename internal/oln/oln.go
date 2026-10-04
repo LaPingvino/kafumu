@@ -19,6 +19,8 @@ import (
 	"errors"
 	"math"
 	"math/bits"
+	"regexp"
+	"slices"
 	"sort"
 	"strings"
 	"sync"
@@ -58,6 +60,9 @@ type Note struct {
 	Bits      int       `datastore:"bits,noindex" json:"bits"`
 	At        time.Time `datastore:"at,noindex" json:"at"`
 	ExpiresAt time.Time `datastore:"expires_at" json:"expires"`
+	// Asks: a question's subjects (its tags minus #geo, #lang…, #re…, #ask),
+	// indexed so people with those interests can find it from further away.
+	Asks []string `datastore:"asks" json:"-"`
 }
 
 // Bits counts the leading zero bits of SHA-1(raw).
@@ -124,7 +129,15 @@ func Parse(raw string, now time.Time) (*Note, error) {
 	if len(cells) != 1 {
 		return nil, ErrPlace
 	}
-	return &Note{ID: ID(raw), Raw: raw, Text: text, Cell: cells[0], Tags: tags, Bits: Bits(raw), At: at}, nil
+	n := &Note{ID: ID(raw), Raw: raw, Text: text, Cell: cells[0], Tags: tags, Bits: Bits(raw), At: at}
+	if slices.Contains(tags, "ask") {
+		for _, t := range tags {
+			if t != "ask" && !strings.HasPrefix(t, "geo") && !strings.HasPrefix(t, "lang") && !reTag.MatchString(t) {
+				n.Asks = append(n.Asks, t)
+			}
+		}
+	}
+	return n, nil
 }
 
 // TTL is the lifetime work buys: BaseTTL at the required bits, doubling per
@@ -166,6 +179,50 @@ type Store interface {
 	InCells(ctx context.Context, cells []string, now time.Time) ([]*Note, error)
 	Hidden(ctx context.Context) (map[string]bool, error)
 	Hide(ctx context.Context, id string) error
+	// AskedAbout returns live questions with subject tag (any distance).
+	AskedAbout(ctx context.Context, tag string, now time.Time) ([]*Note, error)
+}
+
+var reTag = regexp.MustCompile(`^re[0-9a-f]{10}$`)
+
+// MaxAskTags bounds one /api/asks request.
+const MaxAskTags = 8
+
+// Asks returns live, unhidden questions about any of tags, newest first,
+// each tag's list cached a minute per instance.
+func (s *Service) Asks(ctx context.Context, tags []string) ([]*Note, error) {
+	now := s.Now()
+	seen, hidden := map[string]bool{}, s.hiddenSet(ctx)
+	var out []*Note
+	for i, t := range tags {
+		if i == MaxAskTags {
+			break
+		}
+		s.mu.Lock()
+		e, ok := s.asks[t]
+		s.mu.Unlock()
+		if !ok || now.Sub(e.at) > time.Minute {
+			ns, err := s.Store.AskedAbout(ctx, t, now)
+			if err != nil {
+				return nil, err
+			}
+			e = cellEntry{ns: ns, at: now}
+			s.mu.Lock()
+			if s.asks == nil || len(s.asks) > 5000 {
+				s.asks = map[string]cellEntry{}
+			}
+			s.asks[t] = e
+			s.mu.Unlock()
+		}
+		for _, n := range e.ns {
+			if !seen[n.ID] && n.ExpiresAt.After(now) && !hidden[n.ID] {
+				seen[n.ID] = true
+				out = append(out, n)
+			}
+		}
+	}
+	sort.Slice(out, func(i, j int) bool { return out[i].At.After(out[j].At) })
+	return out, nil
 }
 
 // Service accepts notes and serves them per cell through a short cache.
@@ -177,6 +234,7 @@ type Service struct {
 	cells  map[string]cellEntry
 	hidden map[string]bool
 	hidAt  time.Time
+	asks   map[string]cellEntry
 }
 
 type cellEntry struct {
@@ -228,6 +286,9 @@ func (s *Service) Post(ctx context.Context, raw string) (*Note, error) {
 	}
 	s.mu.Lock()
 	delete(s.cells, n.Cell)
+	for _, t := range n.Asks {
+		delete(s.asks, t)
+	}
 	s.mu.Unlock()
 	return n, nil
 }

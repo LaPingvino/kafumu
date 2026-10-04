@@ -112,6 +112,7 @@ try {
   await A.waitFor("[...document.querySelectorAll('#filter-chips .chip')].some(c => c.textContent.includes('#websummit'))", "#websummit event chip");
   await A.evaluate("[...document.querySelectorAll('#filter-chips .chip')].find(c => c.textContent.includes('ortugu')).click(); true");
   await A.waitFor("document.getElementById('place-name').textContent.startsWith('🗣')", "heading shows the language filter", 20000);
+  await A.waitFor("!document.getElementById('filter-note').hidden && document.getElementById('filter-note').textContent.includes('here')", "filter says what it shows");
   await A.waitFor("!document.getElementById('learn-card').hidden", "learn card comes along");
   // Your own subject: "# +" filters and pins it; edit mode (✎, ×) unpins it.
   await A.evaluate("(() => { const f = document.querySelector('#filter-chips .chip-subject'); f.querySelector('input').value = 'opensource'; f.requestSubmit(); return true; })()");

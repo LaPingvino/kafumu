@@ -462,5 +462,8 @@
   "js.travel_card": "Se mit kort",
   "js.chip_lang": "Ethvert sprog",
   "js.chip_subject": "Ethvert emne",
-  "js.chip_edit": "Redigér dine chips: × fjerner"
+  "js.chip_edit": "Redigér dine chips: × fjerner",
+  "js.ask_far": "om {tags} · {km} km væk",
+  "js.filter_here": "{what}: {n} her.",
+  "js.filter_few": "{what}: {n} her, så {tag} fra andre steder vises nedenfor."
 }

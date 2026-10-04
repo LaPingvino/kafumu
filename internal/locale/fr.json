@@ -462,5 +462,8 @@
   "js.travel_card": "Voir ma carte",
   "js.chip_lang": "N'importe quelle langue",
   "js.chip_subject": "N'importe quel sujet",
-  "js.chip_edit": "Modifier tes puces : × retire"
+  "js.chip_edit": "Modifier tes puces : × retire",
+  "js.ask_far": "pour {tags} · à {km} km",
+  "js.filter_here": "{what} : {n} ici.",
+  "js.filter_few": "{what} : {n} ici, donc {tag} d'ailleurs s'affiche plus bas."
 }

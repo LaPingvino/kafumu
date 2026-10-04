@@ -428,7 +428,7 @@
   function chipURL(kind, value, on) {
     var next = { lang: view.lang, tag: view.tag, strength: view.strength };
     if (kind === "tag") { next.tag = on ? "" : value; next.strength = on ? 2 : 3; }
-    else { next.lang = on ? "" : value; }
+    else { next.lang = on ? "" : value; next.strength = on ? 2 : 3; }
     var q = new URLSearchParams();
     q.set("cell", currentCell);
     if (next.lang) q.set("lang", next.lang);
@@ -797,6 +797,7 @@
         showPeople(b.people || []);
         render(b.posts || [], ringOf, places, c);
         elsewhere(b, c);
+        asksForMe(b, c);
         var named = (b.places || []).filter(function (pt) { return pt.weight >= 0.5; })
           .slice(0, 3).map(function (pt) { return "#" + pt.tag; });
         $("list-note").textContent = named.length
@@ -1122,20 +1123,61 @@
   // posts from anywhere, at the bottom.
   function elsewhere(b, c) {
     feed.elsewhere = [];
-    if (!view.tag) return;
+    // The tag to look for elsewhere: the filter's tag, or the language's own
+    // hashtag (#tokipona for toki pona).
+    var etag = view.tag;
+    if (!etag && view.lang) etag = Object.keys(langTagsFor(view.lang)).filter(function (t) { return t !== "lang" + view.lang; })[0] || "lang" + view.lang;
+    var matched = ["posts", "notes", "meetups", "people"].reduce(function (n, k) { return n + (b[k] || []).filter(function (x) { return x._match !== false; }).length; }, 0);
+    var fn = $("filter-note");
+    fn.hidden = !(view.tag || view.lang);
+    if (view.tag || view.lang) {
+      var what = view.tag ? "#" + view.tag : "🗣 " + String(((window.KAFUMU_ME || {}).names || {})[view.lang] || view.lang).split(" (")[0];
+      fn.textContent = tr(matched >= 5 ? "filter_here" : "filter_few", { what: what, n: matched, tag: "#" + etag });
+    }
+    if (!etag) return;
     var here = (b.posts || []).filter(function (p) { return p._match !== false; }).length;
     if (here >= 5) return;
     var seq = loadSeq, uris = {};
     (b.posts || []).forEach(function (p) { uris[p.uri] = true; });
-    fetch("/tagposts?tag=" + encodeURIComponent(view.tag)).then(function (r) { return r.ok ? r.json() : []; }).then(function (ps) {
+    fetch("/tagposts?tag=" + encodeURIComponent(etag)).then(function (r) { return r.ok ? r.json() : []; }).then(function (ps) {
       if (seq !== loadSeq) return;
       var hidden = hiddenNotes();
       ps.filter(function (p) { return !uris[p.uri] && hidden.indexOf(p.uri) < 0; }).slice(0, 20).forEach(function (p, i) {
         var li = postItem(p, {}, {});
         li.dataset.score = -100 - i;
         sinks.elsewhere.appendChild(li);
-        li.dataset.label = tr("elsewhere", { tag: "#" + view.tag });
+        li.dataset.label = tr("elsewhere", { tag: "#" + etag });
       });
+    }).catch(function () {});
+  }
+
+  // asksForMe: questions about your interests from further away (up to
+  // ASK_KM), found by subject; nearest first, marked with how far.
+  var ASK_KM = 200;
+  function asksForMe(b, c) {
+    var me = window.KAFUMU_ME || {}, tags = {};
+    (me.tags || []).forEach(function (t) { var n = normTag(t); if (n) tags[n] = true; });
+    (chipCfg().pinned || []).forEach(function (k) { if (k.indexOf("tag:") === 0) tags[k.slice(4)] = true; });
+    var list = Object.keys(tags).slice(0, 8);
+    if (!list.length) return;
+    var seq = loadSeq, have = {};
+    (b.notes || []).forEach(function (n) { have[n.id] = true; });
+    fetch("/api/asks?tags=" + encodeURIComponent(list.join(","))).then(function (r) { return r.ok ? r.json() : []; }).then(function (ns) {
+      if (seq !== loadSeq) return;
+      var hidden = hiddenNotes();
+      ns.map(function (n) { n._km = kmBetween(c, n.cell); return n; })
+        .filter(function (n) { return !have[n.id] && hidden.indexOf(n.id) < 0 && n._km <= ASK_KM; })
+        .sort(function (a, z) { return a._km - z._km; }).slice(0, 10)
+        .forEach(function (n, i) {
+          var li = noteItem(n, { question: true, forYou: true });
+          var subj = (n.tags || []).filter(function (t) { return tags[t]; }).map(function (t) { return "#" + t; }).join(" ");
+          var far = document.createElement("div");
+          far.className = "why";
+          far.textContent = "❓ " + tr("ask_far", { tags: subj, km: Math.max(1, Math.round(n._km)) });
+          li.insertBefore(far, li.firstChild);
+          li.dataset.score = 9.5 - i * 0.3;
+          sinks.here.appendChild(li);
+        });
     }).catch(function () {});
   }
 

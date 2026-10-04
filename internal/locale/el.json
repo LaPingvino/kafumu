@@ -462,5 +462,8 @@
   "js.travel_card": "Δες την κάρτα μου",
   "js.chip_lang": "Οποιαδήποτε γλώσσα",
   "js.chip_subject": "Οποιοδήποτε θέμα",
-  "js.chip_edit": "Επεξεργασία: το × αφαιρεί"
+  "js.chip_edit": "Επεξεργασία: το × αφαιρεί",
+  "js.ask_far": "για {tags} · {km} χλμ. μακριά",
+  "js.filter_here": "{what}: {n} εδώ.",
+  "js.filter_few": "{what}: {n} εδώ, οπότε παρακάτω {tag} από αλλού."
 }

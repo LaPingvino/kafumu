@@ -462,5 +462,8 @@
   "js.travel_card": "Lihat kartuku",
   "js.chip_lang": "Bahasa apa pun",
   "js.chip_subject": "Topik apa pun",
-  "js.chip_edit": "Ubah chip: × menghapus"
+  "js.chip_edit": "Ubah chip: × menghapus",
+  "js.ask_far": "untuk {tags} · {km} km jauhnya",
+  "js.filter_here": "{what}: {n} di sini.",
+  "js.filter_few": "{what}: {n} di sini, jadi {tag} dari tempat lain ditampilkan di bawah."
 }

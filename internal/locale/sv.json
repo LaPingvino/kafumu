@@ -462,5 +462,8 @@
   "js.travel_card": "Titta på mitt kort",
   "js.chip_lang": "Valfritt språk",
   "js.chip_subject": "Valfritt ämne",
-  "js.chip_edit": "Redigera dina chips: × tar bort"
+  "js.chip_edit": "Redigera dina chips: × tar bort",
+  "js.ask_far": "om {tags} · {km} km bort",
+  "js.filter_here": "{what}: {n} här.",
+  "js.filter_few": "{what}: {n} här, så {tag} från andra ställen visas nedan."
 }

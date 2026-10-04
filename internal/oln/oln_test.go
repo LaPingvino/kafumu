@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http/httptest"
+	"slices"
 	"strings"
 	"testing"
 	"time"
@@ -126,5 +127,22 @@ func TestExport(t *testing.T) {
 	m, ok := f.Messages[n.ID]
 	if !ok || m.Raw != n.Raw || Bits(m.Raw) < BaseBits || len(f.Index["#coffee"]) != 1 || f.Push[0] != "https://kafumu.test/api/oln" {
 		t.Errorf("export = %+v", f)
+	}
+}
+
+// Questions are findable by subject from anywhere; ordinary notes are not.
+func TestAsks(t *testing.T) {
+	s := NewService(NewMemoryStore())
+	now := time.Now().UTC()
+	q, err := s.Post(context.Background(), mine(BaseBits, now, "Anyone into Go here?", "#geo8ccgmw #ask #opensource #langeng"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := s.Post(context.Background(), mine(BaseBits, now, "Just a note", "#geo8ccgmw #opensource")); err != nil {
+		t.Fatal(err)
+	}
+	got, _ := s.Asks(context.Background(), []string{"opensource"})
+	if len(got) != 1 || got[0].ID != q.ID || !slices.Equal(q.Asks, []string{"opensource"}) {
+		t.Fatalf("asks = %+v (q.Asks %v)", got, q.Asks)
 	}
 }

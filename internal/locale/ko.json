@@ -462,5 +462,8 @@
   "js.travel_card": "내 카드 확인",
   "js.chip_lang": "다른 언어",
   "js.chip_subject": "다른 주제",
-  "js.chip_edit": "칩 편집: ×로 제거"
+  "js.chip_edit": "칩 편집: ×로 제거",
+  "js.ask_far": "{tags} · {km}km 거리",
+  "js.filter_here": "{what}: 여기 {n}개.",
+  "js.filter_few": "{what}: 여기 {n}개. 아래에 다른 곳의 {tag}를 보여 줘요."
 }

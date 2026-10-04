@@ -462,5 +462,8 @@
   "js.travel_card": "Ver o meu cartão",
   "js.chip_lang": "Qualquer língua",
   "js.chip_subject": "Qualquer assunto",
-  "js.chip_edit": "Editar os teus chips: × remove"
+  "js.chip_edit": "Editar os teus chips: × remove",
+  "js.ask_far": "para {tags} · a {km} km",
+  "js.filter_here": "{what}: {n} aqui.",
+  "js.filter_few": "{what}: {n} aqui, por isso aparece {tag} de outros lugares em baixo."
 }

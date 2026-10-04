@@ -462,5 +462,8 @@
   "js.travel_card": "Kartıma bak",
   "js.chip_lang": "Herhangi bir dil",
   "js.chip_subject": "Herhangi bir konu",
-  "js.chip_edit": "Etiketleri düzenle: × kaldırır"
+  "js.chip_edit": "Etiketleri düzenle: × kaldırır",
+  "js.ask_far": "{tags} için · {km} km uzakta",
+  "js.filter_here": "{what}: burada {n}.",
+  "js.filter_few": "{what}: burada {n}, bu yüzden aşağıda başka yerlerden {tag} var."
 }

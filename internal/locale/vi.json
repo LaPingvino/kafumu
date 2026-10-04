@@ -462,5 +462,8 @@
   "js.travel_card": "Xem danh thiếp",
   "js.chip_lang": "Ngôn ngữ bất kỳ",
   "js.chip_subject": "Chủ đề bất kỳ",
-  "js.chip_edit": "Sửa chip: × để bỏ"
+  "js.chip_edit": "Sửa chip: × để bỏ",
+  "js.ask_far": "về {tags} · cách {km} km",
+  "js.filter_here": "{what}: {n} ở đây.",
+  "js.filter_few": "{what}: {n} ở đây, nên {tag} từ nơi khác hiện ở bên dưới."
 }

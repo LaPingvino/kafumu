@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"strings"
 )
 
 // HandlePost handles POST /api/oln with a raw message as the body. No
@@ -31,4 +32,30 @@ func (s *Service) HandlePost(w http.ResponseWriter, r *http.Request) {
 	default:
 		json.NewEncoder(w).Encode(n)
 	}
+}
+
+// HandleAsks is GET /api/asks?tags=opensource,esperanto: live questions
+// about those subjects from anywhere; the device keeps the ones near enough.
+func (s *Service) HandleAsks(w http.ResponseWriter, r *http.Request) {
+	var tags []string
+	for _, t := range strings.Split(strings.ToLower(r.URL.Query().Get("tags")), ",") {
+		if t = strings.TrimPrefix(strings.TrimSpace(t), "#"); t != "" && len(t) <= 40 {
+			tags = append(tags, t)
+		}
+	}
+	if len(tags) == 0 {
+		http.Error(w, "want ?tags=a,b", http.StatusBadRequest)
+		return
+	}
+	ns, err := s.Asks(r.Context(), tags)
+	if err != nil {
+		http.Error(w, "unavailable", http.StatusServiceUnavailable)
+		return
+	}
+	if ns == nil {
+		ns = []*Note{}
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Cache-Control", "public, max-age=60")
+	json.NewEncoder(w).Encode(ns)
 }

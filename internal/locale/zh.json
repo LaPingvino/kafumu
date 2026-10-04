@@ -462,5 +462,8 @@
   "js.travel_card": "查看我的名片",
   "js.chip_lang": "其他语言",
   "js.chip_subject": "其他主题",
-  "js.chip_edit": "编辑标签：× 移除"
+  "js.chip_edit": "编辑标签：× 移除",
+  "js.ask_far": "关于 {tags} · {km} 公里外",
+  "js.filter_here": "{what}：这里有 {n} 条。",
+  "js.filter_few": "{what}：这里有 {n} 条，下面显示其他地方的 {tag}。"
 }

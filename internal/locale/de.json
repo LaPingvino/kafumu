@@ -462,5 +462,8 @@
   "js.travel_card": "Meine Karte ansehen",
   "js.chip_lang": "Jede Sprache",
   "js.chip_subject": "Jedes Thema",
-  "js.chip_edit": "Chips bearbeiten: × entfernt"
+  "js.chip_edit": "Chips bearbeiten: × entfernt",
+  "js.ask_far": "zu {tags} · {km} km entfernt",
+  "js.filter_here": "{what}: {n} hier.",
+  "js.filter_few": "{what}: {n} hier, deshalb unten {tag} von anderswo."
 }

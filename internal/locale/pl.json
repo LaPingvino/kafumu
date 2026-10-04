@@ -462,5 +462,8 @@
   "js.travel_card": "Sprawdź wizytówkę",
   "js.chip_lang": "Dowolny język",
   "js.chip_subject": "Dowolny temat",
-  "js.chip_edit": "Edytuj swoje etykiety: × usuwa"
+  "js.chip_edit": "Edytuj swoje etykiety: × usuwa",
+  "js.ask_far": "dla {tags} · {km} km stąd",
+  "js.filter_here": "{what}: tutaj {n}.",
+  "js.filter_few": "{what}: tutaj {n}, więc niżej {tag} z innych miejsc."
 }

@@ -462,5 +462,8 @@
   "js.travel_card": "Névjegyem megnézése",
   "js.chip_lang": "Bármilyen nyelv",
   "js.chip_subject": "Bármilyen téma",
-  "js.chip_edit": "Címkék szerkesztése: × eltávolít"
+  "js.chip_edit": "Címkék szerkesztése: × eltávolít",
+  "js.ask_far": "téma: {tags} · {km} km-re",
+  "js.filter_here": "{what}: itt {n}.",
+  "js.filter_few": "{what}: itt {n}, ezért lent máshonnan: {tag}."
 }

@@ -462,5 +462,8 @@
   "js.travel_card": "Kontroli mian karton",
   "js.chip_lang": "Ajna lingvo",
   "js.chip_subject": "Ajna temo",
-  "js.chip_edit": "Redakti viajn etikedojn: × forigas"
+  "js.chip_edit": "Redakti viajn etikedojn: × forigas",
+  "js.ask_far": "por {tags} · {km} km for",
+  "js.filter_here": "{what}: {n} ĉi tie.",
+  "js.filter_few": "{what}: {n} ĉi tie, do {tag} el aliaj lokoj aperas sube."
 }

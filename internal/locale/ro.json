@@ -462,5 +462,8 @@
   "js.travel_card": "Vezi cardul meu",
   "js.chip_lang": "Orice limbă",
   "js.chip_subject": "Orice subiect",
-  "js.chip_edit": "Editează etichetele: × elimină"
+  "js.chip_edit": "Editează etichetele: × elimină",
+  "js.ask_far": "despre {tags} · la {km} km",
+  "js.filter_here": "{what}: {n} aici.",
+  "js.filter_few": "{what}: {n} aici, așa că mai jos apare {tag} din alte locuri."
 }

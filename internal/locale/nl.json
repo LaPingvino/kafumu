@@ -462,5 +462,8 @@
   "js.travel_card": "Mijn kaartje bekijken",
   "js.chip_lang": "Elke taal",
   "js.chip_subject": "Elk onderwerp",
-  "js.chip_edit": "Je chips bewerken: × verwijdert"
+  "js.chip_edit": "Je chips bewerken: × verwijdert",
+  "js.ask_far": "voor {tags} · {km} km verderop",
+  "js.filter_here": "{what}: {n} hier.",
+  "js.filter_few": "{what}: {n} hier, dus {tag} van elders staat hieronder."
 }

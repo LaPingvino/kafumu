@@ -391,7 +391,7 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       Browser-tested (👍 1 under a message). Was: React to anything (Joop, OLN): every card (local message, meetup, person, Bluesky post) gets a
       reply/react action that posts a local message tagged #re<id> (or #re<hash of the uri/id> for posts,
       meetups, people), threaded under it like answers; quick emoji reactions as tiny PoW messages.
-- [ ] 44. /oln page (Joop): what the Open Location Network is (local messages as text + #geo tags, proof of work
+- [ ] 44. NEXT (Joop asked again). /oln page (Joop): what the Open Location Network is (local messages as text + #geo tags, proof of work
       instead of accounts, time-biased validity), the eolnpoc proof of concept (link, how its format works),
       and how to integrate: GET /oln.json?cell=… (olnjson.Format), POST /api/oln (raw nonce;date;b64;keywords,
       SHA-1 leading zeros, current required bits from the bundle), with a curl/JS example. Linked from About.
@@ -427,7 +427,11 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       Was: NEXT. Chips you choose (Joop): a "🗣 +" chip opens a language picker (all 98) and a "# +" chip a
       subject box (free text, with linked-interest suggestions); the suggested subjects are configurable:
       pin/unpin chips (long-press or an edit mode), kept with your personas so they sync to your devices.
-- [ ] 51. Questions reach people with that subject (Joop: "a wide range towards people with that subject
+- [x] 51. Questions reach people with that subject: Note.Asks (indexed: a question's subject tags), GET /api/asks?tags=
+      (no bots; one query per tag, cached 60 s); Around fetches questions for your profile interests + pinned
+      chips, keeps those within 200 km, nearest first, "❓ for #x · 45 km away". Also (Joop): language chips now
+      filter (w=3) with Elsewhere via the language's own hashtag, and a line under the chips says what's shown
+      ("🗣 toki pona: 0 here, so #tokipona from elsewhere is shown below"). Was: Questions reach people with that subject (Joop: "a wide range towards people with that subject
       set up"): an #ask tagged with subjects goes beyond the cell to people whose interests include them:
       GET /asks?tags=… returns live #ask notes with any of those tags (one indexed query per tag, cached
       60 s); the device of someone with those interests shows them in Around (ranked by distance, wider
@@ -441,6 +445,7 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       panel ("trial ended: contact?") for Joop to reach out and set up a contract; status trial/active/paused.
       Advertised on event labels: the Web Summit card (and any event found automatically, 36) gets "Here with
       your company? Business account, first month free".
+- [ ] 54. "Be findable" as its own tab (Joop: confusing inside Account), plus a button for it on Around.
 - [ ] 39. Post with or without your name (Joop): a local message can carry your account name (signed by the
       server as @name, linkable to your profile) or stay anonymous; anonymous ones rank lower and expire
       sooner (shorter TTL at the same work), named ones get the normal TTL and a trust bonus.

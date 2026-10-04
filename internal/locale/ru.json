@@ -462,5 +462,8 @@
   "js.travel_card": "Проверить визитку",
   "js.chip_lang": "Любой язык",
   "js.chip_subject": "Любая тема",
-  "js.chip_edit": "Редактировать метки: × удаляет"
+  "js.chip_edit": "Редактировать метки: × удаляет",
+  "js.ask_far": "по {tags} · {km} км отсюда",
+  "js.filter_here": "{what}: здесь {n}.",
+  "js.filter_few": "{what}: здесь {n}, поэтому ниже {tag} из других мест."
 }

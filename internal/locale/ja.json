@@ -462,5 +462,8 @@
   "js.travel_card": "名刺を確認",
   "js.chip_lang": "ほかの言語",
   "js.chip_subject": "ほかのテーマ",
-  "js.chip_edit": "チップを編集：×で削除"
+  "js.chip_edit": "チップを編集：×で削除",
+  "js.ask_far": "{tags} · {km} km 先",
+  "js.filter_here": "{what}：ここで {n} 件。",
+  "js.filter_few": "{what}：ここで {n} 件。下にほかの場所の {tag} を表示しています。"
 }
