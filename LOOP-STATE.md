@@ -500,6 +500,14 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       exact repeats in the same area are dropped; per node. Location already makes untargeted spam expensive.
 - [ ] 60. Eventa Servo (Esperanto events, Joop): its API (eventaservo.org/api/v2) needs a key; ask them for one
       (or for a public per-country iCal), then it is one more entry in the feeds list (internal/feeds).
+- [ ] 61. PRIORITY. Memory-hard proof of work, before anyone else adopts the format (Joop: "prevents an IPv6-like
+      deployment issue"). SHA-1 leading zeros lets a GPU outrun a phone ~10⁶×; Argon2id (memory-hard) narrows
+      that to ~10×. A versioned v2 line ("v2;…"), v1 still accepted for a transition; Kafumu's mailbox/short/
+      report stamps move too; the browser miner via a vendored WASM Argon2id in the worker; eolnpoc updated to
+      match. Design to settle: parameters (memory, passes) so a phone does ~1 s at the base price and the server
+      verifies in a few ms; how "bits" map to attempts (TTL doubling per bit stays).
+Principle (Joop): OLN decides the format, not how messages are treated; dropping, pricing repeats (59), per-IP
+limits, hiding are each node's own policy.
 - [ ] 39. Post with or without your name (Joop): a local message can carry your account name (signed by the
       server as @name, linkable to your profile) or stay anonymous; anonymous ones rank lower and expire
       sooner (shorter TTL at the same work), named ones get the normal TTL and a trust bonus.
