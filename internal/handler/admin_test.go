@@ -3,9 +3,12 @@ package handler
 import (
 	"context"
 	"net/http"
+	"net/http/httptest"
 	"net/url"
 	"strings"
 	"testing"
+
+	"github.com/LaPingvino/kafumu/internal/account"
 )
 
 func TestAdminGate(t *testing.T) {
@@ -36,5 +39,22 @@ func TestAdminGate(t *testing.T) {
 	w := do(root, "POST", "/admin/action", url.Values{"do": {"run"}, "job": {"purge"}}, cred)
 	if ran != "purge" || !strings.Contains(w.Header().Get("Location"), "purge") {
 		t.Errorf("job not run: %q %q", ran, w.Header().Get("Location"))
+	}
+}
+
+// The admin page renders with numbers and accounts in it (its data only
+// exists in production, so check the template here).
+func TestAdminPageRenders(t *testing.T) {
+	_, home, _ := newServerWithMeetups(t)
+	u := &account.User{ID: "0123456789abcdef", Username: "joop", Role: "admin", KeepDays: -1, ATHandle: "joop.example", Cell: "8ccgmw"}
+	p := adminPage{page: home.newPage(httptest.NewRequest("GET", "/admin", nil), "Admin"), Roles: adminRoles,
+		Stats: []stat{{"Accounts", 3, "all"}, {"Push", -1, ""}}, Users: []adminUser{{User: u, Passkeys: 2, Synced: true}}, Jobs: []string{"feeds"}}
+	w := httptest.NewRecorder()
+	home.render(w, "admin.html", p)
+	body := w.Body.String()
+	for _, want := range []string{"@joop", "🔑 2", "🔄 synced", "kept forever", `value="moderator"`, "Set role", ">3<"} {
+		if !strings.Contains(body, want) {
+			t.Errorf("admin page lacks %q", want)
+		}
 	}
 }

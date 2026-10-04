@@ -283,6 +283,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       30a. shared card shell + score; 30b. merge the lists + chips/modes; 30c. contacts-around cards on top.
 **Order (Joop, 2026-10-04): 37 sync (done), then 38 admin, then 31, 32…**
 
+- [x] 38a. Admin: 13 stat tiles (accounts, named, active 24h/7d/30d, findable, synced, meetups + from feeds,
+      local messages, mailboxes, push, Bluesky linked) via aggregation counts; accounts list (named, search by
+      prefix or id) with role (user/host/moderator/admin), rename, release name, keep forever, delete (+vault).
+      Render-tested. 38b (report tool + queue) next.
 - [ ] 38. Admin worth opening (Joop: "doesn't show a lot yet, not even stats"), like esperanto-kurso.net's:
       stats (accounts named/anon, active 1/7/30 d, passkeys, ATproto-linked, findable people, inboxes,
       meetups by source, notes by cell, vaults), a named-accounts list with search; per account: rename,

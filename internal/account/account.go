@@ -30,7 +30,7 @@ type User struct {
 	// at most five), so signing in elsewhere never invalidates the link.
 	Sessions  []string  `datastore:"sessions,noindex"`
 	Username  string    `datastore:"username"`
-	Role      string    `datastore:"role,noindex"` // "" or "admin"
+	Role      string    `datastore:"role,noindex"` // "", "host" (trusted host), "moderator" or "admin"
 	Lang      string    `datastore:"lang,noindex"`
 	Passkeys  []byte    `datastore:"passkeys,noindex"`  // JSON []webauthn.Credential
 	KeepDays  int       `datastore:"keep_days,noindex"` // 0 = default retention
@@ -213,6 +213,19 @@ func (s *Service) SetUsername(ctx context.Context, u *User, name string) error {
 		_ = s.Store.ReleaseUsername(ctx, old, u.ID)
 	}
 	return nil
+}
+
+// ClearUsername releases u's name (admin: a name that shouldn't be used).
+func (s *Service) ClearUsername(ctx context.Context, u *User) error {
+	if u.Username == "" {
+		return nil
+	}
+	old := u.Username
+	u.Username = ""
+	if err := s.Save(ctx, u); err != nil {
+		return err
+	}
+	return s.Store.ReleaseUsername(ctx, old, u.ID)
 }
 
 // Delete removes the account and its username. Everything else Kafumu keeps

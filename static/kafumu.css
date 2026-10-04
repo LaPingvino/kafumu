@@ -248,3 +248,10 @@ input[type="range"] { padding: 0; background: transparent; accent-color: var(--a
 #feed-kinds { margin: .75rem 0 .5rem; }
 .feed.mixed > li[data-label]::before { content: attr(data-label); display: block; font-size: .72rem; font-weight: 700;
   text-transform: uppercase; letter-spacing: .06em; opacity: .55; margin-bottom: 2px; }
+
+/* Admin */
+.stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; margin: 12px 0; }
+.stat { padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; margin: 0; }
+.stat strong { font-size: 1.6rem; line-height: 1.1; }
+.admin-users .actions { gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+.admin-users .actions form { margin: 0; }

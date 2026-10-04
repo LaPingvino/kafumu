@@ -2,10 +2,14 @@ package handler
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"github.com/LaPingvino/kafumu/internal/account"
 	"html/template"
 	"log"
 	"net/http"
+	"slices"
+	"sort"
 	"strings"
 	"time"
 
@@ -65,37 +69,116 @@ func (a *Admin) admin(w http.ResponseWriter, r *http.Request) bool {
 
 type adminPage struct {
 	page
-	Counts map[string]int
+	Stats  []stat
 	Result string
 	Jobs   []string
+	Search string
+	Users  []adminUser
+	Roles  []string
 }
 
-// Show handles GET /admin.
+type stat struct {
+	Label string
+	N     int
+	Note  string
+}
+
+type adminUser struct {
+	*account.User
+	Passkeys int
+	Synced   bool
+}
+
+// Roles an admin can give: trusted hosts' meetups rank as such, moderators
+// work the report queue, admins everything.
+var adminRoles = []string{"", "host", "moderator", "admin"}
+
+func (a *Admin) count(ctx context.Context, q *datastore.Query) int {
+	res, err := a.DB.RunAggregationQuery(ctx, q.NewAggregationQuery().WithCount("n"))
+	if err != nil {
+		return -1
+	}
+	if v, ok := res["n"].(int64); ok {
+		return int(v)
+	}
+	return -1
+}
+
+// Show handles GET /admin: numbers first, then accounts, jobs, moderation.
 func (a *Admin) Show(w http.ResponseWriter, r *http.Request) {
 	if !a.admin(w, r) {
 		return
 	}
-	p := adminPage{page: a.Home.newPage(r, "Admin"), Counts: map[string]int{}, Result: r.URL.Query().Get("r")}
+	ctx := r.Context()
+	p := adminPage{page: a.Home.newPage(r, "Admin"), Result: r.URL.Query().Get("r"), Search: strings.TrimSpace(r.URL.Query().Get("s"))}
+	p.Tab, p.Roles = "admin", adminRoles
 	for name := range a.Jobs {
 		p.Jobs = append(p.Jobs, name)
 	}
+	sort.Strings(p.Jobs)
 	if a.DB != nil {
 		now := time.Now()
-		for _, k := range []struct{ kind, field string }{{"User", ""}, {"Meetup", "expires_at"}, {"Note", "expires_at"},
-			{"Box", "expires_at"}, {"Slot", "expires_at"}, {"PushSub", "expires_at"}, {"ATSession", "expires_at"}} {
-			q := datastore.NewQuery(k.kind)
-			if k.field != "" {
-				q = q.FilterField(k.field, ">", now)
-			}
-			res, err := a.DB.RunAggregationQuery(r.Context(), q.NewAggregationQuery().WithCount("n"))
-			if err == nil {
-				if v, ok := res["n"].(int64); ok {
-					p.Counts[k.kind] = int(v)
-				}
-			}
+		u := func() *datastore.Query { return datastore.NewQuery("User") }
+		live := func(kind string) *datastore.Query {
+			return datastore.NewQuery(kind).FilterField("expires_at", ">", now)
 		}
+		p.Stats = []stat{
+			{"Accounts", a.count(ctx, u()), "all, named or not"},
+			{"Named", a.count(ctx, u().FilterField("username", ">", "")), "kept a year"},
+			{"Active 24 h", a.count(ctx, u().FilterField("last_seen_at", ">", now.Add(-24*time.Hour))), ""},
+			{"Active 7 d", a.count(ctx, u().FilterField("last_seen_at", ">", now.Add(-7*24*time.Hour))), ""},
+			{"Active 30 d", a.count(ctx, u().FilterField("last_seen_at", ">", now.Add(-30*24*time.Hour))), ""},
+			{"Findable now", a.count(ctx, u().FilterField("visible_until", ">", now)), "public profiles"},
+			{"Synced", a.count(ctx, datastore.NewQuery("Vault")), "accounts with a device vault"},
+			{"Meetups", a.count(ctx, live("Meetup")), "upcoming or running"},
+			{"…from feeds", a.count(ctx, live("Meetup").FilterField("author_id", "=", "feed")), "Luma, iCal, Smoke Signal"},
+			{"Local messages", a.count(ctx, live("Note")), "OLN, unexpired"},
+			{"Mailboxes", a.count(ctx, live("Box")), "pairing, inboxes, moves"},
+			{"Push", a.count(ctx, live("PushSub")), "devices with notifications"},
+			{"Bluesky linked", a.count(ctx, live("ATSession")), "OAuth sessions"},
+		}
+		p.Users = a.findUsers(ctx, p.Search)
 	}
 	a.Home.render(w, "admin.html", p)
+}
+
+// findUsers: a name prefix or an account id; with no search, the first
+// named accounts alphabetically.
+func (a *Admin) findUsers(ctx context.Context, s string) []adminUser {
+	var out []adminUser
+	add := func(u *account.User) {
+		var pk []json.RawMessage
+		_ = json.Unmarshal(u.Passkeys, &pk)
+		au := adminUser{User: u, Passkeys: len(pk)}
+		if a.Accounts.Vault != nil {
+			if v, _ := a.Accounts.Vault.Get(ctx, u.ID); v != nil {
+				au.Synced = true
+			}
+		}
+		out = append(out, au)
+	}
+	s = strings.ToLower(s)
+	if s != "" {
+		if u, err := a.Accounts.Svc.ByID(ctx, s); err == nil && u != nil {
+			add(u)
+			return out
+		}
+	}
+	q := datastore.NewQuery("User").FilterField("username", ">", "").Order("username").Limit(50)
+	if s != "" {
+		q = datastore.NewQuery("User").FilterField("username", ">=", s).FilterField("username", "<", s+"\uffff").Order("username").Limit(50)
+	}
+	keys, err := a.DB.GetAll(ctx, q.KeysOnly(), nil)
+	if err != nil {
+		log.Printf("admin: users: %v", err)
+		return out
+	}
+	for _, k := range keys {
+		if u, err := a.Accounts.Svc.ByID(ctx, k.Name); err == nil && u != nil {
+			add(u)
+		}
+	}
+	return out
 }
 
 // Action handles POST /admin/action: hide a note, delete a meetup, run a job.
@@ -118,6 +201,8 @@ func (a *Admin) Action(w http.ResponseWriter, r *http.Request) {
 			a.Meetups.Svc.ForgetAll()
 			res = "deleted meetup " + id
 		}
+	case "role", "rename", "unname", "keep", "delete-user":
+		res = a.userAction(r, id)
 	case "run":
 		if job, ok := a.Jobs[r.FormValue("job")]; ok {
 			res = r.FormValue("job") + ": " + job(ctx)
@@ -125,4 +210,63 @@ func (a *Admin) Action(w http.ResponseWriter, r *http.Request) {
 	}
 	log.Printf("admin: %s", res)
 	http.Redirect(w, r, "/admin?r="+template.URLQueryEscaper(res), http.StatusSeeOther)
+}
+
+func (a *Admin) userAction(r *http.Request, id string) string {
+	ctx := r.Context()
+	u, err := a.Accounts.Svc.ByID(ctx, id)
+	if err != nil || u == nil {
+		return "no account " + id
+	}
+	who := u.ID[:8]
+	if u.Username != "" {
+		who = "@" + u.Username
+	}
+	switch r.FormValue("do") {
+	case "role":
+		role := r.FormValue("role")
+		if !slices.Contains(adminRoles, role) {
+			return "unknown role"
+		}
+		if u.ID == UserFrom(ctx).ID && role != "admin" {
+			return "you can't drop your own admin role here"
+		}
+		u.Role = role
+		if err := a.Accounts.Svc.Save(ctx, u); err != nil {
+			return "save failed: " + err.Error()
+		}
+		return who + " is now " + map[bool]string{true: "a regular user", false: role}[role == ""]
+	case "rename":
+		if err := a.Accounts.Svc.SetUsername(ctx, u, r.FormValue("name")); err != nil {
+			return "rename failed: " + err.Error()
+		}
+		return who + " renamed to @" + u.Username
+	case "unname":
+		if err := a.Accounts.Svc.ClearUsername(ctx, u); err != nil {
+			return "failed: " + err.Error()
+		}
+		return who + ": name released"
+	case "keep":
+		if u.KeepDays == -1 {
+			u.KeepDays = 0
+		} else {
+			u.KeepDays = -1
+		}
+		if err := a.Accounts.Svc.Save(ctx, u); err != nil {
+			return "save failed: " + err.Error()
+		}
+		return who + map[bool]string{true: ": kept forever", false: ": normal retention"}[u.KeepDays == -1]
+	case "delete-user":
+		if u.ID == UserFrom(ctx).ID {
+			return "that's you"
+		}
+		if a.Accounts.Vault != nil {
+			_ = a.Accounts.Vault.Delete(ctx, u.ID)
+		}
+		if err := a.Accounts.Svc.Delete(ctx, u); err != nil {
+			return "delete failed: " + err.Error()
+		}
+		return who + " deleted"
+	}
+	return ""
 }
