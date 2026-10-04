@@ -326,6 +326,8 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       notes for a native-speaker pass: à/en/au before places (fr), gendered forms, "{from}–{to}" as dates).
 - [x] 34b. UI languages batch 2: pl, ru, uk, tr (plurals as "label: {n}", case-free phrasing around place
       names). 12 UI languages now. Next batches: cs sv da ro hu el · ja ko zh id vi · ar fa he ur (RTL) · hi bn sw tok.
+- [x] 34c. UI languages batch 3: cs, sv, da, ro, hu, el. 18 UI languages now. Left: ja ko zh id vi · ar fa he
+      ur (RTL) · hi bn sw tok.
 - [ ] 34. More UI languages (Joop: "4 is too few"): the 32 locales of esperanto-kurso.net (ar bn cs da de
       el en eo es fa fr he hi hu id it ja ko nl pl pt ro ru sv sw tok tr uk ur vi zh), translating Kafumu's
       strings; RTL (ar fa he ur) via dir="rtl". Plus a gentle esperanto-kurso.net nudge where it fits (the
@@ -390,7 +392,9 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       events". A Brand entity (domain, name, tagline, colours/icon, wording of the main button, default view
       tags, feeds, which kinds show), set up by an admin; brand admins (role scoped to one brand) manage it.
       Same #geo/OLN network underneath, each brand a lens (default tags), so people meet across brands.
-      Paid: a brand for your community/organisation. Open: shared vs separate accounts per brand, pricing.
+      Paid: a brand for your community/organisation. Accounts: separate per brand domain (Joop: passkeys are
+      bound to their domain); the shared layer is the network (#geo cells, OLN, connect codes), not accounts.
+      Open: pricing.
 - [ ] 39. Post with or without your name (Joop): a local message can carry your account name (signed by the
       server as @name, linkable to your profile) or stay anonymous; anonymous ones rank lower and expire
       sooner (shorter TTL at the same work), named ones get the normal TTL and a trust bonus.
