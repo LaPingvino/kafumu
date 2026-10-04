@@ -281,6 +281,9 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       × freshness × distance ring × your tags/languages/views × reliability). Filter chips per kind, and a
       mode switch: Mixed (default) or one kind at a time; the choice is remembered on the device. Split:
       30a. shared card shell + score; 30b. merge the lists + chips/modes; 30c. contacts-around cards on top.
+**Order (Joop, 2026-10-04): 37 (full sync: cards AND contacts across your devices) goes first: "I feel
+such a hesitance to use it just because I need to redo things on separate devices". Then 31, 32…**
+
 - [ ] 31. Reliability: Bluesky posts tagging many places (≥5 city tags: "#London #Paris #Berlin…") rank
       far down with a "tags N cities" badge; new accounts and labelled posts weigh less in the score.
 
@@ -305,7 +308,7 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       already bring (many Luma/Smoke Signal events or one large one in a cell, a burst of one tag in local
       messages and posts) instead of hand-made events.json; suggest the tags that make sense here in the
       composer; the event banner posts LOCALLY (OLN) first, "also on Bluesky" second.
-- [ ] 37. Contacts synced across your passkey devices (Joop), desktop included. Design: the device key
+- [ ] 37. FIRST. Full sync: cards/personas AND contacts across your passkey devices (Joop), desktop included. Design: the device key
       comes from the passkey PRF extension (no key on the server); contacts + personas encrypted into one
       opaque blob per account, versioned, last-writer-wins per contact. Joop's caveat: messaging gets
       convoluted, because two devices share a pair's mailbox and one device's ack hides a message from the
