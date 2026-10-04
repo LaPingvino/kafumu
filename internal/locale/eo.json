@@ -404,5 +404,11 @@
   "js.new_account": "nova konto",
   "js.on_bsky_since": "ĉe Bluesky ekde {when}",
   "js.show_anyway": "Montri tamen",
-  "js.reply_on_bsky": "Respondi ĉe Bluesky"
+  "js.reply_on_bsky": "Respondi ĉe Bluesky",
+  "js.kind_contacts": "De viaj kontaktoj",
+  "js.kind_here": "Ĉi tie nun",
+  "js.kind_meetups": "Renkontiĝoj",
+  "js.kind_people": "Homoj ĉi tie",
+  "js.kind_posts": "Bluesky",
+  "js.kind_all": "Ĉio"
 }

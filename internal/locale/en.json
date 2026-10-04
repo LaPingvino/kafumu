@@ -404,5 +404,11 @@
   "js.new_account": "new account",
   "js.on_bsky_since": "on Bluesky since {when}",
   "js.show_anyway": "Show anyway",
-  "js.reply_on_bsky": "Reply on Bluesky"
+  "js.reply_on_bsky": "Reply on Bluesky",
+  "js.kind_contacts": "From your contacts",
+  "js.kind_here": "Here now",
+  "js.kind_meetups": "Meetups",
+  "js.kind_people": "People here",
+  "js.kind_posts": "Bluesky",
+  "js.kind_all": "All"
 }

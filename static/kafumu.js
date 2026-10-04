@@ -15,6 +15,84 @@
   function setStatus(msg) { $("status").textContent = msg; }
   function note(msg) { $("list-note").textContent = msg; }
 
+  // ---- One feed: every kind of card in one list, ranked on the device ----
+  // Each renderer fills a "sink" (list-like: textContent = "" clears it,
+  // appendChild adds a card); drawFeed merges the sinks by score. A card's
+  // score is li.dataset.score if the renderer set one, else its kind's base
+  // minus a step per position (keeping that kind's own order).
+  var KINDS = ["contacts", "here", "meetups", "people", "posts"];
+  // Sinks by source; friends around and signals both count as "contacts".
+  var KIND_OF = { friends: "contacts", signals: "contacts", here: "here", meetups: "meetups", people: "people", posts: "posts" };
+  var BASE = { contacts: 1000, here: 10, meetups: 7, people: 4, posts: 3 }, STEP = { contacts: 1, here: 0.5, meetups: 0.6, people: 0.8, posts: 0.15 };
+  var feed = {}, drawTimer = null;
+  Object.keys(KIND_OF).forEach(function (k) { feed[k] = []; });
+  function feedKinds() {
+    var on = null;
+    try { on = JSON.parse(localStorage.getItem("kafumu.feedKinds") || "null"); } catch (e) {}
+    return Array.isArray(on) && on.length ? on : KINDS.slice();
+  }
+  function setFeedKinds(on) { try { localStorage.setItem("kafumu.feedKinds", JSON.stringify(on)); } catch (e) {} drawFeed(); }
+  function sink(src) {
+    var kind = KIND_OF[src];
+    var s = { hidden: false };
+    Object.defineProperty(s, "textContent", { get: function () { return feed[src].map(function (li) { return li.textContent; }).join(" "); },
+      set: function () { feed[src] = []; scheduleDraw(); } });
+    Object.defineProperty(s, "innerHTML", { set: function () { feed[src] = []; scheduleDraw(); } });
+    Object.defineProperty(s, "children", { get: function () { return feed[src]; } });
+    s.appendChild = function (li) {
+      var i = feed[src].length;
+      li.dataset.kind = kind;
+      li.dataset.label = tr("kind_" + kind);
+      if (li.dataset.score === undefined) li.dataset.score = BASE[kind] - STEP[kind] * i;
+      feed[src].push(li);
+      scheduleDraw();
+      return li;
+    };
+    s.prepend = function (li) { s.appendChild(li); };
+    return s;
+  }
+  var sinks = {};
+  Object.keys(KIND_OF).forEach(function (k) { sinks[k] = sink(k); });
+  var noSection = { hidden: false };
+  function cardsOf(kind) {
+    var out = [];
+    Object.keys(KIND_OF).forEach(function (src) { if (KIND_OF[src] === kind) out = out.concat(feed[src]); });
+    return out;
+  }
+  function scheduleDraw() { clearTimeout(drawTimer); drawTimer = setTimeout(drawFeed, 0); }
+  function drawFeed() {
+    var on = feedKinds(), all = on.length === KINDS.length, ul = $("feed"), box = $("feed-kinds");
+    // Chips: All, then each kind that has cards here, with its count.
+    box.textContent = "";
+    function chip(label, pressed, onclick) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "chip" + (pressed ? " on" : ""); b.textContent = label;
+      b.setAttribute("aria-pressed", pressed); b.onclick = onclick;
+      box.appendChild(b);
+    }
+    chip(tr("kind_all"), all, function () { setFeedKinds(KINDS.slice()); });
+    KINDS.forEach(function (k) {
+      var n = cardsOf(k).filter(function (li) { return !li.classList.contains("muted"); }).length;
+      if (!n) return;
+      var pressed = !all && on.indexOf(k) >= 0;
+      chip(tr("kind_" + k) + " " + n, pressed, function () {
+        // From All, a kind chip shows just that kind; after that, chips
+        // add and remove kinds; none left means All again.
+        if (all) { setFeedKinds([k]); return; }
+        var next = pressed ? on.filter(function (x) { return x !== k; }) : on.concat([k]);
+        setFeedKinds(next.length ? next : KINDS.slice());
+      });
+    });
+    var items = [];
+    KINDS.forEach(function (k) { if (on.indexOf(k) >= 0) items = items.concat(cardsOf(k)); });
+    var real = items.filter(function (li) { return !li.classList.contains("muted"); });
+    if (real.length) items = real;
+    items.sort(function (a, z) { return parseFloat(z.dataset.score) - parseFloat(a.dataset.score); });
+    ul.classList.toggle("mixed", on.length > 1);
+    ul.textContent = "";
+    items.forEach(function (li) { ul.appendChild(li); });
+  }
+
   // friendsAround: check in (only from a real location fix) and show which
   // of your contacts were in or next to this cell this week.
   function friendsAround(c, gps) {
@@ -27,7 +105,7 @@
       return (gps ? pair.checkIn(c, cs) : Promise.resolve()).then(function () {
         return pair.around(rings(c, 1).map(function (p) { return p[0]; }), cs.slice(0, 30));
       }).then(function (hits) {
-        var sec = $("friends-section"), list = $("friends");
+        var sec = noSection, list = sinks.friends;
         sec.hidden = !hits.length;
         travel.friends = hits.length;
         drawTravel();
@@ -364,9 +442,9 @@
     notes.forEach(function (n) { have[n.id] = true; });
     ownNotes = ownNotes.filter(function (n) { return new Date(n.expires) > Date.now() && n.cell && currentCell && rings(currentCell, 2).some(function (p) { return p[0] === n.cell; }); });
     notes = ownNotes.filter(function (n) { return !have[n.id]; }).concat(notes);
-    var hidden = hiddenNotes(), list = $("notes"), mySeq = loadSeq;
+    var hidden = hiddenNotes(), list = sinks.here, mySeq = loadSeq;
     notes = notes.filter(function (n) { return hidden.indexOf(n.id) < 0; });
-    $("notes-section").hidden = !notes.length;
+    if (!notes.length) list.textContent = "";
     loadMyTags().then(function (mine) {
       if (mySeq !== loadSeq) return; // a newer load will draw the list
       list.textContent = ""; // cleared only now, right before drawing
@@ -437,7 +515,8 @@
     var near = rings(c, 2);
     var ringOf = {};
     near.forEach(function (p) { ringOf["geo" + p[0]] = p[1]; });
-    $("list").innerHTML = "";
+    ["here", "meetups", "people", "posts"].forEach(function (k) { feed[k] = []; });
+    scheduleDraw();
     note(tr("looking"));
     fetch("/bundle?cells=" + near.map(function (p) { return p[0]; }).join(","), fresh ? { cache: "reload" } : {})
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
@@ -472,7 +551,7 @@
           ? tr("also_tags", { tags: named.join(", ") })
           : "";
       })
-      .catch(function () { $("list").innerHTML = ""; note(tr("load_failed")); });
+      .catch(function () { feed.posts = []; scheduleDraw(); note(tr("load_failed")); });
   }
 
   // myTags: the tags on your personas, used only here on the device to
@@ -488,7 +567,7 @@
   }
 
   function showMeetups(ms, events) {
-    var sec = $("meetups-section"), list = $("meetups");
+    var sec = noSection, list = sinks.meetups;
     sec.hidden = !ms.length;
     if (!ms.length) return;
     loadMyTags().then(function (mine) {
@@ -503,6 +582,8 @@
       list.textContent = "";
       ms.slice(0, 12).forEach(function (m) {
         var li = document.createElement("li"), a = document.createElement("a");
+        var hoursTo = (new Date(m.start) - Date.now()) / 36e5, live = hoursTo <= 0 && new Date(m.end) > Date.now();
+        li.dataset.score = live ? 12 : 8 + rank(m) / 24; // rank: 24 per tag match, minus hours to go
         a.href = "/meetups/" + m.id;
         a.className = "meetup-row";
         var s = new Date(m.start), e = new Date(m.end), now = Date.now();
@@ -527,7 +608,7 @@
   // weighted by how rare it is here; then shared interests.
   function showPeople(people) {
     var me = window.KAFUMU_ME || { langs: [], tags: [], names: {} };
-    var sec = $("people-section"), list = $("people");
+    var sec = noSection, list = sinks.people;
     sec.hidden = !people.length;
     if (!people.length) return;
     function split(ls) {
@@ -669,7 +750,7 @@
   }
 
   function render(posts, ringOf, places, c) {
-    var list = $("list");
+    var list = sinks.posts;
     list.textContent = "";
     if (!posts.length) {
       var li = document.createElement("li");
@@ -688,7 +769,9 @@
     });
     var hidden = hiddenNotes();
     posts.filter(function (p) { return hidden.indexOf(p.uri) < 0; }).slice(0, 50).forEach(function (p) {
-      list.appendChild(postItem(p, ringOf, places));
+      var li = postItem(p, ringOf, places);
+      li.dataset.score = 3 + score(p, ringOf, places);
+      list.appendChild(li);
     });
   }
 
@@ -881,8 +964,7 @@
       }).slice(0, 10);
       return Promise.all(recent.map(function (c) { return pair.checkContact(c).catch(function () { return []; }); })).then(function () {
         var unread = recent.filter(function (c) { return (c.signals || []).some(function (x) { return x.unread; }); });
-        $("signals-section").hidden = !unread.length;
-        var list = $("signals");
+        var list = sinks.signals;
         list.textContent = "";
         unread.forEach(function (c) {
           var li = document.createElement("li"), a = document.createElement("a");

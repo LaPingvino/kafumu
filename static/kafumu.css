@@ -243,3 +243,8 @@ input[type="range"] { padding: 0; background: transparent; accent-color: var(--a
 .post-head .who .name { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .post-head .who .dim { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .badge.warn { color: var(--destructive); }
+
+/* One feed: in a mixed list each card says what it is. */
+#feed-kinds { margin: .75rem 0 .5rem; }
+.feed.mixed > li[data-label]::before { content: attr(data-label); display: block; font-size: .72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .06em; opacity: .55; margin-bottom: 2px; }

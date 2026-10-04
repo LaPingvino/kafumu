@@ -273,13 +273,22 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       domain), age · ♥ 🔁 💬 · "on Bluesky since…" / 🆕 new account, via/lang/bot badges, ⚠ moderation labels
       (adult ones hidden behind "Show anyway"), Reply on Bluesky ↗, Hide + swipe like local messages.
 
-- [ ] 30. One weighted feed (Joop): Here now (local messages), Meetups, Around here (Bluesky) and nearby
+- [x] 30. (30a+30b+30c done in one go) One feed: sinks per source → drawFeed merges by score (contacts
+      1000, live meetup 12, local messages 10…, meetups 8+tags−days, people 4…, posts 3+score); chips: All /
+      tap a kind = only that kind / further taps add-remove kinds; remembered on the device; kind label on
+      each card when mixed. Was: One weighted feed (Joop): Here now (local messages), Meetups, Around here (Bluesky) and nearby
       coffee/contacts (high priority) become cards in ONE list, ranked by one device-side score (kind weight
       × freshness × distance ring × your tags/languages/views × reliability). Filter chips per kind, and a
       mode switch: Mixed (default) or one kind at a time; the choice is remembered on the device. Split:
       30a. shared card shell + score; 30b. merge the lists + chips/modes; 30c. contacts-around cards on top.
 - [ ] 31. Reliability: Bluesky posts tagging many places (≥5 city tags: "#London #Paris #Berlin…") rank
       far down with a "tags N cities" badge; new accounts and labelled posts weigh less in the score.
+
+- [ ] 32. Naming cloud (Joop: Lunteren shows as Bennekom): towns < 15k are missing, so the nearest-name
+      picks a neighbour. Add villages/neighbourhoods (geonames cities1000 / PPLX for the heading only, via
+      geotags), and show a cloud: the main name big, nearby names (villages, districts) small beside it.
+- [ ] 33. Desktop first visit (Joop): guess the area from App Engine's X-Appengine-CityLatLong header
+      (free, no lookup service, never stored), turn it into a cell and ask "Are you in Ede?" [Yes] [Pick].
 
 **Idle-tick rule (Joop):** when no slice is open, a tick is not idle: use the app in a real browser
 (test/cdp.mjs), pick one area, and make it look and work a bit nicer. Fix one concrete thing per tick.

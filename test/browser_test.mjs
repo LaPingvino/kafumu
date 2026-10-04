@@ -62,49 +62,49 @@ try {
   await B.evaluate("document.querySelector('.signals button').click()");
   await B.waitFor("document.querySelector('.signals button').textContent.startsWith('✓')", "signal sent");
   await A.goto(base + "/?cell=6fg222");
-  await A.waitFor("!document.getElementById('signals-section').hidden && document.getElementById('signals').textContent.includes('Bea')", "B's signal in A's Around");
+  await A.waitFor("document.getElementById('feed').textContent.includes('Bea')", "B's signal in A's Around");
   // Local messages (OLN): A says something, mined in a worker; B sees it.
   await A.goto(base + "/?cell=6fg223");
   await A.evaluate("(() => { document.getElementById('say').click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test: hi from the OLN " + RUN + "'; f.requestSubmit(); return true; })()");
-  await A.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN " + RUN + "')", "A's message in Here now", 30000);
+  await A.waitFor("document.getElementById('feed').textContent.includes('hi from the OLN " + RUN + "')", "A's message in Here now", 30000);
   // Joop saw messages twice: two loads in a row must still show each once.
   await A.evaluate("document.getElementById('view-apply').click(); document.getElementById('view-apply').click(); true");
   await sleep(3000);
-  const copies = await A.evaluate("document.getElementById('notes').textContent.split('hi from the OLN " + RUN + "').length - 1");
+  const copies = await A.evaluate("document.getElementById('feed').textContent.split('hi from the OLN " + RUN + "').length - 1");
   if (copies !== 1) throw new Error("message shown " + copies + " times");
   for (let i = 0; ; i++) { // B's browser may hold a 30-second-old bundle
     await B.goto(base + "/?cell=6fg223");
-    try { await B.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN " + RUN + "')", "B sees A's message", 8000); break; }
+    try { await B.waitFor("document.getElementById('feed').textContent.includes('hi from the OLN " + RUN + "')", "B sees A's message", 8000); break; }
     catch (e) { if (i >= 6) throw e; }
   }
   // Questions: A asks; B gets it (with a private-answer button) and answers
   // publicly; the answer shows under the question.
   await A.evaluate("(() => { document.getElementById('ask').click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test: best pastel de nata nearby?'; f.tags.value = 'food'; f.requestSubmit(); return true; })()");
-  await A.waitFor("document.getElementById('notes').textContent.includes('pastel de nata')", "A's question", 30000);
+  await A.waitFor("document.getElementById('feed').textContent.includes('pastel de nata')", "A's question", 30000);
   for (let i = 0; ; i++) {
     await B.goto(base + "/?cell=6fg223");
-    try { await B.waitFor("[...document.querySelectorAll('#notes > li')].some(li => li.textContent.includes('pastel de nata') && li.querySelector('a[href*=\"/c#v1.\"]'))", "B sees the question with a private-answer button", 8000); break; }
+    try { await B.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('pastel de nata') && li.querySelector('a[href*=\"/c#v1.\"]'))", "B sees the question with a private-answer button", 8000); break; }
     catch (e) { if (i >= 8) throw e; }
   }
-  await B.evaluate("(() => { [...document.querySelectorAll('#notes > li')].find(li => li.textContent.includes('pastel de nata')).querySelectorAll('button')[0].click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test answer: Manteigaria'; f.requestSubmit(); return true; })()");
-  await B.waitFor("[...document.querySelectorAll('#notes > li')].some(li => li.textContent.includes('pastel de nata') && li.querySelector('.replies') && li.querySelector('.replies').textContent.includes('Manteigaria'))", "answer threaded under the question", 30000);
+  await B.evaluate("(() => { [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('pastel de nata')).querySelectorAll('button')[0].click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test answer: Manteigaria'; f.requestSubmit(); return true; })()");
+  await B.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('pastel de nata') && li.querySelector('.replies') && li.querySelector('.replies').textContent.includes('Manteigaria'))", "answer threaded under the question", 30000);
 
   // Card themes from local activity: the "food" question tag shows up as a
   // 📍 suggestion in A's card editor.
   await A.goto(base + "/?cell=6fg223");
-  await A.waitFor("document.getElementById('notes').textContent.includes('pastel de nata')", "Around loaded for tag counting", 15000);
+  await A.waitFor("document.getElementById('feed').textContent.includes('pastel de nata')", "Around loaded for tag counting", 15000);
   await A.goto(base + "/card");
   await A.waitFor("[...document.querySelectorAll('#tag-chips .chip')].some(c => c.textContent === '📍 food')", "local theme suggested");
 
   // Views: language and interest filters apply on the device, from the URL.
   await A.goto(base + "/?cell=6fg223&lang=eng");
-  await A.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN " + RUN + "')", "message kept by lang=eng", 15000);
+  await A.waitFor("document.getElementById('feed').textContent.includes('hi from the OLN " + RUN + "')", "message kept by lang=eng", 15000);
   await A.goto(base + "/?cell=6fg223&tag=zzznothing&w=3");
   await A.waitFor("document.getElementById('views').textContent.includes('#zzznothing')", "active filter chip");
   await sleep(2500);
-  if (await A.evaluate("document.getElementById('notes').textContent.includes('hi from the OLN " + RUN + "')")) throw new Error("tag filter didn't hide the message");
+  if (await A.evaluate("document.getElementById('feed').textContent.includes('hi from the OLN " + RUN + "')")) throw new Error("tag filter didn't hide the message");
   await A.goto(base + "/?cell=6fg223&tag=zzznothing&w=1"); // a bias keeps everything
-  await A.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN " + RUN + "')", "message kept with a weak bias", 15000);
+  await A.waitFor("document.getElementById('feed').textContent.includes('hi from the OLN " + RUN + "')", "message kept with a weak bias", 15000);
 
   // Who's up for coffee: A asks, B joins from the message and they connect.
   await A.goto(base + "/?cell=6fg223");
@@ -112,10 +112,10 @@ try {
   await A.waitFor("document.getElementById('coffee-status').textContent.length > 0 && !document.getElementById('coffee-status').textContent.includes('…')", "coffee asked", 30000);
   for (let i = 0; ; i++) {
     await B.goto(base + "/?cell=6fg223");
-    try { await B.waitFor("!!document.querySelector('#notes a[href*=\"/c#v1.\"]')", "Join button for B", 8000); break; }
+    try { await B.waitFor("!!document.querySelector('#feed a[href*=\"/c#v1.\"]')", "Join button for B", 8000); break; }
     catch (e) { if (i >= 8) throw e; }
   }
-  await B.evaluate("location.href = document.querySelector('#notes a[href*=\"/c#v1.\"]').href; true");
+  await B.evaluate("location.href = document.querySelector('#feed a[href*=\"/c#v1.\"]').href; true");
   await B.waitFor("!document.getElementById('accept-area').hidden", "B on the connect page from Join");
 
   // Meetups: A makes an account on the way to hosting, B sees it in Around.
@@ -129,7 +129,7 @@ try {
   // Other instances cache a cell's meetups for up to a minute: reload until it shows.
   for (let i = 0; ; i++) {
     await B.goto(base + "/?cell=6fg222");
-    try { await B.waitFor("document.getElementById('meetups').textContent.includes('Browser test kafo')", "meetup in B's Around", 8000); break; }
+    try { await B.waitFor("document.getElementById('feed').textContent.includes('Browser test kafo')", "meetup in B's Around", 8000); break; }
     catch (e) { if (i >= 10) throw e; }
   }
   // Clean up (this test also runs against production).
@@ -146,7 +146,7 @@ try {
   await A.waitFor("document.querySelector('[name=where]') && document.querySelector('[name=where]').value === 'test stand' && !!document.querySelector('select[name=level_epo]')", "profile saved");
   for (let i = 0; ; i++) {
     await B.goto(base + "/?cell=6fg222");
-    try { await B.waitFor(`document.getElementById('people').textContent.includes("${nick}")`, "A in B's People", 8000); break; }
+    try { await B.waitFor(`document.getElementById('feed').textContent.includes("${nick}")`, "A in B's People", 8000); break; }
     catch (e) { if (i >= 10) throw e; }
   }
   // Public inbox: A opens one at 12 bits; B writes from People with a card;
@@ -156,12 +156,12 @@ try {
   await A.waitFor("document.getElementById('inbox-status').textContent.length > 1", "inbox opened");
   for (let i = 0; ; i++) {
     await B.goto(base + "/?cell=6fg222");
-    try { await B.waitFor(`[...document.querySelectorAll('#people li')].some(li => li.textContent.includes("${nick}") && li.querySelector('button.pill-sm'))`, "write button on A", 8000); break; }
+    try { await B.waitFor(`[...document.querySelectorAll('#feed li')].some(li => li.textContent.includes("${nick}") && li.querySelector('button.pill-sm'))`, "write button on A", 8000); break; }
     catch (e) { if (i >= 10) throw e; }
   }
-  await B.evaluate(`(() => { const li = [...document.querySelectorAll('#people li')].find(l => l.textContent.includes("${nick}")); li.querySelector('button.pill-sm').click();
+  await B.evaluate(`(() => { const li = [...document.querySelectorAll('#feed li')].find(l => l.textContent.includes("${nick}")); li.querySelector('button.pill-sm').click();
     li.querySelector('textarea').value = 'Browser test: inbox hello'; li.querySelector('form').requestSubmit(); return true; })()`);
-  await B.waitFor("[...document.querySelectorAll('#people li form p')].some(p => /\\(\\d+ s/.test(p.textContent))", "inbox message sent", 60000);
+  await B.waitFor("[...document.querySelectorAll('#feed li form p')].some(p => /\\(\\d+ s/.test(p.textContent))", "inbox message sent", 60000);
   await A.goto(base + "/contacts");
   await A.waitFor("document.getElementById('inbox-msgs').textContent.includes('inbox hello')", "A reads the inbox message", 20000);
   await A.evaluate("document.querySelector('#inbox-msgs button.suggested').click()");

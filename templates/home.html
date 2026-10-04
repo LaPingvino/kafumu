@@ -83,37 +83,13 @@
 
 <div id="travel" class="card events" hidden></div>
 
-<section id="notes-section" hidden>
-  <h2>{{t .Lang "oln.here_now"}}</h2>
-  <ul id="notes" class="boxed-list"></ul>
-</section>
-
-<section id="friends-section" hidden>
-  <h2>{{t .Lang "home.friends_around"}}</h2>
-  <ul id="friends" class="boxed-list"></ul>
-  <p class="dim small">{{t .Lang "home.friends_note"}}</p>
-</section>
-
-<section id="signals-section" hidden>
-  <h2>{{t .Lang "home.from_contacts"}}</h2>
-  <ul id="signals" class="boxed-list"></ul>
-</section>
-
-<section id="people-section" hidden>
-  <h2>{{t .Lang "home.people"}}</h2>
-  <ul id="people" class="boxed-list"></ul>
-  <p class="dim small"><a href="/account#profile">{{t .Lang "home.be_findable"}}</a></p>
-</section>
-
-<section id="meetups-section" hidden>
-  <h2>{{t .Lang "home.meetups"}}</h2>
-  <ul id="meetups" class="boxed-list"></ul>
-</section>
-
-<section>
-  <h2>{{t .Lang "home.around_here"}}</h2>
-  <ul id="list" class="boxed-list"><li class="muted">{{t .Lang "home.nothing_loaded"}}</li></ul>
+<!-- One feed (Joop): contacts, local messages, meetups, people and Bluesky
+     as cards in one list, ranked on the device; chips filter by kind. -->
+<section id="feed-section">
+  <div id="feed-kinds" class="chips" role="group"></div>
+  <ul id="feed" class="boxed-list feed"><li class="muted">{{t .Lang "home.nothing_loaded"}}</li></ul>
   <p class="muted" id="list-note"></p>
+  <p class="dim small">{{t .Lang "home.friends_note"}} · <a href="/account#profile">{{t .Lang "home.be_findable"}}</a></p>
 </section>
 <script>window.KAFUMU_T = {{.JS}}; window.KAFUMU_ME = { langs: {{.MyLangs}} || [], tags: {{.MyTags}} || [], names: {{.LangNames}}, langTags: {{.LangTags}}, from1: {{.From1}} };</script>
 <script src="/static/device.js?v={{.V}}"></script>
