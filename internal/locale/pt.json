@@ -442,5 +442,11 @@
   "guess.locate": "Usar a minha localização",
   "guess.pick": "Outro lugar",
   "guess.note": "Uma estimativa aproximada pela tua ligação à internet, nada guardado. A tua localização exata nunca sai do teu dispositivo.",
-  "js.guess_q": "Estás em ou perto de {place}?"
+  "js.guess_q": "Estás em ou perto de {place}?",
+  "learn.view": "Eventos e pessoas da língua",
+  "learn.signal": "Alguém para conversar?",
+  "learn.profile": "Adicionar ao meu perfil",
+  "js.learn_btn": "Aprender {lang}",
+  "js.learn_explain": "Vê primeiro encontros, mensagens locais e pessoas para {lang} (quem a fala e quer aprender a tua língua em cima), ou diz a quem está perto que gostavas de praticar num café.",
+  "js.learn_text": "🗣 A aprender {lang}, alguém para conversar num café? {name}"
 }

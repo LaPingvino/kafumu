@@ -16,6 +16,7 @@
       <button type="button" id="coffee" class="suggested pill">☕ {{t .Lang "coffee.button"}}</button>
       <button type="button" id="say" class="pill">💬 {{t .Lang "oln.say"}}</button>
       <button type="button" id="ask" class="pill">❓ {{t .Lang "ask.button"}}</button>
+      <button type="button" id="learn" class="pill" hidden></button>
     </p>
     <!-- About the area rather than in it: smaller, out of the way. -->
     <p class="actions minor">
@@ -37,6 +38,16 @@
     <p class="dim">{{t .Lang "coffee.explain2"}}</p>
     <div class="actions"><button type="button" id="coffee-go" class="pill suggested">{{t .Lang "coffee.go"}}</button></div>
     <p class="dim small" id="coffee-status" role="status"></p>
+  </div>
+  <div id="learn-card" class="card" style="padding:4px 16px 12px" hidden>
+    <h2 id="learn-title"></h2>
+    <p id="learn-explain"></p>
+    <div class="actions">
+      <a id="learn-view" role="button" class="pill suggested" href="#">{{t .Lang "learn.view"}}</a>
+      <button type="button" id="learn-go" class="pill">☕ {{t .Lang "learn.signal"}}</button>
+      <a href="/account#profile" role="button" class="pill">{{t .Lang "learn.profile"}}</a>
+    </div>
+    <p class="dim small" id="learn-status" role="status"></p>
   </div>
   <form id="oln-form" class="card" style="padding:4px 16px 12px" hidden>
     <p id="oln-mode" class="why"></p>

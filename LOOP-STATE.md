@@ -330,7 +330,12 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       el en eo es fa fr he hi hu id it ja ko nl pl pt ro ru sv sw tok tr uk ur vi zh), translating Kafumu's
       strings; RTL (ar fa he ur) via dir="rtl". Plus a gentle esperanto-kurso.net nudge where it fits (the
       language picker, Esperanto users). Split per batch of languages.
-- [ ] 35. "I want to learn the local language" button (Joop): one tap marks you as learning the area's main
+- [x] 35. 🗣 Learn <language> on Around when the area's country (near.country → COUNTRY_LANG) has a main
+      language you don't speak: card with "Language events and people" (view lang=<code>, w=2: matching
+      meetups/posts/people first, exchange partners top), "Up for a chat?" (coffee-style local message
+      #lang<code> #learn #coffee with your connect link; postCoffee shared with the coffee button), and
+      "Add it to my profile". All 12 UI languages. Browser-tested (Lisbon, English UI → Portuguese).
+      Was: "I want to learn the local language" button (Joop): one tap marks you as learning the area's main
       language (from the country), surfaces language events/meetups and people who speak it (exchange
       matches first), and offers a coffee signal "learner looking to chat" (#lang<code> + #learn).
 
@@ -376,6 +381,12 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       "For cafés and venues" page "isn't well thought out", "we'll need a better model for paid services".
       Constraints from VISION: core use free forever, Lichess-style patrons, relevance instead of ads, nothing
       that buys visibility over what's actually near and relevant. Don't build until Joop picks a direction.
+- [ ] 46. Brands on other domains (Joop's idea, 2026-10-04; part of 45): one app, several faces chosen by
+      Host: e.g. bahais.in / localprayers.net with "Who wants to pray with me?" and "Register our local
+      events". A Brand entity (domain, name, tagline, colours/icon, wording of the main button, default view
+      tags, feeds, which kinds show), set up by an admin; brand admins (role scoped to one brand) manage it.
+      Same #geo/OLN network underneath, each brand a lens (default tags), so people meet across brands.
+      Paid: a brand for your community/organisation. Open: shared vs separate accounts per brand, pricing.
 - [ ] 39. Post with or without your name (Joop): a local message can carry your account name (signed by the
       server as @name, linkable to your profile) or stay anonymous; anonymous ones rank lower and expire
       sooner (shorter TTL at the same work), named ones get the normal TTL and a trust bonus.

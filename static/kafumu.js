@@ -356,30 +356,64 @@
   // whoever taps Join swaps cards with you (only what your persona shares).
   $("coffee").onclick = function () { var c = $("coffee-card"); c.hidden = !c.hidden; };
   $("coffee-go").onclick = function () {
-    var btn = this, dev = window.kafumuDevice;
+    postCoffee(this, $("coffee-status"), function (card) { return tr("coffee_text", { name: card.name || "" }); }, function () { return olnKeywords() + " #coffee"; });
+  };
+  // postCoffee: a local message with your connect code; then listen a while
+  // for people who join.
+  function postCoffee(btn, statusEl, textFor, keywords) {
+    var dev = window.kafumuDevice;
     if (!dev || !window.kafumuPair || !currentCell) return;
     btn.disabled = true;
     var pair = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin });
     dev.personas.shareCard().then(function (card) {
       return pair.invite(false).then(function (inv) {
-        var text = tr("coffee_text", { name: card.name || "" }).trim() + "\n" + inv.url;
-        return window.kafumuOLN.post(text, olnKeywords() + " #coffee", requiredBits, function (tries) {
-          $("coffee-status").textContent = tr("oln_working", { n: Math.round(tries / 1000) + "k" });
+        var text = textFor(card).trim() + "\n" + inv.url;
+        return window.kafumuOLN.post(text, keywords(), requiredBits, function (tries) {
+          statusEl.textContent = tr("oln_working", { n: Math.round(tries / 1000) + "k" });
         });
       });
     }).then(function (n) {
       if (n && n.id) ownNotes.push(n);
-      $("coffee-status").textContent = tr("coffee_sent");
+      statusEl.textContent = tr("coffee_sent");
       load(currentCell, true);
       // Keep listening for people who join, like the Connect page does.
       var pairer = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin });
       var until = Date.now() + 30 * 60 * 1000;
       (function listen() {
         dev.personas.shareCard().then(function (card) { return pairer.checkInvite(card); }).then(function (added) {
-          if (added.length) $("coffee-status").textContent = tr("coffee_joined", { names: added.map(function (c) { return c.card.name; }).join(", ") });
+          if (added.length) statusEl.textContent = tr("coffee_joined", { names: added.map(function (c) { return c.card.name; }).join(", ") });
         }).catch(function () {}).then(function () { if (Date.now() < until) setTimeout(listen, 10000); });
       })();
-    }).catch(function (err) { $("coffee-status").textContent = tr("oln_failed") + " " + err.message; btn.disabled = false; });
+    }).catch(function (err) { statusEl.textContent = tr("oln_failed") + " " + err.message; btn.disabled = false; });
+  }
+
+  // ---- "Learn the local language" ----
+  // The area's main language (by country); offered when you don't speak it.
+  var COUNTRY_LANG = { PT: "por", BR: "por", AO: "por", MZ: "por", NL: "nld", SR: "nld", DE: "deu", AT: "deu", FR: "fra",
+    ES: "spa", MX: "spa", AR: "spa", CO: "spa", CL: "spa", PE: "spa", UY: "spa", IT: "ita", PL: "pol", RU: "rus", UA: "ukr",
+    TR: "tur", GR: "ell", SE: "swe", NO: "nor", DK: "dan", FI: "fin", IS: "isl", CZ: "ces", SK: "slk", HU: "hun", RO: "ron",
+    BG: "bul", HR: "hrv", RS: "srp", SI: "slv", EE: "est", LV: "lav", LT: "lit", JP: "jpn", KR: "kor", CN: "cmn", TW: "cmn",
+    VN: "vie", TH: "tha", ID: "ind", MY: "msa", IL: "heb", EG: "ara", MA: "ara", SA: "ara", AE: "ara", IR: "fas", IN: "hin",
+    PK: "urd", BD: "ben", KE: "swa", TZ: "swa", GE: "kat", AM: "hye", AL: "sqi", CV: "por", CU: "spa", DO: "spa", VE: "spa" };
+  var learnLang = "";
+  function offerLearn(country) {
+    var me = window.KAFUMU_ME || {}, code = COUNTRY_LANG[country] || "", b = $("learn");
+    var speaks = (me.langs || []).some(function (l) { var p = l.split("/"); return p[0] === code && p[1] !== "learning"; }) ||
+      (me.from1 || {})[document.documentElement.lang] === code;
+    learnLang = code;
+    b.hidden = !code || speaks || !(me.names || {})[code];
+    if (b.hidden) return;
+    var name = me.names[code];
+    b.textContent = "🗣 " + tr("learn_btn", { lang: name });
+    $("learn-title").textContent = "🗣 " + tr("learn_btn", { lang: name });
+    $("learn-explain").textContent = tr("learn_explain", { lang: name });
+    $("learn-view").href = "/?cell=" + currentCell + "&lang=" + code + "&w=2";
+  }
+  $("learn").onclick = function () { var c = $("learn-card"); c.hidden = !c.hidden; };
+  $("learn-go").onclick = function () {
+    var name = ((window.KAFUMU_ME || {}).names || {})[learnLang] || learnLang;
+    postCoffee(this, $("learn-status"), function (card) { return tr("learn_text", { lang: name, name: card.name || "" }); },
+      function () { return ["#geo" + currentCell, "#lang" + learnLang, "#learn", "#coffee"].concat(liveEvents.map(function (t) { return "#" + t; })).join(" "); });
   };
 
   function hiddenNotes() { try { return JSON.parse(pref("kafumu.hiddenNotes") || "[]"); } catch (e) { return []; } }
@@ -579,6 +613,7 @@
         travel.place = ((b.places || [])[0] || {}).place || "";
         // A human heading: "Barreiro" or "Areeiro, Lisbon", the cell tag below.
         if (b.near && b.near.country) { try { localStorage.setItem("kafumu.country", b.near.country); } catch (e) {} }
+        offerLearn(b.near ? b.near.country : "");
         if (b.near && b.near.name) {
           $("place-name").textContent = b.near.name + (b.near.city ? ", " + b.near.city : "");
           document.querySelector(".cell-tag").classList.add("named");

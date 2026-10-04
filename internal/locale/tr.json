@@ -442,5 +442,11 @@
   "guess.locate": "Konumumu kullan",
   "guess.pick": "Başka bir yer",
   "guess.note": "İnternet bağlantından kaba bir tahmin, hiçbir şey saklanmaz. Tam konumun cihazından asla çıkmaz.",
-  "js.guess_q": "Şu an {place} civarında mısın?"
+  "js.guess_q": "Şu an {place} civarında mısın?",
+  "learn.view": "Dil etkinlikleri ve insanlar",
+  "learn.signal": "Sohbet etmek isteyen?",
+  "learn.profile": "Profilime ekle",
+  "js.learn_btn": "Dil öğren: {lang}",
+  "js.learn_explain": "Önce {lang} için buluşmaları, yerel mesajları ve insanları gör (onu konuşup senin dilini öğrenmek isteyenler en üstte) ya da yakındakilere bir kahve eşliğinde pratik yapmak istediğini bildir.",
+  "js.learn_text": "🗣 Dil öğreniyorum: {lang}. Kahve eşliğinde sohbet etmek isteyen var mı? {name}"
 }

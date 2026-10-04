@@ -442,5 +442,11 @@
   "guess.locate": "Użyj mojej lokalizacji",
   "guess.pick": "Gdzie indziej",
   "guess.note": "Przybliżone zgadywanie na podstawie twojego połączenia internetowego, nic nie jest zapisywane. Twoja dokładna lokalizacja nigdy nie opuszcza twojego urządzenia.",
-  "js.guess_q": "Jesteś w okolicy: {place}?"
+  "js.guess_q": "Jesteś w okolicy: {place}?",
+  "learn.view": "Wydarzenia i ludzie: język",
+  "learn.signal": "Ktoś chętny na pogawędkę?",
+  "learn.profile": "Dodaj do mojego profilu",
+  "js.learn_btn": "Nauka języka: {lang}",
+  "js.learn_explain": "Najpierw zobacz spotkania, lokalne wiadomości i ludzi dla języka {lang} (na górze ci, którzy nim mówią i chcą uczyć się twojego), albo daj znać osobom w pobliżu, że chętnie poćwiczysz przy kawie.",
+  "js.learn_text": "🗣 Uczę się języka: {lang}. Ktoś chętny na pogawędkę przy kawie? {name}"
 }

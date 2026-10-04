@@ -442,5 +442,11 @@
   "guess.locate": "Uzi mian lokon",
   "guess.pick": "Aliloke",
   "guess.note": "Malpreciza diveno el via interreta konekto, nenio konservita. Via ĝusta loko neniam forlasas vian aparaton.",
-  "js.guess_q": "Ĉu vi estas en aŭ apud {place}?"
+  "js.guess_q": "Ĉu vi estas en aŭ apud {place}?",
+  "learn.view": "Lingvaj eventoj kaj homoj",
+  "learn.signal": "Ĉu iu por babilo?",
+  "learn.profile": "Aldoni al mia profilo",
+  "js.learn_btn": "Lerni {lang}",
+  "js.learn_explain": "Vidu unue renkontiĝojn, lokajn mesaĝojn kaj homojn por {lang} (tiujn, kiuj parolas ĝin kaj volas lerni vian lingvon, supre), aŭ sciigu al homoj ĉirkaŭe, ke vi volonte praktikus ĉe kafo.",
+  "js.learn_text": "🗣 Mi lernas {lang}, ĉu iu emas babili ĉe kafo? {name}"
 }

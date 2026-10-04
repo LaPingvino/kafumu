@@ -442,5 +442,11 @@
   "guess.locate": "Utiliser ma position",
   "guess.pick": "Ailleurs",
   "guess.note": "Une estimation grossière d'après ta connexion internet, rien n'est stocké. Ta position exacte ne quitte jamais ton appareil.",
-  "js.guess_q": "Es-tu à {place} ou près de là ?"
+  "js.guess_q": "Es-tu à {place} ou près de là ?",
+  "learn.view": "Événements et personnes de la langue",
+  "learn.signal": "Partant pour discuter ?",
+  "learn.profile": "Ajouter à mon profil",
+  "js.learn_btn": "Apprendre le {lang}",
+  "js.learn_explain": "Vois d'abord les rencontres, messages locaux et personnes pour {lang} (ceux qui la parlent et veulent apprendre ta langue en tête), ou fais savoir autour de toi que tu aimerais pratiquer autour d'un café.",
+  "js.learn_text": "🗣 J'apprends {lang}, quelqu'un pour discuter autour d'un café ? {name}"
 }

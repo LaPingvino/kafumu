@@ -96,6 +96,12 @@ try {
   await A.goto(base + "/card");
   await A.waitFor("[...document.querySelectorAll('#tag-chips .chip')].some(c => c.textContent === '📍 food')", "local theme suggested");
 
+  // Learn the local language: Lisbon (PT) with an English UI offers Portuguese.
+  await A.goto(base + "/?cell=8ccgqx");
+  await A.waitFor("!document.getElementById('learn').hidden && document.getElementById('learn').textContent.includes('Portug')", "learn Portuguese offered", 20000);
+  await A.evaluate("document.getElementById('learn').click(); true");
+  await A.waitFor("document.getElementById('learn-view').href.includes('lang=por')", "learn view links to Portuguese");
+
   // Views: language and interest filters apply on the device, from the URL.
   await A.goto(base + "/?cell=6fg223&lang=eng");
   // Another instance may not have this run's message yet (60 s cache).
@@ -283,7 +289,7 @@ try {
     await X.evaluate("fetch('/account/delete', { method: 'POST', body: new URLSearchParams({ confirm: 'yes' }), credentials: 'same-origin' }).then(() => true)");
   }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, findable profile seen, paid inbox message + connect back, OLN message + report + question/answer + local themes + views + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, findable profile seen, paid inbox message + connect back, OLN message + report + question/answer + local themes + learn the local language + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }
