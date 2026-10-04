@@ -475,6 +475,11 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       (like the badge code) and registers its public payload under the username (Handle entity: name → payload,
       renewed whenever the owner opens the app, expires after 90 days unused). /@name shows the card preview and
       "Connect"; scans become contacts like any code. Badges print kafumu.com/@name when there is one.
+      First user: kafumu.com/@lapingvino (Joop's account), e.g. "have a coffee with Joop at Web Summit".
+- [ ] 58. "I'm confused" on Around (Joop: location-first is new to most people): a small button that starts a
+      short guided tour on the page itself: step by step it highlights the area heading ("this is where you
+      are, as a #geo cell"), coffee/say/ask, the filter chips, the feed kinds, Connect, Contacts, My card and
+      Findable, each with one plain sentence; Next/Back/Done; remembers it was seen; all languages.
 - [ ] 39. Post with or without your name (Joop): a local message can carry your account name (signed by the
       server as @name, linkable to your profile) or stay anonymous; anonymous ones rank lower and expire
       sooner (shorter TTL at the same work), named ones get the normal TTL and a trust bonus.
