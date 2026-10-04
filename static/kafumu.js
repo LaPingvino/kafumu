@@ -424,42 +424,89 @@
   // ---- Filter chips: events, the local language, interests ----
   // Tapping one narrows Around to it (another tap clears it). Events and
   // interests filter strictly; a language boosts (it's broader).
+  var editChips = false, lastBundle = null;
+  function chipURL(kind, value, on) {
+    var next = { lang: view.lang, tag: view.tag, strength: view.strength };
+    if (kind === "tag") { next.tag = on ? "" : value; next.strength = on ? 2 : 3; }
+    else { next.lang = on ? "" : value; }
+    var q = new URLSearchParams();
+    q.set("cell", currentCell);
+    if (next.lang) q.set("lang", next.lang);
+    if (next.tag) q.set("tag", next.tag);
+    if ((next.lang || next.tag) && next.strength !== 2) q.set("w", String(next.strength));
+    return "/?" + q.toString();
+  }
+  function chipCfg() { var d = window.kafumuDevice; return d && d.chips ? d.chips.get() : { pinned: [], hidden: [] }; }
+  function saveChips(c) { var d = window.kafumuDevice; if (d && d.chips) return d.chips.set(c); return Promise.resolve(); }
+  function pin(key) { var c = chipCfg(); c.pinned = (c.pinned || []).filter(function (k) { return k !== key; }).concat([key]).slice(-20); c.hidden = (c.hidden || []).filter(function (k) { return k !== key; }); return saveChips(c); }
+  function normTag(t) { return String(t || "").toLowerCase().replace(/^#/, "").replace(/[^\p{L}\p{N}_]/gu, ""); }
   function drawFilterChips(b) {
-    var box = $("filter-chips"), me = window.KAFUMU_ME || {};
+    if (b) lastBundle = b; else b = lastBundle || {};
+    var box = $("filter-chips"), me = window.KAFUMU_ME || {}, cfg = chipCfg();
     box.textContent = "";
     var chips = [], seen = {};
-    function add(kind, value, label) {
-      var k = kind + ":" + value;
-      if (!value || seen[k]) return;
-      seen[k] = true; chips.push({ kind: kind, value: value, label: label });
-    }
-    (b.events || []).forEach(function (e) { add("tag", e.tag, (e.live ? "🔴 " : "📅 ") + "#" + e.tag); });
     function short(code) { return String((me.names || {})[code] || code).split(" (")[0]; }
+    function add(kind, value, label, pinned) {
+      var k = kind + ":" + value;
+      if (!value || seen[k] || (!pinned && (cfg.hidden || []).indexOf(k) >= 0)) return;
+      seen[k] = true; chips.push({ kind: kind, value: value, label: label, key: k, pinned: !!pinned });
+    }
+    // Yours first (pinned), then suggestions: events, the local language,
+    // what's popular here, your profile interests.
+    (cfg.pinned || []).forEach(function (k) {
+      var p = k.split(":"), kind = p[0], v = p.slice(1).join(":");
+      add(kind, v, kind === "lang" ? "🗣 " + short(v) : "#" + v, true);
+    });
+    (b.events || []).forEach(function (e) { add("tag", e.tag, (e.live ? "🔴 " : "📅 ") + "#" + e.tag); });
     if (learnLang && (me.names || {})[learnLang]) add("lang", learnLang, "🗣 " + short(learnLang));
-    if (view.lang && view.lang !== learnLang) add("lang", view.lang, "🗣 " + short(view.lang));
+    if (view.lang) add("lang", view.lang, "🗣 " + short(view.lang));
     var counts = {};
     try { counts = JSON.parse(localStorage.getItem("kafumu.localTags") || "{}"); } catch (e) {}
     Object.keys(counts).sort(function (a, z) { return counts[z] - counts[a]; }).slice(0, 6).forEach(function (t) { add("tag", t, "#" + t); });
-    (me.tags || []).slice(0, 6).forEach(function (t) { add("tag", t.toLowerCase().replace(/\s+/g, ""), "#" + t.toLowerCase().replace(/\s+/g, "")); });
+    (me.tags || []).slice(0, 6).forEach(function (t) { add("tag", normTag(t), "#" + normTag(t)); });
     if (view.tag) add("tag", view.tag, "#" + view.tag);
     chips.forEach(function (c) {
       var on = c.kind === "tag" ? view.tag === c.value : view.lang === c.value;
       var a = document.createElement("a");
-      a.className = "chip" + (on ? " on" : "");
+      a.className = "chip" + (on ? " on" : "") + (c.pinned ? " pinned" : "");
       a.setAttribute("aria-pressed", on);
-      a.textContent = (on ? "✓ " : "") + c.label;
-      var next = { lang: view.lang, tag: view.tag, strength: view.strength };
-      if (c.kind === "tag") { next.tag = on ? "" : c.value; next.strength = on ? 2 : 3; }
-      else { next.lang = on ? "" : c.value; }
-      var q = new URLSearchParams();
-      q.set("cell", currentCell);
-      if (next.lang) q.set("lang", next.lang);
-      if (next.tag) q.set("tag", next.tag);
-      if ((next.lang || next.tag) && next.strength !== 2) q.set("w", String(next.strength));
-      a.href = "/?" + q.toString();
+      a.textContent = (editChips ? "× " : on ? "✓ " : "") + c.label;
+      a.href = chipURL(c.kind, c.value, on);
+      if (editChips) a.onclick = function (e) {
+        // Edit: a pinned chip is unpinned; a suggestion is hidden from now on.
+        e.preventDefault();
+        var cf = chipCfg();
+        if (c.pinned) cf.pinned = (cf.pinned || []).filter(function (k) { return k !== c.key; });
+        else cf.hidden = (cf.hidden || []).concat([c.key]);
+        saveChips(cf).then(function () { drawFilterChips(); });
+      };
       box.appendChild(a);
     });
-    box.hidden = !chips.length;
+    // 🗣 +: any language. # +: any subject (pinned, then filtered).
+    var langs = document.createElement("select");
+    langs.className = "chip chip-select";
+    langs.setAttribute("aria-label", tr("chip_lang"));
+    var first = document.createElement("option"); first.value = ""; first.textContent = "🗣 +"; langs.appendChild(first);
+    Object.keys(me.names || {}).sort(function (x, y) { return short(x).localeCompare(short(y)); }).forEach(function (code) {
+      var o = document.createElement("option"); o.value = code; o.textContent = short(code); langs.appendChild(o);
+    });
+    langs.onchange = function () { var v = langs.value; if (!v) return; pin("lang:" + v).then(function () { location.href = chipURL("lang", v, false); }); };
+    box.appendChild(langs);
+    var subj = document.createElement("form");
+    subj.className = "chip-subject";
+    var inp = document.createElement("input");
+    inp.placeholder = "# +"; inp.setAttribute("aria-label", tr("chip_subject")); inp.setAttribute("list", "chip-suggest"); inp.size = 6;
+    var dl = document.createElement("datalist"); dl.id = "chip-suggest";
+    TAG_GROUPS.forEach(function (g) { var o = document.createElement("option"); o.value = "#" + g[0]; dl.appendChild(o); });
+    subj.appendChild(inp); subj.appendChild(dl);
+    subj.onsubmit = function (e) { e.preventDefault(); var t = normTag(inp.value); if (!t) return; pin("tag:" + t).then(function () { location.href = chipURL("tag", t, false); }); };
+    box.appendChild(subj);
+    var edit = document.createElement("button");
+    edit.type = "button"; edit.className = "chip" + (editChips ? " on" : "");
+    edit.textContent = editChips ? "✓" : "✎"; edit.title = tr("chip_edit");
+    edit.onclick = function () { editChips = !editChips; drawFilterChips(); };
+    box.appendChild(edit);
+    box.hidden = false;
     // Looking at a language you don't speak: the learn card comes along.
     if (view.lang && view.lang === learnLang && learnNeeded) $("learn-card").hidden = false;
   }

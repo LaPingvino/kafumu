@@ -459,5 +459,8 @@
   "js.elsewhere": "Máshol · {tag}",
   "js.travel_visible": "Úgy tűnik, utazol. Szeretnél látható lenni a környéken, amíg itt vagy?",
   "js.travel_be_visible": "Legyél itt látható",
-  "js.travel_card": "Névjegyem megnézése"
+  "js.travel_card": "Névjegyem megnézése",
+  "js.chip_lang": "Bármilyen nyelv",
+  "js.chip_subject": "Bármilyen téma",
+  "js.chip_edit": "Címkék szerkesztése: × eltávolít"
 }

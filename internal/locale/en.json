@@ -459,5 +459,8 @@
   "js.elsewhere": "Elsewhere · {tag}",
   "js.travel_visible": "It looks like you're travelling. Want to be visible in the area while you're here?",
   "js.travel_be_visible": "Be findable here",
-  "js.travel_card": "Check my card"
+  "js.travel_card": "Check my card",
+  "js.chip_lang": "Any language",
+  "js.chip_subject": "Any subject",
+  "js.chip_edit": "Edit your chips: × removes"
 }

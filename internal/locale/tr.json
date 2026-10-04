@@ -459,5 +459,8 @@
   "js.elsewhere": "Başka yerlerde · {tag}",
   "js.travel_visible": "Seyahatte gibisin. Buradayken bu bölgede görünür olmak ister misin?",
   "js.travel_be_visible": "Burada görünür ol",
-  "js.travel_card": "Kartıma bak"
+  "js.travel_card": "Kartıma bak",
+  "js.chip_lang": "Herhangi bir dil",
+  "js.chip_subject": "Herhangi bir konu",
+  "js.chip_edit": "Etiketleri düzenle: × kaldırır"
 }

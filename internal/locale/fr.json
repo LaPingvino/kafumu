@@ -459,5 +459,8 @@
   "js.elsewhere": "Ailleurs · {tag}",
   "js.travel_visible": "On dirait que tu voyages. Tu veux être visible dans le coin pendant ton séjour ?",
   "js.travel_be_visible": "Être visible ici",
-  "js.travel_card": "Voir ma carte"
+  "js.travel_card": "Voir ma carte",
+  "js.chip_lang": "N'importe quelle langue",
+  "js.chip_subject": "N'importe quel sujet",
+  "js.chip_edit": "Modifier tes puces : × retire"
 }

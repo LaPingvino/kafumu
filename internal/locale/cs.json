@@ -459,5 +459,8 @@
   "js.elsewhere": "Jinde · {tag}",
   "js.travel_visible": "Vypadá to, že cestuješ. Chceš být v okolí vidět, dokud jsi tady?",
   "js.travel_be_visible": "Být tady k nalezení",
-  "js.travel_card": "Zkontrolovat vizitku"
+  "js.travel_card": "Zkontrolovat vizitku",
+  "js.chip_lang": "Jakýkoli jazyk",
+  "js.chip_subject": "Jakékoli téma",
+  "js.chip_edit": "Upravit štítky: × odebere"
 }

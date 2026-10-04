@@ -459,5 +459,8 @@
   "js.elsewhere": "Gdzie indziej · {tag}",
   "js.travel_visible": "Wygląda na to, że podróżujesz. Chcesz być widoczny w okolicy, dopóki tu jesteś?",
   "js.travel_be_visible": "Bądź widoczny tutaj",
-  "js.travel_card": "Sprawdź wizytówkę"
+  "js.travel_card": "Sprawdź wizytówkę",
+  "js.chip_lang": "Dowolny język",
+  "js.chip_subject": "Dowolny temat",
+  "js.chip_edit": "Edytuj swoje etykiety: × usuwa"
 }

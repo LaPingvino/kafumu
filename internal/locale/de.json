@@ -459,5 +459,8 @@
   "js.elsewhere": "Anderswo · {tag}",
   "js.travel_visible": "Sieht aus, als wärst du unterwegs. Möchtest du hier sichtbar sein, solange du da bist?",
   "js.travel_be_visible": "Hier auffindbar sein",
-  "js.travel_card": "Meine Karte ansehen"
+  "js.travel_card": "Meine Karte ansehen",
+  "js.chip_lang": "Jede Sprache",
+  "js.chip_subject": "Jedes Thema",
+  "js.chip_edit": "Chips bearbeiten: × entfernt"
 }

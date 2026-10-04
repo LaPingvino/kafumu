@@ -113,6 +113,12 @@ try {
   await A.evaluate("[...document.querySelectorAll('#filter-chips .chip')].find(c => c.textContent.includes('ortugu')).click(); true");
   await A.waitFor("document.getElementById('place-name').textContent.startsWith('🗣')", "heading shows the language filter", 20000);
   await A.waitFor("!document.getElementById('learn-card').hidden", "learn card comes along");
+  // Your own subject: "# +" filters and pins it; edit mode (✎, ×) unpins it.
+  await A.evaluate("(() => { const f = document.querySelector('#filter-chips .chip-subject'); f.querySelector('input').value = 'opensource'; f.requestSubmit(); return true; })()");
+  await A.waitFor("location.search.includes('tag=opensource') && [...document.querySelectorAll('#filter-chips .chip.pinned')].some(c => c.textContent.includes('#opensource'))", "#opensource pinned and filtering", 20000);
+  await A.evaluate("[...document.querySelectorAll('#filter-chips button.chip')].find(b => b.textContent === '✎').click(); true");
+  await A.evaluate("[...document.querySelectorAll('#filter-chips .chip.pinned')].find(c => c.textContent.includes('#opensource')).click(); true");
+  await A.waitFor("![...document.querySelectorAll('#filter-chips .chip.pinned')].some(c => c.textContent.includes('#opensource'))", "#opensource unpinned");
 
   // Views: language and interest filters apply on the device, from the URL.
   await A.goto(base + "/?cell=6fg223&lang=eng");
@@ -319,7 +325,7 @@ try {
     await X.evaluate("fetch('/account/delete', { method: 'POST', body: new URLSearchParams({ confirm: 'yes' }), credentials: 'same-origin' }).then(() => true)");
   }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, findable profile seen, paid inbox message + connect back, OLN message + reaction + elsewhere + travelling + report + question/answer + local themes + filter chips (event, language → learn) + views + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, findable profile seen, paid inbox message + connect back, OLN message + reaction + elsewhere + travelling + report + question/answer + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

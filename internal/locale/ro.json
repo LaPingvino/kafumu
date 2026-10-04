@@ -459,5 +459,8 @@
   "js.elsewhere": "În alte locuri · {tag}",
   "js.travel_visible": "Se pare că ești în călătorie. Vrei să fii vizibil în zonă cât timp ești aici?",
   "js.travel_be_visible": "Fii vizibil aici",
-  "js.travel_card": "Vezi cardul meu"
+  "js.travel_card": "Vezi cardul meu",
+  "js.chip_lang": "Orice limbă",
+  "js.chip_subject": "Orice subiect",
+  "js.chip_edit": "Editează etichetele: × elimină"
 }

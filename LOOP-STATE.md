@@ -421,7 +421,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       Few results → widen: same tag in the ring around, then general posts with that tag (no location) at
       the bottom under "Elsewhere". Interests linked like places: synonym groups (#opensource #foss #floss,
       #ai #artificialintelligence…) in a small table, matched as one.
-- [ ] 50. NEXT. Chips you choose (Joop): a "🗣 +" chip opens a language picker (all 98) and a "# +" chip a
+- [x] 50. Chips you choose: "🗣 +" (all languages), "# +" (any subject, suggestions from linked interests);
+      adding pins the chip; ✎ edit mode: × unpins yours or hides a suggestion. Stored as "chips" {pinned,
+      hidden, at} in the device store + vault (newer wins), localStorage mirror for drawing. Browser-tested.
+      Was: NEXT. Chips you choose (Joop): a "🗣 +" chip opens a language picker (all 98) and a "# +" chip a
       subject box (free text, with linked-interest suggestions); the suggested subjects are configurable:
       pin/unpin chips (long-press or an edit mode), kept with your personas so they sync to your devices.
 - [ ] 51. Questions reach people with that subject (Joop: "a wide range towards people with that subject

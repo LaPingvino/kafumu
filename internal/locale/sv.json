@@ -459,5 +459,8 @@
   "js.elsewhere": "På andra ställen · {tag}",
   "js.travel_visible": "Det ser ut som att du reser. Vill du synas i området medan du är här?",
   "js.travel_be_visible": "Synas här",
-  "js.travel_card": "Titta på mitt kort"
+  "js.travel_card": "Titta på mitt kort",
+  "js.chip_lang": "Valfritt språk",
+  "js.chip_subject": "Valfritt ämne",
+  "js.chip_edit": "Redigera dina chips: × tar bort"
 }

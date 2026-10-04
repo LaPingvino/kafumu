@@ -459,5 +459,8 @@
   "js.elsewhere": "ほかの場所 · {tag}",
   "js.travel_visible": "旅行中のようです。滞在中、このエリアで見つけてもらえるようにしますか？",
   "js.travel_be_visible": "ここで見つけてもらう",
-  "js.travel_card": "名刺を確認"
+  "js.travel_card": "名刺を確認",
+  "js.chip_lang": "ほかの言語",
+  "js.chip_subject": "ほかのテーマ",
+  "js.chip_edit": "チップを編集：×で削除"
 }

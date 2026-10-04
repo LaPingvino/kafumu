@@ -459,5 +459,8 @@
   "js.elsewhere": "Andre steder · {tag}",
   "js.travel_visible": "Det ser ud til, at du rejser. Vil du være synlig i området, mens du er her?",
   "js.travel_be_visible": "Vær synlig her",
-  "js.travel_card": "Se mit kort"
+  "js.travel_card": "Se mit kort",
+  "js.chip_lang": "Ethvert sprog",
+  "js.chip_subject": "Ethvert emne",
+  "js.chip_edit": "Redigér dine chips: × fjerner"
 }

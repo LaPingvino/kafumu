@@ -459,5 +459,8 @@
   "js.elsewhere": "Aliloke · {tag}",
   "js.travel_visible": "Ŝajnas, ke vi vojaĝas. Ĉu vi volas esti videbla en la regiono dum vi estas ĉi tie?",
   "js.travel_be_visible": "Esti trovebla ĉi tie",
-  "js.travel_card": "Kontroli mian karton"
+  "js.travel_card": "Kontroli mian karton",
+  "js.chip_lang": "Ajna lingvo",
+  "js.chip_subject": "Ajna temo",
+  "js.chip_edit": "Redakti viajn etikedojn: × forigas"
 }

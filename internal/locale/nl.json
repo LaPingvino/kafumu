@@ -459,5 +459,8 @@
   "js.elsewhere": "Elders · {tag}",
   "js.travel_visible": "Het lijkt erop dat je op reis bent. Wil je zichtbaar zijn in de buurt zolang je hier bent?",
   "js.travel_be_visible": "Hier vindbaar zijn",
-  "js.travel_card": "Mijn kaartje bekijken"
+  "js.travel_card": "Mijn kaartje bekijken",
+  "js.chip_lang": "Elke taal",
+  "js.chip_subject": "Elk onderwerp",
+  "js.chip_edit": "Je chips bewerken: × verwijdert"
 }

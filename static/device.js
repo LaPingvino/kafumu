@@ -430,13 +430,13 @@
     }).then(function (pt) { return JSON.parse(new TextDecoder().decode(pt)); });
   }
   function snapshot() {
-    return Promise.all([store.contacts(), store.get("personas"), store.get("shareChoice"), store.get("personasAt"), store.get("tombstones")])
-      .then(function (r) { return { contacts: r[0] || [], personas: r[1] || [], shareChoice: r[2] || null, personasAt: r[3] || "", tombstones: r[4] || {} }; });
+    return Promise.all([store.contacts(), store.get("personas"), store.get("shareChoice"), store.get("personasAt"), store.get("tombstones"), store.get("chips")])
+      .then(function (r) { return { contacts: r[0] || [], personas: r[1] || [], shareChoice: r[2] || null, personasAt: r[3] || "", tombstones: r[4] || {}, chips: r[5] || null }; });
   }
   function stamp(c) { return (c && (c.updatedAt || c.createdAt)) || ""; }
   function canon(s) {
     var cs = s.contacts.slice().sort(function (a, b) { return a.id < b.id ? -1 : 1; });
-    return JSON.stringify([cs, s.personas, s.shareChoice, s.personasAt, Object.keys(s.tombstones).sort().map(function (k) { return [k, s.tombstones[k]]; })]);
+    return JSON.stringify([cs, s.personas, s.shareChoice, s.personasAt, Object.keys(s.tombstones).sort().map(function (k) { return [k, s.tombstones[k]]; }), s.chips || null]);
   }
   function merge(a, b) {
     var cutoff = new Date(Date.now() - 30 * 864e5).toISOString(), ts = {}, byID = {};
@@ -455,7 +455,9 @@
       // Drop only blank personas nobody ever edited (the empty one a fresh
       // device makes by itself), so a card you just started stays.
       .filter(function (p, i, all) { return all.length === 1 || p.updatedAt || (p.card && (p.card.name || p.card.about)) || p.label; });
-    return { contacts: contacts, personas: personas, shareChoice: a.shareChoice || b.shareChoice, personasAt: "", tombstones: ts };
+    // Your chip row (pinned and hidden subjects): newer wins.
+    var chips = ((b.chips && b.chips.at) || "") > ((a.chips && a.chips.at) || "") ? b.chips : (a.chips || b.chips || null);
+    return { contacts: contacts, personas: personas, shareChoice: a.shareChoice || b.shareChoice, personasAt: "", tombstones: ts, chips: chips };
   }
   function writeLocal(local, m) {
     var keep = {};
@@ -464,6 +466,7 @@
     local.contacts.forEach(function (c) { if (!keep[c.id]) steps.push(rawDel(c.id)); });
     steps.push(store.set("personas", m.personas), store.set("shareChoice", m.shareChoice), store.set("personasAt", m.personasAt), store.set("tombstones", m.tombstones));
     if (m.personas && m.personas[0]) steps.push(store.set("card", m.personas[0].card || {}));
+    if (m.chips) { steps.push(store.set("chips", m.chips)); try { localStorage.setItem("kafumu.chips", JSON.stringify(m.chips)); } catch (e) {} }
     return Promise.all(steps);
   }
   function sync(retry) {
@@ -526,5 +529,15 @@
   else if (typeof document !== "undefined") document.addEventListener("DOMContentLoaded", function () { if (signedIn()) sync(); });
 
   window.kafumuDevice = { signalText: signalText, store: store, FIELDS: FIELDS, links: links, renderContact: renderContact, personas: personas,
-    vcards: vcards, backup: backup, restore: restore, download: download, sync: sync };
+    vcards: vcards, backup: backup, restore: restore, download: download, sync: sync,
+    // chips: your filter-chip row ({pinned: [...], hidden: [...], at}); a
+    // localStorage mirror lets Around draw it without waiting.
+    chips: {
+      get: function () { try { return JSON.parse(localStorage.getItem("kafumu.chips") || "null") || { pinned: [], hidden: [] }; } catch (e) { return { pinned: [], hidden: [] }; } },
+      set: function (c) {
+        c.at = new Date().toISOString();
+        try { localStorage.setItem("kafumu.chips", JSON.stringify(c)); } catch (e) {}
+        return store.set("chips", c).then(syncSoon);
+      }
+    } };
 })();

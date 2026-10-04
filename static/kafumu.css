@@ -277,3 +277,8 @@ input[type="range"] { padding: 0; background: transparent; accent-color: var(--a
 /* Filter chips above the feed */
 .filter-chips { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; margin: .5rem 0; scrollbar-width: none; }
 .filter-chips .chip { white-space: nowrap; }
+
+.filter-chips .chip.pinned { box-shadow: inset 0 0 0 1px var(--accent-bg); }
+.filter-chips .chip-select { width: auto; margin: 0; padding: 4px 10px; min-height: 0; height: auto; font: inherit; }
+.filter-chips .chip-subject { margin: 0; display: inline-flex; }
+.filter-chips .chip-subject input { margin: 0; width: 6.5rem; padding: 4px 10px; min-height: 0; border-radius: 99px; }

@@ -459,5 +459,8 @@
   "js.elsewhere": "其他地方 · {tag}",
   "js.travel_visible": "看起来你在旅行。想在这里期间让附近的人看到你吗？",
   "js.travel_be_visible": "在这里可被找到",
-  "js.travel_card": "查看我的名片"
+  "js.travel_card": "查看我的名片",
+  "js.chip_lang": "其他语言",
+  "js.chip_subject": "其他主题",
+  "js.chip_edit": "编辑标签：× 移除"
 }

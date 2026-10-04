@@ -459,5 +459,8 @@
   "js.elsewhere": "Nơi khác · {tag}",
   "js.travel_visible": "Có vẻ như bạn đang đi du lịch. Bạn có muốn hiển thị trong khu vực khi ở đây không?",
   "js.travel_be_visible": "Hiển thị ở đây",
-  "js.travel_card": "Xem danh thiếp"
+  "js.travel_card": "Xem danh thiếp",
+  "js.chip_lang": "Ngôn ngữ bất kỳ",
+  "js.chip_subject": "Chủ đề bất kỳ",
+  "js.chip_edit": "Sửa chip: × để bỏ"
 }
