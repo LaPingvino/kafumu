@@ -480,5 +480,7 @@
   "js.field_facebook": "Facebook",
   "js.field_mastodon": "Mastodon",
   "js.field_tiktok": "TikTok",
-  "js.field_youtube": "YouTube"
+  "js.field_youtube": "YouTube",
+  "built.title": "Πώς φτιάχτηκε",
+  "built.lead": "Το Kafumu γράφεται με έναν βοηθό ΤΝ, πάνω σε σχέδια πολύ πριν υπάρξει η ΤΝ. Δες τι σημαίνει αυτό."
 }

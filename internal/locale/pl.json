@@ -480,5 +480,7 @@
   "js.field_facebook": "Facebook",
   "js.field_mastodon": "Mastodon",
   "js.field_tiktok": "TikTok",
-  "js.field_youtube": "YouTube"
+  "js.field_youtube": "YouTube",
+  "built.title": "Jak to powstało",
+  "built.lead": "Kafumu jest pisane z asystentem AI, według planów sprzed czasów AI. Oto co to oznacza."
 }

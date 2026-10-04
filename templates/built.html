@@ -1,0 +1,39 @@
+{{template "head" .}}
+<article class="doc">
+  <h1>{{t .Lang "built.title"}}</h1>
+  <p>{{t .Lang "built.lead"}}</p>
+
+  <h2>Honestly: this is vibecoded</h2>
+  <p>Most of Kafumu's code, its tests and its translations are written by an AI coding assistant (Claude), working in
+  short loops: it builds a piece, runs the tests, puts it online, and I try it on my phone and say what's wrong. I
+  decide what Kafumu is and does; the assistant does most of the typing. If that's a reason for you not to use it,
+  that's fair, and it's your call. I'd rather tell you than have you find out.</p>
+
+  <h2>The plans are much older than the AI</h2>
+  <p>The ideas behind Kafumu were worked out years before AI assistants existed, by hand:</p>
+  <ul>
+    <li><a href="https://github.com/LaPingvino/olc-tools">olc-tools</a> (since 2019): turning a location into a short
+      text code, the <code>#geo</code> cells, and <strong>whenwhere</strong>, local messages by place.</li>
+    <li>The <strong>Open Location Network</strong> whitepaper, and <a href="https://github.com/LaPingvino/eolnpoc">eolnpoc</a>,
+      its proof of concept: messages at a place, proof of work instead of accounts. <a href="/oln">How it works →</a></li>
+    <li><strong>lokumo</strong>, an earlier go at "what's around me", whose name and hosting Kafumu inherited.</li>
+    <li>Language projects like <a href="https://esperanto-kurso.net">esperanto-kurso.net</a> and
+      <a href="https://holywritings.net">holywritings.net</a>, where the account system and the cost habits come from.</li>
+  </ul>
+
+  <h2>Why build it this way</h2>
+  <p>I'm one person. Working all of this out by hand is not viable for me without burning out; with an assistant
+  doing the heavy lifting, it is. That's the whole reason.</p>
+
+  <h2>What that means for you</h2>
+  <ul>
+    <li><strong>Translations</strong> are machine-made. If something reads oddly in your language, tell me and it gets fixed.</li>
+    <li><strong>Privacy</strong> doesn't rest on trusting the code blindly: private things stay on your device by design,
+      the server holds only what it needs (see <a href="/privacy">Privacy</a>), and the code is
+      <a href="https://github.com/LaPingvino/kafumu">open</a> for anyone to read.</li>
+    <li><strong>Everything is tested</strong> before it goes online, including a two-browser test of connecting, chatting
+      and syncing, run against the live site.</li>
+  </ul>
+  <p class="dim">— Joop</p>
+</article>
+{{template "foot" .}}

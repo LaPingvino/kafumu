@@ -480,5 +480,7 @@
   "js.field_facebook": "Facebook",
   "js.field_mastodon": "Mastodon",
   "js.field_tiktok": "TikTok",
-  "js.field_youtube": "YouTube"
+  "js.field_youtube": "YouTube",
+  "built.title": "Como isto foi feito",
+  "built.lead": "O Kafumu é escrito com um assistente de IA, a partir de planos feitos muito antes de a IA existir. Eis o que isso significa."
 }

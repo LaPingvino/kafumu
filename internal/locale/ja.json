@@ -480,5 +480,7 @@
   "js.field_facebook": "Facebook",
   "js.field_mastodon": "Mastodon",
   "js.field_tiktok": "TikTok",
-  "js.field_youtube": "YouTube"
+  "js.field_youtube": "YouTube",
+  "built.title": "どうやって作られたか",
+  "built.lead": "Kafumu は AI アシスタントと一緒に書かれています。土台は AI が登場するずっと前に作った計画です。その意味をここに書きます。"
 }

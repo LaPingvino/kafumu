@@ -480,5 +480,7 @@
   "js.field_facebook": "Facebook",
   "js.field_mastodon": "Mastodon",
   "js.field_tiktok": "TikTok",
-  "js.field_youtube": "YouTube"
+  "js.field_youtube": "YouTube",
+  "built.title": "Cách trang này được làm",
+  "built.lead": "Kafumu được viết cùng trợ lý AI, dựa trên những kế hoạch có từ lâu trước khi có AI. Đây là ý nghĩa của điều đó."
 }

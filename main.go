@@ -77,6 +77,7 @@ func main() {
 	mux.HandleFunc("GET /for-cafes", func(w http.ResponseWriter, r *http.Request) { http.Redirect(w, r, "/about", http.StatusMovedPermanently) })
 	mux.HandleFunc("GET /privacy", home.Info("privacy.html", "privacy.title"))
 	mux.HandleFunc("GET /oln", home.Info("oln.html", "olnpage.title"))
+	mux.HandleFunc("GET /built", home.Info("built.html", "built.title"))
 	mux.HandleFunc("GET /bundle", home.Bundle)
 	mux.HandleFunc("GET /places", home.Places)
 	mux.HandleFunc("GET /tagposts", home.TagPosts)

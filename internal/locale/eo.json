@@ -480,5 +480,7 @@
   "js.field_facebook": "Facebook",
   "js.field_mastodon": "Mastodon",
   "js.field_tiktok": "TikTok",
-  "js.field_youtube": "YouTube"
+  "js.field_youtube": "YouTube",
+  "built.title": "Kiel ĉi tio estis farita",
+  "built.lead": "Kafumu estas verkita kun AI-asistanto, laŭ planoj faritaj longe antaŭ ol AI ekzistis. Jen kion tio signifas."
 }

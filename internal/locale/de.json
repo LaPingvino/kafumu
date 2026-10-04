@@ -480,5 +480,7 @@
   "js.field_facebook": "Facebook",
   "js.field_mastodon": "Mastodon",
   "js.field_tiktok": "TikTok",
-  "js.field_youtube": "YouTube"
+  "js.field_youtube": "YouTube",
+  "built.title": "Wie das hier entstanden ist",
+  "built.lead": "Kafumu wird mit einem KI-Assistenten geschrieben, nach Plänen von lange bevor es KI gab. Das bedeutet es."
 }

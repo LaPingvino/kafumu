@@ -381,7 +381,11 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       messages whose text is the pair-encrypted ciphertext and whose only keyword is an unguessable pair tag
       (#p<hmac(pairkey, "chat"|day)>, no #geo); the server indexes notes by that tag too (GET /api/oln?tag=…),
       normal PoW and TTL; federatable via other OLN nodes. Contact record/UI unchanged; mailbox stays for hellos.
-- [ ] 41. "How this was built" page (Joop): honest note that the code is written with LLM help ("vibecoded"),
+- [x] 41. /built "How this was built" (footer + About): honestly vibecoded (Claude writes most code, tests and
+      translations; Joop decides and tests), plans long before AI (olc-tools since 2019: #geo + whenwhere; OLN
+      whitepaper + eolnpoc; lokumo; esperanto-kurso.net, holywritings.net), why (one person, no burnout), what it
+      means (machine translations, privacy by design + open code, tested). In Joop's voice: Joop to correct.
+      Was: "How this was built" page (Joop): honest note that the code is written with LLM help ("vibecoded"),
       built on plans and experience from long before LLMs (whenwhere, OLN, lokumo, amikumu…), and that it
       would not be viable for one person without that help (burn-out). Linked from About and the footer.
 - [x] 42. Card fields: Instagram, Facebook, Mastodon (@you@server → https://server/@you), TikTok, YouTube with

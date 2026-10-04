@@ -480,5 +480,7 @@
   "js.field_facebook": "Facebook",
   "js.field_mastodon": "Mastodon",
   "js.field_tiktok": "TikTok",
-  "js.field_youtube": "YouTube"
+  "js.field_youtube": "YouTube",
+  "built.title": "Jak to vzniklo",
+  "built.lead": "Kafumu se píše s asistentem AI podle plánů, které vznikly dávno před AI. Tady je, co to znamená."
 }

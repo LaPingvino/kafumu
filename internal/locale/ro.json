@@ -480,5 +480,7 @@
   "js.field_facebook": "Facebook",
   "js.field_mastodon": "Mastodon",
   "js.field_tiktok": "TikTok",
-  "js.field_youtube": "YouTube"
+  "js.field_youtube": "YouTube",
+  "built.title": "Cum a fost făcut",
+  "built.lead": "Kafumu e scris cu un asistent AI, după planuri făcute cu mult înainte să existe AI. Iată ce înseamnă asta."
 }

@@ -480,5 +480,7 @@
   "js.field_facebook": "Facebook",
   "js.field_mastodon": "Mastodon",
   "js.field_tiktok": "TikTok",
-  "js.field_youtube": "YouTube"
+  "js.field_youtube": "YouTube",
+  "built.title": "Bu nasıl yapıldı",
+  "built.lead": "Kafumu, yapay zekâdan çok önce yapılmış planlara göre bir yapay zekâ asistanıyla yazılıyor. İşte bunun anlamı."
 }

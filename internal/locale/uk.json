@@ -480,5 +480,7 @@
   "js.field_facebook": "Facebook",
   "js.field_mastodon": "Mastodon",
   "js.field_tiktok": "TikTok",
-  "js.field_youtube": "YouTube"
+  "js.field_youtube": "YouTube",
+  "built.title": "Як це зроблено",
+  "built.lead": "Kafumu пишеться з ШІ-асистентом за планами, створеними задовго до появи ШІ. Ось що це означає."
 }

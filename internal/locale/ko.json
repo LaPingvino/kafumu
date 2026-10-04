@@ -480,5 +480,7 @@
   "js.field_facebook": "Facebook",
   "js.field_mastodon": "Mastodon",
   "js.field_tiktok": "TikTok",
-  "js.field_youtube": "YouTube"
+  "js.field_youtube": "YouTube",
+  "built.title": "어떻게 만들었나요",
+  "built.lead": "Kafumu는 AI 어시스턴트와 함께 작성되며, AI가 나오기 훨씬 전에 세운 계획을 바탕으로 해요. 그게 무슨 뜻인지 설명해요."
 }

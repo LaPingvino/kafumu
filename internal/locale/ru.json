@@ -480,5 +480,7 @@
   "js.field_facebook": "Facebook",
   "js.field_mastodon": "Mastodon",
   "js.field_tiktok": "TikTok",
-  "js.field_youtube": "YouTube"
+  "js.field_youtube": "YouTube",
+  "built.title": "Как это сделано",
+  "built.lead": "Kafumu пишется с ИИ-ассистентом по планам, сделанным задолго до появления ИИ. Вот что это значит."
 }

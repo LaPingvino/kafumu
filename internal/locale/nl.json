@@ -480,5 +480,7 @@
   "js.field_facebook": "Facebook",
   "js.field_mastodon": "Mastodon",
   "js.field_tiktok": "TikTok",
-  "js.field_youtube": "YouTube"
+  "js.field_youtube": "YouTube",
+  "built.title": "Hoe dit gemaakt is",
+  "built.lead": "Kafumu wordt geschreven met een AI-assistent, op plannen van lang voordat AI bestond. Dit is wat dat betekent."
 }

@@ -480,5 +480,7 @@
   "js.field_facebook": "Facebook",
   "js.field_mastodon": "Mastodon",
   "js.field_tiktok": "TikTok",
-  "js.field_youtube": "YouTube"
+  "js.field_youtube": "YouTube",
+  "built.title": "这是怎么做出来的",
+  "built.lead": "Kafumu 是借助 AI 助手编写的，依据的是早在 AI 出现之前就做好的计划。这意味着什么，请看这里。"
 }

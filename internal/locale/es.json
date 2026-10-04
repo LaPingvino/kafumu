@@ -480,5 +480,7 @@
   "js.field_facebook": "Facebook",
   "js.field_mastodon": "Mastodon",
   "js.field_tiktok": "TikTok",
-  "js.field_youtube": "YouTube"
+  "js.field_youtube": "YouTube",
+  "built.title": "Cómo se hizo esto",
+  "built.lead": "Kafumu está escrito con un asistente de IA, sobre planes hechos mucho antes de que existiera la IA. Esto es lo que significa."
 }
