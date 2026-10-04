@@ -431,5 +431,11 @@
   "js.reason_other": "Anders",
   "js.report_sending": "Versturen…",
   "js.reported": "Gemeld, dank je. Hier verborgen.",
-  "js.tags_n_cities": "tagt {n} steden"
+  "js.tags_n_cities": "tagt {n} steden",
+  "js.sync_needs_key": "Je kaartjes en contacten staan op je andere apparaat.",
+  "js.sync_get": "Ophalen",
+  "js.sync_asked": "Een ander apparaat van je vraagt om je kaartjes en contacten.",
+  "js.sync_send": "Versturen",
+  "js.sync_now": "Nu synchroniseren",
+  "sync.now": "Nu synchroniseren"
 }

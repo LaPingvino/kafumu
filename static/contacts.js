@@ -14,6 +14,14 @@
   window.addEventListener("kafumu:sync", function (e) { syncState(e.detail); });
   window.addEventListener("kafumu:synced", function () { show(); });
   if (window.kafumuSync) syncState(window.kafumuSync);
+  // "Sync now", and arriving with #get (from the bar on another page)
+  // starts fetching from the other device right away.
+  var now = $("sync-now");
+  if (now) now.onclick = function () {
+    now.disabled = true; now.textContent = "…";
+    dev.sync().then(function (s) { now.disabled = false; now.textContent = s === "on" ? "✓" : (T.sync_now || "Sync now"); syncState(s); show(); });
+  };
+  if (location.hash === "#get") setTimeout(function () { var b = $("move-start"); if (b && !b.hidden) { b.scrollIntoView({ block: "center" }); b.click(); } }, 400);
 
   function show() {
     dev.store.contacts().then(function (cs) {

@@ -431,5 +431,11 @@
   "js.reason_other": "Outro",
   "js.report_sending": "A enviar…",
   "js.reported": "Denunciado, obrigado. Escondido aqui.",
-  "js.tags_n_cities": "marca {n} cidades"
+  "js.tags_n_cities": "marca {n} cidades",
+  "js.sync_needs_key": "Os teus cartões e contactos estão no outro dispositivo.",
+  "js.sync_get": "Trazer",
+  "js.sync_asked": "Outro dispositivo teu pede os teus cartões e contactos.",
+  "js.sync_send": "Enviar",
+  "js.sync_now": "Sincronizar",
+  "sync.now": "Sincronizar"
 }

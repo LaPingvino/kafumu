@@ -431,5 +431,11 @@
   "js.reason_other": "Other",
   "js.report_sending": "Sending…",
   "js.reported": "Reported, thanks. Hidden here.",
-  "js.tags_n_cities": "tags {n} cities"
+  "js.tags_n_cities": "tags {n} cities",
+  "js.sync_needs_key": "Your cards and contacts are on your other device.",
+  "js.sync_get": "Get them",
+  "js.sync_asked": "Another of your devices asks for your cards and contacts.",
+  "js.sync_send": "Send",
+  "js.sync_now": "Sync now",
+  "sync.now": "Sync now"
 }

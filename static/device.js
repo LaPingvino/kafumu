@@ -120,9 +120,22 @@
       });
     },
     save: function (ps) {
-      // Keep "card" mirroring the first persona for older pages and backups.
-      return store.set("personas", ps).then(function () { return store.set("card", (ps[0] && ps[0].card) || {}); })
-        .then(function () { return store.set("personasAt", new Date().toISOString()); }).then(syncSoon);
+      // Each persona carries its own updatedAt (for sync); a removed one
+      // leaves a tombstone so another device doesn't bring it back.
+      var now = new Date().toISOString();
+      return Promise.all([store.get("personas"), store.get("tombstones")]).then(function (r) {
+        var before = {}, ts = r[1] || {};
+        (r[0] || []).forEach(function (p) { before[p.id] = JSON.stringify(Object.assign({}, p, { updatedAt: null })); });
+        var keep = {};
+        ps.forEach(function (p) {
+          keep[p.id] = true;
+          if (before[p.id] !== JSON.stringify(Object.assign({}, p, { updatedAt: null }))) p.updatedAt = now;
+        });
+        Object.keys(before).forEach(function (id) { if (!keep[id]) ts["p:" + id] = now; });
+        // Keep "card" mirroring the first persona for older pages and backups.
+        return store.set("personas", ps).then(function () { return store.set("tombstones", ts); })
+          .then(function () { return store.set("card", (ps[0] && ps[0].card) || {}); });
+      }).then(syncSoon);
     },
     // share returns what to hand over: persona p, only the ticked fields.
     share: function (p, fields) {
@@ -290,16 +303,17 @@
   // backup is everything on this device, including pair keys: treat the
   // file like a password. restore merges it back in.
   function backup() {
-    return Promise.all([store.get("card"), store.contacts(), store.get("personas"), store.get("syncKey")]).then(function (r) {
-      return { kafumu: 1, exportedAt: new Date().toISOString(), card: r[0] || {}, contacts: r[1] || [], personas: r[2] || [], syncKey: r[3] || undefined };
+    return Promise.all([store.get("card"), store.contacts(), store.get("personas"), store.get("syncKey"), store.get("tombstones")]).then(function (r) {
+      return { kafumu: 1, exportedAt: new Date().toISOString(), card: r[0] || {}, contacts: r[1] || [], personas: r[2] || [], syncKey: r[3] || undefined, tombstones: r[4] || {} };
     });
   }
   function restore(data) {
     if (!data || data.kafumu !== 1 || !Array.isArray(data.contacts)) return Promise.reject(new Error("not a Kafumu backup"));
-    return store.get("card").then(function (mine) {
-      var steps = data.contacts.map(function (c) { return store.putContact(c); });
-      if ((!mine || !mine.name) && data.card) steps.push(store.set("card", data.card));
-      if ((!mine || !mine.name) && data.personas && data.personas.length) steps.push(store.set("personas", data.personas));
+    var theirs = { contacts: data.contacts, personas: data.personas && data.personas.length ? data.personas : (data.card && data.card.name ? [{ id: "imported", label: "", card: data.card }] : []),
+      shareChoice: null, personasAt: "", tombstones: data.tombstones || {} };
+    return snapshot().then(function (mine) {
+      var m = merge(mine, theirs);
+      var steps = [writeLocal(mine, m)];
       // A move (or backup) carries the account's sync key: from now on this
       // device syncs with the others by itself.
       if (data.syncKey) steps.push(store.set("syncKey", data.syncKey));
@@ -365,8 +379,19 @@
     [a.tombstones, b.tombstones].forEach(function (t) { Object.keys(t || {}).forEach(function (id) { if (t[id] > cutoff && (!ts[id] || t[id] > ts[id])) ts[id] = t[id]; }); });
     a.contacts.concat(b.contacts).forEach(function (c) { if (!byID[c.id] || stamp(c) > stamp(byID[c.id])) byID[c.id] = c; });
     var contacts = Object.keys(byID).map(function (id) { return byID[id]; }).filter(function (c) { return !ts[c.id]; });
-    var p = (b.personasAt || "") > (a.personasAt || "") ? b : a;
-    return { contacts: contacts, personas: p.personas, shareChoice: p.shareChoice, personasAt: p.personasAt, tombstones: ts };
+    // Personas per id, newer wins; ones only one side has are kept (a card
+    // made before sync existed has no updatedAt: it still comes across).
+    var pByID = {}, order = [];
+    (a.personas || []).concat(b.personas || []).forEach(function (p) {
+      if (!p || !p.id) return;
+      if (!pByID[p.id]) order.push(p.id);
+      if (!pByID[p.id] || (p.updatedAt || "") > (pByID[p.id].updatedAt || "")) pByID[p.id] = p;
+    });
+    var personas = order.filter(function (id) { return !ts["p:" + id]; }).map(function (id) { return pByID[id]; })
+      // Drop only blank personas nobody ever edited (the empty one a fresh
+      // device makes by itself), so a card you just started stays.
+      .filter(function (p, i, all) { return all.length === 1 || p.updatedAt || (p.card && (p.card.name || p.card.about)) || p.label; });
+    return { contacts: contacts, personas: personas, shareChoice: a.shareChoice || b.shareChoice, personasAt: "", tombstones: ts };
   }
   function writeLocal(local, m) {
     var keep = {};
@@ -410,7 +435,30 @@
       return fetch("/api/vault", { method: "PUT", credentials: "same-origin", headers: { "If-Match": String(version || 0) }, body: text });
     }).then(function (r) { return r.status === 409 ? "conflict" : r.ok ? "on" : "off"; });
   }
-  if (signedIn()) setTimeout(function () { sync(); }, 300);
+  // On every page, signed in: say when this device still needs the key
+  // (get it once), or when another device of yours is asking for it (send).
+  function bar(text, label, href) {
+    if (document.getElementById("sync-bar") || /^\/contacts/.test(location.pathname)) return;
+    var d = document.createElement("div");
+    d.id = "sync-bar"; d.className = "install-bar";
+    var t = document.createElement("span"); t.className = "text"; t.textContent = text;
+    var a = document.createElement("a"); a.className = "go pill-sm"; a.href = href; a.textContent = label; a.setAttribute("role", "button");
+    d.appendChild(t); d.appendChild(a);
+    var head = document.querySelector(".headerbar");
+    if (head) head.after(d); else document.body.prepend(d);
+  }
+  if (window.addEventListener) window.addEventListener("kafumu:sync", function (e) {
+    var T = window.KAFUMU_T || {};
+    if (e.detail === "needs-key") bar(T.sync_needs_key || "Your cards and contacts are on your other device.", T.sync_get || "Get them", "/contacts#get");
+  });
+  function askedForKey() {
+    Promise.all([fetch("/account/move", { credentials: "same-origin" }).then(function (r) { return r.ok ? r.json() : {}; }), store.get("invite:move"), store.get("syncKey")])
+      .then(function (r) {
+        var req = r[0], mine = r[1], T = window.KAFUMU_T || {};
+        if (req.box && !(mine && mine.box === req.box) && r[2]) bar(T.sync_asked || "Another of your devices asks for your cards and contacts.", T.sync_send || "Send", "/contacts");
+      }).catch(function () {});
+  }
+  if (signedIn()) { setTimeout(function () { sync(); }, 300); setTimeout(askedForKey, 800); }
   else if (typeof document !== "undefined") document.addEventListener("DOMContentLoaded", function () { if (signedIn()) sync(); });
 
   window.kafumuDevice = { signalText: signalText, store: store, FIELDS: FIELDS, links: links, renderContact: renderContact, personas: personas,

@@ -92,6 +92,18 @@
     return P.save(all).then(function () { if (!quiet) status.textContent = T.card_saved || "Saved."; drawSwitcher(); });
   }
 
+  // Sync: show it's on, offer "Sync now", and redraw when other devices'
+  // changes arrive.
+  function syncState(s) { if ($("sync-on")) $("sync-on").hidden = s !== "on"; }
+  window.addEventListener("kafumu:sync", function (e) { syncState(e.detail); });
+  window.addEventListener("kafumu:synced", function () {
+    P.list().then(function (ps) { all = ps; cur = ps.filter(function (p) { return cur && p.id === cur.id; })[0] || ps[0]; load(); });
+  });
+  if (window.kafumuSync) syncState(window.kafumuSync);
+  if ($("sync-now")) $("sync-now").onclick = function () {
+    var b = this; b.disabled = true; b.textContent = "…";
+    dev.sync().then(function (s) { b.disabled = false; b.textContent = s === "on" ? "✓" : (T.sync_now || "Sync now"); syncState(s); });
+  };
   P.list().then(function (ps) { all = ps; cur = ps[0]; load(); })
     .catch(function () { status.textContent = T.no_storage || "Storage unavailable"; });
 

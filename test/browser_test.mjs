@@ -203,6 +203,19 @@ try {
     await C.evaluate("document.getElementById('move-apply').click()");
     await sleep(2000);
     await C.waitFor("document.getElementById('contacts').textContent.includes('Ana')", "Ana moved to C");
+    // Cards came along (one merge for moves and sync), and a rename on B
+    // reaches C.
+    await C.goto(base + "/card");
+    await C.waitFor("document.getElementById('card-form').elements.name.value === 'Bea'", "B's card on C");
+    await B.goto(base + "/card");
+    await B.waitFor("document.getElementById('card-form').elements.name.value === 'Bea'", "B's card form");
+    await B.evaluate("(() => { const f = document.getElementById('card-form'); f.elements.name.value = 'Bea " + RUN + "'; f.requestSubmit(); return true; })()");
+    await sleep(4000);
+    for (let i = 0; ; i++) {
+      await C.goto(base + "/card");
+      try { await C.waitFor("document.getElementById('card-form').elements.name.value === 'Bea " + RUN + "'", "B's renamed card on C", 6000); break; }
+      catch (e) { if (i >= 3) throw e; }
+    }
     // From now on B and C stay in sync by themselves: a note B writes shows
     // up on C; a contact C removes stays removed on B (tombstone).
     await B.goto(base + "/contacts");
@@ -251,7 +264,7 @@ try {
     await X.evaluate("fetch('/account/delete', { method: 'POST', body: new URLSearchParams({ confirm: 'yes' }), credentials: 'same-origin' }).then(() => true)");
   }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device + synced both ways (note, removal), connected without a card + named + late card, meetup hosted and seen, findable profile seen, paid inbox message + connect back, OLN message + report + question/answer + local themes + views + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device + synced both ways (card rename, note, removal), connected without a card + named + late card, meetup hosted and seen, findable profile seen, paid inbox message + connect back, OLN message + report + question/answer + local themes + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

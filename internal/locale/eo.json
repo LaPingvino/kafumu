@@ -431,5 +431,11 @@
   "js.reason_other": "Alia",
   "js.report_sending": "Sendante…",
   "js.reported": "Raportita, dankon. Kaŝita ĉi tie.",
-  "js.tags_n_cities": "etikedas {n} urbojn"
+  "js.tags_n_cities": "etikedas {n} urbojn",
+  "js.sync_needs_key": "Viaj kartoj kaj kontaktoj estas en via alia aparato.",
+  "js.sync_get": "Preni",
+  "js.sync_asked": "Alia via aparato petas viajn kartojn kaj kontaktojn.",
+  "js.sync_send": "Sendi",
+  "js.sync_now": "Sinkronigi",
+  "sync.now": "Sinkronigi"
 }

@@ -342,6 +342,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
 
 - [x] 38c. Admin bulk actions: checkboxes + "select all shown", apply delete / keep 1 day / keep forever /
       normal retention; searches list up to 300; purge candidates are accounts idle ≥1 day (keep rules decide).
+- [x] 37d. Sync fixes (Joop: cards didn't sync): personas merge per id (own updatedAt, tombstones "p:<id>"),
+      cards from before sync still come across; moves/backups use the same merge; a bar on every page when
+      this device needs the key ("Get them" → /contacts#get starts it) or another device asks ("Send");
+      "Sync now" on Contacts and My card; browser test: B's card on C after the move, rename B → C.
 - [ ] 39. Post with or without your name (Joop): a local message can carry your account name (signed by the
       server as @name, linkable to your profile) or stay anonymous; anonymous ones rank lower and expire
       sooner (shorter TTL at the same work), named ones get the normal TTL and a trust bonus.
