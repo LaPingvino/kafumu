@@ -518,6 +518,7 @@
     var tag = "#geo" + c;
     $("cell-tag").textContent = tag;
     $("place-name").textContent = "";
+    $("place-also").hidden = true;
     document.querySelector(".cell-tag").classList.remove("named");
     document.querySelector(".cell-tag").hidden = false;
     $("cell-actions").hidden = false;
@@ -581,6 +582,10 @@
         if (b.near && b.near.name) {
           $("place-name").textContent = b.near.name + (b.near.city ? ", " + b.near.city : "");
           document.querySelector(".cell-tag").classList.add("named");
+          // The cloud: neighbourhoods and villages around, small.
+          var also = $("place-also");
+          also.textContent = (b.near.also || []).join(" · ");
+          also.hidden = !(b.near.also || []).length;
           travel.place = travel.place || b.near.name;
         }
         drawTravel();

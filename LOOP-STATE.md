@@ -306,7 +306,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       tags −8 with a "tags N cities" badge, new account −1, labels −3, engagement up to +1. Was: Reliability: Bluesky posts tagging many places (≥5 city tags: "#London #Paris #Berlin…") rank
       far down with a "tags N cities" badge; new accounts and labelled posts weigh less in the score.
 
-- [ ] 32. Naming cloud (Joop: Lunteren shows as Bennekom): towns < 15k are missing, so the nearest-name
+- [x] 32. Naming cloud: villages.tsv.gz (geotags/villages, GeoNames cities1000: 171k places incl. neighbourhoods,
+      2.4 MB gz, loaded lazily, indexed by cell); heading = town/village with least (km+0.3)/√(pop/1000), the city
+      added when a district; "also" cloud of neighbourhoods ≤3 km and villages ≤8 km. Lunteren → Lunteren.
+      Was: Naming cloud (Joop: Lunteren shows as Bennekom): towns < 15k are missing, so the nearest-name
       picks a neighbour. Add villages/neighbourhoods (geonames cities1000 / PPLX for the heading only, via
       geotags), and show a cloud: the main name big, nearby names (villages, districts) small beside it.
 - [ ] 33. Desktop first visit (Joop): guess the area from App Engine's X-Appengine-CityLatLong header

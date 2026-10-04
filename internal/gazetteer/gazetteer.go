@@ -5,10 +5,14 @@
 package gazetteer
 
 import (
+	"bufio"
+	"bytes"
+	"compress/gzip"
 	_ "embed"
 	"encoding/json"
 	"math"
 	"sort"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -406,51 +410,130 @@ func fold(s string) string {
 	return b.String()
 }
 
-// Near names the place closest to a cell, for a human heading ("Barreiro")
-// instead of the cell code.
+// Near names the place closest to a cell, for a human heading ("Lunteren")
+// instead of the cell code, with a small cloud of other names around it.
 type Near struct {
 	Name    string  `json:"name"`
 	Country string  `json:"country,omitempty"`
 	Km      float64 `json:"km"`
 	// City is the big city this place lies in (a district of it), if any.
 	City string `json:"city,omitempty"`
+	// Also: neighbourhoods and villages close by, nearest first.
+	Also []string `json:"also,omitempty"`
 }
 
-// cityKm: a nearest place this close to a big city's centre is part of it.
-const cityKm = 8
+const (
+	nearMaxKm = 20 // past this, a place name would mislead more than help
+	cityKm    = 8  // a nearest place this close to a big city's centre is part of it
+	alsoTown  = 8  // villages and towns in the cloud
+	alsoHood  = 3  // neighbourhoods in the cloud
+	alsoMax   = 6
+)
 
-// nearMaxKm: past this, a place name would mislead more than help.
-const nearMaxKm = 20
+// villages.tsv.gz (geotags/villages): every place of 1,000+ people,
+// neighbourhoods included — for naming only, never as hashtags.
+//
+//go:embed villages.tsv.gz
+var villagesGz []byte
 
-// Nearest returns the named place (town of 15k+ or city) closest to the
-// cell's centre, or nil if none is within nearMaxKm.
+type village struct {
+	name, cc string
+	lat, lon float32
+	hood     bool
+	pop      int32
+}
+
+var (
+	villagesOnce sync.Once
+	villages     []village
+	villageCells map[string][]int32
+)
+
+func loadVillages() {
+	zr, err := gzip.NewReader(bytes.NewReader(villagesGz))
+	if err != nil {
+		panic("gazetteer: villages: " + err.Error())
+	}
+	sc := bufio.NewScanner(zr)
+	villageCells = map[string][]int32{}
+	for sc.Scan() {
+		f := strings.Split(sc.Text(), "\t")
+		if len(f) != 6 {
+			continue
+		}
+		la, _ := strconv.ParseFloat(f[2], 64)
+		lo, _ := strconv.ParseFloat(f[3], 64)
+		pop, _ := strconv.Atoi(f[5])
+		villages = append(villages, village{f[0], f[1], float32(la), float32(lo), f[4] == "n", int32(pop)})
+		c := geo.Cell(la, lo)
+		villageCells[c] = append(villageCells[c], int32(len(villages)-1))
+	}
+}
+
+// Nearest names the area of a cell: the closest town or village (1,000+
+// people) within nearMaxKm, the big city it belongs to if close, and a
+// cloud of nearby neighbourhoods and villages. nil if nothing is near.
 func (g *Gazetteer) Nearest(cell string) *Near {
 	if !geo.Valid(cell) {
 		return nil
 	}
+	villagesOnce.Do(loadVillages)
 	lat, lon := geo.Center(cell)
 	km := func(la, lo float64) float64 {
 		x := (lo - lon) * math.Cos((la+lat)/2*math.Pi/180)
 		return math.Hypot(la-lat, x) * 111.2
 	}
-	var best *Near
-	consider := func(name, cc string, la, lo float64) {
-		if d := km(la, lo); d <= nearMaxKm && (best == nil || d < best.Km) {
-			best = &Near{Name: name, Country: cc, Km: math.Round(d*10) / 10}
+	type cand struct {
+		v *village
+		d float64
+	}
+	var cs []cand
+	for _, c := range geo.Rings(cell, 4) { // ±4 cells: about 20 km
+		for _, i := range villageCells[c] {
+			v := &villages[i]
+			if d := km(float64(v.lat), float64(v.lon)); d <= nearMaxKm {
+				cs = append(cs, cand{v, d})
+			}
 		}
 	}
-	for _, t := range towns {
-		consider(t.name, t.country, t.lat, t.lon)
+	sort.Slice(cs, func(i, j int) bool { return cs[i].d < cs[j].d })
+	// The heading: the town or village (not a neighbourhood) with the
+	// smallest distance / √(population/1000), so a 1,000-person hamlet
+	// next door doesn't outrank the village you're in, and in a city's
+	// centre the city's name leads (its districts go in the cloud).
+	var best *Near
+	bestScore := math.Inf(1)
+	for _, c := range cs {
+		if c.v.hood {
+			continue
+		}
+		if s := (c.d + 0.3) / math.Sqrt(math.Max(float64(c.v.pop), 1000)/1000); s < bestScore {
+			bestScore = s
+			best = &Near{Name: c.v.name, Country: c.v.cc, Km: math.Round(c.d*10) / 10}
+		}
+	}
+	if best == nil {
+		return nil
 	}
 	city, cityD := "", math.Inf(1)
 	for _, p := range g.Places {
-		consider(p.Name, p.Country, p.Lat, p.Lon)
 		if d := km(p.Lat, p.Lon); d < cityD && p.Population >= 100000 {
 			city, cityD = p.Name, d
 		}
 	}
-	if best != nil && cityD <= cityKm && city != best.Name {
+	if cityD <= cityKm && city != best.Name {
 		best.City = city
+	}
+	seen := map[string]bool{best.Name: true, city: true}
+	for _, c := range cs {
+		if len(best.Also) == alsoMax {
+			break
+		}
+		if seen[c.v.name] || (c.v.hood && c.d > alsoHood) || (!c.v.hood && c.d > alsoTown) {
+			continue
+		}
+		seen[c.v.name] = true
+		best.Also = append(best.Also, c.v.name)
 	}
 	return best
 }
