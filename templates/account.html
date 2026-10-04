@@ -71,7 +71,7 @@
       <fieldset class="inbox-settings">
         <label><input type="checkbox" id="inbox-on"{{if .User.InboxBox}} checked{{end}}> ✉️ {{t .Lang "inbox.let_write"}}</label>
         <label>{{t .Lang "inbox.price"}} <span class="dim small" id="inbox-price-hint"></span>
-          <input type="range" id="inbox-bits" min="12" max="24" step="1" value="{{if .User.InboxBits}}{{.User.InboxBits}}{{else}}16{{end}}"></label>
+          <input type="range" id="inbox-bits" min="2" max="12" step="1" value="{{if .User.InboxBits}}{{if gt .User.InboxBits 12}}6{{else}}{{.User.InboxBits}}{{end}}{{else}}6{{end}}"></label>
         <p class="dim small">{{t .Lang "inbox.explain"}}</p>
         <p class="dim small" id="inbox-status" role="status"></p>
       </fieldset>
@@ -133,7 +133,7 @@
   if (!on) return;
   var pair = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: window.kafumuDevice.store, origin: location.origin });
   function hint() {
-    var rate = 40000; try { rate = parseFloat(localStorage.getItem("kafumu.hashrate")) || rate; } catch (e) {}
+    var rate = 12; try { rate = parseFloat(localStorage.getItem("kafumu.workRate")) || rate; } catch (e) {}
     var s = Math.pow(2, +bits.value) / rate;
     document.getElementById("inbox-price-hint").textContent = "≈ " + (s < 90 ? Math.max(1, Math.round(s)) + " s" : Math.round(s / 60) + " min") + " " + (T.inbox_of_work || "of work per message");
   }

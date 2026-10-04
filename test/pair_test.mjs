@@ -3,6 +3,7 @@
 // server: PORT=18081 go run . & node test/pair_test.mjs http://localhost:18081
 import { readFileSync } from "node:fs";
 new Function(readFileSync(new URL("../static/sha1.js", import.meta.url), "utf8"))();
+new Function(readFileSync(new URL("../static/vendor/argon2-4.12.0.umd.min.js", import.meta.url), "utf8")).call(globalThis);
 new Function(readFileSync(new URL("../static/pair.js", import.meta.url), "utf8"))();
 const base = process.argv[2] || "http://localhost:18081";
 
@@ -102,7 +103,7 @@ check((await B.pair.checkContact(cb)).length === 0, "B's own message is not in B
   const E = device("E"), F = device("F");
   const ib = await E.pair.inbox();
   check(/^[0-9a-f]{64}$/.test(ib.box), "inbox box id");
-  const pending = await F.pair.writeTo({ box: ib.box, pub: ib.pub, bits: 10 }, "Hi, saw you're into Esperanto!", { name: "Fay" });
+  const pending = await F.pair.writeTo({ box: ib.box, pub: ib.pub, bits: 2 }, "Hi, saw you're into Esperanto!", { name: "Fay" });
   check(pending && pending.card === null, "F waits for E's card");
   const msgs = await E.pair.readInbox();
   check(msgs.length === 1 && msgs[0].text.includes("Esperanto") && msgs[0].card.name === "Fay", "E reads F's message");

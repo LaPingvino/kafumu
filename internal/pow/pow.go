@@ -1,11 +1,12 @@
 // Package pow checks the small proof of work that comes with every write to
 // a mailbox or slot (Joop: "no proof of work should be minimal proof of
-// work"). It reuses the OLN shape so one SHA-1 miner serves both:
+// work"). It reuses the OLN v2 shape so one miner serves both:
 //
-//	SHA-1("<nonce>;<YYYYMMDDhhmmss>;<base64url(sha256(body))>;#<scope>")
+//	"v2;<nonce>;<YYYYMMDDhhmmss>;<base64url(sha256(body))>;#<scope>"
 //
-// must have MinBits leading zero bits, with the time (UTC) within ±10
-// minutes. The client sends "<nonce>;<YYYYMMDDhhmmss>" in X-Kafumu-Work.
+// must have MinBits leading zero bits of Argon2id work (see oln.Bits), with
+// the time (UTC) within ±10 minutes. The client sends "v2;<nonce>;<date>"
+// in X-Kafumu-Work.
 package pow
 
 import (
@@ -19,9 +20,9 @@ import (
 	"github.com/LaPingvino/kafumu/internal/oln"
 )
 
-// MinBits: ~1,000 hashes — a few milliseconds on a phone, a real cost for
-// anything that wants to write millions of times.
-const MinBits = 10
+// MinBits: 4 Argon2id attempts, about a third of a second on a phone; a real
+// cost for anything that wants to write millions of times.
+const MinBits = 2
 
 var ErrWork = errors.New("pow: missing or insufficient X-Kafumu-Work")
 
@@ -32,8 +33,9 @@ func Check(stamp string, body []byte, scope string, now time.Time) error {
 
 // CheckBits is Check with a required number of bits (a person's price).
 func CheckBits(stamp string, body []byte, scope string, now time.Time, need int) error {
-	nonce, date, ok := strings.Cut(stamp, ";")
-	if !ok || nonce == "" || len(stamp) > 64 {
+	v, rest, ok := strings.Cut(stamp, ";")
+	nonce, date, ok2 := strings.Cut(rest, ";")
+	if !ok || !ok2 || v != "v2" || nonce == "" || len(stamp) > 64 {
 		return ErrWork
 	}
 	at, err := time.Parse("20060102150405", date)
@@ -44,7 +46,7 @@ func CheckBits(stamp string, body []byte, scope string, now time.Time, need int)
 		return ErrWork
 	}
 	h := sha256.Sum256(body)
-	raw := nonce + ";" + date + ";" + base64.URLEncoding.EncodeToString(h[:]) + ";#" + scope
+	raw := "v2;" + nonce + ";" + date + ";" + base64.URLEncoding.EncodeToString(h[:]) + ";#" + scope
 	if oln.Bits(raw) < need {
 		return ErrWork
 	}
@@ -62,8 +64,8 @@ func MineBits(body []byte, scope string, now time.Time, bits int) string {
 	date := now.UTC().Format("20060102150405")
 	tail := ";" + date + ";" + base64.URLEncoding.EncodeToString(h[:]) + ";#" + scope
 	for i := 0; ; i++ {
-		if oln.Bits(fmt.Sprintf("%d", i)+tail) >= bits {
-			return fmt.Sprintf("%d;%s", i, date)
+		if oln.Bits(fmt.Sprintf("v2;%d", i)+tail) >= bits {
+			return fmt.Sprintf("v2;%d;%s", i, date)
 		}
 	}
 }

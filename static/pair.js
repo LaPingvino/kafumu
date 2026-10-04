@@ -77,21 +77,28 @@
       }).then(function (pt) { return JSON.parse(dec.decode(pt)); });
     }
 
-    // Every write carries a small proof of work (pow.MinBits, ~1k SHA-1s),
-    // bound to the body and the box/slot: nothing for a person, a cost for bots.
-    var MIN_BITS = 10, SHA1 = (root.kafumuSHA1 || (typeof self !== "undefined" && self.kafumuSHA1));
-    // stamp mines synchronously at MIN_BITS; with bits and an async miner
-    // (opts.mineTail, a Web Worker) it can pay a public inbox's price.
+    // Every write carries a small proof of work (pow.MinBits: 4 Argon2id
+    // attempts, v2), bound to the body and the box/slot: a moment for a
+    // person, a real cost for bots.
+    var MIN_BITS = 2, WSALT = enc.encode("OLN-v2-proofwork");
+    function argon(raw) {
+      var hw = root.hashwasm || (typeof self !== "undefined" && self.hashwasm);
+      return hw.argon2id({ password: raw, salt: WSALT, parallelism: 1, iterations: 1, memorySize: 4096, hashLength: 32, outputType: "binary" });
+    }
+    function zeros(h) { for (var i = 0, n = 0; i < h.length; i++, n += 8) if (h[i]) return n + Math.clz32(h[i]) - 24; return n; }
+    // stamp mines at MIN_BITS here; with bits and an async miner (opts.mineTail,
+    // a Web Worker) it can pay a public inbox's price.
     function stamp(body, scope, bits, mineTail) {
       return subtle.digest("SHA-256", enc.encode(body)).then(function (h) {
         var date = new Date().toISOString().replace(/[-:T]/g, "").slice(0, 14);
         var hb = new Uint8Array(h), s = "";
         hb.forEach(function (b) { s += String.fromCharCode(b); });
         var tail = ";" + date + ";" + btoa(s).replace(/\+/g, "-").replace(/\//g, "_") + ";#" + scope;
-        if (bits && bits > MIN_BITS && mineTail) return mineTail(tail, bits).then(function (raw) { return raw.split(";")[0] + ";" + date; });
-        for (var i = 0; ; i++) {
-          if (SHA1.leadingZeros(SHA1.sha1(enc.encode(i + tail))) >= (bits || MIN_BITS)) return i + ";" + date;
-        }
+        if (bits && bits > MIN_BITS && mineTail) return mineTail(tail, bits).then(function (raw) { return "v2;" + raw.split(";")[1] + ";" + date; });
+        var want = bits || MIN_BITS, start = Math.floor(Math.random() * 1e9);
+        return (function tryN(i) {
+          return argon("v2;" + (start + i) + tail).then(function (h) { return zeros(h) >= want ? "v2;" + (start + i) + ";" + date : tryN(i + 1); });
+        })(0);
       });
     }
 

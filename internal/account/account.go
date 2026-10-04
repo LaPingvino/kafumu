@@ -69,8 +69,8 @@ type Inbox struct {
 // Inbox bounds: below MinInboxBits it would be the mailbox default; above
 // MaxInboxBits a phone would work for many minutes.
 const (
-	MinInboxBits = 12
-	MaxInboxBits = 24
+	MinInboxBits = 2  // Argon2id bits (v2 work): ~0.3 s
+	MaxInboxBits = 12 // ~5 minutes on a phone
 )
 
 // Visible reports whether u is discoverable at now.
@@ -93,7 +93,11 @@ type Person struct {
 func (u *User) Public() Person {
 	p := Person{Name: u.Username, Bio: u.Bio, Where: u.Where, Langs: u.Langs, Tags: u.Tags, Cell: u.Cell}
 	if u.InboxBox != "" && u.InboxPub != "" {
-		p.Inbox = &Inbox{Box: u.InboxBox, Pub: u.InboxPub, Bits: u.InboxBits}
+		bits := u.InboxBits
+		if bits > MaxInboxBits { // set in v1 (SHA-1) bits: about 10 bits dearer per attempt now
+			bits = max(MinInboxBits, bits-10)
+		}
+		p.Inbox = &Inbox{Box: u.InboxBox, Pub: u.InboxPub, Bits: bits}
 	}
 	return p
 }

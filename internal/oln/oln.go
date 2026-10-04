@@ -17,6 +17,7 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"errors"
+	"golang.org/x/crypto/argon2"
 	"math"
 	"math/bits"
 	"regexp"
@@ -31,8 +32,8 @@ import (
 )
 
 const (
-	BaseBits  = 12 // ≈ 0.1 s on a phone: cheap once, expensive in bulk
-	MaxBits   = 22
+	BaseBits  = 4 // 16 Argon2id attempts ≈ 1 s on a phone: cheap once, expensive in bulk
+	MaxBits   = 14
 	BaseTTL   = time.Hour
 	MaxTTL    = 7 * 24 * time.Hour // as in eolnpoc
 	Window    = 10 * time.Minute
@@ -44,7 +45,7 @@ const (
 )
 
 var (
-	ErrFormat = errors.New("oln: not an OLN message (nonce;YYYYMMDDhhmmss;base64;keywords)")
+	ErrFormat = errors.New("oln: not an OLN v2 message (v2;nonce;YYYYMMDDhhmmss;base64;keywords)")
 	ErrClock  = errors.New("oln: time outside the ±10 minute window")
 	ErrPlace  = errors.New("oln: needs exactly one #geo cell in the keywords")
 	ErrWork   = errors.New("oln: not enough proof of work")
@@ -67,9 +68,28 @@ type Note struct {
 	Pair string `datastore:"pair" json:"-"`
 }
 
-// Bits counts the leading zero bits of SHA-1(raw).
+// Proof of work, v2 (memory-hard, so a GPU gains little over a phone):
+// the leading zero bits of Argon2id(line, salt "OLN-v2-proofwork",
+// 1 pass, 4 MiB, 1 lane, 32 bytes). Only lines starting "v2;" count.
+var workSalt = []byte("OLN-v2-proofwork")
+
+const (
+	workMemKiB = 4096
+	workPasses = 1
+)
+
+// workSlots bounds concurrent Argon2id checks (4 MiB each) on a small instance.
+var workSlots = make(chan struct{}, 4)
+
+// Bits counts the leading zero bits of the line's v2 proof of work (0 for
+// anything that isn't a v2 line).
 func Bits(raw string) int {
-	h := sha1.Sum([]byte(raw))
+	if !strings.HasPrefix(raw, "v2;") {
+		return 0
+	}
+	workSlots <- struct{}{}
+	h := argon2.IDKey([]byte(raw), workSalt, workPasses, workMemKiB, 1, 32)
+	<-workSlots
 	n := 0
 	for _, b := range h {
 		if b == 0 {
@@ -92,7 +112,10 @@ func Parse(raw string, now time.Time) (*Note, error) {
 	if len(raw) > MaxRaw {
 		return nil, ErrFormat
 	}
-	parts := strings.SplitN(raw, ";", 4)
+	if !strings.HasPrefix(raw, "v2;") {
+		return nil, ErrFormat
+	}
+	parts := strings.SplitN(strings.TrimPrefix(raw, "v2;"), ";", 4)
 	if len(parts) != 4 || parts[0] == "" {
 		return nil, ErrFormat
 	}

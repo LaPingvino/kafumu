@@ -73,6 +73,9 @@ func (p *Prices) Price(ctx context.Context, id string) int {
 	bits := 0
 	if err := p.DB.Get(ctx, datastore.NameKey(priceKind, id, nil), &e); err == nil {
 		bits = e.Bits
+		if bits > 12 { // a price set in v1 (SHA-1) bits: about 10 bits dearer per attempt now
+			bits = max(2, bits-10)
+		}
 	}
 	p.mu.Lock()
 	if len(p.cache) > 50000 {

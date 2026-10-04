@@ -307,7 +307,8 @@
     var slot = h < 11 ? "morning" : h < 14 ? "lunch" : h < 17 ? "afternoon" : "evening";
     return tr("say_ph_" + slot, { where: where });
   }
-  function hashrate() { var r = parseFloat(pref("kafumu.hashrate") || "0"); return r > 1000 ? r : 40000; }
+  // Argon2id attempts per second on this device (v2 work), measured while mining.
+  function hashrate() { var r = parseFloat(pref("kafumu.workRate") || "0"); return r > 0.5 ? r : 12; }
   function estimate(bits) {
     var s = Math.pow(2, bits) / hashrate();
     return s < 1 ? "< 1 s" : s < 90 ? Math.round(s) + " s" : Math.round(s / 60) + " min";
@@ -363,7 +364,7 @@
       ready = pair.invite(false).then(function (inv) { text += "\n" + inv.url; });
     }
     ready.then(function () { return window.kafumuOLN.post(text, keywords, bits, function (tries, ms) {
-      if (ms > 0) pref("kafumu.hashrate", String(Math.round(tries / ms * 1000)));
+      if (ms > 0) pref("kafumu.workRate", String(Math.round(tries / ms * 10000) / 10));
       $("oln-status").textContent = tr("oln_working", { n: Math.round(tries / 1000) + "k" });
     }); }).then(function (n) {
       if (n && n.id) ownNotes.push(n);
@@ -978,7 +979,7 @@
           st.textContent = tr("oln_working", { n: "…" });
           return pair.writeTo(p.inbox, text, card, function (tail, bits) {
             return window.kafumuOLN.mineTail(tail, bits, function (tries, ms) {
-              if (ms > 0) pref("kafumu.hashrate", String(Math.round(tries / ms * 1000)));
+              if (ms > 0) pref("kafumu.workRate", String(Math.round(tries / ms * 10000) / 10));
               st.textContent = tr("oln_working", { n: Math.round(tries / 1000) + "k" });
             });
           });

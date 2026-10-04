@@ -10,8 +10,9 @@
   <a href="https://maps.google.com/pluscodes/">plus code</a> (about 5 km across), e.g. <code>#geo8ccgmw</code>.
   Anyone can store, index and pass these messages on; a node is just something that does that.</p>
   <p>Instead of an account, every message carries a small <strong>proof of work</strong>: the sender's device tries
-  numbers until the message's SHA-1 hash starts with enough zero bits. One message costs a phone a fraction of a
-  second; a thousand cost a spammer real time. More work buys a longer life: a message lives one hour at the
+  numbers until the message's <strong>Argon2id</strong> hash starts with enough zero bits. Argon2id is memory-hard,
+  so a graphics card gains little over a phone. One message costs a phone about a second; a thousand cost a
+  spammer real time, and every one has to be aimed at a real place. More work buys a longer life: a message lives one hour at the
   required work and twice as long for every extra bit (up to a week). When an area gets busy, the required work
   goes up a little, so floods price themselves out.</p>
 
@@ -21,8 +22,9 @@
   OLN node: its local messages, questions, answers and reactions are all OLN messages.</p>
 
   <h2>The message format</h2>
-  <pre><code>nonce;YYYYMMDDhhmmss;base64url(text);#geo8ccgmw #langeng #coffee</code></pre>
+  <pre><code>v2;nonce;YYYYMMDDhhmmss;base64url(text);#geo8ccgmw #langeng #coffee</code></pre>
   <ul>
+    <li><strong>v2</strong>: the format version (v2 = Argon2id work).</li>
     <li><strong>nonce</strong>: the number the sender searched for.</li>
     <li><strong>date</strong>: when it was made, in UTC; nodes accept a ±10 minute clock difference.</li>
     <li><strong>text</strong>: the message, UTF-8, base64url without padding.</li>
@@ -30,8 +32,10 @@
       <code>#lang&lt;iso639-3&gt;</code>, <code>#ask</code> for questions and <code>#re&lt;10 hex&gt;</code> for answers
       and reactions.</li>
   </ul>
-  <p>The work is the number of leading zero bits of <code>SHA-1</code> over the whole line. The message id is the hex
-  SHA-1 of the line.</p>
+  <p>The work is the number of leading zero bits of <code>Argon2id(line)</code> with salt <code>OLN-v2-proofwork</code>,
+  1 pass, 4 MiB of memory, 1 lane and a 32-byte output. Kafumu asks 4 bits at the base (16 tries) and a little more
+  when an area is busy. The message id is the hex SHA-1 of the line. What a node accepts, keeps or drops is up to
+  that node: OLN fixes the format, not the policy.</p>
 
   <h2>Reading: GET /oln.json</h2>
   <p>Live messages of a cell and its neighbours, in eolnpoc's <code>olnjson</code> format (server info, messages by id,
@@ -41,19 +45,21 @@
   <h2>Writing: POST /api/oln</h2>
   <p>First ask how much work the cell currently wants, then mine and post the raw line:</p>
   <pre><code>curl 'https://kafumu.com/api/oln/required?cell=8ccgmw'      # {"bits": 12}
-curl -X POST --data-binary 'nonce;20261004183000;SGVsbG8;#geo8ccgmw' https://kafumu.com/api/oln</code></pre>
+curl -X POST --data-binary 'v2;nonce;20261004183000;SGVsbG8;#geo8ccgmw' https://kafumu.com/api/oln</code></pre>
   <p>Answers: <code>200</code> with the stored message (and its expiry), <code>402</code> when the work is too low
   (mine more bits), <code>400</code> for a malformed line, a clock off by more than ten minutes, or not exactly one
   <code>#geo</code> cell.</p>
-  <p>Mining in JavaScript, in a few lines:</p>
-  <pre><code>// sha1 → leading zero bits; try nonces until there are enough.
+  <p>Mining in JavaScript with <a href="https://www.npmjs.com/package/hash-wasm">hash-wasm</a>'s Argon2id:</p>
+  <pre><code>// Argon2id → leading zero bits; try nonces until there are enough.
+const salt = new TextEncoder().encode("OLN-v2-proofwork");
 async function mine(text, keywords, bits) {
   const date = new Date().toISOString().replace(/[-:T]/g, "").slice(0, 14);
   const b64 = btoa(String.fromCharCode(...new TextEncoder().encode(text)))
     .replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
   for (let n = 0; ; n++) {
-    const line = `${n};${date};${b64};${keywords}`;
-    const h = new Uint8Array(await crypto.subtle.digest("SHA-1", new TextEncoder().encode(line)));
+    const line = `v2;${n};${date};${b64};${keywords}`;
+    const h = await hashwasm.argon2id({ password: line, salt, parallelism: 1, iterations: 1,
+      memorySize: 4096, hashLength: 32, outputType: "binary" });
     let z = 0; for (const b of h) { if (b === 0) { z += 8; continue; } z += Math.clz32(b) - 24; break; }
     if (z >= bits) return line;
   }

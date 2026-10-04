@@ -15,7 +15,7 @@ import (
 
 // mine is eolnpoc's CreatePoWMessage, with a fixed time.
 func mine(bitsWanted int, at time.Time, msg, keywords string) string {
-	format := "%d;" + at.UTC().Format("20060102150405") + ";" + base64.URLEncoding.EncodeToString([]byte(msg)) + ";" + keywords
+	format := "v2;%d;" + at.UTC().Format("20060102150405") + ";" + base64.URLEncoding.EncodeToString([]byte(msg)) + ";" + keywords
 	for i := 0; ; i++ {
 		raw := fmt.Sprintf(format, i)
 		if Bits(raw) >= bitsWanted {
@@ -53,7 +53,7 @@ func TestPostAndRank(t *testing.T) {
 		{mine(BaseBits, now, "where?", "#hello"), ErrPlace},
 		{func() string { // too little work: find a hash with exactly 0 leading zero bits
 			for i := 0; ; i++ {
-				r := fmt.Sprintf("%d;%s;%s;#geo8ccgqw", i, now.Format("20060102150405"), base64.URLEncoding.EncodeToString([]byte("x")))
+				r := fmt.Sprintf("v2;%d;%s;%s;#geo8ccgqw", i, now.Format("20060102150405"), base64.URLEncoding.EncodeToString([]byte("x")))
 				if Bits(r) == 0 {
 					return r
 				}
@@ -81,12 +81,12 @@ func TestPostAndRank(t *testing.T) {
 }
 
 func TestRequiredAndTTL(t *testing.T) {
-	if Required(0, 0) != 12 || Required(30, 0) != 13 || Required(90, 0) != 14 || Required(1e9, 0) != MaxBits {
+	if Required(0, 0) != BaseBits || Required(30, 0) != BaseBits+1 || Required(90, 0) != BaseBits+2 || Required(1e9, 0) != MaxBits {
 		t.Errorf("Required: %d %d %d", Required(0, 0), Required(30, 0), Required(90, 0))
 	}
 	// A burst: 75 messages in ten minutes → 4 doublings.
-	if Required(75, 75) != 16 {
-		t.Errorf("burst Required = %d, want 16", Required(75, 75))
+	if Required(75, 75) != BaseBits+4 {
+		t.Errorf("burst Required = %d, want %d", Required(75, 75), BaseBits+4)
 	}
 	if TTL(14, 14) != time.Hour || TTL(18, 14) != 16*time.Hour || TTL(30, 14) != MaxTTL || TTL(13, 14) != 0 {
 		t.Error("TTL")
