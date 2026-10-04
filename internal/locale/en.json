@@ -68,7 +68,7 @@
   "card.explain": "This is what you hand to someone you meet: scan each other's code and you both keep the other's card. Fill in only what you want to share.",
   "card.field_name": "Name",
   "card.field_about": "One line about you",
-  "card.about_placeholder": "e.g. open source, Esperanto, robotics — up for coffee",
+  "card.about_placeholder": "e.g. design, hiking, learning Spanish — up for coffee",
   "card.field_email": "Email",
   "card.field_phone": "Phone",
   "card.field_website": "Website",
@@ -130,7 +130,7 @@
   "js.restore_failed": "That isn't a Kafumu backup.",
   "card.personas": "Personas",
   "card.field_label": "Persona (only you see this)",
-  "card.label_placeholder": "e.g. Work, Esperanto, Friends",
+  "card.label_placeholder": "e.g. Work, Friends, Hiking",
   "card.field_tags": "What you're about — tap to pick, or add your own",
   "card.custom_tag": "Add your own and press Enter",
   "card.delete_persona": "Delete this persona",
@@ -155,7 +155,7 @@
   "meetup.new_explain": "Coffee at the venue, a language table, a side event — it shows up for everyone nearby whose tags match.",
   "meetup.need_account": "Hosting needs an account, so people can see who invites them. No email or phone needed.",
   "meetup.field_title": "What",
-  "meetup.title_placeholder": "e.g. Esperanto coffee at Pavilion 2",
+  "meetup.title_placeholder": "e.g. Coffee after the keynote",
   "meetup.field_start": "When",
   "meetup.field_duration": "How long",
   "meetup.field_venue": "Where exactly",
@@ -399,5 +399,10 @@
   "js.card_sent": "Card sent",
   "connect.save_name": "Add to my card",
   "meetup.open_on": "Open on",
-  "meetup.going_here": "going on Kafumu"
+  "meetup.going_here": "going on Kafumu",
+  "js.own_domain": "Uses their own domain as handle",
+  "js.new_account": "new account",
+  "js.on_bsky_since": "on Bluesky since {when}",
+  "js.show_anyway": "Show anyway",
+  "js.reply_on_bsky": "Reply on Bluesky"
 }

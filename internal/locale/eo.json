@@ -399,5 +399,10 @@
   "js.card_sent": "Karto sendita",
   "connect.save_name": "Aldoni al mia karto",
   "meetup.open_on": "Malfermi ĉe",
-  "meetup.going_here": "venos laŭ Kafumu"
+  "meetup.going_here": "venos laŭ Kafumu",
+  "js.own_domain": "Uzas propran domajnon kiel nomon",
+  "js.new_account": "nova konto",
+  "js.on_bsky_since": "ĉe Bluesky ekde {when}",
+  "js.show_anyway": "Montri tamen",
+  "js.reply_on_bsky": "Respondi ĉe Bluesky"
 }

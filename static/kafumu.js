@@ -457,6 +457,7 @@
         travel.meetups = (b.meetups || []).length;
         travel.place = ((b.places || [])[0] || {}).place || "";
         // A human heading: "Barreiro" or "Areeiro, Lisbon", the cell tag below.
+        if (b.near && b.near.country) { try { localStorage.setItem("kafumu.country", b.near.country); } catch (e) {} }
         if (b.near && b.near.name) {
           $("place-name").textContent = b.near.name + (b.near.city ? ", " + b.near.city : "");
           document.querySelector(".cell-tag").classList.add("named");
@@ -685,30 +686,82 @@
       perAuthor[p.handle] = (perAuthor[p.handle] || 0) + 1;
       return perAuthor[p.handle] <= 2;
     });
-    posts.slice(0, 50).forEach(function (p) {
-      var li = document.createElement("li");
-      if (p.bot) li.className = "bot";
-      var meta = document.createElement("div");
-      meta.className = "meta";
-      var who = document.createElement("a");
-      who.href = p.url; who.target = "_blank"; who.rel = "noopener";
-      who.textContent = (p.name || p.handle) + " · " + ago(p.createdAt);
-      meta.appendChild(who);
-      var via = document.createElement("span");
-      via.className = "badge";
-      if (p.via in ringOf) via.textContent = "#" + p.via + (ringOf[p.via] ? "" : " · " + tr("here"));
-      else via.textContent = tr("from", { tag: "#" + p.via }) + (places[p.via] && places[p.via].ambiguous ? " " + tr("maybe_elsewhere") : "");
-      meta.appendChild(via);
-      if (p.bot) { var b = document.createElement("span"); b.className = "badge"; b.textContent = tr("bot"); meta.appendChild(b); }
-      var lm = langMatch(p);
-      if (lm.tag) { var lb = document.createElement("span"); lb.className = "badge lang"; lb.textContent = lm.tag; meta.appendChild(lb); }
-      var text = document.createElement("p");
-      text.className = "text";
-      text.textContent = p.text;
-      li.appendChild(meta);
-      li.appendChild(text);
-      list.appendChild(li);
+    var hidden = hiddenNotes();
+    posts.filter(function (p) { return hidden.indexOf(p.uri) < 0; }).slice(0, 50).forEach(function (p) {
+      list.appendChild(postItem(p, ringOf, places));
     });
+  }
+
+  // postItem draws a Bluesky post as a card like a local message: who
+  // (with what helps judge them: own-domain handle, account age), when,
+  // engagement, where it was found, labels; then the actions. No avatar
+  // images: loading them would tell Bluesky's CDN who looks at what.
+  var ADULT = ["porn", "sexual", "nudity", "graphic-media", "gore"];
+  function postItem(p, ringOf, places) {
+    var li = document.createElement("li");
+    li.className = "post" + (p.bot ? " bot" : "");
+    function span(cls, text) { var e = document.createElement("span"); if (cls) e.className = cls; e.textContent = text; return e; }
+    var head = document.createElement("div");
+    head.className = "post-head";
+    var initial = span("avatar", ((p.name || p.handle || "?").trim()[0] || "?").toUpperCase());
+    head.appendChild(initial);
+    var who = document.createElement("div");
+    who.className = "who";
+    who.appendChild(span("name", p.name || p.handle));
+    var own = !/\.bsky\.social$/.test(p.handle || "");
+    var handle = span("dim small", "@" + p.handle + (own ? " ✓" : ""));
+    if (own) handle.title = tr("own_domain");
+    who.appendChild(handle);
+    head.appendChild(who);
+    li.appendChild(head);
+
+    var meta = document.createElement("div");
+    meta.className = "meta";
+    var bits = [ago(p.createdAt)];
+    if (p.likes) bits.push("♥ " + p.likes);
+    if (p.reposts) bits.push("🔁 " + p.reposts);
+    if (p.replies) bits.push("💬 " + p.replies);
+    if (p.since) {
+      var days = (Date.now() - new Date(p.since)) / 864e5;
+      bits.push(days < 30 ? "🆕 " + tr("new_account") : tr("on_bsky_since", { when: new Date(p.since).toLocaleDateString(window.KAFUMU_LOCALE, { month: "short", year: "numeric" }) }));
+    }
+    meta.appendChild(document.createTextNode(bits.join(" · ") + " "));
+    var via = span("badge", "");
+    if (p.via in ringOf) via.textContent = "#" + p.via + (ringOf[p.via] ? "" : " · " + tr("here"));
+    else via.textContent = tr("from", { tag: "#" + p.via }) + (places[p.via] && places[p.via].ambiguous ? " " + tr("maybe_elsewhere") : "");
+    meta.appendChild(via);
+    if (p.bot) meta.appendChild(span("badge", tr("bot")));
+    var lm = langMatch(p);
+    if (lm.tag) meta.appendChild(span("badge lang", lm.tag));
+    (p.labels || []).forEach(function (l) { meta.appendChild(span("badge warn", "⚠ " + l)); });
+    li.appendChild(meta);
+
+    var text = document.createElement("p");
+    text.className = "text";
+    text.textContent = p.text;
+    var row = document.createElement("div");
+    row.className = "actions";
+    if ((p.labels || []).some(function (l) { return ADULT.indexOf(l) >= 0; })) {
+      text.hidden = true;
+      var reveal = document.createElement("button");
+      reveal.type = "button"; reveal.className = "pill-sm"; reveal.textContent = tr("show_anyway");
+      reveal.onclick = function () { text.hidden = false; reveal.remove(); };
+      row.appendChild(reveal);
+    }
+    li.appendChild(text);
+    var open = document.createElement("a");
+    open.href = p.url; open.target = "_blank"; open.rel = "noopener";
+    open.setAttribute("role", "button"); open.className = "pill-sm";
+    open.textContent = "💬 " + tr("reply_on_bsky") + " ↗";
+    row.appendChild(open);
+    function hideIt() { var h = hiddenNotes(); h.push(p.uri); pref("kafumu.hiddenNotes", JSON.stringify(h.slice(-500))); li.remove(); }
+    var hide = document.createElement("button");
+    hide.type = "button"; hide.className = "pill-sm"; hide.textContent = tr("oln_hide");
+    hide.onclick = hideIt;
+    row.appendChild(hide);
+    li.appendChild(row);
+    swipeAway(li, hideIt);
+    return li;
   }
 
   function ago(iso) {

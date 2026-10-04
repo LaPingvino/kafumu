@@ -74,8 +74,38 @@
   // Personas: several cards, each with its own fields and tags. The old
   // single "card" becomes the first persona. A share picks one persona and
   // a subset of its fields; the name always travels.
-  var SUGGESTED_TAGS = ["open source", "startups", "AI", "design", "climate", "languages", "Esperanto",
+  var SUGGESTED_TAGS = ["open source", "startups", "AI", "design", "climate", "languages",
     "hiring", "looking for work", "investing", "co-founder search", "music", "coffee", "running"];
+  // Plus the languages this browser says you speak, named in the UI language.
+  try {
+    var names = new Intl.DisplayNames([document.documentElement.lang || "en"], { type: "language" });
+    (navigator.languages || []).forEach(function (l) {
+      var n = names.of(l.split("-")[0]);
+      if (n && SUGGESTED_TAGS.indexOf(n) < 0) SUGGESTED_TAGS.splice(6, 0, n);
+    });
+  } catch (e) {}
+
+  // The country to assume for examples (phone numbers): where your area is
+  // (remembered by Around), else the browser's region. Never a fixed one.
+  var DIAL = { AD: 376, AE: 971, AL: 355, AM: 374, AO: 244, AR: 54, AT: 43, AU: 61, AZ: 994, BA: 387, BD: 880, BE: 32,
+    BG: 359, BO: 591, BR: 55, BY: 375, CA: 1, CH: 41, CL: 56, CM: 237, CN: 86, CO: 57, CR: 506, CU: 53, CV: 238, CY: 357,
+    CZ: 420, DE: 49, DK: 45, DO: 1, DZ: 213, EC: 593, EE: 372, EG: 20, ES: 34, ET: 251, FI: 358, FJ: 679, FO: 298, FR: 33,
+    GB: 44, GE: 995, GH: 233, GL: 299, GR: 30, GT: 502, GW: 245, HK: 852, HR: 385, HT: 509, HU: 36, ID: 62, IE: 353,
+    IL: 972, IN: 91, IQ: 964, IR: 98, IS: 354, IT: 39, JM: 1, JO: 962, JP: 81, KE: 254, KG: 996, KH: 855, KR: 82, KW: 965,
+    KZ: 7, LB: 961, LK: 94, LT: 370, LU: 352, LV: 371, MA: 212, MD: 373, ME: 382, MG: 261, MK: 389, MN: 976, MO: 853,
+    MT: 356, MU: 230, MX: 52, MY: 60, MZ: 258, NA: 264, NG: 234, NL: 31, NO: 47, NP: 977, NZ: 64, PA: 507, PE: 51,
+    PH: 63, PK: 92, PL: 48, PT: 351, PY: 595, QA: 974, RO: 40, RS: 381, RU: 7, SA: 966, SE: 46, SG: 65, SI: 386, SK: 421,
+    SN: 221, SR: 597, ST: 239, SY: 963, TH: 66, TL: 670, TN: 216, TR: 90, TW: 886, TZ: 255, UA: 380, UG: 256, US: 1,
+    UY: 598, UZ: 998, VE: 58, VN: 84, ZA: 27, ZM: 260, ZW: 263, AW: 297, CW: 599, BQ: 599, SX: 1, PR: 1 };
+  function country() {
+    var cc = "";
+    try { cc = localStorage.getItem("kafumu.country") || ""; } catch (e) {}
+    if (!cc) {
+      (navigator.languages || [navigator.language || ""]).some(function (l) { var m = /-([A-Z]{2})$/.exec(l); if (m) cc = m[1]; return !!m; });
+    }
+    return cc;
+  }
+  function phoneExample() { var d = DIAL[country()]; return d ? "+" + d + "…" : "+…"; }
 
   function newID() { return Array.from(crypto.getRandomValues(new Uint8Array(6)), function (b) { return b.toString(16).padStart(2, "0"); }).join(""); }
 
@@ -111,7 +141,8 @@
     setChoice: function (personaID, fields) { return store.set("shareChoice", { persona: personaID, fields: fields }); },
     shareCard: function () { return personas.choice().then(function (ch) { return personas.share(ch.persona, ch.fields); }); },
     newID: newID,
-    SUGGESTED_TAGS: SUGGESTED_TAGS
+    SUGGESTED_TAGS: SUGGESTED_TAGS,
+    phoneExample: phoneExample
   };
 
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }

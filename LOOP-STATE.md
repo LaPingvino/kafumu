@@ -266,6 +266,13 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
 - [x] 27. Polish: meetup page: repeated address parts dropped ("Lisboa, Portugal"), "Open on luma.com ↗"
       instead of the raw URL, "N going on Kafumu" hidden at 0 for imported events, a ← Around link.
 
+- [x] 28. No defaults tied to Joop (Joop): phone examples use the area's country code (Around remembers
+      near.country; else browser region; else "+…"), examples neutral (no Esperanto outside eo), suggested
+      tags add the browser's languages instead of a fixed "Esperanto".
+- [x] 29. Bluesky posts as real cards (Joop): letter avatar (no CDN images: privacy), name + @handle (✓ own
+      domain), age · ♥ 🔁 💬 · "on Bluesky since…" / 🆕 new account, via/lang/bot badges, ⚠ moderation labels
+      (adult ones hidden behind "Show anyway"), Reply on Bluesky ↗, Hide + swipe like local messages.
+
 **Idle-tick rule (Joop):** when no slice is open, a tick is not idle: use the app in a real browser
 (test/cdp.mjs), pick one area, and make it look and work a bit nicer. Fix one concrete thing per tick.
 

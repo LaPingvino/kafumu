@@ -234,3 +234,12 @@ input[type="range"] { padding: 0; background: transparent; accent-color: var(--a
 .area-map { cursor: grab; }
 .move-code { font-size: 2rem; letter-spacing: .3rem; margin: .25rem 0; }
 .short-code { font-size: 1.3rem; letter-spacing: .08em; }
+
+/* Bluesky posts: the same card as a local message, with who wrote it. */
+.post-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.post-head .avatar { flex: none; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--accent-bg); color: var(--accent-fg); font-weight: 700; font-size: .95rem; }
+.post-head .who { display: flex; flex-direction: column; line-height: 1.2; min-width: 0; }
+.post-head .who .name { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.post-head .who .dim { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.badge.warn { color: var(--destructive); }

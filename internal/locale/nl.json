@@ -68,7 +68,7 @@
   "card.explain": "Dit geef je aan iemand die je ontmoet: scan elkaars code en jullie houden allebei het kaartje van de ander. Vul alleen in wat je wilt delen.",
   "card.field_name": "Naam",
   "card.field_about": "Eén regel over jou",
-  "card.about_placeholder": "bijv. open source, Esperanto, robotica — in voor koffie",
+  "card.about_placeholder": "bijv. design, wandelen, Spaans leren — in voor koffie",
   "card.field_email": "E-mail",
   "card.field_phone": "Telefoon",
   "card.field_website": "Website",
@@ -130,7 +130,7 @@
   "js.restore_failed": "Dat is geen Kafumu-back-up.",
   "card.personas": "Persona's",
   "card.field_label": "Persona (alleen jij ziet dit)",
-  "card.label_placeholder": "bijv. Werk, Esperanto, Vrienden",
+  "card.label_placeholder": "bijv. Werk, Vrienden, Wandelen",
   "card.field_tags": "Waar je mee bezig bent — tik om te kiezen, of voeg je eigen toe",
   "card.custom_tag": "Typ je eigen en druk op Enter",
   "card.delete_persona": "Deze persona verwijderen",
@@ -155,7 +155,7 @@
   "meetup.new_explain": "Koffie op de locatie, een taaltafel, een side event — het verschijnt bij iedereen in de buurt met passende tags.",
   "meetup.need_account": "Om te organiseren heb je een account nodig, zodat mensen zien wie hen uitnodigt. Geen e-mail of telefoonnummer nodig.",
   "meetup.field_title": "Wat",
-  "meetup.title_placeholder": "bijv. Esperanto-koffie bij Paviljoen 2",
+  "meetup.title_placeholder": "bijv. Koffie na de keynote",
   "meetup.field_start": "Wanneer",
   "meetup.field_duration": "Hoe lang",
   "meetup.field_venue": "Waar precies",
@@ -399,5 +399,10 @@
   "js.card_sent": "Kaartje verstuurd",
   "connect.save_name": "Toevoegen aan mijn kaartje",
   "meetup.open_on": "Openen op",
-  "meetup.going_here": "gaan, via Kafumu"
+  "meetup.going_here": "gaan, via Kafumu",
+  "js.own_domain": "Gebruikt een eigen domein als naam",
+  "js.new_account": "nieuw account",
+  "js.on_bsky_since": "op Bluesky sinds {when}",
+  "js.show_anyway": "Toch tonen",
+  "js.reply_on_bsky": "Reageren op Bluesky"
 }

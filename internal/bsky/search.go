@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 	"strings"
 	"sync"
 	"time"
@@ -32,6 +33,13 @@ type Post struct {
 	CreatedAt time.Time `json:"createdAt"`
 	// Via is the tag this post was found under (e.g. "geo9f469w", "amsterdam").
 	Via string `json:"via"`
+	// For judging reliability on the device: engagement, the author's
+	// account age, and moderation labels on the post or its author.
+	Likes   int        `json:"likes,omitempty"`
+	Reposts int        `json:"reposts,omitempty"`
+	Replies int        `json:"replies,omitempty"`
+	Since   *time.Time `json:"since,omitempty"`
+	Labels  []string   `json:"labels,omitempty"`
 }
 
 // Client searches the AppView with a per-instance TTL cache, so a busy cell
@@ -119,11 +127,18 @@ func (c *Client) fetch(ctx context.Context, tag string, limit int) ([]Post, erro
 
 type searchResponse struct {
 	Posts []struct {
-		URI    string `json:"uri"`
+		URI         string `json:"uri"`
+		LikeCount   int    `json:"likeCount"`
+		RepostCount int    `json:"repostCount"`
+		ReplyCount  int    `json:"replyCount"`
+		Labels      []struct {
+			Val string `json:"val"`
+		} `json:"labels"`
 		Author struct {
-			Handle      string `json:"handle"`
-			DisplayName string `json:"displayName"`
-			Avatar      string `json:"avatar"`
+			Handle      string     `json:"handle"`
+			DisplayName string     `json:"displayName"`
+			Avatar      string     `json:"avatar"`
+			CreatedAt   *time.Time `json:"createdAt"`
 			Labels      []struct {
 				Val string `json:"val"`
 			} `json:"labels"`
@@ -156,6 +171,10 @@ func (r *searchResponse) posts(via string) []Post {
 			Langs:     p.Record.Langs,
 			CreatedAt: p.Record.CreatedAt,
 			Via:       via,
+			Likes:     p.LikeCount,
+			Reposts:   p.RepostCount,
+			Replies:   p.ReplyCount,
+			Since:     p.Author.CreatedAt,
 		}
 		seen := map[string]bool{}
 		add := func(t string) {
@@ -175,9 +194,11 @@ func (r *searchResponse) posts(via string) []Post {
 				}
 			}
 		}
-		for _, l := range p.Author.Labels {
+		for _, l := range append(p.Labels, p.Author.Labels...) {
 			if l.Val == "bot" {
 				post.Bot = true
+			} else if l.Val != "" && !slices.Contains(post.Labels, l.Val) {
+				post.Labels = append(post.Labels, l.Val)
 			}
 		}
 		out = append(out, post)

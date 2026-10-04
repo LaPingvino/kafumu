@@ -68,7 +68,7 @@
   "card.explain": "É o que entrega a quem conhece: leiam o código um do outro e ambos ficam com o cartão do outro. Preencha só o que quer partilhar.",
   "card.field_name": "Nome",
   "card.field_about": "Uma linha sobre si",
-  "card.about_placeholder": "ex.: open source, esperanto, robótica — disponível para um café",
+  "card.about_placeholder": "ex.: design, caminhadas, a aprender espanhol — disponível para um café",
   "card.field_email": "Email",
   "card.field_phone": "Telefone",
   "card.field_website": "Site",
@@ -130,7 +130,7 @@
   "js.restore_failed": "Isso não é uma cópia do Kafumu.",
   "card.personas": "Personas",
   "card.field_label": "Persona (só você vê isto)",
-  "card.label_placeholder": "ex.: Trabalho, Esperanto, Amigos",
+  "card.label_placeholder": "ex.: Trabalho, Amigos, Caminhadas",
   "card.field_tags": "Do que se ocupa — toque para escolher, ou junte os seus",
   "card.custom_tag": "Escreva o seu e prima Enter",
   "card.delete_persona": "Apagar esta persona",
@@ -155,7 +155,7 @@
   "meetup.new_explain": "Um café no recinto, uma mesa de línguas, um evento paralelo — aparece a todos por perto cujas etiquetas coincidam.",
   "meetup.need_account": "Para organizar precisa de uma conta, para que as pessoas saibam quem as convida. Sem email nem telefone.",
   "meetup.field_title": "O quê",
-  "meetup.title_placeholder": "ex.: Café em esperanto no Pavilhão 2",
+  "meetup.title_placeholder": "ex.: Café depois da palestra",
   "meetup.field_start": "Quando",
   "meetup.field_duration": "Duração",
   "meetup.field_venue": "Onde exatamente",
@@ -399,5 +399,10 @@
   "js.card_sent": "Cartão enviado",
   "connect.save_name": "Adicionar ao meu cartão",
   "meetup.open_on": "Abrir em",
-  "meetup.going_here": "vão, pelo Kafumu"
+  "meetup.going_here": "vão, pelo Kafumu",
+  "js.own_domain": "Usa o próprio domínio como nome",
+  "js.new_account": "conta nova",
+  "js.on_bsky_since": "no Bluesky desde {when}",
+  "js.show_anyway": "Mostrar mesmo assim",
+  "js.reply_on_bsky": "Responder no Bluesky"
 }

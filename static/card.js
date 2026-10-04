@@ -6,6 +6,10 @@
   var $ = function (id) { return document.getElementById(id); };
   var form = $("card-form"), status = $("card-status"), preview = $("card-preview");
   var all = [], cur = null;
+  // Phone examples in the local format ("+31…" in Ede), never a fixed country.
+  Array.prototype.forEach.call(document.querySelectorAll("[data-phone]"), function (i) {
+    i.placeholder = P.phoneExample() + (i.dataset.phone ? " " + i.dataset.phone : "");
+  });
 
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
   function title(p, i) { return p.label || (p.card && p.card.name) || (T.persona_n || "Persona {n}").replace("{n}", i + 1); }
