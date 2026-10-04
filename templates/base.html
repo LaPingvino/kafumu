@@ -61,6 +61,7 @@
     <a href="/privacy">{{t .Lang "privacy.title"}}</a> · <a href="/patrons">{{t .Lang "patrons.title"}}</a> · <a href="/built">{{t .Lang "built.title"}}</a></small>
   </footer>
   <nav class="switcher bottom" aria-label="{{.Brand}}">{{template "tabs" .}}</nav>
+  <script>(function () { var a = document.querySelector(".switcher.bottom a[aria-current]"); if (a) a.scrollIntoView({ inline: "nearest", block: "nearest" }); })();</script>
   <script>window.KAFUMU_T = window.KAFUMU_T || {{.JS}}; window.KAFUMU_V = {{.V}};</script>
   <script src="/static/app.js?v={{.V}}" defer></script>
 </body>

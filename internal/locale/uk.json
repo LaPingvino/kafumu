@@ -541,5 +541,8 @@
   "privacy.row_business_kept": "Доки його не закрито",
   "js.handle_view_now": "Хтось зараз відкриває твоє посилання",
   "js.handle_view_ago": "Хтось відкрив твоє посилання {m} хв тому",
-  "js.handle_views_today": "Сьогодні: {n}"
+  "js.handle_views_today": "Сьогодні: {n}",
+  "patrons.business": "Маєш кав'ярню, майданчик чи подію? Бізнес-акаунт теж підтримує Kafumu →",
+  "account.business": "Ти бізнес? Спробуй бізнес-акаунт, перший місяць безкоштовно →",
+  "account.want_password": "Але я справді хочу пароль!"
 }

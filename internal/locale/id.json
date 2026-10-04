@@ -541,5 +541,8 @@
   "privacy.row_business_kept": "Sampai ditutup",
   "js.handle_view_now": "Seseorang sedang membuka tautanmu",
   "js.handle_view_ago": "Seseorang membuka tautanmu {m} menit lalu",
-  "js.handle_views_today": "{n} hari ini"
+  "js.handle_views_today": "{n} hari ini",
+  "patrons.business": "Punya kafe, tempat, atau acara? Akun bisnis juga mendukung Kafumu →",
+  "account.business": "Kamu sebuah bisnis? Coba akun bisnis, bulan pertama gratis →",
+  "account.want_password": "Tapi aku benar-benar mau kata sandi!"
 }

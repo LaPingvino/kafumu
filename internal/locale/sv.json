@@ -541,5 +541,8 @@
   "privacy.row_business_kept": "Tills det avslutas",
   "js.handle_view_now": "Någon öppnar din länk just nu",
   "js.handle_view_ago": "Någon öppnade din länk för {m} min sedan",
-  "js.handle_views_today": "{n} i dag"
+  "js.handle_views_today": "{n} i dag",
+  "patrons.business": "Driver du ett kafé, en lokal eller ett evenemang? Ett företagskonto stöttar också Kafumu →",
+  "account.business": "Är du ett företag? Testa ett företagskonto, första månaden gratis →",
+  "account.want_password": "Men jag vill verkligen ha ett lösenord!"
 }

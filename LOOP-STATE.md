@@ -422,6 +422,8 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
 - [ ] 64. Self-hosting and OLN nodes (Joop): run Kafumu outside GAE (plain Go binary + a file/SQL store, no
       memcache), a page on how to self-host and link a node into OLN, and linked nodes on the admin page
       (peers pulled from / pushed to, last seen). Also mention self-hosting on /business.
+      Joop (2026-10-05): bahais.in will be a GAE-less fork (adding local-community options). Most useful here: a
+      SQLite implementation of the store interfaces, picked by env var, so forks needn't write their own.
 - [ ] 45. OPEN DESIGN (with Joop, not a tick): a better model for paid services. Joop (2026-10-04): the
       "For cafés and venues" page "isn't well thought out", "we'll need a better model for paid services".
       Constraints from VISION: core use free forever, Lichess-style patrons, relevance instead of ads, nothing

@@ -7,6 +7,7 @@
     {{if .ATproto}}<form method="post" action="/oauth/login" class="inline"><input name="handle" placeholder="you.bsky.social" autocomplete="username" aria-label="Handle">
       <button type="submit" class="pill">{{t .Lang "atproto.signin"}}</button></form>{{end}}
     <p>{{t .Lang "account.what_we_keep"}}</p>
+    <p class="dim small"><a href="https://neal.fun/password-game/" target="_blank" rel="noopener">{{t .Lang "account.want_password"}}</a></p>
     <form method="post" action="/account/start"><input type="hidden" name="next" value="{{.Next}}"><button type="submit" class="pill">{{t .Lang "account.start"}}</button></form>
     {{if .Passkeys}}<p><button type="button" id="passkey-login" class="pill" hidden>🔑 {{t .Lang "passkey.signin"}}</button></p>
     <p id="passkey-status" class="dim small" role="status"></p>{{end}}
@@ -112,7 +113,8 @@
     </script>
     {{end}}
 
-    {{if not .Findable}}<h2>{{t .Lang "account.leave_title"}}</h2>
+    {{if not .Findable}}<p class="card" style="padding:8px 16px">🏪 <a href="/business">{{t .Lang "account.business"}}</a></p>
+    <h2>{{t .Lang "account.leave_title"}}</h2>
     <div class="actions">
     <form method="post" action="/account/signout"><button type="submit" class="secondary">{{t .Lang "account.signout"}}</button></form>
     <form method="post" action="/account/delete" onsubmit="return confirm(this.dataset.q)" data-q="{{ts .Lang "account.delete_confirm"}}">

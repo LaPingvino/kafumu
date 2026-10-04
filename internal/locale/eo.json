@@ -541,5 +541,8 @@
   "privacy.row_business_kept": "Ĝis ĝi estas fermita",
   "js.handle_view_now": "Iu malfermas vian ligilon ĝuste nun",
   "js.handle_view_ago": "Iu malfermis vian ligilon antaŭ {m} min",
-  "js.handle_views_today": "{n} hodiaŭ"
+  "js.handle_views_today": "{n} hodiaŭ",
+  "patrons.business": "Ĉu vi havas kafejon, ejon aŭ eventon? Komerca konto ankaŭ subtenas Kafumu →",
+  "account.business": "Ĉu vi estas komerco? Provu komercan konton, la unua monato senpage →",
+  "account.want_password": "Sed mi vere volas krei pasvorton!"
 }

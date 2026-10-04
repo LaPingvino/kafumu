@@ -541,5 +541,8 @@
   "privacy.row_business_kept": "Amíg meg nem szűnik",
   "js.handle_view_now": "Valaki most nyitja meg a linkedet",
   "js.handle_view_ago": "Valaki {m} perce megnyitotta a linkedet",
-  "js.handle_views_today": "Ma: {n}"
+  "js.handle_views_today": "Ma: {n}",
+  "patrons.business": "Kávézód, helyszíned vagy eseményed van? Az üzleti fiók a Kafumut is támogatja →",
+  "account.business": "Vállalkozás vagy? Próbáld ki az üzleti fiókot, az első hónap ingyenes →",
+  "account.want_password": "De én tényleg jelszót akarok!"
 }

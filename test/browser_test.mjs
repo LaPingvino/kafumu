@@ -192,7 +192,7 @@ try {
     catch (e) { if (i >= 10) throw e; }
   }
   // Clean up (this test also runs against production).
-  await A.evaluate("window.confirm = () => true; document.querySelector('form[action$=\"/delete\"]').requestSubmit(); true");
+  try { await A.evaluate("window.confirm = () => true; document.querySelector('form[action$=\"/delete\"]').requestSubmit(); true"); } catch (e) { console.log("DEBUG at", await A.evaluate("location.href + ' | ' + document.body.innerText.slice(0, 300)")); throw e; }
   await sleep(1000);
 
   // Business account (local only: it would stay behind in production): A

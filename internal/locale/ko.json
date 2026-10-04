@@ -541,5 +541,8 @@
   "privacy.row_business_kept": "닫을 때까지",
   "js.handle_view_now": "지금 누군가 내 링크를 열고 있어요",
   "js.handle_view_ago": "{m}분 전에 누군가 내 링크를 열었어요",
-  "js.handle_views_today": "오늘 {n}회"
+  "js.handle_views_today": "오늘 {n}회",
+  "patrons.business": "카페나 공간, 행사를 운영하나요? 비즈니스 계정은 Kafumu를 응원하는 방법이기도 해요 →",
+  "account.business": "사업체인가요? 비즈니스 계정을 써 보세요, 첫 달 무료 →",
+  "account.want_password": "그래도 비밀번호를 꼭 만들고 싶어요!"
 }

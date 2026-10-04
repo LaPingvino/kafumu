@@ -541,5 +541,8 @@
   "privacy.row_business_kept": "Kapatılana kadar",
   "js.handle_view_now": "Biri şu an bağlantını açıyor",
   "js.handle_view_ago": "Biri {m} dk önce bağlantını açtı",
-  "js.handle_views_today": "Bugün: {n}"
+  "js.handle_views_today": "Bugün: {n}",
+  "patrons.business": "Kafen, mekânın ya da etkinliğin mi var? İşletme hesabı da Kafumu'yu destekler →",
+  "account.business": "İşletme misin? İşletme hesabını dene, ilk ay ücretsiz →",
+  "account.want_password": "Ama ben gerçekten şifre istiyorum!"
 }

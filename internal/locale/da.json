@@ -541,5 +541,8 @@
   "privacy.row_business_kept": "Indtil den lukkes",
   "js.handle_view_now": "Nogen åbner dit link lige nu",
   "js.handle_view_ago": "Nogen åbnede dit link for {m} min siden",
-  "js.handle_views_today": "{n} i dag"
+  "js.handle_views_today": "{n} i dag",
+  "patrons.business": "Har du en café, et sted eller et event? En virksomhedskonto støtter også Kafumu →",
+  "account.business": "Er du en virksomhed? Prøv en virksomhedskonto, første måned gratis →",
+  "account.want_password": "Men jeg vil virkelig have en adgangskode!"
 }

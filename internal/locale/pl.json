@@ -541,5 +541,8 @@
   "privacy.row_business_kept": "Do jego zamknięcia",
   "js.handle_view_now": "Ktoś właśnie otwiera twój link",
   "js.handle_view_ago": "Ktoś otworzył twój link {m} min temu",
-  "js.handle_views_today": "Dziś: {n}"
+  "js.handle_views_today": "Dziś: {n}",
+  "patrons.business": "Prowadzisz kawiarnię, lokal lub wydarzenie? Konto firmowe też wspiera Kafumu →",
+  "account.business": "Jesteś firmą? Wypróbuj konto firmowe, pierwszy miesiąc za darmo →",
+  "account.want_password": "Ale ja naprawdę chcę hasło!"
 }

@@ -541,5 +541,8 @@
   "privacy.row_business_kept": "Până când e închis",
   "js.handle_view_now": "Cineva îți deschide linkul acum",
   "js.handle_view_ago": "Cineva ți-a deschis linkul acum {m} min",
-  "js.handle_views_today": "Azi: {n}"
+  "js.handle_views_today": "Azi: {n}",
+  "patrons.business": "Ai o cafenea, un local sau un eveniment? Un cont de afacere susține și Kafumu →",
+  "account.business": "Ești o afacere? Încearcă un cont de afacere, prima lună gratuit →",
+  "account.want_password": "Dar chiar vreau o parolă!"
 }

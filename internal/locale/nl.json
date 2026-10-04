@@ -541,5 +541,8 @@
   "privacy.row_business_kept": "Tot het wordt opgeheven",
   "js.handle_view_now": "Iemand opent nu je link",
   "js.handle_view_ago": "Iemand opende je link {m} min geleden",
-  "js.handle_views_today": "{n} vandaag"
+  "js.handle_views_today": "{n} vandaag",
+  "patrons.business": "Heb je een café, locatie of evenement? Een zakelijk account steunt Kafumu ook →",
+  "account.business": "Ben je een bedrijf? Probeer een zakelijk account, eerste maand gratis →",
+  "account.want_password": "Maar ik wil echt een wachtwoord instellen!"
 }

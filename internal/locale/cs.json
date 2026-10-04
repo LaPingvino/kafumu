@@ -541,5 +541,8 @@
   "privacy.row_business_kept": "Dokud není zrušen",
   "js.handle_view_now": "Někdo právě otevírá tvůj odkaz",
   "js.handle_view_ago": "Někdo otevřel tvůj odkaz před {m} min",
-  "js.handle_views_today": "Dnes: {n}"
+  "js.handle_views_today": "Dnes: {n}",
+  "patrons.business": "Máš kavárnu, prostor nebo akci? Firemní účet také podporuje Kafumu →",
+  "account.business": "Jsi firma? Vyzkoušej firemní účet, první měsíc zdarma →",
+  "account.want_password": "Ale já opravdu chci heslo!"
 }

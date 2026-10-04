@@ -541,5 +541,8 @@
   "privacy.row_business_kept": "直到关闭",
   "js.handle_view_now": "有人正在打开你的链接",
   "js.handle_view_ago": "{m} 分钟前有人打开了你的链接",
-  "js.handle_views_today": "今天 {n} 次"
+  "js.handle_views_today": "今天 {n} 次",
+  "patrons.business": "经营咖啡馆、场地或活动？商业账号也能支持 Kafumu →",
+  "account.business": "你是商家吗？试试商业账号，第一个月免费 →",
+  "account.want_password": "可我就是想设个密码！"
 }

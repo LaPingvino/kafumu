@@ -541,5 +541,8 @@
   "privacy.row_business_kept": "Until it's closed",
   "js.handle_view_now": "Someone is opening your link right now",
   "js.handle_view_ago": "Someone opened your link {m} min ago",
-  "js.handle_views_today": "{n} today"
+  "js.handle_views_today": "{n} today",
+  "patrons.business": "Running a café, venue or event? A business account supports Kafumu too →",
+  "account.business": "Are you a business? Try a business account, first month free →",
+  "account.want_password": "But I really want to set up a password!"
 }

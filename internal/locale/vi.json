@@ -541,5 +541,8 @@
   "privacy.row_business_kept": "Cho đến khi đóng",
   "js.handle_view_now": "Có người đang mở liên kết của bạn",
   "js.handle_view_ago": "Có người đã mở liên kết của bạn {m} phút trước",
-  "js.handle_views_today": "{n} hôm nay"
+  "js.handle_views_today": "{n} hôm nay",
+  "patrons.business": "Bạn có quán cà phê, địa điểm hay sự kiện? Tài khoản doanh nghiệp cũng ủng hộ Kafumu →",
+  "account.business": "Bạn là doanh nghiệp? Thử tài khoản doanh nghiệp, tháng đầu miễn phí →",
+  "account.want_password": "Nhưng tôi thật sự muốn đặt mật khẩu!"
 }

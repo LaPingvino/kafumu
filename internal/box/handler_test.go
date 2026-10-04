@@ -148,19 +148,19 @@ func TestPostNeedsWork(t *testing.T) {
 func TestInboxPrice(t *testing.T) {
 	h := NewHandler(NewMemoryStore())
 	prices := NewPrices(nil)
-	prices.Set(context.Background(), id, 16)
+	prices.Set(context.Background(), id, 6)
 	h.Price = prices.Price
 	s := serve(h)
 	cheap := httptest.NewRequest("POST", "/api/box/"+id, strings.NewReader("hi"))
 	cheap.Header.Set("X-Kafumu-Work", pow.MineBits([]byte("hi"), "box"+id, time.Now(), pow.MinBits))
 	w := httptest.NewRecorder()
 	s.ServeHTTP(w, cheap)
-	// A cheap stamp may happen to reach 16 bits; only check when it didn't.
-	if w.Code == http.StatusNoContent && pow.CheckBits(cheap.Header.Get("X-Kafumu-Work"), []byte("hi"), "box"+id, time.Now(), 16) != nil {
+	// A cheap stamp may happen to reach 6 bits; only check when it didn't.
+	if w.Code == http.StatusNoContent && pow.CheckBits(cheap.Header.Get("X-Kafumu-Work"), []byte("hi"), "box"+id, time.Now(), 6) != nil {
 		t.Errorf("under-priced message accepted")
 	}
 	paid := httptest.NewRequest("POST", "/api/box/"+id, strings.NewReader("hi there"))
-	paid.Header.Set("X-Kafumu-Work", pow.MineBits([]byte("hi there"), "box"+id, time.Now(), 16))
+	paid.Header.Set("X-Kafumu-Work", pow.MineBits([]byte("hi there"), "box"+id, time.Now(), 6))
 	w = httptest.NewRecorder()
 	s.ServeHTTP(w, paid)
 	if w.Code != http.StatusNoContent {
