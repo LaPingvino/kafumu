@@ -32,6 +32,7 @@ import (
 	"github.com/LaPingvino/kafumu/internal/push"
 	"github.com/LaPingvino/kafumu/internal/short"
 	"github.com/LaPingvino/kafumu/internal/slot"
+	"github.com/LaPingvino/kafumu/internal/vault"
 )
 
 //go:embed templates/*.html
@@ -62,6 +63,10 @@ func main() {
 	mailbox.Price = prices.Price
 	accounts.Prices = prices
 	accounts.Cache = kv
+	accounts.Vault = vault.NewMemoryStore()
+	if db != nil {
+		accounts.Vault = &vault.DatastoreStore{DB: db}
+	}
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /", home.ShowHome)
@@ -108,6 +113,8 @@ func main() {
 	mux.HandleFunc("GET /account/move", accounts.MoveRequest)
 	mux.HandleFunc("POST /account/move", accounts.MoveRequest)
 	mux.HandleFunc("DELETE /account/move", accounts.MoveRequest)
+	mux.HandleFunc("GET /api/vault", accounts.VaultAPI)
+	mux.HandleFunc("PUT /api/vault", accounts.VaultAPI)
 	mux.HandleFunc("POST /account/signout", accounts.SignOut)
 	mux.HandleFunc("POST /account/delete", accounts.Delete)
 	mux.HandleFunc("GET /auth/link", accounts.Link)

@@ -183,6 +183,8 @@ try {
     const link = await B.evaluate("document.querySelector('.magic input').value");
     await C.goto(link.replace(/^https?:\/\/[^/]+/, base));
     await C.goto(base + "/contacts");
+    // Signed in, but the sync key is still on B: C is asked to get it once.
+    await C.waitFor("!document.getElementById('sync-needs-key').hidden", "C asked to fetch the sync key");
     await C.evaluate("document.getElementById('move-start').click()");
     await C.waitFor("document.getElementById('move-code').textContent.length > 0", "C's move code");
     const emoji = await C.evaluate("document.getElementById('move-code').textContent");
@@ -194,6 +196,25 @@ try {
     await C.evaluate("document.getElementById('move-apply').click()");
     await sleep(2000);
     await C.waitFor("document.getElementById('contacts').textContent.includes('Ana')", "Ana moved to C");
+    // From now on B and C stay in sync by themselves: a note B writes shows
+    // up on C; a contact C removes stays removed on B (tombstone).
+    await B.goto(base + "/contacts");
+    await B.waitFor("!document.getElementById('sync-on').hidden", "B syncing");
+    await B.evaluate("(() => { const i = document.querySelector('#contacts li input:not(.chip-input):not(.alias)'); i.value = 'synced " + RUN + "'; i.dispatchEvent(new Event('change')); return true; })()");
+    await sleep(4000);
+    for (let i = 0; ; i++) {
+      await C.goto(base + "/contacts");
+      try { await C.waitFor("[...document.querySelectorAll('#contacts input')].some(i => i.value === 'synced " + RUN + "')", "B's note synced to C", 6000); break; }
+      catch (e) { if (i >= 3) throw e; }
+    }
+    await C.evaluate("(() => { window.confirm = () => true; [...document.querySelectorAll('#contacts li')].find(li => [...li.querySelectorAll('input')].some(i => i.value === 'synced " + RUN + "')).querySelector('button.contrast').click(); return true; })()");
+    await sleep(4000);
+    for (let i = 0; ; i++) {
+      await B.goto(base + "/contacts");
+      await sleep(2500);
+      if (!(await B.evaluate("[...document.querySelectorAll('#contacts input')].some(i => i.value === 'synced " + RUN + "')"))) break;
+      if (i >= 3) throw new Error("contact removed on C came back on B");
+    }
   } finally { C.close(); }
 
   // Connecting needs no data (Joop): D scans A's code with no name at all;
@@ -219,7 +240,7 @@ try {
     }
   } finally { D.close(); }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device, connected without a card + named + late card, meetup hosted and seen, findable profile seen, paid inbox message + connect back, OLN message + question/answer + local themes + views + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device + synced both ways (note, removal), connected without a card + named + late card, meetup hosted and seen, findable profile seen, paid inbox message + connect back, OLN message + question/answer + local themes + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

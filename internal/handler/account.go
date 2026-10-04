@@ -4,7 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"github.com/LaPingvino/kafumu/internal/vault"
 	"html/template"
+	"io"
 	"log"
 	"net/http"
 	"regexp"
@@ -36,6 +38,8 @@ type Accounts struct {
 	Prices account.InboxPrices
 	// Cache holds short-lived move requests between your own devices.
 	Cache cache.Cache
+	// Vault holds each account's encrypted cards and contacts (device sync).
+	Vault vault.Store
 }
 
 // Middleware resolves the "k" cookie. It never creates an account: page views
@@ -169,6 +173,9 @@ func (a *Accounts) Delete(w http.ResponseWriter, r *http.Request) {
 		if u.InboxBox != "" && a.Prices != nil {
 			_ = a.Prices.Delete(r.Context(), u.InboxBox)
 		}
+		if a.Vault != nil {
+			_ = a.Vault.Delete(r.Context(), u.ID)
+		}
 		if err := a.Svc.Delete(r.Context(), u); err != nil {
 			log.Printf("account: delete: %v", err)
 			http.Error(w, "could not delete account", http.StatusInternalServerError)
@@ -299,3 +306,54 @@ func (a *Accounts) MoveRequest(w http.ResponseWriter, r *http.Request) {
 }
 
 var boxIDRE = regexp.MustCompile(`^[0-9a-f]{64}$`)
+
+// VaultAPI handles GET and PUT /api/vault: your own encrypted cards and
+// contacts, for your other devices. PUT needs If-Match: <version> and
+// answers 409 when another device wrote first (pull, merge, retry).
+func (a *Accounts) VaultAPI(w http.ResponseWriter, r *http.Request) {
+	u := UserFrom(r.Context())
+	if u == nil || a.Vault == nil || IsBot(r) {
+		http.Error(w, "sign in first", http.StatusUnauthorized)
+		return
+	}
+	w.Header().Set("Cache-Control", "no-store")
+	w.Header().Set("Content-Type", "application/json")
+	if r.Method == http.MethodPut {
+		want, err := strconv.Atoi(r.Header.Get("If-Match"))
+		if err != nil {
+			http.Error(w, "If-Match: version wanted", http.StatusPreconditionRequired)
+			return
+		}
+		body, err := io.ReadAll(io.LimitReader(r.Body, vault.MaxBytes+1))
+		if err != nil {
+			http.Error(w, "bad body", http.StatusBadRequest)
+			return
+		}
+		v, err := a.Vault.Put(r.Context(), u.ID, want, body, time.Now())
+		switch {
+		case errors.Is(err, vault.ErrConflict):
+			http.Error(w, "conflict", http.StatusConflict)
+		case errors.Is(err, vault.ErrTooBig):
+			http.Error(w, "too big", http.StatusRequestEntityTooLarge)
+		case err != nil:
+			log.Printf("vault: put: %v", err)
+			http.Error(w, "unavailable", http.StatusServiceUnavailable)
+		default:
+			json.NewEncoder(w).Encode(map[string]int{"version": v})
+		}
+		return
+	}
+	v, err := a.Vault.Get(r.Context(), u.ID)
+	if err != nil {
+		http.Error(w, "unavailable", http.StatusServiceUnavailable)
+		return
+	}
+	out := struct {
+		Version int    `json:"version"`
+		Data    string `json:"data,omitempty"`
+	}{}
+	if v != nil {
+		out.Version, out.Data = v.Version, string(v.Data)
+	}
+	json.NewEncoder(w).Encode(out)
+}

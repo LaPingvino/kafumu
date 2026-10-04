@@ -418,5 +418,8 @@
   "js.say_ph_lunch": "Ĉu iu emas tagmanĝi {where}?",
   "js.say_ph_afternoon": "Kafopaŭzo {where}, ĉu iu?",
   "js.say_ph_evening": "Ĉu iu emas trinki ion {where} ĉi-vespere?",
-  "about.name": "<em>Ni kafumu</em> signifas “ni trinku kafon kune”: Esperanto estis farita por renkonti homojn trans landlimoj. Ĉu vi konas iun, kiu volas lerni ĝin? <a href=\"https://esperanto-kurso.net\">esperanto-kurso.net</a> instruas ĝin senpage, de la sama kreinto."
+  "about.name": "<em>Ni kafumu</em> signifas “ni trinku kafon kune”: Esperanto estis farita por renkonti homojn trans landlimoj. Ĉu vi konas iun, kiu volas lerni ĝin? <a href=\"https://esperanto-kurso.net\">esperanto-kurso.net</a> instruas ĝin senpage, de la sama kreinto.",
+  "sync.on": "Sinkronigita kun viaj aliaj ensalutintaj aparatoj.",
+  "sync.needs_key_title": "Viaj kartoj kaj kontaktoj estas en via alia aparato",
+  "sync.needs_key": "Prenu ilin ĉi tien unufoje, kun la alia aparato malfermita kaj ensalutinta. Poste ĉio restas sinkronigita memstare: ĉifrita, la servilo ne povas legi ĝin."
 }

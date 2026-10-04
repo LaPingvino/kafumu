@@ -121,7 +121,8 @@
     },
     save: function (ps) {
       // Keep "card" mirroring the first persona for older pages and backups.
-      return store.set("personas", ps).then(function () { return store.set("card", (ps[0] && ps[0].card) || {}); });
+      return store.set("personas", ps).then(function () { return store.set("card", (ps[0] && ps[0].card) || {}); })
+        .then(function () { return store.set("personasAt", new Date().toISOString()); }).then(syncSoon);
     },
     // share returns what to hand over: persona p, only the ticked fields.
     share: function (p, fields) {
@@ -138,7 +139,10 @@
         return { persona: p, fields: ch.persona === p.id && ch.fields ? ch.fields : null, all: ps };
       });
     },
-    setChoice: function (personaID, fields) { return store.set("shareChoice", { persona: personaID, fields: fields }); },
+    setChoice: function (personaID, fields) {
+      return store.set("shareChoice", { persona: personaID, fields: fields })
+        .then(function () { return store.set("personasAt", new Date().toISOString()); }).then(syncSoon);
+    },
     shareCard: function () { return personas.choice().then(function (ch) { return personas.share(ch.persona, ch.fields); }); },
     newID: newID,
     SUGGESTED_TAGS: SUGGESTED_TAGS,
@@ -286,8 +290,8 @@
   // backup is everything on this device, including pair keys: treat the
   // file like a password. restore merges it back in.
   function backup() {
-    return Promise.all([store.get("card"), store.contacts(), store.get("personas")]).then(function (r) {
-      return { kafumu: 1, exportedAt: new Date().toISOString(), card: r[0] || {}, contacts: r[1] || [], personas: r[2] || [] };
+    return Promise.all([store.get("card"), store.contacts(), store.get("personas"), store.get("syncKey")]).then(function (r) {
+      return { kafumu: 1, exportedAt: new Date().toISOString(), card: r[0] || {}, contacts: r[1] || [], personas: r[2] || [], syncKey: r[3] || undefined };
     });
   }
   function restore(data) {
@@ -296,7 +300,10 @@
       var steps = data.contacts.map(function (c) { return store.putContact(c); });
       if ((!mine || !mine.name) && data.card) steps.push(store.set("card", data.card));
       if ((!mine || !mine.name) && data.personas && data.personas.length) steps.push(store.set("personas", data.personas));
-      return Promise.all(steps).then(function () { return data.contacts.length; });
+      // A move (or backup) carries the account's sync key: from now on this
+      // device syncs with the others by itself.
+      if (data.syncKey) steps.push(store.set("syncKey", data.syncKey));
+      return Promise.all(steps).then(function () { syncSoon(); return data.contacts.length; });
     });
   }
 
@@ -308,6 +315,104 @@
     setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
   }
 
+  // ---- Sync between your own devices (signed in to the same account) ----
+  // One encrypted vault per account on the server (GET/PUT /api/vault); the
+  // key is made on the first device and travels to others only inside the
+  // account-bound move (or a backup file). Contacts merge per contact, the
+  // newer write winning; a deletion is final (tombstone, kept 30 days): a
+  // late message for that contact must not bring it back, and connecting
+  // again makes a new contact anyway. Personas and the share choice go as
+  // one, newer wins.
+  var rawPut = store.putContact, rawDel = store.deleteContact, syncTimer = null, syncing = null;
+  store.putContact = function (c) { c.updatedAt = new Date().toISOString(); return rawPut(c).then(function (r) { syncSoon(); return r; }); };
+  store.deleteContact = function (id) {
+    return rawDel(id).then(function () { return store.get("tombstones"); }).then(function (ts) {
+      ts = ts || {}; ts[id] = new Date().toISOString();
+      return store.set("tombstones", ts);
+    }).then(syncSoon);
+  };
+  function signedIn() { return typeof document !== "undefined" && !!(document.body && document.body.dataset.signedIn); }
+  function syncSoon() { if (!signedIn()) return; clearTimeout(syncTimer); syncTimer = setTimeout(function () { sync(); }, 1500); }
+  function setSync(state) { window.kafumuSync = state; window.dispatchEvent(new CustomEvent("kafumu:sync", { detail: state })); }
+  function b64e(u8) { var s = ""; for (var i = 0; i < u8.length; i++) s += String.fromCharCode(u8[i]); return btoa(s); }
+  function b64d(s) { return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }); }
+  var AAD = new TextEncoder().encode("kafumu-vault-v1");
+  function aes(keyB64) { return crypto.subtle.importKey("raw", b64d(keyB64), "AES-GCM", false, ["encrypt", "decrypt"]); }
+  function seal(keyB64, obj) {
+    var iv = crypto.getRandomValues(new Uint8Array(12));
+    return aes(keyB64).then(function (k) {
+      return crypto.subtle.encrypt({ name: "AES-GCM", iv: iv, additionalData: AAD }, k, new TextEncoder().encode(JSON.stringify(obj)));
+    }).then(function (ct) { return "v1." + b64e(iv) + "." + b64e(new Uint8Array(ct)); });
+  }
+  function unseal(keyB64, text) {
+    var p = String(text).split(".");
+    if (p[0] !== "v1" || p.length !== 3) return Promise.reject(new Error("vault format"));
+    return aes(keyB64).then(function (k) {
+      return crypto.subtle.decrypt({ name: "AES-GCM", iv: b64d(p[1]), additionalData: AAD }, k, b64d(p[2]));
+    }).then(function (pt) { return JSON.parse(new TextDecoder().decode(pt)); });
+  }
+  function snapshot() {
+    return Promise.all([store.contacts(), store.get("personas"), store.get("shareChoice"), store.get("personasAt"), store.get("tombstones")])
+      .then(function (r) { return { contacts: r[0] || [], personas: r[1] || [], shareChoice: r[2] || null, personasAt: r[3] || "", tombstones: r[4] || {} }; });
+  }
+  function stamp(c) { return (c && (c.updatedAt || c.createdAt)) || ""; }
+  function canon(s) {
+    var cs = s.contacts.slice().sort(function (a, b) { return a.id < b.id ? -1 : 1; });
+    return JSON.stringify([cs, s.personas, s.shareChoice, s.personasAt, Object.keys(s.tombstones).sort().map(function (k) { return [k, s.tombstones[k]]; })]);
+  }
+  function merge(a, b) {
+    var cutoff = new Date(Date.now() - 30 * 864e5).toISOString(), ts = {}, byID = {};
+    [a.tombstones, b.tombstones].forEach(function (t) { Object.keys(t || {}).forEach(function (id) { if (t[id] > cutoff && (!ts[id] || t[id] > ts[id])) ts[id] = t[id]; }); });
+    a.contacts.concat(b.contacts).forEach(function (c) { if (!byID[c.id] || stamp(c) > stamp(byID[c.id])) byID[c.id] = c; });
+    var contacts = Object.keys(byID).map(function (id) { return byID[id]; }).filter(function (c) { return !ts[c.id]; });
+    var p = (b.personasAt || "") > (a.personasAt || "") ? b : a;
+    return { contacts: contacts, personas: p.personas, shareChoice: p.shareChoice, personasAt: p.personasAt, tombstones: ts };
+  }
+  function writeLocal(local, m) {
+    var keep = {};
+    m.contacts.forEach(function (c) { keep[c.id] = true; });
+    var steps = m.contacts.map(function (c) { return rawPut(c); });
+    local.contacts.forEach(function (c) { if (!keep[c.id]) steps.push(rawDel(c.id)); });
+    steps.push(store.set("personas", m.personas), store.set("shareChoice", m.shareChoice), store.set("personasAt", m.personasAt), store.set("tombstones", m.tombstones));
+    if (m.personas && m.personas[0]) steps.push(store.set("card", m.personas[0].card || {}));
+    return Promise.all(steps);
+  }
+  function sync(retry) {
+    if (!signedIn()) return Promise.resolve("off");
+    if (syncing && !retry) return syncing;
+    var run = fetch("/api/vault", { credentials: "same-origin" }).then(function (r) { if (!r.ok) throw new Error("off"); return r.json(); }).then(function (v) {
+      return Promise.all([store.get("syncKey"), snapshot()]).then(function (r) {
+        var key = r[0], local = r[1];
+        if (!v.data && !key) {
+          // First device of this account: make the key.
+          key = b64e(crypto.getRandomValues(new Uint8Array(32)));
+          return store.set("syncKey", key).then(function () { return push(key, local, v.version); });
+        }
+        if (!key) return "needs-key";
+        if (!v.data) return push(key, local, v.version);
+        return unseal(key, v.data).then(function (remote) {
+          var m = merge(local, remote);
+          var toLocal = canon(m) !== canon(local), toRemote = canon(m) !== canon(merge(remote, remote));
+          return (toLocal ? writeLocal(local, m).then(function () { window.dispatchEvent(new CustomEvent("kafumu:synced")); }) : Promise.resolve())
+            .then(function () { return toRemote ? push(key, m, v.version) : "on"; });
+        }, function () { return "needs-key"; });
+      });
+    }).then(function (state) {
+      if (state === "conflict" && !retry) return sync(true);
+      setSync(state === "conflict" ? "on" : state);
+      return state;
+    }).catch(function () { setSync("off"); return "off"; });
+    if (!retry) { syncing = run; run.then(function () { syncing = null; }); }
+    return run;
+  }
+  function push(key, snap, version) {
+    return seal(key, snap).then(function (text) {
+      return fetch("/api/vault", { method: "PUT", credentials: "same-origin", headers: { "If-Match": String(version || 0) }, body: text });
+    }).then(function (r) { return r.status === 409 ? "conflict" : r.ok ? "on" : "off"; });
+  }
+  if (signedIn()) setTimeout(function () { sync(); }, 300);
+  else if (typeof document !== "undefined") document.addEventListener("DOMContentLoaded", function () { if (signedIn()) sync(); });
+
   window.kafumuDevice = { signalText: signalText, store: store, FIELDS: FIELDS, links: links, renderContact: renderContact, personas: personas,
-    vcards: vcards, backup: backup, restore: restore, download: download };
+    vcards: vcards, backup: backup, restore: restore, download: download, sync: sync };
 })();

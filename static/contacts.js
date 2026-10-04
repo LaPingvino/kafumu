@@ -6,6 +6,15 @@
   var $ = function (id) { return document.getElementById(id); };
   var list = $("contacts"), empty = $("contacts-empty"), filter = $("contacts-filter");
 
+  // Sync status: on, or this device still needs the key (one move away).
+  function syncState(s) {
+    $("sync-on").hidden = s !== "on";
+    $("sync-needs-key").hidden = s !== "needs-key";
+  }
+  window.addEventListener("kafumu:sync", function (e) { syncState(e.detail); });
+  window.addEventListener("kafumu:synced", function () { show(); });
+  if (window.kafumuSync) syncState(window.kafumuSync);
+
   function show() {
     dev.store.contacts().then(function (cs) {
       cs.sort(function (a, b) { return (b.createdAt || "").localeCompare(a.createdAt || ""); });

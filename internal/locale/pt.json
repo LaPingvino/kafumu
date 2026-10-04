@@ -418,5 +418,8 @@
   "js.say_ph_lunch": "Alguém para almoçar {where}?",
   "js.say_ph_afternoon": "Pausa para café {where}, alguém?",
   "js.say_ph_evening": "Alguém para uma bebida {where} esta noite?",
-  "about.name": "<em>Ni kafumu</em> quer dizer “vamos tomar um café juntos” em esperanto, uma língua feita para conhecer pessoas além das fronteiras. Curioso? O <a href=\"https://esperanto-kurso.net\">esperanto-kurso.net</a> ensina-a de graça, do mesmo autor."
+  "about.name": "<em>Ni kafumu</em> quer dizer “vamos tomar um café juntos” em esperanto, uma língua feita para conhecer pessoas além das fronteiras. Curioso? O <a href=\"https://esperanto-kurso.net\">esperanto-kurso.net</a> ensina-a de graça, do mesmo autor.",
+  "sync.on": "Sincronizado com os teus outros dispositivos com sessão iniciada.",
+  "sync.needs_key_title": "Os teus cartões e contactos estão no outro dispositivo",
+  "sync.needs_key": "Traz-os para aqui uma vez, com o outro dispositivo aberto e com sessão iniciada. Depois, tudo fica sincronizado sozinho: encriptado, o servidor não o consegue ler."
 }

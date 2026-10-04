@@ -70,7 +70,7 @@ func Run(ctx context.Context, db *datastore.Client, now time.Time) (Result, erro
 		if u.KeepDays == -1 || idle < keep {
 			continue
 		}
-		del = append(del, k)
+		del = append(del, k, datastore.NameKey("Vault", k.Name, nil)) // their synced data goes with them
 		if u.Username != "" {
 			names = append(names, datastore.NameKey("Username", u.Username, nil))
 		}
@@ -79,7 +79,7 @@ func Run(ctx context.Context, db *datastore.Client, now time.Time) (Result, erro
 		if err := db.DeleteMulti(ctx, del); err != nil {
 			return r, fmt.Errorf("users: %w", err)
 		}
-		r.Users = len(del)
+		r.Users = len(del) / 2
 	}
 	if len(names) > 0 {
 		if err := db.DeleteMulti(ctx, names); err == nil {

@@ -418,5 +418,8 @@
   "js.say_ph_lunch": "Anyone up for lunch {where}?",
   "js.say_ph_afternoon": "Coffee break {where}, anyone?",
   "js.say_ph_evening": "Anyone up for a drink {where} tonight?",
-  "about.name": "<em>Ni kafumu</em> is Esperanto for “let's have a coffee together”: the language was made for meeting people across borders. Curious? <a href=\"https://esperanto-kurso.net\">esperanto-kurso.net</a> teaches it for free, from the same maker."
+  "about.name": "<em>Ni kafumu</em> is Esperanto for “let's have a coffee together”: the language was made for meeting people across borders. Curious? <a href=\"https://esperanto-kurso.net\">esperanto-kurso.net</a> teaches it for free, from the same maker.",
+  "sync.on": "Synced with your other signed-in devices.",
+  "sync.needs_key_title": "Your cards and contacts are on your other device",
+  "sync.needs_key": "Get them here once, with your other device open and signed in. After that, everything stays in sync on its own: encrypted, the server can't read it."
 }

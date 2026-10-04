@@ -418,5 +418,8 @@
   "js.say_ph_lunch": "Iemand zin om te lunchen {where}?",
   "js.say_ph_afternoon": "Koffiepauze {where}, iemand?",
   "js.say_ph_evening": "Iemand zin in een drankje {where} vanavond?",
-  "about.name": "<em>Ni kafumu</em> is Esperanto voor „laten we samen koffie drinken”: de taal is gemaakt om mensen over grenzen heen te ontmoeten. Nieuwsgierig? <a href=\"https://esperanto-kurso.net\">esperanto-kurso.net</a> leert het je gratis, van dezelfde maker."
+  "about.name": "<em>Ni kafumu</em> is Esperanto voor „laten we samen koffie drinken”: de taal is gemaakt om mensen over grenzen heen te ontmoeten. Nieuwsgierig? <a href=\"https://esperanto-kurso.net\">esperanto-kurso.net</a> leert het je gratis, van dezelfde maker.",
+  "sync.on": "Gesynchroniseerd met je andere ingelogde apparaten.",
+  "sync.needs_key_title": "Je kaartjes en contacten staan op je andere apparaat",
+  "sync.needs_key": "Haal ze één keer hierheen, met je andere apparaat open en ingelogd. Daarna blijft alles vanzelf gelijk: versleuteld, de server kan het niet lezen."
 }
