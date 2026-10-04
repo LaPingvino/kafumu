@@ -399,6 +399,8 @@
   function show(c, how, gps) {
     var tag = "#geo" + c;
     $("cell-tag").textContent = tag;
+    $("place-name").textContent = "";
+    document.querySelector(".cell-tag").classList.remove("named");
     document.querySelector(".cell-tag").hidden = false;
     $("cell-actions").hidden = false;
     $("compose").href = "https://bsky.app/intent/compose?text=" + encodeURIComponent("\n\n" + tag);
@@ -454,6 +456,12 @@
         showMeetups(b.meetups || [], b.events || []);
         travel.meetups = (b.meetups || []).length;
         travel.place = ((b.places || [])[0] || {}).place || "";
+        // A human heading: "Barreiro" or "Areeiro, Lisbon", the cell tag below.
+        if (b.near && b.near.name) {
+          $("place-name").textContent = b.near.name + (b.near.city ? ", " + b.near.city : "");
+          document.querySelector(".cell-tag").classList.add("named");
+          travel.place = travel.place || b.near.name;
+        }
         drawTravel();
         showPeople(b.people || []);
         render(b.posts || [], ringOf, places, c);

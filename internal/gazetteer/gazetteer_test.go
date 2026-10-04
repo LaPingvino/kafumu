@@ -115,3 +115,23 @@ func hasMatch(ms []Match, name, cc string) bool {
 	}
 	return false
 }
+
+// Around's heading: the nearest named place, not just the big city.
+func TestNearest(t *testing.T) {
+	g := Load()
+	for _, c := range []struct {
+		lat, lon   float64
+		want, city string
+	}{
+		{38.663, -9.072, "Barreiro", ""}, // Joop's town, across the river from Lisbon
+		{52.040, 5.665, "Ede", ""},
+		{38.735, -9.135, "Areeiro", "Lisbon"},
+	} {
+		if n := g.Nearest(geo.Cell(c.lat, c.lon)); n == nil || n.Name != c.want || n.City != c.city {
+			t.Errorf("Nearest(%v,%v) = %+v, want %s", c.lat, c.lon, n, c.want)
+		}
+	}
+	if n := g.Nearest(geo.Cell(0.01, 0.01)); n != nil {
+		t.Errorf("open sea named %+v", n)
+	}
+}

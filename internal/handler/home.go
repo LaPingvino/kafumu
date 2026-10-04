@@ -132,6 +132,8 @@ type bundle struct {
 	// Places are the human hashtags that name this area (#amsterdam), with
 	// weights the client uses to rank posts found through them.
 	Places []gazetteer.PlaceTag `json:"places"`
+	// Near names the place closest to the first cell, for the heading.
+	Near *gazetteer.Near `json:"near,omitempty"`
 	// Events are conferences and festivals here, upcoming or running.
 	Events []gazetteer.EventTag `json:"events"`
 	// Notes are local OLN messages (proof of work, no account), and
@@ -318,6 +320,7 @@ func (h *Home) Bundle(w http.ResponseWriter, r *http.Request) {
 		for _, e := range b.Events {
 			tags = append(tags, e.Tag)
 		}
+		b.Near = h.Gaz.Nearest(cells[0])
 		if pt := h.Gaz.Tags(cells); pt != nil {
 			b.Places = pt
 		}

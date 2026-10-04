@@ -254,7 +254,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       or automatically when you fill in the optional name on the connect page). Browser-tested with D.
 
 - [x] 24. Polish: Connect shows the QR (and the scan side its Connect button) first; the optional name
-      form sits below it ("Add to my card"). Next polish candidate: Around's giant raw #geo heading → place name.
+      form sits below it ("Add to my card"). 
+
+- [x] 25. Polish: Around's heading names the place ("Barreiro", "Areeiro, Lisbon") via Gazetteer.Nearest
+      (towns 15k+ and cities within 20 km; city added when within 8 km), the #geo tag as a caption.
 
 **Idle-tick rule (Joop):** when no slice is open, a tick is not idle: use the app in a real browser
 (test/cdp.mjs), pick one area, and make it look and work a bit nicer. Fix one concrete thing per tick.

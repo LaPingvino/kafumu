@@ -399,3 +399,52 @@ func fold(s string) string {
 	}
 	return b.String()
 }
+
+// Near names the place closest to a cell, for a human heading ("Barreiro")
+// instead of the cell code.
+type Near struct {
+	Name    string  `json:"name"`
+	Country string  `json:"country,omitempty"`
+	Km      float64 `json:"km"`
+	// City is the big city this place lies in (a district of it), if any.
+	City string `json:"city,omitempty"`
+}
+
+// cityKm: a nearest place this close to a big city's centre is part of it.
+const cityKm = 8
+
+// nearMaxKm: past this, a place name would mislead more than help.
+const nearMaxKm = 20
+
+// Nearest returns the named place (town of 15k+ or city) closest to the
+// cell's centre, or nil if none is within nearMaxKm.
+func (g *Gazetteer) Nearest(cell string) *Near {
+	if !geo.Valid(cell) {
+		return nil
+	}
+	lat, lon := geo.Center(cell)
+	km := func(la, lo float64) float64 {
+		x := (lo - lon) * math.Cos((la+lat)/2*math.Pi/180)
+		return math.Hypot(la-lat, x) * 111.2
+	}
+	var best *Near
+	consider := func(name, cc string, la, lo float64) {
+		if d := km(la, lo); d <= nearMaxKm && (best == nil || d < best.Km) {
+			best = &Near{Name: name, Country: cc, Km: math.Round(d*10) / 10}
+		}
+	}
+	for _, t := range towns {
+		consider(t.name, t.country, t.lat, t.lon)
+	}
+	city, cityD := "", math.Inf(1)
+	for _, p := range g.Places {
+		consider(p.Name, p.Country, p.Lat, p.Lon)
+		if d := km(p.Lat, p.Lon); d < cityD && p.Population >= 100000 {
+			city, cityD = p.Name, d
+		}
+	}
+	if best != nil && cityD <= cityKm && city != best.Name {
+		best.City = city
+	}
+	return best
+}

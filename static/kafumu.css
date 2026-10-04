@@ -141,6 +141,9 @@ details form input { margin: 0; }
 
 /* Kafumu bits */
 .cell-tag { font-size: clamp(2.2rem, 11vw, 3.4rem); letter-spacing: .01em; margin: .25rem 0; word-break: break-all; }
+/* With a place name, the name leads and the cell tag becomes its caption. */
+.cell-tag.named { word-break: normal; overflow-wrap: anywhere; line-height: 1.1; }
+.cell-tag.named #cell-tag { display: block; font-size: 1rem; font-weight: 500; opacity: .6; letter-spacing: .02em; margin-top: .3rem; }
 .events { border-left: 4px solid var(--accent-bg); padding: 10px 16px; }
 .events p { margin: 0; }
 .card-preview { padding: 4px 16px 10px; }
