@@ -1,6 +1,6 @@
 {{template "head" .}}
 <article>
-  <h1>{{t .Lang "account.title"}}</h1>
+  <h1>{{if .Findable}}{{t .Lang "profile.title"}}{{else}}{{t .Lang "account.title"}}{{end}}</h1>
   {{if .Error}}<p role="alert" class="error">{{.Error}}</p>{{end}}
   {{if not .User}}
     <p>{{t .Lang "account.why"}}</p>
@@ -10,7 +10,7 @@
     <form method="post" action="/account/start"><input type="hidden" name="next" value="{{.Next}}"><button type="submit" class="pill">{{t .Lang "account.start"}}</button></form>
     {{if .Passkeys}}<p><button type="button" id="passkey-login" class="pill" hidden>🔑 {{t .Lang "passkey.signin"}}</button></p>
     <p id="passkey-status" class="dim small" role="status"></p>{{end}}
-  {{else}}
+  {{else}}{{if not .Findable}}
     {{if .New}}<p><strong>{{t .Lang "account.created"}}</strong></p>{{end}}
     {{if .Next}}<p><a href="{{.Next}}" role="button" class="pill suggested">{{t .Lang "account.continue"}}</a></p>{{end}}
     <h2>{{t .Lang "account.link_title"}}</h2>
@@ -38,10 +38,11 @@
       <form method="post" action="/oauth/login" class="inline"><input name="handle" placeholder="you.bsky.social" autocomplete="username" aria-label="Handle">
         <button type="submit" class="pill">{{t .Lang "atproto.connect"}}</button></form>
     {{end}}{{end}}
+    <p class="dim"><a href="/findable">👁 {{t .Lang "profile.title"}} →</a></p>
+    {{else}}
 
-    <h2 id="profile">{{t .Lang "profile.title"}}</h2>
-    <p class="dim">{{t .Lang "profile.explain"}}</p>
-    {{if not .User.Username}}<p class="error">{{t .Lang "profile.need_name"}}</p>{{end}}
+    <p id="profile" class="dim">{{t .Lang "profile.explain"}}</p>
+    {{if not .User.Username}}<p class="error">{{t .Lang "profile.need_name"}} <a href="/account">→</a></p>{{end}}
     <form method="post" action="/account/profile" id="profile-form">
       <label>{{t .Lang "profile.languages"}}</label>
       <ul id="lang-rows" class="boxed-list">
@@ -108,15 +109,16 @@
       };
     })();
     </script>
+    {{end}}
 
-    <h2>{{t .Lang "account.leave_title"}}</h2>
+    {{if not .Findable}}<h2>{{t .Lang "account.leave_title"}}</h2>
     <div class="actions">
     <form method="post" action="/account/signout"><button type="submit" class="secondary">{{t .Lang "account.signout"}}</button></form>
     <form method="post" action="/account/delete" onsubmit="return confirm(this.dataset.q)" data-q="{{ts .Lang "account.delete_confirm"}}">
       <input type="hidden" name="confirm" value="yes">
       <button type="submit" class="contrast">{{t .Lang "account.delete"}}</button>
     </form>
-    </div>
+    </div>{{end}}
   {{end}}
 </article>
 {{if .Passkeys}}<script>window.KAFUMU_T = window.KAFUMU_T || {{.JS}};</script><script src="/static/passkey.js?v={{.V}}"></script>{{end}}

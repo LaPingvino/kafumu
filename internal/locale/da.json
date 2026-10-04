@@ -232,7 +232,7 @@
   "patrons.how": "Giv et bidrag",
   "patrons.coffee": "☕ Giv fællesskabet en kop kaffe",
   "patrons.soon": "Måder at bidrage på kommer meget snart. Indtil da: fortæl en ven om det, hold et meetup, og send feedback.",
-  "patrons.thanks": "Støtter får en lille kop på deres profil og en varm tak. Ingen ekstra funktioner — ingen får et bedre Kafumu end andre.",
+  "patrons.thanks": "Ingen ekstra funktioner til støtter: ingen får et bedre Kafumu end andre. Bare en varm tak.",
   "cafes.title": "For caféer og spillesteder",
   "cafes.intro": "Kafumu viser folk, hvad der er i nærheden, som de gerne vil vide om. Når to venner er i nærheden, eller nogen holder et meetup uden et sted, kan Kafumu foreslå et sted at sidde. Det kan være dit.",
   "cafes.point1": "Vises kun i dit område (cirka 5 km), kun for folk med matchende interesser, og tydeligt markeret.",
@@ -468,5 +468,6 @@
   "js.filter_few": "{what}: {n} her, så {tag} fra andre steder vises nedenfor.",
   "olnpage.title": "Open Location Network",
   "olnpage.lead": "Kafumus lokale beskeder er en del af et åbent netværk, som alle kan læse fra, skrive til og køre en node for. Sådan virker det, og sådan kobler du dig på.",
-  "olnpage.link": "Sådan virker Open Location Network"
+  "olnpage.link": "Sådan virker Open Location Network",
+  "nav.findable": "Synlig"
 }

@@ -232,7 +232,7 @@
   "patrons.how": "Szállj be",
   "patrons.coffee": "☕ Fizess egy kávét a közösségnek",
   "patrons.soon": "A beszállás módjai hamarosan érkeznek. Addig is: szólj egy barátodnak, szervezz találkozót, és küldj visszajelzést.",
-  "patrons.thanks": "A támogatók egy kis csészét kapnak a profiljukra és egy meleg köszönetet. Extra funkciók nincsenek — senki sem kap jobb Kafumut, mint más.",
+  "patrons.thanks": "Nincsenek extra funkciók a támogatóknak: senki sem kap jobb Kafumut, mint mások. Csak egy szívből jövő köszönet.",
   "cafes.title": "Kávézóknak és helyszíneknek",
   "cafes.intro": "A Kafumu megmutatja az embereknek, mi van a közelükben, amiről tudni szeretnének. Ha két barát a közelben van, vagy valaki helyszín nélkül szervez találkozót, a Kafumu javasolhat egy helyet, ahová leülhetnek. Ez lehet a tiéd.",
   "cafes.point1": "Csak a te területeden (kb. 5 km) jelenik meg, csak azoknak, akiknek az érdeklődése egyezik, és egyértelműen jelölve.",
@@ -468,5 +468,6 @@
   "js.filter_few": "{what}: itt {n}, ezért lent máshonnan: {tag}.",
   "olnpage.title": "Open Location Network",
   "olnpage.lead": "A Kafumu helyi üzenetei egy nyílt hálózat részei, amelyből bárki olvashat, amelybe bárki írhat, és amelyhez bárki futtathat csomópontot. Így működik, és így csatlakozhatsz.",
-  "olnpage.link": "Így működik az Open Location Network"
+  "olnpage.link": "Így működik az Open Location Network",
+  "nav.findable": "Látható"
 }

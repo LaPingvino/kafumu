@@ -170,7 +170,7 @@
     p.textContent = tr("travel_visible") + " ";
     var go = document.createElement("a");
     go.setAttribute("role", "button"); go.className = "pill-sm suggested";
-    go.href = "/account?cell=" + currentCell + "#profile"; go.textContent = tr("travel_be_visible");
+    go.href = "/findable?cell=" + currentCell; go.textContent = tr("travel_be_visible");
     var card = document.createElement("a");
     card.setAttribute("role", "button"); card.className = "pill-sm";
     card.href = "/card"; card.textContent = tr("travel_card");
@@ -723,6 +723,7 @@
     document.querySelector(".cell-tag").hidden = false;
     $("cell-actions").hidden = false;
     $("compose").href = "https://bsky.app/intent/compose?text=" + encodeURIComponent("\n\n" + tag);
+    $("be-findable").href = "/findable?cell=" + c;
     // Connected to ATproto: Bluesky posts from here, into your own account.
     var comp = $("composer");
     if (comp) {

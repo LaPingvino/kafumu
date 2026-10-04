@@ -282,3 +282,8 @@ input[type="range"] { padding: 0; background: transparent; accent-color: var(--a
 .filter-chips .chip-select { width: auto; margin: 0; padding: 4px 10px; min-height: 0; height: auto; font: inherit; }
 .filter-chips .chip-subject { margin: 0; display: inline-flex; }
 .filter-chips .chip-subject input { margin: 0; width: 6.5rem; padding: 4px 10px; min-height: 0; border-radius: 99px; }
+
+/* Code on documentation pages scrolls inside its box. */
+pre { max-width: 100%; overflow-x: auto; white-space: pre; }
+pre code { display: block; min-width: max-content; }
+article.doc { overflow-wrap: anywhere; }

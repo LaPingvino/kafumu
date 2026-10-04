@@ -281,7 +281,8 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       × freshness × distance ring × your tags/languages/views × reliability). Filter chips per kind, and a
       mode switch: Mixed (default) or one kind at a time; the choice is remembered on the device. Split:
       30a. shared card shell + score; 30b. merge the lists + chips/modes; 30c. contacts-around cards on top.
-**Order (Joop, 2026-10-04): 37 sync (done), then 38 admin, then 31, 32…**
+**Order (Joop, 2026-10-04, later): all non-translation slices first; translation only as idle filler.
+Nothing on the site may promise what doesn't exist.**
 
 - [x] 38a. Admin: 13 stat tiles (accounts, named, active 24h/7d/30d, findable, synced, meetups + from feeds,
       local messages, mailboxes, push, Bluesky linked) via aggregation counts; accounts list (named, search by
@@ -448,7 +449,11 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       panel ("trial ended: contact?") for Joop to reach out and set up a contract; status trial/active/paused.
       Advertised on event labels: the Web Summit card (and any event found automatically, 36) gets "Here with
       your company? Business account, first month free".
-- [ ] 54. "Be findable" as its own tab (Joop: confusing inside Account), plus a button for it on Around.
+- [x] 54. Findable tab (/findable, 6th tab, eye icon): public profile, languages, interests, public inbox; Account
+      keeps sign-in, link, passkeys, name, Bluesky, leave. "👁 Be findable" button on Around (with this cell); travel
+      prompt and other links go to /findable. Also: /for-cafes removed (→ /about) until a real model exists; the
+      Patrons page no longer promises a supporter badge that doesn't exist; code blocks scroll inside their box.
+      Was: "Be findable" as its own tab (Joop: confusing inside Account), plus a button for it on Around.
 - [ ] 39. Post with or without your name (Joop): a local message can carry your account name (signed by the
       server as @name, linkable to your profile) or stay anonymous; anonymous ones rank lower and expire
       sooner (shorter TTL at the same work), named ones get the normal TTL and a trust bonus.

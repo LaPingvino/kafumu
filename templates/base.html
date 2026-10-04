@@ -22,6 +22,7 @@
     <symbol id="i-user" viewBox="0 0 16 16"><path fill="currentColor" d="M8 1a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7zm0 8c3.3 0 6 1.8 6 4v2H2v-2c0-2.2 2.7-4 6-4z"/></symbol>
     <symbol id="i-connect" viewBox="0 0 16 16"><path fill="currentColor" d="M1 1h6v6H1zm2 2v2h2V3zm6-2h6v6H9zm2 2v2h2V3zM1 9h6v6H1zm2 2v2h2v-2zm6-2h2v2H9zm4 0h2v2h-2zm-2 2h2v2h-2zm-2 2h2v2H9zm4 0h2v2h-2z"/></symbol>
     <symbol id="i-contacts" viewBox="0 0 16 16"><path fill="currentColor" d="M5.5 2a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zm5.5 1a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM5.5 8C8 8 10 9.3 10 11v2H1v-2c0-1.7 2-3 4.5-3zm5.5.5c2.2 0 4 1.1 4 2.5v2h-4v-2c0-1-.4-1.8-1-2.4.3-.1.6-.1 1-.1z"/></symbol>
+    <symbol id="i-findable" viewBox="0 0 16 16"><path fill="currentColor" d="M8 3C4.4 3 1.6 5.4.5 8c1.1 2.6 3.9 5 7.5 5s6.4-2.4 7.5-5C14.4 5.4 11.6 3 8 3zm0 8a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0-4.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/></symbol>
     <symbol id="i-about" viewBox="0 0 16 16"><path fill="currentColor" d="M8 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1zm-1 6v5h2V7zm1-3.2a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z"/></symbol>
   </svg>
   <header class="headerbar">
@@ -47,6 +48,7 @@
       <a href="/connect"{{if eq .Tab "connect"}} aria-current="page"{{end}}><svg><use href="#i-connect"/></svg><span>{{t .Lang "nav.connect"}}</span></a>
       <a href="/contacts"{{if eq .Tab "contacts"}} aria-current="page"{{end}}><svg><use href="#i-contacts"/></svg><span>{{t .Lang "nav.contacts"}}</span></a>
       <a href="/card"{{if eq .Tab "card"}} aria-current="page"{{end}}><svg><use href="#i-card"/></svg><span>{{t .Lang "nav.card"}}</span></a>
+      <a href="/findable"{{if eq .Tab "findable"}} aria-current="page"{{end}}><svg><use href="#i-findable"/></svg><span>{{t .Lang "nav.findable"}}</span></a>
       <a href="/account"{{if eq .Tab "account"}} aria-current="page"{{end}}><svg><use href="#i-user"/></svg><span>{{if .User}}{{if .User.Username}}@{{.User.Username}}{{else}}{{t .Lang "nav.account"}}{{end}}{{else}}{{t .Lang "nav.signin"}}{{end}}</span></a>
 {{end}}
 
@@ -55,7 +57,7 @@
   <footer class="clamp dim">
     <small>{{t .Lang "footer.lens"}}
     <a href="https://github.com/LaPingvino/kafumu">{{t .Lang "footer.source"}}</a> ·
-    <a href="/privacy">{{t .Lang "privacy.title"}}</a> · <a href="/patrons">{{t .Lang "patrons.title"}}</a> · <a href="/for-cafes">{{t .Lang "cafes.title"}}</a></small>
+    <a href="/privacy">{{t .Lang "privacy.title"}}</a> · <a href="/patrons">{{t .Lang "patrons.title"}}</a></small>
   </footer>
   <nav class="switcher bottom" aria-label="{{.Brand}}">{{template "tabs" .}}</nav>
   <script>window.KAFUMU_T = window.KAFUMU_T || {{.JS}}; window.KAFUMU_V = {{.V}};</script>

@@ -232,7 +232,7 @@
   "patrons.how": "Contribuie",
   "patrons.coffee": "☕ Fă-i comunității cinste cu o cafea",
   "patrons.soon": "Modalitățile de a contribui vin foarte curând. Până atunci: spune-i unui prieten, organizează o întâlnire și trimite-ne părerea ta.",
-  "patrons.thanks": "Susținătorii primesc o ceșcuță pe profil și un mulțumesc călduros. Fără funcții în plus — nimeni nu primește un Kafumu mai bun decât altcineva.",
+  "patrons.thanks": "Nicio funcție în plus pentru susținători: nimeni nu primește un Kafumu mai bun decât alții. Doar un mulțumesc din inimă.",
   "cafes.title": "Pentru cafenele și localuri",
   "cafes.intro": "Kafumu le arată oamenilor ce e lângă ei și ar vrea să știe. Când doi prieteni sunt prin preajmă sau cineva organizează o întâlnire fără locație, Kafumu poate sugera un loc unde să stea. Acela poate fi al tău.",
   "cafes.point1": "Afișat doar în zona ta (circa 5 km), doar oamenilor ale căror interese se potrivesc și marcat clar.",
@@ -468,5 +468,6 @@
   "js.filter_few": "{what}: {n} aici, așa că mai jos apare {tag} din alte locuri.",
   "olnpage.title": "Open Location Network",
   "olnpage.lead": "Mesajele locale Kafumu fac parte dintr-o rețea deschisă din care oricine poate citi, în care poate scrie și pentru care poate rula un nod. Iată cum funcționează și cum te conectezi.",
-  "olnpage.link": "Cum funcționează Open Location Network"
+  "olnpage.link": "Cum funcționează Open Location Network",
+  "nav.findable": "Vizibil"
 }

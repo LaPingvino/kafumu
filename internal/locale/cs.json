@@ -232,7 +232,7 @@
   "patrons.how": "Přispěj",
   "patrons.coffee": "☕ Kup komunitě kafe",
   "patrons.soon": "Možnosti, jak přispět, budou už brzy. Do té doby: řekni o tom kamarádovi, uspořádej setkání a pošli zpětnou vazbu.",
-  "patrons.thanks": "Podporovatelé dostanou malý hrníček u profilu a vřelé poděkování. Žádné funkce navíc — nikdo nemá lepší Kafumu než ostatní.",
+  "patrons.thanks": "Žádné funkce navíc pro podporovatele: nikdo nemá lepší Kafumu než ostatní. Jen vřelé díky.",
   "cafes.title": "Pro kavárny a podniky",
   "cafes.intro": "Kafumu ukazuje lidem, co je poblíž a co by je zajímalo. Když jsou poblíž dva přátelé nebo někdo pořádá setkání bez místa, Kafumu může navrhnout, kde si sednout. To můžeš být ty.",
   "cafes.point1": "Zobrazeno jen ve tvé oblasti (asi 5 km), jen lidem se shodnými zájmy a jasně označeno.",
@@ -468,5 +468,6 @@
   "js.filter_few": "{what}: tady {n}, proto níž {tag} odjinud.",
   "olnpage.title": "Open Location Network",
   "olnpage.lead": "Místní zprávy Kafumu jsou součástí otevřené sítě, ze které může kdokoli číst, do které může psát a pro kterou může provozovat uzel. Takhle funguje a takhle se připojíš.",
-  "olnpage.link": "Jak funguje Open Location Network"
+  "olnpage.link": "Jak funguje Open Location Network",
+  "nav.findable": "Viditelnost"
 }

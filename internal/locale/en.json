@@ -232,7 +232,7 @@
   "patrons.how": "Chip in",
   "patrons.coffee": "☕ Buy the community a coffee",
   "patrons.soon": "Ways to chip in are coming very soon. Until then: tell a friend, host a meetup, and send feedback.",
-  "patrons.thanks": "Supporters get a small cup on their profile and a warm thank-you. No extra features — nobody gets a better Kafumu than anyone else.",
+  "patrons.thanks": "No extra features for supporters: nobody gets a better Kafumu than anyone else. Just a warm thank-you.",
   "cafes.title": "For cafés and venues",
   "cafes.intro": "Kafumu shows people what's near them that they'd want to know about. When two friends are around, or someone hosts a meetup without a venue, Kafumu can suggest a place to sit. That can be yours.",
   "cafes.point1": "Shown only in your area (about 5 km), only to people whose interests match, and clearly labelled.",
@@ -468,5 +468,6 @@
   "js.filter_few": "{what}: {n} here, so {tag} from elsewhere is shown below.",
   "olnpage.title": "The Open Location Network",
   "olnpage.lead": "Kafumu's local messages are part of an open network anyone can read from, write to and run a node of. Here's how it works and how to connect.",
-  "olnpage.link": "How the Open Location Network works"
+  "olnpage.link": "How the Open Location Network works",
+  "nav.findable": "Findable"
 }

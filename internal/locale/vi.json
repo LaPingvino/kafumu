@@ -232,7 +232,7 @@
   "patrons.how": "Góp một chút",
   "patrons.coffee": "☕ Mời cộng đồng một ly cà phê",
   "patrons.soon": "Các cách đóng góp sẽ có rất sớm. Trong lúc chờ: hãy giới thiệu cho bạn bè, tổ chức một buổi gặp mặt và gửi góp ý.",
-  "patrons.thanks": "Người ủng hộ nhận một chiếc cốc nhỏ trên hồ sơ và lời cảm ơn chân thành. Không có tính năng thêm — không ai có Kafumu tốt hơn người khác.",
+  "patrons.thanks": "Không có tính năng riêng cho người ủng hộ: không ai có Kafumu tốt hơn người khác. Chỉ một lời cảm ơn chân thành.",
   "cafes.title": "Dành cho quán cà phê và địa điểm",
   "cafes.intro": "Kafumu cho mọi người thấy những gì gần họ mà họ muốn biết. Khi hai người bạn đang ở gần, hoặc ai đó tổ chức buổi gặp mặt mà chưa có địa điểm, Kafumu có thể gợi ý một chỗ ngồi. Đó có thể là quán của bạn.",
   "cafes.point1": "Chỉ hiển thị trong khu vực của bạn (khoảng 5 km), chỉ cho những người có sở thích phù hợp, và được ghi rõ.",
@@ -468,5 +468,6 @@
   "js.filter_few": "{what}: {n} ở đây, nên {tag} từ nơi khác hiện ở bên dưới.",
   "olnpage.title": "Open Location Network",
   "olnpage.lead": "Tin nhắn địa phương của Kafumu là một phần của mạng mở mà ai cũng có thể đọc, ghi và chạy một nút. Đây là cách nó hoạt động và cách kết nối.",
-  "olnpage.link": "Open Location Network hoạt động thế nào"
+  "olnpage.link": "Open Location Network hoạt động thế nào",
+  "nav.findable": "Hiển thị"
 }

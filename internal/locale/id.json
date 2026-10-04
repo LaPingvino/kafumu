@@ -232,7 +232,7 @@
   "patrons.how": "Ikut menyumbang",
   "patrons.coffee": "☕ Traktir komunitas secangkir kopi",
   "patrons.soon": "Cara untuk menyumbang segera hadir. Sampai saat itu: ceritakan ke teman, adakan meetup, dan kirim masukan.",
-  "patrons.thanks": "Pendukung mendapat cangkir kecil di profilnya dan ucapan terima kasih yang hangat. Tanpa fitur tambahan — tidak ada yang mendapat Kafumu lebih baik daripada yang lain.",
+  "patrons.thanks": "Tidak ada fitur tambahan untuk pendukung: tak seorang pun mendapat Kafumu yang lebih baik dari yang lain. Hanya terima kasih yang hangat.",
   "cafes.title": "Untuk kafe dan tempat acara",
   "cafes.intro": "Kafumu menunjukkan kepada orang apa yang ada di dekat mereka yang ingin mereka ketahui. Saat dua teman sedang berdekatan, atau seseorang mengadakan meetup tanpa tempat, Kafumu bisa menyarankan tempat duduk. Itu bisa tempatmu.",
   "cafes.point1": "Hanya ditampilkan di areamu (sekitar 5 km), hanya kepada orang yang minatnya cocok, dan diberi label jelas.",
@@ -468,5 +468,6 @@
   "js.filter_few": "{what}: {n} di sini, jadi {tag} dari tempat lain ditampilkan di bawah.",
   "olnpage.title": "Open Location Network",
   "olnpage.lead": "Pesan lokal Kafumu adalah bagian dari jaringan terbuka yang bisa dibaca, ditulisi, dan dijalankan node-nya oleh siapa saja. Begini cara kerjanya dan cara terhubung.",
-  "olnpage.link": "Cara kerja Open Location Network"
+  "olnpage.link": "Cara kerja Open Location Network",
+  "nav.findable": "Terlihat"
 }

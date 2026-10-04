@@ -232,7 +232,7 @@
   "patrons.how": "후원하기",
   "patrons.coffee": "☕ 커뮤니티에 커피 한잔 사기",
   "patrons.soon": "후원 방법이 곧 생겨요. 그때까지는 친구에게 알리고, 모임을 열고, 의견을 보내 주세요.",
-  "patrons.thanks": "후원자는 프로필에 작은 컵과 따뜻한 감사 인사를 받아요. 추가 기능은 없어요 — 누구도 남보다 더 좋은 Kafumu를 갖지 않아요.",
+  "patrons.thanks": "후원자 전용 기능은 없어요. 누구에게나 같은 Kafumu예요. 진심으로 고마워요.",
   "cafes.title": "카페와 장소 운영자께",
   "cafes.intro": "Kafumu는 사람들에게 주변에서 알고 싶어 할 만한 것을 보여줘요. 친구 둘이 근처에 있거나, 누군가 장소 없이 모임을 열 때 Kafumu가 앉을 곳을 제안할 수 있어요. 그곳이 당신의 가게일 수 있어요.",
   "cafes.point1": "해당 지역(약 5 km)에서만, 관심사가 맞는 사람에게만, 명확한 표시와 함께 보여요.",
@@ -468,5 +468,6 @@
   "js.filter_few": "{what}: 여기 {n}개. 아래에 다른 곳의 {tag}를 보여 줘요.",
   "olnpage.title": "Open Location Network",
   "olnpage.lead": "Kafumu의 로컬 메시지는 누구나 읽고 쓰고 노드를 운영할 수 있는 열린 네트워크의 일부예요. 작동 방식과 연결 방법을 소개해요.",
-  "olnpage.link": "Open Location Network는 어떻게 작동하나요"
+  "olnpage.link": "Open Location Network는 어떻게 작동하나요",
+  "nav.findable": "공개"
 }

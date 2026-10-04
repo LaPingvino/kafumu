@@ -232,7 +232,7 @@
   "patrons.how": "Katkıda bulun",
   "patrons.coffee": "☕ Topluluğa bir kahve ısmarla",
   "patrons.soon": "Katkı yolları çok yakında geliyor. O zamana kadar: bir arkadaşına anlat, bir buluşma düzenle ve geri bildirim gönder.",
-  "patrons.thanks": "Destekçilerin profilinde küçük bir fincan ve sıcak bir teşekkür olur. Ek özellik yok — kimse başkasından daha iyi bir Kafumu almaz.",
+  "patrons.thanks": "Destekçilere ek özellik yok: kimse diğerlerinden daha iyi bir Kafumu almaz. Sadece içten bir teşekkür.",
   "cafes.title": "Kafeler ve mekânlar için",
   "cafes.intro": "Kafumu insanlara yakınlarında bilmek isteyecekleri şeyleri gösterir. İki arkadaş yakınlardaysa ya da biri mekânsız bir buluşma düzenliyorsa, Kafumu oturacak bir yer önerebilir. O yer seninki olabilir.",
   "cafes.point1": "Yalnızca senin bölgende (yaklaşık 5 km), yalnızca ilgi alanları eşleşen kişilere ve açıkça etiketlenmiş olarak gösterilir.",
@@ -468,5 +468,6 @@
   "js.filter_few": "{what}: burada {n}, bu yüzden aşağıda başka yerlerden {tag} var.",
   "olnpage.title": "Open Location Network",
   "olnpage.lead": "Kafumu'nun yerel mesajları, herkesin okuyabildiği, yazabildiği ve düğüm çalıştırabildiği açık bir ağın parçası. Nasıl çalıştığı ve nasıl bağlanılacağı burada.",
-  "olnpage.link": "Open Location Network nasıl çalışır"
+  "olnpage.link": "Open Location Network nasıl çalışır",
+  "nav.findable": "Görünür"
 }

@@ -232,7 +232,7 @@
   "patrons.how": "Kontribui",
   "patrons.coffee": "☕ Regali kafon al la komunumo",
   "patrons.soon": "Manieroj kontribui venos tre baldaŭ. Ĝis tiam: rakontu al amiko, organizu renkontiĝon kaj sendu rimarkojn.",
-  "patrons.thanks": "Subtenantoj ricevas etan tason sur sia profilo kaj koran dankon. Neniuj kromaj funkcioj — neniu havas pli bonan Kafumu ol alia.",
+  "patrons.thanks": "Neniuj kromaj funkcioj por subtenantoj: neniu ricevas pli bonan Kafumu ol aliaj. Nur varma danko.",
   "cafes.title": "Por kafejoj kaj ejoj",
   "cafes.intro": "Kafumu montras al homoj, kio estas proksime, kion ili volus scii. Kiam du amikoj estas proksime, aŭ iu organizas renkontiĝon sen ejo, Kafumu povas proponi lokon por sidi. Tio povas esti la via.",
   "cafes.point1": "Montrata nur en via areo (ĉirkaŭ 5 km), nur al homoj kun kongruaj interesoj, kaj klare markita.",
@@ -468,5 +468,6 @@
   "js.filter_few": "{what}: {n} ĉi tie, do {tag} el aliaj lokoj aperas sube.",
   "olnpage.title": "La Malferma Loka Reto",
   "olnpage.lead": "La lokaj mesaĝoj de Kafumu estas parto de malferma reto, el kiu ĉiu povas legi, al kiu ĉiu povas skribi kaj por kiu ĉiu povas funkciigi nodon. Jen kiel ĝi funkcias kaj kiel konektiĝi.",
-  "olnpage.link": "Kiel funkcias la Malferma Loka Reto"
+  "olnpage.link": "Kiel funkcias la Malferma Loka Reto",
+  "nav.findable": "Trovebla"
 }

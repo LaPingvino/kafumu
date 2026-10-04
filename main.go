@@ -73,7 +73,8 @@ func main() {
 	mux.HandleFunc("GET /", home.ShowHome)
 	mux.HandleFunc("GET /about", home.ShowAbout)
 	mux.HandleFunc("GET /patrons", home.Info("patrons.html", "patrons.title"))
-	mux.HandleFunc("GET /for-cafes", home.Info("cafes.html", "cafes.title"))
+	// The venues page is gone until there's a model worth describing (Joop).
+	mux.HandleFunc("GET /for-cafes", func(w http.ResponseWriter, r *http.Request) { http.Redirect(w, r, "/about", http.StatusMovedPermanently) })
 	mux.HandleFunc("GET /privacy", home.Info("privacy.html", "privacy.title"))
 	mux.HandleFunc("GET /oln", home.Info("oln.html", "olnpage.title"))
 	mux.HandleFunc("GET /bundle", home.Bundle)
@@ -109,6 +110,7 @@ func main() {
 		}
 	}
 	mux.HandleFunc("GET /account", accounts.Show)
+	mux.HandleFunc("GET /findable", accounts.ShowFindable)
 	mux.HandleFunc("POST /account/start", accounts.Start)
 	mux.HandleFunc("POST /account/name", accounts.SetName)
 	mux.HandleFunc("POST /account/profile", accounts.SetProfile)

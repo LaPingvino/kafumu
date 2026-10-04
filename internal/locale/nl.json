@@ -232,7 +232,7 @@
   "patrons.how": "Bijdragen",
   "patrons.coffee": "☕ Trakteer de community op koffie",
   "patrons.soon": "Manieren om bij te dragen komen heel binnenkort. Tot die tijd: vertel het een vriend, organiseer een bijeenkomst en stuur feedback.",
-  "patrons.thanks": "Supporters krijgen een kopje op hun profiel en een warm bedankje. Geen extra functies — niemand krijgt een betere Kafumu dan een ander.",
+  "patrons.thanks": "Geen extra functies voor supporters: niemand krijgt een betere Kafumu dan een ander. Alleen een warm dankjewel.",
   "cafes.title": "Voor cafés en locaties",
   "cafes.intro": "Kafumu laat mensen zien wat er in de buurt is dat ze zouden willen weten. Als twee vrienden in de buurt zijn, of iemand een bijeenkomst zonder locatie organiseert, kan Kafumu een plek om te zitten voorstellen. Dat kan de jouwe zijn.",
   "cafes.point1": "Alleen getoond in jouw gebied (zo'n 5 km), alleen aan mensen met passende interesses, en duidelijk gemarkeerd.",
@@ -468,5 +468,6 @@
   "js.filter_few": "{what}: {n} hier, dus {tag} van elders staat hieronder.",
   "olnpage.title": "Het Open Location Network",
   "olnpage.lead": "De lokale berichten van Kafumu horen bij een open netwerk waar iedereen uit kan lezen, naar kan schrijven en een node voor kan draaien. Zo werkt het en zo sluit je aan.",
-  "olnpage.link": "Hoe het Open Location Network werkt"
+  "olnpage.link": "Hoe het Open Location Network werkt",
+  "nav.findable": "Vindbaar"
 }

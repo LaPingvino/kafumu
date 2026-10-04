@@ -232,7 +232,7 @@
   "patrons.how": "Dai una mano",
   "patrons.coffee": "☕ Offri un caffè alla comunità",
   "patrons.soon": "I modi per contribuire arrivano molto presto. Nel frattempo: parlane a un amico, organizza un incontro e mandaci il tuo feedback.",
-  "patrons.thanks": "Chi sostiene riceve una tazzina sul profilo e un caloroso grazie. Nessuna funzione in più — nessuno ha un Kafumu migliore di un altro.",
+  "patrons.thanks": "Nessuna funzione extra per chi sostiene: nessuno ha un Kafumu migliore degli altri. Solo un grazie di cuore.",
   "cafes.title": "Per bar e locali",
   "cafes.intro": "Kafumu mostra alle persone cosa c'è vicino a loro che vorrebbero sapere. Quando due amici sono nei paraggi, o qualcuno organizza un incontro senza un posto, Kafumu può suggerire dove sedersi. Quel posto può essere il tuo.",
   "cafes.point1": "Mostrato solo nella tua zona (circa 5 km), solo a persone con interessi corrispondenti, e chiaramente indicato.",
@@ -468,5 +468,6 @@
   "js.filter_few": "{what}: {n} qui, quindi sotto trovi {tag} da altrove.",
   "olnpage.title": "L'Open Location Network",
   "olnpage.lead": "I messaggi locali di Kafumu fanno parte di una rete aperta in cui chiunque può leggere, scrivere e gestire un nodo. Ecco come funziona e come collegarsi.",
-  "olnpage.link": "Come funziona l'Open Location Network"
+  "olnpage.link": "Come funziona l'Open Location Network",
+  "nav.findable": "Visibile"
 }

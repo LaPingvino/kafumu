@@ -67,12 +67,23 @@ type accountPage struct {
 	Next     string
 	New      bool
 	Error    string
+	// Findable: the /findable tab (public profile and inbox only).
+	Findable bool
 }
 
 // Show handles GET /account.
-func (a *Accounts) Show(w http.ResponseWriter, r *http.Request) {
-	p := accountPage{page: a.Home.newPage(r, "")}
+func (a *Accounts) Show(w http.ResponseWriter, r *http.Request) { a.show(w, r, false) }
+
+// ShowFindable handles GET /findable: being findable (public profile,
+// languages, interests, public inbox) as its own tab.
+func (a *Accounts) ShowFindable(w http.ResponseWriter, r *http.Request) { a.show(w, r, true) }
+
+func (a *Accounts) show(w http.ResponseWriter, r *http.Request, findable bool) {
+	p := accountPage{page: a.Home.newPage(r, ""), Findable: findable}
 	p.Title, p.Tab = locale.T(p.Lang, "account.title"), "account"
+	if findable {
+		p.Title, p.Tab = locale.T(p.Lang, "profile.title"), "findable"
+	}
 	if u := p.User; u != nil {
 		p.MagicURL = a.Home.Cfg.Origin + "/auth/link?k=" + template.URLQueryEscaper(mustCookie(r))
 	}
@@ -85,6 +96,9 @@ func (a *Accounts) Show(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	p.Next = localPath(r.URL.Query().Get("next"))
+	if findable && p.User == nil {
+		p.Next = "/findable" // create an account, then come straight back
+	}
 	switch r.URL.Query().Get("err") {
 	case "taken":
 		p.Error = locale.T(p.Lang, "account.err_taken")
@@ -226,7 +240,7 @@ func (a *Accounts) SetProfile(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "could not save", http.StatusInternalServerError)
 		return
 	}
-	http.Redirect(w, r, "/account#profile", http.StatusSeeOther)
+	http.Redirect(w, r, "/findable", http.StatusSeeOther)
 }
 
 // LinkJSON handles GET /account/link.json: this device's sign-in link on

@@ -148,7 +148,7 @@ try {
   // Travelling (home Barreiro, looking at Lunteren): offer to be findable there.
   await A.evaluate("localStorage.setItem('kafumu.cellCounts', JSON.stringify({ '8ccgmw': 9 })); true");
   await A.goto(base + "/?cell=9f473j");
-  await A.waitFor("!document.getElementById('travel').hidden && !!document.querySelector('#travel a[href*=\"account?cell=9f473j\"]')", "travel offers being findable here", 20000);
+  await A.waitFor("!document.getElementById('travel').hidden && !!document.querySelector('#travel a[href*=\"findable?cell=9f473j\"]')", "travel offers being findable here", 20000);
   await A.evaluate("localStorage.removeItem('kafumu.cellCounts'); true");
   await A.goto(base + "/?cell=6fg223&lang=eng");
   await A.waitFor("document.getElementById('feed').textContent.includes('hi from the OLN " + RUN + "')", "back to the message again", 30000);
@@ -191,6 +191,9 @@ try {
   await A.goto(base + "/account");
   await A.evaluate(`(() => { const f = document.querySelector('form[action="/account/name"]'); f.username.value = "${nick}"; f.requestSubmit(); return true; })()`);
   await A.waitFor(`document.body.textContent.includes("@${nick}")`, "username set");
+  // Being findable lives in its own tab now.
+  await A.goto(base + "/findable");
+  await A.waitFor("!!document.getElementById('profile-form')", "Findable tab");
   await A.evaluate(`(() => { const s = document.getElementById('add-lang'); s.value = 'epo'; s.onchange(); const f = document.getElementById('profile-form');
     f.cell.value = '6fg222'; f.visible_hours.value = '12'; f.where.value = 'test stand'; f.requestSubmit(); return true; })()`);
   await A.waitFor("document.querySelector('[name=where]') && document.querySelector('[name=where]').value === 'test stand' && !!document.querySelector('select[name=level_epo]')", "profile saved");
@@ -201,7 +204,7 @@ try {
   }
   // Public inbox: A opens one at 12 bits; B writes from People with a card;
   // A reads it in Contacts and connects back.
-  await A.goto(base + "/account");
+  await A.goto(base + "/findable");
   await A.evaluate("(() => { document.getElementById('inbox-bits').value = '12'; const on = document.getElementById('inbox-on'); on.checked = true; on.onchange(); return true; })()");
   await A.waitFor("document.getElementById('inbox-status').textContent.length > 1", "inbox opened");
   for (let i = 0; ; i++) {
@@ -218,7 +221,7 @@ try {
   await A.waitFor("document.getElementById('contacts').textContent.includes('Bea')", "connected back with Bea");
 
   // Hide again.
-  await A.goto(base + "/account");
+  await A.goto(base + "/findable");
   await A.evaluate("(() => { const f = document.getElementById('profile-form'); f.visible_hours.value = '0'; f.requestSubmit(); return true; })()");
   await sleep(800);
 
