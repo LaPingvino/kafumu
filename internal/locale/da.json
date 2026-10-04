@@ -469,5 +469,8 @@
   "olnpage.title": "Open Location Network",
   "olnpage.lead": "Kafumus lokale beskeder er en del af et åbent netværk, som alle kan læse fra, skrive til og køre en node for. Sådan virker det, og sådan kobler du dig på.",
   "olnpage.link": "Sådan virker Open Location Network",
-  "nav.findable": "Synlig"
+  "nav.findable": "Synlig",
+  "js.nudge_account": "Gem dine kontakter og kort: opret en konto med en adgangsnøgle, så du kan få dem tilbage på en anden enhed.",
+  "js.nudge_secure": "Tilføj et brugernavn og en adgangsnøgle, så du altid kan komme ind på din konto igen.",
+  "js.nudge_go": "Konfigurér"
 }

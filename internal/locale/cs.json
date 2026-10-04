@@ -469,5 +469,8 @@
   "olnpage.title": "Open Location Network",
   "olnpage.lead": "Místní zprávy Kafumu jsou součástí otevřené sítě, ze které může kdokoli číst, do které může psát a pro kterou může provozovat uzel. Takhle funguje a takhle se připojíš.",
   "olnpage.link": "Jak funguje Open Location Network",
-  "nav.findable": "Viditelnost"
+  "nav.findable": "Viditelnost",
+  "js.nudge_account": "Ulož si kontakty a vizitky: založ si účet s přístupovým klíčem, abys je dostal zpět na jiném zařízení.",
+  "js.nudge_secure": "Přidej si uživatelské jméno a přístupový klíč, abys se do účtu vždycky dostal.",
+  "js.nudge_go": "Nastavit"
 }

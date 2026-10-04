@@ -469,5 +469,8 @@
   "olnpage.title": "Open Location Network",
   "olnpage.lead": "A Kafumu helyi üzenetei egy nyílt hálózat részei, amelyből bárki olvashat, amelybe bárki írhat, és amelyhez bárki futtathat csomópontot. Így működik, és így csatlakozhatsz.",
   "olnpage.link": "Így működik az Open Location Network",
-  "nav.findable": "Látható"
+  "nav.findable": "Látható",
+  "js.nudge_account": "Mentsd meg a kapcsolataidat és névjegyeidet: hozz létre fiókot passkey-vel, hogy másik eszközön is visszakapd őket.",
+  "js.nudge_secure": "Adj meg felhasználónevet és passkey-t, hogy mindig visszajuthass a fiókodba.",
+  "js.nudge_go": "Beállítás"
 }

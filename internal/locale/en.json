@@ -469,5 +469,8 @@
   "olnpage.title": "The Open Location Network",
   "olnpage.lead": "Kafumu's local messages are part of an open network anyone can read from, write to and run a node of. Here's how it works and how to connect.",
   "olnpage.link": "How the Open Location Network works",
-  "nav.findable": "Findable"
+  "nav.findable": "Findable",
+  "js.nudge_account": "Save your contacts and cards: make an account with a passkey, so you can get them back on another device.",
+  "js.nudge_secure": "Add a username and a passkey, so you can always get back into your account.",
+  "js.nudge_go": "Set it up"
 }

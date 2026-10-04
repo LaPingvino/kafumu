@@ -469,5 +469,8 @@
   "olnpage.title": "Open Location Network",
   "olnpage.lead": "Mesajele locale Kafumu fac parte dintr-o rețea deschisă din care oricine poate citi, în care poate scrie și pentru care poate rula un nod. Iată cum funcționează și cum te conectezi.",
   "olnpage.link": "Cum funcționează Open Location Network",
-  "nav.findable": "Vizibil"
+  "nav.findable": "Vizibil",
+  "js.nudge_account": "Păstrează-ți contactele și cardurile: creează un cont cu o cheie de acces, ca să le recuperezi pe alt dispozitiv.",
+  "js.nudge_secure": "Adaugă un nume de utilizator și o cheie de acces, ca să poți reveni oricând în cont.",
+  "js.nudge_go": "Configurează"
 }

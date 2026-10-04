@@ -469,5 +469,8 @@
   "olnpage.title": "Open Location Network",
   "olnpage.lead": "Kafumu'nun yerel mesajları, herkesin okuyabildiği, yazabildiği ve düğüm çalıştırabildiği açık bir ağın parçası. Nasıl çalıştığı ve nasıl bağlanılacağı burada.",
   "olnpage.link": "Open Location Network nasıl çalışır",
-  "nav.findable": "Görünür"
+  "nav.findable": "Görünür",
+  "js.nudge_account": "Kişilerini ve kartlarını koru: geçiş anahtarlı bir hesap oluştur, başka bir cihazda geri alabilesin.",
+  "js.nudge_secure": "Hesabına her zaman geri dönebilmek için bir kullanıcı adı ve geçiş anahtarı ekle.",
+  "js.nudge_go": "Kur"
 }

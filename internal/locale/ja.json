@@ -469,5 +469,8 @@
   "olnpage.title": "Open Location Network",
   "olnpage.lead": "Kafumu のローカルメッセージは、誰でも読み書きでき、ノードを運用できるオープンなネットワークの一部です。仕組みとつなぎ方はこちら。",
   "olnpage.link": "Open Location Network の仕組み",
-  "nav.findable": "公開"
+  "nav.findable": "公開",
+  "js.nudge_account": "連絡先と名刺を守りましょう：パスキー付きのアカウントを作れば、別の端末でも取り戻せます。",
+  "js.nudge_secure": "ユーザー名とパスキーを追加すれば、いつでもアカウントに戻れます。",
+  "js.nudge_go": "設定する"
 }

@@ -469,5 +469,8 @@
   "olnpage.title": "开放位置网络",
   "olnpage.lead": "Kafumu 的本地消息属于一个开放网络，任何人都可以读取、写入并运行节点。这里介绍它的原理和接入方式。",
   "olnpage.link": "开放位置网络如何运作",
-  "nav.findable": "可被发现"
+  "nav.findable": "可被发现",
+  "js.nudge_account": "保存你的联系人和名片：用通行密钥创建账号，就能在其他设备上找回它们。",
+  "js.nudge_secure": "添加用户名和通行密钥，随时都能回到你的账号。",
+  "js.nudge_go": "去设置"
 }

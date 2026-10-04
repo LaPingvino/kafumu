@@ -504,13 +504,19 @@
   }
   // On every page, signed in: say when this device still needs the key
   // (get it once), or when another device of yours is asking for it (send).
-  function bar(text, label, href) {
-    if (document.getElementById("sync-bar") || /^\/contacts/.test(location.pathname)) return;
+  function bar(text, label, href, dismissKey) {
+    if (document.getElementById("sync-bar") || (!dismissKey && /^\/contacts/.test(location.pathname))) return;
     var d = document.createElement("div");
     d.id = "sync-bar"; d.className = "install-bar";
     var t = document.createElement("span"); t.className = "text"; t.textContent = text;
     var a = document.createElement("a"); a.className = "go pill-sm"; a.href = href; a.textContent = label; a.setAttribute("role", "button");
     d.appendChild(t); d.appendChild(a);
+    if (dismissKey) {
+      var x = document.createElement("button");
+      x.type = "button"; x.className = "no pill-sm"; x.textContent = "×";
+      x.onclick = function () { try { localStorage.setItem(dismissKey, String(Date.now())); } catch (e) {} d.remove(); };
+      d.appendChild(x);
+    }
     var head = document.querySelector(".headerbar");
     if (head) head.after(d); else document.body.prepend(d);
   }
@@ -526,6 +532,24 @@
       }).catch(function () {});
   }
   if (signedIn()) { setTimeout(function () { sync(); }, 300); setTimeout(askedForKey, 800); }
+  // Something worth keeping here (contacts, a card) but no way back in if
+  // this device is lost: suggest an account, a username and a passkey.
+  // Dismissed, it stays away for a week.
+  function suggestAccount() {
+    if (typeof document === "undefined" || !document.body || /^\/(account|findable)/.test(location.pathname)) return;
+    var b = document.body.dataset, key = "kafumu.accountNudge";
+    try { if (Date.now() - parseInt(localStorage.getItem(key) || "0", 10) < 7 * 864e5) return; } catch (e) { return; }
+    if (b.signedIn && b.named && b.passkey) return;
+    Promise.all([store.contacts(), store.get("card")]).then(function (r) {
+      var n = (r[0] || []).length, hasCard = !!(r[1] && r[1].name);
+      if (!n && !hasCard) return;
+      var T = window.KAFUMU_T || {};
+      var text = !b.signedIn ? (T.nudge_account || "Save your contacts and cards: make an account with a passkey, so you can get them back on another device.")
+        : (T.nudge_secure || "Add a username and a passkey, so you can always get back into your account.");
+      bar(text, T.nudge_go || "Set it up", "/account", key);
+    }).catch(function () {});
+  }
+  if (typeof document !== "undefined") setTimeout(suggestAccount, 1500);
   else if (typeof document !== "undefined") document.addEventListener("DOMContentLoaded", function () { if (signedIn()) sync(); });
 
   window.kafumuDevice = { signalText: signalText, store: store, FIELDS: FIELDS, links: links, renderContact: renderContact, personas: personas,

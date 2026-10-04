@@ -469,5 +469,8 @@
   "olnpage.title": "Open Location Network",
   "olnpage.lead": "Kafumu의 로컬 메시지는 누구나 읽고 쓰고 노드를 운영할 수 있는 열린 네트워크의 일부예요. 작동 방식과 연결 방법을 소개해요.",
   "olnpage.link": "Open Location Network는 어떻게 작동하나요",
-  "nav.findable": "공개"
+  "nav.findable": "공개",
+  "js.nudge_account": "연락처와 카드를 지키세요: 패스키로 계정을 만들면 다른 기기에서도 되찾을 수 있어요.",
+  "js.nudge_secure": "사용자 이름과 패스키를 추가하면 언제든 계정에 다시 들어올 수 있어요.",
+  "js.nudge_go": "설정하기"
 }

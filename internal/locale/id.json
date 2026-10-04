@@ -469,5 +469,8 @@
   "olnpage.title": "Open Location Network",
   "olnpage.lead": "Pesan lokal Kafumu adalah bagian dari jaringan terbuka yang bisa dibaca, ditulisi, dan dijalankan node-nya oleh siapa saja. Begini cara kerjanya dan cara terhubung.",
   "olnpage.link": "Cara kerja Open Location Network",
-  "nav.findable": "Terlihat"
+  "nav.findable": "Terlihat",
+  "js.nudge_account": "Simpan kontak dan kartumu: buat akun dengan kunci sandi agar bisa dipulihkan di perangkat lain.",
+  "js.nudge_secure": "Tambahkan nama pengguna dan kunci sandi agar kamu selalu bisa masuk lagi ke akunmu.",
+  "js.nudge_go": "Atur"
 }

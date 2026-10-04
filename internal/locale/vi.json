@@ -469,5 +469,8 @@
   "olnpage.title": "Open Location Network",
   "olnpage.lead": "Tin nhắn địa phương của Kafumu là một phần của mạng mở mà ai cũng có thể đọc, ghi và chạy một nút. Đây là cách nó hoạt động và cách kết nối.",
   "olnpage.link": "Open Location Network hoạt động thế nào",
-  "nav.findable": "Hiển thị"
+  "nav.findable": "Hiển thị",
+  "js.nudge_account": "Giữ danh bạ và danh thiếp của bạn: tạo tài khoản với passkey để lấy lại chúng trên thiết bị khác.",
+  "js.nudge_secure": "Thêm tên người dùng và passkey để luôn có thể quay lại tài khoản.",
+  "js.nudge_go": "Thiết lập"
 }

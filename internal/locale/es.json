@@ -469,5 +469,8 @@
   "olnpage.title": "La Red Abierta de Ubicación",
   "olnpage.lead": "Los mensajes locales de Kafumu forman parte de una red abierta en la que cualquiera puede leer, escribir y montar un nodo. Así funciona y así te conectas.",
   "olnpage.link": "Cómo funciona la Red Abierta de Ubicación",
-  "nav.findable": "Visible"
+  "nav.findable": "Visible",
+  "js.nudge_account": "Guarda tus contactos y tarjetas: crea una cuenta con una llave de acceso para recuperarlos en otro dispositivo.",
+  "js.nudge_secure": "Añade un nombre de usuario y una llave de acceso para poder volver siempre a tu cuenta.",
+  "js.nudge_go": "Configurar"
 }

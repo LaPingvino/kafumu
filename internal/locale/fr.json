@@ -469,5 +469,8 @@
   "olnpage.title": "L'Open Location Network",
   "olnpage.lead": "Les messages locaux de Kafumu font partie d'un réseau ouvert où chacun peut lire, écrire et faire tourner un nœud. Voici comment ça marche et comment s'y connecter.",
   "olnpage.link": "Comment fonctionne l'Open Location Network",
-  "nav.findable": "Visible"
+  "nav.findable": "Visible",
+  "js.nudge_account": "Garde tes contacts et tes cartes : crée un compte avec une clé d'accès pour les retrouver sur un autre appareil.",
+  "js.nudge_secure": "Ajoute un nom d'utilisateur et une clé d'accès pour toujours pouvoir revenir dans ton compte.",
+  "js.nudge_go": "Configurer"
 }

@@ -323,13 +323,16 @@ try {
       try { await A.waitFor("document.getElementById('contacts').textContent.includes('Dee Late')", "D's late card arrives", 6000); break; }
       catch (e) { if (i >= 3) throw e; }
     }
+    // D has a contact and a card but no account: pages suggest making one.
+    await D.goto(base + "/?cell=6fg223");
+    await D.waitFor("!!document.getElementById('sync-bar') && document.getElementById('sync-bar').textContent.includes('passkey')", "account nudge for D", 10000);
   } finally { D.close(); }
   // Leave no test accounts behind in production (they cluttered /admin).
   for (const X of [A, B]) {
     await X.evaluate("fetch('/account/delete', { method: 'POST', body: new URLSearchParams({ confirm: 'yes' }), credentials: 'same-origin' }).then(() => true)");
   }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, findable profile seen, paid inbox message + connect back, OLN message + reaction + elsewhere + travelling + report + question/answer + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, findable profile seen, paid inbox message + connect back, OLN message + reaction + elsewhere + travelling + report + question/answer + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

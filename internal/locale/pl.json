@@ -469,5 +469,8 @@
   "olnpage.title": "Open Location Network",
   "olnpage.lead": "Lokalne wiadomości Kafumu są częścią otwartej sieci, z której każdy może czytać, do której może pisać i w której może uruchomić węzeł. Oto jak działa i jak się podłączyć.",
   "olnpage.link": "Jak działa Open Location Network",
-  "nav.findable": "Widoczny"
+  "nav.findable": "Widoczny",
+  "js.nudge_account": "Zachowaj kontakty i wizytówki: załóż konto z kluczem dostępu, żeby odzyskać je na innym urządzeniu.",
+  "js.nudge_secure": "Dodaj nazwę użytkownika i klucz dostępu, żeby zawsze móc wrócić do konta.",
+  "js.nudge_go": "Skonfiguruj"
 }

@@ -469,5 +469,8 @@
   "olnpage.title": "Het Open Location Network",
   "olnpage.lead": "De lokale berichten van Kafumu horen bij een open netwerk waar iedereen uit kan lezen, naar kan schrijven en een node voor kan draaien. Zo werkt het en zo sluit je aan.",
   "olnpage.link": "Hoe het Open Location Network werkt",
-  "nav.findable": "Vindbaar"
+  "nav.findable": "Vindbaar",
+  "js.nudge_account": "Bewaar je contacten en kaartjes: maak een account met een passkey, zodat je ze op een ander apparaat terugkrijgt.",
+  "js.nudge_secure": "Voeg een gebruikersnaam en een passkey toe, zodat je altijd weer in je account kunt.",
+  "js.nudge_go": "Instellen"
 }

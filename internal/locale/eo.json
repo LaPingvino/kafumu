@@ -469,5 +469,8 @@
   "olnpage.title": "La Malferma Loka Reto",
   "olnpage.lead": "La lokaj mesaĝoj de Kafumu estas parto de malferma reto, el kiu ĉiu povas legi, al kiu ĉiu povas skribi kaj por kiu ĉiu povas funkciigi nodon. Jen kiel ĝi funkcias kaj kiel konektiĝi.",
   "olnpage.link": "Kiel funkcias la Malferma Loka Reto",
-  "nav.findable": "Trovebla"
+  "nav.findable": "Trovebla",
+  "js.nudge_account": "Konservu viajn kontaktojn kaj kartojn: kreu konton kun pasŝlosilo, por rehavi ilin en alia aparato.",
+  "js.nudge_secure": "Aldonu uzantnomon kaj pasŝlosilon, por ĉiam povi reeniri vian konton.",
+  "js.nudge_go": "Agordi"
 }
