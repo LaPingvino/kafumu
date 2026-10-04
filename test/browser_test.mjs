@@ -65,6 +65,11 @@ try {
   await A.goto(base + "/?cell=6fg223");
   await A.evaluate("(() => { document.getElementById('say').click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test: hi from the OLN'; f.requestSubmit(); return true; })()");
   await A.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN')", "A's message in Here now", 30000);
+  // Joop saw messages twice: two loads in a row must still show each once.
+  await A.evaluate("document.getElementById('view-apply').click(); document.getElementById('view-apply').click(); true");
+  await sleep(3000);
+  const copies = await A.evaluate("document.getElementById('notes').textContent.split('hi from the OLN').length - 1");
+  if (copies !== 1) throw new Error("message shown " + copies + " times");
   for (let i = 0; ; i++) { // B's browser may hold a 30-second-old bundle
     await B.goto(base + "/?cell=6fg223");
     try { await B.waitFor("document.getElementById('notes').textContent.includes('hi from the OLN')", "B sees A's message", 8000); break; }

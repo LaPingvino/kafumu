@@ -364,11 +364,12 @@
     notes.forEach(function (n) { have[n.id] = true; });
     ownNotes = ownNotes.filter(function (n) { return new Date(n.expires) > Date.now() && n.cell && currentCell && rings(currentCell, 2).some(function (p) { return p[0] === n.cell; }); });
     notes = ownNotes.filter(function (n) { return !have[n.id]; }).concat(notes);
-    var hidden = hiddenNotes(), list = $("notes");
+    var hidden = hiddenNotes(), list = $("notes"), mySeq = loadSeq;
     notes = notes.filter(function (n) { return hidden.indexOf(n.id) < 0; });
     $("notes-section").hidden = !notes.length;
-    list.textContent = "";
     loadMyTags().then(function (mine) {
+      if (mySeq !== loadSeq) return; // a newer load will draw the list
+      list.textContent = ""; // cleared only now, right before drawing
       var me = window.KAFUMU_ME || {};
       (me.tags || []).forEach(function (t) { mine[t.toLowerCase().replace(/\s+/g, "")] = true; });
       (me.langs || []).forEach(function (l) { mine["lang" + l.split("/")[0]] = true; });
@@ -425,8 +426,12 @@
     friendsAround(c, !!gps);
   }
 
-  // fresh skips the browser's 30-second cache (after your own post).
+  // fresh skips the browser's 30-second cache (after your own post). Only
+  // the newest load renders: an older one finishing late is dropped, or two
+  // quick loads (last area, then your location) would show things twice.
+  var loadSeq = 0;
   function load(c, fresh) {
+    var seq = ++loadSeq;
     var near = rings(c, 2);
     var ringOf = {};
     near.forEach(function (p) { ringOf["geo" + p[0]] = p[1]; });
@@ -435,6 +440,7 @@
     fetch("/bundle?cells=" + near.map(function (p) { return p[0]; }).join(","), fresh ? { cache: "reload" } : {})
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (b) {
+        if (seq !== loadSeq) return;
         countLocalTags(b);
         b = filterBundle(b);
         var places = {};
