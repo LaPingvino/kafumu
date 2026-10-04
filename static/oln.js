@@ -33,7 +33,8 @@
     return mine(text, keywords, bits, onProgress).then(function (m) {
       var opts = asMe ? { method: "POST", body: m.raw, credentials: "same-origin", headers: { "X-Kafumu-As": "1" } } : { method: "POST", body: m.raw, credentials: "omit" };
       return fetch("/api/oln", opts).then(function (r) {
-        if (r.status === 402 && tries < 2) return post(text, keywords, bits + 1, onProgress, tries + 1, asMe);
+        // 402: mine again at what the node asks (busier area, or a repeat).
+        if (r.status === 402 && tries < 2) return r.json().then(function (j) { return post(text, keywords, Math.max(bits + 1, j.need || 0), onProgress, tries + 1, asMe); });
         return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || r.status); return j; });
       });
     });

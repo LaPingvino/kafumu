@@ -88,14 +88,14 @@ try {
   }
   // Questions: A asks; B gets it (with a private-answer button) and answers
   // publicly; the answer shows under the question.
-  await A.evaluate("(() => { document.getElementById('ask').click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test: best pastel de nata nearby?'; f.tags.value = 'food'; f.requestSubmit(); return true; })()");
+  await A.evaluate("(() => { document.getElementById('ask').click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test: best pastel de nata nearby? " + RUN + "'; f.tags.value = 'food'; f.requestSubmit(); return true; })()");
   await A.waitFor("document.getElementById('feed').textContent.includes('pastel de nata')", "A's question", 30000);
   for (let i = 0; ; i++) {
     await B.goto(base + "/?cell=6fg223");
     try { await B.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('pastel de nata') && li.querySelector('a[href*=\"/c#v1.\"]'))", "B sees the question with a private-answer button", 8000); break; }
     catch (e) { if (i >= 8) throw e; }
   }
-  await B.evaluate("(() => { [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('pastel de nata')).querySelectorAll('button')[0].click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test answer: Manteigaria'; f.requestSubmit(); return true; })()");
+  await B.evaluate("(() => { [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('pastel de nata')).querySelectorAll('button')[0].click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test answer: Manteigaria " + RUN + "'; f.requestSubmit(); return true; })()");
   await B.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('pastel de nata') && li.querySelector('.replies') && li.querySelector('.replies').textContent.includes('Manteigaria'))", "answer threaded under the question", 30000);
 
   // Card themes from local activity: the "food" question tag shows up as a

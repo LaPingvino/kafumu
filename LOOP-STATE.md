@@ -495,7 +495,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       short guided tour on the page itself: step by step it highlights the area heading ("this is where you
       are, as a #geo cell"), coffee/say/ask, the filter chips, the feed kinds, Connect, Contacts, My card and
       Findable, each with one plain sentence; Next/Back/Done; remembers it was seen; all languages.
-- [ ] 59. Repeats cost more (Joop: "we want the useful kind of directed spam"): the same message text (normalised)
+- [x] 59. Repeat policy (this node's): same normalised text within 24 h is dropped in the same cell (409) and costs
+      +4 bits per other cell it already went to; reactions and texts < 12 chars exempt; per instance, in memory.
+      402 answers carry "need" and the client mines straight to it. Also: two flaky tests fixed (TestAuthor compared
+      lives at different work; pow's "other body" check at 2 bits passes 1 in 4 — now at 16). Was: Repeats cost more (Joop: "we want the useful kind of directed spam"): the same message text (normalised)
       posted again to another area or subject within a day needs sharply more work (e.g. +4 bits per repeat), and
       exact repeats in the same area are dropped; per node. Location already makes untargeted spam expensive.
 - [ ] 60. Eventa Servo (Esperanto events, Joop): its API (eventaservo.org/api/v2) needs a key; ask them for one

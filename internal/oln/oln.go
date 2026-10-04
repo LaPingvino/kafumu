@@ -17,6 +17,7 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"errors"
+	"fmt"
 	"golang.org/x/crypto/argon2"
 	"math"
 	"math/bits"
@@ -50,6 +51,7 @@ var (
 	ErrClock  = errors.New("oln: time outside the ±10 minute window")
 	ErrPlace  = errors.New("oln: needs exactly one #geo cell in the keywords")
 	ErrWork   = errors.New("oln: not enough proof of work")
+	ErrRepeat = errors.New("oln: this message is already here")
 )
 
 // Note is one stored message.
@@ -294,6 +296,9 @@ type Service struct {
 	hidden map[string]bool
 	hidAt  time.Time
 	asks   map[string]cellEntry
+	// repeats: recently posted texts (normalised) and the cells they went
+	// to, for this node's repeat policy (see repeatPrice).
+	repeats map[string]map[string]time.Time
 
 	// AuthorFor, if set, names the poster of a request who asked to post
 	// under their name (signed in, named); "" otherwise.
@@ -350,9 +355,13 @@ func (s *Service) PostAs(ctx context.Context, raw, author string) (*Note, error)
 		n.ExpiresAt = n.At.Add(PairTTL)
 		return n, s.Store.Put(ctx, n)
 	}
-	req := s.RequiredFor(ctx, n.Cell)
+	extra, err := s.repeatPrice(n, now)
+	if err != nil {
+		return nil, err
+	}
+	req := s.RequiredFor(ctx, n.Cell) + extra
 	if n.Bits < req {
-		return nil, ErrWork
+		return nil, &NeedError{Need: req}
 	}
 	n.Author = author
 	life := TTL(n.Bits, req)
@@ -363,6 +372,7 @@ func (s *Service) PostAs(ctx context.Context, raw, author string) (*Note, error)
 	if err := s.Store.Put(ctx, n); err != nil {
 		return nil, err
 	}
+	s.rememberRepeat(n, now)
 	s.mu.Lock()
 	delete(s.cells, n.Cell)
 	for _, t := range n.Asks {
@@ -444,4 +454,69 @@ func (s *Service) Hide(ctx context.Context, id string) error {
 	s.hidden = nil
 	s.mu.Unlock()
 	return nil
+}
+
+// NeedError is ErrWork with the work the message needed.
+type NeedError struct{ Need int }
+
+func (e *NeedError) Error() string {
+	return fmt.Sprintf("oln: not enough proof of work (need %d bits)", e.Need)
+}
+func (e *NeedError) Is(target error) bool { return target == ErrWork }
+
+// Repeat policy (this node's, not the format's): the same text posted again
+// within a day is dropped in the same cell, and costs RepeatBits more per
+// other cell it already went to. Reactions and very short texts are exempt
+// (many people say "👍").
+const (
+	RepeatBits   = 4
+	repeatWindow = 24 * time.Hour
+	repeatMinLen = 12
+)
+
+func repeatKey(n *Note) string {
+	if n.Pair != "" || len([]rune(n.Text)) < repeatMinLen || slices.ContainsFunc(n.Tags, reTag.MatchString) {
+		return ""
+	}
+	norm := strings.Join(strings.Fields(strings.ToLower(n.Text)), " ")
+	h := sha1.Sum([]byte(norm))
+	return hex.EncodeToString(h[:12])
+}
+
+// repeatPrice returns the extra bits for n, or ErrRepeat when it's already
+// in this cell.
+func (s *Service) repeatPrice(n *Note, now time.Time) (int, error) {
+	k := repeatKey(n)
+	if k == "" {
+		return 0, nil
+	}
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	others := 0
+	for cell, at := range s.repeats[k] {
+		if now.Sub(at) > repeatWindow {
+			continue
+		}
+		if cell == n.Cell {
+			return 0, ErrRepeat
+		}
+		others++
+	}
+	return others * RepeatBits, nil
+}
+
+func (s *Service) rememberRepeat(n *Note, now time.Time) {
+	k := repeatKey(n)
+	if k == "" {
+		return
+	}
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if s.repeats == nil || len(s.repeats) > 20000 {
+		s.repeats = map[string]map[string]time.Time{}
+	}
+	if s.repeats[k] == nil {
+		s.repeats[k] = map[string]time.Time{}
+	}
+	s.repeats[k][n.Cell] = now
 }

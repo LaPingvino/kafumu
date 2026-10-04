@@ -28,6 +28,14 @@ func (s *Service) HandlePost(w http.ResponseWriter, r *http.Request) {
 	switch {
 	case errors.Is(err, ErrWork):
 		w.WriteHeader(http.StatusPaymentRequired) // pay in work: mine more bits
+		out := map[string]any{"error": err.Error()}
+		var ne *NeedError
+		if errors.As(err, &ne) {
+			out["need"] = ne.Need
+		}
+		json.NewEncoder(w).Encode(out)
+	case errors.Is(err, ErrRepeat):
+		w.WriteHeader(http.StatusConflict)
 		json.NewEncoder(w).Encode(map[string]any{"error": err.Error()})
 	case errors.Is(err, ErrFormat), errors.Is(err, ErrClock), errors.Is(err, ErrPlace):
 		w.WriteHeader(http.StatusBadRequest)

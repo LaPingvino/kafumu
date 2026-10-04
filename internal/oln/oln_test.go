@@ -179,10 +179,42 @@ func TestAuthor(t *testing.T) {
 	if anon.Author != "" || named.Author != "lapingvino" {
 		t.Fatalf("authors %q %q", anon.Author, named.Author)
 	}
-	if 2*anon.ExpiresAt.Sub(anon.At) != named.ExpiresAt.Sub(named.At) {
-		t.Fatalf("anon life %v, named %v", anon.ExpiresAt.Sub(anon.At), named.ExpiresAt.Sub(named.At))
+	// Each against the life its own work buys (mining can overshoot the bits).
+	if got, want := anon.ExpiresAt.Sub(anon.At), TTL(anon.Bits, BaseBits)/2; got != want {
+		t.Fatalf("anon life %v, want half of %v", got, 2*want)
 	}
-	if Priority(named, now) <= Priority(anon, now) {
+	if got, want := named.ExpiresAt.Sub(named.At), TTL(named.Bits, BaseBits); got != want {
+		t.Fatalf("named life %v, want %v", got, want)
+	}
+	// Same work, the name ranks higher.
+	a2, n2 := *anon, *named
+	a2.Bits, n2.Bits, a2.ExpiresAt, n2.ExpiresAt = BaseBits, BaseBits, now.Add(time.Hour), now.Add(time.Hour)
+	if Priority(&n2, now) <= Priority(&a2, now) {
 		t.Fatal("named should rank above anonymous")
+	}
+}
+
+// Node policy: a repeat in the same cell is dropped; elsewhere it costs more.
+func TestRepeats(t *testing.T) {
+	s := NewService(NewMemoryStore())
+	now := time.Now().UTC()
+	ctx := context.Background()
+	text := "Cheap sunglasses at the main square!"
+	if _, err := s.Post(ctx, mine(BaseBits, now, text, "#geo8ccgmw")); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := s.Post(ctx, mine(BaseBits, now, text+" ", "#geo8ccgmw")); !errors.Is(err, ErrRepeat) {
+		t.Fatalf("same cell repeat = %v", err)
+	}
+	_, err := s.Post(ctx, mine(BaseBits, now, text, "#geo9f469w"))
+	var ne *NeedError
+	if !errors.As(err, &ne) || ne.Need != BaseBits+RepeatBits {
+		t.Fatalf("other cell repeat = %v", err)
+	}
+	if _, err := s.Post(ctx, mine(BaseBits, now, "👍", "#geo8ccgmw #re0123456789")); err != nil {
+		t.Fatalf("reaction: %v", err)
+	}
+	if _, err := s.Post(ctx, mine(BaseBits, now, "👍", "#geo8ccgmw #re0123456789")); err != nil {
+		t.Fatalf("second identical reaction: %v", err)
 	}
 }
