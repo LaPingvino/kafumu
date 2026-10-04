@@ -472,5 +472,13 @@
   "nav.findable": "可被发现",
   "js.nudge_account": "保存你的联系人和名片：用通行密钥创建账号，就能在其他设备上找回它们。",
   "js.nudge_secure": "添加用户名和通行密钥，随时都能回到你的账号。",
-  "js.nudge_go": "去设置"
+  "js.nudge_go": "去设置",
+  "card.add_field": "添加自定义字段",
+  "js.cf_label": "标签",
+  "js.cf_value": "内容或链接",
+  "js.field_instagram": "Instagram",
+  "js.field_facebook": "Facebook",
+  "js.field_mastodon": "Mastodon",
+  "js.field_tiktok": "TikTok",
+  "js.field_youtube": "YouTube"
 }

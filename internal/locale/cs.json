@@ -472,5 +472,13 @@
   "nav.findable": "Viditelnost",
   "js.nudge_account": "Ulož si kontakty a vizitky: založ si účet s přístupovým klíčem, abys je dostal zpět na jiném zařízení.",
   "js.nudge_secure": "Přidej si uživatelské jméno a přístupový klíč, abys se do účtu vždycky dostal.",
-  "js.nudge_go": "Nastavit"
+  "js.nudge_go": "Nastavit",
+  "card.add_field": "Přidat vlastní pole",
+  "js.cf_label": "Popisek",
+  "js.cf_value": "Hodnota nebo odkaz",
+  "js.field_instagram": "Instagram",
+  "js.field_facebook": "Facebook",
+  "js.field_mastodon": "Mastodon",
+  "js.field_tiktok": "TikTok",
+  "js.field_youtube": "YouTube"
 }

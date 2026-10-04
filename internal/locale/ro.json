@@ -472,5 +472,13 @@
   "nav.findable": "Vizibil",
   "js.nudge_account": "Păstrează-ți contactele și cardurile: creează un cont cu o cheie de acces, ca să le recuperezi pe alt dispozitiv.",
   "js.nudge_secure": "Adaugă un nume de utilizator și o cheie de acces, ca să poți reveni oricând în cont.",
-  "js.nudge_go": "Configurează"
+  "js.nudge_go": "Configurează",
+  "card.add_field": "Adaugă un câmp propriu",
+  "js.cf_label": "Etichetă",
+  "js.cf_value": "Valoare sau link",
+  "js.field_instagram": "Instagram",
+  "js.field_facebook": "Facebook",
+  "js.field_mastodon": "Mastodon",
+  "js.field_tiktok": "TikTok",
+  "js.field_youtube": "YouTube"
 }

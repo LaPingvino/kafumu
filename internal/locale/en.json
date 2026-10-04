@@ -472,5 +472,13 @@
   "nav.findable": "Findable",
   "js.nudge_account": "Save your contacts and cards: make an account with a passkey, so you can get them back on another device.",
   "js.nudge_secure": "Add a username and a passkey, so you can always get back into your account.",
-  "js.nudge_go": "Set it up"
+  "js.nudge_go": "Set it up",
+  "card.add_field": "Add your own field",
+  "js.cf_label": "Label",
+  "js.cf_value": "Value or link",
+  "js.field_instagram": "Instagram",
+  "js.field_facebook": "Facebook",
+  "js.field_mastodon": "Mastodon",
+  "js.field_tiktok": "TikTok",
+  "js.field_youtube": "YouTube"
 }

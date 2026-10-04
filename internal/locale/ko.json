@@ -472,5 +472,13 @@
   "nav.findable": "공개",
   "js.nudge_account": "연락처와 카드를 지키세요: 패스키로 계정을 만들면 다른 기기에서도 되찾을 수 있어요.",
   "js.nudge_secure": "사용자 이름과 패스키를 추가하면 언제든 계정에 다시 들어올 수 있어요.",
-  "js.nudge_go": "설정하기"
+  "js.nudge_go": "설정하기",
+  "card.add_field": "내 항목 추가",
+  "js.cf_label": "라벨",
+  "js.cf_value": "값 또는 링크",
+  "js.field_instagram": "Instagram",
+  "js.field_facebook": "Facebook",
+  "js.field_mastodon": "Mastodon",
+  "js.field_tiktok": "TikTok",
+  "js.field_youtube": "YouTube"
 }

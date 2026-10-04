@@ -472,5 +472,13 @@
   "nav.findable": "Auffindbar",
   "js.nudge_account": "Sichere deine Kontakte und Karten: Erstelle ein Konto mit Passkey, damit du sie auf einem anderen Gerät zurückbekommst.",
   "js.nudge_secure": "Füge einen Benutzernamen und einen Passkey hinzu, damit du immer wieder in dein Konto kommst.",
-  "js.nudge_go": "Einrichten"
+  "js.nudge_go": "Einrichten",
+  "card.add_field": "Eigenes Feld hinzufügen",
+  "js.cf_label": "Bezeichnung",
+  "js.cf_value": "Wert oder Link",
+  "js.field_instagram": "Instagram",
+  "js.field_facebook": "Facebook",
+  "js.field_mastodon": "Mastodon",
+  "js.field_tiktok": "TikTok",
+  "js.field_youtube": "YouTube"
 }

@@ -472,5 +472,13 @@
   "nav.findable": "Trovebla",
   "js.nudge_account": "Konservu viajn kontaktojn kaj kartojn: kreu konton kun pasŝlosilo, por rehavi ilin en alia aparato.",
   "js.nudge_secure": "Aldonu uzantnomon kaj pasŝlosilon, por ĉiam povi reeniri vian konton.",
-  "js.nudge_go": "Agordi"
+  "js.nudge_go": "Agordi",
+  "card.add_field": "Aldoni propran kampon",
+  "js.cf_label": "Etikedo",
+  "js.cf_value": "Valoro aŭ ligilo",
+  "js.field_instagram": "Instagram",
+  "js.field_facebook": "Facebook",
+  "js.field_mastodon": "Mastodon",
+  "js.field_tiktok": "TikTok",
+  "js.field_youtube": "YouTube"
 }

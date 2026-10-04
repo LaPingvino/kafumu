@@ -472,5 +472,13 @@
   "nav.findable": "Ορατός",
   "js.nudge_account": "Κράτα τις επαφές και τις κάρτες σου: φτιάξε λογαριασμό με κλειδί πρόσβασης, για να τις ξαναβρείς σε άλλη συσκευή.",
   "js.nudge_secure": "Πρόσθεσε όνομα χρήστη και κλειδί πρόσβασης, για να μπαίνεις πάντα ξανά στον λογαριασμό σου.",
-  "js.nudge_go": "Ρύθμιση"
+  "js.nudge_go": "Ρύθμιση",
+  "card.add_field": "Πρόσθεσε δικό σου πεδίο",
+  "js.cf_label": "Ετικέτα",
+  "js.cf_value": "Τιμή ή σύνδεσμος",
+  "js.field_instagram": "Instagram",
+  "js.field_facebook": "Facebook",
+  "js.field_mastodon": "Mastodon",
+  "js.field_tiktok": "TikTok",
+  "js.field_youtube": "YouTube"
 }

@@ -472,5 +472,13 @@
   "nav.findable": "Görünür",
   "js.nudge_account": "Kişilerini ve kartlarını koru: geçiş anahtarlı bir hesap oluştur, başka bir cihazda geri alabilesin.",
   "js.nudge_secure": "Hesabına her zaman geri dönebilmek için bir kullanıcı adı ve geçiş anahtarı ekle.",
-  "js.nudge_go": "Kur"
+  "js.nudge_go": "Kur",
+  "card.add_field": "Kendi alanını ekle",
+  "js.cf_label": "Etiket",
+  "js.cf_value": "Değer veya bağlantı",
+  "js.field_instagram": "Instagram",
+  "js.field_facebook": "Facebook",
+  "js.field_mastodon": "Mastodon",
+  "js.field_tiktok": "TikTok",
+  "js.field_youtube": "YouTube"
 }

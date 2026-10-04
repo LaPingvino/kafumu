@@ -472,5 +472,13 @@
   "nav.findable": "Hiển thị",
   "js.nudge_account": "Giữ danh bạ và danh thiếp của bạn: tạo tài khoản với passkey để lấy lại chúng trên thiết bị khác.",
   "js.nudge_secure": "Thêm tên người dùng và passkey để luôn có thể quay lại tài khoản.",
-  "js.nudge_go": "Thiết lập"
+  "js.nudge_go": "Thiết lập",
+  "card.add_field": "Thêm trường riêng",
+  "js.cf_label": "Nhãn",
+  "js.cf_value": "Giá trị hoặc liên kết",
+  "js.field_instagram": "Instagram",
+  "js.field_facebook": "Facebook",
+  "js.field_mastodon": "Mastodon",
+  "js.field_tiktok": "TikTok",
+  "js.field_youtube": "YouTube"
 }

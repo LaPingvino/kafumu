@@ -472,5 +472,13 @@
   "nav.findable": "Visible",
   "js.nudge_account": "Garde tes contacts et tes cartes : crée un compte avec une clé d'accès pour les retrouver sur un autre appareil.",
   "js.nudge_secure": "Ajoute un nom d'utilisateur et une clé d'accès pour toujours pouvoir revenir dans ton compte.",
-  "js.nudge_go": "Configurer"
+  "js.nudge_go": "Configurer",
+  "card.add_field": "Ajouter ton propre champ",
+  "js.cf_label": "Libellé",
+  "js.cf_value": "Valeur ou lien",
+  "js.field_instagram": "Instagram",
+  "js.field_facebook": "Facebook",
+  "js.field_mastodon": "Mastodon",
+  "js.field_tiktok": "TikTok",
+  "js.field_youtube": "YouTube"
 }

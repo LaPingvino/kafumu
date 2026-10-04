@@ -472,5 +472,13 @@
   "nav.findable": "Synlig",
   "js.nudge_account": "Spara dina kontakter och kort: skapa ett konto med en passkey, så får du tillbaka dem på en annan enhet.",
   "js.nudge_secure": "Lägg till ett användarnamn och en passkey, så kommer du alltid tillbaka in på ditt konto.",
-  "js.nudge_go": "Ställ in"
+  "js.nudge_go": "Ställ in",
+  "card.add_field": "Lägg till ett eget fält",
+  "js.cf_label": "Etikett",
+  "js.cf_value": "Värde eller länk",
+  "js.field_instagram": "Instagram",
+  "js.field_facebook": "Facebook",
+  "js.field_mastodon": "Mastodon",
+  "js.field_tiktok": "TikTok",
+  "js.field_youtube": "YouTube"
 }

@@ -472,5 +472,13 @@
   "nav.findable": "Widoczny",
   "js.nudge_account": "Zachowaj kontakty i wizytówki: załóż konto z kluczem dostępu, żeby odzyskać je na innym urządzeniu.",
   "js.nudge_secure": "Dodaj nazwę użytkownika i klucz dostępu, żeby zawsze móc wrócić do konta.",
-  "js.nudge_go": "Skonfiguruj"
+  "js.nudge_go": "Skonfiguruj",
+  "card.add_field": "Dodaj własne pole",
+  "js.cf_label": "Etykieta",
+  "js.cf_value": "Wartość lub link",
+  "js.field_instagram": "Instagram",
+  "js.field_facebook": "Facebook",
+  "js.field_mastodon": "Mastodon",
+  "js.field_tiktok": "TikTok",
+  "js.field_youtube": "YouTube"
 }

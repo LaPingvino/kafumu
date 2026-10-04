@@ -472,5 +472,13 @@
   "nav.findable": "Видимость",
   "js.nudge_account": "Сохрани контакты и визитки: создай аккаунт с ключом доступа, чтобы вернуть их на другом устройстве.",
   "js.nudge_secure": "Добавь имя пользователя и ключ доступа, чтобы всегда можно было вернуться в аккаунт.",
-  "js.nudge_go": "Настроить"
+  "js.nudge_go": "Настроить",
+  "card.add_field": "Добавить своё поле",
+  "js.cf_label": "Название",
+  "js.cf_value": "Значение или ссылка",
+  "js.field_instagram": "Instagram",
+  "js.field_facebook": "Facebook",
+  "js.field_mastodon": "Mastodon",
+  "js.field_tiktok": "TikTok",
+  "js.field_youtube": "YouTube"
 }

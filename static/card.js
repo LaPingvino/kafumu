@@ -68,8 +68,30 @@
   function read() {
     var card = { tags: cur.card.tags || [] };
     dev.FIELDS.forEach(function (f) { var v = (form.elements[f].value || "").trim(); if (v) card[f] = v; });
+    var custom = [];
+    Array.prototype.forEach.call($("custom-fields").children, function (row) {
+      var l = row.querySelector(".cf-label").value.trim().slice(0, 30), v = row.querySelector(".cf-value").value.trim().slice(0, 200);
+      if (v) custom.push({ label: l, value: v });
+    });
+    if (custom.length) card.custom = custom;
     return card;
   }
+  // Your own fields: a label and a value (a link, an email or just text).
+  function customRow(f) {
+    var row = el("div", "inline-row custom-field");
+    var l = el("input", "cf-label"); l.placeholder = T.cf_label || "Label"; l.maxLength = 30; l.value = (f && f.label) || "";
+    var v = el("input", "cf-value"); v.placeholder = T.cf_value || "Value or link"; v.maxLength = 200; v.value = (f && f.value) || "";
+    var x = el("button", "pill-sm", "×"); x.type = "button"; x.onclick = function () { row.remove(); render(); };
+    l.oninput = v.oninput = render;
+    row.appendChild(l); row.appendChild(v); row.appendChild(x);
+    return row;
+  }
+  function drawCustom() {
+    var box = $("custom-fields");
+    box.textContent = "";
+    (cur.card.custom || []).forEach(function (f) { box.appendChild(customRow(f)); });
+  }
+  $("add-field").onclick = function () { var r = customRow(null); $("custom-fields").appendChild(r); r.querySelector(".cf-label").focus(); };
 
   function render() {
     var card = read();
@@ -81,7 +103,7 @@
     form.elements.label.value = cur.label || "";
     dev.FIELDS.forEach(function (f) { form.elements[f].value = (cur.card && cur.card[f]) || ""; });
     cur.card = cur.card || {};
-    drawSwitcher(); drawTags(); render();
+    drawSwitcher(); drawTags(); drawCustom(); render();
   }
 
   function save(quiet) {

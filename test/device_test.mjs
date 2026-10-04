@@ -16,8 +16,20 @@ let fail = 0;
 for (const [k, v] of Object.entries(want)) if (got[k] !== v) { console.error(k, got[k], "want", v); fail++; }
 if (got.website && !got.website.startsWith("https://")) { console.error("unsafe website", got.website); fail++; }
 for (const href of Object.values(got)) if (/^javascript:/i.test(href)) { console.error("javascript: link", href); fail++; }
+// New fields and your own ones (Joop): handles, Mastodon, links/emails/text.
+{
+  const more = links({ instagram: "@joop", facebook: "facebook.com/joop.k", mastodon: "@joop@mastodon.social", tiktok: "joop", youtube: "@joopk",
+    custom: [{ label: "Blog", value: "www.example.org" }, { label: "Work mail", value: "j@example.org" }, { label: "Shoe size", value: "44" }, { label: "Evil", value: "javascript:alert(1)" }] });
+  const by = (f, i = 0) => more.filter(l => l.field === f)[i];
+  const exp = [["instagram", "https://instagram.com/joop"], ["facebook", "https://facebook.com/joop.k"], ["mastodon", "https://mastodon.social/@joop"],
+    ["tiktok", "https://www.tiktok.com/@joop"], ["youtube", "https://www.youtube.com/@joopk"]];
+  for (const [f, href] of exp) if (!by(f) || by(f).href !== href) { console.error(f, by(f) && by(f).href, "want", href); fail++; }
+  const customs = more.filter(l => l.field === "custom");
+  if (customs.length !== 2 || customs[0].href !== "https://www.example.org/" || customs[1].href !== "mailto:j@example.org" || customs[0].label !== "Blog") { console.error("custom links", JSON.stringify(customs)); fail++; }
+  for (const l of more) if (/^javascript:/i.test(l.href)) { console.error("javascript: link", l.href); fail++; }
+}
 if (fail) process.exit(1);
-console.log("ok  static/device.js links");
+console.log("ok  static/device.js links (+ instagram, facebook, mastodon, tiktok, youtube, your own fields)");
 
 // vCard export escapes and skips contacts without a card.
 {

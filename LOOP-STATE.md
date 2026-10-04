@@ -384,7 +384,9 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
 - [ ] 41. "How this was built" page (Joop): honest note that the code is written with LLM help ("vibecoded"),
       built on plans and experience from long before LLMs (whenwhere, OLN, lokumo, amikumu…), and that it
       would not be viable for one person without that help (burn-out). Linked from About and the footer.
-- [ ] 42. More card fields (Joop): Instagram, Facebook (and Mastodon/TikTok/website…) as first-class fields
+- [x] 42. Card fields: Instagram, Facebook, Mastodon (@you@server → https://server/@you), TikTok, YouTube with
+      one-tap links; your own fields (label + value: links and emails tappable, the rest shown as text, no
+      javascript:), pickable per share as "custom". Unit-tested. Was: More card fields (Joop): Instagram, Facebook (and Mastodon/TikTok/website…) as first-class fields
       with one-tap links, plus your own fields (label + value or link), all pickable per share like the rest.
 - [x] 43. React to anything: every card (local message, Bluesky post, meetup, person) has 👍 ❤️ 😂 ☕ and
       💬 React; reactions are OLN messages tagged #re<10 hex> (a note's id, or sha1(kind:id) for the rest);
@@ -457,6 +459,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
 - [x] 55. Account nudge (Joop): with contacts or a card on this device but no way back in, pages (Around,
       Connect, Contacts, My card) show a dismissable bar: not signed in → "make an account with a passkey";
       signed in without username or passkey → "add a username and a passkey". Dismissed: a week. Browser-tested.
+- [ ] 56. Last seen per contact (Joop: "clean up your list when connections break"): c.lastHeard = last time
+      anything arrived from them (card, signal, chat, check-in); a light weekly "alive" ping per contact when
+      the app opens (one mailbox write each, only to contacts not heard from in a week); Contacts shows "last
+      heard 3 months ago" and a "Quiet for 90+ days" filter with "Remove all" (tombstoned, synced).
 - [ ] 39. Post with or without your name (Joop): a local message can carry your account name (signed by the
       server as @name, linkable to your profile) or stay anonymous; anonymous ones rank lower and expire
       sooner (shorter TTL at the same work), named ones get the normal TTL and a trust bonus.

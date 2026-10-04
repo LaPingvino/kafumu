@@ -472,5 +472,13 @@
   "nav.findable": "Visibile",
   "js.nudge_account": "Salva contatti e biglietti: crea un account con una passkey, così li ritrovi su un altro dispositivo.",
   "js.nudge_secure": "Aggiungi un nome utente e una passkey, così potrai sempre rientrare nel tuo account.",
-  "js.nudge_go": "Configura"
+  "js.nudge_go": "Configura",
+  "card.add_field": "Aggiungi un tuo campo",
+  "js.cf_label": "Etichetta",
+  "js.cf_value": "Valore o link",
+  "js.field_instagram": "Instagram",
+  "js.field_facebook": "Facebook",
+  "js.field_mastodon": "Mastodon",
+  "js.field_tiktok": "TikTok",
+  "js.field_youtube": "YouTube"
 }

@@ -44,7 +44,8 @@
 
   // Card fields, in display order. The card holds what *you* choose to hand
   // to someone you meet; nothing is required.
-  var FIELDS = ["name", "about", "email", "phone", "whatsapp", "signal", "telegram", "bluesky", "linkedin", "website"];
+  var FIELDS = ["name", "about", "email", "phone", "whatsapp", "signal", "telegram", "bluesky", "linkedin",
+    "instagram", "facebook", "mastodon", "tiktok", "youtube", "website"];
 
   function digits(s) { return (s || "").replace(/[^\d+]/g, "").replace(/^00/, "+"); }
   function safeURL(s) {
@@ -67,7 +68,21 @@
     add("bluesky", card.bluesky, "https://bsky.app/profile/" + (card.bluesky || "").trim().replace(/^@/, "").replace(/^https?:\/\/bsky\.app\/profile\//, ""));
     add("linkedin", card.linkedin, /^https?:|linkedin\.com/i.test(card.linkedin || "")
       ? safeURL(card.linkedin) : "https://www.linkedin.com/in/" + encodeURIComponent((card.linkedin || "").trim()));
+    function handle(v) { return (v || "").trim().replace(/^@/, ""); }
+    function site(v, base) { return /^https?:|\./.test(handle(v)) && /\//.test(v || "") ? safeURL(/^https?:/.test(v) ? v : "https://" + v.trim()) : base + encodeURIComponent(handle(v)); }
+    add("instagram", card.instagram, site(card.instagram, "https://instagram.com/"));
+    add("facebook", card.facebook, site(card.facebook, "https://facebook.com/"));
+    // Mastodon: @you@server → https://server/@you
+    var m = /^@?([^@\s]+)@([^@\s]+\.[^@\s]+)$/.exec((card.mastodon || "").trim());
+    add("mastodon", card.mastodon, m ? "https://" + m[2] + "/@" + m[1] : safeURL(card.mastodon));
+    add("tiktok", card.tiktok, site(card.tiktok, "https://www.tiktok.com/@"));
+    add("youtube", card.youtube, site(card.youtube, "https://www.youtube.com/@"));
     add("website", card.website, safeURL(card.website));
+    // Your own fields: a link or an email becomes tappable; the rest is text.
+    (card.custom || []).forEach(function (f) {
+      var v = (f.value || "").trim(), href = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v) ? "mailto:" + v : /^(https?:\/\/|www\.)/i.test(v) ? safeURL(/^https?:/i.test(v) ? v : "https://" + v) : "";
+      if (v && href) out.push({ field: "custom", label: f.label || v, href: href });
+    });
     return out;
   }
 
@@ -142,6 +157,7 @@
       var c = p.card || {}, out = { name: c.name };
       (fields || FIELDS).forEach(function (f) { if (f !== "name" && c[f]) out[f] = c[f]; });
       if (c.tags && c.tags.length && (!fields || fields.indexOf("tags") >= 0)) out.tags = c.tags.slice();
+      if (c.custom && c.custom.length && (!fields || fields.indexOf("custom") >= 0)) out.custom = c.custom.slice(0, 10);
       return out;
     },
     // choice is the last persona + fields picked on /connect.
@@ -221,11 +237,15 @@
     drawMine();
     var row = el("div", "actions");
     links(card).forEach(function (l) {
-      var a = el("a", "pill-sm", T["field_" + l.field] || l.field);
+      var a = el("a", "pill-sm", l.field === "custom" ? l.label : (T["field_" + l.field] || l.field));
       a.href = l.href; a.target = "_blank"; a.rel = "noopener"; a.setAttribute("role", "button");
       row.appendChild(a);
     });
     li.appendChild(row);
+    (card.custom || []).forEach(function (f) {
+      var v = (f.value || "").trim();
+      if (v && !links({ custom: [f] }).length) li.appendChild(el("p", "dim small", (f.label ? f.label + ": " : "") + v));
+    });
     if (opts.preview) return li;
     if (opts.send && c.cardSent === false) {
       var give = el("button", "pill-sm", T.send_my_card || "Send my card");

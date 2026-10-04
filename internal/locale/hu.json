@@ -472,5 +472,13 @@
   "nav.findable": "Látható",
   "js.nudge_account": "Mentsd meg a kapcsolataidat és névjegyeidet: hozz létre fiókot passkey-vel, hogy másik eszközön is visszakapd őket.",
   "js.nudge_secure": "Adj meg felhasználónevet és passkey-t, hogy mindig visszajuthass a fiókodba.",
-  "js.nudge_go": "Beállítás"
+  "js.nudge_go": "Beállítás",
+  "card.add_field": "Saját mező hozzáadása",
+  "js.cf_label": "Címke",
+  "js.cf_value": "Érték vagy link",
+  "js.field_instagram": "Instagram",
+  "js.field_facebook": "Facebook",
+  "js.field_mastodon": "Mastodon",
+  "js.field_tiktok": "TikTok",
+  "js.field_youtube": "YouTube"
 }

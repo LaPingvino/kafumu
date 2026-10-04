@@ -472,5 +472,13 @@
   "nav.findable": "Видимість",
   "js.nudge_account": "Збережи контакти й картки: створи обліковий запис із ключем доступу, щоб повернути їх на іншому пристрої.",
   "js.nudge_secure": "Додай ім'я користувача та ключ доступу, щоб завжди мати змогу повернутися до облікового запису.",
-  "js.nudge_go": "Налаштувати"
+  "js.nudge_go": "Налаштувати",
+  "card.add_field": "Додати своє поле",
+  "js.cf_label": "Назва",
+  "js.cf_value": "Значення або посилання",
+  "js.field_instagram": "Instagram",
+  "js.field_facebook": "Facebook",
+  "js.field_mastodon": "Mastodon",
+  "js.field_tiktok": "TikTok",
+  "js.field_youtube": "YouTube"
 }

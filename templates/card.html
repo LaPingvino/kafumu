@@ -19,7 +19,14 @@
       <label>Telegram<input name="telegram" placeholder="@…"></label>
       <label>Bluesky<input name="bluesky" placeholder="you.bsky.social"></label>
       <label>LinkedIn<input name="linkedin" placeholder="linkedin.com/in/…"></label>
+      <label>Instagram<input name="instagram" placeholder="@…"></label>
+      <label>Facebook<input name="facebook" placeholder="facebook.com/…"></label>
+      <label>Mastodon<input name="mastodon" placeholder="@you@mastodon.social"></label>
+      <label>TikTok<input name="tiktok" placeholder="@…"></label>
+      <label>YouTube<input name="youtube" placeholder="@…"></label>
       <label>{{t .Lang "card.field_website"}}<input name="website" type="url" autocomplete="url"></label>
+      <div id="custom-fields"></div>
+      <p><button type="button" id="add-field" class="pill-sm">＋ {{t .Lang "card.add_field"}}</button></p>
       <div class="actions">
         <button type="submit" class="pill">{{t .Lang "card.save"}}</button>
         <button type="button" id="delete-persona" class="contrast" hidden>{{t .Lang "card.delete_persona"}}</button>

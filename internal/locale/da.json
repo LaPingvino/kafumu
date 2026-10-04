@@ -472,5 +472,13 @@
   "nav.findable": "Synlig",
   "js.nudge_account": "Gem dine kontakter og kort: opret en konto med en adgangsnøgle, så du kan få dem tilbage på en anden enhed.",
   "js.nudge_secure": "Tilføj et brugernavn og en adgangsnøgle, så du altid kan komme ind på din konto igen.",
-  "js.nudge_go": "Konfigurér"
+  "js.nudge_go": "Konfigurér",
+  "card.add_field": "Tilføj dit eget felt",
+  "js.cf_label": "Etiket",
+  "js.cf_value": "Værdi eller link",
+  "js.field_instagram": "Instagram",
+  "js.field_facebook": "Facebook",
+  "js.field_mastodon": "Mastodon",
+  "js.field_tiktok": "TikTok",
+  "js.field_youtube": "YouTube"
 }

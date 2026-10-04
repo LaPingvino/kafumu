@@ -73,11 +73,12 @@
       var c = ch.persona.card || {}, fields = ch.fields;
       var avail = dev.FIELDS.filter(function (f) { return f !== "name" && c[f]; });
       if (c.tags && c.tags.length) avail.push("tags");
+      if (c.custom && c.custom.length) avail.push("custom");
       if (!avail.length) return;
       var row = el("div", "chips");
       avail.forEach(function (f) {
         var on = !fields || fields.indexOf(f) >= 0;
-        var label = f === "tags" ? c.tags.join(", ") : (T["field_" + f] || (f === "about" ? c.about : f));
+        var label = f === "tags" ? c.tags.join(", ") : f === "custom" ? c.custom.map(function (x) { return x.label || x.value; }).join(", ") : (T["field_" + f] || (f === "about" ? c.about : f));
         var b = el("button", "chip" + (on ? " on" : ""), (on ? "✓ " : "") + label);
         b.type = "button";
         b.setAttribute("aria-pressed", on);

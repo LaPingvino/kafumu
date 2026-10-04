@@ -472,5 +472,13 @@
   "nav.findable": "公開",
   "js.nudge_account": "連絡先と名刺を守りましょう：パスキー付きのアカウントを作れば、別の端末でも取り戻せます。",
   "js.nudge_secure": "ユーザー名とパスキーを追加すれば、いつでもアカウントに戻れます。",
-  "js.nudge_go": "設定する"
+  "js.nudge_go": "設定する",
+  "card.add_field": "項目を追加",
+  "js.cf_label": "ラベル",
+  "js.cf_value": "値またはリンク",
+  "js.field_instagram": "Instagram",
+  "js.field_facebook": "Facebook",
+  "js.field_mastodon": "Mastodon",
+  "js.field_tiktok": "TikTok",
+  "js.field_youtube": "YouTube"
 }
