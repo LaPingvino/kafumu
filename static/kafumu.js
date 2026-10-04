@@ -1038,6 +1038,14 @@
     }).catch(function () {});
   }
   checkSignals();
+  // Hellos from people who used your code while the app was closed.
+  (function takeInvites() {
+    var dev = window.kafumuDevice;
+    if (!dev || !window.kafumuPair) return;
+    var pair = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin });
+    dev.personas.shareCard().then(function (card) { return Promise.all([pair.checkInvite(card), pair.checkInvite(card, "badge")]); })
+      .then(function (r) { if (r[0].length + r[1].length) checkSignals(); }).catch(function () {});
+  })();
 
   var given = $("here").dataset.cell, last = pref("kafumu.lastCell");
   if (given && validCell(given)) show(given, tr("shared_cell"));

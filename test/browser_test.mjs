@@ -243,12 +243,18 @@ try {
   try {
     await A.goto(base + "/connect");
     await A.waitFor("!!document.querySelector('#qr svg')", "A's QR again");
+    // A leaves Connect (app "closed" for this code) before D uses it: D's
+    // hello waits in the mailbox, and A takes it in on opening Contacts.
+    await A.goto(base + "/about");
     await D.goto(url);
     await D.waitFor("!document.getElementById('accept-area').hidden", "D can connect without a name");
     await D.evaluate("document.getElementById('do-connect').click()");
-    await D.waitFor("document.getElementById('accept-status').textContent.includes('Ana')", "D connected with Ana");
-    await A.waitFor("!!document.querySelector('#new-contacts input.alias')", "A sees a nameless contact to name");
-    await A.evaluate("(() => { const i = document.querySelector('#new-contacts input.alias'); i.value = 'Dee from the queue'; i.dispatchEvent(new Event('change')); return true; })()");
+    await sleep(2000);
+    await A.goto(base + "/contacts");
+    await A.waitFor("!!document.querySelector('#contacts input.alias')", "A takes in D's hello from the queue", 30000);
+    await D.waitFor("document.getElementById('accept-status').textContent.includes('Ana')", "D gets A's card later", 30000);
+    await A.evaluate("(() => { const i = document.querySelector('#contacts input.alias'); i.value = 'Dee from the queue'; i.dispatchEvent(new Event('change')); return true; })()");
+    await sleep(1000);
     await A.goto(base + "/contacts");
     await A.waitFor("[...document.querySelectorAll('#contacts input.alias')].some(i => i.value === 'Dee from the queue')", "A's own name for D kept");
     await D.evaluate(fill("name-form", { name: "Dee Late" }));
@@ -264,7 +270,7 @@ try {
     await X.evaluate("fetch('/account/delete', { method: 'POST', body: new URLSearchParams({ confirm: 'yes' }), credentials: 'same-origin' }).then(() => true)");
   }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device + synced both ways (card rename, note, removal), connected without a card + named + late card, meetup hosted and seen, findable profile seen, paid inbox message + connect back, OLN message + report + question/answer + local themes + views + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device + synced both ways (card rename, note, removal), connected without a card while A was away (queued) + named + late card, meetup hosted and seen, findable profile seen, paid inbox message + connect back, OLN message + report + question/answer + local themes + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

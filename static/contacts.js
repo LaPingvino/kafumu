@@ -23,6 +23,15 @@
   };
   if (location.hash === "#get") setTimeout(function () { var b = $("move-start"); if (b && !b.hidden) { b.scrollIntoView({ block: "center" }); b.click(); } }, 400);
 
+  // Someone may have scanned or followed your code while the app was
+  // closed: their hello waits in the mailbox (7 days). Take it in here too,
+  // not only on Connect, and answer with your card.
+  function takeInvites() {
+    return dev.personas.shareCard().then(function (card) {
+      return Promise.all([pair.checkInvite(card), pair.checkInvite(card, "badge")]);
+    }).then(function (r) { return r[0].length + r[1].length; }).catch(function () { return 0; });
+  }
+
   function show() {
     dev.store.contacts().then(function (cs) {
       cs.sort(function (a, b) { return (b.createdAt || "").localeCompare(a.createdAt || ""); });
@@ -101,6 +110,7 @@
       .then(function (n) { $("contacts-status").textContent = (T.restored || "Restored {n}").replace("{n}", n); show(); })
       .catch(function () { $("contacts-status").textContent = T.restore_failed || "Not a Kafumu backup."; });
   };
+  takeInvites().then(function (n) { if (n) show(); });
   show();
 
   // Messages to your public inbox: decrypted here; Connect makes a contact.

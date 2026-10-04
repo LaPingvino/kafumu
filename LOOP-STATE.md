@@ -346,12 +346,19 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       cards from before sync still come across; moves/backups use the same merge; a bar on every page when
       this device needs the key ("Get them" → /contacts#get starts it) or another device asks ("Send");
       "Sync now" on Contacts and My card; browser test: B's card on C after the move, rename B → C.
+- [x] 40. Queued connects (Joop: "I already missed two possible contacts"): hellos wait in the mailbox (7 days)
+      but were only taken in on Connect; now Around and Contacts take them in too (invite + badge) and answer
+      with your card. Browser-tested: D connects while A is on another page; A finds D on opening Contacts.
+- [ ] 41. "How this was built" page (Joop): honest note that the code is written with LLM help ("vibecoded"),
+      built on plans and experience from long before LLMs (whenwhere, OLN, lokumo, amikumu…), and that it
+      would not be viable for one person without that help (burn-out). Linked from About and the footer.
 - [ ] 39. Post with or without your name (Joop): a local message can carry your account name (signed by the
       server as @name, linkable to your profile) or stay anonymous; anonymous ones rank lower and expire
       sooner (shorter TTL at the same work), named ones get the normal TTL and a trust bonus.
 
 **Idle-tick rule (Joop):** when no slice is open, a tick is not idle: use the app in a real browser
 (test/cdp.mjs), pick one area, and make it look and work a bit nicer. Fix one concrete thing per tick.
+Second fallback (Joop): translate: add a UI language (slice 34's list) or fill missing keys in one.
 
 ## After the event (rest of M1)
 - [x] `LaPingvino/geotags` (public, /home/joop/geotags): 6,278 cities ≥100k from GeoNames (CC BY 4.0) with
