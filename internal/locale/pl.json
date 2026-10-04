@@ -509,5 +509,7 @@
   "js.also_bsky": "Także na Bluesky",
   "js.handle_on_card": "Włącz z tą wizytówką",
   "js.handle_this_card": "Aktywny z tą wizytówką",
-  "js.handle_use_card": "Użyj tej wizytówki w moim linku"
+  "js.handle_use_card": "Użyj tej wizytówki w moim linku",
+  "oln.as_me": "Opublikuj jako",
+  "oln.as_me_note": "(trwa dłużej i jest wyżej niż anonimowe)"
 }

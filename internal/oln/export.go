@@ -71,7 +71,11 @@ func (s *Service) Export(origin, name string) http.HandlerFunc {
 				tags[i] = "#" + t
 				f.Index[tags[i]] = append(f.Index[tags[i]], n.ID)
 			}
-			f.Messages[n.ID] = Message{Raw: n.Raw, Origin: Origin{ServerName: name}, Timestamp: n.At, TTL: max(days, 1), Tags: tags}
+			o := Origin{ServerName: name}
+			if n.Author != "" {
+				o.Display = "@" + n.Author
+			}
+			f.Messages[n.ID] = Message{Raw: n.Raw, Origin: o, Timestamp: n.At, TTL: max(days, 1), Tags: tags}
 		}
 		w.Header().Set("Content-Type", "application/json")
 		w.Header().Set("Cache-Control", "public, max-age=60")

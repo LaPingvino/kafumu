@@ -20,6 +20,7 @@ import (
 	"golang.org/x/crypto/argon2"
 	"math"
 	"math/bits"
+	"net/http"
 	"regexp"
 	"slices"
 	"sort"
@@ -66,6 +67,9 @@ type Note struct {
 	Asks []string `datastore:"asks" json:"-"`
 	// Pair: a private message's pair tag (indexed); empty for public ones.
 	Pair string `datastore:"pair" json:"-"`
+	// Author: the username that posted it, vouched for by this node (the
+	// poster chose to show it); empty for anonymous messages.
+	Author string `datastore:"author,noindex" json:"author,omitempty"`
 }
 
 // Proof of work, v2 (memory-hard, so a GPU gains little over a phone):
@@ -199,7 +203,11 @@ func Priority(n *Note, now time.Time) float64 {
 	if life > 0 {
 		left = math.Max(0, float64(n.ExpiresAt.Sub(now))/float64(life))
 	}
-	return float64(n.Bits)*50 + left*100
+	p := float64(n.Bits)*50 + left*100
+	if n.Author != "" {
+		p += 150 // standing behind it with your name counts for about three bits
+	}
+	return p
 }
 
 // Store persists notes.
@@ -286,6 +294,10 @@ type Service struct {
 	hidden map[string]bool
 	hidAt  time.Time
 	asks   map[string]cellEntry
+
+	// AuthorFor, if set, names the poster of a request who asked to post
+	// under their name (signed in, named); "" otherwise.
+	AuthorFor func(r *http.Request) string
 }
 
 type cellEntry struct {
@@ -318,7 +330,11 @@ func (s *Service) RequiredFor(ctx context.Context, cell string) int {
 
 // Post verifies and stores a raw message; an identical message is accepted
 // again without being stored twice.
-func (s *Service) Post(ctx context.Context, raw string) (*Note, error) {
+func (s *Service) Post(ctx context.Context, raw string) (*Note, error) { return s.PostAs(ctx, raw, "") }
+
+// PostAs is Post with an author this node vouches for ("" = anonymous).
+// Anonymous public messages live half as long (Joop).
+func (s *Service) PostAs(ctx context.Context, raw, author string) (*Note, error) {
 	now := s.Now().UTC()
 	n, err := Parse(strings.TrimSpace(raw), now)
 	if err != nil {
@@ -338,7 +354,12 @@ func (s *Service) Post(ctx context.Context, raw string) (*Note, error) {
 	if n.Bits < req {
 		return nil, ErrWork
 	}
-	n.ExpiresAt = n.At.Add(TTL(n.Bits, req))
+	n.Author = author
+	life := TTL(n.Bits, req)
+	if author == "" {
+		life /= 2
+	}
+	n.ExpiresAt = n.At.Add(life)
 	if err := s.Store.Put(ctx, n); err != nil {
 		return nil, err
 	}

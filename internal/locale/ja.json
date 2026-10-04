@@ -509,5 +509,7 @@
   "js.also_bsky": "Bluesky にも",
   "js.handle_on_card": "この名刺でオンにする",
   "js.handle_this_card": "この名刺で有効",
-  "js.handle_use_card": "この名刺をリンクに使う"
+  "js.handle_use_card": "この名刺をリンクに使う",
+  "oln.as_me": "名前を出して投稿：",
+  "oln.as_me_note": "（匿名より長く残り、上に表示されます）"
 }

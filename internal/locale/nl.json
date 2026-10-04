@@ -509,5 +509,7 @@
   "js.also_bsky": "Ook op Bluesky",
   "js.handle_on_card": "Aanzetten met dit kaartje",
   "js.handle_this_card": "Actief met dit kaartje",
-  "js.handle_use_card": "Dit kaartje voor mijn link gebruiken"
+  "js.handle_use_card": "Dit kaartje voor mijn link gebruiken",
+  "oln.as_me": "Plaatsen als",
+  "oln.as_me_note": "(blijft langer en staat hoger dan anoniem)"
 }

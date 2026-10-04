@@ -509,5 +509,7 @@
   "js.also_bsky": "Bluesky-on is",
   "js.handle_on_card": "Bekapcsolás ezzel a névjeggyel",
   "js.handle_this_card": "Aktív ezzel a névjeggyel",
-  "js.handle_use_card": "Ezt a névjegyet használja a linkem"
+  "js.handle_use_card": "Ezt a névjegyet használja a linkem",
+  "oln.as_me": "Közzététel mint",
+  "oln.as_me_note": "(tovább marad és előbbre kerül, mint a névtelen)"
 }

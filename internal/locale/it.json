@@ -509,5 +509,7 @@
   "js.also_bsky": "Anche su Bluesky",
   "js.handle_on_card": "Attiva con questo biglietto",
   "js.handle_this_card": "Attivo con questo biglietto",
-  "js.handle_use_card": "Usa questo biglietto per il mio link"
+  "js.handle_use_card": "Usa questo biglietto per il mio link",
+  "oln.as_me": "Pubblica come",
+  "oln.as_me_note": "(dura di più e sta sopra quelli anonimi)"
 }

@@ -509,5 +509,7 @@
   "js.also_bsky": "Also on Bluesky",
   "js.handle_on_card": "Turn on with this card",
   "js.handle_this_card": "Live with this card",
-  "js.handle_use_card": "Use this card for my link"
+  "js.handle_use_card": "Use this card for my link",
+  "oln.as_me": "Post as",
+  "oln.as_me_note": "(lasts longer and ranks higher than anonymous)"
 }

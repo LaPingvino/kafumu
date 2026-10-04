@@ -49,6 +49,12 @@ func main() {
 	kv := cache.New()
 	home.Meetups = meetup.NewService(meetupStore)
 	notes := oln.NewService(olnStore(db))
+	notes.AuthorFor = func(r *http.Request) string {
+		if u := handler.UserFrom(r.Context()); u != nil && u.Username != "" && r.Header.Get("X-Kafumu-As") == "1" {
+			return u.Username
+		}
+		return ""
+	}
 	home.Notes = notes
 	meetups := &handler.Meetups{Home: home, Svc: home.Meetups, Importer: importer.New()}
 	accounts := &handler.Accounts{Home: home, Svc: account.NewService(users)}

@@ -496,7 +496,7 @@
     function sendChat(c, text, mine) {
       var key = unb64(c.key), at = new Date().toISOString();
       return Promise.all([chatTag(key, 1 - c.role), seal(key, "chat", { text: String(text).slice(0, 500), at: at })]).then(function (r) {
-        return mine(r[1], "#" + r[0], 12);
+        return mine(r[1], "#" + r[0], 4); // oln.BaseBits (v2): about a second
       }).then(function () { return at; });
     }
     // readChat folds new lines from them into c.messages; returns how many.

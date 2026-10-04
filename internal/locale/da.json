@@ -509,5 +509,7 @@
   "js.also_bsky": "Også på Bluesky",
   "js.handle_on_card": "Slå til med dette kort",
   "js.handle_this_card": "Aktivt med dette kort",
-  "js.handle_use_card": "Brug dette kort til mit link"
+  "js.handle_use_card": "Brug dette kort til mit link",
+  "oln.as_me": "Slå op som",
+  "oln.as_me_note": "(holder længere og står over anonyme)"
 }

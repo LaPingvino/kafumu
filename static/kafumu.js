@@ -297,7 +297,7 @@
   }
 
   // ---- Local messages (OLN): Kafumu's own channel, first class ----
-  var currentCell = "", requiredBits = 12, liveEvents = [], liveEventNames = [];
+  var currentCell = "", requiredBits = 4, liveEvents = [], liveEventNames = [];
   // sayPlaceholder fits the moment: where (a running event, the place, or
   // just "around here") and what (coffee, lunch, a break, a drink).
   function sayPlaceholder() {
@@ -335,6 +335,7 @@
   function openComposer(mode) {
     composeMode = mode || {};
     var f = $("oln-form");
+    if (f.asme) f.asme.checked = pref("kafumu.postAsMe") !== "0"; // named by default: it ranks higher and lasts longer
     f.hidden = false;
     $("oln-mode").textContent = composeMode.ask ? "❓ " + tr("ask_label") : composeMode.re ? "💬 " + tr("ask_answering", { q: (composeMode.about || "").replace(/https?:\/\/\S+/, "").slice(0, 80) }) : "";
     f.text.placeholder = composeMode.ask ? tr("ask_placeholder") : sayPlaceholder();
@@ -363,10 +364,12 @@
       var dev = window.kafumuDevice, pair = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin });
       ready = pair.invite(false).then(function (inv) { text += "\n" + inv.url; });
     }
+    var asMe = !!(f.asme && f.asme.checked);
+    if (f.asme) pref("kafumu.postAsMe", asMe ? "1" : "0");
     ready.then(function () { return window.kafumuOLN.post(text, keywords, bits, function (tries, ms) {
       if (ms > 0) pref("kafumu.workRate", String(Math.round(tries / ms * 10000) / 10));
-      $("oln-status").textContent = tr("oln_working", { n: Math.round(tries / 1000) + "k" });
-    }); }).then(function (n) {
+      $("oln-status").textContent = tr("oln_working", { n: tries });
+    }, 0, asMe); }).then(function (n) {
       if (n && n.id) ownNotes.push(n);
       composeMode = {};
       f.text.value = "";
@@ -395,7 +398,7 @@
       return pair.invite(false).then(function (inv) {
         var text = textFor(card).trim() + "\n" + inv.url;
         return window.kafumuOLN.post(text, keywords(), requiredBits, function (tries) {
-          statusEl.textContent = tr("oln_working", { n: Math.round(tries / 1000) + "k" });
+          statusEl.textContent = tr("oln_working", { n: tries });
         });
       });
     }).then(function (n) {
@@ -577,7 +580,7 @@
     var meta = document.createElement("div");
     meta.className = "meta";
     var left = Math.max(0, (new Date(n.expires) - Date.now()) / 36e5);
-    meta.textContent = (opts.forYou ? "★ " + tr("ask_for_you") + " · " : "") + ago(n.at) + " · ⚡" + n.bits + " · " +
+    meta.textContent = (n.author ? "@" + n.author + " ✓ · " : "") + (opts.forYou ? "★ " + tr("ask_for_you") + " · " : "") + ago(n.at) + " · ⚡" + n.bits + " · " +
       tr("oln_left", { h: left < 1 ? "<1" : Math.round(left) }) +
       (n.tags || []).filter(function (t) { return !/^(geo|re[0-9a-f]{10}$|ask$)/.test(t); }).map(function (t) { return " #" + t; }).join("");
     var text = document.createElement("p");
@@ -807,7 +810,7 @@
         // Event tags (#websummit) count as local as a #geo tag while they run.
         (b.events || []).forEach(function (e) { ringOf[e.tag] = e.live ? 0 : 1; });
         showEvents(b.events || [], c);
-        requiredBits = b.requiredBits || 12;
+        requiredBits = b.requiredBits || 4;
         liveEvents = (b.events || []).filter(function (e) { return e.live; }).map(function (e) { return e.tag; });
         liveEventNames = (b.events || []).filter(function (e) { return e.live; }).map(function (e) { return e.name; });
         showNotes(b.notes || []);
@@ -980,7 +983,7 @@
           return pair.writeTo(p.inbox, text, card, function (tail, bits) {
             return window.kafumuOLN.mineTail(tail, bits, function (tries, ms) {
               if (ms > 0) pref("kafumu.workRate", String(Math.round(tries / ms * 10000) / 10));
-              st.textContent = tr("oln_working", { n: Math.round(tries / 1000) + "k" });
+              st.textContent = tr("oln_working", { n: tries });
             });
           });
         }).then(function () {

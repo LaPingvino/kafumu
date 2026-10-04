@@ -509,5 +509,7 @@
   "js.also_bsky": "Juga di Bluesky",
   "js.handle_on_card": "Aktifkan dengan kartu ini",
   "js.handle_this_card": "Aktif dengan kartu ini",
-  "js.handle_use_card": "Pakai kartu ini untuk tautanku"
+  "js.handle_use_card": "Pakai kartu ini untuk tautanku",
+  "oln.as_me": "Kirim sebagai",
+  "oln.as_me_note": "(bertahan lebih lama dan tampil di atas yang anonim)"
 }

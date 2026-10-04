@@ -509,5 +509,7 @@
   "js.also_bsky": "Bluesky에도",
   "js.handle_on_card": "이 카드로 켜기",
   "js.handle_this_card": "이 카드로 활성",
-  "js.handle_use_card": "내 링크에 이 카드 사용"
+  "js.handle_use_card": "내 링크에 이 카드 사용",
+  "oln.as_me": "이름으로 올리기:",
+  "oln.as_me_note": "(익명보다 오래 남고 위에 보여요)"
 }

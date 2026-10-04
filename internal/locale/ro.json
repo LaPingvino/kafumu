@@ -509,5 +509,7 @@
   "js.also_bsky": "Și pe Bluesky",
   "js.handle_on_card": "Activează cu acest card",
   "js.handle_this_card": "Activ cu acest card",
-  "js.handle_use_card": "Folosește acest card pentru linkul meu"
+  "js.handle_use_card": "Folosește acest card pentru linkul meu",
+  "oln.as_me": "Publică drept",
+  "oln.as_me_note": "(durează mai mult și apare deasupra celor anonime)"
 }

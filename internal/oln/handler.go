@@ -19,7 +19,11 @@ func (s *Service) HandlePost(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "bad body", http.StatusBadRequest)
 		return
 	}
-	n, err := s.Post(r.Context(), string(raw))
+	author := ""
+	if s.AuthorFor != nil {
+		author = s.AuthorFor(r)
+	}
+	n, err := s.PostAs(r.Context(), string(raw), author)
 	w.Header().Set("Content-Type", "application/json")
 	switch {
 	case errors.Is(err, ErrWork):

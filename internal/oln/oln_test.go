@@ -38,7 +38,8 @@ func TestPostAndRank(t *testing.T) {
 	if n.Cell != "8ccgqw" || n.Text != "Kafo ĉe Pavilono 2?" || len(n.Tags) != 3 || n.Tags[2] != "websummit" {
 		t.Errorf("note = %+v", n)
 	}
-	if got := n.ExpiresAt.Sub(n.At); got != BaseTTL*time.Duration(1<<(n.Bits-BaseBits)) && got != MaxTTL {
+	// Anonymous: half the life its work would buy (Joop).
+	if got := n.ExpiresAt.Sub(n.At); got != BaseTTL*time.Duration(1<<(n.Bits-BaseBits))/2 && got != MaxTTL/2 {
 		t.Errorf("ttl = %v for %d bits", got, n.Bits)
 	}
 	if again, err := s.Post(ctx, raw); err != nil || again.ID != n.ID {
@@ -166,5 +167,22 @@ func TestPairMessages(t *testing.T) {
 	}
 	if _, err := s.Post(context.Background(), mine(BaseBits, now, "no place", "#coffee")); err != ErrPlace {
 		t.Fatalf("placeless public note = %v", err)
+	}
+}
+
+// Anonymous messages live half as long and rank below named ones (Joop).
+func TestAuthor(t *testing.T) {
+	s := NewService(NewMemoryStore())
+	now := time.Now().UTC()
+	anon, _ := s.Post(context.Background(), mine(BaseBits, now, "anon", "#geo8ccgmw"))
+	named, _ := s.PostAs(context.Background(), mine(BaseBits, now, "named", "#geo8ccgmw"), "lapingvino")
+	if anon.Author != "" || named.Author != "lapingvino" {
+		t.Fatalf("authors %q %q", anon.Author, named.Author)
+	}
+	if 2*anon.ExpiresAt.Sub(anon.At) != named.ExpiresAt.Sub(named.At) {
+		t.Fatalf("anon life %v, named %v", anon.ExpiresAt.Sub(anon.At), named.ExpiresAt.Sub(named.At))
+	}
+	if Priority(named, now) <= Priority(anon, now) {
+		t.Fatal("named should rank above anonymous")
 	}
 }

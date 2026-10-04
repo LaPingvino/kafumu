@@ -509,5 +509,7 @@
   "js.also_bsky": "Také na Bluesky",
   "js.handle_on_card": "Zapnout s touto vizitkou",
   "js.handle_this_card": "Aktivní s touto vizitkou",
-  "js.handle_use_card": "Použít tuto vizitku pro můj odkaz"
+  "js.handle_use_card": "Použít tuto vizitku pro můj odkaz",
+  "oln.as_me": "Zveřejnit jako",
+  "oln.as_me_note": "(vydrží déle a je výš než anonymní)"
 }

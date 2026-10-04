@@ -509,5 +509,7 @@
   "js.also_bsky": "Auch auf Bluesky",
   "js.handle_on_card": "Mit dieser Karte einschalten",
   "js.handle_this_card": "Aktiv mit dieser Karte",
-  "js.handle_use_card": "Diese Karte für meinen Link nutzen"
+  "js.handle_use_card": "Diese Karte für meinen Link nutzen",
+  "oln.as_me": "Posten als",
+  "oln.as_me_note": "(hält länger und steht über anonymen)"
 }

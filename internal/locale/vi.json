@@ -509,5 +509,7 @@
   "js.also_bsky": "Cả trên Bluesky",
   "js.handle_on_card": "Bật với danh thiếp này",
   "js.handle_this_card": "Đang dùng danh thiếp này",
-  "js.handle_use_card": "Dùng danh thiếp này cho liên kết của tôi"
+  "js.handle_use_card": "Dùng danh thiếp này cho liên kết của tôi",
+  "oln.as_me": "Đăng với tên",
+  "oln.as_me_note": "(tồn tại lâu hơn và xếp trên tin ẩn danh)"
 }

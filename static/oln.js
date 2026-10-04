@@ -26,11 +26,14 @@
 
   // post mines at `bits` and sends; when the area got busier meanwhile
   // (402), it mines again with one more bit, up to twice.
-  function post(text, keywords, bits, onProgress, tries) {
+  // asMe: post under your name (signed in, named); otherwise anonymous,
+  // without cookies.
+  function post(text, keywords, bits, onProgress, tries, asMe) {
     tries = tries || 0;
     return mine(text, keywords, bits, onProgress).then(function (m) {
-      return fetch("/api/oln", { method: "POST", body: m.raw, credentials: "omit" }).then(function (r) {
-        if (r.status === 402 && tries < 2) return post(text, keywords, bits + 1, onProgress, tries + 1);
+      var opts = asMe ? { method: "POST", body: m.raw, credentials: "same-origin", headers: { "X-Kafumu-As": "1" } } : { method: "POST", body: m.raw, credentials: "omit" };
+      return fetch("/api/oln", opts).then(function (r) {
+        if (r.status === 402 && tries < 2) return post(text, keywords, bits + 1, onProgress, tries + 1, asMe);
         return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || r.status); return j; });
       });
     });

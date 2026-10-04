@@ -60,6 +60,8 @@
           {{range langs}}<option value="{{.Code}}">{{.Native}}{{if ne .Native .English}} ({{.English}}){{end}}</option>{{end}}
         </select></label>
       <label>{{t .Lang "oln.tags"}}<input name="tags" placeholder="coffee, esperanto, surf" autocomplete="off"></label>
+      {{if .User}}{{if .User.Username}}<label class="small"><input type="checkbox" name="asme"> {{t .Lang "oln.as_me"}} <strong>@{{.User.Username}}</strong>
+        <span class="dim">{{t .Lang "oln.as_me_note"}}</span></label>{{end}}{{end}}
     </div>
     <div class="inline-row">
       <select name="extra" aria-label="{{ts .Lang "oln.lasts"}}">

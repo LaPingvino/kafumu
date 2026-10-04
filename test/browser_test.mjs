@@ -218,10 +218,10 @@ try {
   await A.waitFor("document.getElementById('handle-on').textContent.startsWith('✓')", "named link live");
   await B.goto(base + "/@" + nick);
   await B.waitFor(`/^#v1\\./.test(location.hash) && !document.getElementById('accept-from').hidden && document.getElementById('accept-from').textContent.includes("@${nick}")`, "named link leads to connect");
-  // Public inbox: A opens one at 12 bits; B writes from People with a card;
+  // Public inbox: A opens one at 3 bits; B writes from People with a card;
   // A reads it in Contacts and connects back.
   await A.goto(base + "/findable");
-  await A.evaluate("(() => { document.getElementById('inbox-bits').value = '12'; const on = document.getElementById('inbox-on'); on.checked = true; on.onchange(); return true; })()");
+  await A.evaluate("(() => { document.getElementById('inbox-bits').value = '3'; const on = document.getElementById('inbox-on'); on.checked = true; on.onchange(); return true; })()");
   await A.waitFor("document.getElementById('inbox-status').textContent.length > 1", "inbox opened");
   for (let i = 0; ; i++) {
     await B.goto(base + "/?cell=6fg222");

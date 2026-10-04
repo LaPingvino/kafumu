@@ -509,5 +509,7 @@
   "js.also_bsky": "Bluesky'da da",
   "js.handle_on_card": "Bu kartla aç",
   "js.handle_this_card": "Bu kartla etkin",
-  "js.handle_use_card": "Bağlantım için bu kartı kullan"
+  "js.handle_use_card": "Bağlantım için bu kartı kullan",
+  "oln.as_me": "Şu adla paylaş:",
+  "oln.as_me_note": "(anonimden uzun kalır ve üstte görünür)"
 }

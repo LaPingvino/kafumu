@@ -509,5 +509,7 @@
   "js.also_bsky": "也發到 Bluesky",
   "js.handle_on_card": "用這張名片開啟",
   "js.handle_this_card": "已用這張名片開啟",
-  "js.handle_use_card": "我的連結改用這張名片"
+  "js.handle_use_card": "我的連結改用這張名片",
+  "oln.as_me": "以此身分發布：",
+  "oln.as_me_note": "（比匿名保留更久，排得更前面）"
 }

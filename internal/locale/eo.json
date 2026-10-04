@@ -509,5 +509,7 @@
   "js.also_bsky": "Ankaŭ ĉe Bluesky",
   "js.handle_on_card": "Ŝalti kun ĉi tiu karto",
   "js.handle_this_card": "Aktiva kun ĉi tiu karto",
-  "js.handle_use_card": "Uzi ĉi tiun karton por mia ligilo"
+  "js.handle_use_card": "Uzi ĉi tiun karton por mia ligilo",
+  "oln.as_me": "Afiŝi kiel",
+  "oln.as_me_note": "(daŭras pli longe kaj aperas super anonimaj)"
 }

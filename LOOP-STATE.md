@@ -515,7 +515,11 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       verifies in a few ms; how "bits" map to attempts (TTL doubling per bit stays).
 Principle (Joop): OLN decides the format, not how messages are treated; dropping, pricing repeats (59), per-IP
 limits, hiding are each node's own policy.
-- [ ] 39. Post with or without your name (Joop): a local message can carry your account name (signed by the
+- [x] 39. Post with or without your name: composer "Post as @name" (named accounts; on by default, remembered);
+      the server vouches (Note.Author from the session, only with X-Kafumu-As: 1); anonymous public messages
+      live half as long; named rank +150 (≈3 bits); cards show "@name ✓"; oln.json origin.display. Also fixed
+      v2 leftovers: chat lines and the default required bits were still 12 (a minute of Argon2); now 4.
+      Was: Post with or without your name (Joop): a local message can carry your account name (signed by the
       server as @name, linkable to your profile) or stay anonymous; anonymous ones rank lower and expire
       sooner (shorter TTL at the same work), named ones get the normal TTL and a trust bonus.
 
