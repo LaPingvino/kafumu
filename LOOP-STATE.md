@@ -330,7 +330,7 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
 - [x] 34c. UI languages batch 3: cs, sv, da, ro, hu, el. 18 UI languages now. Left: ja ko zh id vi · ar fa he
       ur (RTL) · hi bn sw tok.
 - [x] 34d. UI languages batch 4: ja, ko, zh, id, vi. 23 UI languages. Left: ar fa he ur (RTL) · hi bn sw tok.
-- [ ] 34. More UI languages (Joop: "4 is too few"): the 32 locales of esperanto-kurso.net (ar bn cs da de
+- [~] 34. (Closed by Joop: 24 UI languages is enough; RTL etc. only on request.) More UI languages (Joop: "4 is too few"): the 32 locales of esperanto-kurso.net (ar bn cs da de
       el en eo es fa fr he hi hu id it ja ko nl pl pt ro ru sv sw tok tr uk ur vi zh), translating Kafumu's
       strings; RTL (ar fa he ur) via dir="rtl". Plus a gentle esperanto-kurso.net nudge where it fits (the
       language picker, Esperanto users). Split per batch of languages.
@@ -546,7 +546,8 @@ limits, hiding are each node's own policy.
 
 **Idle-tick rule (Joop):** when no slice is open, a tick is not idle: use the app in a real browser
 (test/cdp.mjs), pick one area, and make it look and work a bit nicer. Fix one concrete thing per tick.
-Second fallback (Joop): translate: add a UI language (slice 34's list) or fill missing keys in one.
+Translation as a fallback is retired (Joop, 2026-10-05: 24 languages is enough). When no slice is open and
+polish runs thin, slow the loop to every two hours (Joop: "most time goes to testing anyway").
 
 ## After the event (rest of M1)
 - [x] `LaPingvino/geotags` (public, /home/joop/geotags): 6,278 cities ≥100k from GeoNames (CC BY 4.0) with
