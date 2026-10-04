@@ -421,6 +421,14 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       Few results → widen: same tag in the ring around, then general posts with that tag (no location) at
       the bottom under "Elsewhere". Interests linked like places: synonym groups (#opensource #foss #floss,
       #ai #artificialintelligence…) in a small table, matched as one.
+- [ ] 50. NEXT. Chips you choose (Joop): a "🗣 +" chip opens a language picker (all 98) and a "# +" chip a
+      subject box (free text, with linked-interest suggestions); the suggested subjects are configurable:
+      pin/unpin chips (long-press or an edit mode), kept with your personas so they sync to your devices.
+- [ ] 51. Questions reach people with that subject (Joop: "a wide range towards people with that subject
+      set up"): an #ask tagged with subjects goes beyond the cell to people whose interests include them:
+      GET /asks?tags=… returns live #ask notes with any of those tags (one indexed query per tag, cached
+      60 s); the device of someone with those interests shows them in Around (ranked by distance, wider
+      radius than ordinary messages) and, opt-in, as a push. The asker sees "reaches people into #x nearby".
 - [ ] 39. Post with or without your name (Joop): a local message can carry your account name (signed by the
       server as @name, linkable to your profile) or stay anonymous; anonymous ones rank lower and expire
       sooner (shorter TTL at the same work), named ones get the normal TTL and a trust bonus.
