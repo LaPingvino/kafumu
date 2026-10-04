@@ -49,13 +49,16 @@
       <label>{{t .Lang "profile.languages"}}</label>
       <ul id="lang-rows" class="boxed-list">
         {{range .MyLangs}}<li class="lang-row"><input type="hidden" name="lang" value="{{.Code}}"><span>{{.Name}}</span>
-          <select name="level_{{.Code}}"><option value="native"{{if eq .Level "native"}} selected{{end}}>{{t $.Lang "profile.native"}}</option><option value="fluent"{{if eq .Level "fluent"}} selected{{end}}>{{t $.Lang "profile.fluent"}}</option><option value="learning"{{if eq .Level "learning"}} selected{{end}}>{{t $.Lang "profile.learning"}}</option></select>
+          <select name="level_{{.Code}}">{{$l := .Level}}{{range (list "native" "C2" "C1" "B2" "B1" "A2" "A1")}}<option value="{{.}}"{{if eq . $l}} selected{{end}}>{{if eq . "native"}}{{t $.Lang "profile.native"}}{{else}}{{.}}{{end}}</option>{{end}}</select>
           <button type="button" class="pill-sm" onclick="this.parentNode.remove()">×</button></li>{{end}}
       </ul>
       <select id="add-lang" aria-label="{{ts .Lang "profile.add_language"}}">
         <option value="">+ {{t .Lang "profile.add_language"}}</option>
         {{range langs}}<option value="{{.Code}}">{{.Native}}{{if ne .Native .English}} ({{.English}}){{end}}</option>{{end}}
       </select>
+      <span class="inline-row"><input id="own-lang" maxlength="30" placeholder="{{ts .Lang "profile.own_language"}}" aria-label="{{ts .Lang "profile.own_language"}}">
+        <button type="button" id="own-lang-add" class="pill-sm">＋</button></span>
+      <p class="dim small">{{t .Lang "profile.levels_note"}}</p>
       <label>{{t .Lang "profile.interests"}}<input name="tags" value="{{range $i, $t := .User.Tags}}{{if $i}}, {{end}}{{$t}}{{end}}" placeholder="opensource, esperanto, climate"></label>
       <label>{{t .Lang "profile.bio"}}<input name="bio" maxlength="160" value="{{.User.Bio}}"></label>
       <label>{{t .Lang "profile.where"}}<input name="where" maxlength="80" value="{{.User.Where}}" placeholder="{{ts .Lang "profile.where_placeholder"}}"></label>
@@ -80,7 +83,7 @@
       <div class="actions"><button type="submit" class="pill">{{t .Lang "account.save"}}</button></div>
     </form>
     <template id="lang-row-tpl"><li class="lang-row"><input type="hidden" name="lang"><span></span>
-      <select><option value="native">{{t .Lang "profile.native"}}</option><option value="fluent">{{t .Lang "profile.fluent"}}</option><option value="learning" selected>{{t .Lang "profile.learning"}}</option></select>
+      <select><option value="native">{{t .Lang "profile.native"}}</option><option value="C2">C2</option><option value="C1">C1</option><option value="B2">B2</option><option value="B1">B1</option><option value="A2" selected>A2</option><option value="A1">A1</option></select>
       <button type="button" class="pill-sm" onclick="this.parentNode.remove()">×</button></li></template>
     <script src="/static/geo.js?v={{.V}}"></script>
     <script>
@@ -96,14 +99,25 @@
         if (best && vis.value === "0") vis.value = best.value;
         f.scrollIntoView({ block: "start" });
       }
-      add.onchange = function () {
-        var code = add.value; add.value = "";
-        if (!code || f.querySelector('input[name="lang"][value="' + code + '"]')) return;
+      function addRow(code, label) {
+        if (!code || [].some.call(f.querySelectorAll('input[name="lang"]'), function (i) { return i.value === code; })) return;
         var row = document.getElementById("lang-row-tpl").content.firstElementChild.cloneNode(true);
         row.querySelector("input").value = code;
-        row.querySelector("span").textContent = add.querySelector('option[value="' + code + '"]').textContent;
+        row.querySelector("span").textContent = label;
         row.querySelector("select").name = "level_" + code;
         document.getElementById("lang-rows").appendChild(row);
+      }
+      add.onchange = function () {
+        var code = add.value; add.value = "";
+        if (code) addRow(code, add.querySelector('option[value="' + code + '"]').textContent);
+      };
+      // Any language: a code ("tlh", "pt-br") or just its name (rare languages).
+      document.getElementById("own-lang-add").onclick = function () {
+        var v = document.getElementById("own-lang").value.trim();
+        if (!v) return;
+        var code = /^[a-z]{2,3}(-[a-z0-9]{2,8}){0,2}$/i.test(v) ? v.toLowerCase() : "x:" + v.replace(/[\/<>"]/g, "").slice(0, 30);
+        addRow(code, code.indexOf("x:") === 0 ? code.slice(2) : v);
+        document.getElementById("own-lang").value = "";
       };
       if (!f.cell.value) try { f.cell.value = localStorage.getItem("kafumu.lastCell") || ""; } catch (e) {}
       document.getElementById("profile-loc").onclick = function () {

@@ -414,7 +414,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       instead of accounts, time-biased validity), the eolnpoc proof of concept (link, how its format works),
       and how to integrate: GET /oln.json?cell=… (olnjson.Format), POST /api/oln (raw nonce;date;b64;keywords,
       SHA-1 leading zeros, current required bits from the bundle), with a curl/JS example. Linked from About.
-- [ ] 62. Language levels (Joop): CEFR-style levels (A1–C2 + native) instead of fluent/learning, and hand-added
+- [x] 62. Language levels: CEFR (native, C2…A1; old fluent→C1, learning→A2 on display), learner = A1–B1;
+      add any language by code ("pt-br", "tlh") or by name ("x:Ladino"), names kept as typed (cleanLangs: codes
+      lower, levels upper). Caught by the browser test: the old cleaner lowercased "A2" and dropped the language.
+      Was: Language levels (Joop): CEFR-style levels (A1–C2 + native) instead of fluent/learning, and hand-added
       languages: by code, or free text without one (rare languages); matching treats levels sensibly.
 - [ ] 63. Fuzz the network (Joop): many simulated devices/accounts going online and offline at random (pairing,
       sync, chat over OLN, named links, moves), with invariants checked (no lost contacts or messages, no

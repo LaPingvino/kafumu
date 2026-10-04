@@ -544,5 +544,7 @@
   "js.handle_views_today": "今天 {n} 次",
   "patrons.business": "經營咖啡館、場地或活動？商業帳號也能支持 Kafumu →",
   "account.business": "你是商家嗎？試試商業帳號，第一個月免費 →",
-  "account.want_password": "可是我就是想設密碼！"
+  "account.want_password": "可是我就是想設密碼！",
+  "profile.own_language": "其他語言：代碼或名稱",
+  "profile.levels_note": "等級參照 CEFR：A1–A2 初級，B1–B2 中級，C1–C2 高級。B1 及以下算作學習中。"
 }

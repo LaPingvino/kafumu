@@ -544,5 +544,7 @@
   "js.handle_views_today": "Dziś: {n}",
   "patrons.business": "Prowadzisz kawiarnię, lokal lub wydarzenie? Konto firmowe też wspiera Kafumu →",
   "account.business": "Jesteś firmą? Wypróbuj konto firmowe, pierwszy miesiąc za darmo →",
-  "account.want_password": "Ale ja naprawdę chcę hasło!"
+  "account.want_password": "Ale ja naprawdę chcę hasło!",
+  "profile.own_language": "Inny język: kod lub nazwa",
+  "profile.levels_note": "Poziomy według ESOKJ: A1–A2 początkujący, B1–B2 średniozaawansowany, C1–C2 zaawansowany. Do B1 liczy się jako nauka."
 }

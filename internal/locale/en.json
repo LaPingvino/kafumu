@@ -544,5 +544,7 @@
   "js.handle_views_today": "{n} today",
   "patrons.business": "Running a café, venue or event? A business account supports Kafumu too →",
   "account.business": "Are you a business? Try a business account, first month free →",
-  "account.want_password": "But I really want to set up a password!"
+  "account.want_password": "But I really want to set up a password!",
+  "profile.own_language": "Any other language: its code or name",
+  "profile.levels_note": "Levels follow the CEFR: A1–A2 beginner, B1–B2 intermediate, C1–C2 advanced. Up to B1 counts as learning."
 }

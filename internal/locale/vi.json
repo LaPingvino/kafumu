@@ -544,5 +544,7 @@
   "js.handle_views_today": "{n} hôm nay",
   "patrons.business": "Bạn có quán cà phê, địa điểm hay sự kiện? Tài khoản doanh nghiệp cũng ủng hộ Kafumu →",
   "account.business": "Bạn là doanh nghiệp? Thử tài khoản doanh nghiệp, tháng đầu miễn phí →",
-  "account.want_password": "Nhưng tôi thật sự muốn đặt mật khẩu!"
+  "account.want_password": "Nhưng tôi thật sự muốn đặt mật khẩu!",
+  "profile.own_language": "Ngôn ngữ khác: mã hoặc tên",
+  "profile.levels_note": "Các cấp độ theo CEFR: A1–A2 sơ cấp, B1–B2 trung cấp, C1–C2 cao cấp. Đến B1 được tính là đang học."
 }

@@ -105,3 +105,24 @@ func TestNewSessionKeepsLink(t *testing.T) {
 		t.Errorf("link broke: %v", err)
 	}
 }
+
+// Languages: codes or hand-typed names, CEFR levels (Joop); the old two
+// levels still read.
+func TestLanguageLevels(t *testing.T) {
+	for l, ok := range map[string]bool{
+		"por/B1": true, "pt-br/C1": true, "x:Ladino/A2": true, "epo/native": true, "eng/fluent": true,
+		"por/Z9": false, "x:a<b/A1": false, "POR/B1": false, "x:/A1": false,
+	} {
+		if langRE.MatchString(l) != ok {
+			t.Errorf("%q valid = %v, want %v", l, !ok, ok)
+		}
+	}
+}
+
+func TestCleanLangs(t *testing.T) {
+	got := cleanLangs([]string{"EPO/b2", "x:Ladino/A2", "pt-BR/c1", "por/Z9", "epo/A1"})
+	want := []string{"epo/B2", "x:Ladino/A2", "pt-br/C1"}
+	if strings.Join(got, ",") != strings.Join(want, ",") {
+		t.Errorf("cleanLangs = %v, want %v", got, want)
+	}
+}

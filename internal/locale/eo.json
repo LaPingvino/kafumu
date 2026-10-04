@@ -544,5 +544,7 @@
   "js.handle_views_today": "{n} hodiaŭ",
   "patrons.business": "Ĉu vi havas kafejon, ejon aŭ eventon? Komerca konto ankaŭ subtenas Kafumu →",
   "account.business": "Ĉu vi estas komerco? Provu komercan konton, la unua monato senpage →",
-  "account.want_password": "Sed mi vere volas krei pasvorton!"
+  "account.want_password": "Sed mi vere volas krei pasvorton!",
+  "profile.own_language": "Ajna alia lingvo: ĝia kodo aŭ nomo",
+  "profile.levels_note": "La niveloj sekvas la KER: A1–A2 komencanto, B1–B2 meznivela, C1–C2 progresinta. Ĝis B1 kalkuliĝas kiel lernanto."
 }

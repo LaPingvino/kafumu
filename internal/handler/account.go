@@ -96,7 +96,19 @@ func (a *Accounts) show(w http.ResponseWriter, r *http.Request, findable bool) {
 		p.Visible = u.Visible(time.Now())
 		for _, l := range u.Langs {
 			code, lvl, _ := strings.Cut(l, "/")
-			p.MyLangs = append(p.MyLangs, myLang{code, langs.Names[code], lvl})
+			name := langs.Names[code]
+			if strings.HasPrefix(code, "x:") {
+				name = strings.TrimPrefix(code, "x:")
+			} else if name == "" {
+				name = code
+			}
+			switch lvl { // the old two levels, read as CEFR
+			case "fluent":
+				lvl = "C1"
+			case "learning":
+				lvl = "A2"
+			}
+			p.MyLangs = append(p.MyLangs, myLang{code, name, lvl})
 		}
 	}
 	p.Next = localPath(r.URL.Query().Get("next"))

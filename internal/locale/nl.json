@@ -544,5 +544,7 @@
   "js.handle_views_today": "{n} vandaag",
   "patrons.business": "Heb je een café, locatie of evenement? Een zakelijk account steunt Kafumu ook →",
   "account.business": "Ben je een bedrijf? Probeer een zakelijk account, eerste maand gratis →",
-  "account.want_password": "Maar ik wil echt een wachtwoord instellen!"
+  "account.want_password": "Maar ik wil echt een wachtwoord instellen!",
+  "profile.own_language": "Een andere taal: de code of naam",
+  "profile.levels_note": "Niveaus volgen het ERK: A1–A2 beginner, B1–B2 gevorderd, C1–C2 vergevorderd. Tot en met B1 telt als lerend."
 }

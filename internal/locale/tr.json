@@ -544,5 +544,7 @@
   "js.handle_views_today": "Bugün: {n}",
   "patrons.business": "Kafen, mekânın ya da etkinliğin mi var? İşletme hesabı da Kafumu'yu destekler →",
   "account.business": "İşletme misin? İşletme hesabını dene, ilk ay ücretsiz →",
-  "account.want_password": "Ama ben gerçekten şifre istiyorum!"
+  "account.want_password": "Ama ben gerçekten şifre istiyorum!",
+  "profile.own_language": "Başka bir dil: kodu ya da adı",
+  "profile.levels_note": "Seviyeler CEFR'e göre: A1–A2 başlangıç, B1–B2 orta, C1–C2 ileri. B1'e kadar öğreniyor sayılır."
 }

@@ -211,6 +211,10 @@
     } catch (e) {}
   }
 
+  // CEFR: A1–B1 (and the old "learning") is learning; B2 and up, native or
+  // the old "fluent" is speaking.
+  function isLearner(level) { return /^(A1|A2|B1|learning)$/.test(level || ""); }
+
   // ---- Views: place + language + interest, filtered on the device ----
   var params = new URLSearchParams(location.search);
   var view = { lang: params.get("lang") || "", tag: (params.get("tag") || "").toLowerCase().replace(/^#/, ""),
@@ -551,7 +555,7 @@
   }
   function offerLearn(country) {
     var me = window.KAFUMU_ME || {}, code = COUNTRY_LANG[country] || "", b = $("learn");
-    var speaks = (me.langs || []).some(function (l) { var p = l.split("/"); return p[0] === code && p[1] !== "learning"; }) ||
+    var speaks = (me.langs || []).some(function (l) { var p = l.split("/"); return p[0] === code && !isLearner(p[1]); }) ||
       (me.from1 || {})[document.documentElement.lang] === code;
     learnLang = code;
     learnNeeded = !!code && !speaks && !!(me.names || {})[code];
@@ -911,14 +915,14 @@
     if (!people.length) return;
     function split(ls) {
       var speak = {}, learn = {};
-      (ls || []).forEach(function (l) { var p = l.split("/"); if (p[1] === "learning") learn[p[0]] = true; else speak[p[0]] = true; });
+      (ls || []).forEach(function (l) { var p = l.split("/"); if (isLearner(p[1])) learn[p[0]] = true; else speak[p[0]] = true; });
       return { speak: speak, learn: learn };
     }
     var mine = split(me.langs), myTags = {};
     (me.tags || []).forEach(function (t) { myTags[t] = true; });
     var count = {};
     people.forEach(function (p) { (p.langs || []).forEach(function (l) { var c = l.split("/")[0]; count[c] = (count[c] || 0) + 1; }); });
-    var name = function (c) { return (me.names || {})[c] || c; };
+    var name = function (c) { return c.indexOf("x:") === 0 ? c.slice(2) : (me.names || {})[c] || c; };
     people.forEach(function (p) {
       var th = split(p.langs), score = 0, why = [];
       var teach = Object.keys(th.speak).filter(function (c) { return mine.learn[c]; });
@@ -943,7 +947,7 @@
       var meta = document.createElement("div");
       meta.className = "meta";
       meta.textContent = [p.bio, p.where ? "📍 " + p.where : "", (p.langs || []).map(function (l) {
-        var x = l.split("/"); return name(x[0]) + (x[1] === "learning" ? " (" + tr("learning") + ")" : "");
+        var x = l.split("/"); return name(x[0]) + (isLearner(x[1]) ? " (" + tr("learning") + " " + (x[1] === "learning" ? "" : x[1]) + ")" : x[1] && x[1] !== "native" && x[1] !== "fluent" ? " " + x[1] : "");
       }).join(", ")].filter(Boolean).join(" · ");
       li.appendChild(meta);
       if (p.inbox && window.kafumuPair && window.kafumuOLN) li.appendChild(writeBox(p));

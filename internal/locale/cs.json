@@ -544,5 +544,7 @@
   "js.handle_views_today": "Dnes: {n}",
   "patrons.business": "Máš kavárnu, prostor nebo akci? Firemní účet také podporuje Kafumu →",
   "account.business": "Jsi firma? Vyzkoušej firemní účet, první měsíc zdarma →",
-  "account.want_password": "Ale já opravdu chci heslo!"
+  "account.want_password": "Ale já opravdu chci heslo!",
+  "profile.own_language": "Jiný jazyk: kód nebo název",
+  "profile.levels_note": "Úrovně podle SERR: A1–A2 začátečník, B1–B2 středně pokročilý, C1–C2 pokročilý. Do B1 se počítá jako učení."
 }

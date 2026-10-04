@@ -544,5 +544,7 @@
   "js.handle_views_today": "{n} heute",
   "patrons.business": "Du hast ein Café, einen Ort oder ein Event? Ein Business-Konto unterstützt Kafumu auch →",
   "account.business": "Bist du ein Unternehmen? Probier ein Business-Konto, der erste Monat ist gratis →",
-  "account.want_password": "Aber ich will wirklich ein Passwort!"
+  "account.want_password": "Aber ich will wirklich ein Passwort!",
+  "profile.own_language": "Eine andere Sprache: Code oder Name",
+  "profile.levels_note": "Die Niveaus folgen dem GER: A1–A2 Anfänger, B1–B2 Mittelstufe, C1–C2 fortgeschritten. Bis B1 zählt als lernend."
 }

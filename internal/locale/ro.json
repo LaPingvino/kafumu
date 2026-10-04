@@ -544,5 +544,7 @@
   "js.handle_views_today": "Azi: {n}",
   "patrons.business": "Ai o cafenea, un local sau un eveniment? Un cont de afacere susține și Kafumu →",
   "account.business": "Ești o afacere? Încearcă un cont de afacere, prima lună gratuit →",
-  "account.want_password": "Dar chiar vreau o parolă!"
+  "account.want_password": "Dar chiar vreau o parolă!",
+  "profile.own_language": "Altă limbă: codul sau numele",
+  "profile.levels_note": "Nivelurile urmează CECR: A1–A2 începător, B1–B2 intermediar, C1–C2 avansat. Până la B1 contează ca învățare."
 }

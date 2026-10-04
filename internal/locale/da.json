@@ -544,5 +544,7 @@
   "js.handle_views_today": "{n} i dag",
   "patrons.business": "Har du en café, et sted eller et event? En virksomhedskonto støtter også Kafumu →",
   "account.business": "Er du en virksomhed? Prøv en virksomhedskonto, første måned gratis →",
-  "account.want_password": "Men jeg vil virkelig have en adgangskode!"
+  "account.want_password": "Men jeg vil virkelig have en adgangskode!",
+  "profile.own_language": "Et andet sprog: kode eller navn",
+  "profile.levels_note": "Niveauerne følger CEFR: A1–A2 begynder, B1–B2 mellem, C1–C2 avanceret. Op til B1 tæller som at lære."
 }

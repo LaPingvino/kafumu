@@ -291,7 +291,7 @@ func (s *Service) SetProfile(ctx context.Context, u *User, cell, bio, where stri
 	u.Cell = strings.ToLower(strings.TrimSpace(cell))
 	u.Bio = clip(strings.TrimSpace(bio), 160)
 	u.Where = clip(strings.TrimSpace(where), 80)
-	u.Langs = cleanList(langs, 12, func(l string) bool { return langRE.MatchString(l) })
+	u.Langs = cleanLangs(langs)
 	u.Tags = cleanList(tags, 12, func(t string) bool { return len(t) <= 40 })
 	if visibleFor > MaxVisible {
 		visibleFor = MaxVisible
@@ -350,7 +350,10 @@ type peopleEntry struct {
 	at time.Time
 }
 
-var langRE = regexp.MustCompile(`^[a-z]{3}/(native|fluent|learning)$`)
+// A language: an ISO code ("por", "pt", "pt-br"), or "x:Name" for one typed
+// by hand (rare languages without a code); a CEFR level (or native; the old
+// fluent/learning still read).
+var langRE = regexp.MustCompile(`^([a-z]{2,3}(-[a-z0-9]{2,8}){0,2}|x:[^/<>"]{1,30})/(native|C2|C1|B2|B1|A2|A1|fluent|learning)$`)
 
 func cleanList(in []string, max int, ok func(string) bool) []string {
 	var out []string
@@ -478,4 +481,32 @@ func (s *Service) NewSession(ctx context.Context, u *User) (string, error) {
 		u.Sessions = u.Sessions[len(u.Sessions)-5:]
 	}
 	return u.ID + "." + tok, s.Save(ctx, u)
+}
+
+// cleanLangs normalises "code/level": codes lowercase, CEFR levels upper,
+// a hand-typed name ("x:Ladino") kept as written; then validates.
+func cleanLangs(in []string) []string {
+	var out []string
+	seen := map[string]bool{}
+	for _, l := range in {
+		i := strings.LastIndex(l, "/")
+		if i < 0 {
+			continue
+		}
+		code, lvl := strings.TrimSpace(l[:i]), strings.TrimSpace(l[i+1:])
+		if !strings.HasPrefix(code, "x:") {
+			code = strings.ToLower(code)
+		}
+		if up := strings.ToUpper(lvl); len(up) == 2 {
+			lvl = up
+		} else {
+			lvl = strings.ToLower(lvl)
+		}
+		l = code + "/" + lvl
+		if langRE.MatchString(l) && !seen[code] && len(out) < 12 {
+			seen[code] = true
+			out = append(out, l)
+		}
+	}
+	return out
 }

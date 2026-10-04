@@ -544,5 +544,7 @@
   "js.handle_views_today": "{n} hoy",
   "patrons.business": "¿Tienes un café, un local o un evento? Una cuenta de empresa también apoya a Kafumu →",
   "account.business": "¿Eres una empresa? Prueba una cuenta de empresa, el primer mes gratis →",
-  "account.want_password": "¡Pero yo quiero una contraseña!"
+  "account.want_password": "¡Pero yo quiero una contraseña!",
+  "profile.own_language": "Otro idioma: su código o nombre",
+  "profile.levels_note": "Los niveles siguen el MCER: A1–A2 principiante, B1–B2 intermedio, C1–C2 avanzado. Hasta B1 cuenta como aprendiendo."
 }
