@@ -494,5 +494,14 @@
   "js.handle_live": "Aktif",
   "js.handle_device": "Aktif, dari perangkat ini. Buka Kafumu sesekali agar tetap aktif.",
   "js.accept_from": "{name} mengajakmu terhubung",
-  "handle.off": "Matikan"
+  "handle.off": "Matikan",
+  "tour.start": "Saya bingung",
+  "js.tour_area": "Ini area yang sedang kamu lihat (sekitar 5 km lebarnya). Kafumu bekerja per area, bukan dengan lokasi persismu: ponselmu mengubah posisimu menjadi kode ini, dan tidak ada yang lebih tepat yang keluar dari ponsel.",
+  "js.tour_coffee": "Mau ngopi? Ini memberi tahu orang di dekatmu. Siapa pun yang mengetuk Gabung akan bertukar kartu denganmu, itu saja.",
+  "js.tour_say": "Tinggalkan pesan singkat untuk semua orang di sekitar sini. Tidak perlu akun; pesannya hilang setelah beberapa waktu.",
+  "js.tour_ask": "Ajukan pertanyaan di sini. Orang di dekatmu melihatnya, begitu juga orang yang agak jauh tapi paham topiknya.",
+  "js.tour_chips": "Persempit yang kamu lihat: acara, bahasa, topik. Ketuk + untuk menambahkan milikmu; ✎ untuk merapikan barisnya.",
+  "js.tour_feed": "Semua yang ada di sekitar sini dalam satu daftar: kontakmu, pesan lokal, meetup, orang, dan postingan. Ketuk satu jenis untuk melihat itu saja.",
+  "js.tour_change": "Melihat tempat lain, atau sedang bepergian? Ganti area di sini.",
+  "js.tour_tabs": "Terhubung: tunjukkan kodemu atau pindai kode orang lain. Kontak: semua orang yang kamu temui, disimpan di ponselmu. Kartuku: yang kamu bagikan. Terlihat: biarkan orang di dekatmu menemukanmu."
 }

@@ -494,5 +494,14 @@
   "js.handle_live": "Aktiva",
   "js.handle_device": "Aktiva, de ĉi tiu aparato. Malfermu Kafumu de tempo al tempo por teni ĝin viva.",
   "js.accept_from": "{name} invitas vin konektiĝi",
-  "handle.off": "Malŝalti"
+  "handle.off": "Malŝalti",
+  "tour.start": "Mi konfuziĝis",
+  "js.tour_area": "Jen la areo, kiun vi rigardas (ĉirkaŭ 5 km larĝa). Kafumu funkcias laŭ areo, ne laŭ via preciza loko: via telefono transformas vian pozicion en ĉi tiun kodon, kaj nenio pli preciza forlasas ĝin.",
+  "js.tour_coffee": "Ĉu vi emas trinki kafon? Tio sciigas homojn ĉirkaŭe. Kiu ajn tuŝetas Aliĝi interŝanĝas kartojn kun vi, nenio pli.",
+  "js.tour_say": "Lasu mallongan mesaĝon por ĉiuj ĉi-ĉirkaŭe. Konto ne necesas; ĝi forvelkas post iom da tempo.",
+  "js.tour_ask": "Demandu ion ĉi tie. Homoj ĉirkaŭe vidas ĝin, kaj ankaŭ homoj iom pli for, kiuj konas la temon.",
+  "js.tour_chips": "Malvastigu tion, kion vi vidas: evento, lingvo, temo. Tuŝetu + por aldoni vian propran; ✎ por ordigi la vicon.",
+  "js.tour_feed": "Ĉio ĉi-ĉirkaŭe en unu listo: viaj kontaktoj, lokaj mesaĝoj, renkontiĝoj, homoj kaj afiŝoj. Tuŝetu specon por vidi nur tion.",
+  "js.tour_change": "Ĉu vi rigardas alian lokon, aŭ vojaĝas? Ŝanĝu la areon ĉi tie.",
+  "js.tour_tabs": "Konektiĝi: montru vian kodon aŭ skanu ies alian. Kontaktoj: ĉiuj, kiujn vi renkontis, konservitaj en via telefono. Mia karto: tio, kion vi kundividas. Trovebla: lasu homojn ĉirkaŭe trovi vin."
 }

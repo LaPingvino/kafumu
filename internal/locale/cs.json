@@ -494,5 +494,14 @@
   "js.handle_live": "Aktivní",
   "js.handle_device": "Aktivní, z tohoto zařízení. Občas otevři Kafumu, ať funguje dál.",
   "js.accept_from": "{name} tě zve ke spojení",
-  "handle.off": "Vypnout"
+  "handle.off": "Vypnout",
+  "tour.start": "Nevyznám se",
+  "js.tour_area": "Tohle je oblast, na kterou se díváš (asi 5 km napříč). Kafumu pracuje s oblastí, ne s tvou přesnou polohou: telefon převede tvou polohu na tento kód a nic přesnějšího z něj neodchází.",
+  "js.tour_coffee": "Máš chuť na kafe? Tímhle dáš vědět lidem poblíž. Kdo klepne na Přidat se, vymění si s tebou vizitky, nic víc.",
+  "js.tour_say": "Nech krátkou zprávu pro všechny tady v okolí. Účet není potřeba; po čase zmizí.",
+  "js.tour_ask": "Zeptej se tady. Uvidí to lidé poblíž a také lidé o kus dál, kteří se v tématu vyznají.",
+  "js.tour_chips": "Zúž, co vidíš: akce, jazyk, téma. Klepni na + a přidej vlastní; ✎ pro úpravu řádku.",
+  "js.tour_feed": "Všechno z okolí v jednom seznamu: tvoje kontakty, místní zprávy, setkání, lidé a příspěvky. Klepni na druh a uvidíš jen ten.",
+  "js.tour_change": "Díváš se jinam, nebo cestuješ? Tady změníš oblast.",
+  "js.tour_tabs": "Propojit: ukaž svůj kód nebo naskenuj něčí. Kontakty: všichni, které jsi potkal, uložení v telefonu. Moje vizitka: co sdílíš. Viditelnost: nech lidi poblíž, ať tě najdou."
 }

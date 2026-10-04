@@ -494,5 +494,14 @@
   "js.handle_live": "Aktiv",
   "js.handle_device": "Aktiv, von diesem Gerät. Öffne Kafumu ab und zu, damit er aktiv bleibt.",
   "js.accept_from": "{name} lädt dich zum Verbinden ein",
-  "handle.off": "Ausschalten"
+  "handle.off": "Ausschalten",
+  "tour.start": "Ich blicke nicht durch",
+  "js.tour_area": "Das ist das Gebiet, das du gerade ansiehst (etwa 5 km breit). Kafumu arbeitet mit Gebieten, nicht mit deinem genauen Standort: Dein Handy macht aus deiner Position diesen Code, und nichts Genaueres verlässt es.",
+  "js.tour_coffee": "Lust auf einen Kaffee? Das sagt Leuten in der Nähe Bescheid. Wer auf Mitmachen tippt, tauscht Karten mit dir, mehr nicht.",
+  "js.tour_say": "Hinterlass eine kurze Nachricht für alle hier in der Gegend. Kein Konto nötig; sie verschwindet nach einer Weile.",
+  "js.tour_ask": "Stell hier eine Frage. Leute in der Nähe sehen sie, und auch Leute etwas weiter weg, die sich mit dem Thema auskennen.",
+  "js.tour_chips": "Grenz ein, was du siehst: ein Event, eine Sprache, ein Thema. Tippe auf +, um eigene hinzuzufügen; ✎, um die Reihe aufzuräumen.",
+  "js.tour_feed": "Alles hier in der Gegend in einer Liste: deine Kontakte, lokale Nachrichten, Treffen, Leute und Beiträge. Tippe auf eine Art, um nur diese zu sehen.",
+  "js.tour_change": "Schaust du dir einen anderen Ort an oder bist du unterwegs? Hier änderst du das Gebiet.",
+  "js.tour_tabs": "Verbinden: Zeig deinen Code oder scanne den von jemandem. Kontakte: alle, die du getroffen hast, gespeichert auf deinem Handy. Meine Karte: was du teilst. Auffindbar: Lass dich von Leuten in der Nähe finden."
 }

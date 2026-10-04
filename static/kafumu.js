@@ -412,6 +412,30 @@
     }).catch(function (err) { statusEl.textContent = tr("oln_failed") + " " + err.message; btn.disabled = false; });
   }
 
+  // ---- "I'm confused": a short tour of the page, one thing at a time ----
+  var TOUR = [[".cell-tag", "tour_area"], ["#coffee", "tour_coffee"], ["#say", "tour_say"], ["#ask", "tour_ask"],
+    ["#filter-chips", "tour_chips"], ["#feed-kinds", "tour_feed"], ["#change-area", "tour_change"], [".switcher.bottom", "tour_tabs"]];
+  var tourAt = -1;
+  function tourShow(i) {
+    var old = document.querySelector(".tour-focus");
+    if (old) old.classList.remove("tour-focus");
+    var steps = TOUR.filter(function (s) { var e = document.querySelector(s[0]); return e && !e.hidden && e.offsetParent !== null; });
+    if (i < 0 || i >= steps.length) { $("tour").hidden = true; tourAt = -1; pref("kafumu.tourSeen", "1"); return; }
+    tourAt = i;
+    var el = document.querySelector(steps[i][0]);
+    el.classList.add("tour-focus");
+    el.scrollIntoView({ block: "center", behavior: "smooth" });
+    $("tour-text").textContent = tr(steps[i][1]);
+    $("tour-step").textContent = (i + 1) + " / " + steps.length;
+    $("tour-back").disabled = i === 0;
+    $("tour-next").hidden = i === steps.length - 1;
+    $("tour").hidden = false;
+  }
+  $("tour-start").onclick = function () { tourShow(0); };
+  $("tour-next").onclick = function () { tourShow(tourAt + 1); };
+  $("tour-back").onclick = function () { tourShow(tourAt - 1); };
+  $("tour-done").onclick = function () { tourShow(-1); };
+
   // ---- "Learn the local language" ----
   // The area's main language (by country); offered when you don't speak it.
   var COUNTRY_LANG = { PT: "por", BR: "por", AO: "por", MZ: "por", NL: "nld", SR: "nld", DE: "deu", AT: "deu", FR: "fra",

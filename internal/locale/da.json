@@ -494,5 +494,14 @@
   "js.handle_live": "Aktivt",
   "js.handle_device": "Aktivt, fra denne enhed. Åbn Kafumu en gang imellem for at holde det i gang.",
   "js.accept_from": "{name} inviterer dig til at forbinde",
-  "handle.off": "Slå fra"
+  "handle.off": "Slå fra",
+  "tour.start": "Jeg er forvirret",
+  "js.tour_area": "Det her er området, du kigger på (cirka 5 km på tværs). Kafumu arbejder med områder, ikke med din præcise placering: din telefon laver din position om til denne kode, og intet mere præcist forlader den.",
+  "js.tour_coffee": "Lyst til en kop kaffe? Det her siger det til folk i nærheden. Den, der trykker på Deltag, bytter kort med dig, intet andet.",
+  "js.tour_say": "Læg en kort besked til alle her omkring. Ingen konto nødvendig; den forsvinder efter et stykke tid.",
+  "js.tour_ask": "Stil et spørgsmål her. Folk i nærheden ser det, og det gør folk lidt længere væk, der kender emnet, også.",
+  "js.tour_chips": "Afgræns, hvad du ser: en begivenhed, et sprog, et emne. Tryk på + for at tilføje dit eget; ✎ for at rydde op i rækken.",
+  "js.tour_feed": "Alt her omkring i én liste: dine kontakter, lokale beskeder, meetups, folk og opslag. Tryk på en slags for kun at se den.",
+  "js.tour_change": "Kigger du på et andet sted, eller er du ude at rejse? Skift område her.",
+  "js.tour_tabs": "Forbind: vis din kode eller scan en andens. Kontakter: alle, du har mødt, gemt på din telefon. Mit kort: det, du deler. Synlig: lad folk i nærheden finde dig."
 }

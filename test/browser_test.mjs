@@ -154,6 +154,13 @@ try {
   await A.evaluate("localStorage.removeItem('kafumu.cellCounts'); true");
   await A.goto(base + "/?cell=6fg223&lang=eng");
   await A.waitFor("document.getElementById('feed').textContent.includes('hi from the OLN " + RUN + "')", "back to the message again", 30000);
+  // "I'm confused": the tour highlights one part at a time and explains it.
+  await A.evaluate("document.getElementById('tour-start').click(); true");
+  await A.waitFor("!document.getElementById('tour').hidden && !!document.querySelector('.cell-tag.tour-focus') && document.getElementById('tour-step').textContent.startsWith('1 /')", "tour starts at the area");
+  await A.evaluate("document.getElementById('tour-next').click(); true");
+  await A.waitFor("!!document.querySelector('#coffee.tour-focus')", "tour step 2: coffee");
+  await A.evaluate("document.getElementById('tour-done').click(); true");
+  await A.waitFor("document.getElementById('tour').hidden && !document.querySelector('.tour-focus')", "tour done");
   // Report: ⚑ on the card, a reason, a stamped report; the card goes away here.
   await A.evaluate("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')); li.querySelector('button.report').click(); li.querySelector('.report-reasons .chip').click(); return true; })()");
   await A.waitFor("document.getElementById('feed').textContent.includes('Reported')", "report sent");
@@ -341,7 +348,7 @@ try {
     await X.evaluate("fetch('/account/delete', { method: 'POST', body: new URLSearchParams({ confirm: 'yes' }), credentials: 'same-origin' }).then(() => true)");
   }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, findable profile seen, named link, paid inbox message + connect back, OLN message + reaction + elsewhere + travelling + report + question/answer + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, findable profile seen, named link, paid inbox message + connect back, OLN message + reaction + elsewhere + travelling + tour + report + question/answer + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

@@ -21,6 +21,7 @@
     <!-- About the area rather than in it: smaller, out of the way. -->
     <p class="actions minor">
       <button type="button" id="change-area" class="pill-sm">📍 {{t .Lang "area.change"}}</button>
+      <button type="button" id="tour-start" class="pill-sm">😕 {{t .Lang "tour.start"}}</button>
       <a id="share" href="#" role="button" class="pill-sm">↗ {{t .Lang "home.share"}}</a>
       <a href="/meetups/new" role="button" class="pill-sm">＋ {{t .Lang "meetup.new_title"}}</a>
       <a id="be-findable" href="/findable" role="button" class="pill-sm">👁 {{t .Lang "home.be_findable"}}</a>
@@ -105,6 +106,13 @@
 
 <!-- One feed (Joop): contacts, local messages, meetups, people and Bluesky
      as cards in one list, ranked on the device; chips filter by kind. -->
+<div id="tour" class="tour card" role="dialog" aria-live="polite" hidden>
+  <p id="tour-text"></p>
+  <div class="actions"><span id="tour-step" class="dim small"></span>
+    <button type="button" id="tour-back" class="pill-sm">←</button>
+    <button type="button" id="tour-next" class="pill-sm suggested">→</button>
+    <button type="button" id="tour-done" class="pill-sm">✓</button></div>
+</div>
 <section id="feed-section">
   <div id="filter-chips" class="chips filter-chips" role="group" hidden></div>
   <p id="filter-note" class="dim small" role="status" hidden></p>

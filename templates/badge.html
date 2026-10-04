@@ -4,6 +4,7 @@
   <h1 id="badge-name"></h1>
   <p id="badge-about" class="dim"></p>
   <div id="badge-qr" class="qr"></div>
+  <p id="badge-url" class="short-code" hidden></p>
   <p><strong>{{t .Lang "badge.scan"}}</strong><br><small class="dim">☕ {{.Brand}}</small></p>
   <div class="actions center noprint">
     <button type="button" class="pill suggested" onclick="print()">{{t .Lang "badge.print"}}</button>
@@ -22,8 +23,15 @@
     dev.personas.shareCard().then(function (card) {
       document.getElementById("badge-name").textContent = card.name || "";
       document.getElementById("badge-about").textContent = card.about || "";
-      return pair.invite(fresh, "badge");
+      // With your named link on, the badge shows kafumu.com/@name: short
+      // enough to type, and it never runs out.
+      return dev.store.get("handle").then(function (h) {
+        if (h && h.url && !fresh) return { url: h.url, named: true };
+        return pair.invite(fresh, "badge");
+      });
     }).then(function (inv) {
+      var u = document.getElementById("badge-url");
+      u.hidden = !inv.named; u.textContent = inv.named ? inv.url.replace(/^https?:\/\//, "") : "";
       var q = qrcode(0, "M"); q.addData(inv.url); q.make();
       document.getElementById("badge-qr").innerHTML = q.createSvgTag({ cellSize: 6, margin: 2, scalable: true });
     });

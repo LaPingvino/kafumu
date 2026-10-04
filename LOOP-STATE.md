@@ -480,7 +480,9 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       renewed whenever the owner opens the app, expires after 90 days unused). /@name shows the card preview and
       "Connect"; scans become contacts like any code. Badges print kafumu.com/@name when there is one.
       First user: kafumu.com/@lapingvino (Joop's account), e.g. "have a coffee with Joop at Web Summit".
-- [ ] 58. "I'm confused" on Around (Joop: location-first is new to most people): a small button that starts a
+- [x] 58. "😕 I'm confused" on Around: an 8-step tour (area, coffee, say, ask, chips, feed, change area, tabs), the
+      explained part outlined, text floating above the tabs, Back/Next/Done, in all 24 languages. Badge uses
+      kafumu.com/@name (printed under the QR) when the named link is on. Was: "I'm confused" on Around (Joop: location-first is new to most people): a small button that starts a
       short guided tour on the page itself: step by step it highlights the area heading ("this is where you
       are, as a #geo cell"), coffee/say/ask, the filter chips, the feed kinds, Connect, Contacts, My card and
       Findable, each with one plain sentence; Next/Back/Done; remembers it was seen; all languages.
