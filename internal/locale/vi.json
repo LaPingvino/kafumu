@@ -455,5 +455,6 @@
   "js.chat_send": "Gửi",
   "js.dup_hint": "Cùng một người với liên hệ khác?",
   "js.dup_remove": "Gỡ liên hệ này",
-  "js.react": "Phản hồi"
+  "js.react": "Phản hồi",
+  "js.elsewhere": "Nơi khác · {tag}"
 }

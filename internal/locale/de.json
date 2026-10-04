@@ -455,5 +455,6 @@
   "js.chat_send": "Senden",
   "js.dup_hint": "Dieselbe Person wie ein anderer Kontakt?",
   "js.dup_remove": "Diesen entfernen",
-  "js.react": "Reagieren"
+  "js.react": "Reagieren",
+  "js.elsewhere": "Anderswo · {tag}"
 }

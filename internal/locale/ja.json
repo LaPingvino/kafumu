@@ -455,5 +455,6 @@
   "js.chat_send": "送信",
   "js.dup_hint": "別の連絡先と同じ人ですか？",
   "js.dup_remove": "こちらを削除",
-  "js.react": "反応する"
+  "js.react": "反応する",
+  "js.elsewhere": "ほかの場所 · {tag}"
 }

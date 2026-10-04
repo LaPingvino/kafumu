@@ -455,5 +455,6 @@
   "js.chat_send": "Küldés",
   "js.dup_hint": "Ugyanaz a személy, mint egy másik kapcsolat?",
   "js.dup_remove": "Ennek eltávolítása",
-  "js.react": "Reagálás"
+  "js.react": "Reagálás",
+  "js.elsewhere": "Máshol · {tag}"
 }

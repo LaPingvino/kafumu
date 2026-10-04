@@ -455,5 +455,6 @@
   "js.chat_send": "Skicka",
   "js.dup_hint": "Samma person som en annan kontakt?",
   "js.dup_remove": "Ta bort den här",
-  "js.react": "Reagera"
+  "js.react": "Reagera",
+  "js.elsewhere": "På andra ställen · {tag}"
 }

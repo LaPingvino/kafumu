@@ -455,5 +455,6 @@
   "js.chat_send": "Odeslat",
   "js.dup_hint": "Stejný člověk jako jiný kontakt?",
   "js.dup_remove": "Odebrat tento",
-  "js.react": "Reagovat"
+  "js.react": "Reagovat",
+  "js.elsewhere": "Jinde · {tag}"
 }

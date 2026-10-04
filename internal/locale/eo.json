@@ -455,5 +455,6 @@
   "js.chat_send": "Sendi",
   "js.dup_hint": "Ĉu la sama persono kiel alia kontakto?",
   "js.dup_remove": "Forigi ĉi tiun",
-  "js.react": "Reagi"
+  "js.react": "Reagi",
+  "js.elsewhere": "Aliloke · {tag}"
 }

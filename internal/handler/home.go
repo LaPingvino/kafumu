@@ -429,3 +429,26 @@ func (h *Home) Bundle(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Cache-Control", "public, max-age=30") // people and meetups change; posts are cached server-side anyway
 	json.NewEncoder(w).Encode(b)
 }
+
+// TagPosts handles GET /tagposts?tag=websummit: Bluesky posts with that tag
+// from anywhere, for "Elsewhere" when a filter finds little nearby. Cached
+// per instance like every tag search; bots get nothing.
+func (h *Home) TagPosts(w http.ResponseWriter, r *http.Request) {
+	tag := strings.ToLower(strings.TrimPrefix(strings.TrimSpace(r.URL.Query().Get("tag")), "#"))
+	if IsBot(r) || tag == "" || len(tag) > 40 || strings.ContainsAny(tag, " /?&#") {
+		http.Error(w, "want ?tag=", http.StatusBadRequest)
+		return
+	}
+	posts := h.Bsky.SearchTag(r.Context(), tag, 25)
+	if posts == nil {
+		posts = []bsky.Post{}
+	}
+	if h.Gaz != nil {
+		for i := range posts {
+			posts[i].PlaceTags = h.Gaz.CountPlaces(posts[i].Tags)
+		}
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Cache-Control", "public, max-age=120")
+	json.NewEncoder(w).Encode(posts)
+}

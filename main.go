@@ -77,6 +77,7 @@ func main() {
 	mux.HandleFunc("GET /privacy", home.Info("privacy.html", "privacy.title"))
 	mux.HandleFunc("GET /bundle", home.Bundle)
 	mux.HandleFunc("GET /places", home.Places)
+	mux.HandleFunc("GET /tagposts", home.TagPosts)
 	mux.HandleFunc("GET /card", home.ShowCard)
 	mux.HandleFunc("GET /connect", home.ShowConnect)
 	mux.HandleFunc("GET /badge", home.ShowBadge)

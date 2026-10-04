@@ -108,9 +108,9 @@ try {
   // Learn the local language: Lisbon (PT) with an English UI offers Portuguese.
   await A.goto(base + "/?cell=8ccgqx");
   // (merged into the filter chips): a 🗣 Portuguese chip, and an event chip.
-  await A.waitFor("[...document.querySelectorAll('#filter-chips .chip')].some(c => c.textContent.includes('Portug') && c.href.includes('lang=por'))", "🗣 Portuguese filter chip", 20000);
+  await A.waitFor("[...document.querySelectorAll('#filter-chips .chip')].some(c => c.textContent.includes('ortugu') && c.href.includes('lang=por'))", "🗣 Portuguese filter chip", 20000);
   await A.waitFor("[...document.querySelectorAll('#filter-chips .chip')].some(c => c.textContent.includes('#websummit'))", "#websummit event chip");
-  await A.evaluate("[...document.querySelectorAll('#filter-chips .chip')].find(c => c.textContent.includes('Portug')).click(); true");
+  await A.evaluate("[...document.querySelectorAll('#filter-chips .chip')].find(c => c.textContent.includes('ortugu')).click(); true");
   await A.waitFor("document.getElementById('place-name').textContent.startsWith('🗣')", "heading shows the language filter", 20000);
   await A.waitFor("!document.getElementById('learn-card').hidden", "learn card comes along");
 
@@ -133,6 +133,11 @@ try {
     try { await A.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('hi from the OLN " + RUN + "') && (li.querySelector('.reactions') || {}).textContent === '👍 1')", "👍 under the message", 15000); break; }
     catch (e) { if (i >= 4) throw e; await A.goto(base + "/?cell=6fg223&lang=eng"); }
   }
+  // A tag filter with little nearby fills up from elsewhere (same tag, anywhere).
+  await A.goto(base + "/?cell=6fg223&tag=coffee&w=3");
+  await A.waitFor("[...document.querySelectorAll('#feed > li')].some(li => (li.dataset.label || '').startsWith('Elsewhere'))", "Elsewhere posts for #coffee", 25000);
+  await A.goto(base + "/?cell=6fg223&lang=eng");
+  await A.waitFor("document.getElementById('feed').textContent.includes('hi from the OLN " + RUN + "')", "back to the message", 30000);
   // Report: ⚑ on the card, a reason, a stamped report; the card goes away here.
   await A.evaluate("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')); li.querySelector('button.report').click(); li.querySelector('.report-reasons .chip').click(); return true; })()");
   await A.waitFor("document.getElementById('feed').textContent.includes('Reported')", "report sent");
@@ -307,7 +312,7 @@ try {
     await X.evaluate("fetch('/account/delete', { method: 'POST', body: new URLSearchParams({ confirm: 'yes' }), credentials: 'same-origin' }).then(() => true)");
   }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, findable profile seen, paid inbox message + connect back, OLN message + reaction + report + question/answer + local themes + filter chips (event, language → learn) + views + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, findable profile seen, paid inbox message + connect back, OLN message + reaction + elsewhere + report + question/answer + local themes + filter chips (event, language → learn) + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

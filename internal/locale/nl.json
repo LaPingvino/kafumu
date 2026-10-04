@@ -455,5 +455,6 @@
   "js.chat_send": "Versturen",
   "js.dup_hint": "Dezelfde persoon als een ander contact?",
   "js.dup_remove": "Deze verwijderen",
-  "js.react": "Reageren"
+  "js.react": "Reageren",
+  "js.elsewhere": "Elders · {tag}"
 }

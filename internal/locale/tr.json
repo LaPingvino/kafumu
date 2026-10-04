@@ -455,5 +455,6 @@
   "js.chat_send": "Gönder",
   "js.dup_hint": "Başka bir kişiyle aynı mı?",
   "js.dup_remove": "Bunu kaldır",
-  "js.react": "Tepki ver"
+  "js.react": "Tepki ver",
+  "js.elsewhere": "Başka yerlerde · {tag}"
 }

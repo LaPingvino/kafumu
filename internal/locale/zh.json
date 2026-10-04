@@ -455,5 +455,6 @@
   "js.chat_send": "发送",
   "js.dup_hint": "和另一个联系人是同一个人？",
   "js.dup_remove": "移除这个",
-  "js.react": "回应"
+  "js.react": "回应",
+  "js.elsewhere": "其他地方 · {tag}"
 }

@@ -22,7 +22,7 @@
   // minus a step per position (keeping that kind's own order).
   var KINDS = ["contacts", "here", "meetups", "people", "posts"];
   // Sinks by source; friends around and signals both count as "contacts".
-  var KIND_OF = { friends: "contacts", signals: "contacts", here: "here", meetups: "meetups", people: "people", posts: "posts" };
+  var KIND_OF = { friends: "contacts", signals: "contacts", here: "here", meetups: "meetups", people: "people", posts: "posts", elsewhere: "posts" };
   var BASE = { contacts: 1000, here: 10, meetups: 7, people: 4, posts: 3 }, STEP = { contacts: 1, here: 0.5, meetups: 0.6, people: 0.8, posts: 0.15 };
   var feed = {}, drawTimer = null;
   Object.keys(KIND_OF).forEach(function (k) { feed[k] = []; });
@@ -219,6 +219,20 @@
     Object.keys(me.langTags || {}).forEach(function (t) { if ((me.langTags[t].codes || []).indexOf(code) >= 0) out[t] = true; });
     return out;
   }
+  // Interests linked like places: a tag matches its whole group.
+  var TAG_GROUPS = [["opensource", "foss", "floss", "oss", "freesoftware"], ["ai", "artificialintelligence", "machinelearning", "ml", "genai", "llm"],
+    ["coffee", "cafe", "café", "koffie", "kafo", "kaffee"], ["startup", "startups", "founders", "entrepreneur", "entrepreneurship"],
+    ["photography", "photo", "fotografia", "fotografie", "photographie"], ["music", "musica", "música", "muziek", "musik", "livemusic"],
+    ["running", "run", "hardlopen", "corrida", "laufen"], ["hiking", "wandelen", "caminhadas", "trekking", "wandern"],
+    ["climate", "climatechange", "climatecrisis", "sustainability"], ["languages", "languagelearning", "polyglot", "languageexchange", "tandem"],
+    ["websummit", "websummit2026", "ws26"], ["esperanto", "esperantujo"], ["design", "ux", "ui", "productdesign"],
+    ["crypto", "bitcoin", "web3", "blockchain"], ["food", "foodie", "comida", "eten"], ["art", "arte", "kunst"]];
+  function tagGroup(t) {
+    t = String(t || "").toLowerCase();
+    for (var i = 0; i < TAG_GROUPS.length; i++) if (TAG_GROUPS[i].indexOf(t) >= 0) return TAG_GROUPS[i];
+    return [t];
+  }
+
   // filterBundle marks what matches the view (_match) and, at full strength,
   // keeps only that; lower strengths become a ranking bias.
   function filterBundle(b) {
@@ -228,7 +242,7 @@
     function tagsOK(tags, text) {
       tags = (tags || []).map(function (t) { return String(t).toLowerCase(); });
       if (lt && !tags.some(function (t) { return lt[t]; })) return false;
-      if (tag && tags.indexOf(tag) < 0 && !new RegExp("#" + tag.replace(/[^\p{L}\p{N}_]/gu, "") + "\\b", "iu").test(text || "")) return false;
+      if (tag && !tagGroup(tag).some(function (g) { return tags.indexOf(g) >= 0 || new RegExp("#" + g.replace(/[^\p{L}\p{N}_]/gu, "") + "\\b", "iu").test(text || ""); })) return false;
       return true;
     }
     function mark(list, ok) {
@@ -248,7 +262,7 @@
     b.notes = mark(b.notes, function (n) { return tagsOK(n.tags, n.text); });
     b.people = mark(b.people, function (p) {
       if (view.lang && !(p.langs || []).some(function (l) { return l.split("/")[0] === view.lang; })) return false;
-      return !tag || (p.tags || []).indexOf(tag) >= 0;
+      return !tag || tagGroup(tag).some(function (g) { return (p.tags || []).map(function (x) { return String(x).toLowerCase(); }).indexOf(g) >= 0; });
     });
     return b;
   }
@@ -409,8 +423,9 @@
       seen[k] = true; chips.push({ kind: kind, value: value, label: label });
     }
     (b.events || []).forEach(function (e) { add("tag", e.tag, (e.live ? "🔴 " : "📅 ") + "#" + e.tag); });
-    if (learnLang && (me.names || {})[learnLang]) add("lang", learnLang, "🗣 " + me.names[learnLang]);
-    if (view.lang && view.lang !== learnLang) add("lang", view.lang, "🗣 " + ((me.names || {})[view.lang] || view.lang));
+    function short(code) { return String((me.names || {})[code] || code).split(" (")[0]; }
+    if (learnLang && (me.names || {})[learnLang]) add("lang", learnLang, "🗣 " + short(learnLang));
+    if (view.lang && view.lang !== learnLang) add("lang", view.lang, "🗣 " + short(view.lang));
     var counts = {};
     try { counts = JSON.parse(localStorage.getItem("kafumu.localTags") || "{}"); } catch (e) {}
     Object.keys(counts).sort(function (a, z) { return counts[z] - counts[a]; }).slice(0, 6).forEach(function (t) { add("tag", t, "#" + t); });
@@ -723,6 +738,7 @@
         drawTravel();
         showPeople(b.people || []);
         render(b.posts || [], ringOf, places, c);
+        elsewhere(b, c);
         var named = (b.places || []).filter(function (pt) { return pt.weight >= 0.5; })
           .slice(0, 3).map(function (pt) { return "#" + pt.tag; });
         $("list-note").textContent = named.length
@@ -1042,6 +1058,27 @@
     li.appendChild(row);
     swipeAway(li, hideIt);
     return li;
+  }
+
+  // elsewhere: a tag filter that finds little here also shows that tag's
+  // posts from anywhere, at the bottom.
+  function elsewhere(b, c) {
+    feed.elsewhere = [];
+    if (!view.tag) return;
+    var here = (b.posts || []).filter(function (p) { return p._match !== false; }).length;
+    if (here >= 5) return;
+    var seq = loadSeq, uris = {};
+    (b.posts || []).forEach(function (p) { uris[p.uri] = true; });
+    fetch("/tagposts?tag=" + encodeURIComponent(view.tag)).then(function (r) { return r.ok ? r.json() : []; }).then(function (ps) {
+      if (seq !== loadSeq) return;
+      var hidden = hiddenNotes();
+      ps.filter(function (p) { return !uris[p.uri] && hidden.indexOf(p.uri) < 0; }).slice(0, 20).forEach(function (p, i) {
+        var li = postItem(p, {}, {});
+        li.dataset.score = -100 - i;
+        sinks.elsewhere.appendChild(li);
+        li.dataset.label = tr("elsewhere", { tag: "#" + view.tag });
+      });
+    }).catch(function () {});
   }
 
   function ago(iso) {

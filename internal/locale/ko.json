@@ -455,5 +455,6 @@
   "js.chat_send": "보내기",
   "js.dup_hint": "다른 연락처와 같은 사람인가요?",
   "js.dup_remove": "이 항목 삭제",
-  "js.react": "반응하기"
+  "js.react": "반응하기",
+  "js.elsewhere": "다른 곳 · {tag}"
 }

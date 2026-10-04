@@ -412,7 +412,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       Tap = filter (tags strict, w=3; language boosts), tap again = clear. Heading becomes "#tag · Place" /
       "🗣 Language · Place". Browser-tested in Lisbon (🗣 Portuguese, #websummit). 49b next: widen + Elsewhere +
       interest synonyms.
-- [ ] 49. PRIORITY. Filter chips on Around (Joop): one row of tappable hashtags that narrow Around: running
+- [x] 49b. Elsewhere: a tag filter with < 5 matching posts here fetches GET /tagposts?tag= (Bluesky, cached,
+      no bots) and shows them at the bottom labelled "Elsewhere · #tag"; interests linked in TAG_GROUPS
+      (#opensource=#foss=#floss, #ai=#machinelearning…), used for posts, notes, meetups and people; language
+      chip shows the native name only. Browser-tested (#coffee on an empty cell). Was: Filter chips on Around (Joop): one row of tappable hashtags that narrow Around: running
       or upcoming events (#websummit), the local language (merges the 🗣 Learn button into this), interests
       (yours + local themes). Tapping one sets the view; the heading becomes "#websummit in Lisbon".
       Few results → widen: same tag in the ring around, then general posts with that tag (no location) at
