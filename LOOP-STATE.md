@@ -505,7 +505,9 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       date;b64;keywords", work = leading zero bits of Argon2id(line, "OLN-v2-proofwork", t=1, m=4 MiB, p=1, 32 B);
       OLN BaseBits 4 / MaxBits 14; stamps "v2;nonce;date", MinBits 2; ≤4 concurrent checks; inbox prices 2–12 (v1
       prices converted −10); worker + async stamps via vendored hash-wasm; work rate in attempts/s; /oln docs
-      (example verified). 61c: eolnpoc on GitHub to match. Was: PRIORITY. Memory-hard proof of work, before anyone else adopts the format (Joop: "prevents an IPv6-like
+      (example verified). 61c done: eolnpoc on GitHub speaks v2 (pow.Work/Create/Parse, shared Argon2id
+      vector test, olnhash uses the package, README format section); it validates Kafumu's production
+      oln.json (v2 messages ≥4 bits; v1 leftovers expire). Was: PRIORITY. Memory-hard proof of work, before anyone else adopts the format (Joop: "prevents an IPv6-like
       deployment issue"). SHA-1 leading zeros lets a GPU outrun a phone ~10⁶×; Argon2id (memory-hard) narrows
       that to ~10×. A versioned v2 line ("v2;…"), v1 still accepted for a transition; Kafumu's mailbox/short/
       report stamps move too; the browser miner via a vendored WASM Argon2id in the worker; eolnpoc updated to
