@@ -87,3 +87,9 @@ func TestDelete(t *testing.T) {
 		t.Errorf("deleted meetup listed")
 	}
 }
+
+func TestCleanVenue(t *testing.T) {
+	if got := CleanVenue(" Lisboa, Portugal, lisboa ,, "); got != "Lisboa, Portugal" {
+		t.Errorf("CleanVenue = %q", got)
+	}
+}

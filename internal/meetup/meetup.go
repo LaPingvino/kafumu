@@ -75,7 +75,7 @@ type Store interface {
 func (m *Meetup) Validate(now time.Time) error {
 	m.Title = clip(strings.TrimSpace(m.Title), MaxTitle)
 	m.Text = clip(strings.TrimSpace(m.Text), MaxText)
-	m.Venue = clip(strings.TrimSpace(m.Venue), 200)
+	m.Venue = clip(CleanVenue(m.Venue), 200)
 	m.Link = strings.TrimSpace(m.Link)
 	m.Cell = strings.ToLower(m.Cell)
 	if m.Title == "" || !geo.Valid(m.Cell) || m.StartAt.IsZero() {
@@ -278,4 +278,19 @@ func (s *Service) forget(cell string) {
 	s.mu.Lock()
 	delete(s.cells, cell)
 	s.mu.Unlock()
+}
+
+// CleanVenue drops repeated parts of an address ("Lisboa, Portugal, Lisboa"
+// → "Lisboa, Portugal"), which feeds often produce.
+func CleanVenue(v string) string {
+	var out []string
+	seen := map[string]bool{}
+	for _, p := range strings.Split(v, ",") {
+		p = strings.TrimSpace(p)
+		if k := strings.ToLower(p); p != "" && !seen[k] {
+			seen[k] = true
+			out = append(out, p)
+		}
+	}
+	return strings.Join(out, ", ")
 }

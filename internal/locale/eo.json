@@ -397,5 +397,7 @@
   "js.alias_placeholder": "Via nomo por ri",
   "js.send_my_card": "Sendi mian karton",
   "js.card_sent": "Karto sendita",
-  "connect.save_name": "Aldoni al mia karto"
+  "connect.save_name": "Aldoni al mia karto",
+  "meetup.open_on": "Malfermi ĉe",
+  "meetup.going_here": "venos laŭ Kafumu"
 }

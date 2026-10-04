@@ -263,6 +263,9 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       move to a smaller outlined row, so the content starts higher. "suggested" buttons (coffee, Connect,
       device move, print badge) now actually get the accent colour; only links and submits did.
 
+- [x] 27. Polish: meetup page: repeated address parts dropped ("Lisboa, Portugal"), "Open on luma.com ↗"
+      instead of the raw URL, "N going on Kafumu" hidden at 0 for imported events, a ← Around link.
+
 **Idle-tick rule (Joop):** when no slice is open, a tick is not idle: use the app in a real browser
 (test/cdp.mjs), pick one area, and make it look and work a bit nicer. Fix one concrete thing per tick.
 

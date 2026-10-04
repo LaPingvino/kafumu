@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"net/url"
 	"sort"
 	"strings"
 	"sync"
@@ -236,8 +237,16 @@ func (h *Home) CanonicalHost(next http.Handler) http.Handler {
 // Funcs are the template functions. Translations come from our own files,
 // so they may contain markup.
 var Funcs = template.FuncMap{
-	"t":        func(lang, key string) template.HTML { return template.HTML(locale.T(lang, key)) },
-	"ts":       locale.T,
+	"t":     func(lang, key string) template.HTML { return template.HTML(locale.T(lang, key)) },
+	"ts":    locale.T,
+	"venue": meetup.CleanVenue,
+	// host shows a link by its site: "luma.com".
+	"host": func(link string) string {
+		if u, err := url.Parse(link); err == nil && u.Host != "" {
+			return strings.TrimPrefix(u.Host, "www.")
+		}
+		return link
+	},
 	"list":     func(xs ...string) []string { return xs },
 	"langs":    func() []langs.Lang { return langs.All },
 	"langName": func(code string) string { return langs.Names[code] },

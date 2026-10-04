@@ -397,5 +397,7 @@
   "js.alias_placeholder": "Jouw naam voor hen",
   "js.send_my_card": "Stuur mijn kaartje",
   "js.card_sent": "Kaartje verstuurd",
-  "connect.save_name": "Toevoegen aan mijn kaartje"
+  "connect.save_name": "Toevoegen aan mijn kaartje",
+  "meetup.open_on": "Openen op",
+  "meetup.going_here": "gaan, via Kafumu"
 }

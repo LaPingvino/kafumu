@@ -397,5 +397,7 @@
   "js.alias_placeholder": "Your name for them",
   "js.send_my_card": "Send my card",
   "js.card_sent": "Card sent",
-  "connect.save_name": "Add to my card"
+  "connect.save_name": "Add to my card",
+  "meetup.open_on": "Open on",
+  "meetup.going_here": "going on Kafumu"
 }
