@@ -86,6 +86,8 @@ type adminPage struct {
 	ReqGeo string
 	// Full is an admin (accounts, jobs); a moderator sees only the queue.
 	Full bool
+	// OLN: what the local-message store holds (inspection).
+	OLN *olnStats
 	// Businesses: business accounts, trials that ended first ("contact?").
 	Businesses []*business.Business
 	Now        time.Time
@@ -187,6 +189,7 @@ func (a *Admin) Show(w http.ResponseWriter, r *http.Request) {
 		}
 		p.Users = a.findUsers(ctx, p.Search)
 		p.Now = now
+		p.OLN = a.olnStats(ctx, now)
 		if a.Businesses != nil {
 			if bs, err := a.Businesses.All(ctx); err == nil {
 				sort.SliceStable(bs, func(i, j int) bool { return bs[i].TrialOver(now) && !bs[j].TrialOver(now) })
@@ -299,6 +302,20 @@ func (a *Admin) Action(w http.ResponseWriter, r *http.Request) {
 		} else {
 			a.Meetups.Svc.ForgetAll()
 			res = "deleted meetup " + id
+		}
+	case "oln-clean-v1", "oln-reset":
+		if a.DB == nil {
+			res = "no Datastore"
+			break
+		}
+		if do == "oln-reset" && r.FormValue("confirm") != "RESET" {
+			res = "type RESET to confirm"
+			break
+		}
+		n, err := a.olnClean(ctx, do == "oln-reset")
+		res = fmt.Sprintf("%s: deleted %d local messages", do, n)
+		if err != nil {
+			res += " (" + err.Error() + ")"
 		}
 	case "biz-status":
 		if b, err := a.Businesses.Get(ctx, id); err != nil {
@@ -447,4 +464,79 @@ func (a *Admin) bulkAction(r *http.Request) string {
 		res += fmt.Sprintf(" (%d skipped)", skipped)
 	}
 	return res
+}
+
+// olnStats inspects the Note store: totals by kind and the busiest cells.
+type olnStats struct {
+	Total, V2, V1, Private, Named, Live int
+	Cells                               []areaCount
+}
+
+func (a *Admin) olnStats(ctx context.Context, now time.Time) *olnStats {
+	var rows []struct {
+		Raw       string    `datastore:"raw,noindex"`
+		Cell      string    `datastore:"cell"`
+		Pair      string    `datastore:"pair"`
+		Author    string    `datastore:"author,noindex"`
+		ExpiresAt time.Time `datastore:"expires_at"`
+	}
+	if _, err := a.DB.GetAll(ctx, datastore.NewQuery("Note").Limit(5000), &rows); err != nil {
+		if _, ok := err.(*datastore.ErrFieldMismatch); !ok {
+			log.Printf("admin: oln stats: %v", err)
+			return nil
+		}
+	}
+	st, cells := &olnStats{Total: len(rows)}, map[string]int{}
+	for _, n := range rows {
+		if strings.HasPrefix(n.Raw, "v2;") {
+			st.V2++
+		} else {
+			st.V1++
+		}
+		if n.Pair != "" {
+			st.Private++
+		} else {
+			cells[n.Cell]++
+		}
+		if n.Author != "" {
+			st.Named++
+		}
+		if n.ExpiresAt.After(now) {
+			st.Live++
+		}
+	}
+	for c, k := range cells {
+		st.Cells = append(st.Cells, areaCount{c, k})
+	}
+	sort.Slice(st.Cells, func(i, j int) bool { return st.Cells[i].N > st.Cells[j].N })
+	if len(st.Cells) > 10 {
+		st.Cells = st.Cells[:10]
+	}
+	return st
+}
+
+// olnClean deletes local messages: only v1 leftovers, or (all) every one.
+func (a *Admin) olnClean(ctx context.Context, all bool) (int, error) {
+	var rows []struct {
+		Raw string `datastore:"raw,noindex"`
+	}
+	keys, err := a.DB.GetAll(ctx, datastore.NewQuery("Note").Limit(5000), &rows)
+	if err != nil {
+		if _, ok := err.(*datastore.ErrFieldMismatch); !ok {
+			return 0, err
+		}
+	}
+	var del []*datastore.Key
+	for i, k := range keys {
+		if all || !strings.HasPrefix(rows[i].Raw, "v2;") {
+			del = append(del, k)
+		}
+	}
+	for i := 0; i < len(del); i += 500 {
+		if err := a.DB.DeleteMulti(ctx, del[i:min(i+500, len(del))]); err != nil {
+			return i, err
+		}
+	}
+	a.Notes.ForgetAll()
+	return len(del), nil
 }

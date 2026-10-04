@@ -19,6 +19,16 @@
 <div class="stats">
   {{range .Stats}}<div class="stat card"><strong>{{if lt .N 0}}–{{else}}{{.N}}{{end}}</strong><span>{{.Label}}</span>{{if .Note}}<small class="dim">{{.Note}}</small>{{end}}</div>{{end}}
 </div>
+{{with .OLN}}<div class="card" style="padding:4px 16px 12px">
+  <h2>Local messages (OLN)</h2>
+  <p>{{.Total}} stored · {{.Live}} live · {{.V2}} v2 · {{.V1}} v1 leftovers · {{.Private}} private chat · {{.Named}} named</p>
+  {{if .Cells}}<p class="dim small">Busiest areas: {{range .Cells}}<a href="/?cell={{.Cell}}">#geo{{.Cell}}</a> {{.N}} · {{end}}</p>{{end}}
+  <div class="actions">
+    <form method="post" action="/admin/action"><input type="hidden" name="do" value="oln-clean-v1"><button type="submit" class="pill-sm">Delete v1 leftovers ({{.V1}})</button></form>
+    <form method="post" action="/admin/action" class="inline-row" onsubmit="return confirm('Delete ALL local messages, chat included?')"><input type="hidden" name="do" value="oln-reset">
+      <input name="confirm" placeholder="type RESET" style="max-width:8rem"><button type="submit" class="pill-sm contrast">Reset all</button></form>
+  </div>
+</div>{{end}}
 <div class="card" style="padding:4px 16px 12px">
   <h2>Business accounts{{if .Businesses}} ({{len .Businesses}}){{end}}</h2>
   {{if .Businesses}}<ul class="boxed-list admin-users">{{range .Businesses}}<li>

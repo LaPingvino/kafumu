@@ -520,3 +520,10 @@ func (s *Service) rememberRepeat(n *Note, now time.Time) {
 	}
 	s.repeats[k][n.Cell] = now
 }
+
+// ForgetAll drops this instance's caches (admin maintenance).
+func (s *Service) ForgetAll() {
+	s.mu.Lock()
+	s.cells, s.asks, s.hidden = map[string]cellEntry{}, map[string]cellEntry{}, nil
+	s.mu.Unlock()
+}
