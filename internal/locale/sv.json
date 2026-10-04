@@ -454,5 +454,6 @@
   "js.chat_placeholder": "Meddelande",
   "js.chat_send": "Skicka",
   "js.dup_hint": "Samma person som en annan kontakt?",
-  "js.dup_remove": "Ta bort den här"
+  "js.dup_remove": "Ta bort den här",
+  "js.react": "Reagera"
 }

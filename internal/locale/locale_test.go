@@ -33,7 +33,7 @@ func TestPick(t *testing.T) {
 		{"", "pt-PT,pt;q=0.9,en;q=0.8", "pt"},
 		{"eo", "pt-PT", "eo"},
 		{"xx", "nl-BE,fr", "nl"},
-		{"", "ja,zh", "en"},
+		{"", "qq,xx", "en"},
 		{"", "", "en"},
 	}
 	for _, c := range cases {

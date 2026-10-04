@@ -454,5 +454,6 @@
   "js.chat_placeholder": "Mesaj",
   "js.chat_send": "Trimite",
   "js.dup_hint": "Aceeași persoană ca alt contact?",
-  "js.dup_remove": "Elimină-l pe acesta"
+  "js.dup_remove": "Elimină-l pe acesta",
+  "js.react": "Reacționează"
 }

@@ -90,7 +90,7 @@
     items.sort(function (a, z) { return parseFloat(z.dataset.score) - parseFloat(a.dataset.score); });
     ul.classList.toggle("mixed", on.length > 1);
     ul.textContent = "";
-    items.forEach(function (li) { ul.appendChild(li); });
+    items.forEach(function (li) { attachReplies(li); ul.appendChild(li); });
   }
 
   // friendsAround: check in (only from a real location fix) and show which
@@ -452,11 +452,68 @@
     var hide = document.createElement("button");
     hide.type = "button"; hide.className = "pill-sm"; hide.textContent = tr("oln_hide");
     hide.onclick = hideIt;
+    if (!opts.question && !opts.reply) li.dataset.reid = reactRow("note", n.id, n.text, row);
+    else if (opts.question) li.dataset.reid = reID("note", n.id);
     row.appendChild(hide);
     row.appendChild(reportButton("note", n.id, n.text, li, hideIt));
     li.appendChild(row);
     swipeAway(li, hideIt);
     return li;
+  }
+
+  // ---- Reactions: react to any card with a local message ----
+  // A reaction is an OLN message tagged #re<10 hex>: a local message's own id,
+  // or for anything else (Bluesky post, meetup, person) a hash of what it is.
+  // Emoji-only reactions show as counts; text ones as a thread under the card.
+  var olnReplies = {};
+  function reID(kind, id) {
+    if (kind === "note") return String(id).slice(0, 10);
+    var h = window.kafumuSHA1.sha1(new TextEncoder().encode(kind + ":" + id));
+    return h.slice(0, 2).map(function (w) { return (w >>> 0).toString(16).padStart(8, "0"); }).join("").slice(0, 10);
+  }
+  var QUICK = ["👍", "❤️", "😂", "☕"];
+  function isEmojiOnly(t) { return /^\s*(\p{Extended_Pictographic}\uFE0F?\s*){1,3}$/u.test(t || ""); }
+  function reactRow(kind, id, about, row) {
+    var rid = reID(kind, id);
+    QUICK.forEach(function (e) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "pill-sm react"; b.textContent = e; b.title = tr("react");
+      b.onclick = function (ev) {
+        ev.preventDefault(); ev.stopPropagation();
+        if (!currentCell || !window.kafumuOLN) return;
+        b.disabled = true;
+        window.kafumuOLN.post(e, "#geo" + currentCell + " #re" + rid, requiredBits, function () {})
+          .then(function (n) { if (n && n.id) ownNotes.push(n); b.textContent = e + " ✓"; load(currentCell, true); }, function () { b.disabled = false; });
+      };
+      row.appendChild(b);
+    });
+    var t = document.createElement("button");
+    t.type = "button"; t.className = "pill-sm"; t.textContent = "💬 " + tr("react");
+    t.onclick = function (ev) { ev.preventDefault(); ev.stopPropagation(); openComposer({ re: rid, about: about }); };
+    row.appendChild(t);
+    return rid;
+  }
+  // attachReplies puts a card's reactions under it: emoji counts, then texts.
+  function attachReplies(li) {
+    var rid = li.dataset.reid;
+    if (!rid) return;
+    Array.prototype.forEach.call(li.querySelectorAll(":scope > .reactions, :scope > .replies"), function (x) { x.remove(); });
+    var rs = olnReplies[rid] || [];
+    if (!rs.length) return;
+    var counts = {}, texts = [];
+    rs.forEach(function (r) { if (isEmojiOnly(r.text)) { var k = r.text.trim(); counts[k] = (counts[k] || 0) + 1; } else texts.push(r); });
+    if (Object.keys(counts).length) {
+      var c = document.createElement("div");
+      c.className = "reactions";
+      c.textContent = Object.keys(counts).map(function (k) { return k + " " + counts[k]; }).join("  ");
+      li.appendChild(c);
+    }
+    if (texts.length) {
+      var ul = document.createElement("ul");
+      ul.className = "replies";
+      texts.slice().reverse().forEach(function (r) { ul.appendChild(noteItem(r, { reply: true })); });
+      li.appendChild(ul);
+    }
   }
 
   // reportButton: ⚑ → reason chips → a stamped report; the card then goes
@@ -529,6 +586,7 @@
       notes.forEach(function (n) {
         (n.tags || []).forEach(function (t) { var r = /^re([0-9a-f]{10})$/.exec(t); if (r) (replies[r[1]] = replies[r[1]] || []).push(n); });
       });
+      olnReplies = replies;
       var isReply = function (n) { return (n.tags || []).some(function (t) { return /^re[0-9a-f]{10}$/.test(t); }); };
       var isAsk = function (n) { return (n.tags || []).indexOf("ask") >= 0; };
       var forYou = function (n) { return isAsk(n) && (n.tags || []).some(function (t) { return t !== "ask" && mine[t]; }); };
@@ -536,13 +594,6 @@
       top.sort(function (a, z) { return forYou(z) - forYou(a); }); // stable: keeps the ranking otherwise
       top.forEach(function (n) {
         var li = noteItem(n, { question: isAsk(n), forYou: forYou(n) });
-        var rs = replies[n.id.slice(0, 10)];
-        if (rs) {
-          var ul = document.createElement("ul");
-          ul.className = "replies";
-          rs.slice().reverse().forEach(function (r) { ul.appendChild(noteItem(r, {})); });
-          li.appendChild(ul);
-        }
         list.appendChild(li);
       });
     });
@@ -681,6 +732,7 @@
         li.appendChild(a);
         var mrow = document.createElement("div");
         mrow.className = "actions";
+        li.dataset.reid = reactRow("meetup", m.id, m.title, mrow);
         mrow.appendChild(reportButton("meetup", m.id, m.title, li));
         li.appendChild(mrow);
         list.appendChild(li);
@@ -736,6 +788,7 @@
       if (p.inbox && window.kafumuPair && window.kafumuOLN) li.appendChild(writeBox(p));
       var prow = document.createElement("div");
       prow.className = "actions";
+      li.dataset.reid = reactRow("person", p.name, "@" + p.name + (p.bio ? ": " + p.bio : ""), prow);
       prow.appendChild(reportButton("person", p.name, "@" + p.name + (p.bio ? ": " + p.bio : ""), li));
       li.appendChild(prow);
       list.appendChild(li);
@@ -938,6 +991,7 @@
     hide.type = "button"; hide.className = "pill-sm"; hide.textContent = tr("oln_hide");
     hide.onclick = hideIt;
     row.appendChild(hide);
+    li.dataset.reid = reactRow("post", p.uri, (p.handle ? "@" + p.handle + ": " : "") + p.text, row);
     row.appendChild(reportButton("post", p.uri, (p.handle ? "@" + p.handle + ": " : "") + p.text, li, hideIt));
     li.appendChild(row);
     swipeAway(li, hideIt);

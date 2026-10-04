@@ -269,3 +269,7 @@ input[type="range"] { padding: 0; background: transparent; accent-color: var(--a
 .bubble.me { align-self: flex-end; border-radius: 14px 14px 4px 14px; background: var(--accent-bg); color: var(--accent-fg); }
 .chat-form { display: flex; gap: 6px; margin: 6px 0 0; }
 .chat-form input { flex: 1; margin: 0; }
+
+/* Reactions under any card */
+.pill-sm.react { padding: 4px 8px; min-width: 0; }
+.reactions { margin: 4px 0 2px; font-size: .95rem; letter-spacing: .02em; }

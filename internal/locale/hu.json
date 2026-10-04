@@ -454,5 +454,6 @@
   "js.chat_placeholder": "Üzenet",
   "js.chat_send": "Küldés",
   "js.dup_hint": "Ugyanaz a személy, mint egy másik kapcsolat?",
-  "js.dup_remove": "Ennek eltávolítása"
+  "js.dup_remove": "Ennek eltávolítása",
+  "js.react": "Reagálás"
 }

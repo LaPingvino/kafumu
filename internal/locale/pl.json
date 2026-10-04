@@ -454,5 +454,6 @@
   "js.chat_placeholder": "Wiadomość",
   "js.chat_send": "Wyślij",
   "js.dup_hint": "Ta sama osoba co inny kontakt?",
-  "js.dup_remove": "Usuń ten"
+  "js.dup_remove": "Usuń ten",
+  "js.react": "Zareaguj"
 }

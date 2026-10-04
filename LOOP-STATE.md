@@ -328,6 +328,7 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       names). 12 UI languages now. Next batches: cs sv da ro hu el · ja ko zh id vi · ar fa he ur (RTL) · hi bn sw tok.
 - [x] 34c. UI languages batch 3: cs, sv, da, ro, hu, el. 18 UI languages now. Left: ja ko zh id vi · ar fa he
       ur (RTL) · hi bn sw tok.
+- [x] 34d. UI languages batch 4: ja, ko, zh, id, vi. 23 UI languages. Left: ar fa he ur (RTL) · hi bn sw tok.
 - [ ] 34. More UI languages (Joop: "4 is too few"): the 32 locales of esperanto-kurso.net (ar bn cs da de
       el en eo es fa fr he hi hu id it ja ko nl pl pt ro ru sv sw tok tr uk ur vi zh), translating Kafumu's
       strings; RTL (ar fa he ur) via dir="rtl". Plus a gentle esperanto-kurso.net nudge where it fits (the
@@ -384,7 +385,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       would not be viable for one person without that help (burn-out). Linked from About and the footer.
 - [ ] 42. More card fields (Joop): Instagram, Facebook (and Mastodon/TikTok/website…) as first-class fields
       with one-tap links, plus your own fields (label + value or link), all pickable per share like the rest.
-- [ ] 43. React to anything (Joop, OLN): every card (local message, meetup, person, Bluesky post) gets a
+- [x] 43. React to anything: every card (local message, Bluesky post, meetup, person) has 👍 ❤️ 😂 ☕ and
+      💬 React; reactions are OLN messages tagged #re<10 hex> (a note's id, or sha1(kind:id) for the rest);
+      emoji-only ones show as counts, text ones threaded under the card (attached on every feed draw).
+      Browser-tested (👍 1 under a message). Was: React to anything (Joop, OLN): every card (local message, meetup, person, Bluesky post) gets a
       reply/react action that posts a local message tagged #re<id> (or #re<hash of the uri/id> for posts,
       meetups, people), threaded under it like answers; quick emoji reactions as tiny PoW messages.
 - [ ] 44. /oln page (Joop): what the Open Location Network is (local messages as text + #geo tags, proof of work
@@ -403,6 +407,12 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       Paid: a brand for your community/organisation. Accounts: separate per brand domain (Joop: passkeys are
       bound to their domain); the shared layer is the network (#geo cells, OLN, connect codes), not accounts.
       Open: pricing.
+- [ ] 49. PRIORITY. Filter chips on Around (Joop): one row of tappable hashtags that narrow Around: running
+      or upcoming events (#websummit), the local language (merges the 🗣 Learn button into this), interests
+      (yours + local themes). Tapping one sets the view; the heading becomes "#websummit in Lisbon".
+      Few results → widen: same tag in the ring around, then general posts with that tag (no location) at
+      the bottom under "Elsewhere". Interests linked like places: synonym groups (#opensource #foss #floss,
+      #ai #artificialintelligence…) in a small table, matched as one.
 - [ ] 39. Post with or without your name (Joop): a local message can carry your account name (signed by the
       server as @name, linkable to your profile) or stay anonymous; anonymous ones rank lower and expire
       sooner (shorter TTL at the same work), named ones get the normal TTL and a trust bonus.

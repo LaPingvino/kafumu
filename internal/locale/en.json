@@ -454,5 +454,6 @@
   "js.chat_placeholder": "Message",
   "js.chat_send": "Send",
   "js.dup_hint": "Same person as another contact?",
-  "js.dup_remove": "Remove this one"
+  "js.dup_remove": "Remove this one",
+  "js.react": "React"
 }
