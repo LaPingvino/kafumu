@@ -24,7 +24,7 @@
             .replace("{day}", new Date(c.lastSeen.day + "T12:00:00Z").toLocaleDateString(window.KAFUMU_LOCALE, { weekday: "long", day: "numeric", month: "short" }));
           li.insertBefore(seen, li.children[1] || null);
         }
-        li.dataset.search = JSON.stringify([c.card, c.note]).toLowerCase();
+        li.dataset.search = JSON.stringify([c.card, c.alias, c.note]).toLowerCase();
         list.appendChild(li);
         // Cards on their way and new signals: one mailbox read per contact.
         pair.checkContact(c).then(function (got) {

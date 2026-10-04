@@ -28,22 +28,30 @@
   // myCard is what this share hands over: the chosen persona, chosen fields.
   function myCard() { return dev.personas.shareCard(); }
 
-  // ensureName shows the inline name form when the chosen persona has no
-  // name yet (first-time visitors), then continues with the card to share.
-  function ensureName(form, then) {
+  // ensureName never blocks: scanning and showing a code work without any
+  // card. With no name yet it shows the optional name form; once filled in,
+  // onSaved gets the card so it can go to whoever connected meanwhile.
+  function ensureName(form, then, onSaved) {
     dev.personas.choice().then(function (ch) {
       var card = ch.persona.card || (ch.persona.card = {});
-      if (card.name) { form.hidden = true; myCard().then(then); return; }
+      myCard().then(then);
+      if (card.name) { form.hidden = true; return; }
       form.hidden = false;
       form.onsubmit = function (e) {
         e.preventDefault();
-        card.name = form.elements.name.value.trim();
-        if (form.elements.about && form.elements.about.value.trim()) card.about = form.elements.about.value.trim();
-        if (!card.name) return;
+        var name = form.elements.name.value.trim(), about = form.elements.about ? form.elements.about.value.trim() : "";
+        if (!name && !about) return;
+        if (name) card.name = name;
+        if (about) card.about = about;
         card.updatedAt = new Date().toISOString();
-        dev.personas.save(ch.all).then(function () { form.hidden = true; return myCard(); }).then(then);
+        dev.personas.save(ch.all).then(function () { form.hidden = true; return myCard(); }).then(function (c) { if (onSaved) onSaved(c); });
       };
     });
+  }
+
+  // sendCard hands our card over an existing connection.
+  function sendCard(c, card) {
+    return pair.send(c, { t: "card", card: card }).then(function () { c.cardSent = true; return dev.store.putContact(c); });
   }
 
   // drawPicker lets you choose, per share, which persona and which of its
@@ -117,7 +125,7 @@
         if (poller) poller.stop();
         poller = poll(function () {
           return myCard().then(function (card) { return pair.checkInvite(card); }).then(function (added) {
-            added.forEach(function (c) { list.prepend(contactItem(c)); });
+            added.forEach(function (c) { made.push(c); list.prepend(contactItem(c)); });
             if (added.length) status.textContent = tr("connected_n", { n: list.children.length });
             return false; // keep listening: more people may scan the same code
           });
@@ -130,15 +138,21 @@
       if (navigator.share) navigator.share({ title: "Kafumu", url: link.value }).catch(function () {});
       else if (navigator.clipboard) navigator.clipboard.writeText(link.value).then(function () { status.textContent = tr("link_copied"); });
     };
-    ensureName($("name-form"), function () { $("code-area").hidden = false; drawPicker($("share-picker"), function () {}); start(false); });
+    var made = [];
+    ensureName($("name-form"), function () { $("code-area").hidden = false; drawPicker($("share-picker"), function () {}); start(false); },
+      function (card) {
+        drawPicker($("share-picker"), function () {});
+        made.forEach(function (c) { if (!c.cardSent) sendCard(c, card).catch(function () {}); });
+      });
   }
 
   // ---- /c#v1.… : someone showed me their code ----
   function acceptCode() {
     var payload = location.hash.slice(1), status = $("accept-status"), list = $("accepted");
     if (!/^v1\./.test(payload)) { status.textContent = tr("bad_code"); return; }
+    var made = null;
     ensureName($("name-form"), function (card) {
-      function label() { myCard().then(function (c) { card = c; $("send-as").textContent = tr("send_as", { name: c.name }); }); }
+      function label() { myCard().then(function (c) { card = c; $("send-as").textContent = c.name ? tr("send_as", { name: c.name }) : tr("send_no_card"); }); }
       label();
       drawPicker($("share-picker"), label);
       $("accept-area").hidden = false;
@@ -147,7 +161,8 @@
         status.textContent = tr("connecting");
         var tries = 0;
         (function attempt() {
-          pair.accept(payload, card).then(function (c) {
+          myCard().then(function (fresh) { return pair.accept(payload, fresh); }).then(function (c) {
+            made = c;
             history.replaceState(null, "", "/c"); // the code has done its job
             $("accept-area").hidden = true;
             status.textContent = tr("waiting_their_card");
@@ -157,7 +172,7 @@
               return pair.checkContact(c).then(function () {
                 if (!c.card) return false;
                 list.replaceChild(contactItem(c), item);
-                status.textContent = tr("connected_with", { name: c.card.name || "?" });
+                status.textContent = tr("connected_with", { name: c.card.name || c.alias || tr("unnamed") });
                 $("install-hint").hidden = false;
                 return true;
               });
@@ -169,6 +184,12 @@
           });
         })();
       };
+    }, function (card) {
+      $("send-as").textContent = tr("send_as", { name: card.name || "?" });
+      drawPicker($("share-picker"), function () {
+        myCard().then(function (c) { $("send-as").textContent = c.name ? tr("send_as", { name: c.name }) : tr("send_no_card"); });
+      });
+      if (made && !made.cardSent) sendCard(made, card).catch(function () {});
     });
   }
 

@@ -390,5 +390,11 @@
   "js.seen_near": "gezien {where} op {day}",
   "js.here_word": "bij jou in de buurt",
   "short.make": "Korte code maken (1 uur geldig)",
-  "js.local_theme": "Populair hier in de buurt de laatste tijd"
+  "js.local_theme": "Populair hier in de buurt de laatste tijd",
+  "connect.optional_hint": "Optioneel: vul je naam in zodat ze weten wie je bent. Je kunt ook zonder verbinden en je kaartje later sturen.",
+  "js.send_no_card": "Je verbindt zonder kaartje; je kunt het later sturen vanuit Contacten.",
+  "js.unnamed": "iemand nieuws",
+  "js.alias_placeholder": "Jouw naam voor hen",
+  "js.send_my_card": "Stuur mijn kaartje",
+  "js.card_sent": "Kaartje verstuurd"
 }

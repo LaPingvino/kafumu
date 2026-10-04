@@ -212,7 +212,7 @@
             return seal(key, ibox, { t: "hello", card: myCard || {} }).then(function (ct) {
               return post(ibox, JSON.stringify({ v: 1, pub: b64(bRaw), ct: ct }));
             }).then(function () { return contactID(key); }).then(function (id) {
-              var c = { id: id, key: b64(key), role: 1, card: null, note: "", createdAt: new Date().toISOString() };
+              var c = { id: id, key: b64(key), role: 1, card: null, note: "", createdAt: new Date().toISOString(), cardSent: !!(myCard && myCard.name) };
               return store.putContact(c).then(function () { return c; });
             });
           });
@@ -237,7 +237,7 @@
                 return open(key, inv.box, hello.ct).then(function (body) {
                   if (body.t !== "hello") return;
                   return contactID(key).then(function (id) {
-                    var c = { id: id, key: b64(key), role: 0, card: body.card || {}, note: "", createdAt: new Date().toISOString() };
+                    var c = { id: id, key: b64(key), role: 0, card: body.card || {}, note: "", createdAt: new Date().toISOString(), cardSent: !!(myCard && myCard.name) };
                     return boxOf(key, 1).then(function (theirs) {
                       return seal(key, theirs, { t: "card", card: myCard || {} }).then(function (ct) { return post(theirs, ct); });
                     }).then(function () { return store.putContact(c); }).then(function () { added.push(c); });

@@ -122,7 +122,17 @@
     T = T || {}; opts = opts || {};
     var li = el("li", "contact"), card = c.card || {};
     var head = el("div", "contact-head");
-    head.appendChild(el("strong", null, card.name || T.waiting_card || "…"));
+    if (card.name) head.appendChild(el("strong", null, card.name));
+    else if (opts.preview || !c.card && !c.alias) head.appendChild(el("strong", null, c.alias || T.waiting_card || "…"));
+    else {
+      // No card from them (yet, or ever): give them a name yourself.
+      var alias = el("input", "alias");
+      alias.value = c.alias || "";
+      alias.placeholder = T.alias_placeholder || "Your name for them";
+      alias.setAttribute("aria-label", alias.placeholder);
+      alias.addEventListener("change", function () { c.alias = alias.value.trim().slice(0, 80); store.putContact(c); });
+      head.appendChild(alias);
+    }
     if (c.createdAt) head.appendChild(el("span", "dim", new Date(c.createdAt).toLocaleDateString(window.KAFUMU_LOCALE, { day: "numeric", month: "short", year: "numeric" })));
     li.appendChild(head);
     if (card.about) li.appendChild(el("p", "dim", card.about));
@@ -169,7 +179,17 @@
     });
     li.appendChild(row);
     if (opts.preview) return li;
-    if (opts.send && c.card) {
+    if (opts.send && c.cardSent === false) {
+      var give = el("button", "pill-sm", T.send_my_card || "Send my card");
+      give.type = "button";
+      give.onclick = function () {
+        give.disabled = true;
+        personas.shareCard().then(function (mine) { return opts.send(c, { t: "card", card: mine }); })
+          .then(function () { c.cardSent = true; store.putContact(c); give.textContent = "✓ " + (T.card_sent || "Card sent"); }, function () { give.disabled = false; });
+      };
+      li.appendChild(give);
+    }
+    if (opts.send) {
       var srow = el("div", "actions signals");
       SIGNALS.forEach(function (kind) {
         var b = el("button", "pill-sm", T["sig_btn_" + kind] || kind);

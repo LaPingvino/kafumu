@@ -245,6 +245,17 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
 - [x] 15e. /oln.json?cell=… (cell + ring 1) in eolnpoc's olnjson.Format: server info, messages (raw, ttl in
       days, tags), tag index, push = /api/oln; CORS open, 60 s cache. Was: /oln.json per cell in eolnpoc's olnjson.Format for other OLN nodes.
 
+## Joop's phone feedback (2026-10-04)
+
+- [x] 21. OLN messages shown twice: overlapping Around loads both appended; only the newest load renders now.
+- [x] 22. Dates were US-style: all dates follow the UI language with en-GB for English (day month, 24 h).
+- [x] 23. Connect without data: scanning/showing a code never waits for a name; an empty card is fine; you
+      can name a nameless contact yourself (alias, device-only); your card follows later ("Send my card",
+      or automatically when you fill in the optional name on the connect page). Browser-tested with D.
+
+**Idle-tick rule (Joop):** when no slice is open, a tick is not idle: use the app in a real browser
+(test/cdp.mjs), pick one area, and make it look and work a bit nicer. Fix one concrete thing per tick.
+
 ## After the event (rest of M1)
 - [x] `LaPingvino/geotags` (public, /home/joop/geotags): 6,278 cities ≥100k from GeoNames (CC BY 4.0) with
       tag, native + curated aliases, radius from population, centre cell, ambiguity (duplicates, ≤3 chars,

@@ -390,5 +390,11 @@
   "js.seen_near": "visto {where} em {day}",
   "js.here_word": "perto de si",
   "short.make": "Criar um código curto (válido 1 hora)",
-  "js.local_theme": "Popular por aqui ultimamente"
+  "js.local_theme": "Popular por aqui ultimamente",
+  "connect.optional_hint": "Opcional: adiciona o teu nome para saberem quem és. Também podes ligar-te sem ele e enviar o teu cartão mais tarde.",
+  "js.send_no_card": "Vais ligar-te sem cartão; podes enviá-lo mais tarde nos Contactos.",
+  "js.unnamed": "alguém novo",
+  "js.alias_placeholder": "O teu nome para esta pessoa",
+  "js.send_my_card": "Enviar o meu cartão",
+  "js.card_sent": "Cartão enviado"
 }

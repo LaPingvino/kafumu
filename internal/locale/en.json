@@ -390,5 +390,11 @@
   "js.seen_near": "seen {where} on {day}",
   "js.here_word": "near you",
   "short.make": "Make a short code (valid 1 hour)",
-  "js.local_theme": "Popular around here lately"
+  "js.local_theme": "Popular around here lately",
+  "connect.optional_hint": "Optional: add your name so they know who you are. You can also connect without it and send your card later.",
+  "js.send_no_card": "You'll connect without a card; you can send it later from Contacts.",
+  "js.unnamed": "someone new",
+  "js.alias_placeholder": "Your name for them",
+  "js.send_my_card": "Send my card",
+  "js.card_sent": "Card sent"
 }

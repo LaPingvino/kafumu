@@ -390,5 +390,11 @@
   "js.seen_near": "vidita {where} je {day}",
   "js.here_word": "proksime de vi",
   "short.make": "Fari mallongan kodon (valida 1 horon)",
-  "js.local_theme": "Populara ĉi-ĉirkaŭe lastatempe"
+  "js.local_theme": "Populara ĉi-ĉirkaŭe lastatempe",
+  "connect.optional_hint": "Laŭvole: aldonu vian nomon, por ke oni sciu, kiu vi estas. Vi ankaŭ povas konektiĝi sen ĝi kaj sendi vian karton poste.",
+  "js.send_no_card": "Vi konektiĝos sen karto; vi povas sendi ĝin poste el Kontaktoj.",
+  "js.unnamed": "iu nova",
+  "js.alias_placeholder": "Via nomo por ri",
+  "js.send_my_card": "Sendi mian karton",
+  "js.card_sent": "Karto sendita"
 }

@@ -195,8 +195,31 @@ try {
     await sleep(2000);
     await C.waitFor("document.getElementById('contacts').textContent.includes('Ana')", "Ana moved to C");
   } finally { C.close(); }
+
+  // Connecting needs no data (Joop): D scans A's code with no name at all;
+  // A gives D a name; D's card follows later over the same connection.
+  const D = await browser(9336);
+  try {
+    await A.goto(base + "/connect");
+    await A.waitFor("!!document.querySelector('#qr svg')", "A's QR again");
+    await D.goto(url);
+    await D.waitFor("!document.getElementById('accept-area').hidden", "D can connect without a name");
+    await D.evaluate("document.getElementById('do-connect').click()");
+    await D.waitFor("document.getElementById('accept-status').textContent.includes('Ana')", "D connected with Ana");
+    await A.waitFor("!!document.querySelector('#new-contacts input.alias')", "A sees a nameless contact to name");
+    await A.evaluate("(() => { const i = document.querySelector('#new-contacts input.alias'); i.value = 'Dee from the queue'; i.dispatchEvent(new Event('change')); return true; })()");
+    await A.goto(base + "/contacts");
+    await A.waitFor("[...document.querySelectorAll('#contacts input.alias')].some(i => i.value === 'Dee from the queue')", "A's own name for D kept");
+    await D.evaluate(fill("name-form", { name: "Dee Late" }));
+    await sleep(2000);
+    for (let i = 0; ; i++) {
+      await A.goto(base + "/contacts");
+      try { await A.waitFor("document.getElementById('contacts').textContent.includes('Dee Late')", "D's late card arrives", 6000); break; }
+      catch (e) { if (i >= 3) throw e; }
+    }
+  } finally { D.close(); }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device, meetup hosted and seen, findable profile seen, paid inbox message + connect back, OLN message + question/answer + local themes + views + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device, connected without a card + named + late card, meetup hosted and seen, findable profile seen, paid inbox message + connect back, OLN message + question/answer + local themes + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }
