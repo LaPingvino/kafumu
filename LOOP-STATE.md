@@ -365,6 +365,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
 - [x] 40. Queued connects (Joop: "I already missed two possible contacts"): hellos wait in the mailbox (7 days)
       but were only taken in on Connect; now Around and Contacts take them in too (invite + badge) and answer
       with your card. Browser-tested: D connects while A is on another page; A finds D on opening Contacts.
+- [x] 40b. Replaced codes kept (Joop: friends' link accepts still missing): a code renewed after an hour
+      (or "New code", or coffee) overwrote the old one with its private key, so later uses of an old link
+      were unreadable. Now replaced codes (up to 20, kept a week) are checked too. Pair E2E test added.
+      Known gap: codes are per device (not in the vault); a link shared from the phone arrives on the phone.
 - [ ] 41. "How this was built" page (Joop): honest note that the code is written with LLM help ("vibecoded"),
       built on plans and experience from long before LLMs (whenwhere, OLN, lokumo, amikumu…), and that it
       would not be viable for one person without that help (burn-out). Linked from About and the footer.

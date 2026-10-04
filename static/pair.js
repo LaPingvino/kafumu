@@ -128,7 +128,14 @@
       var key = kind === "invite" ? "invite" : "invite:" + kind;
       return store.get(key).then(function (inv) {
         if (!fresh && inv && Date.now() - inv.createdAt < TTL[kind]) return inv;
-        return genKey().then(function (k) {
+        // Keep the code being replaced (its private key): a link shared an
+        // hour or a week ago must still turn into a contact when used.
+        var keepOld = inv && kind !== "move" ? store.get("invites:old").then(function (old) {
+          old = (old || []).filter(function (o) { return Date.now() - o.createdAt < TTL[o.kind || "invite"] + 7 * 864e5; });
+          old.push(Object.assign({}, inv, { kind: kind }));
+          return store.set("invites:old", old.slice(-20));
+        }) : Promise.resolve();
+        return keepOld.then(genKey).then(function (k) {
           return rawPub(k).then(function (pub) {
             return inviteBox(pub, kind === "badge" ? "invite" : kind).then(function (box) {
               var inv = { priv: k.privateKey, pub: b64(pub), box: box, createdAt: Date.now() };
@@ -224,8 +231,15 @@
     // each with our card. Returns the new contacts.
     function checkInvite(myCard, kind) {
       var key = kind === "badge" ? "invite:badge" : "invite";
-      return store.get(key).then(function (inv) {
-        if (!inv || Date.now() - inv.createdAt > TTL[kind || "invite"] + 7 * 864e5) return [];
+      // The current code, plus (for screen codes) the ones it replaced.
+      return Promise.all([store.get(key), kind === "badge" ? Promise.resolve([]) : store.get("invites:old")]).then(function (r) {
+        var all = [r[0]].concat(r[1] || []).filter(Boolean);
+        return all.reduce(function (p, inv) {
+          return p.then(function (acc) { return checkOne(inv, inv.kind || kind).then(function (got) { return acc.concat(got); }); });
+        }, Promise.resolve([]));
+      });
+      function checkOne(inv, kind) {
+        if (!inv || Date.now() - inv.createdAt > TTL[kind || "invite"] + 7 * 864e5) return Promise.resolve([]);
         var aRaw = unb64(inv.pub);
         return list(inv.box).then(function (msgs) {
           var done = [], added = [];
@@ -247,7 +261,7 @@
             });
           }, Promise.resolve()).then(function () { return ack(inv.box, done); }).then(function () { return added; });
         });
-      });
+      }
     }
 
     // checkContact reads a contact's inbox for us; returns the messages and

@@ -75,6 +75,17 @@ check((await B.pair.checkContact(cb)).length === 0, "B's own message is not in B
   check(Array.isArray(raw.tokens), "slot api answers");
 }
 
+// An old link still works after A made a new code (Joop lost two contacts
+// this way): the replaced code's key is kept and checked too.
+{
+  const G = device("G"), H = device("H");
+  const old = await G.pair.invite();
+  await G.pair.invite(true); // "New code" (or an hour passed and Connect opened)
+  await H.pair.accept(old.payload, { name: "Hal" });
+  const got = await G.pair.checkInvite({ name: "Gus" });
+  check(got.length === 1 && got[0].card.name === "Hal", "hello on a replaced code still arrives, got " + got.length);
+}
+
 // Badge: a long-lived printed code works like a normal one.
 {
   const badge = await A.pair.invite(false, "badge");
@@ -115,4 +126,4 @@ check(got2 && got2.contacts.length === 40 && got2.contacts[39].card.name === "Pe
 check((await N.pair.moveReceive()) === null, "move chunks acked");
 
 if (fail) process.exit(1);
-console.log("ok  static/pair.js handshake (A↔B, A↔C, isolation, signal) + friends around + badge + public inbox + move to new device");
+console.log("ok  static/pair.js handshake (A↔B, A↔C, isolation, signal) + friends around + replaced codes + badge + public inbox + move to new device");
