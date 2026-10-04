@@ -546,5 +546,8 @@
   "account.business": "És uma empresa? Experimenta uma conta de empresa, o primeiro mês é grátis →",
   "account.want_password": "Mas eu quero mesmo criar uma palavra-passe!",
   "profile.own_language": "Outra língua: o código ou o nome",
-  "profile.levels_note": "Os níveis seguem o QECR: A1–A2 iniciante, B1–B2 intermédio, C1–C2 avançado. Até B1 conta como a aprender."
+  "profile.levels_note": "Os níveis seguem o QECR: A1–A2 iniciante, B1–B2 intermédio, C1–C2 avançado. Até B1 conta como a aprender.",
+  "footer.contact": "Contactar o criador:",
+  "footer.on_kafumu": "no Kafumu",
+  "footer.issues": "ideias e erros"
 }

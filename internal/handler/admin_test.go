@@ -61,3 +61,19 @@ func TestAdminPageRenders(t *testing.T) {
 		}
 	}
 }
+
+// Footer: the maker shows only while their link is live; admin edits apply.
+func TestFooterMaker(t *testing.T) {
+	_, home, _ := newServerWithMeetups(t)
+	home.Cfg.Maker, home.Cfg.Contact = "lapingvino", "https://example.org/issues"
+	live := false
+	home.MakerLive = func(context.Context, string) bool { return live }
+	if m, c, _ := home.footer(context.Background()); m != "" || c != "https://example.org/issues" {
+		t.Fatalf("not live: maker %q contact %q", m, c)
+	}
+	live = true
+	home.SaveFooter(context.Background(), footerSettings{Maker: "lapingvino", ContactURL: "mailto:j@example.org", ContactText: "Write me"})
+	if m, c, txt := home.footer(context.Background()); m != "lapingvino" || c != "mailto:j@example.org" || txt != "Write me" {
+		t.Fatalf("live: %q %q %q", m, c, txt)
+	}
+}

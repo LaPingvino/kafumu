@@ -546,5 +546,8 @@
   "account.business": "Bạn là doanh nghiệp? Thử tài khoản doanh nghiệp, tháng đầu miễn phí →",
   "account.want_password": "Nhưng tôi thật sự muốn đặt mật khẩu!",
   "profile.own_language": "Ngôn ngữ khác: mã hoặc tên",
-  "profile.levels_note": "Các cấp độ theo CEFR: A1–A2 sơ cấp, B1–B2 trung cấp, C1–C2 cao cấp. Đến B1 được tính là đang học."
+  "profile.levels_note": "Các cấp độ theo CEFR: A1–A2 sơ cấp, B1–B2 trung cấp, C1–C2 cao cấp. Đến B1 được tính là đang học.",
+  "footer.contact": "Liên hệ người tạo:",
+  "footer.on_kafumu": "trên Kafumu",
+  "footer.issues": "ý tưởng và lỗi"
 }

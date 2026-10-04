@@ -546,5 +546,8 @@
   "account.business": "Sei un'attività? Prova un account business, il primo mese è gratis →",
   "account.want_password": "Ma io voglio davvero una password!",
   "profile.own_language": "Un'altra lingua: codice o nome",
-  "profile.levels_note": "I livelli seguono il QCER: A1–A2 principiante, B1–B2 intermedio, C1–C2 avanzato. Fino a B1 conta come in apprendimento."
+  "profile.levels_note": "I livelli seguono il QCER: A1–A2 principiante, B1–B2 intermedio, C1–C2 avanzato. Fino a B1 conta come in apprendimento.",
+  "footer.contact": "Contatta il creatore:",
+  "footer.on_kafumu": "su Kafumu",
+  "footer.issues": "idee e bug"
 }

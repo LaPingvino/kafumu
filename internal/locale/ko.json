@@ -546,5 +546,8 @@
   "account.business": "사업체인가요? 비즈니스 계정을 써 보세요, 첫 달 무료 →",
   "account.want_password": "그래도 비밀번호를 꼭 만들고 싶어요!",
   "profile.own_language": "다른 언어: 코드 또는 이름",
-  "profile.levels_note": "레벨은 CEFR 기준: A1–A2 초급, B1–B2 중급, C1–C2 고급. B1까지는 배우는 중으로 봐요."
+  "profile.levels_note": "레벨은 CEFR 기준: A1–A2 초급, B1–B2 중급, C1–C2 고급. B1까지는 배우는 중으로 봐요.",
+  "footer.contact": "만든 사람에게 연락:",
+  "footer.on_kafumu": "Kafumu에서",
+  "footer.issues": "아이디어와 버그"
 }

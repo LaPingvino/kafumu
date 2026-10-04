@@ -546,5 +546,8 @@
   "account.business": "Vállalkozás vagy? Próbáld ki az üzleti fiókot, az első hónap ingyenes →",
   "account.want_password": "De én tényleg jelszót akarok!",
   "profile.own_language": "Más nyelv: kód vagy név",
-  "profile.levels_note": "A szintek a KER szerint: A1–A2 kezdő, B1–B2 középhaladó, C1–C2 haladó. B1-ig tanulónak számít."
+  "profile.levels_note": "A szintek a KER szerint: A1–A2 kezdő, B1–B2 középhaladó, C1–C2 haladó. B1-ig tanulónak számít.",
+  "footer.contact": "Kapcsolat a készítővel:",
+  "footer.on_kafumu": "a Kafumun",
+  "footer.issues": "ötletek és hibák"
 }

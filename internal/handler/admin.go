@@ -86,6 +86,8 @@ type adminPage struct {
 	ReqGeo string
 	// Full is an admin (accounts, jobs); a moderator sees only the queue.
 	Full bool
+	// Footer: the "Contact the maker" settings as stored (for editing).
+	Footer footerSettings
 	// OLN: what the local-message store holds (inspection).
 	OLN *olnStats
 	// Businesses: business accounts, trials that ended first ("contact?").
@@ -190,6 +192,12 @@ func (a *Admin) Show(w http.ResponseWriter, r *http.Request) {
 		p.Users = a.findUsers(ctx, p.Search)
 		p.Now = now
 		p.OLN = a.olnStats(ctx, now)
+		a.Home.footer(ctx)
+		a.Home.foot.mu.Lock()
+		if a.Home.foot.settings != nil {
+			p.Footer = *a.Home.foot.settings
+		}
+		a.Home.foot.mu.Unlock()
 		if a.Businesses != nil {
 			if bs, err := a.Businesses.All(ctx); err == nil {
 				sort.SliceStable(bs, func(i, j int) bool { return bs[i].TrialOver(now) && !bs[j].TrialOver(now) })
@@ -316,6 +324,18 @@ func (a *Admin) Action(w http.ResponseWriter, r *http.Request) {
 		res = fmt.Sprintf("%s: deleted %d local messages", do, n)
 		if err != nil {
 			res += " (" + err.Error() + ")"
+		}
+	case "footer":
+		s := footerSettings{Maker: strings.ToLower(strings.TrimPrefix(strings.TrimSpace(r.FormValue("maker")), "@")),
+			ContactURL: strings.TrimSpace(r.FormValue("contact_url")), ContactText: strings.TrimSpace(r.FormValue("contact_text"))}
+		if s.ContactURL != "" && !strings.HasPrefix(s.ContactURL, "https://") && !strings.HasPrefix(s.ContactURL, "mailto:") {
+			res = "contact link must start with https:// or mailto:"
+			break
+		}
+		if err := a.Home.SaveFooter(ctx, s); err != nil {
+			res = "save failed: " + err.Error()
+		} else {
+			res = "footer saved"
 		}
 	case "biz-status":
 		if b, err := a.Businesses.Get(ctx, id); err != nil {

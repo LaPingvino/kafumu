@@ -546,5 +546,8 @@
   "account.business": "Kamu sebuah bisnis? Coba akun bisnis, bulan pertama gratis →",
   "account.want_password": "Tapi aku benar-benar mau kata sandi!",
   "profile.own_language": "Bahasa lain: kode atau namanya",
-  "profile.levels_note": "Tingkat mengikuti CEFR: A1–A2 pemula, B1–B2 menengah, C1–C2 mahir. Sampai B1 dihitung sedang belajar."
+  "profile.levels_note": "Tingkat mengikuti CEFR: A1–A2 pemula, B1–B2 menengah, C1–C2 mahir. Sampai B1 dihitung sedang belajar.",
+  "footer.contact": "Hubungi pembuatnya:",
+  "footer.on_kafumu": "di Kafumu",
+  "footer.issues": "ide dan bug"
 }

@@ -29,6 +29,8 @@ type Config struct {
 	ATproto bool
 	// Money and contact links; pages show "coming soon" while empty.
 	PayPal, Bunq, BCH, Liberapay, Stripe, Contact string
+	// Maker: the username behind this site, linked as kafumu.com/@name in the footer.
+	Maker string
 }
 
 func Load() *Config {
@@ -47,6 +49,7 @@ func Load() *Config {
 		Liberapay:     os.Getenv("KAFUMU_LIBERAPAY"),
 		Stripe:        os.Getenv("KAFUMU_STRIPE"),
 		Contact:       env("KAFUMU_CONTACT", "https://github.com/LaPingvino/kafumu/issues"),
+		Maker:         env("KAFUMU_MAKER", "lapingvino"),
 	}
 }
 

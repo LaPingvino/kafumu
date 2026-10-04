@@ -2,6 +2,8 @@
 package handler
 
 import (
+	"cloud.google.com/go/datastore"
+	"context"
 	"encoding/json"
 	"github.com/LaPingvino/kafumu/internal/report"
 	"html/template"
@@ -50,6 +52,11 @@ type Home struct {
 	// Meetups and Accounts, if set, are included in bundles.
 	Meetups  *meetup.Service
 	Accounts *account.Service
+	// DB holds site settings (footer); MakerLive says whether a username's
+	// kafumu.com/@name link is on.
+	DB        *datastore.Client
+	MakerLive func(ctx context.Context, name string) bool
+	foot      footerCache
 }
 
 // page is the data every full page gets.
@@ -68,6 +75,8 @@ type page struct {
 	ATproto bool
 	Langs   []locale.Lang
 	User    *account.User
+	// Maker, Contact, ContactText: footer "Contact the maker" (see footer.go).
+	Maker, Contact, ContactText string
 	// JS holds the "js." strings for client-side code.
 	JS map[string]string
 }
@@ -84,9 +93,10 @@ func (h *Home) newPage(r *http.Request, title string) page {
 	if canon := h.Cfg.Origin; canon != "" && len(h.Cfg.LegacyOrigins) > 0 && !strings.HasSuffix(canon, "://"+r.Host) {
 		moved = canon
 	}
+	maker, contact, contactText := h.footer(r.Context())
 	return page{Brand: h.Cfg.Brand, Title: title, Lang: lang, V: h.Cfg.Version, Langs: locale.Langs(), MovedTo: moved,
 		Passkeys: h.Cfg.Passkeys && moved == "", ATproto: h.ATproto != nil && moved == "",
-		User: UserFrom(r.Context()), JS: locale.Prefix(lang, "js.")}
+		User: UserFrom(r.Context()), JS: locale.Prefix(lang, "js."), Maker: maker, Contact: contact, ContactText: contactText}
 }
 
 // ShowHome renders the shell; the cell is computed on the device and the list

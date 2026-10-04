@@ -546,5 +546,8 @@
   "account.business": "Tu es une entreprise ? Essaie un compte professionnel, premier mois gratuit →",
   "account.want_password": "Mais je veux vraiment un mot de passe !",
   "profile.own_language": "Une autre langue : son code ou son nom",
-  "profile.levels_note": "Les niveaux suivent le CECRL : A1–A2 débutant, B1–B2 intermédiaire, C1–C2 avancé. Jusqu'à B1, c'est « en apprentissage »."
+  "profile.levels_note": "Les niveaux suivent le CECRL : A1–A2 débutant, B1–B2 intermédiaire, C1–C2 avancé. Jusqu'à B1, c'est « en apprentissage ».",
+  "footer.contact": "Contacter le créateur :",
+  "footer.on_kafumu": "sur Kafumu",
+  "footer.issues": "idées et bugs"
 }

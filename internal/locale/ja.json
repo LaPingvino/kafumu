@@ -546,5 +546,8 @@
   "account.business": "お店や団体ですか？ビジネスアカウントを試してみましょう。最初の1か月は無料 →",
   "account.want_password": "でも、どうしてもパスワードを設定したい！",
   "profile.own_language": "その他の言語：コードまたは名前",
-  "profile.levels_note": "レベルは CEFR に従います：A1–A2 初級、B1–B2 中級、C1–C2 上級。B1 までは学習中として扱います。"
+  "profile.levels_note": "レベルは CEFR に従います：A1–A2 初級、B1–B2 中級、C1–C2 上級。B1 までは学習中として扱います。",
+  "footer.contact": "作者に連絡：",
+  "footer.on_kafumu": "Kafumu で",
+  "footer.issues": "アイデアと不具合"
 }

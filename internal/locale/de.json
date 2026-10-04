@@ -546,5 +546,8 @@
   "account.business": "Bist du ein Unternehmen? Probier ein Business-Konto, der erste Monat ist gratis →",
   "account.want_password": "Aber ich will wirklich ein Passwort!",
   "profile.own_language": "Eine andere Sprache: Code oder Name",
-  "profile.levels_note": "Die Niveaus folgen dem GER: A1–A2 Anfänger, B1–B2 Mittelstufe, C1–C2 fortgeschritten. Bis B1 zählt als lernend."
+  "profile.levels_note": "Die Niveaus folgen dem GER: A1–A2 Anfänger, B1–B2 Mittelstufe, C1–C2 fortgeschritten. Bis B1 zählt als lernend.",
+  "footer.contact": "Kontakt zum Macher:",
+  "footer.on_kafumu": "auf Kafumu",
+  "footer.issues": "Ideen und Fehler"
 }

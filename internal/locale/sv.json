@@ -546,5 +546,8 @@
   "account.business": "Är du ett företag? Testa ett företagskonto, första månaden gratis →",
   "account.want_password": "Men jag vill verkligen ha ett lösenord!",
   "profile.own_language": "Ett annat språk: kod eller namn",
-  "profile.levels_note": "Nivåerna följer GERS: A1–A2 nybörjare, B1–B2 mellannivå, C1–C2 avancerad. Upp till B1 räknas som att lära sig."
+  "profile.levels_note": "Nivåerna följer GERS: A1–A2 nybörjare, B1–B2 mellannivå, C1–C2 avancerad. Upp till B1 räknas som att lära sig.",
+  "footer.contact": "Kontakta skaparen:",
+  "footer.on_kafumu": "på Kafumu",
+  "footer.issues": "idéer och buggar"
 }

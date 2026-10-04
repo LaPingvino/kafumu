@@ -419,6 +419,9 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       lower, levels upper). Caught by the browser test: the old cleaner lowercased "A2" and dropped the language.
       Was: Language levels (Joop): CEFR-style levels (A1–C2 + native) instead of fluent/learning, and hand-added
       languages: by code, or free text without one (rare languages); matching treats levels sensibly.
+- [x] 65. Footer "Contact the maker" (Joop): @maker on Kafumu (only while that account's /@name link is live,
+      checked ≤ every 5 min per instance) and a contact link (default GitHub issues); maker, link and link text
+      editable in /admin (Config/footer), env as defaults.
 - [ ] 63. Fuzz the network (Joop): many simulated devices/accounts going online and offline at random (pairing,
       sync, chat over OLN, named links, moves), with invariants checked (no lost contacts or messages, no
       resurrections, keys never on the server); a Node harness against a local server, seeded and repeatable.

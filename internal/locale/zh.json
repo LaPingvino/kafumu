@@ -546,5 +546,8 @@
   "account.business": "你是商家吗？试试商业账号，第一个月免费 →",
   "account.want_password": "可我就是想设个密码！",
   "profile.own_language": "其他语言：代码或名称",
-  "profile.levels_note": "等级参照 CEFR：A1–A2 初级，B1–B2 中级，C1–C2 高级。B1 及以下算作学习中。"
+  "profile.levels_note": "等级参照 CEFR：A1–A2 初级，B1–B2 中级，C1–C2 高级。B1 及以下算作学习中。",
+  "footer.contact": "联系作者：",
+  "footer.on_kafumu": "在 Kafumu 上",
+  "footer.issues": "想法和错误"
 }

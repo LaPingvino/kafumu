@@ -546,5 +546,8 @@
   "account.business": "Ти бізнес? Спробуй бізнес-акаунт, перший місяць безкоштовно →",
   "account.want_password": "Але я справді хочу пароль!",
   "profile.own_language": "Інша мова: код або назва",
-  "profile.levels_note": "Рівні за CEFR: A1–A2 початковий, B1–B2 середній, C1–C2 просунутий. До B1 вважається вивченням."
+  "profile.levels_note": "Рівні за CEFR: A1–A2 початковий, B1–B2 середній, C1–C2 просунутий. До B1 вважається вивченням.",
+  "footer.contact": "Зв'язатися з автором:",
+  "footer.on_kafumu": "у Kafumu",
+  "footer.issues": "ідеї та помилки"
 }

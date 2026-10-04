@@ -546,5 +546,8 @@
   "account.business": "Are you a business? Try a business account, first month free →",
   "account.want_password": "But I really want to set up a password!",
   "profile.own_language": "Any other language: its code or name",
-  "profile.levels_note": "Levels follow the CEFR: A1–A2 beginner, B1–B2 intermediate, C1–C2 advanced. Up to B1 counts as learning."
+  "profile.levels_note": "Levels follow the CEFR: A1–A2 beginner, B1–B2 intermediate, C1–C2 advanced. Up to B1 counts as learning.",
+  "footer.contact": "Contact the maker:",
+  "footer.on_kafumu": "on Kafumu",
+  "footer.issues": "ideas and bugs"
 }

@@ -74,6 +74,11 @@ func main() {
 	accounts.Prices = prices
 	accounts.Cache = kv
 	accounts.Handles = handle.New(db)
+	home.DB = db
+	home.MakerLive = func(ctx context.Context, name string) bool {
+		_, ok := accounts.Handles.Get(ctx, name, time.Now())
+		return ok
+	}
 	home.FollowHandle = accounts.FollowHandle
 	accounts.Vault = vault.NewMemoryStore()
 	if db != nil {
