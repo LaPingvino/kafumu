@@ -313,7 +313,8 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       picks a neighbour. Add villages/neighbourhoods (geonames cities1000 / PPLX for the heading only, via
       geotags), and show a cloud: the main name big, nearby names (villages, districts) small beside it.
 - [x] 33. First visit without a location (city-name fallback via X-Appengine-City + gazetteer search; admin
-      shows your connection's App Engine geo headers): X-Appengine-CityLatLong → cell (page only, Cache-Control: private,
+      shows your connection's App Engine geo headers; Claude's own connection reads "DE / ? / ? / 0,0", i.e.
+      no city: the guess only shows when App Engine can place a connection): X-Appengine-CityLatLong → cell (page only, Cache-Control: private,
       never stored) + nearest name; card "Are you in or near Ede?" Yes / Use my location / Somewhere else.
       Browser-tested locally with the header; in production it only checks a question appears. Was: Desktop first visit (Joop): guess the area from App Engine's X-Appengine-CityLatLong header
       (free, no lookup service, never stored), turn it into a cell and ask "Are you in Ede?" [Yes] [Pick].
@@ -363,6 +364,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
 - [ ] 43. React to anything (Joop, OLN): every card (local message, meetup, person, Bluesky post) gets a
       reply/react action that posts a local message tagged #re<id> (or #re<hash of the uri/id> for posts,
       meetups, people), threaded under it like answers; quick emoji reactions as tiny PoW messages.
+- [ ] 44. /oln page (Joop): what the Open Location Network is (local messages as text + #geo tags, proof of work
+      instead of accounts, time-biased validity), the eolnpoc proof of concept (link, how its format works),
+      and how to integrate: GET /oln.json?cell=… (olnjson.Format), POST /api/oln (raw nonce;date;b64;keywords,
+      SHA-1 leading zeros, current required bits from the bundle), with a curl/JS example. Linked from About.
 - [ ] 39. Post with or without your name (Joop): a local message can carry your account name (signed by the
       server as @name, linkable to your profile) or stay anonymous; anonymous ones rank lower and expire
       sooner (shorter TTL at the same work), named ones get the normal TTL and a trust bonus.
