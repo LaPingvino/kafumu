@@ -157,6 +157,8 @@ footer { padding: 16px; }
 .actions.center { justify-content: center; }
 .contact .actions { margin: .4rem 0; }
 .pill-sm { border-radius: 99px; padding: 4px 12px; min-height: 30px; font-size: .85rem; }
+.actions.minor { margin-top: -.25rem; gap: 6px; }
+.actions.minor .pill-sm { background: transparent; box-shadow: inset 0 0 0 1px rgba(127, 127, 127, .4); }
 .contact input { margin-top: .4rem; }
 .about-link { margin-left: auto; color: var(--fg); padding: 8px; border-radius: 8px; display: flex; }
 .about-link:hover { background: var(--button-hover); }

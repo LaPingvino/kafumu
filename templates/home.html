@@ -3,14 +3,19 @@
   <div id="views" class="chips"></div>
   <p class="muted" id="status"></p>
   <h1 class="cell-tag" hidden><span id="place-name"></span><span id="cell-tag"></span></h1>
-  <p id="cell-actions" class="actions" hidden>
-    <button type="button" id="coffee" class="suggested pill">☕ {{t .Lang "coffee.button"}}</button>
-    <button type="button" id="say" class="pill">💬 {{t .Lang "oln.say"}}</button>
-    <button type="button" id="ask" class="pill">❓ {{t .Lang "ask.button"}}</button>
-    <a id="share" href="#" role="button" class="pill">{{t .Lang "home.share"}}</a>
-    <a href="/meetups/new" role="button" class="pill">{{t .Lang "meetup.new_title"}}</a>
-    <button type="button" id="change-area" class="pill">{{t .Lang "area.change"}}</button>
-  </p>
+  <div id="cell-actions" hidden>
+    <p class="actions">
+      <button type="button" id="coffee" class="suggested pill">☕ {{t .Lang "coffee.button"}}</button>
+      <button type="button" id="say" class="pill">💬 {{t .Lang "oln.say"}}</button>
+      <button type="button" id="ask" class="pill">❓ {{t .Lang "ask.button"}}</button>
+    </p>
+    <!-- About the area rather than in it: smaller, out of the way. -->
+    <p class="actions minor">
+      <button type="button" id="change-area" class="pill-sm">📍 {{t .Lang "area.change"}}</button>
+      <a id="share" href="#" role="button" class="pill-sm">↗ {{t .Lang "home.share"}}</a>
+      <a href="/meetups/new" role="button" class="pill-sm">＋ {{t .Lang "meetup.new_title"}}</a>
+    </p>
+  </div>
   {{if and .ATproto .User}}{{if .User.DID}}
   <form id="composer" method="post" action="/post" class="card" style="padding:4px 16px 12px" hidden>
     <input type="hidden" name="cell">
