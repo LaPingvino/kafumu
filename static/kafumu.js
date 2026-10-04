@@ -272,7 +272,16 @@
   }
 
   // ---- Local messages (OLN): Kafumu's own channel, first class ----
-  var currentCell = "", requiredBits = 12, liveEvents = [];
+  var currentCell = "", requiredBits = 12, liveEvents = [], liveEventNames = [];
+  // sayPlaceholder fits the moment: where (a running event, the place, or
+  // just "around here") and what (coffee, lunch, a break, a drink).
+  function sayPlaceholder() {
+    var place = ($("place-name").textContent || "").split(",")[0].trim();
+    var where = liveEventNames[0] ? tr("say_at", { event: liveEventNames[0] }) : place ? tr("say_in", { place: place }) : tr("say_here");
+    var h = new Date().getHours();
+    var slot = h < 11 ? "morning" : h < 14 ? "lunch" : h < 17 ? "afternoon" : "evening";
+    return tr("say_ph_" + slot, { where: where });
+  }
   function hashrate() { var r = parseFloat(pref("kafumu.hashrate") || "0"); return r > 1000 ? r : 40000; }
   function estimate(bits) {
     var s = Math.pow(2, bits) / hashrate();
@@ -302,7 +311,7 @@
     var f = $("oln-form");
     f.hidden = false;
     $("oln-mode").textContent = composeMode.ask ? "❓ " + tr("ask_label") : composeMode.re ? "💬 " + tr("ask_answering", { q: (composeMode.about || "").replace(/https?:\/\/\S+/, "").slice(0, 80) }) : "";
-    f.text.placeholder = composeMode.ask ? tr("ask_placeholder") : f.text.dataset.say;
+    f.text.placeholder = composeMode.ask ? tr("ask_placeholder") : sayPlaceholder();
     if (!f.lang.value) f.lang.value = view.lang || ((window.KAFUMU_ME || {}).from1 || {})[document.documentElement.lang] || "";
     if (!f.tags.value && view.tag) f.tags.value = view.tag;
     updateEstimate(); f.text.focus();
@@ -531,6 +540,7 @@
         showEvents(b.events || [], c);
         requiredBits = b.requiredBits || 12;
         liveEvents = (b.events || []).filter(function (e) { return e.live; }).map(function (e) { return e.tag; });
+        liveEventNames = (b.events || []).filter(function (e) { return e.live; }).map(function (e) { return e.name; });
         showNotes(b.notes || []);
         showMeetups(b.meetups || [], b.events || []);
         travel.meetups = (b.meetups || []).length;

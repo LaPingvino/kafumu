@@ -410,5 +410,13 @@
   "js.kind_meetups": "Renkontiĝoj",
   "js.kind_people": "Homoj ĉi tie",
   "js.kind_posts": "Bluesky",
-  "js.kind_all": "Ĉio"
+  "js.kind_all": "Ĉio",
+  "js.say_at": "ĉe {event}",
+  "js.say_in": "en {place}",
+  "js.say_here": "ĉi-ĉirkaŭe",
+  "js.say_ph_morning": "Ĉu iu emas kafumi {where}?",
+  "js.say_ph_lunch": "Ĉu iu emas tagmanĝi {where}?",
+  "js.say_ph_afternoon": "Kafopaŭzo {where}, ĉu iu?",
+  "js.say_ph_evening": "Ĉu iu emas trinki ion {where} ĉi-vespere?",
+  "about.name": "<em>Ni kafumu</em> signifas “ni trinku kafon kune”: Esperanto estis farita por renkonti homojn trans landlimoj. Ĉu vi konas iun, kiu volas lerni ĝin? <a href=\"https://esperanto-kurso.net\">esperanto-kurso.net</a> instruas ĝin senpage, de la sama kreinto."
 }

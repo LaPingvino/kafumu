@@ -410,5 +410,13 @@
   "js.kind_meetups": "Encontros",
   "js.kind_people": "Pessoas por aqui",
   "js.kind_posts": "Bluesky",
-  "js.kind_all": "Tudo"
+  "js.kind_all": "Tudo",
+  "js.say_at": "no {event}",
+  "js.say_in": "em {place}",
+  "js.say_here": "por aqui",
+  "js.say_ph_morning": "Alguém para um café {where}?",
+  "js.say_ph_lunch": "Alguém para almoçar {where}?",
+  "js.say_ph_afternoon": "Pausa para café {where}, alguém?",
+  "js.say_ph_evening": "Alguém para uma bebida {where} esta noite?",
+  "about.name": "<em>Ni kafumu</em> quer dizer “vamos tomar um café juntos” em esperanto, uma língua feita para conhecer pessoas além das fronteiras. Curioso? O <a href=\"https://esperanto-kurso.net\">esperanto-kurso.net</a> ensina-a de graça, do mesmo autor."
 }

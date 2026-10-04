@@ -290,6 +290,28 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
 - [ ] 33. Desktop first visit (Joop): guess the area from App Engine's X-Appengine-CityLatLong header
       (free, no lookup service, never stored), turn it into a cell and ask "Are you in Ede?" [Yes] [Pick].
 
+- [x] 34a. Say placeholder fits the moment (Joop: "near the main stage" was a poor default): at a running
+      event / in the place / around here × morning coffee, lunch, afternoon break, evening drink. About:
+      "Ni kafumu" = let's have a coffee together, with esperanto-kurso.net.
+- [ ] 34. More UI languages (Joop: "4 is too few"): the 32 locales of esperanto-kurso.net (ar bn cs da de
+      el en eo es fa fr he hi hu id it ja ko nl pl pt ro ru sv sw tok tr uk ur vi zh), translating Kafumu's
+      strings; RTL (ar fa he ur) via dir="rtl". Plus a gentle esperanto-kurso.net nudge where it fits (the
+      language picker, Esperanto users). Split per batch of languages.
+- [ ] 35. "I want to learn the local language" button (Joop): one tap marks you as learning the area's main
+      language (from the country), surfaces language events/meetups and people who speak it (exchange
+      matches first), and offers a coffee signal "learner looking to chat" (#lang<code> + #learn).
+
+- [ ] 36. Events found automatically + local-first tags (Joop): detect big events from what the feeds
+      already bring (many Luma/Smoke Signal events or one large one in a cell, a burst of one tag in local
+      messages and posts) instead of hand-made events.json; suggest the tags that make sense here in the
+      composer; the event banner posts LOCALLY (OLN) first, "also on Bluesky" second.
+- [ ] 37. Contacts synced across your passkey devices (Joop), desktop included. Design: the device key
+      comes from the passkey PRF extension (no key on the server); contacts + personas encrypted into one
+      opaque blob per account, versioned, last-writer-wins per contact. Joop's caveat: messaging gets
+      convoluted, because two devices share a pair's mailbox and one device's ack hides a message from the
+      other. Fix: acks become per-device read marks (mailbox keeps messages until TTL); signals dedupe by id.
+      Fallback without PRF: the existing account-bound move.
+
 **Idle-tick rule (Joop):** when no slice is open, a tick is not idle: use the app in a real browser
 (test/cdp.mjs), pick one area, and make it look and work a bit nicer. Fix one concrete thing per tick.
 

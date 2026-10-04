@@ -410,5 +410,13 @@
   "js.kind_meetups": "Meetups",
   "js.kind_people": "People here",
   "js.kind_posts": "Bluesky",
-  "js.kind_all": "All"
+  "js.kind_all": "All",
+  "js.say_at": "at {event}",
+  "js.say_in": "in {place}",
+  "js.say_here": "around here",
+  "js.say_ph_morning": "Anyone up for a coffee {where}?",
+  "js.say_ph_lunch": "Anyone up for lunch {where}?",
+  "js.say_ph_afternoon": "Coffee break {where}, anyone?",
+  "js.say_ph_evening": "Anyone up for a drink {where} tonight?",
+  "about.name": "<em>Ni kafumu</em> is Esperanto for “let's have a coffee together”: the language was made for meeting people across borders. Curious? <a href=\"https://esperanto-kurso.net\">esperanto-kurso.net</a> teaches it for free, from the same maker."
 }
