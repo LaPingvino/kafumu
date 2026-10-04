@@ -80,6 +80,8 @@ type adminPage struct {
 	Areas  []areaCount
 	Roles  []string
 	Queue  []report.Item
+	// Where App Engine thinks this request comes from (the admin's own).
+	ReqGeo string
 	// Full is an admin (accounts, jobs); a moderator sees only the queue.
 	Full bool
 }
@@ -142,6 +144,8 @@ func (a *Admin) Show(w http.ResponseWriter, r *http.Request) {
 	p := adminPage{page: a.Home.newPage(r, "Admin"), Result: r.URL.Query().Get("r"), Search: strings.TrimSpace(r.URL.Query().Get("s"))}
 	p.Tab, p.Roles = "admin", adminRoles
 	p.Full = UserFrom(ctx).Role == "admin"
+	p.ReqGeo = strings.Join([]string{r.Header.Get("X-Appengine-Country"), r.Header.Get("X-Appengine-Region"),
+		r.Header.Get("X-Appengine-City"), r.Header.Get("X-Appengine-Citylatlong")}, " / ")
 	if a.Reports != nil {
 		if q, err := a.Reports.Queue(ctx, time.Now()); err == nil {
 			p.Queue = q

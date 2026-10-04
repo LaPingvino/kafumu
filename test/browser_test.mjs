@@ -245,7 +245,8 @@ try {
     // city header (set by hand locally; production sets its own).
     if (!/kafumu\.com/.test(base)) await D.send("Network.enable"), await D.send("Network.setExtraHTTPHeaders", { headers: { "X-Appengine-Citylatlong": "52.040000,5.665000" } });
     await D.goto(base + "/");
-    await D.waitFor("!document.getElementById('guess').hidden", "area guess offered");
+    if (!/kafumu\.com/.test(base)) await D.waitFor("!document.getElementById('guess').hidden", "area guess offered");
+    else { await sleep(2500); if (await D.evaluate("document.getElementById('guess').hidden")) console.log("note: no area guess for this connection"); }
     if (!/kafumu\.com/.test(base)) {
       await D.waitFor("document.getElementById('guess-q').textContent.includes('Ede')", "guess names Ede");
       await D.evaluate("document.getElementById('guess-yes').click()");

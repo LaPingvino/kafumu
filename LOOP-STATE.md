@@ -312,7 +312,8 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       Was: Naming cloud (Joop: Lunteren shows as Bennekom): towns < 15k are missing, so the nearest-name
       picks a neighbour. Add villages/neighbourhoods (geonames cities1000 / PPLX for the heading only, via
       geotags), and show a cloud: the main name big, nearby names (villages, districts) small beside it.
-- [x] 33. First visit without a location: X-Appengine-CityLatLong → cell (page only, Cache-Control: private,
+- [x] 33. First visit without a location (city-name fallback via X-Appengine-City + gazetteer search; admin
+      shows your connection's App Engine geo headers): X-Appengine-CityLatLong → cell (page only, Cache-Control: private,
       never stored) + nearest name; card "Are you in or near Ede?" Yes / Use my location / Somewhere else.
       Browser-tested locally with the header; in production it only checks a question appears. Was: Desktop first visit (Joop): guess the area from App Engine's X-Appengine-CityLatLong header
       (free, no lookup service, never stored), turn it into a cell and ask "Are you in Ede?" [Yes] [Pick].
@@ -357,6 +358,11 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
 - [ ] 41. "How this was built" page (Joop): honest note that the code is written with LLM help ("vibecoded"),
       built on plans and experience from long before LLMs (whenwhere, OLN, lokumo, amikumu…), and that it
       would not be viable for one person without that help (burn-out). Linked from About and the footer.
+- [ ] 42. More card fields (Joop): Instagram, Facebook (and Mastodon/TikTok/website…) as first-class fields
+      with one-tap links, plus your own fields (label + value or link), all pickable per share like the rest.
+- [ ] 43. React to anything (Joop, OLN): every card (local message, meetup, person, Bluesky post) gets a
+      reply/react action that posts a local message tagged #re<id> (or #re<hash of the uri/id> for posts,
+      meetups, people), threaded under it like answers; quick emoji reactions as tiny PoW messages.
 - [ ] 39. Post with or without your name (Joop): a local message can carry your account name (signed by the
       server as @name, linkable to your profile) or stay anonymous; anonymous ones rank lower and expire
       sooner (shorter TTL at the same work), named ones get the normal TTL and a trust bonus.

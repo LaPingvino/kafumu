@@ -15,6 +15,7 @@
   </li>{{end}}</ul>{{else}}<p class="dim">Nothing reported.</p>{{end}}
 </div>
 {{if .Full}}
+<p class="dim small">Your connection, as App Engine sees it: <code>{{.ReqGeo}}</code></p>
 <div class="stats">
   {{range .Stats}}<div class="stat card"><strong>{{if lt .N 0}}–{{else}}{{.N}}{{end}}</strong><span>{{.Label}}</span>{{if .Note}}<small class="dim">{{.Note}}</small>{{end}}</div>{{end}}
 </div>

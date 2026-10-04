@@ -107,7 +107,20 @@ func (h *Home) ShowHome(w http.ResponseWriter, r *http.Request) {
 	// guess from the IP, turned into a cell for this page only (never
 	// stored or logged), so the device can ask "Are you in …?".
 	if cell == "" && !IsBot(r) && h.Gaz != nil {
-		if c := guessCell(r.Header.Get("X-Appengine-Citylatlong")); c != "" {
+		c := guessCell(r.Header.Get("X-Appengine-Citylatlong"))
+		if c == "" {
+			// No coordinates for this connection: try the city name.
+			if city := strings.TrimSpace(r.Header.Get("X-Appengine-City")); city != "" && city != "?" {
+				cc := strings.ToUpper(r.Header.Get("X-Appengine-Country"))
+				for _, m := range h.Gaz.Search(city, 5) {
+					if cc == "" || m.Country == "" || strings.EqualFold(m.Country, cc) {
+						c = m.Cell
+						break
+					}
+				}
+			}
+		}
+		if c != "" {
 			p.GuessCell = c
 			if n := h.Gaz.Nearest(c); n != nil {
 				p.GuessName = n.Name
