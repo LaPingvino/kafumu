@@ -1056,6 +1056,16 @@
   if (given && validCell(given)) show(given, tr("shared_cell"));
   else if (pref("kafumu.autoLocate") === "1") { if (last && validCell(last)) show(last, tr("your_area")); locate(true); }
   else if (last && validCell(last)) show(last, tr("your_area"));
+  else if (validCell($("here").dataset.guess || "") && $("here").dataset.guessName) {
+    // First visit, no location yet: "Are you in Ede?" from the server's
+    // city guess. Yes shows it; nothing is remembered until you choose.
+    var g = $("here").dataset.guess, box = $("guess");
+    $("guess-q").textContent = tr("guess_q", { place: $("here").dataset.guessName });
+    box.hidden = false;
+    $("guess-yes").onclick = function () { box.hidden = true; show(g, tr("your_area")); };
+    $("guess-locate").onclick = function () { box.hidden = true; pref("kafumu.autoLocate", "1"); locate(false); };
+    $("guess-pick").onclick = function () { box.hidden = true; setStatus(tr("pick_first")); openPicker(); };
+  }
   else { setStatus(tr("pick_first")); openPicker(); }
 
 })();

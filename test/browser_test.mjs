@@ -241,6 +241,18 @@ try {
   // A gives D a name; D's card follows later over the same connection.
   const D = await browser(9336);
   try {
+    // First visit, no location: "Are you in or near …?" from App Engine's
+    // city header (set by hand locally; production sets its own).
+    if (!/kafumu\.com/.test(base)) await D.send("Network.enable"), await D.send("Network.setExtraHTTPHeaders", { headers: { "X-Appengine-Citylatlong": "52.040000,5.665000" } });
+    await D.goto(base + "/");
+    await D.waitFor("!document.getElementById('guess').hidden", "area guess offered");
+    if (!/kafumu\.com/.test(base)) {
+      await D.waitFor("document.getElementById('guess-q').textContent.includes('Ede')", "guess names Ede");
+      await D.evaluate("document.getElementById('guess-yes').click()");
+      await D.waitFor("document.getElementById('place-name').textContent === 'Ede'", "Yes shows Ede");
+      await D.send("Network.setExtraHTTPHeaders", { headers: {} });
+    }
+
     await A.goto(base + "/connect");
     await A.waitFor("!!document.querySelector('#qr svg')", "A's QR again");
     // A leaves Connect (app "closed" for this code) before D uses it: D's
@@ -270,7 +282,7 @@ try {
     await X.evaluate("fetch('/account/delete', { method: 'POST', body: new URLSearchParams({ confirm: 'yes' }), credentials: 'same-origin' }).then(() => true)");
   }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device + synced both ways (card rename, note, removal), connected without a card while A was away (queued) + named + late card, meetup hosted and seen, findable profile seen, paid inbox message + connect back, OLN message + report + question/answer + local themes + views + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, findable profile seen, paid inbox message + connect back, OLN message + report + question/answer + local themes + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

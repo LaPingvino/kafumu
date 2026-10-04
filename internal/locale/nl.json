@@ -437,5 +437,10 @@
   "js.sync_asked": "Een ander apparaat van je vraagt om je kaartjes en contacten.",
   "js.sync_send": "Versturen",
   "js.sync_now": "Nu synchroniseren",
-  "sync.now": "Nu synchroniseren"
+  "sync.now": "Nu synchroniseren",
+  "guess.yes": "Ja",
+  "guess.locate": "Gebruik mijn locatie",
+  "guess.pick": "Ergens anders",
+  "guess.note": "Een ruwe schatting op basis van je internetverbinding, niets opgeslagen. Je exacte locatie verlaat je apparaat nooit.",
+  "js.guess_q": "Ben je in of bij {place}?"
 }

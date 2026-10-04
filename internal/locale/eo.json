@@ -437,5 +437,10 @@
   "js.sync_asked": "Alia via aparato petas viajn kartojn kaj kontaktojn.",
   "js.sync_send": "Sendi",
   "js.sync_now": "Sinkronigi",
-  "sync.now": "Sinkronigi"
+  "sync.now": "Sinkronigi",
+  "guess.yes": "Jes",
+  "guess.locate": "Uzi mian lokon",
+  "guess.pick": "Aliloke",
+  "guess.note": "Malpreciza diveno el via interreta konekto, nenio konservita. Via ĝusta loko neniam forlasas vian aparaton.",
+  "js.guess_q": "Ĉu vi estas en aŭ apud {place}?"
 }

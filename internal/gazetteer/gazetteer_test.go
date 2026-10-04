@@ -126,7 +126,7 @@ func TestNearest(t *testing.T) {
 		{38.663, -9.072, "Barreiro", ""}, // Joop's town, across the river from Lisbon
 		{52.040, 5.665, "Ede", ""},
 		{52.085, 5.622, "Lunteren", ""}, // Joop: showed as Bennekom while towns < 15k were missing
-		{38.735, -9.135, "Lisbon", ""}, // the city leads; Areeiro, Graça… go in the cloud
+		{38.735, -9.135, "Lisbon", ""},  // the city leads; Areeiro, Graça… go in the cloud
 	} {
 		if n := g.Nearest(geo.Cell(c.lat, c.lon)); n == nil || n.Name != c.want || n.City != c.city {
 			t.Errorf("Nearest(%v,%v) = %+v, want %s", c.lat, c.lon, n, c.want)

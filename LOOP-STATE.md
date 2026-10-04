@@ -312,7 +312,9 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       Was: Naming cloud (Joop: Lunteren shows as Bennekom): towns < 15k are missing, so the nearest-name
       picks a neighbour. Add villages/neighbourhoods (geonames cities1000 / PPLX for the heading only, via
       geotags), and show a cloud: the main name big, nearby names (villages, districts) small beside it.
-- [ ] 33. Desktop first visit (Joop): guess the area from App Engine's X-Appengine-CityLatLong header
+- [x] 33. First visit without a location: X-Appengine-CityLatLong → cell (page only, Cache-Control: private,
+      never stored) + nearest name; card "Are you in or near Ede?" Yes / Use my location / Somewhere else.
+      Browser-tested locally with the header; in production it only checks a question appears. Was: Desktop first visit (Joop): guess the area from App Engine's X-Appengine-CityLatLong header
       (free, no lookup service, never stored), turn it into a cell and ask "Are you in Ede?" [Yes] [Pick].
 
 - [x] 34a. Say placeholder fits the moment (Joop: "near the main stage" was a poor default): at a running

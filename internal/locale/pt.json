@@ -437,5 +437,10 @@
   "js.sync_asked": "Outro dispositivo teu pede os teus cartões e contactos.",
   "js.sync_send": "Enviar",
   "js.sync_now": "Sincronizar",
-  "sync.now": "Sincronizar"
+  "sync.now": "Sincronizar",
+  "guess.yes": "Sim",
+  "guess.locate": "Usar a minha localização",
+  "guess.pick": "Outro lugar",
+  "guess.note": "Uma estimativa aproximada pela tua ligação à internet, nada guardado. A tua localização exata nunca sai do teu dispositivo.",
+  "js.guess_q": "Estás em ou perto de {place}?"
 }

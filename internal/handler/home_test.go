@@ -98,3 +98,14 @@ func TestCanonicalHost(t *testing.T) {
 		}
 	}
 }
+
+func TestGuessCell(t *testing.T) {
+	if c := guessCell("52.040000,5.665000"); c != "9f4729" && len(c) != 6 {
+		t.Errorf("guessCell = %q", c)
+	}
+	for _, bad := range []string{"", "0.000000,0.000000", "abc", "95,0"} {
+		if c := guessCell(bad); c != "" {
+			t.Errorf("guessCell(%q) = %q", bad, c)
+		}
+	}
+}

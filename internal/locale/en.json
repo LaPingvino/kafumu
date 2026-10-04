@@ -437,5 +437,10 @@
   "js.sync_asked": "Another of your devices asks for your cards and contacts.",
   "js.sync_send": "Send",
   "js.sync_now": "Sync now",
-  "sync.now": "Sync now"
+  "sync.now": "Sync now",
+  "guess.yes": "Yes",
+  "guess.locate": "Use my location",
+  "guess.pick": "Somewhere else",
+  "guess.note": "A rough guess from your internet connection, nothing stored. Your exact location never leaves your device.",
+  "js.guess_q": "Are you in or near {place}?"
 }

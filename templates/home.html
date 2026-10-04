@@ -1,5 +1,12 @@
 {{template "head" .}}
-<section id="here" data-cell="{{.Cell}}">
+<section id="here" data-cell="{{.Cell}}" data-guess="{{.GuessCell}}" data-guess-name="{{.GuessName}}">
+  <div id="guess" class="card events" style="padding:8px 16px" hidden>
+    <p><strong id="guess-q"></strong></p>
+    <div class="actions"><button type="button" id="guess-yes" class="pill suggested">{{t .Lang "guess.yes"}}</button>
+      <button type="button" id="guess-locate" class="pill">📍 {{t .Lang "guess.locate"}}</button>
+      <button type="button" id="guess-pick" class="pill">{{t .Lang "guess.pick"}}</button></div>
+    <p class="dim small">{{t .Lang "guess.note"}}</p>
+  </div>
   <div id="views" class="chips"></div>
   <p class="muted" id="status"></p>
   <h1 class="cell-tag" hidden><span id="place-name"></span><span id="cell-tag"></span></h1>

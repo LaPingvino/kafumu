@@ -6,9 +6,11 @@ import (
 	"github.com/LaPingvino/kafumu/internal/report"
 	"html/template"
 	"log"
+	"math"
 	"net/http"
 	"net/url"
 	"sort"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -101,6 +103,18 @@ func (h *Home) ShowHome(w http.ResponseWriter, r *http.Request) {
 	if u := p.User; u != nil {
 		p.MyLangs, p.MyTags = u.Langs, u.Tags
 	}
+	// First visit without a cell (desktop, mostly): App Engine's own city
+	// guess from the IP, turned into a cell for this page only (never
+	// stored or logged), so the device can ask "Are you in …?".
+	if cell == "" && !IsBot(r) && h.Gaz != nil {
+		if c := guessCell(r.Header.Get("X-Appengine-Citylatlong")); c != "" {
+			p.GuessCell = c
+			if n := h.Gaz.Nearest(c); n != nil {
+				p.GuessName = n.Name
+			}
+			w.Header().Set("Cache-Control", "private")
+		}
+	}
 	h.render(w, "home.html", p)
 }
 
@@ -112,6 +126,22 @@ type homePage struct {
 	LangNames       map[string]string
 	LangTags        map[string]langs.Tag
 	From1           map[string]string
+	// GuessCell/GuessName: the area App Engine guesses from the IP.
+	GuessCell, GuessName string
+}
+
+// guessCell turns "52.040000,5.665000" into a cell; "" if absent or 0,0.
+func guessCell(latlon string) string {
+	parts := strings.Split(latlon, ",")
+	if len(parts) != 2 {
+		return ""
+	}
+	lat, err1 := strconv.ParseFloat(strings.TrimSpace(parts[0]), 64)
+	lon, err2 := strconv.ParseFloat(strings.TrimSpace(parts[1]), 64)
+	if err1 != nil || err2 != nil || (lat == 0 && lon == 0) || math.Abs(lat) > 90 || math.Abs(lon) > 180 {
+		return ""
+	}
+	return geo.Cell(lat, lon)
 }
 
 // ShowAbout renders the static explanation page.
