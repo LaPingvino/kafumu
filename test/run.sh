@@ -15,6 +15,9 @@ pid=$!
 trap 'kill $pid 2>/dev/null' EXIT
 sleep 1
 node test/pair_test.mjs http://localhost:18081
+# People coming and going at random; a failure prints its seed to replay:
+# node test/fuzz.mjs http://localhost:18081 <seed> <steps>
+node test/fuzz.mjs http://localhost:18081 "" 80
 # Two-browser UI test, when chromium can run (not inside the sandbox).
 if command -v chromium >/dev/null 2>&1 && [ -z "$SKIP_BROWSER" ]; then
   PORT=18082 "$bin" >/dev/null 2>&1 &

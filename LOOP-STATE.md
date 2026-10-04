@@ -422,9 +422,17 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
 - [x] 65. Footer "Contact the maker" (Joop): @maker on Kafumu (only while that account's /@name link is live,
       checked ≤ every 5 min per instance) and a contact link (default GitHub issues); maker, link and link text
       editable in /admin (Config/footer), env as defaults.
-- [ ] 63. Fuzz the network (Joop): many simulated devices/accounts going online and offline at random (pairing,
+- [x] 63. test/fuzz.mjs: seeded PRNG, 6 people coming/going: show/renew codes, use current or old codes, chat
+      over encrypted OLN (real Argon2 mining), take in; invariants after everyone catches up: each connection on
+      both sides with one key, every chat line exactly once (matched by key). In run.sh with a random seed (80
+      steps; a failure prints the seed). Found: mutual scans make two connections between the same people → 66.
+      Was: Fuzz the network (Joop): many simulated devices/accounts going online and offline at random (pairing,
       sync, chat over OLN, named links, moves), with invariants checked (no lost contacts or messages, no
       resurrections, keys never on the server); a Node harness against a local server, seeded and repeatable.
+- [ ] 66. One person, one contact (found by the fuzzer; Joop saw it as a duplicate): when two people use each
+      other's code before either takes the other's hello in, they get two connections. Recognise the same person
+      (a random person id in hello/card, synced via the vault) and fold the second connection into the first
+      (keep both keys for reading; send on the older one).
 - [ ] 64. Self-hosting and OLN nodes (Joop): run Kafumu outside GAE (plain Go binary + a file/SQL store, no
       memcache), a page on how to self-host and link a node into OLN, and linked nodes on the admin page
       (peers pulled from / pushed to, last seen). Also mention self-hosting on /business.
