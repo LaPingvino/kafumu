@@ -12,6 +12,7 @@
       <p class="actions"><button type="button" id="handle-on" class="pill-sm suggested">{{t .Lang "handle.on"}}</button>
         <button type="button" id="handle-off" class="pill-sm" hidden>{{t .Lang "handle.off"}}</button></p>
       <p id="handle-status" class="dim small" role="status"></p>
+      <p id="handle-views" class="small" hidden></p>
     </div>{{end}}{{end}}
     <form id="card-form" autocomplete="on">
       <label>{{t .Lang "card.field_label"}}<input name="label" maxlength="30" placeholder="{{ts .Lang "card.label_placeholder"}}"></label>

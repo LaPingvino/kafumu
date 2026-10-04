@@ -414,6 +414,9 @@ func (a *Accounts) FollowHandle(w http.ResponseWriter, r *http.Request, name str
 		http.NotFound(w, r)
 		return
 	}
+	if !IsBot(r) {
+		a.countView(r, name)
+	}
 	w.Header().Set("Cache-Control", "no-store")
 	http.Redirect(w, r, "/c?from="+url.QueryEscape(name)+"#"+payload, http.StatusFound)
 }
@@ -430,4 +433,51 @@ func (a *Accounts) DeleteHandle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusNoContent)
+}
+
+// Link views: how often kafumu.com/@name was opened today and when last;
+// nothing about who. Kept only in the short-lived cache (a day).
+type handleViews struct {
+	Day  string `json:"day"`
+	N    int    `json:"n"`
+	Last int64  `json:"last"`
+}
+
+func (a *Accounts) countView(r *http.Request, name string) {
+	if a.Cache == nil {
+		return
+	}
+	key, now := "hv:"+name, time.Now()
+	var v handleViews
+	if b, ok := a.Cache.Get(r.Context(), key); ok {
+		_ = json.Unmarshal(b, &v)
+	}
+	if day := now.UTC().Format("2006-01-02"); v.Day != day {
+		v = handleViews{Day: day}
+	}
+	v.N++
+	v.Last = now.Unix()
+	b, _ := json.Marshal(v)
+	a.Cache.Set(r.Context(), key, b, 24*time.Hour)
+}
+
+// HandleViews handles GET /api/handle: your link's views today and the last.
+func (a *Accounts) HandleViews(w http.ResponseWriter, r *http.Request) {
+	u := UserFrom(r.Context())
+	if u == nil || u.Username == "" {
+		http.Error(w, "a named account is needed", http.StatusUnauthorized)
+		return
+	}
+	var v handleViews
+	if a.Cache != nil {
+		if b, ok := a.Cache.Get(r.Context(), "hv:"+u.Username); ok {
+			_ = json.Unmarshal(b, &v)
+		}
+	}
+	if v.Day != time.Now().UTC().Format("2006-01-02") {
+		v.N = 0
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Cache-Control", "no-store")
+	json.NewEncoder(w).Encode(v)
 }

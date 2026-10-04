@@ -1022,6 +1022,12 @@
       a.textContent = tr("also_bsky");
       row.appendChild(say); row.appendChild(a);
       box.appendChild(row);
+      var ad = document.createElement("p");
+      ad.className = "dim small";
+      var al = document.createElement("a");
+      al.href = "/business"; al.textContent = tr("biz_ad");
+      ad.appendChild(al);
+      box.appendChild(ad);
     });
   }
 

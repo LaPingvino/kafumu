@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/LaPingvino/kafumu/internal/account"
+	"github.com/LaPingvino/kafumu/internal/business"
 	"github.com/LaPingvino/kafumu/internal/report"
 	"html/template"
 	"log"
@@ -25,12 +26,13 @@ import (
 // admin login (app.yaml `login: admin` on /admin/initial, and IsAdmin
 // checked again here) and a Kafumu account — typically with a passkey.
 type Admin struct {
-	Home     *Home
-	Accounts *Accounts
-	Meetups  *Meetups
-	Notes    *oln.Service
-	DB       *datastore.Client
-	Reports  *report.Service
+	Home       *Home
+	Accounts   *Accounts
+	Meetups    *Meetups
+	Notes      *oln.Service
+	DB         *datastore.Client
+	Reports    *report.Service
+	Businesses *business.Store
 	// Jobs are the cron jobs, runnable by hand: name → run.
 	Jobs map[string]func(ctx context.Context) string
 }
@@ -84,6 +86,9 @@ type adminPage struct {
 	ReqGeo string
 	// Full is an admin (accounts, jobs); a moderator sees only the queue.
 	Full bool
+	// Businesses: business accounts, trials that ended first ("contact?").
+	Businesses []*business.Business
+	Now        time.Time
 }
 
 type stat struct {
@@ -181,6 +186,13 @@ func (a *Admin) Show(w http.ResponseWriter, r *http.Request) {
 			{"Bluesky linked", a.count(ctx, live("ATSession")), "OAuth sessions"},
 		}
 		p.Users = a.findUsers(ctx, p.Search)
+		p.Now = now
+		if a.Businesses != nil {
+			if bs, err := a.Businesses.All(ctx); err == nil {
+				sort.SliceStable(bs, func(i, j int) bool { return bs[i].TrialOver(now) && !bs[j].TrialOver(now) })
+				p.Businesses = bs
+			}
+		}
 		by := map[string]int{}
 		for _, u := range p.Users {
 			if _, ok := by[u.Cell]; !ok {
@@ -287,6 +299,19 @@ func (a *Admin) Action(w http.ResponseWriter, r *http.Request) {
 		} else {
 			a.Meetups.Svc.ForgetAll()
 			res = "deleted meetup " + id
+		}
+	case "biz-status":
+		if b, err := a.Businesses.Get(ctx, id); err != nil {
+			res = "no business " + id
+		} else {
+			b.Status, b.Note = r.FormValue("status"), strings.TrimSpace(r.FormValue("note"))
+			if !slices.Contains([]string{business.StatusTrial, business.StatusActive, business.StatusPaused, business.StatusEnded}, b.Status) {
+				res = "unknown status"
+			} else if err := a.Businesses.Save(ctx, b); err != nil {
+				res = "save failed: " + err.Error()
+			} else {
+				res = b.Name + ": " + b.Status
+			}
 		}
 	case "role", "rename", "unname", "keep", "delete-user":
 		res = a.userAction(r, id)

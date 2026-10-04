@@ -8,7 +8,7 @@
   <div class="table-wrap"><table>
     <thead><tr><th>{{t .Lang "privacy.col_what"}}</th><th>{{t .Lang "privacy.col_why"}}</th><th>{{t .Lang "privacy.col_kept"}}</th></tr></thead>
     <tbody>
-      {{range $r := (list "account" "profile" "meetups" "boxes" "slots" "logs")}}
+      {{range $r := (list "account" "profile" "meetups" "boxes" "slots" "business" "logs")}}
       <tr><td>{{t $.Lang (print "privacy.row_" $r)}}</td><td>{{t $.Lang (print "privacy.row_" $r "_why")}}</td><td>{{t $.Lang (print "privacy.row_" $r "_kept")}}</td></tr>
       {{end}}
     </tbody>

@@ -419,7 +419,7 @@ func (s *Service) InCells(ctx context.Context, cells []string) ([]*Note, error) 
 	hidden := s.hiddenSet(ctx)
 	live := out[:0:0]
 	for _, n := range out {
-		if n.ExpiresAt.After(now) && !hidden[n.ID] {
+		if n.ExpiresAt.After(now) && !hidden[n.ID] && strings.HasPrefix(n.Raw, "v2;") { // v1 (SHA-1) leftovers carry no valid work
 			live = append(live, n)
 		}
 	}

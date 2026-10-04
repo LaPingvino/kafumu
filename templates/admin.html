@@ -20,6 +20,16 @@
   {{range .Stats}}<div class="stat card"><strong>{{if lt .N 0}}–{{else}}{{.N}}{{end}}</strong><span>{{.Label}}</span>{{if .Note}}<small class="dim">{{.Note}}</small>{{end}}</div>{{end}}
 </div>
 <div class="card" style="padding:4px 16px 12px">
+  <h2>Business accounts{{if .Businesses}} ({{len .Businesses}}){{end}}</h2>
+  {{if .Businesses}}<ul class="boxed-list admin-users">{{range .Businesses}}<li>
+    <div><strong>{{.Name}}</strong> <span class="badge">{{.Kind}}</span> {{if .TrialOver $.Now}}<span class="badge warn">trial ended: contact?</span>{{else}}<span class="badge">{{.Status}}{{if eq .Status "trial"}} until {{.TrialEnds.Format "2 Jan"}}{{end}}</span>{{end}}</div>
+    <div class="dim small">{{if .Contact}}{{.Contact}} · {{end}}{{len .Managers}} manager(s) · since {{.CreatedAt.Format "2 Jan 2006"}}{{if .Note}} · {{.Note}}{{end}}</div>
+    <form method="post" action="/admin/action" class="inline-row"><input type="hidden" name="do" value="biz-status"><input type="hidden" name="id" value="{{.ID}}">
+      <select name="status">{{$s := .Status}}{{range (list "trial" "active" "paused" "ended")}}<option value="{{.}}"{{if eq . $s}} selected{{end}}>{{.}}</option>{{end}}</select>
+      <input name="note" value="{{.Note}}" placeholder="note (contract, price…)" style="max-width:12rem"><button type="submit" class="pill-sm">Save</button></form>
+  </li>{{end}}</ul>{{else}}<p class="dim">None yet.</p>{{end}}
+</div>
+<div class="card" style="padding:4px 16px 12px">
   <h2>Accounts</h2>
   <form method="get" action="/admin" class="inline-row"><input name="s" value="{{.Search}}" placeholder="name prefix or account id"><button type="submit">Search</button></form>
   {{if .Areas}}<p class="dim small">Accounts by area: {{range .Areas}}<a href="/?cell={{.Cell}}">#geo{{.Cell}}</a> {{.N}} · {{end}}</p>{{end}}

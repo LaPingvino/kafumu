@@ -1,0 +1,31 @@
+{{template "head" .}}
+<article>
+  <h1>{{t .Lang "biz.title"}}</h1>
+  <p>{{t .Lang "biz.intro"}}</p>
+  <ul>
+    <li>{{t .Lang "biz.what_host"}}</li>
+    <li>{{t .Lang "biz.what_managers"}}</li>
+    <li>{{t .Lang "biz.what_trial"}}</li>
+  </ul>
+  <p class="dim">{{t .Lang "biz.no_ads"}}</p>
+  {{if not .User}}<p><a href="/account?next=/business" role="button" class="pill suggested">{{t .Lang "biz.signin"}}</a></p>{{else}}
+  {{if .Created}}<p class="card" style="padding:8px 16px">✓ {{t .Lang "biz.created"}}</p>{{end}}
+  {{range .Mine}}<div class="card" style="padding:4px 16px 12px">
+    <h2>{{.Name}} <span class="badge">{{.Kind}}</span></h2>
+    <p class="dim small">{{if .TrialOver $.Now}}{{t $.Lang "biz.trial_over"}}{{else if eq .Status "trial"}}{{t $.Lang "biz.trial_until"}} {{.TrialEnds.Format "2 Jan 2006"}}{{else}}{{.Status}}{{end}}</p>
+    <p><strong>{{t $.Lang "biz.managers"}}</strong></p>
+    <ul>{{$b := .}}{{range .Managers}}<li>@{{index $.Names .}}{{if ne . $.User.ID}} <form method="post" action="/business/{{$b.ID}}/managers" class="inline"><input type="hidden" name="remove" value="{{.}}"><button type="submit" class="pill-sm">×</button></form>{{end}}</li>{{end}}</ul>
+    <form method="post" action="/business/{{.ID}}/managers" class="inline-row"><input name="add" placeholder="@username" maxlength="31"><button type="submit" class="pill-sm">{{t $.Lang "biz.add_manager"}}</button></form>
+    <p><a href="/meetups/new">＋ {{t $.Lang "meetup.new_title"}} →</a></p>
+  </div>{{end}}
+  <div class="card" style="padding:4px 16px 12px">
+    <h2>{{t .Lang "biz.start"}}</h2>
+    <form method="post" action="/business">
+      <label>{{t .Lang "biz.name"}}<input name="name" maxlength="80" required></label>
+      <label>{{t .Lang "biz.kind"}}<select name="kind">{{range .Kinds}}<option value="{{.}}">{{t $.Lang (print "biz.kind_" .)}}</option>{{end}}</select></label>
+      <label>{{t .Lang "biz.contact"}}<input name="contact" maxlength="200" placeholder="email / phone / website"></label>
+      <button type="submit" class="pill suggested">{{t .Lang "biz.start_btn"}}</button>
+    </form>
+  </div>{{end}}
+</article>
+{{template "foot" .}}

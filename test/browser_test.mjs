@@ -195,6 +195,20 @@ try {
   await A.evaluate("window.confirm = () => true; document.querySelector('form[action$=\"/delete\"]').requestSubmit(); true");
   await sleep(1000);
 
+  // Business account (local only: it would stay behind in production): A
+  // starts one, hosts a meetup as it, and the meetup says who hosts it.
+  if (!/kafumu\.com/.test(base)) {
+    await A.goto(base + "/business");
+    await A.evaluate("(() => { const f = document.querySelector('form[action=\"/business\"]'); f.name.value = 'Café Teste " + RUN + "'; f.kind.value = 'cafe'; f.requestSubmit(); return true; })()");
+    await A.waitFor("location.search.includes('new=1') && document.body.textContent.includes('Café Teste " + RUN + "')", "business account created");
+    await A.goto(base + "/meetups/new");
+    await A.waitFor("!!document.querySelector('#meetup-form select[name=as]')", "host-as choice");
+    await A.evaluate("(() => { const f = document.getElementById('meetup-form'); f.as.selectedIndex = 1; f.title.value = 'Business test kafo'; f.cell.value = '6fg222'; f.requestSubmit(); return true; })()");
+    await A.waitFor("location.pathname.startsWith('/meetups/') && document.body.textContent.includes('Café Teste " + RUN + "')", "meetup hosted by the business");
+    await A.evaluate("window.confirm = () => true; document.querySelector('form[action$=\"/delete\"]').requestSubmit(); true");
+    await sleep(1000);
+  }
+
   // Discoverable: A names itself, speaks Esperanto, becomes visible; B sees A.
   const nick = "bt" + Date.now().toString(36);
   await A.goto(base + "/account");
@@ -218,6 +232,11 @@ try {
   await A.waitFor("document.getElementById('handle-on').textContent.startsWith('✓')", "named link live");
   await B.goto(base + "/@" + nick);
   await B.waitFor(`/^#v1\\./.test(location.hash) && !document.getElementById('accept-from').hidden && document.getElementById('accept-from').textContent.includes("@${nick}")`, "named link leads to connect");
+  // A fresh visitor (B's service worker fetches with headless Chrome's own
+  // user agent, which counts as a bot): A then sees "👀 someone opened it".
+  { const V = await browser(9337); try { await V.goto(base + "/@" + nick); await sleep(1500); } finally { V.close(); } }
+  await A.goto(base + "/card");
+  await A.waitFor("!document.getElementById('handle-views').hidden && document.getElementById('handle-views').textContent.includes('👀')", "A sees someone opened the link", 20000);
   // Public inbox: A opens one at 3 bits; B writes from People with a card;
   // A reads it in Contacts and connects back.
   await A.goto(base + "/findable");
@@ -348,7 +367,7 @@ try {
     await X.evaluate("fetch('/account/delete', { method: 'POST', body: new URLSearchParams({ confirm: 'yes' }), credentials: 'same-origin' }).then(() => true)");
   }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, findable profile seen, named link, paid inbox message + connect back, OLN message + reaction + elsewhere + travelling + tour + report + question/answer + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, business account + host as, findable profile seen, named link, paid inbox message + connect back, OLN message + reaction + elsewhere + travelling + tour + report + question/answer + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

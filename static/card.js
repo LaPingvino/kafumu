@@ -131,12 +131,28 @@
   function drawLink() {
     if (!hb) return;
     dev.store.get("handle").then(function (h) {
-      var on = !!h, mine = on && cur && h.persona === cur.id;
+      var on = !!(h && !h.off), mine = on && cur && h.persona === cur.id;
       hb.textContent = !on ? (T.handle_on_card || "Turn on with this card") : mine ? "✓ " + (T.handle_this_card || "Live with this card") : (T.handle_use_card || "Use this card for my link");
       hb.disabled = mine;
       $("handle-off").hidden = !on;
       $("handle-status").textContent = on ? (T.handle_device || "") : "";
+      if (on) watchViews();
     });
+  }
+  // 👀 like on Connect: someone opened your link (only when, never who).
+  var viewsTimer = null;
+  function watchViews() {
+    clearTimeout(viewsTimer);
+    fetch("/api/handle", { credentials: "same-origin" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (v) {
+      var el = $("handle-views");
+      if (!v || !v.n) { el.hidden = true; }
+      else {
+        var mins = Math.max(0, Math.round((Date.now() / 1000 - v.last) / 60));
+        el.textContent = "👀 " + (mins < 1 ? (T.handle_view_now || "Someone is opening your link right now") : (T.handle_view_ago || "Someone opened your link {m} min ago").replace("{m}", mins)) +
+          " · " + (T.handle_views_today || "{n} today").replace("{n}", v.n);
+        el.hidden = false;
+      }
+    }).catch(function () {}).then(function () { if (!document.hidden) viewsTimer = setTimeout(watchViews, 15000); });
   }
   if (hb) {
     var hu = $("handle-url");
@@ -145,7 +161,7 @@
     hb.onclick = function () {
       hb.disabled = true;
       save(true).then(function () { return pr.namedLink(); })
-        .then(function (url) { return dev.store.get("handle").then(function (h) { h.persona = cur.id; return dev.store.set("handle", h); }).then(function () { return url; }); })
+        .then(function (url) { return dev.store.get("handle").then(function (h) { h.persona = cur.id; h.at = Date.now(); return dev.store.set("handle", h); }).then(function () { dev.sync(); return url; }); })
         .then(function (url) {
           drawLink();
           if (navigator.share) navigator.share({ title: "Kafumu", url: url }).catch(function () {});
@@ -155,7 +171,7 @@
     $("handle-off").onclick = function () {
       fetch("/api/handle", { method: "DELETE", credentials: "same-origin" }).then(function (r) {
         if (!r.ok) throw new Error(r.status);
-        return dev.store.set("handle", null);
+        return dev.store.set("handle", { off: true, at: Date.now() }).then(function () { dev.sync(); });
       }).then(drawLink, function () { $("handle-status").textContent = T.network_retry || "Try again."; });
     };
   }

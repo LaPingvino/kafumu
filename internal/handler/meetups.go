@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"github.com/LaPingvino/kafumu/internal/business"
 	"log"
 	"net/http"
 	"strconv"
@@ -21,9 +22,10 @@ import (
 
 // Meetups handles hosting and joining meetups. Hosting is free, always.
 type Meetups struct {
-	Home     *Home
-	Svc      *meetup.Service
-	Importer *importer.Importer
+	Home       *Home
+	Svc        *meetup.Service
+	Importer   *importer.Importer
+	Businesses *business.Store
 }
 
 type meetupPage struct {
@@ -32,6 +34,8 @@ type meetupPage struct {
 	Going bool
 	Mine  bool
 	Error string
+	// HostAs: the live business accounts you may host as (meetups/new).
+	HostAs []*business.Business
 }
 
 // New handles GET /meetups/new.
@@ -40,6 +44,14 @@ func (h *Meetups) New(w http.ResponseWriter, r *http.Request) {
 	p.Title, p.Tab = locale.T(p.Lang, "meetup.new_title"), "around"
 	if r.URL.Query().Get("err") != "" {
 		p.Error = locale.T(p.Lang, "meetup.err_"+r.URL.Query().Get("err"))
+	}
+	if u := p.User; u != nil && h.Businesses != nil {
+		bs, _ := h.Businesses.ForUser(r.Context(), u.ID)
+		for _, b := range bs {
+			if b.Live(time.Now()) {
+				p.HostAs = append(p.HostAs, b)
+			}
+		}
 	}
 	h.Home.render(w, "meetup_new.html", p)
 }
@@ -72,6 +84,11 @@ func (h *Meetups) Create(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	name := u.Username
+	if as := r.FormValue("as"); as != "" && h.Businesses != nil {
+		if b, err := h.Businesses.Get(r.Context(), as); err == nil && b.Manages(u.ID) && b.Live(time.Now()) {
+			m.Business = b.Name
+		}
+	}
 	switch err := h.Svc.Create(r.Context(), m, u.ID, name); {
 	case errors.Is(err, meetup.ErrTooMany):
 		http.Redirect(w, r, "/meetups/new?err=too_many", http.StatusSeeOther)

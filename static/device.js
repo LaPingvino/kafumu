@@ -177,7 +177,7 @@
     // persona you chose for it on My card; else your current choice).
     linkCard: function () {
       return Promise.all([store.get("handle"), personas.list()]).then(function (r) {
-        var p = r[0] && r[1].filter(function (x) { return x.id === r[0].persona; })[0];
+        var p = r[0] && !r[0].off && r[1].filter(function (x) { return x.id === r[0].persona; })[0];
         return p ? personas.share(p, null) : personas.shareCard();
       });
     },
@@ -464,13 +464,13 @@
     }).then(function (pt) { return JSON.parse(new TextDecoder().decode(pt)); });
   }
   function snapshot() {
-    return Promise.all([store.contacts(), store.get("personas"), store.get("shareChoice"), store.get("personasAt"), store.get("tombstones"), store.get("chips")])
-      .then(function (r) { return { contacts: r[0] || [], personas: r[1] || [], shareChoice: r[2] || null, personasAt: r[3] || "", tombstones: r[4] || {}, chips: r[5] || null }; });
+    return Promise.all([store.contacts(), store.get("personas"), store.get("shareChoice"), store.get("personasAt"), store.get("tombstones"), store.get("chips"), store.get("invite:named"), store.get("handle")])
+      .then(function (r) { return { contacts: r[0] || [], personas: r[1] || [], shareChoice: r[2] || null, personasAt: r[3] || "", tombstones: r[4] || {}, chips: r[5] || null, named: r[6] && r[6].privJwk ? r[6] : null, handle: r[7] || null }; });
   }
   function stamp(c) { return (c && (c.updatedAt || c.createdAt)) || ""; }
   function canon(s) {
     var cs = s.contacts.slice().sort(function (a, b) { return a.id < b.id ? -1 : 1; });
-    return JSON.stringify([cs, s.personas, s.shareChoice, s.personasAt, Object.keys(s.tombstones).sort().map(function (k) { return [k, s.tombstones[k]]; }), s.chips || null]);
+    return JSON.stringify([cs, s.personas, s.shareChoice, s.personasAt, Object.keys(s.tombstones).sort().map(function (k) { return [k, s.tombstones[k]]; }), s.chips || null, s.named || null, s.handle || null]);
   }
   function merge(a, b) {
     var cutoff = new Date(Date.now() - 30 * 864e5).toISOString(), ts = {}, byID = {};
@@ -491,7 +491,11 @@
       .filter(function (p, i, all) { return all.length === 1 || p.updatedAt || (p.card && (p.card.name || p.card.about)) || p.label; });
     // Your chip row (pinned and hidden subjects): newer wins.
     var chips = ((b.chips && b.chips.at) || "") > ((a.chips && a.chips.at) || "") ? b.chips : (a.chips || b.chips || null);
-    return { contacts: contacts, personas: personas, shareChoice: a.shareChoice || b.shareChoice, personasAt: "", tombstones: ts, chips: chips };
+    // Your named link: its key (newest code) and its setting (newest change,
+    // including turning it off) are the same on all your devices.
+    var named = ((b.named && b.named.createdAt) || 0) > ((a.named && a.named.createdAt) || 0) ? b.named : (a.named || b.named || null);
+    var handle = ((b.handle && b.handle.at) || 0) > ((a.handle && a.handle.at) || 0) ? b.handle : (a.handle || b.handle || null);
+    return { contacts: contacts, personas: personas, shareChoice: a.shareChoice || b.shareChoice, personasAt: "", tombstones: ts, chips: chips, named: named, handle: handle };
   }
   function writeLocal(local, m) {
     var keep = {};
@@ -500,6 +504,8 @@
     local.contacts.forEach(function (c) { if (!keep[c.id]) steps.push(rawDel(c.id)); });
     steps.push(store.set("personas", m.personas), store.set("shareChoice", m.shareChoice), store.set("personasAt", m.personasAt), store.set("tombstones", m.tombstones));
     if (m.personas && m.personas[0]) steps.push(store.set("card", m.personas[0].card || {}));
+    if (m.named) steps.push(store.set("invite:named", m.named));
+    if (m.handle) steps.push(store.set("handle", m.handle));
     if (m.chips) { steps.push(store.set("chips", m.chips)); try { localStorage.setItem("kafumu.chips", JSON.stringify(m.chips)); } catch (e) {} }
     return Promise.all(steps);
   }

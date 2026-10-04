@@ -20,6 +20,7 @@ import (
 	"github.com/LaPingvino/kafumu/internal/atp"
 	"github.com/LaPingvino/kafumu/internal/box"
 	"github.com/LaPingvino/kafumu/internal/bsky"
+	"github.com/LaPingvino/kafumu/internal/business"
 	"github.com/LaPingvino/kafumu/internal/cache"
 	"github.com/LaPingvino/kafumu/internal/config"
 	"github.com/LaPingvino/kafumu/internal/gazetteer"
@@ -56,7 +57,8 @@ func main() {
 		return ""
 	}
 	home.Notes = notes
-	meetups := &handler.Meetups{Home: home, Svc: home.Meetups, Importer: importer.New()}
+	businesses := business.New(db)
+	meetups := &handler.Meetups{Home: home, Svc: home.Meetups, Importer: importer.New(), Businesses: businesses}
 	accounts := &handler.Accounts{Home: home, Svc: account.NewService(users)}
 	home.Accounts = accounts.Svc
 	mailbox := box.NewHandler(&box.CachedStore{Store: boxes, Cache: kv})
@@ -130,7 +132,12 @@ func main() {
 	mux.HandleFunc("GET /account/move", accounts.MoveRequest)
 	mux.HandleFunc("POST /account/move", accounts.MoveRequest)
 	mux.HandleFunc("DELETE /account/move", accounts.MoveRequest)
+	biz := &handler.Businesses{Home: home, Accounts: accounts, Store: businesses}
+	mux.HandleFunc("GET /business", biz.Show)
+	mux.HandleFunc("POST /business", biz.Create)
+	mux.HandleFunc("POST /business/{id}/managers", biz.Managers)
 	mux.HandleFunc("PUT /api/handle", accounts.SetHandle)
+	mux.HandleFunc("GET /api/handle", accounts.HandleViews)
 	mux.HandleFunc("DELETE /api/handle", accounts.DeleteHandle)
 	mux.HandleFunc("GET /api/vault", accounts.VaultAPI)
 	mux.HandleFunc("PUT /api/vault", accounts.VaultAPI)
@@ -183,6 +190,7 @@ func main() {
 	reports := report.New(db)
 	home.Reports = reports
 	adminH.Reports = reports
+	adminH.Businesses = businesses
 	mux.HandleFunc("POST /api/report", reports.Handle)
 	shorts := short.New(db)
 	mux.HandleFunc("POST /api/short", shorts.Make)

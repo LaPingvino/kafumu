@@ -26,7 +26,7 @@
       // With your named link on, the badge shows kafumu.com/@name: short
       // enough to type, and it never runs out.
       return dev.store.get("handle").then(function (h) {
-        if (h && h.url && !fresh) return { url: h.url, named: true };
+        if (h && !h.off && h.url && !fresh) return { url: h.url, named: true };
         return pair.invite(fresh, "badge");
       });
     }).then(function (inv) {

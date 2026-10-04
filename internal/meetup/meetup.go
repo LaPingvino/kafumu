@@ -31,6 +31,8 @@ type Meetup struct {
 	ID         string `datastore:"-" json:"id"`
 	AuthorID   string `datastore:"author_id" json:"-"`
 	AuthorName string `datastore:"author_name,noindex" json:"author,omitempty"`
+	// Business: hosted under a business account's name (its manager posted it).
+	Business string `datastore:"business,noindex" json:"business,omitempty"`
 	// Via names the public calendar an imported meetup came from.
 	Via string `datastore:"via,noindex" json:"via,omitempty"`
 	// ATURI/ATCID point at the community.lexicon.calendar.event record,

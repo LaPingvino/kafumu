@@ -119,6 +119,8 @@ type Store interface {
 	// ClaimUsername reserves name for id, failing with ErrTaken.
 	ClaimUsername(ctx context.Context, name, id string) error
 	ReleaseUsername(ctx context.Context, name, id string) error
+	// LookupUsername returns the user id holding name ("" if none).
+	LookupUsername(ctx context.Context, name string) (string, error)
 	// VisibleIn returns users visible in any of cells (≤ 30) at now.
 	VisibleIn(ctx context.Context, cells []string, now time.Time) ([]*User, error)
 }

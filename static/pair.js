@@ -36,7 +36,10 @@
     var fetchFn = opts.fetch, store = opts.store, base = opts.origin || "";
     var ECDH = { name: "ECDH", namedCurve: "P-256" };
 
-    function genKey() { return subtle.generateKey(ECDH, false, ["deriveBits"]); }
+    function genKey(extractable) { return subtle.generateKey(ECDH, !!extractable, ["deriveBits"]); }
+    // privOf: an invite's private key; the named link's is kept as a JWK so
+    // it can travel (encrypted) to your other devices with the vault.
+    function privOf(inv) { return inv.priv ? Promise.resolve(inv.priv) : subtle.importKey("jwk", inv.privJwk, ECDH, false, ["deriveBits"]); }
     function rawPub(k) { return subtle.exportKey("raw", k.publicKey).then(function (r) { return new Uint8Array(r); }); }
 
     // pairKey: ECDH → HKDF, salted with both public keys (A's first).
@@ -146,11 +149,15 @@
           old.push(Object.assign({}, inv, { kind: kind }));
           return store.set("invites:old", old.slice(-20));
         }) : Promise.resolve();
-        return keepOld.then(genKey).then(function (k) {
+        return keepOld.then(function () { return genKey(kind === "named"); }).then(function (k) {
           return rawPub(k).then(function (pub) {
             return inviteBox(pub, kind === "badge" || kind === "named" ? "invite" : kind).then(function (box) {
               var inv = { priv: k.privateKey, pub: b64(pub), box: box, createdAt: Date.now() };
-              return store.set(key, inv).then(function () { return inv; });
+              if (kind !== "named") return store.set(key, inv).then(function () { return inv; });
+              return subtle.exportKey("jwk", k.privateKey).then(function (jwk) {
+                var keep = { privJwk: jwk, pub: inv.pub, box: box, createdAt: inv.createdAt };
+                return store.set(key, keep).then(function () { return inv; });
+              });
             });
           });
         });
@@ -197,7 +204,7 @@
           return msgs.reduce(function (p, msg) {
             return p.then(function () {
               var env = JSON.parse(msg.data), bRaw = unb64(env.pub);
-              return pairKey(inv.priv, bRaw, aRaw, bRaw).then(function (key) { return open(key, inv.box, env.ct); })
+              return privOf(inv).then(function (pk) { return pairKey(pk, bRaw, aRaw, bRaw); }).then(function (key) { return open(key, inv.box, env.ct); })
                 .then(function (body) {
                   if (body.t !== "move") return;
                   (bySender[env.pub] = bySender[env.pub] || { n: body.n, parts: {} }).parts[body.i] = body.part;
@@ -258,7 +265,7 @@
             return p.then(function () {
               done.push(msg.id);
               var hello = JSON.parse(msg.data), bRaw = unb64(hello.pub);
-              return pairKey(inv.priv, bRaw, aRaw, bRaw).then(function (key) {
+              return privOf(inv).then(function (pk) { return pairKey(pk, bRaw, aRaw, bRaw); }).then(function (key) {
                 return open(key, inv.box, hello.ct).then(function (body) {
                   if (body.t !== "hello") return;
                   return contactID(key).then(function (id) {
@@ -485,7 +492,12 @@
       return invite(false, "named").then(function (inv) {
         return fetchFn(base + "/api/handle", { method: "PUT", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ payload: inv.payload }) });
       }).then(function (r) { if (!r.ok) throw new Error("handle " + r.status); return r.json(); })
-        .then(function (j) { return store.set("handle", { url: j.url, at: Date.now() }).then(function () { return j.url; }); });
+        .then(function (j) {
+          return store.get("handle").then(function (old) {
+            var h = { url: j.url, at: Date.now(), persona: old && !old.off ? old.persona : undefined };
+            return store.set("handle", h).then(function () { return j.url; });
+          });
+        });
     }
 
     // ---- Chat over encrypted OLN ----

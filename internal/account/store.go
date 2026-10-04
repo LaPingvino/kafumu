@@ -159,3 +159,20 @@ func (s *MemoryStore) VisibleIn(_ context.Context, cells []string, now time.Time
 	}
 	return out, nil
 }
+
+func (s *DatastoreStore) LookupUsername(ctx context.Context, name string) (string, error) {
+	var e usernameEntity
+	if err := s.DB.Get(ctx, datastore.NameKey(usernameKind, name, nil), &e); err != nil {
+		if errors.Is(err, datastore.ErrNoSuchEntity) {
+			return "", nil
+		}
+		return "", err
+	}
+	return e.UserID, nil
+}
+
+func (s *MemoryStore) LookupUsername(_ context.Context, name string) (string, error) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	return s.names[name], nil
+}

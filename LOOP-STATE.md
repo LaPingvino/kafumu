@@ -414,6 +414,14 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       instead of accounts, time-biased validity), the eolnpoc proof of concept (link, how its format works),
       and how to integrate: GET /oln.json?cell=… (olnjson.Format), POST /api/oln (raw nonce;date;b64;keywords,
       SHA-1 leading zeros, current required bits from the bundle), with a curl/JS example. Linked from About.
+- [ ] 62. Language levels (Joop): CEFR-style levels (A1–C2 + native) instead of fluent/learning, and hand-added
+      languages: by code, or free text without one (rare languages); matching treats levels sensibly.
+- [ ] 63. Fuzz the network (Joop): many simulated devices/accounts going online and offline at random (pairing,
+      sync, chat over OLN, named links, moves), with invariants checked (no lost contacts or messages, no
+      resurrections, keys never on the server); a Node harness against a local server, seeded and repeatable.
+- [ ] 64. Self-hosting and OLN nodes (Joop): run Kafumu outside GAE (plain Go binary + a file/SQL store, no
+      memcache), a page on how to self-host and link a node into OLN, and linked nodes on the admin page
+      (peers pulled from / pushed to, last seen). Also mention self-hosting on /business.
 - [ ] 45. OPEN DESIGN (with Joop, not a tick): a better model for paid services. Joop (2026-10-04): the
       "For cafés and venues" page "isn't well thought out", "we'll need a better model for paid services".
       Constraints from VISION: core use free forever, Lichess-style patrons, relevance instead of ads, nothing
@@ -458,7 +466,12 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
 - [x] 52. Travelling prompt: away > 50 km from your usual area, the travel note adds "It looks like you're
       travelling. Want to be visible in the area while you're here?" → "Be findable here" (/account?cell=…:
       area filled in, a few days' visibility pre-selected) and "Check my card". Browser-tested.
-- [ ] 53. Business accounts (Joop's paid model, answers 45): a business/organisation account on the server
+- [x] 53a. Business accounts: internal/business (name, kind, contact, managers, 30-day trial, status), /business
+      (start, managers by username; promises only what exists: host meetups as the business), meetups "Host as"
+      → "hosted by <Business>", admin list (trial over first, "contact?", status + note), event-card ad, privacy
+      row; all languages. Named link: its key (as JWK) and setting (incl. off) travel in the vault, so every device
+      answers /@name; "👀 Someone opened your link N min ago · N today" on My card (cache-only counter). v1 OLN
+      leftovers no longer listed. Was: Business accounts (Joop's paid model, answers 45): a business/organisation account on the server
       (name, kind, contact), first month free; personal accounts added/removed as its managers; it can host
       meetups and post as the business, and later its own brand (46). After the trial it pops up in the admin
       panel ("trial ended: contact?") for Joop to reach out and set up a contract; status trial/active/paused.

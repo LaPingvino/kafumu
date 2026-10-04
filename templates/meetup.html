@@ -7,7 +7,7 @@
   <p class="dim">#geo{{.M.Cell}}{{range .M.Tags}} · #{{.}}{{end}}</p>
   {{if .M.Text}}<p class="text">{{.M.Text}}</p>{{end}}
   {{if .M.Link}}<p><a href="{{.M.Link}}" rel="noopener nofollow ugc" target="_blank">{{t .Lang "meetup.open_on"}} {{host .M.Link}} ↗</a></p>{{end}}
-  <p>{{if or .M.Going (not .M.Via)}}<strong>{{.M.Going}}</strong> {{t .Lang "meetup.going_here"}}{{end}}{{if and .M.Via .M.Going (ne (host .M.Link) .M.Via)}} · {{end}}{{if .M.Via}}{{if ne (host .M.Link) .M.Via}}<span class="dim">{{t .Lang "meetup.via"}} {{.M.Via}}</span>{{end}}{{else if .M.AuthorName}} · {{t .Lang "meetup.host"}} @{{.M.AuthorName}}{{end}}</p>
+  <p>{{if or .M.Going (not .M.Via)}}<strong>{{.M.Going}}</strong> {{t .Lang "meetup.going_here"}}{{end}}{{if and .M.Via .M.Going (ne (host .M.Link) .M.Via)}} · {{end}}{{if .M.Via}}{{if ne (host .M.Link) .M.Via}}<span class="dim">{{t .Lang "meetup.via"}} {{.M.Via}}</span>{{end}}{{else if .M.Business}} · {{t .Lang "meetup.host"}} <strong>{{.M.Business}}</strong>{{else if .M.AuthorName}} · {{t .Lang "meetup.host"}} @{{.M.AuthorName}}{{end}}</p>
   <div class="actions">
     <form method="post" action="/meetups/{{.M.ID}}/rsvp">
       {{if .Going}}<button type="submit" class="secondary pill">{{t .Lang "meetup.not_going"}}</button>
