@@ -503,5 +503,11 @@
   "js.tour_chips": "Begränsa vad du ser: ett evenemang, ett språk, ett ämne. Tryck på + för att lägga till ett eget; ✎ för att städa raden.",
   "js.tour_feed": "Allt här omkring i en lista: dina kontakter, lokala meddelanden, träffar, folk och inlägg. Tryck på en sort för att bara se den.",
   "js.tour_change": "Tittar du på ett annat ställe, eller är du ute och reser? Byt område här.",
-  "js.tour_tabs": "Anslut: visa din kod eller skanna någon annans. Kontakter: alla du har träffat, sparade i din telefon. Mitt kort: det du delar. Synlig: låt folk i närheten hitta dig."
+  "js.tour_tabs": "Anslut: visa din kod eller skanna någon annans. Kontakter: alla du har träffat, sparade i din telefon. Mitt kort: det du delar. Synlig: låt folk i närheten hitta dig.",
+  "js.event_found": "händer här omkring ({n} träffar och meddelanden).",
+  "js.say_with": "Säg något med {tag}",
+  "js.also_bsky": "Även på Bluesky",
+  "js.handle_on_card": "Slå på med det här kortet",
+  "js.handle_this_card": "Aktiv med det här kortet",
+  "js.handle_use_card": "Använd det här kortet för min länk"
 }

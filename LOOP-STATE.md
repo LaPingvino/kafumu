@@ -343,6 +343,11 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       language (from the country), surfaces language events/meetups and people who speak it (exchange
       matches first), and offers a coffee signal "learner looking to chat" (#lang<code> + #learn).
 
+- [x] 36a. Events found from the bundle (foundEvents: a tag on 3+ upcoming meetups in 14 days or 5+ local
+      messages; no places, languages or Kafumu's own tags; top 3) shown as event cards "#tag is happening around
+      here (N)"; every event card is local-first: "💬 Say something with #tag" (composer with the tag), "Also on
+      Bluesky" second. Unit-tested. Named link moved to My card, per persona ("Use this card for my link"; people
+      connecting through /@name get that card). 36b (composer tag suggestions) and the business ad wait.
 - [ ] 36. Events found automatically + local-first tags (Joop): detect big events from what the feeds
       already bring (many Luma/Smoke Signal events or one large one in a cell, a burst of one tag in local
       messages and posts) instead of hand-made events.json; suggest the tags that make sense here in the

@@ -503,5 +503,11 @@
   "js.tour_chips": "Malvastigu tion, kion vi vidas: evento, lingvo, temo. Tuŝetu + por aldoni vian propran; ✎ por ordigi la vicon.",
   "js.tour_feed": "Ĉio ĉi-ĉirkaŭe en unu listo: viaj kontaktoj, lokaj mesaĝoj, renkontiĝoj, homoj kaj afiŝoj. Tuŝetu specon por vidi nur tion.",
   "js.tour_change": "Ĉu vi rigardas alian lokon, aŭ vojaĝas? Ŝanĝu la areon ĉi tie.",
-  "js.tour_tabs": "Konektiĝi: montru vian kodon aŭ skanu ies alian. Kontaktoj: ĉiuj, kiujn vi renkontis, konservitaj en via telefono. Mia karto: tio, kion vi kundividas. Trovebla: lasu homojn ĉirkaŭe trovi vin."
+  "js.tour_tabs": "Konektiĝi: montru vian kodon aŭ skanu ies alian. Kontaktoj: ĉiuj, kiujn vi renkontis, konservitaj en via telefono. Mia karto: tio, kion vi kundividas. Trovebla: lasu homojn ĉirkaŭe trovi vin.",
+  "js.event_found": "okazas ĉi-ĉirkaŭe ({n} renkontiĝoj kaj mesaĝoj).",
+  "js.say_with": "Diri ion kun {tag}",
+  "js.also_bsky": "Ankaŭ ĉe Bluesky",
+  "js.handle_on_card": "Ŝalti kun ĉi tiu karto",
+  "js.handle_this_card": "Aktiva kun ĉi tiu karto",
+  "js.handle_use_card": "Uzi ĉi tiun karton por mia ligilo"
 }

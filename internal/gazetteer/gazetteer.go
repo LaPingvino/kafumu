@@ -90,6 +90,10 @@ type EventTag struct {
 	URL  string   `json:"url,omitempty"`
 	// Live is true during the event; before it the tag is shown as upcoming.
 	Live bool `json:"live"`
+	// Found: spotted from what's happening here (several meetups or local
+	// messages sharing the tag), not from the hand-made list. N says how many.
+	Found bool `json:"found,omitempty"`
+	N     int  `json:"n,omitempty"`
 }
 
 // eventLead is how long before an event its tag starts showing up locally.

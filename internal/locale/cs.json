@@ -503,5 +503,11 @@
   "js.tour_chips": "Zúž, co vidíš: akce, jazyk, téma. Klepni na + a přidej vlastní; ✎ pro úpravu řádku.",
   "js.tour_feed": "Všechno z okolí v jednom seznamu: tvoje kontakty, místní zprávy, setkání, lidé a příspěvky. Klepni na druh a uvidíš jen ten.",
   "js.tour_change": "Díváš se jinam, nebo cestuješ? Tady změníš oblast.",
-  "js.tour_tabs": "Propojit: ukaž svůj kód nebo naskenuj něčí. Kontakty: všichni, které jsi potkal, uložení v telefonu. Moje vizitka: co sdílíš. Viditelnost: nech lidi poblíž, ať tě najdou."
+  "js.tour_tabs": "Propojit: ukaž svůj kód nebo naskenuj něčí. Kontakty: všichni, které jsi potkal, uložení v telefonu. Moje vizitka: co sdílíš. Viditelnost: nech lidi poblíž, ať tě najdou.",
+  "js.event_found": "se děje tady v okolí (setkání a zpráv: {n}).",
+  "js.say_with": "Napiš něco s {tag}",
+  "js.also_bsky": "Také na Bluesky",
+  "js.handle_on_card": "Zapnout s touto vizitkou",
+  "js.handle_this_card": "Aktivní s touto vizitkou",
+  "js.handle_use_card": "Použít tuto vizitku pro můj odkaz"
 }

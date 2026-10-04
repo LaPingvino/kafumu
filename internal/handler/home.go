@@ -425,6 +425,7 @@ func (h *Home) Bundle(w http.ResponseWriter, r *http.Request) {
 	}
 	wg.Wait()
 	sort.Slice(b.Posts, func(i, j int) bool { return b.Posts[i].CreatedAt.After(b.Posts[j].CreatedAt) })
+	b.Events = append(b.Events, h.foundEvents(&b, time.Now())...)
 	if h.Gaz != nil {
 		for i := range b.Posts {
 			b.Posts[i].PlaceTags = h.Gaz.CountPlaces(b.Posts[i].Tags)
@@ -457,4 +458,83 @@ func (h *Home) TagPosts(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Cache-Control", "public, max-age=120")
 	json.NewEncoder(w).Encode(posts)
+}
+
+// foundEvents spots events from the bundle itself: a tag shared by at least
+// three upcoming meetups (next two weeks) or five local messages here.
+// Place names, languages and Kafumu's own tags don't count.
+func (h *Home) foundEvents(b *bundle, now time.Time) []gazetteer.EventTag {
+	type agg struct {
+		meetups, notes int
+		from, to       time.Time
+		live           bool
+	}
+	seen := map[string]*agg{}
+	known := map[string]bool{}
+	for _, e := range b.Events {
+		known[e.Tag] = true
+	}
+	skip := func(t string) bool {
+		if len(t) < 3 || known[t] || strings.HasPrefix(t, "geo") || strings.HasPrefix(t, "lang") || strings.HasPrefix(t, "re") && len(t) == 12 {
+			return true
+		}
+		switch t {
+		case "ask", "coffee", "learn", "meetup", "meetups", "event", "events":
+			return true
+		}
+		return h.Gaz != nil && h.Gaz.CountPlaces([]string{t}) > 0
+	}
+	get := func(t string) *agg {
+		if seen[t] == nil {
+			seen[t] = &agg{}
+		}
+		return seen[t]
+	}
+	for _, m := range b.Meetups {
+		if m.EndAt.Before(now) || m.StartAt.After(now.Add(14*24*time.Hour)) {
+			continue
+		}
+		for _, t := range m.Tags {
+			t = strings.ToLower(t)
+			if skip(t) {
+				continue
+			}
+			a := get(t)
+			a.meetups++
+			if a.from.IsZero() || m.StartAt.Before(a.from) {
+				a.from = m.StartAt
+			}
+			if m.EndAt.After(a.to) {
+				a.to = m.EndAt
+			}
+			if !m.StartAt.After(now) {
+				a.live = true
+			}
+		}
+	}
+	for _, n := range b.Notes {
+		for _, t := range n.Tags {
+			if !skip(t) {
+				a := get(t)
+				a.notes++
+				a.live = true // people are talking about it now
+			}
+		}
+	}
+	var out []gazetteer.EventTag
+	for t, a := range seen {
+		if a.meetups < 3 && a.notes < 5 {
+			continue
+		}
+		e := gazetteer.EventTag{Tag: t, Name: "#" + t, Live: a.live, Found: true, N: a.meetups + a.notes}
+		if !a.from.IsZero() {
+			e.From, e.To = a.from.Format("2006-01-02"), a.to.Format("2006-01-02")
+		}
+		out = append(out, e)
+	}
+	sort.Slice(out, func(i, j int) bool { return out[i].N > out[j].N })
+	if len(out) > 3 {
+		out = out[:3]
+	}
+	return out
 }

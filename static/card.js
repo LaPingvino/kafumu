@@ -103,7 +103,7 @@
     form.elements.label.value = cur.label || "";
     dev.FIELDS.forEach(function (f) { form.elements[f].value = (cur.card && cur.card[f]) || ""; });
     cur.card = cur.card || {};
-    drawSwitcher(); drawTags(); drawCustom(); render();
+    drawSwitcher(); drawTags(); drawCustom(); render(); drawLink();
   }
 
   function save(quiet) {
@@ -126,6 +126,40 @@
     var b = this; b.disabled = true; b.textContent = "…";
     dev.sync().then(function (s) { b.disabled = false; b.textContent = s === "on" ? "✓" : (T.sync_now || "Sync now"); syncState(s); });
   };
+  // ---- Your kafumu.com/@name link: one card answers it ----
+  var hb = $("handle-on");
+  function drawLink() {
+    if (!hb) return;
+    dev.store.get("handle").then(function (h) {
+      var on = !!h, mine = on && cur && h.persona === cur.id;
+      hb.textContent = !on ? (T.handle_on_card || "Turn on with this card") : mine ? "✓ " + (T.handle_this_card || "Live with this card") : (T.handle_use_card || "Use this card for my link");
+      hb.disabled = mine;
+      $("handle-off").hidden = !on;
+      $("handle-status").textContent = on ? (T.handle_device || "") : "";
+    });
+  }
+  if (hb) {
+    var hu = $("handle-url");
+    hu.value = location.origin + "/@" + hu.dataset.name;
+    var pr = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin });
+    hb.onclick = function () {
+      hb.disabled = true;
+      save(true).then(function () { return pr.namedLink(); })
+        .then(function (url) { return dev.store.get("handle").then(function (h) { h.persona = cur.id; return dev.store.set("handle", h); }).then(function () { return url; }); })
+        .then(function (url) {
+          drawLink();
+          if (navigator.share) navigator.share({ title: "Kafumu", url: url }).catch(function () {});
+          else if (navigator.clipboard) navigator.clipboard.writeText(url).catch(function () {});
+        }, function () { $("handle-status").textContent = T.network_retry || "Try again."; hb.disabled = false; });
+    };
+    $("handle-off").onclick = function () {
+      fetch("/api/handle", { method: "DELETE", credentials: "same-origin" }).then(function (r) {
+        if (!r.ok) throw new Error(r.status);
+        return dev.store.set("handle", null);
+      }).then(drawLink, function () { $("handle-status").textContent = T.network_retry || "Try again."; });
+    };
+  }
+
   P.list().then(function (ps) { all = ps; cur = ps[0]; load(); })
     .catch(function () { status.textContent = T.no_storage || "Storage unavailable"; });
 

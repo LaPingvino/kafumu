@@ -503,5 +503,11 @@
   "js.tour_chips": "Afgræns, hvad du ser: en begivenhed, et sprog, et emne. Tryk på + for at tilføje dit eget; ✎ for at rydde op i rækken.",
   "js.tour_feed": "Alt her omkring i én liste: dine kontakter, lokale beskeder, meetups, folk og opslag. Tryk på en slags for kun at se den.",
   "js.tour_change": "Kigger du på et andet sted, eller er du ude at rejse? Skift område her.",
-  "js.tour_tabs": "Forbind: vis din kode eller scan en andens. Kontakter: alle, du har mødt, gemt på din telefon. Mit kort: det, du deler. Synlig: lad folk i nærheden finde dig."
+  "js.tour_tabs": "Forbind: vis din kode eller scan en andens. Kontakter: alle, du har mødt, gemt på din telefon. Mit kort: det, du deler. Synlig: lad folk i nærheden finde dig.",
+  "js.event_found": "sker her omkring ({n} meetups og beskeder).",
+  "js.say_with": "Sig noget med {tag}",
+  "js.also_bsky": "Også på Bluesky",
+  "js.handle_on_card": "Slå til med dette kort",
+  "js.handle_this_card": "Aktivt med dette kort",
+  "js.handle_use_card": "Brug dette kort til mit link"
 }

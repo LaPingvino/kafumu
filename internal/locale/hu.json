@@ -503,5 +503,11 @@
   "js.tour_chips": "Szűkítsd, amit látsz: esemény, nyelv, téma. Koppints a + jelre a sajátod hozzáadásához; a ✎ jellel rendezheted a sort.",
   "js.tour_feed": "Minden a környékről egy listában: kapcsolataid, helyi üzenetek, találkozók, emberek és bejegyzések. Koppints egy típusra, hogy csak azt lásd.",
   "js.tour_change": "Máshová nézel, vagy utazol? Itt módosíthatod a területet.",
-  "js.tour_tabs": "Kapcsolódás: mutasd meg a kódodat, vagy olvasd be valaki másét. Kapcsolatok: mindenki, akivel találkoztál, a telefonodon tárolva. Névjegyem: amit megosztasz. Látható: hadd találjanak meg a közelben lévők."
+  "js.tour_tabs": "Kapcsolódás: mutasd meg a kódodat, vagy olvasd be valaki másét. Kapcsolatok: mindenki, akivel találkoztál, a telefonodon tárolva. Névjegyem: amit megosztasz. Látható: hadd találjanak meg a közelben lévők.",
+  "js.event_found": "zajlik a környéken (találkozók és üzenetek: {n}).",
+  "js.say_with": "Mondj valamit ezzel: {tag}",
+  "js.also_bsky": "Bluesky-on is",
+  "js.handle_on_card": "Bekapcsolás ezzel a névjeggyel",
+  "js.handle_this_card": "Aktív ezzel a névjeggyel",
+  "js.handle_use_card": "Ezt a névjegyet használja a linkem"
 }

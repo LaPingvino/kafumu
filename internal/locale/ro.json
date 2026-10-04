@@ -503,5 +503,11 @@
   "js.tour_chips": "Restrânge ce vezi: un eveniment, o limbă, un subiect. Atinge + ca să adaugi unul al tău; ✎ ca să ordonezi rândul.",
   "js.tour_feed": "Tot ce e pe aici într-o singură listă: contactele tale, mesaje locale, întâlniri, oameni și postări. Atinge un tip ca să vezi doar asta.",
   "js.tour_change": "Te uiți la alt loc sau ești în călătorie? Schimbă zona aici.",
-  "js.tour_tabs": "Conectează: arată-ți codul sau scanează-l pe al altcuiva. Contacte: toți cei pe care i-ai cunoscut, păstrați pe telefon. Cardul meu: ce împărtășești. Vizibil: lasă-i pe cei din apropiere să te găsească."
+  "js.tour_tabs": "Conectează: arată-ți codul sau scanează-l pe al altcuiva. Contacte: toți cei pe care i-ai cunoscut, păstrați pe telefon. Cardul meu: ce împărtășești. Vizibil: lasă-i pe cei din apropiere să te găsească.",
+  "js.event_found": "se întâmplă pe aici (întâlniri și mesaje: {n}).",
+  "js.say_with": "Spune ceva cu {tag}",
+  "js.also_bsky": "Și pe Bluesky",
+  "js.handle_on_card": "Activează cu acest card",
+  "js.handle_this_card": "Activ cu acest card",
+  "js.handle_use_card": "Folosește acest card pentru linkul meu"
 }

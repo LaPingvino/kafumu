@@ -503,5 +503,11 @@
   "js.tour_chips": "Restringi quello che vedi: un evento, una lingua, un argomento. Tocca + per aggiungerne uno tuo; ✎ per riordinare la riga.",
   "js.tour_feed": "Tutto quello che c'è qui intorno in un'unica lista: i tuoi contatti, messaggi locali, incontri, persone e post. Tocca un tipo per vedere solo quello.",
   "js.tour_change": "Stai guardando un altro posto o sei in viaggio? Cambia zona qui.",
-  "js.tour_tabs": "Connetti: mostra il tuo codice o scansiona quello di qualcuno. Contatti: tutte le persone che hai incontrato, salvate sul telefono. Il mio biglietto: quello che condividi. Visibile: lascia che chi è vicino ti trovi."
+  "js.tour_tabs": "Connetti: mostra il tuo codice o scansiona quello di qualcuno. Contatti: tutte le persone che hai incontrato, salvate sul telefono. Il mio biglietto: quello che condividi. Visibile: lascia che chi è vicino ti trovi.",
+  "js.event_found": "sta succedendo qui intorno ({n} incontri e messaggi).",
+  "js.say_with": "Di' qualcosa con {tag}",
+  "js.also_bsky": "Anche su Bluesky",
+  "js.handle_on_card": "Attiva con questo biglietto",
+  "js.handle_this_card": "Attivo con questo biglietto",
+  "js.handle_use_card": "Usa questo biglietto per il mio link"
 }

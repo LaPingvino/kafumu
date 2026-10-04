@@ -212,8 +212,8 @@ try {
     catch (e) { if (i >= 10) throw e; }
   }
   // Named link: A turns on kafumu.com/@nick; B following it lands on Connect, "from @nick".
-  await A.goto(base + "/findable");
-  await A.waitFor("!!document.getElementById('handle-on') && document.getElementById('handle-off').hidden", "named link starts off");
+  await A.goto(base + "/card");
+  await A.waitFor("!!document.getElementById('handle-on') && document.getElementById('handle-off').hidden", "named link starts off (on My card)");
   await A.evaluate("navigator.share = undefined; document.getElementById('handle-on').click(); true");
   await A.waitFor("document.getElementById('handle-on').textContent.startsWith('✓')", "named link live");
   await B.goto(base + "/@" + nick);

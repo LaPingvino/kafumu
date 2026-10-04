@@ -1000,15 +1000,24 @@
       var strong = document.createElement("strong");
       strong.textContent = e.name;
       p.appendChild(strong);
-      p.appendChild(document.createTextNode(e.live
-        ? " " + tr("event_live", { name: "", tag: "#" + e.tag }).trim()
+      p.appendChild(document.createTextNode(e.found
+        ? " " + tr("event_found", { n: e.n })
+        : e.live ? " " + tr("event_live", { name: "", tag: "#" + e.tag }).trim()
         : " " + tr("event_upcoming", { name: "", from: e.from, to: e.to, tag: "#" + e.tag }).trim()));
+      box.appendChild(p);
+      // Local first: say it here (an OLN message with the tag); Bluesky second.
+      var row = document.createElement("p");
+      row.className = "actions";
+      var say = document.createElement("button");
+      say.type = "button"; say.className = "pill-sm suggested";
+      say.textContent = "💬 " + tr("say_with", { tag: "#" + e.tag });
+      say.onclick = function () { openComposer({}); var f = $("oln-form"); f.tags.value = e.tag; updateEstimate(); f.text.focus(); };
       var a = document.createElement("a");
       a.href = "https://bsky.app/intent/compose?text=" + encodeURIComponent("\n\n#geo" + c + " #" + e.tag);
-      a.target = "_blank"; a.rel = "noopener";
-      a.textContent = " " + tr("post_with", { tag: "#" + e.tag });
-      p.appendChild(a);
-      box.appendChild(p);
+      a.target = "_blank"; a.rel = "noopener"; a.className = "pill-sm"; a.setAttribute("role", "button");
+      a.textContent = tr("also_bsky");
+      row.appendChild(say); row.appendChild(a);
+      box.appendChild(row);
     });
   }
 
@@ -1356,7 +1365,7 @@
     var dev = window.kafumuDevice;
     if (!dev || !window.kafumuPair) return;
     var pair = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin });
-    dev.personas.shareCard().then(function (card) { return Promise.all([pair.checkInvite(card), pair.checkInvite(card, "badge"), pair.checkInvite(card, "named")]); })
+    dev.personas.shareCard().then(function (card) { return Promise.all([pair.checkInvite(card), pair.checkInvite(card, "badge"), dev.personas.linkCard().then(function (lc) { return pair.checkInvite(lc, "named"); })]); })
       .then(function (r) { if (r[0].length + r[1].length + r[2].length) checkSignals(); }).catch(function () {});
   })();
 

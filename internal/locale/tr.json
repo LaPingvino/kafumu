@@ -503,5 +503,11 @@
   "js.tour_chips": "Gördüklerini daralt: bir etkinlik, bir dil, bir konu. Kendininkini eklemek için +'ya, satırı düzenlemek için ✎'ye dokun.",
   "js.tour_feed": "Buradaki her şey tek listede: kişilerin, yerel mesajlar, buluşmalar, insanlar ve gönderiler. Sadece birini görmek için türüne dokun.",
   "js.tour_change": "Başka bir yere mi bakıyorsun, yoksa seyahatte misin? Bölgeyi buradan değiştir.",
-  "js.tour_tabs": "Bağlan: kodunu göster ya da birininkini tara. Kişiler: tanıştığın herkes, telefonunda saklanır. Kartım: paylaştıkların. Görünür: yakındakilerin seni bulmasına izin ver."
+  "js.tour_tabs": "Bağlan: kodunu göster ya da birininkini tara. Kişiler: tanıştığın herkes, telefonunda saklanır. Kartım: paylaştıkların. Görünür: yakındakilerin seni bulmasına izin ver.",
+  "js.event_found": "burada oluyor (buluşma ve mesaj: {n}).",
+  "js.say_with": "{tag} ile bir şey söyle",
+  "js.also_bsky": "Bluesky'da da",
+  "js.handle_on_card": "Bu kartla aç",
+  "js.handle_this_card": "Bu kartla etkin",
+  "js.handle_use_card": "Bağlantım için bu kartı kullan"
 }

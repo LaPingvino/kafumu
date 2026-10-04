@@ -503,5 +503,11 @@
   "js.tour_chips": "Zawęź to, co widzisz: wydarzenie, język, temat. Stuknij +, aby dodać własny; ✎, aby uporządkować wiersz.",
   "js.tour_feed": "Wszystko z okolicy na jednej liście: twoje kontakty, lokalne wiadomości, spotkania, ludzie i posty. Stuknij rodzaj, aby zobaczyć tylko go.",
   "js.tour_change": "Oglądasz inne miejsce albo podróżujesz? Zmień obszar tutaj.",
-  "js.tour_tabs": "Połącz: pokaż swój kod albo zeskanuj czyjś. Kontakty: wszyscy, których poznałeś, zapisani w telefonie. Moja wizytówka: to, czym się dzielisz. Widoczny: pozwól, by ludzie w pobliżu cię znaleźli."
+  "js.tour_tabs": "Połącz: pokaż swój kod albo zeskanuj czyjś. Kontakty: wszyscy, których poznałeś, zapisani w telefonie. Moja wizytówka: to, czym się dzielisz. Widoczny: pozwól, by ludzie w pobliżu cię znaleźli.",
+  "js.event_found": "dzieje się w okolicy (spotkania i wiadomości: {n}).",
+  "js.say_with": "Powiedz coś z {tag}",
+  "js.also_bsky": "Także na Bluesky",
+  "js.handle_on_card": "Włącz z tą wizytówką",
+  "js.handle_this_card": "Aktywny z tą wizytówką",
+  "js.handle_use_card": "Użyj tej wizytówki w moim linku"
 }

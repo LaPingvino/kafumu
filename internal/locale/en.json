@@ -503,5 +503,11 @@
   "js.tour_chips": "Narrow what you see: an event, a language, a subject. Tap + to add your own; ✎ to tidy the row.",
   "js.tour_feed": "Everything around here in one list: your contacts, local messages, meetups, people and posts. Tap a kind to see only that.",
   "js.tour_change": "Looking at somewhere else, or travelling? Change the area here.",
-  "js.tour_tabs": "Connect: show your code or scan someone's. Contacts: everyone you met, kept on your phone. My card: what you share. Findable: let people nearby find you."
+  "js.tour_tabs": "Connect: show your code or scan someone's. Contacts: everyone you met, kept on your phone. My card: what you share. Findable: let people nearby find you.",
+  "js.event_found": "is happening around here ({n} meetups and messages).",
+  "js.say_with": "Say something with {tag}",
+  "js.also_bsky": "Also on Bluesky",
+  "js.handle_on_card": "Turn on with this card",
+  "js.handle_this_card": "Live with this card",
+  "js.handle_use_card": "Use this card for my link"
 }

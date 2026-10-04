@@ -173,6 +173,14 @@
         .then(function () { return store.set("personasAt", new Date().toISOString()); }).then(syncSoon);
     },
     shareCard: function () { return personas.choice().then(function (ch) { return personas.share(ch.persona, ch.fields); }); },
+    // linkCard: the card people get through your kafumu.com/@name link (the
+    // persona you chose for it on My card; else your current choice).
+    linkCard: function () {
+      return Promise.all([store.get("handle"), personas.list()]).then(function (r) {
+        var p = r[0] && r[1].filter(function (x) { return x.id === r[0].persona; })[0];
+        return p ? personas.share(p, null) : personas.shareCard();
+      });
+    },
     newID: newID,
     SUGGESTED_TAGS: SUGGESTED_TAGS,
     phoneExample: phoneExample

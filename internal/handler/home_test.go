@@ -8,6 +8,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/LaPingvino/kafumu/internal/meetup"
+
 	"github.com/LaPingvino/kafumu/internal/bsky"
 	"github.com/LaPingvino/kafumu/internal/config"
 	"github.com/LaPingvino/kafumu/internal/gazetteer"
@@ -107,5 +109,20 @@ func TestGuessCell(t *testing.T) {
 		if c := guessCell(bad); c != "" {
 			t.Errorf("guessCell(%q) = %q", bad, c)
 		}
+	}
+}
+
+// Events are spotted from the bundle: three upcoming meetups sharing a tag
+// make it an event; place names and Kafumu's own tags never do.
+func TestFoundEvents(t *testing.T) {
+	_, home, _ := newServerWithMeetups(t)
+	now := time.Now()
+	b := bundle{}
+	for i := 0; i < 3; i++ {
+		b.Meetups = append(b.Meetups, &meetup.Meetup{Tags: []string{"pycon", "lisbon", "coffee"}, StartAt: now.Add(time.Duration(i+1) * 24 * time.Hour), EndAt: now.Add(time.Duration(i+1)*24*time.Hour + time.Hour)})
+	}
+	got := home.foundEvents(&b, now)
+	if len(got) != 1 || got[0].Tag != "pycon" || !got[0].Found || got[0].N != 3 || got[0].Live {
+		t.Fatalf("found = %+v", got)
 	}
 }

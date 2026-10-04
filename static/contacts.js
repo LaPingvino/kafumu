@@ -28,7 +28,7 @@
   // not only on Connect, and answer with your card.
   function takeInvites() {
     return dev.personas.shareCard().then(function (card) {
-      return Promise.all([pair.checkInvite(card), pair.checkInvite(card, "badge"), pair.checkInvite(card, "named")]);
+      return Promise.all([pair.checkInvite(card), pair.checkInvite(card, "badge"), dev.personas.linkCard().then(function (lc) { return pair.checkInvite(lc, "named"); })]);
     }).then(function (r) { return r[0].length + r[1].length + r[2].length; }).catch(function () { return 0; });
   }
 
