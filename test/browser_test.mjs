@@ -203,11 +203,12 @@ try {
     await A.waitFor("location.search.includes('new=1') && document.body.textContent.includes('Café Teste " + RUN + "')", "business account created");
     // Created means switched to it: the username button wears its name.
     await A.waitFor("(document.querySelector('nav a.acting') || {}).textContent?.includes('Café Teste " + RUN + "')", "switched to the business after creating it");
+    await A.waitFor("!!document.querySelector('nav a.acting svg.wings:not(.off)')", "gold wings on the username button (trial = live)");
     await A.goto(base + "/meetups/new");
     await A.waitFor("!!document.querySelector('#meetup-form select[name=as]')", "host-as choice");
     await A.waitFor("document.querySelector('#meetup-form select[name=as]').selectedIndex === 1", "acting business preselected as host");
     await A.evaluate("(() => { const f = document.getElementById('meetup-form'); f.as.selectedIndex = 1; f.title.value = 'Business test kafo'; f.cell.value = '6fg222'; f.requestSubmit(); return true; })()");
-    await A.waitFor("location.pathname.startsWith('/meetups/') && document.body.textContent.includes('Café Teste " + RUN + "')", "meetup hosted by the business");
+    await A.waitFor("/^\\/meetups\\/[^/]+$/.test(location.pathname) && location.pathname !== '/meetups/new' && !!document.querySelector('main svg.wings') && document.querySelector('main').textContent.includes('Café Teste " + RUN + "')", "meetup hosted by the business, with its wings");
     await A.evaluate("window.confirm = () => true; document.querySelector('form[action$=\"/delete\"]').requestSubmit(); true");
     await sleep(1000);
     // Switch back to yourself from the account page.

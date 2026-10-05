@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"net/http"
 	"net/http/httptest"
 	"slices"
 	"strings"
@@ -290,5 +291,49 @@ func TestSizes(t *testing.T) {
 	}
 	if _, err := Parse(mine(0, now, strings.Repeat("ĉ", 500), "#geo8ccgmw"), now); err != nil {
 		t.Fatalf("500 characters (1000 bytes) public: %v", err)
+	}
+}
+
+// Posting under your name while acting as a business: the note carries the
+// business and whether it was live (gold wings) or not (grey). Anonymous
+// posts never do.
+func TestBizByline(t *testing.T) {
+	s := NewService(NewMemoryStore())
+	s.AuthorFor = func(r *http.Request) string {
+		if r.Header.Get("X-Kafumu-As") == "1" {
+			return "joop"
+		}
+		return ""
+	}
+	live := true
+	s.BizFor = func(*http.Request) (string, bool) { return "Café Teste", live }
+	post := func(text string, named bool) *Note {
+		r := httptest.NewRequest("POST", "/api/oln", strings.NewReader(mine(BaseBits, time.Now().UTC(), text, "#geo8ccgmw")))
+		if named {
+			r.Header.Set("X-Kafumu-As", "1")
+		}
+		w := httptest.NewRecorder()
+		s.HandlePost(w, r)
+		var n Note
+		json.Unmarshal(w.Body.Bytes(), &n)
+		return &n
+	}
+	if n := post("Fresh croissants", true); n.Biz != "Café Teste" || !n.BizLive || n.Author != "" {
+		t.Fatalf("named as business: %+v", n)
+	}
+	live = false
+	if n := post("Still here", true); n.Biz != "Café Teste" || n.BizLive {
+		t.Fatalf("after the trial: %+v", n)
+	}
+	if n := post("Anonymous", false); n.Biz != "" || n.Author != "" {
+		t.Fatalf("anonymous: %+v", n)
+	}
+	// The manager is on record (moderation) but not in public, and the post
+	// ranks and lives as a named one.
+	ns, _ := s.InCells(context.Background(), []string{"8ccgmw"})
+	for _, n := range ns {
+		if n.Biz != "" && (n.By != "joop" || n.ExpiresAt.Sub(n.At) != TTL(n.Bits, BaseBits)) {
+			t.Fatalf("business post: by %q, life %v", n.By, n.ExpiresAt.Sub(n.At))
+		}
 	}
 }

@@ -299,5 +299,10 @@ article.doc { overflow-wrap: anywhere; }
 .tour .actions { align-items: center; }
 
 /* Using Kafumu as a business: its name on the username button, as a badge. */
-a.acting span { background: var(--accent-bg); color: var(--accent-fg); border-radius: 999px; padding: 0 .5em; }
+a.acting span { background: var(--accent-bg); color: var(--accent-fg); border-radius: 999px; padding: 0 .5em; white-space: nowrap; }
 .use-as button { margin: .25em .25em 0 0; }
+/* Business wings (à la Lichess patrons): gold while live, a sad grey when not. */
+svg.wings { width: 1.5em; height: 1em; vertical-align: -0.15em; color: #d4a017; }
+svg.wings.off { color: #9a9a9a; opacity: .7; }
+a.acting span svg.wings { color: #ffd75e; }
+a.acting span svg.wings.off { color: #c8c8c8; }

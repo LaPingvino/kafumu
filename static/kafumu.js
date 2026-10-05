@@ -584,9 +584,15 @@
     var meta = document.createElement("div");
     meta.className = "meta";
     var left = Math.max(0, (new Date(n.expires) - Date.now()) / 36e5);
-    meta.textContent = (n.author ? "@" + n.author + " ✓ · " : "") + (opts.forYou ? "★ " + tr("ask_for_you") + " · " : "") + ago(n.at) + " · ⚡" + n.bits + " · " +
+    if (n.biz) { // posted as a business: its name with the wings (grey when not paid up)
+      var bz = document.createElement("span"); bz.className = "biz-by";
+      bz.innerHTML = '<svg class="wings' + (n.biz_live ? "" : " off") + '"><use href="#i-wings"/></svg> ';
+      bz.appendChild(document.createTextNode(n.biz + " · "));
+      meta.appendChild(bz);
+    }
+    meta.appendChild(document.createTextNode((n.author ? "@" + n.author + " ✓ · " : "") + (opts.forYou ? "★ " + tr("ask_for_you") + " · " : "") + ago(n.at) + " · ⚡" + n.bits + " · " +
       tr("oln_left", { h: left < 1 ? "<1" : Math.round(left) }) +
-      (n.tags || []).filter(function (t) { return !/^(geo|re[0-9a-f]{10}$|ask$)/.test(t); }).map(function (t) { return " #" + t; }).join("");
+      (n.tags || []).filter(function (t) { return !/^(geo|re[0-9a-f]{10}$|ask$)/.test(t); }).map(function (t) { return " #" + t; }).join("")));
     var text = document.createElement("p");
     text.className = "text";
     var m = n.text.match(/https?:\/\/[^\s]+\/c#v1\.[A-Za-z0-9_-]+/);

@@ -74,7 +74,9 @@ func (s *Service) Export(origin, name string) http.HandlerFunc {
 				f.Index[tags[i]] = append(f.Index[tags[i]], n.ID)
 			}
 			o := Origin{ServerName: name}
-			if n.Author != "" {
+			if n.Biz != "" {
+				o.Display = n.Biz
+			} else if n.Author != "" {
 				o.Display = "@" + n.Author
 			}
 			f.Messages[n.ID] = Message{Raw: n.Raw, Origin: o, Timestamp: n.At, TTL: max(days, 1), Tags: tags}

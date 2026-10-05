@@ -91,3 +91,12 @@ func (h *Businesses) Use(w http.ResponseWriter, r *http.Request) {
 	}
 	http.Redirect(w, r, next, http.StatusSeeOther)
 }
+
+// ActingAs is the business the request's user acts as, or nil.
+func (h *Home) ActingAs(r *http.Request) *business.Business {
+	u := UserFrom(r.Context())
+	if u == nil {
+		return nil
+	}
+	return h.acting(r.Context(), r, u.ID)
+}

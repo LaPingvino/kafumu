@@ -60,7 +60,7 @@
           {{range langs}}<option value="{{.Code}}">{{.Native}}{{if ne .Native .English}} ({{.English}}){{end}}</option>{{end}}
         </select></label>
       <label>{{t .Lang "oln.tags"}}<input name="tags" placeholder="coffee, esperanto, surf" autocomplete="off"></label>
-      {{if .User}}{{if .User.Username}}<label class="small"><input type="checkbox" name="asme"> {{t .Lang "oln.as_me"}} <strong>@{{.User.Username}}</strong>
+      {{if .User}}{{if .User.Username}}<label class="small"><input type="checkbox" name="asme"> {{t .Lang "oln.as_me"}} {{if .Acting}}<svg class="wings{{if not (.Acting.Live .Now)}} off{{end}}"><use href="#i-wings"/></svg> <strong>{{.Acting.Name}}</strong>{{else}}<strong>@{{.User.Username}}</strong>{{end}}
         <span class="dim">{{t .Lang "oln.as_me_note"}}</span></label>{{end}}{{end}}
     </div>
     <div class="inline-row">

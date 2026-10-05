@@ -451,9 +451,23 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       kafumu_as, checked per page against the business (1-minute cache) and that you manage it; the username button
       shows "🏢 Name" as a badge; /account has "Use Kafumu as" (you / each business); creating one switches to it;
       meetups/new preselects it; the nudge bar thanks you instead. Browser test: switched, preselected, back.
-- [ ] 72. Business swag (Joop: "Lichess-style icon… even when you don't organize anything… sad grey when the trial is
+- [x] 72. Business wings (#i-wings, Lichess-patron style): gold while the business is live, sad grey when not —
+      on the username button while acting, the composer ("Post as 🪽 Café X"), meetups it hosts, and OLN posts made
+      as it (Note.Biz/BizLive set at post time via BizFor; the manager goes to Note.By, json:"-", Author stays
+      empty: "the business speaks, not the person"; ranks/lives as named; oln.json shows the business name).
+      Was: Business swag (Joop: "Lichess-style icon… even when you don't organize anything… sad grey when the trial is
       over or they didn't pay"): a business badge (patron-wings-like icon) next to the business's name wherever it
       shows (meetups, named OLN posts as the business, the profile); coloured while Live, grey when not.
+- [ ] 75. The business runs the thing (Joop: "switching to the business account should fully make it feel like the
+      business running the thing and keeping the personal part out of it"):
+      a. A business username (/@cafe-x; managers set it; same namespace as people, so no clash), and its public
+         page (name, kind, contact, upcoming meetups, wings).
+      b. While acting: the Card page edits the business's card; Connect shares it; new contacts land in the
+         business's contacts, not yours (and vice versa).
+      c. Business contacts synced across its managers ("company accounts could use a bit more server side help"):
+         a business vault (encrypted like yours, with a business key); the key reaches a newly added manager
+         through an existing manager's device (wrapped for the new manager when they first open /business, after
+         the existing one approves) — the server stores only ciphertext. Design to confirm with Joop.
 - [ ] 73. Paid until (Joop: "when putting on active, add a 'paid until' date, and configure active beyond or
       inactive beyond that date"): admin sets Status active + PaidUntil + AfterPaid (stay active / go inactive);
       Live() honours it; the business page shows "paid until"; admin follow-up lists those past PaidUntil.

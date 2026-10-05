@@ -23,7 +23,7 @@ func (s *Service) HandlePost(w http.ResponseWriter, r *http.Request) {
 	if s.AuthorFor != nil {
 		author = s.AuthorFor(r)
 	}
-	n, err := s.PostAs(r.Context(), string(raw), author)
+	n, err := s.PostAs(withReq(r), string(raw), author)
 	w.Header().Set("Content-Type", "application/json")
 	switch {
 	case errors.Is(err, ErrWork):

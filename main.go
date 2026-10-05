@@ -59,6 +59,12 @@ func main() {
 		}
 		return ""
 	}
+	notes.BizFor = func(r *http.Request) (string, bool) {
+		if b := home.ActingAs(r); b != nil {
+			return b.Name, b.Live(time.Now())
+		}
+		return "", false
+	}
 	home.Notes = notes
 	businesses := business.New(db)
 	home.Biz = businesses

@@ -80,6 +80,13 @@ type Note struct {
 	// Author: the username that posted it, vouched for by this node (the
 	// poster chose to show it); empty for anonymous messages.
 	Author string `datastore:"author,noindex" json:"author,omitempty"`
+	// By: the manager who posted as a business (Author stays empty then, so
+	// the personal name stays out of it; kept for moderation only).
+	By string `datastore:"by,noindex" json:"-"`
+	// Biz: posted as a business account (by By, its manager); BizLive:
+	// the business was in its trial or paid up then (coloured badge, else grey).
+	Biz     string `datastore:"biz,noindex" json:"biz,omitempty"`
+	BizLive bool   `datastore:"biz_live,noindex" json:"biz_live,omitempty"`
 }
 
 // Proof of work, v2 (memory-hard, so a GPU gains little over a phone):
@@ -217,7 +224,7 @@ func Priority(n *Note, now time.Time) float64 {
 		left = math.Max(0, float64(n.ExpiresAt.Sub(now))/float64(life))
 	}
 	p := float64(n.Bits)*50 + left*100
-	if n.Author != "" {
+	if n.Author != "" || n.Biz != "" {
 		p += 150 // standing behind it with your name counts for about three bits
 	}
 	return p
@@ -314,6 +321,9 @@ type Service struct {
 	// AuthorFor, if set, names the poster of a request who asked to post
 	// under their name (signed in, named); "" otherwise.
 	AuthorFor func(r *http.Request) string
+	// BizFor: the business a named post is made as (its name, and whether
+	// it's live); "" when posting as yourself.
+	BizFor func(r *http.Request) (string, bool)
 }
 
 type cellEntry struct {
@@ -380,6 +390,12 @@ func (s *Service) PostAs(ctx context.Context, raw, author string) (*Note, error)
 		return nil, &NeedError{Need: req}
 	}
 	n.Author = author
+	if author != "" && s.BizFor != nil && ctxReq(ctx) != nil {
+		n.Biz, n.BizLive = s.BizFor(ctxReq(ctx))
+		if n.Biz != "" {
+			n.By, n.Author = author, "" // the business speaks, not the person (Joop)
+		}
+	}
 	life := TTL(n.Bits, req)
 	if author == "" {
 		life /= 2
@@ -550,4 +566,13 @@ func minTime(a, b time.Time) time.Time {
 		return a
 	}
 	return b
+}
+
+type reqKey struct{}
+
+// withReq / ctxReq carry the request to PostAs, for BizFor.
+func withReq(r *http.Request) context.Context { return context.WithValue(r.Context(), reqKey{}, r) }
+func ctxReq(ctx context.Context) *http.Request {
+	r, _ := ctx.Value(reqKey{}).(*http.Request)
+	return r
 }

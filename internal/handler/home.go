@@ -81,6 +81,8 @@ type page struct {
 	User    *account.User
 	// Acting: the business you're using Kafumu as (nil: yourself).
 	Acting *business.Business
+	// Now: the time of this request (for Live checks in templates).
+	Now time.Time
 	// Maker, Contact, ContactText: footer "Contact the maker" (see footer.go).
 	Maker, Contact, ContactText string
 	// JS holds the "js." strings for client-side code.
@@ -104,7 +106,7 @@ func (h *Home) newPage(r *http.Request, title string) page {
 	if u := UserFrom(r.Context()); u != nil {
 		acting = h.acting(r.Context(), r, u.ID)
 	}
-	return page{Acting: acting, Brand: h.Cfg.Brand, Title: title, Lang: lang, V: h.Cfg.Version, Langs: locale.Langs(), MovedTo: moved,
+	return page{Acting: acting, Now: time.Now(), Brand: h.Cfg.Brand, Title: title, Lang: lang, V: h.Cfg.Version, Langs: locale.Langs(), MovedTo: moved,
 		Passkeys: h.Cfg.Passkeys && moved == "", ATproto: h.ATproto != nil && moved == "",
 		User: UserFrom(r.Context()), JS: locale.Prefix(lang, "js."), Maker: maker, Contact: contact, ContactText: contactText}
 }
