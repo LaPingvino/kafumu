@@ -134,8 +134,9 @@ type Gazetteer struct {
 	maxKm   float64
 	evCells []map[string]bool
 
-	mu   sync.Mutex
-	near map[string][]int // memo for placesNear
+	mu      sync.Mutex
+	near    map[string][]int  // memo for placesNear
+	country map[string]string // memo for CountryOf
 
 	placeTags map[string]bool // every place tag and alias, folded
 }
@@ -553,4 +554,56 @@ func (g *Gazetteer) CountPlaces(tags []string) int {
 		}
 	}
 	return n
+}
+
+// Locate finds a place by its name in a country (two-letter code): the
+// biggest place of that name, from the place list and then the towns.
+func (g *Gazetteer) Locate(name, cc string) (float64, float64, bool) {
+	key, cc := fold(name), strings.ToUpper(strings.TrimSpace(cc))
+	if key == "" || len(cc) != 2 {
+		return 0, 0, false
+	}
+	best, found, lat, lon := -1, false, 0.0, 0.0
+	for _, p := range g.Places {
+		if strings.EqualFold(p.Country, cc) && fold(p.Name) == key && p.Population > best {
+			best, found, lat, lon = p.Population, true, p.Lat, p.Lon
+		}
+	}
+	if found {
+		return lat, lon, true
+	}
+	for _, t := range towns {
+		if t.country == cc && t.key == key {
+			return t.lat, t.lon, true
+		}
+	}
+	return 0, 0, false
+}
+
+// CountryOf is the country (two-letter code) of the town nearest to a
+// cell's centre, "" if none is within 150 km. Remembered per cell.
+func (g *Gazetteer) CountryOf(cell string) string {
+	g.mu.Lock()
+	if cc, ok := g.country[cell]; ok {
+		g.mu.Unlock()
+		return cc
+	}
+	g.mu.Unlock()
+	lat, lon := geo.Center(cell)
+	best, cc := 150.0, ""
+	for _, t := range towns {
+		if math.Abs(t.lat-lat) > 2 {
+			continue
+		}
+		if d := distKm(lat, lon, t.lat, t.lon); d < best {
+			best, cc = d, t.country
+		}
+	}
+	g.mu.Lock()
+	if g.country == nil || len(g.country) > 50000 {
+		g.country = map[string]string{}
+	}
+	g.country[cell] = cc
+	g.mu.Unlock()
+	return cc
 }

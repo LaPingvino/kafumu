@@ -143,3 +143,22 @@ func TestCountPlaces(t *testing.T) {
 		t.Errorf("CountPlaces = %d, want 3", n)
 	}
 }
+
+// Eventa Servo places events by "…, City, CC": Görlitz in Germany, and
+// back from its cell to its country.
+func TestLocateAndCountry(t *testing.T) {
+	g := Load()
+	lat, lon, ok := g.Locate("Görlitz", "de")
+	if !ok || lat < 51 || lat > 51.3 || lon < 14.8 || lon > 15.1 {
+		t.Fatalf("Görlitz, DE = %v %v %v", lat, lon, ok)
+	}
+	if _, _, ok := g.Locate("Görlitz", "BR"); ok {
+		t.Fatal("Görlitz found in Brazil")
+	}
+	if cc := g.CountryOf(geo.Cell(lat, lon)); cc != "DE" {
+		t.Fatalf("country of Görlitz's cell = %q", cc)
+	}
+	if cc := g.CountryOf(geo.Cell(38.72, -9.14)); cc != "PT" {
+		t.Fatalf("country of Lisbon's cell = %q", cc)
+	}
+}

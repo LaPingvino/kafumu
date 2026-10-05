@@ -7,6 +7,7 @@ import (
 	"database/sql"
 	"embed"
 	"fmt"
+	"github.com/LaPingvino/kafumu/internal/feeds"
 	"github.com/LaPingvino/kafumu/internal/kv"
 	"github.com/LaPingvino/kafumu/internal/sqlstore"
 	"html/template"
@@ -55,6 +56,8 @@ func main() {
 	}
 	users, boxes, meetupStore, slots, db := stores(cfg)
 	kv := cache.New()
+	home.Cache = kv
+	feeds.Locate = home.Gaz.Locate
 	home.Meetups = meetup.NewService(meetupStore)
 	notes := oln.NewService(olnStore(db))
 	notes.AuthorFor = func(r *http.Request) string {

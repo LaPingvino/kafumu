@@ -236,7 +236,13 @@ func (h *Meetups) SyncFeeds(w http.ResponseWriter, r *http.Request) {
 
 // RunFeeds syncs the public calendars now (cron, or by hand from /admin).
 func (h *Meetups) RunFeeds(ctx context.Context) string {
-	res := feeds.Sync(ctx, feeds.Load(), h.Importer, h.Svc.Store, time.Now())
+	fs := feeds.Load()
+	// Eventa Servo: the Esperanto calendars of the countries people looked
+	// at lately (no key needed: one public .ics per country).
+	for _, cc := range h.Home.SeenCountries(ctx, time.Now()) {
+		fs = append(fs, feeds.EventaServo(cc))
+	}
+	res := feeds.Sync(ctx, fs, h.Importer, h.Svc.Store, time.Now())
 	h.Svc.ForgetAll()
 	log.Printf("feeds: %s", res)
 	return res.String()

@@ -6,6 +6,7 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/LaPingvino/kafumu/internal/business"
+	"github.com/LaPingvino/kafumu/internal/cache"
 	"github.com/LaPingvino/kafumu/internal/report"
 	"html/template"
 	"log"
@@ -41,10 +42,14 @@ type Home struct {
 	// Biz: business accounts, for acting as one (acting.go).
 	Biz  *business.Store
 	bizc bizCache
-	Cfg  *config.Config
-	Tmpl *template.Template
-	Bsky *bsky.Client
-	Gaz  *gazetteer.Gazetteer
+	// Cache: the shared cache (memcache on App Engine), for small notes
+	// like the countries looked at (countries.go).
+	Cache cache.Cache
+	seen  countryLog
+	Cfg   *config.Config
+	Tmpl  *template.Template
+	Bsky  *bsky.Client
+	Gaz   *gazetteer.Gazetteer
 	// Notes, if set, are the OLN local messages included in bundles.
 	Notes *oln.Service
 	// FollowHandle, if set, serves kafumu.com/@name links.
@@ -373,6 +378,7 @@ func (h *Home) Bundle(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "cells: want comma-separated 6-char #geo cells", http.StatusBadRequest)
 		return
 	}
+	h.noteCountry(r.Context(), cells[0])
 
 	b := bundle{Cells: cells, Places: []gazetteer.PlaceTag{}, Events: []gazetteer.EventTag{}, Meetups: []*meetup.Meetup{}, People: []account.Person{}, Notes: []*oln.Note{}, Posts: []bsky.Post{}}
 	if h.Notes != nil {

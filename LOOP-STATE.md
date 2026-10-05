@@ -461,7 +461,7 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       Was: Business swag (Joop: "Lichess-style icon… even when you don't organize anything… sad grey when the trial is
       over or they didn't pay"): a business badge (patron-wings-like icon) next to the business's name wherever it
       shows (meetups, named OLN posts as the business, the profile); coloured while Live, grey when not.
-- [ ] 75. The business runs the thing (Joop: "switching to the business account should fully make it feel like the
+- [x] 75. The business runs the thing (Joop: "switching to the business account should fully make it feel like the
       business running the thing and keeping the personal part out of it"):
       [x] a. Done: Business.Username claimed in the people's registry as "biz:<id>" (one namespace; "add manager"
          refuses business names); set on /business; /@name falls back to the business page (wings, kind, contact;
@@ -589,6 +589,22 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       (peers pulled from / pushed to, last seen). Also mention self-hosting on /business.
       Joop (2026-10-05): bahais.in will be a GAE-less fork (adding local-community options). Most useful here: a
       SQLite implementation of the store interfaces, picked by env var, so forks needn't write their own.
+- [ ] 60. Eventa Servo without a key (Joop 2026-10-05): per-country iCal feeds,
+      https://eventaservo.org/webcal/lando/<cc>.ics (de, fr, …) and ol.ics (online). Checked: 200 with an honest
+      UA (curl's default gets 403), de.ics 230 events, ol.ics 376; no GEO, but LOCATION ends "…, City, CC" →
+      gazetteer town lookup → cell; feeds include past events (drop them).
+      [x] 60a. Done: bundles note the country of the cell (gazetteer CountryOf, nearest town; bots never get a
+           bundle) in one shared-cache entry "seen-countries" (≤ once an hour per country per instance); the feeds
+           job adds feeds.EventaServo(cc) for countries seen in the last 3 days (≤ 10). Placement: gazetteer
+           Locate on each venue part from the end (postcodes dropped, "A - B" split), then Nominatim (≤ 30 a run).
+           Event link from the description (eventaservo.org/e/…). Live, Germany: 230 events → 152 past,
+           25 beyond the horizon, 52 placed, 1 not ("Struppen OT Naundorf"). Was: Country feeds into meetups: the feeds job (every 6 h) pulls the countries people looked at recently
+           (bundle requests note the cell's country; bots don't count; ≤ 10 countries a run), imports upcoming
+           events as meetups (Via eventaservo.org, tag #esperanto, lang epo, link to the event), placed by town.
+      60b. Online events (ol.ics): when the Esperanto language chip or #esperanto is active, Around shows them
+           under "Elsewhere · online" (fetched at most every 6 h, never for bots).
+      Was: 60. Eventa Servo (Esperanto events, Joop): its API (eventaservo.org/api/v2) needs a key; ask them for one
+      (or for a public per-country iCal), then it is one more entry in the feeds list (internal/feeds).
 - [ ] 45. DECIDED (Joop 2026-10-05): "Mix" + pay what you want + manual payments for now.
       45a. Patron wings for anyone: User.PatronUntil (admin sets it, like a business's paid-until); gold wings
            on a patron's named posts, @page and username button while it runs (grey after? no: patrons just
@@ -695,17 +711,6 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       lives at different work; pow's "other body" check at 2 bits passes 1 in 4 — now at 16). Was: Repeats cost more (Joop: "we want the useful kind of directed spam"): the same message text (normalised)
       posted again to another area or subject within a day needs sharply more work (e.g. +4 bits per repeat), and
       exact repeats in the same area are dropped; per node. Location already makes untargeted spam expensive.
-- [ ] 60. Eventa Servo without a key (Joop 2026-10-05): per-country iCal feeds,
-      https://eventaservo.org/webcal/lando/<cc>.ics (de, fr, …) and ol.ics (online). Checked: 200 with an honest
-      UA (curl's default gets 403), de.ics 230 events, ol.ics 376; no GEO, but LOCATION ends "…, City, CC" →
-      gazetteer town lookup → cell; feeds include past events (drop them).
-      60a. Country feeds into meetups: the feeds job (every 6 h) pulls the countries people looked at recently
-           (bundle requests note the cell's country; bots don't count; ≤ 10 countries a run), imports upcoming
-           events as meetups (Via eventaservo.org, tag #esperanto, lang epo, link to the event), placed by town.
-      60b. Online events (ol.ics): when the Esperanto language chip or #esperanto is active, Around shows them
-           under "Elsewhere · online" (fetched at most every 6 h, never for bots).
-      Was: 60. Eventa Servo (Esperanto events, Joop): its API (eventaservo.org/api/v2) needs a key; ask them for one
-      (or for a public per-country iCal), then it is one more entry in the feeds list (internal/feeds).
 - [x] 61ab. Proof of work v2 (Argon2id): measured first (Go↔hash-wasm vector identical; phone ~70 ms/attempt at
       4 MiB throttled 4×, server verify ~6 ms), then one cutover (Joop: day two, no transition): line "v2;nonce;
       date;b64;keywords", work = leading zero bits of Argon2id(line, "OLN-v2-proofwork", t=1, m=4 MiB, p=1, 32 B);

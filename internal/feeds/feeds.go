@@ -13,6 +13,7 @@ import (
 	"fmt"
 	"log"
 	"net/url"
+	"regexp"
 	"strings"
 	"time"
 
@@ -31,7 +32,10 @@ type Feed struct {
 	Tags []string `json:"tags,omitempty"`
 	// Cell places events that carry no coordinates (most iCal feeds).
 	Cell string `json:"cell,omitempty"`
-	Note string `json:"note,omitempty"`
+	// Place "town": events without coordinates are placed by the end of
+	// their location, "…, City, CC" (Eventa Servo's calendars).
+	Place string `json:"place,omitempty"`
+	Note  string `json:"note,omitempty"`
 }
 
 // Load returns the curated feeds.
@@ -73,8 +77,14 @@ func Sync(ctx context.Context, fs []Feed, im *importer.Importer, store meetup.St
 			}
 		}
 		host := hostOf(f.URL)
+		lookups := 0
 		for _, ev := range evs {
 			r.Events++
+			if f.Place == "town" && !ev.HasGeo && !ev.Start.After(now.Add(Horizon)) && !endOf(ev).Before(now) {
+				if lat, lon, ok := placeTown(ctx, im, ev.Venue, &lookups); ok {
+					ev.Lat, ev.Lon, ev.HasGeo = lat, lon, true
+				}
+			}
 			m := toMeetup(ev, f, host)
 			if m == nil || m.StartAt.After(now.Add(Horizon)) {
 				r.Skipped++
@@ -101,6 +111,10 @@ func Sync(ctx context.Context, fs []Feed, im *importer.Importer, store meetup.St
 	return r
 }
 
+// Locate places a town by name in a country (the gazetteer's), for feeds
+// whose events say where in words only; set by main.
+var Locate func(name, cc string) (float64, float64, bool)
+
 func toMeetup(ev *importer.Event, f Feed, host string) *meetup.Meetup {
 	cell := strings.ToLower(f.Cell)
 	// 0°,0° ("null island") is a missing location written as zeros, not an
@@ -113,7 +127,12 @@ func toMeetup(ev *importer.Event, f Feed, host string) *meetup.Meetup {
 	}
 	link := ev.Link
 	if link == "" {
-		link = f.URL
+		// The event's own page, when its text links to one on the feed's site.
+		if m := linkRE.FindString(ev.Text); m != "" && hostOf(m) == host {
+			link = m
+		} else {
+			link = f.URL
+		}
 	}
 	// Stable id per event, so every sync updates instead of duplicating.
 	sum := sha256.Sum256([]byte(link + "|" + ev.Title + "|" + ev.Start.UTC().Format(time.RFC3339)))
@@ -136,4 +155,60 @@ func hostOf(raw string) string {
 // String summarises a result for the cron log.
 func (r Result) String() string {
 	return fmt.Sprintf("feeds=%d events=%d saved=%d skipped=%d errors=%d", r.Feeds, r.Events, r.Saved, r.Skipped, len(r.Errors))
+}
+
+var linkRE = regexp.MustCompile(`https?://[^\s"<>]+`)
+
+// EventaServo is the Eventa Servo calendar of a country (two-letter code),
+// or of online events ("ol"): Esperanto events, placed by town.
+func EventaServo(cc string) Feed {
+	return Feed{URL: "https://eventaservo.org/webcal/lando/" + strings.ToLower(cc) + ".ics", Kind: "ics",
+		Tags: []string{"esperanto", "lang:epo"}, Place: "town", Note: "Eventa Servo"}
+}
+
+func endOf(ev *importer.Event) time.Time {
+	if ev.End.IsZero() {
+		return ev.Start
+	}
+	return ev.End
+}
+
+var postcode = regexp.MustCompile(`^[0-9][0-9A-Z -]{2,8}\s+`)
+
+// placeTown finds where "…, City[, Region], CC" is: the gazetteer first,
+// trying each part from the end (a region may follow the city; "Dresden -
+// Heidenau" is tried as both; postcodes are dropped), then OpenStreetMap
+// for "City, CC" (at most 30 lookups a run, within Nominatim's policy).
+func placeTown(ctx context.Context, im *importer.Importer, venue string, lookups *int) (float64, float64, bool) {
+	parts := strings.Split(venue, ",")
+	n := len(parts)
+	if n < 2 {
+		return 0, 0, false
+	}
+	cc := strings.TrimSpace(parts[n-1])
+	if len(cc) != 2 {
+		return 0, 0, false
+	}
+	var names []string
+	for i := n - 2; i >= 0 && i >= n-4; i-- {
+		p := postcode.ReplaceAllString(strings.TrimSpace(parts[i]), "")
+		names = append(names, p)
+		for _, q := range strings.Split(p, " - ") {
+			if q = strings.TrimSpace(q); q != p {
+				names = append(names, q)
+			}
+		}
+	}
+	if Locate != nil {
+		for _, name := range names {
+			if lat, lon, ok := Locate(name, cc); ok {
+				return lat, lon, true
+			}
+		}
+	}
+	if im == nil || *lookups >= 30 || len(names) == 0 {
+		return 0, 0, false
+	}
+	*lookups++
+	return geocode(ctx, im, names[0]+", "+cc)
 }
