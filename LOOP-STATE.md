@@ -542,6 +542,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       push (subscriptions and the VAPID keys: regenerated keys would break every phone's push). Restart test covers
       them. Every store now persists under KAFUMU_SQLITE. Next: a self-hosted purge loop (sqlstore Purge* + kv
       expiry), admin stats without Datastore, and the self-hosting guide on /business (linking nodes = 64c).
+- [~] 64b-8. Self-hosted purge (sqlstore.Purge, same rules as purge.Run): expired notes/meetups/box messages/
+      slots, expired kv entries (gob-decoded ExpiresAt only), idle accounts with vault + username (30 days /
+      a year / KeepDays, -1 kept). Runs at start and every 6 h, and as the admin "purge" job. Test covers each
+      rule. Next: admin stats without Datastore, the self-hosting guide on /business; then 64c node linking.
 - [ ] 64. Self-hosting and OLN nodes (Joop): run Kafumu outside GAE (plain Go binary + a file/SQL store, no
       memcache), a page on how to self-host and link a node into OLN, and linked nodes on the admin page
       (peers pulled from / pushed to, last seen). Also mention self-hosting on /business.

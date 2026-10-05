@@ -178,12 +178,27 @@ func main() {
 	mux.HandleFunc("GET /cal/{cell}", meetups.ICS)
 	mux.HandleFunc("GET /cron/feeds", meetups.SyncFeeds)
 	runPurge := func(ctx context.Context) string {
+		if sq := sqliteDB(); sq != nil && db == nil {
+			res, err := sqlstore.Purge(ctx, sq, time.Now())
+			log.Printf("purge (sqlite): %s err=%v", res, err)
+			return fmt.Sprintf("%s err=%v", res, err)
+		}
 		if db == nil {
 			return "no Datastore"
 		}
 		res, err := purge.Run(ctx, db, time.Now())
 		log.Printf("purge: %s err=%v", res, err)
 		return fmt.Sprintf("%s err=%v", res, err)
+	}
+	if sqliteDB() != nil && db == nil {
+		// Self-hosted: no cron and no TTL policy, so purge here, at start
+		// and every six hours.
+		go func() {
+			for {
+				runPurge(context.Background())
+				time.Sleep(6 * time.Hour)
+			}
+		}()
 	}
 	mux.HandleFunc("GET /cron/purge", func(w http.ResponseWriter, r *http.Request) {
 		// App Engine cron sets this header and strips it from outside requests.
