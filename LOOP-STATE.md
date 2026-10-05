@@ -695,7 +695,16 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       lives at different work; pow's "other body" check at 2 bits passes 1 in 4 — now at 16). Was: Repeats cost more (Joop: "we want the useful kind of directed spam"): the same message text (normalised)
       posted again to another area or subject within a day needs sharply more work (e.g. +4 bits per repeat), and
       exact repeats in the same area are dropped; per node. Location already makes untargeted spam expensive.
-- [ ] 60. Eventa Servo (Esperanto events, Joop): its API (eventaservo.org/api/v2) needs a key; ask them for one
+- [ ] 60. Eventa Servo without a key (Joop 2026-10-05): per-country iCal feeds,
+      https://eventaservo.org/webcal/lando/<cc>.ics (de, fr, …) and ol.ics (online). Checked: 200 with an honest
+      UA (curl's default gets 403), de.ics 230 events, ol.ics 376; no GEO, but LOCATION ends "…, City, CC" →
+      gazetteer town lookup → cell; feeds include past events (drop them).
+      60a. Country feeds into meetups: the feeds job (every 6 h) pulls the countries people looked at recently
+           (bundle requests note the cell's country; bots don't count; ≤ 10 countries a run), imports upcoming
+           events as meetups (Via eventaservo.org, tag #esperanto, lang epo, link to the event), placed by town.
+      60b. Online events (ol.ics): when the Esperanto language chip or #esperanto is active, Around shows them
+           under "Elsewhere · online" (fetched at most every 6 h, never for bots).
+      Was: 60. Eventa Servo (Esperanto events, Joop): its API (eventaservo.org/api/v2) needs a key; ask them for one
       (or for a public per-country iCal), then it is one more entry in the feeds list (internal/feeds).
 - [x] 61ab. Proof of work v2 (Argon2id): measured first (Go↔hash-wasm vector identical; phone ~70 ms/attempt at
       4 MiB throttled 4×, server verify ~6 ms), then one cutover (Joop: day two, no transition): line "v2;nonce;
