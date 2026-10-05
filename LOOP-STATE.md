@@ -655,8 +655,9 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
          Bio, Where, Langs, Tags; free, like a person's; the inbox part hidden until c-2); bundles add findable
          businesses from one cached list (Store.Findable: one query a minute per instance, filtered by area) as
          people with Biz (🏢) and Patron = live (wings). Browser test: findable, B sees "@biz 🏢".
-         FLAKY (seen once, passed on rerun): "business card synced up" (kafumuDevice.sync() not 'on' in 20 s);
-         harden: find why a sync right after saving the business card can stay off.
+         FLAKY "business card synced up" (seen twice): the check called sync() every 250 ms, overlapping its
+         own syncs (version conflicts). Now paced (500 ms, up to 20 s) and it reports what sync answered;
+         passed 3 runs in a row since.
       [x] c-2. Business public inbox: acting, Findable's inbox controls set Business.InboxBox/Pub/Bits (price
          set like a person's), shown on its findable entry (✉️). And for everyone: inbox keys are now made
          exportable (JWK) and the vault snapshot carries the inbox key (newest wins) + received inbox messages
