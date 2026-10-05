@@ -452,6 +452,9 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       (columns for cell/pair/asks/expiry, JSON for the rest), service-level test incl. reopen; main picks it with
       KAFUMU_SQLITE. Next stores: meetups, accounts (+usernames), boxes, slots, vault, then handle/business/report/
       short/push/atp/prices, purge, admin stats.
+- [~] 64b-2. Meetups on SQLite (sqlstore.Meetups: cell/author/expiry columns, full-field JSON via a tag-only
+      mirror struct so a new Meetup field fails to compile rather than vanish; RSVP Update in a transaction);
+      tested through meetup.Service incl. reopen; wired in stores() under KAFUMU_SQLITE. Next: accounts.
 - [ ] 64. Self-hosting and OLN nodes (Joop): run Kafumu outside GAE (plain Go binary + a file/SQL store, no
       memcache), a page on how to self-host and link a node into OLN, and linked nodes on the admin page
       (peers pulled from / pushed to, last seen). Also mention self-hosting on /business.

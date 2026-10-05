@@ -228,6 +228,10 @@ func main() {
 // stores uses Datastore on App Engine (or with the emulator) and memory for
 // plain local runs, so `go run .` needs no credentials.
 func stores(cfg *config.Config) (account.Store, box.Store, meetup.Store, slot.Store, *datastore.Client) {
+	if sq := sqliteDB(); sq != nil {
+		// Self-hosting: stores move to SQLite one by one (LOOP-STATE 64b).
+		return account.NewMemoryStore(), box.NewMemoryStore(), &sqlstore.Meetups{DB: sq}, slot.NewMemoryStore(), nil
+	}
 	if os.Getenv("GAE_ENV") == "" && os.Getenv("DATASTORE_EMULATOR_HOST") == "" {
 		log.Printf("stores: in memory (set DATASTORE_EMULATOR_HOST to use the emulator)")
 		return account.NewMemoryStore(), box.NewMemoryStore(), meetup.NewMemoryStore(), slot.NewMemoryStore(), nil
@@ -260,6 +264,6 @@ var sqliteDB = sync.OnceValue(func() *sql.DB {
 	if err != nil {
 		log.Fatalf("sqlite: %v", err)
 	}
-	log.Printf("stores: SQLite at %s (local messages; more to come)", path)
+	log.Printf("stores: SQLite at %s (local messages, meetups; more to come)", path)
 	return db
 })
