@@ -437,6 +437,12 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       other's code before either takes the other's hello in, they get two connections. Recognise the same person
       (a random person id in hello/card, synced via the vault) and fold the second connection into the first
       (keep both keys for reading; send on the older one).
+- [~] 64a. Checked running outside GAE: the binary runs fine (memory cache, env config), but the Datastore
+      emulator rejects IN queries ("Filter has 9 properties, expected 1"), which every area list uses — so the
+      emulator is no self-hosting path. Export now logs store errors. Next: 64b, a SQLite store. Datastore is used
+      directly (not via an interface) in account, box, meetup, slot, oln, vault, handle, business, report, short,
+      push, atp, purge, admin stats, prices: 64b introduces store interfaces where missing and a SQLite
+      implementation (KAFUMU_SQLITE=path), core first (oln, meetups, accounts, boxes, slots, vault), then the rest.
 - [ ] 64. Self-hosting and OLN nodes (Joop): run Kafumu outside GAE (plain Go binary + a file/SQL store, no
       memcache), a page on how to self-host and link a node into OLN, and linked nodes on the admin page
       (peers pulled from / pushed to, last seen). Also mention self-hosting on /business.

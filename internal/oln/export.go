@@ -2,6 +2,7 @@ package oln
 
 import (
 	"encoding/json"
+	"log"
 	"math"
 	"net/http"
 	"strings"
@@ -55,6 +56,7 @@ func (s *Service) Export(origin, name string) http.HandlerFunc {
 		}
 		ns, err := s.InCells(r.Context(), geo.Rings(cell, 1))
 		if err != nil {
+			log.Printf("oln: export: %v", err)
 			http.Error(w, "unavailable", http.StatusServiceUnavailable)
 			return
 		}
