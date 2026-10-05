@@ -574,5 +574,6 @@
   "js.answer_reply": "Balas secara pribadi",
   "js.answer_failed": "Gagal mengirim. Coba lagi.",
   "biz.selfhost": "Lebih suka di server sendiri? Kafumu bersumber terbuka dan berjalan sebagai satu program dengan satu berkas basis data.",
-  "biz.selfhost_link": "Panduan hosting sendiri"
+  "biz.selfhost_link": "Panduan hosting sendiri",
+  "js.tags_here": "Dipakai di sekitar sini:"
 }

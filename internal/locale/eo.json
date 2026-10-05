@@ -574,5 +574,6 @@
   "js.answer_reply": "Respondi private",
   "js.answer_failed": "Ne eblis sendi. Provu denove.",
   "biz.selfhost": "Ĉu prefere sur via propra servilo? Kafumu estas malfermitkoda kaj funkcias kiel unu programo kun unu datumbaza dosiero.",
-  "biz.selfhost_link": "Gvidilo por memgastigado"
+  "biz.selfhost_link": "Gvidilo por memgastigado",
+  "js.tags_here": "Uzataj ĉi tie:"
 }

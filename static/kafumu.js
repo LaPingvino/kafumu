@@ -336,6 +336,36 @@
   // The composer has three modes: say, ask (a question with a connect code
   // for private answers), and a public answer to a question.
   var composeMode = {};
+  // Tags that make sense here (LOOP-STATE 36b): the events around now, then
+  // the tags most used locally (the device's own tally); tap to add.
+  var eventsHere = [];
+  function suggestTags() {
+    var f = $("oln-form"), box = $("tag-suggest");
+    if (!box) return;
+    var have = {};
+    f.tags.value.split(/[\s,]+/).forEach(function (t) { t = t.replace(/^#/, "").toLowerCase(); if (t) have[t] = true; });
+    var local = {};
+    try { local = JSON.parse(localStorage.getItem("kafumu.localTags") || "{}"); } catch (e) {}
+    var tags = eventsHere.map(function (e) { return e.tag; })
+      .concat(Object.keys(local).sort(function (a, z) { return local[z] - local[a]; }))
+      .filter(function (t, i, all) { return t && !have[t] && all.indexOf(t) === i; }).slice(0, 8);
+    box.textContent = "";
+    box.hidden = !tags.length;
+    if (!tags.length) return;
+    var lab = document.createElement("span"); lab.className = "dim"; lab.textContent = tr("tags_here") + " ";
+    box.appendChild(lab);
+    tags.forEach(function (t) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "chip"; b.textContent = "#" + t;
+      b.onclick = function () {
+        f.tags.value = (f.tags.value.trim() ? f.tags.value.trim().replace(/,$/, "") + ", " : "") + t;
+        updateEstimate(); suggestTags();
+      };
+      box.appendChild(b);
+    });
+  }
+  $("oln-form").tags.addEventListener("input", suggestTags);
+
   function openComposer(mode) {
     composeMode = mode || {};
     var f = $("oln-form");
@@ -345,7 +375,7 @@
     f.text.placeholder = composeMode.ask ? tr("ask_placeholder") : sayPlaceholder();
     if (!f.lang.value) f.lang.value = view.lang || ((window.KAFUMU_ME || {}).from1 || {})[document.documentElement.lang] || "";
     if (!f.tags.value && view.tag) f.tags.value = view.tag;
-    updateEstimate(); f.text.focus();
+    updateEstimate(); suggestTags(); f.text.focus();
     f.scrollIntoView({ block: "nearest" });
   }
   $("ask").onclick = function () { if ($("oln-form").hidden || !composeMode.ask) openComposer({ ask: true }); else $("oln-form").hidden = true; };
@@ -1091,6 +1121,7 @@
   }
 
   function showEvents(events, c) {
+    eventsHere = events || [];
     var box = $("events");
     box.textContent = "";
     box.hidden = !events.length;

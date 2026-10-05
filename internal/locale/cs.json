@@ -574,5 +574,6 @@
   "js.answer_reply": "Odpovědět soukromě",
   "js.answer_failed": "Odeslání se nepovedlo. Zkus to znovu.",
   "biz.selfhost": "Raději na vlastním serveru? Kafumu je open source a běží jako jeden program s jedním databázovým souborem.",
-  "biz.selfhost_link": "Návod na vlastní hosting"
+  "biz.selfhost_link": "Návod na vlastní hosting",
+  "js.tags_here": "Používané tady:"
 }

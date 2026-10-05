@@ -574,5 +574,6 @@
   "js.answer_reply": "私下回复",
   "js.answer_failed": "发送失败，请重试。",
   "biz.selfhost": "想在自己的服务器上运行？Kafumu 是开源的，只需一个程序和一个数据库文件。",
-  "biz.selfhost_link": "自托管指南"
+  "biz.selfhost_link": "自托管指南",
+  "js.tags_here": "附近常用："
 }

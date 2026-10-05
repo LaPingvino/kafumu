@@ -574,5 +574,6 @@
   "js.answer_reply": "Özel yanıtla",
   "js.answer_failed": "Gönderilemedi. Tekrar dene.",
   "biz.selfhost": "Kendi sunucunda mı çalıştırmak istersin? Kafumu açık kaynaklıdır; tek program ve tek veritabanı dosyasıyla çalışır.",
-  "biz.selfhost_link": "Kendi sunucunda barındırma rehberi"
+  "biz.selfhost_link": "Kendi sunucunda barındırma rehberi",
+  "js.tags_here": "Burada kullanılanlar:"
 }

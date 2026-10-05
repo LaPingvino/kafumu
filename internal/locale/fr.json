@@ -574,5 +574,6 @@
   "js.answer_reply": "Répondre en privé",
   "js.answer_failed": "Envoi impossible. Réessaie.",
   "biz.selfhost": "Plutôt sur ton propre serveur ? Kafumu est libre et tourne comme un seul programme avec un seul fichier de base de données.",
-  "biz.selfhost_link": "Guide d'auto-hébergement"
+  "biz.selfhost_link": "Guide d'auto-hébergement",
+  "js.tags_here": "Utilisés par ici :"
 }

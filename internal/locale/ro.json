@@ -574,5 +574,6 @@
   "js.answer_reply": "Răspunde în privat",
   "js.answer_failed": "Nu s-a putut trimite. Încearcă din nou.",
   "biz.selfhost": "Preferi pe serverul tău? Kafumu e open source și rulează ca un singur program cu un singur fișier de bază de date.",
-  "biz.selfhost_link": "Ghid de găzduire proprie"
+  "biz.selfhost_link": "Ghid de găzduire proprie",
+  "js.tags_here": "Folosite pe aici:"
 }

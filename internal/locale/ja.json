@@ -574,5 +574,6 @@
   "js.answer_reply": "非公開で返信",
   "js.answer_failed": "送信できませんでした。もう一度お試しください。",
   "biz.selfhost": "自分のサーバーで動かしたい？Kafumu はオープンソースで、1つのプログラムと1つのデータベースファイルで動きます。",
-  "biz.selfhost_link": "セルフホストガイド"
+  "biz.selfhost_link": "セルフホストガイド",
+  "js.tags_here": "この辺りで使われているタグ:"
 }

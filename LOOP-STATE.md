@@ -348,7 +348,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       here (N)"; every event card is local-first: "💬 Say something with #tag" (composer with the tag), "Also on
       Bluesky" second. Unit-tested. Named link moved to My card, per persona ("Use this card for my link"; people
       connecting through /@name get that card). 36b (composer tag suggestions) and the business ad wait.
-- [ ] 36. Events found automatically + local-first tags (Joop): detect big events from what the feeds
+- [x] 36. (36a found events + local-first banner earlier; 36b now) Composer tag suggestions: "Used around here:"
+      chips under the tags field — events around now first, then the device's local tag tally; tap adds, chips
+      for tags already entered drop out. Browser test: B saw the #food question → suggested → tapped → added.
+      Was: Events found automatically + local-first tags (Joop): detect big events from what the feeds
       already bring (many Luma/Smoke Signal events or one large one in a cell, a burst of one tag in local
       messages and posts) instead of hand-made events.json; suggest the tags that make sense here in the
       composer; the event banner posts LOCALLY (OLN) first, "also on Bluesky" second.

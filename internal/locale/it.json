@@ -574,5 +574,6 @@
   "js.answer_reply": "Rispondi in privato",
   "js.answer_failed": "Invio non riuscito. Riprova.",
   "biz.selfhost": "Meglio sul tuo server? Kafumu è open source e gira come un unico programma con un solo file di database.",
-  "biz.selfhost_link": "Guida all'auto-hosting"
+  "biz.selfhost_link": "Guida all'auto-hosting",
+  "js.tags_here": "Usati qui intorno:"
 }

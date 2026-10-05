@@ -574,5 +574,6 @@
   "js.answer_reply": "Privat antworten",
   "js.answer_failed": "Senden fehlgeschlagen. Versuch es noch einmal.",
   "biz.selfhost": "Lieber auf dem eigenen Server? Kafumu ist Open Source und läuft als ein Programm mit einer Datenbankdatei.",
-  "biz.selfhost_link": "Anleitung zum Selbsthosten"
+  "biz.selfhost_link": "Anleitung zum Selbsthosten",
+  "js.tags_here": "Hier verwendet:"
 }

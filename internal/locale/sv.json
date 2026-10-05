@@ -574,5 +574,6 @@
   "js.answer_reply": "Svara privat",
   "js.answer_failed": "Kunde inte skicka. Försök igen.",
   "biz.selfhost": "Hellre på din egen server? Kafumu är öppen källkod och körs som ett program med en databasfil.",
-  "biz.selfhost_link": "Guide för egen drift"
+  "biz.selfhost_link": "Guide för egen drift",
+  "js.tags_here": "Används här:"
 }

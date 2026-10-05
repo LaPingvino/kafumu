@@ -574,5 +574,6 @@
   "js.answer_reply": "Trả lời riêng",
   "js.answer_failed": "Không gửi được. Hãy thử lại.",
   "biz.selfhost": "Muốn chạy trên máy chủ của riêng bạn? Kafumu là mã nguồn mở, chạy bằng một chương trình với một tệp cơ sở dữ liệu.",
-  "biz.selfhost_link": "Hướng dẫn tự lưu trữ"
+  "biz.selfhost_link": "Hướng dẫn tự lưu trữ",
+  "js.tags_here": "Được dùng quanh đây:"
 }

@@ -574,5 +574,6 @@
   "js.answer_reply": "비공개로 답하기",
   "js.answer_failed": "보내지 못했어요. 다시 시도해 주세요.",
   "biz.selfhost": "내 서버에서 돌리고 싶나요? Kafumu는 오픈 소스이며 프로그램 하나와 데이터베이스 파일 하나로 실행돼요.",
-  "biz.selfhost_link": "셀프 호스팅 안내"
+  "biz.selfhost_link": "셀프 호스팅 안내",
+  "js.tags_here": "이 근처에서 쓰는 태그:"
 }

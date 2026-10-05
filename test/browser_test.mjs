@@ -114,6 +114,13 @@ try {
   }
   await B.evaluate("(() => { [...[...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('pastel de nata')).querySelectorAll('button')].find(b => b.textContent.startsWith('💬')).click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test answer: Manteigaria " + RUN + "'; f.requestSubmit(); return true; })()");
   await B.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('pastel de nata') && li.querySelector('.replies') && li.querySelector('.replies').textContent.includes('Manteigaria'))", "answer threaded under the question", 30000);
+  // Tags that make sense here: B saw the #food question, so B's composer
+  // suggests #food; a tap adds it.
+  await B.evaluate("document.getElementById('oln-form').hidden = true; document.getElementById('say').click(); document.getElementById('oln-form').tags.value = ''; document.getElementById('oln-form').tags.dispatchEvent(new Event('input')); true");
+  await B.waitFor("[...document.querySelectorAll('#tag-suggest .chip')].some(b => b.textContent === '#food')", "composer suggests #food");
+  await B.evaluate("[...document.querySelectorAll('#tag-suggest .chip')].find(b => b.textContent === '#food').click(); true");
+  await B.waitFor("document.getElementById('oln-form').tags.value === 'food' && ![...document.querySelectorAll('#tag-suggest .chip')].some(b => b.textContent === '#food')", "suggested tag added");
+  await B.evaluate("document.getElementById('oln-form').hidden = true; true");
 
   // Card themes from local activity: the "food" question tag shows up as a
   // 📍 suggestion in A's card editor.
@@ -404,7 +411,7 @@ try {
     await X.evaluate("fetch('/account/delete', { method: 'POST', body: new URLSearchParams({ confirm: 'yes' }), credentials: 'same-origin' }).then(() => true)");
   }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, business account + switched to it + host as preselected + own @name page + separate business card + switched back, findable profile seen, named link, paid inbox message + connect back, OLN message + private answer both ways + reaction + elsewhere + travelling + tour + report + question/answer + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, business account + switched to it + host as preselected + own @name page + separate business card + switched back, findable profile seen, named link, paid inbox message + connect back, OLN message + private answer both ways + reaction + elsewhere + travelling + tour + report + question/answer + composer tag suggestions + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }
