@@ -232,7 +232,7 @@
   "patrons.how": "Participer",
   "patrons.coffee": "☕ Offre un café à la communauté",
   "patrons.soon": "Les moyens de participer arrivent très bientôt. D'ici là : parles-en à un ami, organise une rencontre et envoie tes retours.",
-  "patrons.thanks": "Pas de fonctions en plus pour les soutiens : personne n'a un meilleur Kafumu que les autres. Juste un chaleureux merci.",
+  "patrons.thanks": "Personne n'a un meilleur Kafumu que les autres : les mécènes portent les ailes et reçoivent un chaleureux merci.",
   "cafes.title": "Pour les cafés et les lieux",
   "cafes.intro": "Kafumu montre aux gens ce qu'il y a près d'eux et qui les intéresse. Quand deux amis sont dans le coin, ou que quelqu'un organise une rencontre sans lieu, Kafumu peut suggérer un endroit où s'asseoir. Ça peut être le tien.",
   "cafes.point1": "Affiché seulement dans ta zone (environ 5 km), seulement aux personnes dont les intérêts correspondent, et clairement signalé.",
@@ -595,5 +595,11 @@
   "js.online_eo": "Événements en espéranto en ligne",
   "biz.paid_feature": "C'est un outil de bureau : il fonctionne tant que le compte professionnel est dans son mois gratuit ou payé.",
   "biz.paused_note": "En pause jusqu'au paiement : d'autres gestionnaires, carte et contacts synchronisés, la page @nom. Organiser des rencontres et publier au nom de l'entreprise restent gratuits, et rien n'est supprimé.",
-  "biz.profile_paused": "Ce compte professionnel est en pause."
+  "biz.profile_paused": "Ce compte professionnel est en pause.",
+  "patrons.pww_title": "Payez ce que vous voulez",
+  "patrons.pww_text": "Suggestion : 2 € par mois pour être mécène (tu portes les ailes), 5 € par mois pour un compte professionnel ; au moins 1 €. Par l'un des moyens ci-dessus, une fois ou chaque mois.",
+  "patrons.pww_ref": "Indique ceci dans le libellé du paiement :",
+  "patrons.pww_noname": "Choisis d'abord un nom d'utilisateur, pour qu'on sache à qui c'est.",
+  "patrons.pww_after": "Nous activons tes ailes ou la date de paiement de ton entreprise à la main, en général sous un ou deux jours.",
+  "biz.pay_link": "Comment payer"
 }

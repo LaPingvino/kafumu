@@ -626,7 +626,11 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
            needs Live (free). Test: lapsed business → 402s, refusals, vault kept. Was: Office tools for paying businesses: free = host meetups and post under its own name; Live (trial or
            paid) adds more than one manager, synced card + contacts, the @name page, gold wings. Lapsed: nothing
            deleted; sync pauses (devices keep their data), no new managers, wings grey, @page stays but says so.
-      45c. How to pay: "pay what you want" on /business and /support: suggested €5/month (business), €2/month
+      [x] 45c. Done: /patrons#pay "Pay what you want" (€2/month patron, €5/month business, at least €1, via the
+           configured links) with the reference to quote: "Kafumu @business" while acting, "Kafumu @you", or the
+           account id + a nudge to pick a username; "set by hand within a day or two". Each business on /business
+           links there. patrons.thanks reworded in 24 languages (patrons now get the wings). Test: references.
+      [x] 45. Paid services: Mix + pay what you want + manual (45a–c). Was: How to pay: "pay what you want" on /business and /support: suggested €5/month (business), €2/month
            (patron), floor €1; the configured links (Liberapay, PayPal, bunq, Stripe link) + a reference to quote
            (the business's id/@name, or your @username); admin sets the dates.
       Was: OPEN DESIGN (with Joop, not a tick): a better model for paid services. Joop (2026-10-04): the

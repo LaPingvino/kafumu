@@ -232,7 +232,7 @@
   "patrons.how": "Přispěj",
   "patrons.coffee": "☕ Kup komunitě kafe",
   "patrons.soon": "Možnosti, jak přispět, budou už brzy. Do té doby: řekni o tom kamarádovi, uspořádej setkání a pošli zpětnou vazbu.",
-  "patrons.thanks": "Žádné funkce navíc pro podporovatele: nikdo nemá lepší Kafumu než ostatní. Jen vřelé díky.",
+  "patrons.thanks": "Nikdo nemá lepší Kafumu než ostatní: mecenáši nosí křídla a dostanou srdečné díky.",
   "cafes.title": "Pro kavárny a podniky",
   "cafes.intro": "Kafumu ukazuje lidem, co je poblíž a co by je zajímalo. Když jsou poblíž dva přátelé nebo někdo pořádá setkání bez místa, Kafumu může navrhnout, kde si sednout. To můžeš být ty.",
   "cafes.point1": "Zobrazeno jen ve tvé oblasti (asi 5 km), jen lidem se shodnými zájmy a jasně označeno.",
@@ -595,5 +595,11 @@
   "js.online_eo": "Esperantské akce online",
   "biz.paid_feature": "To je kancelářský nástroj: funguje, dokud je firemní účet v bezplatném měsíci nebo zaplacený.",
   "biz.paused_note": "Pozastaveno do zaplacení: další správci, synchronizovaná vizitka a kontakty, stránka @jméno. Pořádání setkání a příspěvky pod jménem firmy zůstávají zdarma a nic se nemaže.",
-  "biz.profile_paused": "Tento firemní účet je pozastavený."
+  "biz.profile_paused": "Tento firemní účet je pozastavený.",
+  "patrons.pww_title": "Zaplať, kolik chceš",
+  "patrons.pww_text": "Návrh: 2 € měsíčně, abys byl mecenáš (nosíš křídla), 5 € měsíčně za firemní účet; aspoň 1 €. Kterýmkoli způsobem výše, jednou nebo měsíčně.",
+  "patrons.pww_ref": "Napiš tohle do poznámky k platbě:",
+  "patrons.pww_noname": "Nejdřív si zvol uživatelské jméno, ať víme, čí to je.",
+  "patrons.pww_after": "Křídla nebo datum zaplacení firmy zapínáme ručně, obvykle do jednoho dvou dnů.",
+  "biz.pay_link": "Jak zaplatit"
 }

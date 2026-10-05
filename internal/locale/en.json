@@ -232,7 +232,7 @@
   "patrons.how": "Chip in",
   "patrons.coffee": "☕ Buy the community a coffee",
   "patrons.soon": "Ways to chip in are coming very soon. Until then: tell a friend, host a meetup, and send feedback.",
-  "patrons.thanks": "No extra features for supporters: nobody gets a better Kafumu than anyone else. Just a warm thank-you.",
+  "patrons.thanks": "Nobody gets a better Kafumu than anyone else: patrons wear the wings, and get a warm thank-you.",
   "cafes.title": "For cafés and venues",
   "cafes.intro": "Kafumu shows people what's near them that they'd want to know about. When two friends are around, or someone hosts a meetup without a venue, Kafumu can suggest a place to sit. That can be yours.",
   "cafes.point1": "Shown only in your area (about 5 km), only to people whose interests match, and clearly labelled.",
@@ -595,5 +595,11 @@
   "js.online_eo": "Online Esperanto events",
   "biz.paid_feature": "That's an office tool: it works while the business account is in its free month or paid up.",
   "biz.paused_note": "Paused until paid: more managers, the card and contacts in sync, the @name page. Hosting meetups and posting under the business's name stay free, and nothing is deleted.",
-  "biz.profile_paused": "This business account is paused."
+  "biz.profile_paused": "This business account is paused.",
+  "patrons.pww_title": "Pay what you want",
+  "patrons.pww_text": "Suggested: €2 a month to be a patron (you wear the wings), €5 a month for a business account; at least €1. Use any of the ways above, once or monthly.",
+  "patrons.pww_ref": "Put this in the payment note:",
+  "patrons.pww_noname": "Give yourself a username first, so we know whose it is.",
+  "patrons.pww_after": "We set your wings or your business's paid-until date by hand, usually within a day or two.",
+  "biz.pay_link": "How to pay"
 }

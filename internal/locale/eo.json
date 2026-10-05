@@ -232,7 +232,7 @@
   "patrons.how": "Kontribui",
   "patrons.coffee": "☕ Regali kafon al la komunumo",
   "patrons.soon": "Manieroj kontribui venos tre baldaŭ. Ĝis tiam: rakontu al amiko, organizu renkontiĝon kaj sendu rimarkojn.",
-  "patrons.thanks": "Neniuj kromaj funkcioj por subtenantoj: neniu ricevas pli bonan Kafumu ol aliaj. Nur varma danko.",
+  "patrons.thanks": "Neniu ricevas pli bonan Kafumu ol aliaj: mecenatoj portas la flugilojn kaj ricevas koran dankon.",
   "cafes.title": "Por kafejoj kaj ejoj",
   "cafes.intro": "Kafumu montras al homoj, kio estas proksime, kion ili volus scii. Kiam du amikoj estas proksime, aŭ iu organizas renkontiĝon sen ejo, Kafumu povas proponi lokon por sidi. Tio povas esti la via.",
   "cafes.point1": "Montrata nur en via areo (ĉirkaŭ 5 km), nur al homoj kun kongruaj interesoj, kaj klare markita.",
@@ -595,5 +595,11 @@
   "js.online_eo": "Retaj Esperanto-eventoj",
   "biz.paid_feature": "Tio estas oficeja ilo: ĝi funkcias dum la komerca konto estas en sia senpaga monato aŭ pagita.",
   "biz.paused_note": "Paŭzita ĝis pago: pliaj administrantoj, sinkronigitaj karto kaj kontaktoj, la paĝo @nomo. Gastigi renkontiĝojn kaj afiŝi sub la nomo de la komerco restas senpagaj, kaj nenio estas forigita.",
-  "biz.profile_paused": "Ĉi tiu komerca konto estas paŭzita."
+  "biz.profile_paused": "Ĉi tiu komerca konto estas paŭzita.",
+  "patrons.pww_title": "Pagu kion vi volas",
+  "patrons.pww_text": "Proponoj: 2 € monate por esti mecenato (vi portas la flugilojn), 5 € monate por komerca konto; almenaŭ 1 €. Per iu ajn el la supraj manieroj, unufoje aŭ ĉiumonate.",
+  "patrons.pww_ref": "Skribu ĉi tion en la pagnoton:",
+  "patrons.pww_noname": "Unue elektu uzantnomon, por ke ni sciu, kies ĝi estas.",
+  "patrons.pww_after": "Ni mane ŝaltas viajn flugilojn aŭ la pagdaton de via komerco, kutime ene de tago aŭ du.",
+  "biz.pay_link": "Kiel pagi"
 }

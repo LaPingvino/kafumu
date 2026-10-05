@@ -19,6 +19,12 @@
   </details>{{end}}
   {{if not (or .PayPal .Bunq .BCH .Stripe .Liberapay)}}<p class="dim">{{t .Lang "patrons.soon"}}</p>{{end}}
   <p class="dim">{{t .Lang "patrons.any_amount"}}</p>
+  <h2 id="pay">{{t .Lang "patrons.pww_title"}}</h2>
+  <p>{{t .Lang "patrons.pww_text"}}</p>
+  {{if .User}}<p>{{t .Lang "patrons.pww_ref"}} <input readonly onclick="this.select()" aria-label="{{ts .Lang "patrons.pww_ref"}}" style="max-width:16rem"
+    value="Kafumu {{if .Acting}}{{if .Acting.Username}}@{{.Acting.Username}}{{else}}biz {{.Acting.ID}}{{end}}{{else if .User.Username}}@{{.User.Username}}{{else}}{{slice .User.ID 0 8}}{{end}}"></p>
+  {{if and (not .Acting) (not .User.Username)}}<p class="dim small">{{t .Lang "patrons.pww_noname"}} <a href="/account">→</a></p>{{end}}{{end}}
+  <p class="dim">{{t .Lang "patrons.pww_after"}}</p>
   <p class="dim">{{t .Lang "patrons.thanks"}}</p>
 </article>
 {{template "foot" .}}

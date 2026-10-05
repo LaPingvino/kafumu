@@ -232,7 +232,7 @@
   "patrons.how": "出份力",
   "patrons.coffee": "☕ 请社区喝杯咖啡",
   "patrons.soon": "支持方式很快就会上线。在那之前：告诉朋友、举办聚会、给我们反馈。",
-  "patrons.thanks": "支持者没有额外功能：每个人用到的 Kafumu 都一样。只有一句真诚的感谢。",
+  "patrons.thanks": "没有人能得到比别人更好的 Kafumu：赞助人戴上翅膀，并收到我们真诚的感谢。",
   "cafes.title": "致咖啡馆和场所",
   "cafes.intro": "Kafumu 向人们展示他们附近值得知道的东西。当两个朋友都在附近，或有人举办没有场地的聚会时，Kafumu 可以推荐一个坐下来的地方。那可以是你的店。",
   "cafes.point1": "只在你的区域（约 5 公里）内、只向兴趣匹配的人展示，并清楚标注。",
@@ -595,5 +595,11 @@
   "js.online_eo": "线上世界语活动",
   "biz.paid_feature": "这是办公工具：在商家账户免费月内或已付费时可用。",
   "biz.paused_note": "付费前暂停：添加更多管理员、同步名片和联系人、@名称页面。以商家名义举办聚会和发帖仍然免费，也不会删除任何内容。",
-  "biz.profile_paused": "此商家账户已暂停。"
+  "biz.profile_paused": "此商家账户已暂停。",
+  "patrons.pww_title": "随意支付",
+  "patrons.pww_text": "建议：成为赞助人每月 2 欧元（你会戴上翅膀），商家账户每月 5 欧元；至少 1 欧元。通过上面任一方式，一次或每月。",
+  "patrons.pww_ref": "请在付款备注中写上：",
+  "patrons.pww_noname": "请先设置用户名，这样我们才知道是谁付的。",
+  "patrons.pww_after": "我们会手动开启你的翅膀或商家的付费截止日期，通常在一两天内。",
+  "biz.pay_link": "如何付款"
 }

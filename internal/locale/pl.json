@@ -232,7 +232,7 @@
   "patrons.how": "Dorzuć się",
   "patrons.coffee": "☕ Postaw społeczności kawę",
   "patrons.soon": "Sposoby, żeby się dorzucić, pojawią się już wkrótce. Do tego czasu: powiedz znajomym, zorganizuj spotkanie i wyślij nam opinię.",
-  "patrons.thanks": "Bez dodatkowych funkcji dla wspierających: nikt nie dostaje lepszego Kafumu niż inni. Tylko serdeczne dzięki.",
+  "patrons.thanks": "Nikt nie dostaje lepszego Kafumu niż inni: mecenasi noszą skrzydła i dostają serdeczne podziękowanie.",
   "cafes.title": "Dla kawiarni i lokali",
   "cafes.intro": "Kafumu pokazuje ludziom to, co jest w pobliżu i o czym chcieliby wiedzieć. Gdy dwoje znajomych jest w okolicy albo ktoś organizuje spotkanie bez miejsca, Kafumu może zaproponować, gdzie usiąść. Może to być twój lokal.",
   "cafes.point1": "Wyświetlane tylko w twojej okolicy (około 5 km), tylko osobom o pasujących zainteresowaniach, i wyraźnie oznaczone.",
@@ -595,5 +595,11 @@
   "js.online_eo": "Wydarzenia esperanckie online",
   "biz.paid_feature": "To narzędzie biurowe: działa, gdy konto firmowe jest w darmowym miesiącu lub opłacone.",
   "biz.paused_note": "Wstrzymane do opłacenia: więcej zarządzających, zsynchronizowana wizytówka i kontakty, strona @nazwa. Organizowanie spotkań i publikowanie pod nazwą firmy pozostają darmowe, a nic nie jest usuwane.",
-  "biz.profile_paused": "To konto firmowe jest wstrzymane."
+  "biz.profile_paused": "To konto firmowe jest wstrzymane.",
+  "patrons.pww_title": "Zapłać, ile chcesz",
+  "patrons.pww_text": "Propozycja: 2 € miesięcznie, by być mecenasem (nosisz skrzydła), 5 € miesięcznie za konto firmowe; co najmniej 1 €. Dowolnym ze sposobów powyżej, jednorazowo lub co miesiąc.",
+  "patrons.pww_ref": "Wpisz to w tytule płatności:",
+  "patrons.pww_noname": "Najpierw wybierz nazwę użytkownika, żebyśmy wiedzieli, czyje to.",
+  "patrons.pww_after": "Skrzydła lub datę opłacenia firmy ustawiamy ręcznie, zwykle w ciągu dnia lub dwóch.",
+  "biz.pay_link": "Jak zapłacić"
 }

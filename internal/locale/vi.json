@@ -232,7 +232,7 @@
   "patrons.how": "Góp một chút",
   "patrons.coffee": "☕ Mời cộng đồng một ly cà phê",
   "patrons.soon": "Các cách đóng góp sẽ có rất sớm. Trong lúc chờ: hãy giới thiệu cho bạn bè, tổ chức một buổi gặp mặt và gửi góp ý.",
-  "patrons.thanks": "Không có tính năng riêng cho người ủng hộ: không ai có Kafumu tốt hơn người khác. Chỉ một lời cảm ơn chân thành.",
+  "patrons.thanks": "Không ai được một Kafumu tốt hơn người khác: người bảo trợ đeo đôi cánh và nhận lời cảm ơn chân thành.",
   "cafes.title": "Dành cho quán cà phê và địa điểm",
   "cafes.intro": "Kafumu cho mọi người thấy những gì gần họ mà họ muốn biết. Khi hai người bạn đang ở gần, hoặc ai đó tổ chức buổi gặp mặt mà chưa có địa điểm, Kafumu có thể gợi ý một chỗ ngồi. Đó có thể là quán của bạn.",
   "cafes.point1": "Chỉ hiển thị trong khu vực của bạn (khoảng 5 km), chỉ cho những người có sở thích phù hợp, và được ghi rõ.",
@@ -595,5 +595,11 @@
   "js.online_eo": "Sự kiện Esperanto trực tuyến",
   "biz.paid_feature": "Đó là công cụ văn phòng: hoạt động khi tài khoản doanh nghiệp còn trong tháng miễn phí hoặc đã thanh toán.",
   "biz.paused_note": "Tạm dừng đến khi thanh toán: thêm quản lý, đồng bộ danh thiếp và danh bạ, trang @tên. Tổ chức buổi gặp và đăng bài dưới tên doanh nghiệp vẫn miễn phí, và không có gì bị xóa.",
-  "biz.profile_paused": "Tài khoản doanh nghiệp này đang tạm dừng."
+  "biz.profile_paused": "Tài khoản doanh nghiệp này đang tạm dừng.",
+  "patrons.pww_title": "Trả bao nhiêu tùy bạn",
+  "patrons.pww_text": "Gợi ý: 2 € mỗi tháng để làm người bảo trợ (bạn đeo đôi cánh), 5 € mỗi tháng cho tài khoản doanh nghiệp; ít nhất 1 €. Qua bất kỳ cách nào ở trên, một lần hoặc hằng tháng.",
+  "patrons.pww_ref": "Ghi điều này vào nội dung thanh toán:",
+  "patrons.pww_noname": "Hãy chọn tên người dùng trước, để chúng tôi biết là của ai.",
+  "patrons.pww_after": "Chúng tôi bật đôi cánh hoặc ngày thanh toán của doanh nghiệp bạn thủ công, thường trong một hai ngày.",
+  "biz.pay_link": "Cách thanh toán"
 }

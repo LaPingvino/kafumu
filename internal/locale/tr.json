@@ -232,7 +232,7 @@
   "patrons.how": "Katkıda bulun",
   "patrons.coffee": "☕ Topluluğa bir kahve ısmarla",
   "patrons.soon": "Katkı yolları çok yakında geliyor. O zamana kadar: bir arkadaşına anlat, bir buluşma düzenle ve geri bildirim gönder.",
-  "patrons.thanks": "Destekçilere ek özellik yok: kimse diğerlerinden daha iyi bir Kafumu almaz. Sadece içten bir teşekkür.",
+  "patrons.thanks": "Kimse diğerlerinden daha iyi bir Kafumu almaz: destekçiler kanatları takar ve içten bir teşekkür alır.",
   "cafes.title": "Kafeler ve mekânlar için",
   "cafes.intro": "Kafumu insanlara yakınlarında bilmek isteyecekleri şeyleri gösterir. İki arkadaş yakınlardaysa ya da biri mekânsız bir buluşma düzenliyorsa, Kafumu oturacak bir yer önerebilir. O yer seninki olabilir.",
   "cafes.point1": "Yalnızca senin bölgende (yaklaşık 5 km), yalnızca ilgi alanları eşleşen kişilere ve açıkça etiketlenmiş olarak gösterilir.",
@@ -595,5 +595,11 @@
   "js.online_eo": "Çevrimiçi Esperanto etkinlikleri",
   "biz.paid_feature": "Bu bir ofis aracı: işletme hesabı ücretsiz ayındayken veya ödendiğinde çalışır.",
   "biz.paused_note": "Ödenene kadar duraklatıldı: daha fazla yönetici, eşitlenen kart ve kişiler, @ad sayfası. Buluşma düzenlemek ve işletme adına paylaşım yapmak ücretsiz kalır, hiçbir şey silinmez.",
-  "biz.profile_paused": "Bu işletme hesabı duraklatıldı."
+  "biz.profile_paused": "Bu işletme hesabı duraklatıldı.",
+  "patrons.pww_title": "İstediğin kadar öde",
+  "patrons.pww_text": "Öneri: destekçi olmak için ayda 2 € (kanatları takarsın), işletme hesabı için ayda 5 €; en az 1 €. Yukarıdaki yollardan biriyle, bir kez ya da her ay.",
+  "patrons.pww_ref": "Ödeme açıklamasına bunu yaz:",
+  "patrons.pww_noname": "Önce bir kullanıcı adı seç ki kimin olduğunu bilelim.",
+  "patrons.pww_after": "Kanatlarını ya da işletmenin ödeme tarihini elle ayarlarız, genellikle bir iki gün içinde.",
+  "biz.pay_link": "Nasıl ödenir"
 }

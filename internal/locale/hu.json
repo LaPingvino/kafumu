@@ -232,7 +232,7 @@
   "patrons.how": "Szállj be",
   "patrons.coffee": "☕ Fizess egy kávét a közösségnek",
   "patrons.soon": "A beszállás módjai hamarosan érkeznek. Addig is: szólj egy barátodnak, szervezz találkozót, és küldj visszajelzést.",
-  "patrons.thanks": "Nincsenek extra funkciók a támogatóknak: senki sem kap jobb Kafumut, mint mások. Csak egy szívből jövő köszönet.",
+  "patrons.thanks": "Senki sem kap jobb Kafumut a többieknél: a pártolók szárnyat viselnek, és szívből jövő köszönetet kapnak.",
   "cafes.title": "Kávézóknak és helyszíneknek",
   "cafes.intro": "A Kafumu megmutatja az embereknek, mi van a közelükben, amiről tudni szeretnének. Ha két barát a közelben van, vagy valaki helyszín nélkül szervez találkozót, a Kafumu javasolhat egy helyet, ahová leülhetnek. Ez lehet a tiéd.",
   "cafes.point1": "Csak a te területeden (kb. 5 km) jelenik meg, csak azoknak, akiknek az érdeklődése egyezik, és egyértelműen jelölve.",
@@ -595,5 +595,11 @@
   "js.online_eo": "Online eszperantó események",
   "biz.paid_feature": "Ez irodai eszköz: akkor működik, amíg az üzleti fiók az ingyenes hónapjában van, vagy ki van fizetve.",
   "biz.paused_note": "Szünetel a fizetésig: több kezelő, szinkronizált névjegy és kapcsolatok, a @név oldal. Találkozók szervezése és a vállalkozás nevében való posztolás ingyenes marad, és semmi sem törlődik.",
-  "biz.profile_paused": "Ez az üzleti fiók szünetel."
+  "biz.profile_paused": "Ez az üzleti fiók szünetel.",
+  "patrons.pww_title": "Fizess, amennyit szeretnél",
+  "patrons.pww_text": "Javaslat: havi 2 € pártolóként (tiéd a szárny), havi 5 € üzleti fiókért; legalább 1 €. A fenti módok bármelyikén, egyszer vagy havonta.",
+  "patrons.pww_ref": "Írd ezt a közleménybe:",
+  "patrons.pww_noname": "Előbb válassz felhasználónevet, hogy tudjuk, kié.",
+  "patrons.pww_after": "A szárnyat vagy a vállalkozás fizetési dátumát kézzel állítjuk be, általában egy-két napon belül.",
+  "biz.pay_link": "Hogyan fizess"
 }

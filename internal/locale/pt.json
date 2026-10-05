@@ -232,7 +232,7 @@
   "patrons.how": "Contribuir",
   "patrons.coffee": "☕ Oferecer um café à comunidade",
   "patrons.soon": "As formas de contribuir chegam muito em breve. Até lá: fale do Kafumu a um amigo, organize um encontro e envie sugestões.",
-  "patrons.thanks": "Sem funcionalidades extra para quem apoia: ninguém tem um Kafumu melhor do que os outros. Só um obrigado caloroso.",
+  "patrons.thanks": "Ninguém tem um Kafumu melhor do que os outros: os patronos usam as asas e recebem um grande obrigado.",
   "cafes.title": "Para cafés e espaços",
   "cafes.intro": "O Kafumu mostra às pessoas o que há perto delas que gostariam de saber. Quando dois amigos estão por perto, ou alguém organiza um encontro sem local, o Kafumu pode sugerir um sítio para se sentarem. Pode ser o seu.",
   "cafes.point1": "Mostrado só na sua zona (cerca de 5 km), só a quem tem interesses que coincidem, e sempre identificado.",
@@ -595,5 +595,11 @@
   "js.online_eo": "Eventos de esperanto online",
   "biz.paid_feature": "Isso é uma ferramenta de escritório: funciona enquanto a conta de empresa está no mês grátis ou paga.",
   "biz.paused_note": "Em pausa até ao pagamento: mais gestores, cartão e contactos sincronizados, a página @nome. Organizar encontros e publicar em nome da empresa continuam grátis, e nada é apagado.",
-  "biz.profile_paused": "Esta conta de empresa está em pausa."
+  "biz.profile_paused": "Esta conta de empresa está em pausa.",
+  "patrons.pww_title": "Paga o que quiseres",
+  "patrons.pww_text": "Sugestão: 2 € por mês para seres patrono (usas as asas), 5 € por mês por uma conta de empresa; pelo menos 1 €. Por qualquer das formas acima, uma vez ou todos os meses.",
+  "patrons.pww_ref": "Escreve isto na nota do pagamento:",
+  "patrons.pww_noname": "Escolhe primeiro um nome de utilizador, para sabermos de quem é.",
+  "patrons.pww_after": "Ativamos as tuas asas ou a data de pagamento da tua empresa à mão, normalmente em um ou dois dias.",
+  "biz.pay_link": "Como pagar"
 }

@@ -232,7 +232,7 @@
   "patrons.how": "Bijdragen",
   "patrons.coffee": "☕ Trakteer de community op koffie",
   "patrons.soon": "Manieren om bij te dragen komen heel binnenkort. Tot die tijd: vertel het een vriend, organiseer een bijeenkomst en stuur feedback.",
-  "patrons.thanks": "Geen extra functies voor supporters: niemand krijgt een betere Kafumu dan een ander. Alleen een warm dankjewel.",
+  "patrons.thanks": "Niemand krijgt een betere Kafumu dan een ander: beschermheren dragen de vleugels en krijgen een warm bedankje.",
   "cafes.title": "Voor cafés en locaties",
   "cafes.intro": "Kafumu laat mensen zien wat er in de buurt is dat ze zouden willen weten. Als twee vrienden in de buurt zijn, of iemand een bijeenkomst zonder locatie organiseert, kan Kafumu een plek om te zitten voorstellen. Dat kan de jouwe zijn.",
   "cafes.point1": "Alleen getoond in jouw gebied (zo'n 5 km), alleen aan mensen met passende interesses, en duidelijk gemarkeerd.",
@@ -595,5 +595,11 @@
   "js.online_eo": "Online Esperanto-evenementen",
   "biz.paid_feature": "Dat is een kantoorfunctie: die werkt zolang het zakelijke account in de gratis maand zit of betaald is.",
   "biz.paused_note": "Gepauzeerd tot betaling: meer beheerders, gesynchroniseerd kaartje en contacten, de @naam-pagina. Meetups organiseren en posten onder de bedrijfsnaam blijven gratis, en er wordt niets verwijderd.",
-  "biz.profile_paused": "Dit zakelijke account is gepauzeerd."
+  "biz.profile_paused": "Dit zakelijke account is gepauzeerd.",
+  "patrons.pww_title": "Betaal wat je wilt",
+  "patrons.pww_text": "Voorstel: €2 per maand om beschermheer te zijn (je draagt de vleugels), €5 per maand voor een zakelijk account; minstens €1. Via een van de manieren hierboven, eenmalig of maandelijks.",
+  "patrons.pww_ref": "Zet dit in de betaalomschrijving:",
+  "patrons.pww_noname": "Kies eerst een gebruikersnaam, zodat we weten van wie het is.",
+  "patrons.pww_after": "We zetten je vleugels of de betaald-tot-datum van je bedrijf met de hand, meestal binnen een dag of twee.",
+  "biz.pay_link": "Hoe betalen"
 }

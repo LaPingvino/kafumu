@@ -232,7 +232,7 @@
   "patrons.how": "Dai una mano",
   "patrons.coffee": "☕ Offri un caffè alla comunità",
   "patrons.soon": "I modi per contribuire arrivano molto presto. Nel frattempo: parlane a un amico, organizza un incontro e mandaci il tuo feedback.",
-  "patrons.thanks": "Nessuna funzione extra per chi sostiene: nessuno ha un Kafumu migliore degli altri. Solo un grazie di cuore.",
+  "patrons.thanks": "Nessuno ha un Kafumu migliore degli altri: i mecenati portano le ali e ricevono un caloroso grazie.",
   "cafes.title": "Per bar e locali",
   "cafes.intro": "Kafumu mostra alle persone cosa c'è vicino a loro che vorrebbero sapere. Quando due amici sono nei paraggi, o qualcuno organizza un incontro senza un posto, Kafumu può suggerire dove sedersi. Quel posto può essere il tuo.",
   "cafes.point1": "Mostrato solo nella tua zona (circa 5 km), solo a persone con interessi corrispondenti, e chiaramente indicato.",
@@ -595,5 +595,11 @@
   "js.online_eo": "Eventi di esperanto online",
   "biz.paid_feature": "È uno strumento d'ufficio: funziona finché l'account aziendale è nel mese gratuito o pagato.",
   "biz.paused_note": "In pausa fino al pagamento: altri gestori, biglietto e contatti sincronizzati, la pagina @nome. Organizzare incontri e pubblicare a nome dell'attività restano gratuiti, e non si cancella nulla.",
-  "biz.profile_paused": "Questo account aziendale è in pausa."
+  "biz.profile_paused": "Questo account aziendale è in pausa.",
+  "patrons.pww_title": "Paga quanto vuoi",
+  "patrons.pww_text": "Suggerimento: 2 € al mese per essere mecenate (porti le ali), 5 € al mese per un account aziendale; almeno 1 €. Con uno dei modi qui sopra, una volta o ogni mese.",
+  "patrons.pww_ref": "Scrivi questo nella causale:",
+  "patrons.pww_noname": "Scegli prima un nome utente, così sappiamo di chi è.",
+  "patrons.pww_after": "Attiviamo a mano le tue ali o la data di pagamento della tua attività, di solito entro un giorno o due.",
+  "biz.pay_link": "Come pagare"
 }

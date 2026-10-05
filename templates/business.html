@@ -15,6 +15,7 @@
     <h2>{{.Name}} <span class="badge">{{.Kind}}</span></h2>
     <p class="dim small">{{if .TrialOver $.Now}}{{t $.Lang "biz.trial_over"}}{{else if eq .Status "trial"}}{{t $.Lang "biz.trial_until"}} {{.TrialEnds.Format "2 Jan 2006"}}{{else if and (.PaidOver $.Now) (not (.Live $.Now))}}{{t $.Lang "biz.paid_over"}}{{else if and (eq .Status "active") (not .PaidUntil.IsZero) (not (.PaidOver $.Now))}}{{t $.Lang "biz.paid_until"}} {{.PaidDay.Format "2 Jan 2006"}}{{else}}{{.Status}}{{end}}</p>
     {{if not (.Live $.Now)}}<p class="card events" style="padding:8px 16px">{{t $.Lang "biz.paused_note"}}</p>{{end}}
+    <p class="small"><a href="/patrons#pay">💶 {{t $.Lang "biz.pay_link"}} →</a></p>
     <form method="post" action="/business/{{.ID}}/name" class="inline-row"><label>{{t $.Lang "biz.username"}}
       <input name="username" value="{{.Username}}" placeholder="cafe-x" maxlength="31" pattern="@?[A-Za-z0-9_-]{3,30}"></label>
       <button type="submit" class="pill-sm">{{t $.Lang "account.save"}}</button></form>

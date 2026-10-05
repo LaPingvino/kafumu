@@ -232,7 +232,7 @@
   "patrons.how": "Giv et bidrag",
   "patrons.coffee": "☕ Giv fællesskabet en kop kaffe",
   "patrons.soon": "Måder at bidrage på kommer meget snart. Indtil da: fortæl en ven om det, hold et meetup, og send feedback.",
-  "patrons.thanks": "Ingen ekstra funktioner til støtter: ingen får et bedre Kafumu end andre. Bare en varm tak.",
+  "patrons.thanks": "Ingen får et bedre Kafumu end andre: protektorer bærer vingerne og får en varm tak.",
   "cafes.title": "For caféer og spillesteder",
   "cafes.intro": "Kafumu viser folk, hvad der er i nærheden, som de gerne vil vide om. Når to venner er i nærheden, eller nogen holder et meetup uden et sted, kan Kafumu foreslå et sted at sidde. Det kan være dit.",
   "cafes.point1": "Vises kun i dit område (cirka 5 km), kun for folk med matchende interesser, og tydeligt markeret.",
@@ -595,5 +595,11 @@
   "js.online_eo": "Esperanto-arrangementer online",
   "biz.paid_feature": "Det er et kontorværktøj: det virker, mens virksomhedskontoen er i sin gratis måned eller betalt.",
   "biz.paused_note": "På pause indtil betaling: flere administratorer, synkroniseret kort og kontakter, @navn-siden. At holde møder og poste i virksomhedens navn forbliver gratis, og intet slettes.",
-  "biz.profile_paused": "Denne virksomhedskonto er sat på pause."
+  "biz.profile_paused": "Denne virksomhedskonto er sat på pause.",
+  "patrons.pww_title": "Betal, hvad du vil",
+  "patrons.pww_text": "Forslag: 2 € om måneden for at være protektor (du bærer vingerne), 5 € om måneden for en virksomhedskonto; mindst 1 €. På en af måderne ovenfor, én gang eller hver måned.",
+  "patrons.pww_ref": "Skriv dette i betalingsteksten:",
+  "patrons.pww_noname": "Vælg først et brugernavn, så vi ved, hvis det er.",
+  "patrons.pww_after": "Vi slår dine vinger eller virksomhedens betalt-til-dato til i hånden, som regel inden for en dag eller to.",
+  "biz.pay_link": "Sådan betaler du"
 }

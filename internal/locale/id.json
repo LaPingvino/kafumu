@@ -232,7 +232,7 @@
   "patrons.how": "Ikut menyumbang",
   "patrons.coffee": "☕ Traktir komunitas secangkir kopi",
   "patrons.soon": "Cara untuk menyumbang segera hadir. Sampai saat itu: ceritakan ke teman, adakan meetup, dan kirim masukan.",
-  "patrons.thanks": "Tidak ada fitur tambahan untuk pendukung: tak seorang pun mendapat Kafumu yang lebih baik dari yang lain. Hanya terima kasih yang hangat.",
+  "patrons.thanks": "Tak ada yang mendapat Kafumu lebih baik dari yang lain: patron memakai sayapnya dan menerima terima kasih yang hangat.",
   "cafes.title": "Untuk kafe dan tempat acara",
   "cafes.intro": "Kafumu menunjukkan kepada orang apa yang ada di dekat mereka yang ingin mereka ketahui. Saat dua teman sedang berdekatan, atau seseorang mengadakan meetup tanpa tempat, Kafumu bisa menyarankan tempat duduk. Itu bisa tempatmu.",
   "cafes.point1": "Hanya ditampilkan di areamu (sekitar 5 km), hanya kepada orang yang minatnya cocok, dan diberi label jelas.",
@@ -595,5 +595,11 @@
   "js.online_eo": "Acara Esperanto daring",
   "biz.paid_feature": "Itu alat kantor: berfungsi selama akun bisnis masih dalam bulan gratis atau sudah dibayar.",
   "biz.paused_note": "Dijeda sampai dibayar: pengelola tambahan, kartu dan kontak yang tersinkron, halaman @nama. Mengadakan pertemuan dan memposting atas nama bisnis tetap gratis, dan tidak ada yang dihapus.",
-  "biz.profile_paused": "Akun bisnis ini sedang dijeda."
+  "biz.profile_paused": "Akun bisnis ini sedang dijeda.",
+  "patrons.pww_title": "Bayar semaumu",
+  "patrons.pww_text": "Saran: €2 per bulan untuk jadi patron (kamu memakai sayapnya), €5 per bulan untuk akun bisnis; minimal €1. Lewat salah satu cara di atas, sekali atau tiap bulan.",
+  "patrons.pww_ref": "Tulis ini di catatan pembayaran:",
+  "patrons.pww_noname": "Pilih nama pengguna dulu, supaya kami tahu milik siapa.",
+  "patrons.pww_after": "Kami menyalakan sayapmu atau tanggal lunas bisnismu secara manual, biasanya dalam satu-dua hari.",
+  "biz.pay_link": "Cara membayar"
 }
