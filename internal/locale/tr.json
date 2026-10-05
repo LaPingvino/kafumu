@@ -601,5 +601,6 @@
   "patrons.pww_ref": "Ödeme açıklamasına bunu yaz:",
   "patrons.pww_noname": "Önce bir kullanıcı adı seç ki kimin olduğunu bilelim.",
   "patrons.pww_after": "Kanatlarını ya da işletmenin ödeme tarihini elle ayarlarız, genellikle bir iki gün içinde.",
-  "biz.pay_link": "Nasıl ödenir"
+  "biz.pay_link": "Nasıl ödenir",
+  "biz.personal_part": "Bu kısım işletmeyle değil seninle ilgili: değiştirmek için kendine geç."
 }

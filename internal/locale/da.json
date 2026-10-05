@@ -601,5 +601,6 @@
   "patrons.pww_ref": "Skriv dette i betalingsteksten:",
   "patrons.pww_noname": "Vælg først et brugernavn, så vi ved, hvis det er.",
   "patrons.pww_after": "Vi slår dine vinger eller virksomhedens betalt-til-dato til i hånden, som regel inden for en dag eller to.",
-  "biz.pay_link": "Sådan betaler du"
+  "biz.pay_link": "Sådan betaler du",
+  "biz.personal_part": "Denne del handler om dig, ikke virksomheden: skift til dig selv for at ændre den."
 }

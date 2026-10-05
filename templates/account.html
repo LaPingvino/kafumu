@@ -19,6 +19,14 @@
     {{if .BrandAdmin}}<p><a href="/brand" role="button" class="pill">🎨 {{.Brand}} →</a></p>{{end}}
     {{if .New}}<p><strong>{{t .Lang "account.created"}}</strong></p>{{end}}
     {{if .Next}}<p><a href="{{.Next}}" role="button" class="pill suggested">{{t .Lang "account.continue"}}</a></p>{{end}}
+    {{with .Acting}}<h2><svg class="wings{{if not (.Live $.Now)}} off{{end}}"><use href="#i-wings"/></svg> {{.Name}}</h2>
+    <h2>{{t $.Lang "account.name_title"}}</h2>
+    <form method="post" action="/business/{{.ID}}/name" class="inline"><input type="hidden" name="next" value="/account">
+      <input name="username" value="{{.Username}}" placeholder="cafe-x" pattern="@?[A-Za-z0-9_\-]{3,30}" aria-label="{{ts $.Lang "account.name_title"}}">
+      <button type="submit">{{t $.Lang "account.save"}}</button></form>
+    <p class="dim small">{{if .Username}}<a href="/@{{.Username}}">kafumu.com/@{{.Username}}</a> · {{end}}{{t $.Lang "biz.username_note"}}</p>
+    <p><a href="/business" role="button" class="pill">🏪 {{t $.Lang "biz.title"}} →</a></p>
+    <fieldset disabled class="personal-only"><legend class="dim small">{{t $.Lang "biz.personal_part"}}</legend>{{end}}
     <h2>{{t .Lang "account.link_title"}}</h2>
     <p>{{t .Lang "account.link_explain"}}</p>
     <p class="magic"><input readonly value="{{.MagicURL}}" onclick="this.select()" aria-label="{{ts .Lang "account.link_title"}}">
@@ -44,6 +52,7 @@
       <form method="post" action="/oauth/login" class="inline"><input name="handle" placeholder="you.bsky.social" autocomplete="username" aria-label="Handle">
         <button type="submit" class="pill">{{t .Lang "atproto.connect"}}</button></form>
     {{end}}{{end}}
+    {{if .Acting}}</fieldset>{{end}}
     <p class="dim"><a href="/findable">👁 {{t .Lang "profile.title"}} →</a></p>
     {{else}}
 
@@ -138,7 +147,7 @@
     <form method="post" action="/account/signout"><button type="submit" class="secondary">{{t .Lang "account.signout"}}</button></form>
     <form method="post" action="/account/delete" onsubmit="return confirm(this.dataset.q)" data-q="{{ts .Lang "account.delete_confirm"}}">
       <input type="hidden" name="confirm" value="yes">
-      <button type="submit" class="contrast">{{t .Lang "account.delete"}}</button>
+      <fieldset{{if .Acting}} disabled class="personal-only" title="{{ts .Lang "biz.personal_part"}}"{{end}}><button type="submit" class="contrast">{{t .Lang "account.delete"}}</button></fieldset>
     </form>
     </div>{{end}}
   {{end}}

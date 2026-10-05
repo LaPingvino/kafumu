@@ -227,6 +227,10 @@ try {
     await A.waitFor("location.search.includes('new=1') && document.body.textContent.includes('Café Teste " + RUN + "')", "business account created");
     // Created means switched to it: the username button wears its name.
     await A.waitFor("(document.querySelector('nav a.acting') || {}).textContent?.includes('Café Teste " + RUN + "')", "switched to the business after creating it");
+    // The account page swaps with it: the business's username is set there,
+    // and what's about you is shown greyed (disabled).
+    await A.goto(base + "/account");
+    await A.waitFor("!!document.querySelector('form[action$=\"/name\"] input[name=next][value=\"/account\"]') && !!document.querySelector('fieldset.personal-only[disabled]')", "account page swapped to the business");
     await A.waitFor("!!document.querySelector('nav a.acting svg.wings:not(.off)')", "gold wings on the username button (trial = live)");
     await A.goto(base + "/meetups/new");
     await A.waitFor("!!document.querySelector('#meetup-form select[name=as]')", "host-as choice");
@@ -489,7 +493,7 @@ try {
     await X.evaluate("fetch('/account/delete', { method: 'POST', body: new URLSearchParams({ confirm: 'yes' }), credentials: 'same-origin' }).then(() => true)");
   }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, business account + switched to it + host as preselected + own @name page + separate business card + its own named link (Connect on its page) + findable like a person + its public inbox + synced to a second manager device (server key) + handed the key to a third device with a matching code (private) + switched back, findable profile seen, named link, paid inbox message + connect back, OLN message + private answer both ways + reaction + elsewhere + travelling + tour + report + question/answer + composer tag suggestions + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, business account + switched to it (account page swaps) + host as preselected + own @name page + separate business card + its own named link (Connect on its page) + findable like a person + its public inbox + synced to a second manager device (server key) + handed the key to a third device with a matching code (private) + switched back, findable profile seen, named link, paid inbox message + connect back, OLN message + private answer both ways + reaction + elsewhere + travelling + tour + report + question/answer + composer tag suggestions + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

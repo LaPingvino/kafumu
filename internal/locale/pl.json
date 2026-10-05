@@ -601,5 +601,6 @@
   "patrons.pww_ref": "Wpisz to w tytule płatności:",
   "patrons.pww_noname": "Najpierw wybierz nazwę użytkownika, żebyśmy wiedzieli, czyje to.",
   "patrons.pww_after": "Skrzydła lub datę opłacenia firmy ustawiamy ręcznie, zwykle w ciągu dnia lub dwóch.",
-  "biz.pay_link": "Jak zapłacić"
+  "biz.pay_link": "Jak zapłacić",
+  "biz.personal_part": "Ta część dotyczy ciebie, nie firmy: przełącz się na siebie, by ją zmienić."
 }

@@ -601,5 +601,6 @@
   "patrons.pww_ref": "Put this in the payment note:",
   "patrons.pww_noname": "Give yourself a username first, so we know whose it is.",
   "patrons.pww_after": "We set your wings or your business's paid-until date by hand, usually within a day or two.",
-  "biz.pay_link": "How to pay"
+  "biz.pay_link": "How to pay",
+  "biz.personal_part": "This part is about you, not the business: switch to yourself to change it."
 }

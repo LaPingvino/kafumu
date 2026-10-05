@@ -601,5 +601,6 @@
   "patrons.pww_ref": "Indique ceci dans le libellé du paiement :",
   "patrons.pww_noname": "Choisis d'abord un nom d'utilisateur, pour qu'on sache à qui c'est.",
   "patrons.pww_after": "Nous activons tes ailes ou la date de paiement de ton entreprise à la main, en général sous un ou deux jours.",
-  "biz.pay_link": "Comment payer"
+  "biz.pay_link": "Comment payer",
+  "biz.personal_part": "Cette partie te concerne, pas l'entreprise : repasse à toi pour la modifier."
 }

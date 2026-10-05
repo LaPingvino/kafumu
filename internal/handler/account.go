@@ -135,6 +135,8 @@ func (a *Accounts) show(w http.ResponseWriter, r *http.Request, findable bool) {
 		p.Error = locale.T(p.Lang, "account.err_taken")
 	case "invalid":
 		p.Error = locale.T(p.Lang, "account.err_invalid")
+	case "paid":
+		p.Error = locale.T(p.Lang, "biz.paid_feature")
 	}
 	a.Home.render(w, "account.html", p)
 }

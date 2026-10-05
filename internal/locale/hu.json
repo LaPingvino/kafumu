@@ -601,5 +601,6 @@
   "patrons.pww_ref": "Írd ezt a közleménybe:",
   "patrons.pww_noname": "Előbb válassz felhasználónevet, hogy tudjuk, kié.",
   "patrons.pww_after": "A szárnyat vagy a vállalkozás fizetési dátumát kézzel állítjuk be, általában egy-két napon belül.",
-  "biz.pay_link": "Hogyan fizess"
+  "biz.pay_link": "Hogyan fizess",
+  "biz.personal_part": "Ez a rész rólad szól, nem a vállalkozásról: válts magadra a módosításhoz."
 }

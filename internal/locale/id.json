@@ -601,5 +601,6 @@
   "patrons.pww_ref": "Tulis ini di catatan pembayaran:",
   "patrons.pww_noname": "Pilih nama pengguna dulu, supaya kami tahu milik siapa.",
   "patrons.pww_after": "Kami menyalakan sayapmu atau tanggal lunas bisnismu secara manual, biasanya dalam satu-dua hari.",
-  "biz.pay_link": "Cara membayar"
+  "biz.pay_link": "Cara membayar",
+  "biz.personal_part": "Bagian ini tentang kamu, bukan bisnisnya: beralih ke dirimu untuk mengubahnya."
 }

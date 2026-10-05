@@ -601,5 +601,6 @@
   "patrons.pww_ref": "Skriv detta i betalningsmeddelandet:",
   "patrons.pww_noname": "Välj först ett användarnamn, så vi vet vems det är.",
   "patrons.pww_after": "Vi slår på dina vingar eller företagets betalt-till-datum för hand, oftast inom en dag eller två.",
-  "biz.pay_link": "Så betalar du"
+  "biz.pay_link": "Så betalar du",
+  "biz.personal_part": "Den här delen gäller dig, inte företaget: byt till dig själv för att ändra den."
 }

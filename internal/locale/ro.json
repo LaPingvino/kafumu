@@ -601,5 +601,6 @@
   "patrons.pww_ref": "Scrie asta în detaliile plății:",
   "patrons.pww_noname": "Alege mai întâi un nume de utilizator, ca să știm a cui e plata.",
   "patrons.pww_after": "Activăm aripile sau data de plată a firmei tale manual, de obicei în una-două zile.",
-  "biz.pay_link": "Cum plătești"
+  "biz.pay_link": "Cum plătești",
+  "biz.personal_part": "Această parte e despre tine, nu despre firmă: comută pe tine ca s-o schimbi."
 }

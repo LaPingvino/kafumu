@@ -108,35 +108,39 @@ func (h *Businesses) Name(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
+	back := "/business"
+	if localPath(r.FormValue("next")) == "/account" {
+		back = "/account"
+	}
 	name := strings.ToLower(strings.TrimPrefix(strings.TrimSpace(r.FormValue("username")), "@"))
 	if name == b.Username {
-		http.Redirect(w, r, "/business", http.StatusSeeOther)
+		http.Redirect(w, r, back, http.StatusSeeOther)
 		return
 	}
 	if !account.ValidUsername(name) {
-		http.Redirect(w, r, "/business?err=invalid", http.StatusSeeOther)
+		http.Redirect(w, r, back+"?err=invalid", http.StatusSeeOther)
 		return
 	}
 	if !b.Live(time.Now()) {
-		http.Redirect(w, r, "/business?err=paid", http.StatusSeeOther)
+		http.Redirect(w, r, back+"?err=paid", http.StatusSeeOther)
 		return
 	}
 	if err := h.Accounts.Svc.Store.ClaimUsername(r.Context(), name, "biz:"+b.ID); err != nil {
-		http.Redirect(w, r, "/business?err=taken", http.StatusSeeOther)
+		http.Redirect(w, r, back+"?err=taken", http.StatusSeeOther)
 		return
 	}
 	old := b.Username
 	b.Username = name
 	if err := h.Store.Save(r.Context(), b); err != nil {
 		_ = h.Accounts.Svc.Store.ReleaseUsername(r.Context(), name, "biz:"+b.ID)
-		http.Redirect(w, r, "/business", http.StatusSeeOther)
+		http.Redirect(w, r, back, http.StatusSeeOther)
 		return
 	}
 	if old != "" {
 		_ = h.Accounts.Svc.Store.ReleaseUsername(r.Context(), old, "biz:"+b.ID)
 	}
 	h.Home.forgetBiz(b.ID)
-	http.Redirect(w, r, "/business", http.StatusSeeOther)
+	http.Redirect(w, r, back, http.StatusSeeOther)
 }
 
 type bizProfilePage struct {

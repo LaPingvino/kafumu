@@ -601,5 +601,6 @@
   "patrons.pww_ref": "Scrivi questo nella causale:",
   "patrons.pww_noname": "Scegli prima un nome utente, così sappiamo di chi è.",
   "patrons.pww_after": "Attiviamo a mano le tue ali o la data di pagamento della tua attività, di solito entro un giorno o due.",
-  "biz.pay_link": "Come pagare"
+  "biz.pay_link": "Come pagare",
+  "biz.personal_part": "Questa parte riguarda te, non l'attività: passa a te stesso per modificarla."
 }

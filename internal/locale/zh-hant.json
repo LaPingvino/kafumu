@@ -601,5 +601,6 @@
   "patrons.pww_ref": "請在付款備註中寫上：",
   "patrons.pww_noname": "請先設定使用者名稱，這樣我們才知道是誰付的。",
   "patrons.pww_after": "我們會手動開啟你的翅膀或商家的付費截止日期，通常在一兩天內。",
-  "biz.pay_link": "如何付款"
+  "biz.pay_link": "如何付款",
+  "biz.personal_part": "這部分與你本人有關，而不是商家：切換回你自己才能修改。"
 }

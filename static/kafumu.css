@@ -316,3 +316,7 @@ a.acting span svg.wings.off { color: #c8c8c8; }
 .badge.new-count { background: var(--accent-bg); color: var(--accent-fg); }
 
 .brand-tagline { font-size: 1.1em; margin: .2em 0 .8em; }
+
+/* Acting as a business: the parts about you are shown, greyed, not editable. */
+fieldset.personal-only { opacity: .5; border: 0; padding: 0; margin: 0; }
+fieldset.personal-only legend { opacity: 1; }

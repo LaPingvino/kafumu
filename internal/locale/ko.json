@@ -601,5 +601,6 @@
   "patrons.pww_ref": "결제 메모에 이걸 적어 주세요:",
   "patrons.pww_noname": "먼저 사용자 이름을 정해 주세요. 누구의 결제인지 알 수 있게요.",
   "patrons.pww_after": "날개나 비즈니스의 결제 만료일은 직접 설정해요. 보통 하루 이틀 안에요.",
-  "biz.pay_link": "결제 방법"
+  "biz.pay_link": "결제 방법",
+  "biz.personal_part": "이 부분은 비즈니스가 아니라 나에 관한 거예요: 바꾸려면 나로 전환하세요."
 }

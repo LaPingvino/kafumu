@@ -601,5 +601,6 @@
   "patrons.pww_ref": "Napiš tohle do poznámky k platbě:",
   "patrons.pww_noname": "Nejdřív si zvol uživatelské jméno, ať víme, čí to je.",
   "patrons.pww_after": "Křídla nebo datum zaplacení firmy zapínáme ručně, obvykle do jednoho dvou dnů.",
-  "biz.pay_link": "Jak zaplatit"
+  "biz.pay_link": "Jak zaplatit",
+  "biz.personal_part": "Tahle část se týká tebe, ne firmy: přepni na sebe, abys ji změnil."
 }

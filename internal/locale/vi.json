@@ -601,5 +601,6 @@
   "patrons.pww_ref": "Ghi điều này vào nội dung thanh toán:",
   "patrons.pww_noname": "Hãy chọn tên người dùng trước, để chúng tôi biết là của ai.",
   "patrons.pww_after": "Chúng tôi bật đôi cánh hoặc ngày thanh toán của doanh nghiệp bạn thủ công, thường trong một hai ngày.",
-  "biz.pay_link": "Cách thanh toán"
+  "biz.pay_link": "Cách thanh toán",
+  "biz.personal_part": "Phần này là về bạn, không phải doanh nghiệp: chuyển về chính bạn để thay đổi."
 }

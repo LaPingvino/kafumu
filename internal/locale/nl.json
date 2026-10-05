@@ -601,5 +601,6 @@
   "patrons.pww_ref": "Zet dit in de betaalomschrijving:",
   "patrons.pww_noname": "Kies eerst een gebruikersnaam, zodat we weten van wie het is.",
   "patrons.pww_after": "We zetten je vleugels of de betaald-tot-datum van je bedrijf met de hand, meestal binnen een dag of twee.",
-  "biz.pay_link": "Hoe betalen"
+  "biz.pay_link": "Hoe betalen",
+  "biz.personal_part": "Dit deel gaat over jou, niet over het bedrijf: wissel naar jezelf om het te wijzigen."
 }

@@ -601,5 +601,6 @@
   "patrons.pww_ref": "Schreib das in den Verwendungszweck:",
   "patrons.pww_noname": "Gib dir zuerst einen Benutzernamen, damit wir wissen, von wem es ist.",
   "patrons.pww_after": "Wir schalten deine Flügel oder das Bezahlt-bis-Datum deines Unternehmens von Hand frei, meist innerhalb von ein, zwei Tagen.",
-  "biz.pay_link": "So zahlst du"
+  "biz.pay_link": "So zahlst du",
+  "biz.personal_part": "Dieser Teil betrifft dich, nicht das Unternehmen: Wechsle zu dir, um ihn zu ändern."
 }

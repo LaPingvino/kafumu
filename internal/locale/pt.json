@@ -601,5 +601,6 @@
   "patrons.pww_ref": "Escreve isto na nota do pagamento:",
   "patrons.pww_noname": "Escolhe primeiro um nome de utilizador, para sabermos de quem é.",
   "patrons.pww_after": "Ativamos as tuas asas ou a data de pagamento da tua empresa à mão, normalmente em um ou dois dias.",
-  "biz.pay_link": "Como pagar"
+  "biz.pay_link": "Como pagar",
+  "biz.personal_part": "Esta parte é sobre ti, não sobre a empresa: muda para ti para a alterar."
 }
