@@ -551,5 +551,9 @@
   "footer.on_kafumu": "på Kafumu",
   "footer.issues": "idéer og fejl",
   "js.queued_offline": "Du er offline: dit kort sendes, så snart du er online igen.",
-  "js.pending_send": "venter på at blive sendt"
+  "js.pending_send": "venter på at blive sendt",
+  "biz.use_as": "Brug Kafumu som",
+  "biz.personal": "Dig selv",
+  "js.nudge_biz": "Tak fordi du oprettede en virksomhedskonto! Du bruger Kafumu som {name}: møder, du opretter, står i dens navn.",
+  "js.nudge_biz_go": "Administrer"
 }

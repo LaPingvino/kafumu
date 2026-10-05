@@ -551,5 +551,9 @@
   "footer.on_kafumu": "su Kafumu",
   "footer.issues": "idee e bug",
   "js.queued_offline": "Sei offline: il tuo biglietto partirà appena torni online.",
-  "js.pending_send": "in attesa di invio"
+  "js.pending_send": "in attesa di invio",
+  "biz.use_as": "Usa Kafumu come",
+  "biz.personal": "Te stesso",
+  "js.nudge_biz": "Grazie per aver creato un account aziendale! Stai usando Kafumu come {name}: gli incontri che crei sono a suo nome.",
+  "js.nudge_biz_go": "Gestisci"
 }

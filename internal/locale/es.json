@@ -551,5 +551,9 @@
   "footer.on_kafumu": "en Kafumu",
   "footer.issues": "ideas y errores",
   "js.queued_offline": "Estás sin conexión: tu tarjeta saldrá en cuanto vuelvas a tener red.",
-  "js.pending_send": "esperando para enviar"
+  "js.pending_send": "esperando para enviar",
+  "biz.use_as": "Usar Kafumu como",
+  "biz.personal": "Tú mismo",
+  "js.nudge_biz": "¡Gracias por crear una cuenta de empresa! Estás usando Kafumu como {name}: los encuentros que crees irán a su nombre.",
+  "js.nudge_biz_go": "Gestionar"
 }

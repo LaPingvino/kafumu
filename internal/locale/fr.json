@@ -551,5 +551,9 @@
   "footer.on_kafumu": "sur Kafumu",
   "footer.issues": "idées et bugs",
   "js.queued_offline": "Tu es hors ligne : ta carte partira dès que tu seras de nouveau connecté.",
-  "js.pending_send": "en attente d'envoi"
+  "js.pending_send": "en attente d'envoi",
+  "biz.use_as": "Utiliser Kafumu en tant que",
+  "biz.personal": "Toi-même",
+  "js.nudge_biz": "Merci d'avoir créé un compte professionnel ! Tu utilises Kafumu en tant que {name} : les rencontres que tu crées sont à son nom.",
+  "js.nudge_biz_go": "Gérer"
 }

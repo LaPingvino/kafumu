@@ -551,5 +551,9 @@
   "footer.on_kafumu": "trên Kafumu",
   "footer.issues": "ý tưởng và lỗi",
   "js.queued_offline": "Bạn đang ngoại tuyến: danh thiếp sẽ được gửi ngay khi có mạng.",
-  "js.pending_send": "đang chờ gửi"
+  "js.pending_send": "đang chờ gửi",
+  "biz.use_as": "Dùng Kafumu với tư cách",
+  "biz.personal": "Chính bạn",
+  "js.nudge_biz": "Cảm ơn bạn đã tạo tài khoản doanh nghiệp! Bạn đang dùng Kafumu với tư cách {name}: các buổi gặp bạn tạo sẽ mang tên này.",
+  "js.nudge_biz_go": "Quản lý"
 }

@@ -551,5 +551,9 @@
   "footer.on_kafumu": "Kafumu에서",
   "footer.issues": "아이디어와 버그",
   "js.queued_offline": "오프라인이에요: 다시 연결되면 카드를 보낼게요.",
-  "js.pending_send": "전송 대기 중"
+  "js.pending_send": "전송 대기 중",
+  "biz.use_as": "Kafumu 사용 이름",
+  "biz.personal": "나",
+  "js.nudge_biz": "비즈니스 계정을 만들어 주셔서 감사합니다! 지금 {name}(으)로 Kafumu를 사용 중이에요. 만드는 모임은 이 이름으로 열립니다.",
+  "js.nudge_biz_go": "관리"
 }

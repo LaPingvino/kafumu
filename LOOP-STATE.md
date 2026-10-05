@@ -446,6 +446,20 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       characters it broke the 500-character text limit meant for readable text. Pair notes now have MaxPairText
       (3000 bytes: 500 characters of any script); public notes keep 500 code points. pair.js cuts at whole code
       points (never half an emoji). Fuzz sends lines up to the limit in 1–4-byte scripts (old server: 400).
+- [x] 71. Acting as a business (Joop: "don't see how to switch… under the username button… switch after creating
+      it"; "nudges say thanks…"; "the previous way was very subtle, you can't get people to pay for that"): cookie
+      kafumu_as, checked per page against the business (1-minute cache) and that you manage it; the username button
+      shows "🏢 Name" as a badge; /account has "Use Kafumu as" (you / each business); creating one switches to it;
+      meetups/new preselects it; the nudge bar thanks you instead. Browser test: switched, preselected, back.
+- [ ] 72. Business swag (Joop: "Lichess-style icon… even when you don't organize anything… sad grey when the trial is
+      over or they didn't pay"): a business badge (patron-wings-like icon) next to the business's name wherever it
+      shows (meetups, named OLN posts as the business, the profile); coloured while Live, grey when not.
+- [ ] 73. Paid until (Joop: "when putting on active, add a 'paid until' date, and configure active beyond or
+      inactive beyond that date"): admin sets Status active + PaidUntil + AfterPaid (stay active / go inactive);
+      Live() honours it; the business page shows "paid until"; admin follow-up lists those past PaidUntil.
+- [ ] 74. Admin OLN tools, complete (Joop: "doesn't enable me to remove stored but not live, or to see all live
+      messages"): list all live messages (paged, newest first, with cell, bits, author, expiry, hide/delete), and a
+      purge of stored-but-expired/hidden notes now (not waiting for the TTL policy), with counts.
 - [ ] 69. Private answers to anonymous posts (Joop: "OLN should also enable privately answering anonymous
       posts"): posting, the device makes a reply key per post (P-256) and adds its public half as a keyword
       (#rk<b64>; format-level, any OLN client can use it). Answering: encrypt to it (ephemeral ECDH), post as a

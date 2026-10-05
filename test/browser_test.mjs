@@ -201,12 +201,19 @@ try {
     await A.goto(base + "/business");
     await A.evaluate("(() => { const f = document.querySelector('form[action=\"/business\"]'); f.name.value = 'Café Teste " + RUN + "'; f.kind.value = 'cafe'; f.requestSubmit(); return true; })()");
     await A.waitFor("location.search.includes('new=1') && document.body.textContent.includes('Café Teste " + RUN + "')", "business account created");
+    // Created means switched to it: the username button wears its name.
+    await A.waitFor("(document.querySelector('nav a.acting') || {}).textContent?.includes('Café Teste " + RUN + "')", "switched to the business after creating it");
     await A.goto(base + "/meetups/new");
     await A.waitFor("!!document.querySelector('#meetup-form select[name=as]')", "host-as choice");
+    await A.waitFor("document.querySelector('#meetup-form select[name=as]').selectedIndex === 1", "acting business preselected as host");
     await A.evaluate("(() => { const f = document.getElementById('meetup-form'); f.as.selectedIndex = 1; f.title.value = 'Business test kafo'; f.cell.value = '6fg222'; f.requestSubmit(); return true; })()");
     await A.waitFor("location.pathname.startsWith('/meetups/') && document.body.textContent.includes('Café Teste " + RUN + "')", "meetup hosted by the business");
     await A.evaluate("window.confirm = () => true; document.querySelector('form[action$=\"/delete\"]').requestSubmit(); true");
     await sleep(1000);
+    // Switch back to yourself from the account page.
+    await A.goto(base + "/account");
+    await A.evaluate("document.querySelector('form.use-as button[value=\"\"]').click(); true");
+    await A.waitFor("location.pathname === '/account' && !document.querySelector('nav a.acting')", "switched back to yourself");
   }
 
   // Discoverable: A names itself, speaks Esperanto, becomes visible; B sees A.
@@ -367,7 +374,7 @@ try {
     await X.evaluate("fetch('/account/delete', { method: 'POST', body: new URLSearchParams({ confirm: 'yes' }), credentials: 'same-origin' }).then(() => true)");
   }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, business account + host as, findable profile seen, named link, paid inbox message + connect back, OLN message + reaction + elsewhere + travelling + tour + report + question/answer + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, business account + switched to it + host as preselected + switched back, findable profile seen, named link, paid inbox message + connect back, OLN message + reaction + elsewhere + travelling + tour + report + question/answer + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

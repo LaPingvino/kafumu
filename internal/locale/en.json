@@ -551,5 +551,9 @@
   "footer.on_kafumu": "on Kafumu",
   "footer.issues": "ideas and bugs",
   "js.queued_offline": "You're offline: your card goes out as soon as you're back online.",
-  "js.pending_send": "waiting to send"
+  "js.pending_send": "waiting to send",
+  "biz.use_as": "Use Kafumu as",
+  "biz.personal": "Yourself",
+  "js.nudge_biz": "Thanks for creating a business account! You're using Kafumu as {name}: meetups you create are hosted under its name.",
+  "js.nudge_biz_go": "Manage"
 }

@@ -551,5 +551,9 @@
   "footer.on_kafumu": "di Kafumu",
   "footer.issues": "ide dan bug",
   "js.queued_offline": "Kamu sedang offline: kartumu dikirim begitu kamu online lagi.",
-  "js.pending_send": "menunggu dikirim"
+  "js.pending_send": "menunggu dikirim",
+  "biz.use_as": "Gunakan Kafumu sebagai",
+  "biz.personal": "Diri sendiri",
+  "js.nudge_biz": "Terima kasih telah membuat akun bisnis! Kamu menggunakan Kafumu sebagai {name}: pertemuan yang kamu buat diselenggarakan atas namanya.",
+  "js.nudge_biz_go": "Kelola"
 }

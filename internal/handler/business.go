@@ -55,10 +55,12 @@ func (h *Businesses) Create(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/business", http.StatusSeeOther)
 		return
 	}
-	if _, err := h.Store.Create(r.Context(), r.FormValue("name"), r.FormValue("kind"), r.FormValue("contact"), u.ID, time.Now()); err != nil {
+	b, err := h.Store.Create(r.Context(), r.FormValue("name"), r.FormValue("kind"), r.FormValue("contact"), u.ID, time.Now())
+	if err != nil {
 		http.Redirect(w, r, "/business", http.StatusSeeOther)
 		return
 	}
+	setAs(w, b.ID) // straight into using it (Joop)
 	log.Printf("business: created by %s", u.ID[:8])
 	http.Redirect(w, r, "/business?new=1", http.StatusSeeOther)
 }
@@ -80,5 +82,6 @@ func (h *Businesses) Managers(w http.ResponseWriter, r *http.Request) {
 		b.Managers = slices.DeleteFunc(b.Managers, func(x string) bool { return x == rm })
 	}
 	_ = h.Store.Save(r.Context(), b)
+	h.Home.forgetBiz(b.ID)
 	http.Redirect(w, r, "/business", http.StatusSeeOther)
 }

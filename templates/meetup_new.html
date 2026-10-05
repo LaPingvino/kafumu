@@ -29,7 +29,7 @@
     <span class="inline-row"><input name="cell" required pattern="[23456789cfghjmpqrvwxCFGHJMPQRVWX]{6}" maxlength="6" placeholder="______">
     <button type="button" id="use-location">{{t .Lang "meetup.use_location"}}</button></span></label>
   {{if .HostAs}}<label>{{t .Lang "biz.host_as"}}<select name="as"><option value="">{{if .User}}@{{.User.Username}}{{end}}</option>
-    {{range .HostAs}}<option value="{{.ID}}">{{.Name}}</option>{{end}}</select></label>{{end}}
+    {{range .HostAs}}<option value="{{.ID}}"{{if and $.Acting (eq $.Acting.ID .ID)}} selected{{end}}>{{.Name}}</option>{{end}}</select></label>{{end}}
   <label>{{t .Lang "meetup.field_tags"}}<input name="tags" maxlength="200" placeholder="{{ts .Lang "meetup.tags_placeholder"}}"></label>
   <label>{{t .Lang "meetup.field_text"}}<textarea name="text" rows="3" maxlength="1000"></textarea></label>
   <label>{{t .Lang "meetup.field_link"}}<input name="link" type="url" maxlength="500" placeholder="https://lu.ma/…"></label>

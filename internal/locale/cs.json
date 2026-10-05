@@ -551,5 +551,9 @@
   "footer.on_kafumu": "na Kafumu",
   "footer.issues": "nápady a chyby",
   "js.queued_offline": "Jsi offline: vizitka odejde, jakmile budeš zase online.",
-  "js.pending_send": "čeká na odeslání"
+  "js.pending_send": "čeká na odeslání",
+  "biz.use_as": "Používat Kafumu jako",
+  "biz.personal": "Ty sám",
+  "js.nudge_biz": "Díky za založení firemního účtu! Používáš Kafumu jako {name}: setkání, která vytvoříš, jsou pod jeho jménem.",
+  "js.nudge_biz_go": "Spravovat"
 }

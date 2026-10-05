@@ -551,5 +551,9 @@
   "footer.on_kafumu": "Kafumu'da",
   "footer.issues": "fikirler ve hatalar",
   "js.queued_offline": "Çevrimdışısın: kartın tekrar bağlandığında gidecek.",
-  "js.pending_send": "gönderilmeyi bekliyor"
+  "js.pending_send": "gönderilmeyi bekliyor",
+  "biz.use_as": "Kafumu'yu şu olarak kullan",
+  "biz.personal": "Kendin",
+  "js.nudge_biz": "İşletme hesabı oluşturduğun için teşekkürler! Kafumu'yu {name} olarak kullanıyorsun: oluşturduğun buluşmalar onun adına olur.",
+  "js.nudge_biz_go": "Yönet"
 }

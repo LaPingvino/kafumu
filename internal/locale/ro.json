@@ -551,5 +551,9 @@
   "footer.on_kafumu": "pe Kafumu",
   "footer.issues": "idei și erori",
   "js.queued_offline": "Ești offline: cardul tău pleacă imediat ce revii online.",
-  "js.pending_send": "așteaptă trimiterea"
+  "js.pending_send": "așteaptă trimiterea",
+  "biz.use_as": "Folosește Kafumu ca",
+  "biz.personal": "Tu",
+  "js.nudge_biz": "Mulțumim că ai creat un cont de firmă! Folosești Kafumu ca {name}: întâlnirile pe care le creezi apar în numele ei.",
+  "js.nudge_biz_go": "Gestionează"
 }

@@ -551,5 +551,9 @@
   "footer.on_kafumu": "w Kafumu",
   "footer.issues": "pomysły i błędy",
   "js.queued_offline": "Jesteś offline: twoja wizytówka wyjdzie, gdy wróci sieć.",
-  "js.pending_send": "czeka na wysłanie"
+  "js.pending_send": "czeka na wysłanie",
+  "biz.use_as": "Używaj Kafumu jako",
+  "biz.personal": "Ty",
+  "js.nudge_biz": "Dzięki za założenie konta firmowego! Używasz Kafumu jako {name}: spotkania, które tworzysz, są na jego nazwę.",
+  "js.nudge_biz_go": "Zarządzaj"
 }

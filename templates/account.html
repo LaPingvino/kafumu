@@ -12,6 +12,10 @@
     {{if .Passkeys}}<p><button type="button" id="passkey-login" class="pill" hidden>🔑 {{t .Lang "passkey.signin"}}</button></p>
     <p id="passkey-status" class="dim small" role="status"></p>{{end}}
   {{else}}{{if not .Findable}}
+    {{if .MyBiz}}<form method="post" action="/account/as" class="use-as"><p><strong>{{t .Lang "biz.use_as"}}</strong><br>
+      <button type="submit" name="id" value="" class="{{if .Acting}}secondary {{end}}pill-sm">{{if .User.Username}}@{{.User.Username}}{{else}}{{t .Lang "biz.personal"}}{{end}}</button>
+      {{range .MyBiz}}<button type="submit" name="id" value="{{.ID}}" class="{{if not (and $.Acting (eq $.Acting.ID .ID))}}secondary {{end}}pill-sm">🏢 {{.Name}}</button>
+      {{end}}</p></form>{{end}}
     {{if .New}}<p><strong>{{t .Lang "account.created"}}</strong></p>{{end}}
     {{if .Next}}<p><a href="{{.Next}}" role="button" class="pill suggested">{{t .Lang "account.continue"}}</a></p>{{end}}
     <h2>{{t .Lang "account.link_title"}}</h2>

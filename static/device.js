@@ -581,8 +581,14 @@
   // this device is lost: suggest an account, a username and a passkey.
   // Dismissed, it stays away for a week.
   function suggestAccount() {
-    if (typeof document === "undefined" || !document.body || /^\/(account|findable)/.test(location.pathname)) return;
+    if (typeof document === "undefined" || !document.body || /^\/(account|findable|business)/.test(location.pathname)) return;
     var b = document.body.dataset, key = "kafumu.accountNudge";
+    if (b.acting) { // using Kafumu as a business: thanks instead (Joop)
+      var T0 = window.KAFUMU_T || {}, k2 = "kafumu.bizNudge";
+      try { if (Date.now() - parseInt(localStorage.getItem(k2) || "0", 10) < 7 * 864e5) return; } catch (e) { return; }
+      bar((T0.nudge_biz || "Thanks for creating a business account! You're using Kafumu as {name}.").replace("{name}", b.acting), T0.nudge_biz_go || "Manage", "/business", k2);
+      return;
+    }
     try { if (Date.now() - parseInt(localStorage.getItem(key) || "0", 10) < 7 * 864e5) return; } catch (e) { return; }
     if (b.signedIn && b.named && b.passkey) return;
     Promise.all([store.contacts(), store.get("card")]).then(function (r) {

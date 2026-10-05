@@ -551,5 +551,9 @@
   "footer.on_kafumu": "ĉe Kafumu",
   "footer.issues": "ideoj kaj cimoj",
   "js.queued_offline": "Vi estas senkonekta: via karto foriros tuj kiam vi rekonektiĝos.",
-  "js.pending_send": "atendas sendon"
+  "js.pending_send": "atendas sendon",
+  "biz.use_as": "Uzi Kafumu kiel",
+  "biz.personal": "Vi mem",
+  "js.nudge_biz": "Dankon pro krei komercan konton! Vi uzas Kafumu kiel {name}: renkontiĝoj, kiujn vi kreas, aperas sub ĝia nomo.",
+  "js.nudge_biz_go": "Administri"
 }

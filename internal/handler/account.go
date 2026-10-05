@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"github.com/LaPingvino/kafumu/internal/business"
 	"github.com/LaPingvino/kafumu/internal/handle"
 	"github.com/LaPingvino/kafumu/internal/vault"
 	"html/template"
@@ -65,7 +66,9 @@ func (a *Accounts) Middleware(next http.Handler) http.Handler {
 
 type accountPage struct {
 	page
-	MyLangs  []myLang
+	MyLangs []myLang
+	// MyBiz: the businesses you manage, to switch to (acting.go).
+	MyBiz    []*business.Business
 	Visible  bool
 	MagicURL string
 	Next     string
@@ -93,6 +96,9 @@ func (a *Accounts) show(w http.ResponseWriter, r *http.Request, findable bool) {
 	}
 	p.New = r.URL.Query().Get("new") == "1"
 	if u := p.User; u != nil {
+		if a.Home.Biz != nil && !findable {
+			p.MyBiz, _ = a.Home.Biz.ForUser(r.Context(), u.ID)
+		}
 		p.Visible = u.Visible(time.Now())
 		for _, l := range u.Langs {
 			code, lvl, _ := strings.Cut(l, "/")

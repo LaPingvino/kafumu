@@ -5,6 +5,7 @@ import (
 	"cloud.google.com/go/datastore"
 	"context"
 	"encoding/json"
+	"github.com/LaPingvino/kafumu/internal/business"
 	"github.com/LaPingvino/kafumu/internal/report"
 	"html/template"
 	"log"
@@ -37,6 +38,9 @@ const (
 )
 
 type Home struct {
+	// Biz: business accounts, for acting as one (acting.go).
+	Biz  *business.Store
+	bizc bizCache
 	Cfg  *config.Config
 	Tmpl *template.Template
 	Bsky *bsky.Client
@@ -75,6 +79,8 @@ type page struct {
 	ATproto bool
 	Langs   []locale.Lang
 	User    *account.User
+	// Acting: the business you're using Kafumu as (nil: yourself).
+	Acting *business.Business
 	// Maker, Contact, ContactText: footer "Contact the maker" (see footer.go).
 	Maker, Contact, ContactText string
 	// JS holds the "js." strings for client-side code.
@@ -94,7 +100,11 @@ func (h *Home) newPage(r *http.Request, title string) page {
 		moved = canon
 	}
 	maker, contact, contactText := h.footer(r.Context())
-	return page{Brand: h.Cfg.Brand, Title: title, Lang: lang, V: h.Cfg.Version, Langs: locale.Langs(), MovedTo: moved,
+	var acting *business.Business
+	if u := UserFrom(r.Context()); u != nil {
+		acting = h.acting(r.Context(), r, u.ID)
+	}
+	return page{Acting: acting, Brand: h.Cfg.Brand, Title: title, Lang: lang, V: h.Cfg.Version, Langs: locale.Langs(), MovedTo: moved,
 		Passkeys: h.Cfg.Passkeys && moved == "", ATproto: h.ATproto != nil && moved == "",
 		User: UserFrom(r.Context()), JS: locale.Prefix(lang, "js."), Maker: maker, Contact: contact, ContactText: contactText}
 }

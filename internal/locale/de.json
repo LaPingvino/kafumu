@@ -551,5 +551,9 @@
   "footer.on_kafumu": "auf Kafumu",
   "footer.issues": "Ideen und Fehler",
   "js.queued_offline": "Du bist offline: Deine Karte geht raus, sobald du wieder online bist.",
-  "js.pending_send": "wartet aufs Senden"
+  "js.pending_send": "wartet aufs Senden",
+  "biz.use_as": "Kafumu nutzen als",
+  "biz.personal": "Du selbst",
+  "js.nudge_biz": "Danke, dass du ein Business-Konto erstellt hast! Du nutzt Kafumu als {name}: Treffen, die du erstellst, laufen unter seinem Namen.",
+  "js.nudge_biz_go": "Verwalten"
 }

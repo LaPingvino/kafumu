@@ -61,6 +61,7 @@ func main() {
 	}
 	home.Notes = notes
 	businesses := business.New(db)
+	home.Biz = businesses
 	meetups := &handler.Meetups{Home: home, Svc: home.Meetups, Importer: importer.New(), Businesses: businesses}
 	accounts := &handler.Accounts{Home: home, Svc: account.NewService(users)}
 	home.Accounts = accounts.Svc
@@ -141,6 +142,7 @@ func main() {
 	mux.HandleFunc("POST /account/move", accounts.MoveRequest)
 	mux.HandleFunc("DELETE /account/move", accounts.MoveRequest)
 	biz := &handler.Businesses{Home: home, Accounts: accounts, Store: businesses}
+	mux.HandleFunc("POST /account/as", biz.Use)
 	mux.HandleFunc("GET /business", biz.Show)
 	mux.HandleFunc("POST /business", biz.Create)
 	mux.HandleFunc("POST /business/{id}/managers", biz.Managers)

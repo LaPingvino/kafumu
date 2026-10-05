@@ -551,5 +551,9 @@
   "footer.on_kafumu": "в Kafumu",
   "footer.issues": "идеи и ошибки",
   "js.queued_offline": "Ты офлайн: визитка уйдёт, как только появится сеть.",
-  "js.pending_send": "ждёт отправки"
+  "js.pending_send": "ждёт отправки",
+  "biz.use_as": "Использовать Kafumu как",
+  "biz.personal": "Вы сами",
+  "js.nudge_biz": "Спасибо, что создали бизнес-аккаунт! Вы используете Kafumu как {name}: встречи, которые вы создаёте, идут от его имени.",
+  "js.nudge_biz_go": "Управлять"
 }

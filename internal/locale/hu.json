@@ -551,5 +551,9 @@
   "footer.on_kafumu": "a Kafumun",
   "footer.issues": "ötletek és hibák",
   "js.queued_offline": "Offline vagy: a névjegyed elmegy, amint újra lesz net.",
-  "js.pending_send": "küldésre vár"
+  "js.pending_send": "küldésre vár",
+  "biz.use_as": "Kafumu használata mint",
+  "biz.personal": "Saját magad",
+  "js.nudge_biz": "Köszönjük, hogy üzleti fiókot hoztál létre! A Kafumut most mint {name} használod: az általad létrehozott találkozók az ő nevén futnak.",
+  "js.nudge_biz_go": "Kezelés"
 }

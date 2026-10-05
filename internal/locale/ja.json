@@ -551,5 +551,9 @@
   "footer.on_kafumu": "Kafumu で",
   "footer.issues": "アイデアと不具合",
   "js.queued_offline": "オフラインです：オンラインに戻りしだい名刺を送ります。",
-  "js.pending_send": "送信待ち"
+  "js.pending_send": "送信待ち",
+  "biz.use_as": "Kafumu を使う名義",
+  "biz.personal": "自分",
+  "js.nudge_biz": "ビジネスアカウントの作成ありがとうございます！いま {name} として Kafumu を使っています。作成するミートアップはこの名義で公開されます。",
+  "js.nudge_biz_go": "管理"
 }

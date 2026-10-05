@@ -551,5 +551,9 @@
   "footer.on_kafumu": "在 Kafumu 上",
   "footer.issues": "想法和錯誤",
   "js.queued_offline": "你目前離線：恢復連線後會立即送出你的名片。",
-  "js.pending_send": "等待送出"
+  "js.pending_send": "等待送出",
+  "biz.use_as": "以此身分使用 Kafumu",
+  "biz.personal": "我自己",
+  "js.nudge_biz": "感謝你建立商家帳戶！你正以 {name} 的身分使用 Kafumu：你建立的聚會將以它的名義發布。",
+  "js.nudge_biz_go": "管理"
 }
