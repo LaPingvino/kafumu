@@ -442,6 +442,14 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       cards/signals/alive, chat lines (re-mined at send time); flush() on page open and on "online". The service
       worker precaches /c and /contacts with their assets, so a connect link opens offline. Fuzz: networks drop at
       random, 1–5 actions per run happen offline, outboxes must end empty, nothing lost or doubled.
+- [ ] 69. Private answers to anonymous posts (Joop: "OLN should also enable privately answering anonymous
+      posts"): posting, the device makes a reply key per post (P-256) and adds its public half as a keyword
+      (#rk<b64>; format-level, any OLN client can use it). Answering: encrypt to it (ephemeral ECDH), post as a
+      pair note under #p<hash of the reply key> (no place, base work, a week), fetched with credentials omitted.
+      The poster's device keeps the reply keys (vault-synced, expire with the post), polls those tags, shows
+      answers on the post ("2 private answers"), can answer back on the same key, and can turn one into a
+      contact (send a card). The server sees opaque lines only; neither side learns who the other is unless
+      they choose to.
 - [~] 64a. Checked running outside GAE: the binary runs fine (memory cache, env config), but the Datastore
       emulator rejects IN queries ("Filter has 9 properties, expected 1"), which every area list uses — so the
       emulator is no self-hosting path. Export now logs store errors. Next: 64b, a SQLite store. Datastore is used
