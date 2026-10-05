@@ -549,5 +549,7 @@
   "profile.levels_note": "Niveauerne følger CEFR: A1–A2 begynder, B1–B2 mellem, C1–C2 avanceret. Op til B1 tæller som at lære.",
   "footer.contact": "Kontakt skaberen:",
   "footer.on_kafumu": "på Kafumu",
-  "footer.issues": "idéer og fejl"
+  "footer.issues": "idéer og fejl",
+  "js.queued_offline": "Du er offline: dit kort sendes, så snart du er online igen.",
+  "js.pending_send": "venter på at blive sendt"
 }

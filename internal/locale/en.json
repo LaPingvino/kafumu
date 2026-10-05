@@ -549,5 +549,7 @@
   "profile.levels_note": "Levels follow the CEFR: A1–A2 beginner, B1–B2 intermediate, C1–C2 advanced. Up to B1 counts as learning.",
   "footer.contact": "Contact the maker:",
   "footer.on_kafumu": "on Kafumu",
-  "footer.issues": "ideas and bugs"
+  "footer.issues": "ideas and bugs",
+  "js.queued_offline": "You're offline: your card goes out as soon as you're back online.",
+  "js.pending_send": "waiting to send"
 }

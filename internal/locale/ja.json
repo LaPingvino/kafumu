@@ -549,5 +549,7 @@
   "profile.levels_note": "レベルは CEFR に従います：A1–A2 初級、B1–B2 中級、C1–C2 上級。B1 までは学習中として扱います。",
   "footer.contact": "作者に連絡：",
   "footer.on_kafumu": "Kafumu で",
-  "footer.issues": "アイデアと不具合"
+  "footer.issues": "アイデアと不具合",
+  "js.queued_offline": "オフラインです：オンラインに戻りしだい名刺を送ります。",
+  "js.pending_send": "送信待ち"
 }

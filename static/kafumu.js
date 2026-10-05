@@ -1378,7 +1378,11 @@
   (function takeInvites() {
     var dev = window.kafumuDevice;
     if (!dev || !window.kafumuPair) return;
-    var pair = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin });
+    var pair = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin,
+      mine: function (t, kw, b) { return window.kafumuOLN.post(t, kw, b, function () {}); } });
+    // What waited for a network (outbox) goes out now, and when it's back.
+    pair.flush().catch(function () {});
+    window.addEventListener("online", function () { pair.flush().catch(function () {}); });
     dev.personas.shareCard().then(function (card) { return Promise.all([pair.checkInvite(card), pair.checkInvite(card, "badge"), dev.personas.linkCard().then(function (lc) { return pair.checkInvite(lc, "named"); })]); })
       .then(function (r) { if (r[0].length + r[1].length + r[2].length) checkSignals(); }).catch(function () {});
   })();

@@ -25,7 +25,7 @@ const pick = (a) => a[Math.floor(rnd() * a.length)];
 
 // OLN v2 miner for chat lines (what the browser worker does).
 const salt = new TextEncoder().encode("OLN-v2-proofwork");
-async function mine(text, keywords, bits) {
+async function mine(text, keywords, bits, f = fetch) {
   const date = new Date().toISOString().replace(/[-:T]/g, "").slice(0, 14);
   const b64 = Buffer.from(text, "utf8").toString("base64url");
   for (let n = Math.floor(rnd() * 1e6); ; n++) {
@@ -33,8 +33,8 @@ async function mine(text, keywords, bits) {
     const h = await hashwasm.argon2id({ password: line, salt, parallelism: 1, iterations: 1, memorySize: 4096, hashLength: 32, outputType: "binary" });
     let z = 0; for (const b of h) { if (b === 0) { z += 8; continue; } z += Math.clz32(b) - 24; break; }
     if (z >= bits) {
-      const r = await fetch(base + "/api/oln", { method: "POST", body: line });
-      if (r.status === 402) return mine(text, keywords, (await r.json()).need || bits + 1);
+      const r = await f(base + "/api/oln", { method: "POST", body: line });
+      if (r.status === 402) return mine(text, keywords, (await r.json()).need || bits + 1, f);
       if (!r.ok) throw new Error("oln post " + r.status);
       return r.json();
     }
@@ -51,13 +51,20 @@ function memStore() {
   };
 }
 const N = 6;
+// netDown: this person's device has no network (requests fail like a real
+// offline browser's), independent of whether they use the app ("online").
 const people = Array.from({ length: N }, (_, i) => {
   const store = memStore();
-  return { name: "P" + i, store, online: rnd() < 0.5, codes: [], pair: globalThis.kafumuPair.create({ fetch, store, origin: base, crypto: globalThis.crypto }) };
+  const p = { name: "P" + i, store, online: rnd() < 0.5, netDown: false, codes: [] };
+  p.fetch = (url, o) => p.netDown ? Promise.reject(new TypeError("Failed to fetch")) : fetch(url, o);
+  p.mine = (t, kw, b) => mine(t, kw, b, p.fetch);
+  p.pair = globalThis.kafumuPair.create({ fetch: p.fetch, store, origin: base, crypto: globalThis.crypto, mine: p.mine });
+  return p;
 });
 const sentChat = [];  // {from, to, text}
 const hellos = [];    // {from, to}: someone used someone's code
 const log = [];
+let offlineActs = 0;  // connects and chat lines made without a network (outbox)
 
 async function takeIn(p) {
   const card = { name: p.name };
@@ -73,6 +80,7 @@ async function takeIn(p) {
 for (let i = 0; i < steps; i++) {
   const p = pick(people), r = rnd();
   if (r < 0.15) { p.online = !p.online; log.push(`${p.name} ${p.online ? "online" : "offline"}`); continue; }
+  if (r < 0.22) { p.netDown = !p.netDown; log.push(`${p.name} network ${p.netDown ? "lost" : "back"}`); if (!p.netDown) await p.pair.flush(); continue; }
   if (!p.online) continue;
   try {
     if (r < 0.3) {                                   // show a code (maybe a fresh one)
@@ -89,15 +97,19 @@ for (let i = 0; i < steps; i++) {
       if (already) continue;                         // one connection per pair keeps the check simple
       await p.pair.accept(pick(q.codes), { name: p.name });
       hellos.push({ from: p.name, to: q.name });
+      if (p.netDown) offlineActs++;
       log.push(`${p.name} uses ${q.name}'s code`);
     } else if (r < 0.75) {                           // chat with a contact
       const cs = (await p.store.contacts()).filter((c) => c.card && c.card.name);
       if (!cs.length) continue;
       const c = pick(cs), text = `${p.name}→${c.card.name} #${i}`;
-      await p.pair.sendChat(c, text, (t, kw, bits) => mine(t, kw, bits));
+      await p.pair.sendChat(c, text, p.mine);
       sentChat.push({ from: p.name, to: c.card.name, text, key: c.key });
+      if (p.netDown) offlineActs++;
       log.push(`${p.name} chats ${c.card.name}`);
-    } else {                                         // take in what's waiting
+    } else {                                         // take in what's waiting (needs a network)
+      if (p.netDown) { log.push(`${p.name} can't take in (no network)`); continue; }
+      await p.pair.flush();
       const n = await takeIn(p);
       log.push(`${p.name} takes in (${n} new)`);
     }
@@ -107,8 +119,14 @@ for (let i = 0; i < steps; i++) {
   }
 }
 
-// Everyone comes online and catches up (twice: cards and chat cross over).
+// Everyone's network comes back, outboxes flush, everyone catches up
+// (three rounds: hellos, cards and chat cross over).
+for (const p of people) { p.netDown = false; await p.pair.flush(); }
 for (let round = 0; round < 3; round++) for (const p of people) await takeIn(p);
+for (const p of people) {
+  const left = await p.pair.outboxSize();
+  if (left) { console.error(`FAIL seed ${seed}: ${p.name}'s outbox still holds ${left}`); process.exit(1); }
+}
 
 const fail = [];
 const byName = Object.fromEntries(people.map((p) => [p.name, p]));
@@ -135,4 +153,4 @@ if (fail.length) {
   console.error(`FAIL fuzz seed ${seed} (${steps} steps):\n  ` + fail.slice(0, 10).join("\n  ") + "\n--- last steps:\n" + log.slice(-15).join("\n"));
   process.exit(1);
 }
-console.log(`ok  fuzz: seed ${seed}, ${steps} steps, ${hellos.length} connections (${mutual} mutual), ${sentChat.length} chat lines, ${N} people coming and going`);
+console.log(`ok  fuzz: seed ${seed}, ${steps} steps, ${hellos.length} connections (${mutual} mutual), ${sentChat.length} chat lines, ${N} people coming and going, ${offlineActs} done offline (outbox)`);

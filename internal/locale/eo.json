@@ -549,5 +549,7 @@
   "profile.levels_note": "La niveloj sekvas la KER: A1–A2 komencanto, B1–B2 meznivela, C1–C2 progresinta. Ĝis B1 kalkuliĝas kiel lernanto.",
   "footer.contact": "Kontakti la kreinton:",
   "footer.on_kafumu": "ĉe Kafumu",
-  "footer.issues": "ideoj kaj cimoj"
+  "footer.issues": "ideoj kaj cimoj",
+  "js.queued_offline": "Vi estas senkonekta: via karto foriros tuj kiam vi rekonektiĝos.",
+  "js.pending_send": "atendas sendon"
 }

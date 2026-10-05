@@ -549,5 +549,7 @@
   "profile.levels_note": "Seviyeler CEFR'e göre: A1–A2 başlangıç, B1–B2 orta, C1–C2 ileri. B1'e kadar öğreniyor sayılır.",
   "footer.contact": "Yapımcıya ulaş:",
   "footer.on_kafumu": "Kafumu'da",
-  "footer.issues": "fikirler ve hatalar"
+  "footer.issues": "fikirler ve hatalar",
+  "js.queued_offline": "Çevrimdışısın: kartın tekrar bağlandığında gidecek.",
+  "js.pending_send": "gönderilmeyi bekliyor"
 }

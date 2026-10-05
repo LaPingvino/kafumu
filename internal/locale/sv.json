@@ -549,5 +549,7 @@
   "profile.levels_note": "Nivåerna följer GERS: A1–A2 nybörjare, B1–B2 mellannivå, C1–C2 avancerad. Upp till B1 räknas som att lära sig.",
   "footer.contact": "Kontakta skaparen:",
   "footer.on_kafumu": "på Kafumu",
-  "footer.issues": "idéer och buggar"
+  "footer.issues": "idéer och buggar",
+  "js.queued_offline": "Du är offline: ditt kort skickas så fort du är uppkopplad igen.",
+  "js.pending_send": "väntar på att skickas"
 }

@@ -549,5 +549,7 @@
   "profile.levels_note": "Les niveaux suivent le CECRL : A1–A2 débutant, B1–B2 intermédiaire, C1–C2 avancé. Jusqu'à B1, c'est « en apprentissage ».",
   "footer.contact": "Contacter le créateur :",
   "footer.on_kafumu": "sur Kafumu",
-  "footer.issues": "idées et bugs"
+  "footer.issues": "idées et bugs",
+  "js.queued_offline": "Tu es hors ligne : ta carte partira dès que tu seras de nouveau connecté.",
+  "js.pending_send": "en attente d'envoi"
 }

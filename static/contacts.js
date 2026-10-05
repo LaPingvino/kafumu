@@ -2,7 +2,10 @@
 (function () {
   "use strict";
   var T = window.KAFUMU_T || {}, dev = window.kafumuDevice;
-  var pair = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin });
+  var pair = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin, mine: function (t, kw, b) { return window.kafumuOLN ? window.kafumuOLN.post(t, kw, b, function () {}) : Promise.reject(new Error("no miner")); } });
+  // Anything that waited for a network goes out now, and when it's back.
+  pair.flush().catch(function () {});
+  window.addEventListener("online", function () { pair.flush().catch(function () {}); });
   var $ = function (id) { return document.getElementById(id); };
   var list = $("contacts"), empty = $("contacts-empty"), filter = $("contacts-filter");
 

@@ -549,5 +549,7 @@
   "profile.levels_note": "레벨은 CEFR 기준: A1–A2 초급, B1–B2 중급, C1–C2 고급. B1까지는 배우는 중으로 봐요.",
   "footer.contact": "만든 사람에게 연락:",
   "footer.on_kafumu": "Kafumu에서",
-  "footer.issues": "아이디어와 버그"
+  "footer.issues": "아이디어와 버그",
+  "js.queued_offline": "오프라인이에요: 다시 연결되면 카드를 보낼게요.",
+  "js.pending_send": "전송 대기 중"
 }

@@ -437,6 +437,11 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       other's code before either takes the other's hello in, they get two connections. Recognise the same person
       (a random person id in hello/card, synced via the vault) and fold the second connection into the first
       (keep both keys for reading; send on the older one).
+- [x] 67. Offline outbox (Joop: "check if adding by link works when the app is offline… queue"): pair.js queues
+      posts that fail for lack of network (not server refusals) — hellos (contact marked "⏳ waiting to send"),
+      cards/signals/alive, chat lines (re-mined at send time); flush() on page open and on "online". The service
+      worker precaches /c and /contacts with their assets, so a connect link opens offline. Fuzz: networks drop at
+      random, 1–5 actions per run happen offline, outboxes must end empty, nothing lost or doubled.
 - [~] 64a. Checked running outside GAE: the binary runs fine (memory cache, env config), but the Datastore
       emulator rejects IN queries ("Filter has 9 properties, expected 1"), which every area list uses — so the
       emulator is no self-hosting path. Export now logs store errors. Next: 64b, a SQLite store. Datastore is used

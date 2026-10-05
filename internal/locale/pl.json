@@ -549,5 +549,7 @@
   "profile.levels_note": "Poziomy według ESOKJ: A1–A2 początkujący, B1–B2 średniozaawansowany, C1–C2 zaawansowany. Do B1 liczy się jako nauka.",
   "footer.contact": "Kontakt z twórcą:",
   "footer.on_kafumu": "w Kafumu",
-  "footer.issues": "pomysły i błędy"
+  "footer.issues": "pomysły i błędy",
+  "js.queued_offline": "Jesteś offline: twoja wizytówka wyjdzie, gdy wróci sieć.",
+  "js.pending_send": "czeka na wysłanie"
 }

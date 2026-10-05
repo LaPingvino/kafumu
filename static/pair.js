@@ -34,6 +34,9 @@
   function create(opts) {
     var subtle = (opts.crypto || root.crypto).subtle, cryptoObj = opts.crypto || root.crypto;
     var fetchFn = opts.fetch, store = opts.store, base = opts.origin || "";
+    // opts.mine(text, keywords, bits): the OLN miner, for chat lines waiting
+    // in the outbox (pages that chat pass it).
+    var olnMine = opts.mine;
     var ECDH = { name: "ECDH", namedCurve: "P-256" };
 
     function genKey(extractable) { return subtle.generateKey(ECDH, !!extractable, ["deriveBits"]); }
@@ -225,6 +228,60 @@
       });
     }
 
+    // ---- Outbox: what couldn't go out without a network ----
+    // A post that fails because the device is offline (not because the
+    // server said no) waits here and goes out on flush(): when the network
+    // is back, or a page opens. Stamps and work are made again at send time
+    // (they carry a time that must be within ten minutes).
+    function isNetErr(e) { return !!e && (e.name === "TypeError" || /Failed to fetch|NetworkError|fetch failed|network/i.test(e.message || "")); }
+    function enqueue(item) {
+      return store.get("outbox").then(function (q) {
+        q = (q || []).concat([Object.assign({ at: Date.now() }, item)]).slice(-200);
+        return store.set("outbox", q);
+      });
+    }
+    var flushing = null;
+    function flush() {
+      if (flushing) return flushing;
+      flushing = store.get("outbox").then(function (q) {
+        q = q || [];
+        var sent = 0;
+        return q.reduce(function (p, item, i) {
+          return p.then(function (stop) {
+            if (stop) return true;
+            var go = item.kind === "oln" ? (olnMine ? olnMine(item.text, item.keywords, item.bits) : Promise.reject(new Error("no miner")))
+              : post(item.box, item.body, item.quiet);
+            return go.then(function () {
+              sent++; item.done = true;
+              if (!item.contact) return false;
+              return store.contacts().then(function (cs) {
+                var c = cs.filter(function (x) { return x.id === item.contact; })[0];
+                if (c && c.pending) { delete c.pending; return store.putContact(c); }
+              }).then(function () { return false; });
+            }, function (e) {
+              if (isNetErr(e) || /no miner/.test(e.message)) return true; // still offline: try again later, in order
+              item.done = true; return false; // the server said no: it won't get better by waiting
+            });
+          });
+        }, Promise.resolve(false)).then(function () {
+          return store.get("outbox").then(function (now) {
+            // Keep what's left, plus anything queued meanwhile.
+            var left = (now || []).filter(function (x) { return !q.some(function (y) { return y.done && y.at === x.at && y.box === x.box && y.text === x.text; }); });
+            return store.set("outbox", left);
+          });
+        }).then(function () { return sent; });
+      }).then(function (n) { flushing = null; return n; }, function (e) { flushing = null; throw e; });
+      return flushing;
+    }
+    function outboxSize() { return store.get("outbox").then(function (q) { return (q || []).length; }); }
+    // postOrQueue: post now, or (offline) into the outbox.
+    function postOrQueue(box, body, quiet, contact) {
+      return post(box, body, quiet).then(function () { return false; }, function (e) {
+        if (!isNetErr(e)) throw e;
+        return enqueue({ kind: "box", box: box, body: body, quiet: !!quiet, contact: contact || "" }).then(function () { return true; });
+      });
+    }
+
     // ---- One person, one contact ----
     // myPid: a random id for "me" (synced to my own devices with the vault),
     // sent inside hello and card messages (encrypted: the server never sees
@@ -272,10 +329,14 @@
         return rawPub(k).then(function (bRaw) {
           return Promise.all([pairKey(k.privateKey, aRaw, aRaw, bRaw), inviteBox(aRaw)]).then(function (r) {
             var key = r[0], ibox = r[1];
-            return myPid().then(function (pid) { return seal(key, ibox, { t: "hello", card: myCard || {}, pid: pid }); }).then(function (ct) {
-              return post(ibox, JSON.stringify({ v: 1, pub: b64(bRaw), ct: ct }));
-            }).then(function () { return contactID(key); }).then(function (id) {
+            var queued = false;
+            return contactID(key).then(function (id) {
+              return myPid().then(function (pid) { return seal(key, ibox, { t: "hello", card: myCard || {}, pid: pid }); }).then(function (ct) {
+                return postOrQueue(ibox, JSON.stringify({ v: 1, pub: b64(bRaw), ct: ct }), false, id);
+              }).then(function (q) { queued = q; return id; });
+            }).then(function (id) {
               var c = { id: id, key: b64(key), role: 1, card: null, note: "", createdAt: new Date().toISOString(), cardSent: !!(myCard && myCard.name) };
+              if (queued) c.pending = true; // offline: the hello waits in the outbox
               return store.putContact(c).then(function () { return c; });
             });
           });
@@ -375,7 +436,7 @@
       // contacts fold within a week.
       var withPid = obj && (obj.t === "card" || obj.t === "alive") ? myPid().then(function (pid) { return Object.assign({}, obj, { pid: pid }); }) : Promise.resolve(obj);
       return Promise.all([boxOf(key, 1 - c.role), withPid]).then(function (r) {
-        return seal(key, r[0], r[1]).then(function (ct) { return post(r[0], ct, obj && obj.t === "alive"); });
+        return seal(key, r[0], r[1]).then(function (ct) { return postOrQueue(r[0], ct, obj && obj.t === "alive"); });
       });
     }
 
@@ -558,7 +619,10 @@
     function sendChat(c, text, mine) {
       var key = unb64(c.key), at = new Date().toISOString();
       return Promise.all([chatTag(key, 1 - c.role), seal(key, "chat", { text: String(text).slice(0, 500), at: at })]).then(function (r) {
-        return mine(r[1], "#" + r[0], 4); // oln.BaseBits (v2): about a second
+        return mine(r[1], "#" + r[0], 4).catch(function (e) { // oln.BaseBits (v2): about a second
+          if (!isNetErr(e)) throw e;
+          return enqueue({ kind: "oln", text: r[1], keywords: "#" + r[0], bits: 4 }); // offline: waits in the outbox
+        });
       }).then(function () { return at; });
     }
     // readChat folds new lines from them into c.messages; returns how many.
@@ -589,7 +653,7 @@
       });
     }
 
-    return { sendChat: sendChat, readChat: readChat, report: report, namedLink: namedLink, shortLink: shortLink, inbox: inbox, writeTo: writeTo, readInbox: readInbox, connectBack: connectBack, checkIn: checkIn, around: around, invite: invite, accept: accept, moveSend: moveSend, moveReceive: moveReceive, checkInvite: checkInvite, checkContact: checkContact, send: send,
+    return { flush: flush, outboxSize: outboxSize, sendChat: sendChat, readChat: readChat, report: report, namedLink: namedLink, shortLink: shortLink, inbox: inbox, writeTo: writeTo, readInbox: readInbox, connectBack: connectBack, checkIn: checkIn, around: around, invite: invite, accept: accept, moveSend: moveSend, moveReceive: moveReceive, checkInvite: checkInvite, checkContact: checkContact, send: send,
       _open: open, _boxOf: boxOf, _inviteBox: inviteBox, _unb64: unb64 };
   }
 

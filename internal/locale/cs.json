@@ -549,5 +549,7 @@
   "profile.levels_note": "Úrovně podle SERR: A1–A2 začátečník, B1–B2 středně pokročilý, C1–C2 pokročilý. Do B1 se počítá jako učení.",
   "footer.contact": "Kontakt na tvůrce:",
   "footer.on_kafumu": "na Kafumu",
-  "footer.issues": "nápady a chyby"
+  "footer.issues": "nápady a chyby",
+  "js.queued_offline": "Jsi offline: vizitka odejde, jakmile budeš zase online.",
+  "js.pending_send": "čeká na odeslání"
 }

@@ -549,5 +549,7 @@
   "profile.levels_note": "Os níveis seguem o QECR: A1–A2 iniciante, B1–B2 intermédio, C1–C2 avançado. Até B1 conta como a aprender.",
   "footer.contact": "Contactar o criador:",
   "footer.on_kafumu": "no Kafumu",
-  "footer.issues": "ideias e erros"
+  "footer.issues": "ideias e erros",
+  "js.queued_offline": "Estás offline: o teu cartão segue assim que voltares a ter rede.",
+  "js.pending_send": "à espera de enviar"
 }

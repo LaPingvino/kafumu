@@ -1,9 +1,29 @@
 // Kafumu service worker: an offline shell. Pages are network-first with the
 // last copy as fallback; versioned static assets are cache-first. The API,
 // bundles and anything cross-origin are never cached here.
-var CACHE = "kafumu-v2";
+var CACHE = "kafumu-v3";
 
-self.addEventListener("install", function () { self.skipWaiting(); });
+// Precache the pages that must work offline (opening someone's connect
+// link without a network queues your card), with the scripts and styles
+// they load. Best effort: install never fails on it.
+var OFFLINE_PAGES = ["/c", "/contacts"];
+self.addEventListener("install", function (e) {
+  self.skipWaiting();
+  e.waitUntil(caches.open(CACHE).then(function (c) {
+    return Promise.all(OFFLINE_PAGES.map(function (p) {
+      return fetch(p, { credentials: "same-origin" }).then(function (res) {
+        if (!res.ok) return;
+        return res.clone().text().then(function (html) {
+          var assets = [], re = /(?:src|href)="(\/static\/[^"]+)"/g, m;
+          while ((m = re.exec(html))) assets.push(m[1].replace(/&amp;/g, "&"));
+          return c.put(p, res).then(function () {
+            return Promise.all(assets.map(function (a) { return c.add(a).catch(function () {}); }));
+          });
+        });
+      }).catch(function () {});
+    }));
+  }).catch(function () {}));
+});
 self.addEventListener("activate", function (e) {
   e.waitUntil(caches.keys().then(function (ks) {
     return Promise.all(ks.filter(function (k) { return k !== CACHE; }).map(function (k) { return caches.delete(k); }));

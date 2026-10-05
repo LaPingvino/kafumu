@@ -549,5 +549,7 @@
   "profile.levels_note": "Los niveles siguen el MCER: A1–A2 principiante, B1–B2 intermedio, C1–C2 avanzado. Hasta B1 cuenta como aprendiendo.",
   "footer.contact": "Contactar con el creador:",
   "footer.on_kafumu": "en Kafumu",
-  "footer.issues": "ideas y errores"
+  "footer.issues": "ideas y errores",
+  "js.queued_offline": "Estás sin conexión: tu tarjeta saldrá en cuanto vuelvas a tener red.",
+  "js.pending_send": "esperando para enviar"
 }

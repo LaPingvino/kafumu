@@ -210,6 +210,7 @@
       head.appendChild(alias);
     }
     if (c.createdAt) head.appendChild(el("span", "dim", new Date(c.createdAt).toLocaleDateString(window.KAFUMU_LOCALE, { day: "numeric", month: "short", year: "numeric" })));
+    if (c.pending && !opts.preview) head.appendChild(el("span", "dim small", "· ⏳ " + (T.pending_send || "waiting to send")));
     var quiet = quietDays(c);
     if (quiet >= 14 && !opts.preview) head.appendChild(el("span", "dim small", "· 💤 " + (T.quiet_for || "quiet for {n} days").replace("{n}", quiet)));
     li.appendChild(head);

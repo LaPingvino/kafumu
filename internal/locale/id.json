@@ -549,5 +549,7 @@
   "profile.levels_note": "Tingkat mengikuti CEFR: A1–A2 pemula, B1–B2 menengah, C1–C2 mahir. Sampai B1 dihitung sedang belajar.",
   "footer.contact": "Hubungi pembuatnya:",
   "footer.on_kafumu": "di Kafumu",
-  "footer.issues": "ide dan bug"
+  "footer.issues": "ide dan bug",
+  "js.queued_offline": "Kamu sedang offline: kartumu dikirim begitu kamu online lagi.",
+  "js.pending_send": "menunggu dikirim"
 }

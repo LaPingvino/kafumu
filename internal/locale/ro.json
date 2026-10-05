@@ -549,5 +549,7 @@
   "profile.levels_note": "Nivelurile urmează CECR: A1–A2 începător, B1–B2 intermediar, C1–C2 avansat. Până la B1 contează ca învățare.",
   "footer.contact": "Contactează creatorul:",
   "footer.on_kafumu": "pe Kafumu",
-  "footer.issues": "idei și erori"
+  "footer.issues": "idei și erori",
+  "js.queued_offline": "Ești offline: cardul tău pleacă imediat ce revii online.",
+  "js.pending_send": "așteaptă trimiterea"
 }

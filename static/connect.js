@@ -3,7 +3,10 @@
 (function () {
   "use strict";
   var T = window.KAFUMU_T || {}, dev = window.kafumuDevice;
-  var pair = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin });
+  var pair = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin, mine: function (t, kw, b) { return window.kafumuOLN ? window.kafumuOLN.post(t, kw, b, function () {}) : Promise.reject(new Error("no miner")); } });
+  // Anything that waited for a network goes out now, and when it's back.
+  pair.flush().catch(function () {});
+  window.addEventListener("online", function () { pair.flush().catch(function () {}); });
   var $ = function (id) { return document.getElementById(id); };
   function tr(k, v) { var s = T[k] || k; Object.keys(v || {}).forEach(function (n) { s = s.split("{" + n + "}").join(v[n]); }); return s; }
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
@@ -168,7 +171,7 @@
             made = c;
             history.replaceState(null, "", "/c"); // the code has done its job
             $("accept-area").hidden = true;
-            status.textContent = tr("waiting_their_card");
+            status.textContent = c.pending ? tr("queued_offline") : tr("waiting_their_card");
             var item = contactItem(c);
             list.appendChild(item);
             poll(function () {

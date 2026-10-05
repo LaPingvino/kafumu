@@ -549,5 +549,7 @@
   "profile.levels_note": "Рівні за CEFR: A1–A2 початковий, B1–B2 середній, C1–C2 просунутий. До B1 вважається вивченням.",
   "footer.contact": "Зв'язатися з автором:",
   "footer.on_kafumu": "у Kafumu",
-  "footer.issues": "ідеї та помилки"
+  "footer.issues": "ідеї та помилки",
+  "js.queued_offline": "Ти офлайн: картка піде, щойно з'явиться мережа.",
+  "js.pending_send": "чекає на відправлення"
 }

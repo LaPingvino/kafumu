@@ -549,5 +549,7 @@
   "profile.levels_note": "Уровни по шкале CEFR: A1–A2 начальный, B1–B2 средний, C1–C2 продвинутый. До B1 считается изучением.",
   "footer.contact": "Связаться с автором:",
   "footer.on_kafumu": "в Kafumu",
-  "footer.issues": "идеи и ошибки"
+  "footer.issues": "идеи и ошибки",
+  "js.queued_offline": "Ты офлайн: визитка уйдёт, как только появится сеть.",
+  "js.pending_send": "ждёт отправки"
 }

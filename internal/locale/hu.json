@@ -549,5 +549,7 @@
   "profile.levels_note": "A szintek a KER szerint: A1–A2 kezdő, B1–B2 középhaladó, C1–C2 haladó. B1-ig tanulónak számít.",
   "footer.contact": "Kapcsolat a készítővel:",
   "footer.on_kafumu": "a Kafumun",
-  "footer.issues": "ötletek és hibák"
+  "footer.issues": "ötletek és hibák",
+  "js.queued_offline": "Offline vagy: a névjegyed elmegy, amint újra lesz net.",
+  "js.pending_send": "küldésre vár"
 }
