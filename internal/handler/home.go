@@ -14,6 +14,7 @@ import (
 	"math"
 	"net/http"
 	"net/url"
+	"slices"
 	"sort"
 	"strconv"
 	"strings"
@@ -77,11 +78,13 @@ type page struct {
 	// BrandInfo: the brand of this host (its colour, tagline, main button,
 	// default tags), nil on plain Kafumu.
 	BrandInfo *brand.Brand
-	Title     string
-	Tab       string // active view-switcher tab
-	Cell      string
-	Lang      string
-	V         string // asset version, so a deploy never mixes old and new JS
+	// BrandAdmin: the signed-in user manages this host's brand (/brand).
+	BrandAdmin bool
+	Title      string
+	Tab        string // active view-switcher tab
+	Cell       string
+	Lang       string
+	V          string // asset version, so a deploy never mixes old and new JS
 	// MovedTo is set on a legacy origin: the canonical origin to move to.
 	MovedTo string
 	// Passkeys is true when passkeys work on this host.
@@ -121,7 +124,11 @@ func (h *Home) newPage(r *http.Request, title string) page {
 	if bi != nil {
 		name = bi.Name
 	}
-	return page{Acting: acting, Now: time.Now(), Brand: name, BrandInfo: bi, Title: title, Lang: lang, V: h.Cfg.Version, Langs: locale.Langs(), MovedTo: moved,
+	brandAdmin := false
+	if u := UserFrom(r.Context()); u != nil && bi != nil {
+		brandAdmin = slices.Contains(bi.Admins, u.ID)
+	}
+	return page{Acting: acting, Now: time.Now(), Brand: name, BrandInfo: bi, BrandAdmin: brandAdmin, Title: title, Lang: lang, V: h.Cfg.Version, Langs: locale.Langs(), MovedTo: moved,
 		Passkeys: h.Cfg.Passkeys && moved == "", ATproto: h.ATproto != nil && moved == "",
 		User: UserFrom(r.Context()), JS: locale.Prefix(lang, "js."), Maker: maker, Contact: contact, ContactText: contactText}
 }

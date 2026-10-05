@@ -117,8 +117,9 @@ type adminPage struct {
 	Businesses []*business.Business
 	// Peers: linked OLN nodes this one pulls from.
 	Peers []peerEntry
-	// Brands: Kafumu's faces on other hosts.
-	Brands []brand.Brand
+	// Brands: Kafumu's faces on other hosts; BrandAdmins: host → "@a @b".
+	Brands      []brand.Brand
+	BrandAdmins map[string]string
 }
 
 type stat struct {
@@ -240,6 +241,16 @@ func (a *Admin) Show(w http.ResponseWriter, r *http.Request) {
 	if a.Brands != nil {
 		p.Brands = a.Brands.All(ctx)
 		sort.Slice(p.Brands, func(i, j int) bool { return p.Brands[i].Host < p.Brands[j].Host })
+		p.BrandAdmins = map[string]string{}
+		for _, b := range p.Brands {
+			var names []string
+			for _, id := range b.Admins {
+				if u, err := a.Accounts.Svc.ByID(ctx, id); err == nil && u != nil && u.Username != "" {
+					names = append(names, "@"+u.Username)
+				}
+			}
+			p.BrandAdmins[b.Host] = strings.Join(names, " ")
+		}
 	}
 	a.Home.footer(ctx)
 	a.Home.foot.mu.Lock()
@@ -432,6 +443,26 @@ func (a *Admin) Action(w http.ResponseWriter, r *http.Request) {
 			res = "brand: a host like bahais.in and a name, please"
 		} else {
 			res = "brand saved: " + b.Host + " (map the domain to this app on App Engine to make it live)"
+		}
+	case "brand-admins":
+		b := a.Brands.For(ctx, id)
+		if b == nil {
+			res = "no brand " + id
+			break
+		}
+		b.Admins = nil
+		var names []string
+		for _, n := range strings.FieldsFunc(r.FormValue("admins"), func(c rune) bool { return c == ',' || c == ' ' }) {
+			n = strings.ToLower(strings.TrimPrefix(n, "@"))
+			if uid, err := a.Accounts.Svc.Store.LookupUsername(ctx, n); err == nil && uid != "" && !strings.HasPrefix(uid, "biz:") && !slices.Contains(b.Admins, uid) {
+				b.Admins = append(b.Admins, uid)
+				names = append(names, "@"+n)
+			}
+		}
+		if err := a.Brands.Save(ctx, b); err != nil {
+			res = "save failed: " + err.Error()
+		} else {
+			res = b.Host + " admins: " + strings.Join(names, " ")
 		}
 	case "brand-delete":
 		if a.Brands != nil && a.Brands.Delete(ctx, id) == nil {

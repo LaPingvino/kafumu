@@ -33,6 +33,8 @@
   {{if .Brands}}<ul class="boxed-list">{{range .Brands}}<li>
     <div><strong{{if .Accent}} style="color:{{.Accent}}"{{end}}>{{.Name}}</strong> · {{.Host}}{{if .Tags}} <span class="dim small">· {{range .Tags}}#{{.}} {{end}}</span>{{end}}</div>
     <div class="dim small">{{if .Tagline}}{{.Tagline}}{{end}}{{if .Button}} · button: {{.Button}}{{end}}</div>
+    <form method="post" action="/admin/action" class="inline-row"><input type="hidden" name="do" value="brand-admins"><input type="hidden" name="id" value="{{.Host}}">
+      <input name="admins" placeholder="brand admins: @name @other" value="{{index $.BrandAdmins .Host}}" style="max-width:16rem"><button type="submit" class="pill-sm">Set admins</button></form>
     <form method="post" action="/admin/action" class="inline" onsubmit="return confirm('Remove this brand?')"><input type="hidden" name="do" value="brand-delete"><input type="hidden" name="id" value="{{.Host}}"><button type="submit" class="pill-sm">Remove</button></form>
   </li>{{end}}</ul>{{else}}<p class="dim">No brands yet.</p>{{end}}
   <form method="post" action="/admin/action" class="grid-form"><input type="hidden" name="do" value="brand-save">

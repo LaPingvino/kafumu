@@ -1,0 +1,15 @@
+{{template "head" .}}
+<article>
+  <h1>{{.B.Name}}</h1>
+  <p class="dim">{{.B.Host}} · a face of Kafumu: the same areas, local messages and connect codes underneath, with your own name, colour, main button and starting tags.</p>
+  {{if .Saved}}<p class="card" style="padding:8px 16px">✓ Saved.</p>{{end}}
+  <form method="post" action="/brand">
+    <label>Name<input name="name" value="{{.B.Name}}" maxlength="40" required></label>
+    <label>Tagline<input name="tagline" value="{{.B.Tagline}}" maxlength="160"></label>
+    <label>Main button<input name="button" value="{{.B.Button}}" maxlength="60" placeholder="🙏 Who wants to pray with me?"></label>
+    <label>Colour<input name="accent" type="color" value="{{if .B.Accent}}{{.B.Accent}}{{else}}#865e3c{{end}}"></label>
+    <label>Tags Around starts from<input name="tags" value="{{range $i, $t := .B.Tags}}{{if $i}} {{end}}{{$t}}{{end}}" placeholder="bahai prayer"></label>
+    <button type="submit" class="pill suggested">Save</button>
+  </form>
+</article>
+{{template "foot" .}}
