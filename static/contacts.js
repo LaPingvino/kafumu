@@ -141,7 +141,8 @@
   takeInvites().then(function (n) { if (n) show(); });
   // Your kafumu.com/@name link, if on: renewed weekly from this device.
   dev.store.get("handle").then(function (h) {
-    if (h && !h.off && document.body.dataset.named && !document.body.dataset.actingId && Date.now() - h.at > 7 * 864e5) pair.namedLink().catch(function () {});
+    var bd = document.body.dataset, named = bd.actingId ? bd.actingNamed : bd.named; // you, or the named business you act as
+    if (h && !h.off && named && Date.now() - h.at > 7 * 864e5) pair.namedLink().catch(function () {});
   });
   // A weekly "alive" to each contact (one small encrypted message), so both
   // sides can tell a connection still works.

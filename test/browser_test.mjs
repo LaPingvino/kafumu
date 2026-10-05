@@ -255,6 +255,16 @@ try {
     await A.waitFor("!!document.querySelector('.biz-banner') && !!document.getElementById('card-form')", "business card page, synced");
     await A.evaluate("(() => { const f = document.getElementById('card-form'); f.name.value = 'Café card " + RUN + "'; f.requestSubmit(); return true; })()");
     await A.waitFor("window.kafumuDevice.sync().then(s => s === 'on')", "business card synced up", 20000);
+    // The business's own named link (76b): on, then its @name page offers
+    // Connect, which leads a visitor into connecting with the business.
+    await A.goto(base + "/card");
+    await A.waitFor("!!document.getElementById('handle-on') && document.getElementById('handle-url').value.endsWith('/@" + bizName + "')", "business named link offered on its card page");
+    await A.evaluate("navigator.share = undefined; document.getElementById('handle-on').click(); true");
+    await A.waitFor("document.getElementById('handle-on').textContent.startsWith('✓')", "business named link live");
+    await B.goto(base + "/@" + bizName);
+    await B.waitFor("!!document.querySelector('.biz-profile a[href^=\"/c?from=" + bizName + "\"]')", "Connect on the business's @name page");
+    await B.evaluate("document.querySelector('.biz-profile a[href^=\"/c?from=\"]').click(); true");
+    await B.waitFor("location.pathname === '/c' && location.search.includes('from=" + bizName + "')", "visitor lands on connecting with the business");
     const aLink = await (async () => { await A.goto(base + "/account"); return A.evaluate("document.querySelector('.magic input').value"); })();
     const A2 = await browser(9339);
     try {
@@ -455,7 +465,7 @@ try {
     await X.evaluate("fetch('/account/delete', { method: 'POST', body: new URLSearchParams({ confirm: 'yes' }), credentials: 'same-origin' }).then(() => true)");
   }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, business account + switched to it + host as preselected + own @name page + separate business card + synced to a second manager device (server key) + handed the key to a third device with a matching code (private) + switched back, findable profile seen, named link, paid inbox message + connect back, OLN message + private answer both ways + reaction + elsewhere + travelling + tour + report + question/answer + composer tag suggestions + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, business account + switched to it + host as preselected + own @name page + separate business card + its own named link (Connect on its page) + synced to a second manager device (server key) + handed the key to a third device with a matching code (private) + switched back, findable profile seen, named link, paid inbox message + connect back, OLN message + private answer both ways + reaction + elsewhere + travelling + tour + report + question/answer + composer tag suggestions + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

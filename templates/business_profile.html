@@ -2,6 +2,7 @@
 <article class="biz-profile">
   <h1><svg class="wings{{if not (.B.Live .Now)}} off{{end}}"><use href="#i-wings"/></svg> {{.B.Name}}</h1>
   <p><span class="badge">{{t .Lang (print "biz.kind_" .B.Kind)}}</span>{{if .B.Username}} <span class="dim">@{{.B.Username}}</span>{{end}}</p>
+  {{if .Connect}}<p><a href="{{.Connect}}" role="button" class="pill suggested">☕ {{t .Lang "nav.connect"}}</a></p>{{end}}
   {{if .B.Contact}}<p><strong>{{t .Lang "biz.contact_public"}}</strong><br>{{if .Link}}<a href="{{.B.Contact}}" rel="noopener nofollow">{{.B.Contact}}</a>{{else}}{{.B.Contact}}{{end}}</p>{{end}}
   {{if not (.B.Live .Now)}}<p class="dim small">{{t .Lang "biz.profile_paused"}}</p>{{end}}
   <p class="dim small">{{t .Lang "biz.profile_note"}}</p>

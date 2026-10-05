@@ -7,6 +7,7 @@ import (
 	"github.com/LaPingvino/kafumu/internal/account"
 	"log"
 	"net/http"
+	"net/url"
 	"slices"
 	"strings"
 	"time"
@@ -142,11 +143,14 @@ type bizProfilePage struct {
 	page
 	B    *business.Business
 	Link bool // Contact is a web address
+	// Connect: the business's named link (a connect code), when it has one
+	// and is live.
+	Connect string
 }
 
 // Profile renders kafumu.com/@name for a business: who it is and how to
 // reach it. No query: the name and the business are single cached reads.
-func (h *Businesses) Profile(w http.ResponseWriter, r *http.Request, id string) {
+func (h *Businesses) Profile(w http.ResponseWriter, r *http.Request, id, payload string) {
 	b := h.Home.bizByID(r.Context(), id)
 	if b == nil {
 		http.NotFound(w, r)
@@ -154,6 +158,9 @@ func (h *Businesses) Profile(w http.ResponseWriter, r *http.Request, id string) 
 	}
 	p := bizProfilePage{page: h.Home.newPage(r, b.Name), B: b,
 		Link: strings.HasPrefix(b.Contact, "https://") || strings.HasPrefix(b.Contact, "http://")}
+	if payload != "" && b.Live(time.Now()) && b.Username != "" {
+		p.Connect = "/c?from=" + url.QueryEscape(b.Username) + "#" + payload
+	}
 	h.Home.render(w, "business_profile.html", p)
 }
 

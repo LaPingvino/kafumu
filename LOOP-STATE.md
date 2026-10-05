@@ -646,7 +646,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
          (one indexed query per business of yours); manager list shows businesses by @name. Test: agency
          manages café, ana manages both, chains not followed. Was: A business as manager of another business (managers may be "biz:<id>": its managers manage; ForUser
          needs the indirect ones).
-      b. A business's /@name connects like a person's (a named link holding the business card, kept by a
+      [x] b. Done: handleOwner (acting as a named, live business → its @name, owned "biz:<id>"; else you) for
+         set/delete/views of the named link; Card offers the business's link while acting (key in the business's
+         own device store; weekly refresh too); its @name page stays the profile, with "☕ Connect" when the link
+         is live. Browser test: on, Connect on the page, visitor lands on connecting. Was: A business's /@name connects like a person's (a named link holding the business card, kept by a
          manager's device acting as it), with its profile page shown alongside.
       c. Findable + public inbox for businesses (messages to the business, read by its managers' devices).
       d. Later, if wanted: Bluesky for a business.

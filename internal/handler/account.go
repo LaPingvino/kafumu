@@ -46,7 +46,7 @@ type Accounts struct {
 	// Handles maps usernames to long-lived connect codes (kafumu.com/@name).
 	Handles *handle.Store
 	// BizProfile serves /@name when the name is a business's.
-	BizProfile func(w http.ResponseWriter, r *http.Request, id string)
+	BizProfile func(w http.ResponseWriter, r *http.Request, id, payload string)
 }
 
 // Middleware resolves the "k" cookie. It never creates an account: page views
@@ -405,12 +405,36 @@ func (a *Accounts) serveVault(w http.ResponseWriter, r *http.Request, owner stri
 	json.NewEncoder(w).Encode(out)
 }
 
-// SetHandle handles PUT /api/handle {payload}: your kafumu.com/@name link
-// now leads to this connect code (renewed by your device; 90 days).
-func (a *Accounts) SetHandle(w http.ResponseWriter, r *http.Request) {
+// handleOwner: whose kafumu.com/@name link a request is about: the
+// business you're acting as (named, and live: it's an office tool), or
+// you. A business's link is owned as "biz:<id>" (LOOP-STATE 76b).
+func (a *Accounts) handleOwner(r *http.Request) (name, owner string, status int) {
 	u := UserFrom(r.Context())
-	if u == nil || u.Username == "" || a.Handles == nil || IsBot(r) {
-		http.Error(w, "a named account is needed", http.StatusUnauthorized)
+	if u == nil || a.Handles == nil || IsBot(r) {
+		return "", "", http.StatusUnauthorized
+	}
+	if b := a.Home.ActingAs(r); b != nil {
+		if b.Username == "" {
+			return "", "", http.StatusUnauthorized
+		}
+		if !b.Live(time.Now()) {
+			return "", "", http.StatusPaymentRequired
+		}
+		return b.Username, "biz:" + b.ID, 0
+	}
+	if u.Username == "" {
+		return "", "", http.StatusUnauthorized
+	}
+	return u.Username, u.ID, 0
+}
+
+// SetHandle handles PUT /api/handle {payload}: your (or the business's
+// you act as) kafumu.com/@name link now leads to this connect code
+// (renewed by the device; 90 days).
+func (a *Accounts) SetHandle(w http.ResponseWriter, r *http.Request) {
+	name, owner, status := a.handleOwner(r)
+	if status != 0 {
+		http.Error(w, "a named account is needed", status)
 		return
 	}
 	var in struct {
@@ -420,12 +444,12 @@ func (a *Accounts) SetHandle(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "want {payload: v1.…}", http.StatusBadRequest)
 		return
 	}
-	if err := a.Handles.Set(r.Context(), u.Username, u.ID, in.Payload, time.Now()); err != nil {
+	if err := a.Handles.Set(r.Context(), name, owner, in.Payload, time.Now()); err != nil {
 		http.Error(w, "unavailable", http.StatusServiceUnavailable)
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]string{"url": a.Home.Cfg.Origin + "/@" + u.Username})
+	json.NewEncoder(w).Encode(map[string]string{"url": a.Home.Cfg.Origin + "/@" + name})
 }
 
 // FollowHandle serves /@name: to that person's connect code, marked as theirs.
@@ -436,12 +460,15 @@ func (a *Accounts) FollowHandle(w http.ResponseWriter, r *http.Request, name str
 		return
 	}
 	payload, ok := a.Handles.Get(r.Context(), name, time.Now())
-	if !ok {
-		// A business's own name: its public page.
-		if id, err := a.Svc.Store.LookupUsername(r.Context(), name); err == nil && strings.HasPrefix(id, "biz:") && a.BizProfile != nil {
-			a.BizProfile(w, r, strings.TrimPrefix(id, "biz:"))
-			return
+	// A business's name: its public page, with "Connect" when it has a link.
+	if id, err := a.Svc.Store.LookupUsername(r.Context(), name); err == nil && strings.HasPrefix(id, "biz:") && a.BizProfile != nil {
+		if ok && !IsBot(r) {
+			a.countView(r, name)
 		}
+		a.BizProfile(w, r, strings.TrimPrefix(id, "biz:"), payload)
+		return
+	}
+	if !ok {
 		http.NotFound(w, r)
 		return
 	}
@@ -454,12 +481,17 @@ func (a *Accounts) FollowHandle(w http.ResponseWriter, r *http.Request, name str
 
 // DeleteHandle handles DELETE /api/handle: your kafumu.com/@name link stops working.
 func (a *Accounts) DeleteHandle(w http.ResponseWriter, r *http.Request) {
-	u := UserFrom(r.Context())
-	if u == nil || u.Username == "" || a.Handles == nil {
-		http.Error(w, "a named account is needed", http.StatusUnauthorized)
+	name, _, status := a.handleOwner(r)
+	if status == http.StatusUnauthorized {
+		http.Error(w, "a named account is needed", status)
 		return
 	}
-	if err := a.Handles.Delete(r.Context(), u.Username); err != nil {
+	if name == "" { // a lapsed business may still switch its link off
+		if b := a.Home.ActingAs(r); b != nil {
+			name = b.Username
+		}
+	}
+	if err := a.Handles.Delete(r.Context(), name); err != nil {
 		http.Error(w, "unavailable", http.StatusServiceUnavailable)
 		return
 	}
@@ -494,14 +526,14 @@ func (a *Accounts) countView(r *http.Request, name string) {
 
 // HandleViews handles GET /api/handle: your link's views today and the last.
 func (a *Accounts) HandleViews(w http.ResponseWriter, r *http.Request) {
-	u := UserFrom(r.Context())
-	if u == nil || u.Username == "" {
-		http.Error(w, "a named account is needed", http.StatusUnauthorized)
+	name, _, status := a.handleOwner(r)
+	if status != 0 {
+		http.Error(w, "a named account is needed", status)
 		return
 	}
 	var v handleViews
 	if a.Cache != nil {
-		if b, ok := a.Cache.Get(r.Context(), "hv:"+u.Username); ok {
+		if b, ok := a.Cache.Get(r.Context(), "hv:"+name); ok {
 			_ = json.Unmarshal(b, &v)
 		}
 	}
