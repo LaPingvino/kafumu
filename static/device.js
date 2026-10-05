@@ -474,13 +474,14 @@
     }).then(function (pt) { return JSON.parse(new TextDecoder().decode(pt)); });
   }
   function snapshot() {
-    return Promise.all([store.contacts(), store.get("personas"), store.get("shareChoice"), store.get("personasAt"), store.get("tombstones"), store.get("chips"), store.get("invite:named"), store.get("handle"), store.get("me")])
-      .then(function (r) { return { contacts: r[0] || [], personas: r[1] || [], shareChoice: r[2] || null, personasAt: r[3] || "", tombstones: r[4] || {}, chips: r[5] || null, named: r[6] && r[6].privJwk ? r[6] : null, handle: r[7] || null, me: r[8] || null }; });
+    return Promise.all([store.contacts(), store.get("personas"), store.get("shareChoice"), store.get("personasAt"), store.get("tombstones"), store.get("chips"), store.get("invite:named"), store.get("handle"), store.get("me"), store.get("publicInbox"), store.get("inboxMsgs")])
+      .then(function (r) { return { contacts: r[0] || [], personas: r[1] || [], shareChoice: r[2] || null, personasAt: r[3] || "", tombstones: r[4] || {}, chips: r[5] || null, named: r[6] && r[6].privJwk ? r[6] : null, handle: r[7] || null, me: r[8] || null,
+        inbox: r[9] && r[9].privJwk ? r[9] : null, inboxMsgs: r[10] || [] }; });
   }
   function stamp(c) { return (c && (c.updatedAt || c.createdAt)) || ""; }
   function canon(s) {
     var cs = s.contacts.slice().sort(function (a, b) { return a.id < b.id ? -1 : 1; });
-    return JSON.stringify([cs, s.personas, s.shareChoice, s.personasAt, Object.keys(s.tombstones).sort().map(function (k) { return [k, s.tombstones[k]]; }), s.chips || null, s.named || null, s.handle || null, s.me || null]);
+    return JSON.stringify([cs, s.personas, s.shareChoice, s.personasAt, Object.keys(s.tombstones).sort().map(function (k) { return [k, s.tombstones[k]]; }), s.chips || null, s.named || null, s.handle || null, s.me || null, s.inbox || null, (s.inboxMsgs || []).map(function (m) { return m.id; }).sort()]);
   }
   function merge(a, b) {
     var cutoff = new Date(Date.now() - 30 * 864e5).toISOString(), ts = {}, byID = {};
@@ -508,7 +509,13 @@
     // "me" (the person id sent in hellos and cards): the oldest one wins, so
     // all your devices present one person.
     var me = !a.me ? b.me : !b.me ? a.me : (a.me.createdAt || "") <= (b.me.createdAt || "") ? a.me : b.me;
-    return { contacts: contacts, personas: personas, shareChoice: a.shareChoice || b.shareChoice, personasAt: "", tombstones: ts, chips: chips, named: named, handle: handle, me: me || null };
+    // The public inbox (its key: newest wins; it lives on every device now)
+    // and the messages it got (union by id, newest first, 100 kept): a
+    // device that read them took them off the server.
+    var inbox = ((b.inbox && b.inbox.createdAt) || 0) > ((a.inbox && a.inbox.createdAt) || 0) ? b.inbox : (a.inbox || b.inbox || null);
+    var seenMsg = {}, inboxMsgs = (a.inboxMsgs || []).concat(b.inboxMsgs || []).filter(function (m) { if (!m || seenMsg[m.id]) return false; seenMsg[m.id] = true; return true; })
+      .sort(function (x, y) { return String(y.at).localeCompare(String(x.at)); }).slice(0, 100);
+    return { contacts: contacts, personas: personas, shareChoice: a.shareChoice || b.shareChoice, personasAt: "", tombstones: ts, chips: chips, named: named, handle: handle, me: me || null, inbox: inbox, inboxMsgs: inboxMsgs };
   }
   function writeLocal(local, m) {
     var keep = {};
@@ -518,6 +525,8 @@
     steps.push(store.set("personas", m.personas), store.set("shareChoice", m.shareChoice), store.set("personasAt", m.personasAt), store.set("tombstones", m.tombstones));
     if (m.personas && m.personas[0]) steps.push(store.set("card", m.personas[0].card || {}));
     if (m.named) steps.push(store.set("invite:named", m.named));
+    if (m.inbox) steps.push(store.set("publicInbox", m.inbox));
+    if (m.inboxMsgs && m.inboxMsgs.length) steps.push(store.set("inboxMsgs", m.inboxMsgs));
     if (m.me) steps.push(store.set("me", m.me));
     if (m.handle) steps.push(store.set("handle", m.handle));
     if (m.chips) { steps.push(store.set("chips", m.chips)); try { localStorage.setItem("kafumu.chips", JSON.stringify(m.chips)); } catch (e) {} }

@@ -72,11 +72,16 @@ type Business struct {
 	Where        string    `datastore:"where,noindex" json:"-"`
 	Langs        []string  `datastore:"langs,noindex" json:"-"`
 	Tags         []string  `datastore:"tags,noindex" json:"-"`
-	Managers     []string  `datastore:"managers" json:"-"` // user ids (indexed: "mine")
-	CreatedBy    string    `datastore:"created_by,noindex" json:"-"`
-	CreatedAt    time.Time `datastore:"created_at" json:"-"`
-	TrialEnds    time.Time `datastore:"trial_ends,noindex" json:"-"`
-	Status       string    `datastore:"status,noindex" json:"status"`
+	// A public inbox (76c-2), like a person's: messages to the business,
+	// read by its managers' devices (the key travels in the business vault).
+	InboxBox  string    `datastore:"inbox_box,noindex" json:"-"`
+	InboxPub  string    `datastore:"inbox_pub,noindex" json:"-"`
+	InboxBits int       `datastore:"inbox_bits,noindex" json:"-"`
+	Managers  []string  `datastore:"managers" json:"-"` // user ids (indexed: "mine")
+	CreatedBy string    `datastore:"created_by,noindex" json:"-"`
+	CreatedAt time.Time `datastore:"created_at" json:"-"`
+	TrialEnds time.Time `datastore:"trial_ends,noindex" json:"-"`
+	Status    string    `datastore:"status,noindex" json:"status"`
 	// PaidUntil (active accounts): the end of what was paid for; AfterPaid
 	// says what happens after it: AfterStop (no longer live, the default)
 	// or AfterStay (stays live: invoiced later, a friend, a partner…).

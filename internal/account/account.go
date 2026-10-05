@@ -528,3 +528,6 @@ func CleanProfile(bio, where string, langs, tags []string) (string, string, []st
 	return clip(strings.TrimSpace(bio), 160), clip(strings.TrimSpace(where), 80), cleanLangs(langs),
 		cleanList(tags, 12, func(t string) bool { return len(t) <= 40 })
 }
+
+// ValidInbox checks a public inbox's box id and key (for businesses too).
+func ValidInbox(box, pub string) bool { return boxRE.MatchString(box) && pubRE.MatchString(pub) }

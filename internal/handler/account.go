@@ -101,7 +101,7 @@ func (a *Accounts) show(w http.ResponseWriter, r *http.Request, findable bool) {
 		// Acting as a business: the form is the business's profile (76c).
 		view := *p.User
 		view.Username, view.Bio, view.Where, view.Cell, view.Langs, view.Tags, view.VisibleUntil = b.Username, b.Bio, b.Where, b.Cell, b.Langs, b.Tags, b.VisibleUntil
-		view.InboxBox, view.InboxPub, view.InboxBits = "", "", 0
+		view.InboxBox, view.InboxPub, view.InboxBits = b.InboxBox, b.InboxPub, b.InboxBits
 		p.User = &view
 	}
 	if u := p.User; u != nil {
@@ -319,6 +319,33 @@ func (a *Accounts) SetInbox(w http.ResponseWriter, r *http.Request) {
 		box, pub = "", ""
 	}
 	bits, _ := strconv.Atoi(r.FormValue("bits"))
+	if b := a.Home.ActingAs(r); b != nil && a.Home.Biz != nil { // the business's inbox (76c-2)
+		if box != "" && !account.ValidInbox(box, pub) {
+			http.Error(w, "bad inbox", http.StatusBadRequest)
+			return
+		}
+		if b.InboxBox != "" && b.InboxBox != box && a.Prices != nil {
+			_ = a.Prices.Delete(r.Context(), b.InboxBox)
+		}
+		b.InboxBox, b.InboxPub, b.InboxBits = box, pub, 0
+		if box != "" {
+			b.InboxBits = max(account.MinInboxBits, min(account.MaxInboxBits, bits))
+			if a.Prices != nil {
+				if err := a.Prices.Set(r.Context(), box, b.InboxBits); err != nil {
+					http.Error(w, "unavailable", http.StatusServiceUnavailable)
+					return
+				}
+			}
+		}
+		if err := a.Home.Biz.Save(r.Context(), b); err != nil {
+			http.Error(w, "could not save", http.StatusInternalServerError)
+			return
+		}
+		a.Home.forgetBiz(b.ID)
+		a.Home.Biz.ForgetFindable()
+		w.WriteHeader(http.StatusNoContent)
+		return
+	}
 	if err := a.Svc.SetInbox(r.Context(), a.Prices, u, box, pub, bits); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return

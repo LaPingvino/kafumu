@@ -657,7 +657,13 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
          people with Biz (🏢) and Patron = live (wings). Browser test: findable, B sees "@biz 🏢".
          FLAKY (seen once, passed on rerun): "business card synced up" (kafumuDevice.sync() not 'on' in 20 s);
          harden: find why a sync right after saving the business card can stay off.
-      [ ] c-2. A public inbox for businesses (read by its managers' devices, the key via the business vault).
+      [x] c-2. Business public inbox: acting, Findable's inbox controls set Business.InboxBox/Pub/Bits (price
+         set like a person's), shown on its findable entry (✉️). And for everyone: inbox keys are now made
+         exportable (JWK) and the vault snapshot carries the inbox key (newest wins) + received inbox messages
+         (union by id): a public inbox is readable on all your devices, a business's on all its managers'.
+         Inboxes opened before keep a device-only key until switched off and on again. Browser test: B writes
+         to the business, A acting reads it.
+      [x] 76. Business ≡ person (a–c); d (Bluesky for a business) only if wanted.
       (was) c. Findable + public inbox for businesses (messages to the business, read by its managers' devices).
       d. Later, if wanted: Bluesky for a business.
       Already equal: named posts, hosting, wings (patron / live), synced card + contacts, brand admin.

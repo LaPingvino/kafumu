@@ -506,10 +506,12 @@
     function inbox() {
       return store.get("publicInbox").then(function (ib) {
         if (ib) return ib;
-        return genKey().then(function (k) {
-          return rawPub(k).then(function (pub) {
+        // Exportable (kept as a JWK), so the inbox syncs to your other
+        // devices (and a business's to its managers') with the vault.
+        return genKey(true).then(function (k) {
+          return Promise.all([rawPub(k), subtle.exportKey("jwk", k.privateKey)]).then(function (r) {
             var box = hex(cryptoObj.getRandomValues(new Uint8Array(32)));
-            ib = { priv: k.privateKey, pub: b64(pub), box: box };
+            ib = { privJwk: r[1], pub: b64(r[0]), box: box, createdAt: Date.now() };
             return store.set("publicInbox", ib).then(function () { return ib; });
           });
         });
@@ -553,7 +555,7 @@
             return p.then(function () {
               done.push(msg.id);
               var env = JSON.parse(msg.data), bRaw = unb64(env.pub);
-              return pairKey(ib.priv, bRaw, aRaw, bRaw).then(function (key) {
+              return privOf(ib).then(function (pk) { return pairKey(pk, bRaw, aRaw, bRaw); }).then(function (key) {
                 return open(key, ib.box, env.ct).then(function (body) {
                   if (body.t !== "inbox") return;
                   kept.unshift({ id: msg.id, at: msg.at, text: String(body.text || "").slice(0, 2000), card: body.card || null, key: b64(key) });

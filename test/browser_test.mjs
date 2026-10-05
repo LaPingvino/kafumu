@@ -275,6 +275,20 @@ try {
       try { await B.waitFor("document.getElementById('feed').textContent.includes('@" + bizName + " 🏢')", "business findable among the people", 8000); break; }
       catch (e) { if (i >= 6) throw e; }
     }
+    // Its public inbox (76c-2): A opens it while acting; B writes to the
+    // business; A, acting as it, reads it in the business's Contacts.
+    await A.goto(base + "/findable");
+    await A.evaluate("(() => { document.getElementById('inbox-bits').value = '3'; const on = document.getElementById('inbox-on'); on.checked = true; on.onchange(); return true; })()");
+    await A.waitFor("document.getElementById('inbox-status').textContent.length > 1", "business inbox opened");
+    for (let i = 0; ; i++) {
+      await B.goto(base + "/?cell=6fg222");
+      try { await B.waitFor("[...document.querySelectorAll('#feed li')].some(li => li.textContent.includes('@" + bizName + "') && li.textContent.includes('🏢') && [...li.querySelectorAll('button')].find(b => b.textContent.startsWith('✉️')))", "write button on the business", 8000); break; }
+      catch (e) { if (i >= 8) throw e; }
+    }
+    await B.evaluate("(() => { const li = [...document.querySelectorAll('#feed li')].find(l => l.textContent.includes('@" + bizName + "') && l.textContent.includes('🏢')); [...li.querySelectorAll('button')].find(b => b.textContent.startsWith('✉️')).click(); li.querySelector('textarea').value = 'biz inbox hello " + RUN + "'; li.querySelector('form').requestSubmit(); return true; })()");
+    await B.waitFor("[...document.querySelectorAll('#feed li form p')].some(p => /\\(\\d+ s/.test(p.textContent))", "message to the business sent", 60000);
+    await A.goto(base + "/contacts");
+    await A.waitFor("!!document.querySelector('.biz-banner') && document.getElementById('inbox-msgs').textContent.includes('biz inbox hello " + RUN + "')", "the business reads its inbox", 20000);
     const aLink = await (async () => { await A.goto(base + "/account"); return A.evaluate("document.querySelector('.magic input').value"); })();
     const A2 = await browser(9339);
     try {
@@ -475,7 +489,7 @@ try {
     await X.evaluate("fetch('/account/delete', { method: 'POST', body: new URLSearchParams({ confirm: 'yes' }), credentials: 'same-origin' }).then(() => true)");
   }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, business account + switched to it + host as preselected + own @name page + separate business card + its own named link (Connect on its page) + findable like a person + synced to a second manager device (server key) + handed the key to a third device with a matching code (private) + switched back, findable profile seen, named link, paid inbox message + connect back, OLN message + private answer both ways + reaction + elsewhere + travelling + tour + report + question/answer + composer tag suggestions + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, business account + switched to it + host as preselected + own @name page + separate business card + its own named link (Connect on its page) + findable like a person + its public inbox + synced to a second manager device (server key) + handed the key to a third device with a matching code (private) + switched back, findable profile seen, named link, paid inbox message + connect back, OLN message + private answer both ways + reaction + elsewhere + travelling + tour + report + question/answer + composer tag suggestions + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

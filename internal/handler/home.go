@@ -424,8 +424,12 @@ func (h *Home) Bundle(w http.ResponseWriter, r *http.Request) {
 		now := time.Now()
 		for _, bz := range h.Biz.Findable(r.Context(), now) {
 			if in[bz.Cell] && bz.Username != "" && (h.Reports == nil || !h.Reports.Hidden(r.Context(), "person", bz.Username)) {
-				b.People = append(b.People, account.Person{Name: bz.Username, Bio: bz.Bio, Where: bz.Where, Langs: bz.Langs, Tags: bz.Tags,
-					Cell: bz.Cell, Patron: bz.Live(now), Biz: true})
+				p := account.Person{Name: bz.Username, Bio: bz.Bio, Where: bz.Where, Langs: bz.Langs, Tags: bz.Tags,
+					Cell: bz.Cell, Patron: bz.Live(now), Biz: true}
+				if bz.InboxBox != "" && bz.InboxPub != "" {
+					p.Inbox = &account.Inbox{Box: bz.InboxBox, Pub: bz.InboxPub, Bits: bz.InboxBits}
+				}
+				b.People = append(b.People, p)
 			}
 		}
 	}
