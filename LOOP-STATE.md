@@ -868,4 +868,9 @@ start (magic link re-binds them after a domain move).
       searches one queued tag every 3 s, only after 2 s without a foreground search, queue ≤ 300 (deduped,
       fresh tags skipped), stops when empty. The device, still under 15 at ring 8, looks once more after 25 s.
       Tests: trickle (once per tag, then cached), wide bundle (cached posts in, the rest queued, no fetch).
+- [x] 79. (Polish, measured in production: near bundle 0.15 s warm / 1.3 s cold, wide bands 0.06–0.4 s; rural
+      Alentejo empty.) Cell #geo tags are rarely used on Bluesky, so the slow searches for the wider rings now
+      also cover their towns' tags: gazetteer.TownTags (villages and towns of 1,000+ people, not neighbourhoods,
+      biggest first, 4 per band; "#vianadoalentejo #portel" around Évora). Test: a town's cached post reaches
+      the wide bundle.
 

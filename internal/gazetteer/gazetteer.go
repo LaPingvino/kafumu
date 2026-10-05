@@ -697,3 +697,55 @@ func (g *Gazetteer) CityCentres(cells []string) []string {
 	}
 	return out
 }
+
+// TownTags: hashtags for the places (towns and villages of 1,000+ people,
+// not neighbourhoods) inside cells, biggest first, at most max: "évora"
+// for Évora. For the wider rings of a quiet area, where people tag their
+// town, not a cell.
+func (g *Gazetteer) TownTags(cells []string, max int) []string {
+	villagesOnce.Do(loadVillages)
+	type hit struct {
+		tag string
+		pop int32
+	}
+	var hits []hit
+	for _, c := range cells {
+		for _, i := range villageCells[c] {
+			v := villages[i]
+			if v.hood {
+				continue
+			}
+			if tag := townTag(v.name); tag != "" {
+				hits = append(hits, hit{tag, v.pop})
+			}
+		}
+	}
+	sort.Slice(hits, func(a, b int) bool { return hits[a].pop > hits[b].pop })
+	var out []string
+	seen := map[string]bool{}
+	for _, h := range hits {
+		if len(out) == max {
+			break
+		}
+		if !seen[h.tag] {
+			seen[h.tag] = true
+			out = append(out, h.tag)
+		}
+	}
+	return out
+}
+
+// townTag: a name as a hashtag: lowercase, letters and digits only
+// (accents kept, as people write them).
+func townTag(name string) string {
+	var b strings.Builder
+	for _, r := range strings.ToLower(name) {
+		if unicode.IsLetter(r) || unicode.IsDigit(r) {
+			b.WriteRune(r)
+		}
+	}
+	if b.Len() < 3 {
+		return ""
+	}
+	return b.String()
+}

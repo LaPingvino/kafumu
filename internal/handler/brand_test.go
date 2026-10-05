@@ -220,3 +220,24 @@ func TestWideBundlePosts(t *testing.T) {
 		t.Fatalf("queued %d of %d uncached cells", n, len(cells)-1)
 	}
 }
+
+// The outer rings also look for their towns' tags (#evora…), slowly.
+func TestWideBundleTownTags(t *testing.T) {
+	_, home, _ := newServerWithMeetups(t)
+	c := geo.Cell(38.571, -7.909) // Évora
+	cells := geo.Rings(c, 5)[len(geo.Rings(c, 3)):]
+	town := home.Gaz.TownTags(cells, 4)
+	if len(town) == 0 {
+		t.Fatal("no towns in the outer rings around Évora")
+	}
+	t.Logf("town tags around Évora: %v", town)
+	home.Bsky.Prime(town[0], 25, []bsky.Post{{URI: "at://x/app.bsky.feed.post/2", Text: "Feira no fim de semana"}})
+	r := httptest.NewRequest("GET", "/bundle?wide=1&cells="+strings.Join(cells, ","), nil)
+	r.Header.Set("User-Agent", "Mozilla/5.0 Firefox/130")
+	r.Header.Set("Accept-Language", "pt")
+	w := httptest.NewRecorder()
+	home.Bundle(w, r)
+	if !strings.Contains(w.Body.String(), "Feira no fim de semana") {
+		t.Fatalf("town tag #%s not used: %.200s", town[0], w.Body.String())
+	}
+}

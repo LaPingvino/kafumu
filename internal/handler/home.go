@@ -670,10 +670,19 @@ func (h *Home) wideBundle(w http.ResponseWriter, r *http.Request, cells []string
 	// background while the server is idle, for the next look.
 	if h.Bsky != nil {
 		uris := map[string]bool{}
+		// The cells' own #geo tags, and the towns out there (#evora…):
+		// few people tag posts with a cell, many with their town.
+		var tags []string
 		for _, c := range cells {
-			ps, ok := h.Bsky.Cached(geo.Tag(c), 25)
+			tags = append(tags, geo.Tag(c))
+		}
+		if h.Gaz != nil {
+			tags = append(tags, h.Gaz.TownTags(cells, 4)...)
+		}
+		for _, tag := range tags {
+			ps, ok := h.Bsky.Cached(tag, 25)
 			if !ok {
-				h.Bsky.Later(geo.Tag(c), 25)
+				h.Bsky.Later(tag, 25)
 				continue
 			}
 			for _, p := range ps {
