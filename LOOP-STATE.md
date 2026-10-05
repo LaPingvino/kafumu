@@ -487,7 +487,7 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       Emulator test (run.sh): stats, purge, markers gone. Was: Admin OLN tools, complete (Joop: "doesn't enable me to remove stored but not live, or to see all live
       messages"): list all live messages (paged, newest first, with cell, bits, author, expiry, hide/delete), and a
       purge of stored-but-expired/hidden notes now (not waiting for the TTL policy), with counts.
-- [~] 69a. Protocol done (pair.js): replyKey(text, life) → "#rka<33 hex> #rkb<33 hex>" (compressed P-256, BigInt
+- [x] 69a. Protocol done (pair.js): replyKey(text, life) → "#rka<33 hex> #rkb<33 hex>" (compressed P-256, BigInt
       decompression), kept in kv "replyKeys" until life + a week; answer(note, text, mine) posts b64(eph).seal on
       #p<sha256("kafumu answer v1|"+rk)>; readAnswers() opens new ones into kv "answers" threads (not contacts)
       and reads follow-ups with readChat (saveThing → threads). pair_test: post, answer, read, reply, no dupes,
@@ -522,6 +522,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       receive time) drives the area price, not the claimed time (which can sit ±10 min off and dropped out of the
       10-minute count in seconds: offset-trickle got 30/30 through at base, now ~half); a future stamp buys no
       extra life. Tests: TestMassRelease, TestOffsetTrickle (fails on the old counting).
+- [~] 64b-3. Accounts on SQLite (sqlstore.Accounts: users JSON + cell/visible_until/last_seen columns; usernames
+      table shared with businesses "biz:<id>", claim = insert-or-nothing then check owner); tested through
+      account.Service incl. reopen; live: an account made on a SQLite server is still signed in after a restart.
+      Next: boxes + slots, vault, then handle/business/report/short/push/atp/prices, purge, admin stats.
 - [ ] 64. Self-hosting and OLN nodes (Joop): run Kafumu outside GAE (plain Go binary + a file/SQL store, no
       memcache), a page on how to self-host and link a node into OLN, and linked nodes on the admin page
       (peers pulled from / pushed to, last seen). Also mention self-hosting on /business.

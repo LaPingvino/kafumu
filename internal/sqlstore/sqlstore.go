@@ -37,4 +37,8 @@ var schema = []string{
 		id TEXT PRIMARY KEY, cell TEXT, author_id TEXT, expires_at INTEGER, data TEXT NOT NULL)`,
 	`CREATE INDEX IF NOT EXISTS meetups_cell ON meetups (cell, expires_at)`,
 	`CREATE INDEX IF NOT EXISTS meetups_author ON meetups (author_id, expires_at)`,
+	`CREATE TABLE IF NOT EXISTS users (
+		id TEXT PRIMARY KEY, cell TEXT, visible_until INTEGER, last_seen_at INTEGER, data TEXT NOT NULL)`,
+	`CREATE INDEX IF NOT EXISTS users_visible ON users (cell, visible_until)`,
+	`CREATE TABLE IF NOT EXISTS usernames (name TEXT PRIMARY KEY, owner TEXT NOT NULL)`,
 }
