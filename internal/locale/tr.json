@@ -580,5 +580,14 @@
   "biz.sync_off": "Her cihaz kendi başına",
   "biz.sync_server": "Eşitlenmiş (anahtarı sunucu tutar)",
   "biz.sync_server_note": "Her yöneticinin cihazı işletmenin kartını ve kişilerini alır. En basiti; anahtarı sunucu tuttuğu için onları okuyabilir.",
-  "biz.synced_note": "Bu kart ve bu kişiler işletmeye aittir ve yöneticilerin cihazları arasında eşitlenir."
+  "biz.synced_note": "Bu kart ve bu kişiler işletmeye aittir ve yöneticilerin cihazları arasında eşitlenir.",
+  "biz.sync_private": "Eşitlenmiş (anahtar yalnızca yöneticilerin cihazlarında)",
+  "biz.sync_private_note": "Sunucu onları okuyamaz. Yeni bir yöneticinin cihazı, ikiniz de aynı kodu kontrol ettikten sonra anahtarı başka bir yöneticinin cihazından alır.",
+  "js.bizkey_need": "Bu cihazın işletme anahtarına ihtiyacı var: başka bir yöneticiden {name} olarak İşletme'yi açmasını iste ve ikinizin de {code} kodunu gördüğünü kontrol edin.",
+  "js.bizkey_asks": "@{name} işletme anahtarını istiyor. Yalnızca ekranında {code} kodu görünüyorsa gönder.",
+  "js.bizkey_send": "Anahtarı gönder",
+  "js.bizkey_got": "Anahtar alındı: işletmenin kartı ve kişileri eşitleniyor.",
+  "js.bizkey_bar_need": "Bu cihazın işletme anahtarına ihtiyacı var.",
+  "js.bizkey_bar_asks": "Bir yönetici işletme anahtarını istiyor.",
+  "js.bizkey_open": "Aç"
 }

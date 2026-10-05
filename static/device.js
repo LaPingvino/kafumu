@@ -534,7 +534,7 @@
           key = b64e(crypto.getRandomValues(new Uint8Array(32)));
           return store.set("syncKey", key).then(function () { return push(key, local, v.version); });
         }
-        if (!key) return "needs-key";
+        if (!key) return actingSync === "private" ? bizKey.request().then(function (k) { return k ? "conflict" : "needs-key"; }) : "needs-key";
         if (!v.data) return push(key, local, v.version);
         return unseal(key, v.data).then(function (remote) {
           var m = merge(local, remote);
@@ -586,8 +586,92 @@
   }
   if (window.addEventListener) window.addEventListener("kafumu:sync", function (e) {
     var T = window.KAFUMU_T || {};
-    if (e.detail === "needs-key") bar(T.sync_needs_key || "Your cards and contacts are on your other device.", T.sync_get || "Get them", "/contacts#get");
+    if (e.detail === "needs-key" && actingSync === "private") { if (!/^\/business/.test(location.pathname)) bar(T.bizkey_bar_need || "This device needs the business key.", T.bizkey_open || "Open", "/business"); }
+    else if (e.detail === "needs-key") bar(T.sync_needs_key || "Your cards and contacts are on your other device.", T.sync_get || "Get them", "/contacts#get");
+    if (e.detail === "on" && actingSync === "private" && !/^\/business/.test(location.pathname)) bizKey.pending().then(function (rs) {
+      if (rs.length) bar(T.bizkey_bar_asks || "A manager asks for the business key.", T.bizkey_open || "Open", "/business");
+    });
   });
+
+  // ---- The business key in private mode (LOOP-STATE 75c-2) ----
+  // A device without it asks with a one-off ECDH key; a manager's device
+  // that has it seals it to that key, once both screens show the same code
+  // (derived from the asking device's public key, so a key swapped in by
+  // the server would show a different one). The server sees public keys
+  // and ciphertext only.
+  var bizKey = (function () {
+    var ECDH = { name: "ECDH", namedCurve: "P-256" }, subtle = crypto.subtle, enc = new TextEncoder();
+    var api = "/api/business/" + actingID;
+    function code(pubB64) {
+      return subtle.digest("SHA-256", b64d(pubB64)).then(function (h) {
+        var n = new DataView(h).getUint32(0) % 1000000, s = String(n).padStart(6, "0");
+        return s.slice(0, 3) + " " + s.slice(3);
+      });
+    }
+    function aes(priv, theirRaw, salt) {
+      return subtle.importKey("raw", theirRaw, ECDH, false, []).then(function (pub) { return subtle.deriveBits({ name: "ECDH", public: pub }, priv, 256); })
+        .then(function (bits) { return subtle.importKey("raw", bits, "HKDF", false, ["deriveKey"]); })
+        .then(function (ikm) { return subtle.deriveKey({ name: "HKDF", hash: "SHA-256", salt: salt, info: enc.encode("kafumu bizkey v1") }, ikm, { name: "AES-GCM", length: 256 }, false, ["encrypt", "decrypt"]); });
+    }
+    function cat(a, b) { var o = new Uint8Array(a.length + b.length); o.set(a); o.set(b, a.length); return o; }
+    function list(pub) { return fetch(api + "/keyreq?pub=" + encodeURIComponent(pub || ""), { credentials: "same-origin", cache: "no-store" }).then(function (r) { return r.ok ? r.json() : []; }); }
+    function post(path, form) { return fetch(api + path, { method: "POST", credentials: "same-origin", body: new URLSearchParams(form) }); }
+    // mine: this device's request (made once, kept in the business store).
+    function mine() {
+      return store.get("bizKeyReq").then(function (q) {
+        if (q) return q;
+        return subtle.generateKey(ECDH, true, ["deriveBits"]).then(function (k) {
+          return Promise.all([subtle.exportKey("raw", k.publicKey), subtle.exportKey("jwk", k.privateKey)]).then(function (r) {
+            q = { pub: b64e(new Uint8Array(r[0])), privJwk: r[1] };
+            return store.set("bizKeyReq", q).then(function () { return q; });
+          });
+        });
+      });
+    }
+    // request: ask (or check the answer); resolves to the key once it came.
+    function request() {
+      return mine().then(function (q) {
+        return list(q.pub).then(function (rs) {
+          var me = rs.filter(function (x) { return x.mine; })[0];
+          if (!me) return post("/keyreq", { pub: q.pub }).then(function () { return null; });
+          if (!me.wrapped) return null;
+          var parts = me.wrapped.split("."), eph = b64d(parts[0]), box = b64d(parts[1]);
+          return subtle.importKey("jwk", q.privJwk, ECDH, false, ["deriveBits"]).then(function (priv) { return aes(priv, eph, cat(eph, b64d(q.pub))); })
+            .then(function (k) { return subtle.decrypt({ name: "AES-GCM", iv: box.slice(0, 12) }, k, box.slice(12)); })
+            .then(function (pt) {
+              var key = new TextDecoder().decode(pt);
+              return store.set("syncKey", key).then(function () { return store.set("bizKeyReq", null); }).then(function () { return key; });
+            }, function () { return null; });
+        });
+      });
+    }
+    // pending: other managers' open requests, with their codes.
+    function pending() {
+      return store.get("syncKey").then(function (have) {
+        if (!have || actingSync !== "private") return [];
+        return list().then(function (rs) {
+          rs = rs.filter(function (x) { return !x.mine && !x.wrapped; });
+          return Promise.all(rs.map(function (x) { return code(x.pub).then(function (c) { x.code = c; return x; }); }));
+        });
+      });
+    }
+    // grant: seal the key to that request's public key and send it.
+    function grant(req) {
+      return store.get("syncKey").then(function (key) {
+        if (!key) throw new Error("no key on this device");
+        var theirs = b64d(req.pub);
+        return subtle.generateKey(ECDH, true, ["deriveBits"]).then(function (k) {
+          return subtle.exportKey("raw", k.publicKey).then(function (ephRaw) {
+            ephRaw = new Uint8Array(ephRaw);
+            var iv = crypto.getRandomValues(new Uint8Array(12));
+            return aes(k.privateKey, theirs, cat(ephRaw, theirs)).then(function (ak) { return subtle.encrypt({ name: "AES-GCM", iv: iv }, ak, enc.encode(key)); })
+              .then(function (ct) { return post("/keygrant", { pub: req.pub, wrapped: b64e(ephRaw) + "." + b64e(cat(iv, new Uint8Array(ct))) }); });
+          });
+        });
+      }).then(function (r) { if (!r.ok) throw new Error("grant " + r.status); });
+    }
+    return { code: code, mine: mine, request: request, pending: pending, grant: grant };
+  })();
   function askedForKey() {
     Promise.all([fetch("/account/move", { credentials: "same-origin" }).then(function (r) { return r.ok ? r.json() : {}; }), store.get("invite:move"), store.get("syncKey")])
       .then(function (r) {
@@ -622,7 +706,7 @@
   if (typeof document !== "undefined") setTimeout(suggestAccount, 1500);
   else if (typeof document !== "undefined") document.addEventListener("DOMContentLoaded", function () { if (signedIn()) sync(); });
 
-  window.kafumuDevice = { signalText: signalText, store: store, FIELDS: FIELDS, links: links, renderContact: renderContact, personas: personas,
+  window.kafumuDevice = { bizKey: bizKey, actingSync: actingSync,  signalText: signalText, store: store, FIELDS: FIELDS, links: links, renderContact: renderContact, personas: personas,
     vcards: vcards, backup: backup, restore: restore, download: download, sync: sync, quietDays: quietDays,
     // chips: your filter-chip row ({pinned: [...], hidden: [...], at}); a
     // localStorage mirror lets Around draw it without waiting.

@@ -580,5 +580,14 @@
   "biz.sync_off": "Każde urządzenie osobno",
   "biz.sync_server": "Synchronizowane (klucz trzyma serwer)",
   "biz.sync_server_note": "Każde urządzenie zarządzających dostaje wizytówkę i kontakty firmy. Najprościej; klucz trzyma serwer, więc mógłby je odczytać.",
-  "biz.synced_note": "Ta wizytówka i te kontakty należą do firmy i są zsynchronizowane między urządzeniami zarządzających."
+  "biz.synced_note": "Ta wizytówka i te kontakty należą do firmy i są zsynchronizowane między urządzeniami zarządzających.",
+  "biz.sync_private": "Synchronizowane (klucz tylko na urządzeniach zarządzających)",
+  "biz.sync_private_note": "Serwer nie może ich odczytać. Urządzenie nowej osoby zarządzającej dostaje klucz z urządzenia innej, gdy obie sprawdzicie ten sam kod.",
+  "js.bizkey_need": "To urządzenie potrzebuje klucza firmy: poproś inną osobę zarządzającą, by otworzyła Firmę jako {name}, i sprawdźcie, że obie widzicie kod {code}.",
+  "js.bizkey_asks": "@{name} prosi o klucz firmy. Wyślij go tylko, jeśli na jej ekranie widnieje kod {code}.",
+  "js.bizkey_send": "Wyślij klucz",
+  "js.bizkey_got": "Klucz odebrany: wizytówka i kontakty firmy się synchronizują.",
+  "js.bizkey_bar_need": "To urządzenie potrzebuje klucza firmy.",
+  "js.bizkey_bar_asks": "Osoba zarządzająca prosi o klucz firmy.",
+  "js.bizkey_open": "Otwórz"
 }

@@ -580,5 +580,14 @@
   "biz.sync_off": "各设备各自保存",
   "biz.sync_server": "同步（服务器保管密钥）",
   "biz.sync_server_note": "每位管理员的设备都会收到商家的名片和联系人。最简单；但密钥由服务器保管，因此服务器可以读取它们。",
-  "biz.synced_note": "这张名片和这些联系人属于商家，并在各管理员的设备之间同步。"
+  "biz.synced_note": "这张名片和这些联系人属于商家，并在各管理员的设备之间同步。",
+  "biz.sync_private": "同步（密钥只在管理员的设备上）",
+  "biz.sync_private_note": "服务器无法读取它们。新管理员的设备在双方核对相同的代码后，从另一位管理员的设备获得密钥。",
+  "js.bizkey_need": "此设备需要商家密钥：请另一位管理员以 {name} 的身份打开“商家”，并确认你们都看到代码 {code}。",
+  "js.bizkey_asks": "@{name} 请求商家密钥。仅当对方屏幕显示代码 {code} 时才发送。",
+  "js.bizkey_send": "发送密钥",
+  "js.bizkey_got": "已收到密钥：商家的名片和联系人正在同步。",
+  "js.bizkey_bar_need": "此设备需要商家密钥。",
+  "js.bizkey_bar_asks": "有管理员请求商家密钥。",
+  "js.bizkey_open": "打开"
 }

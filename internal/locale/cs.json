@@ -580,5 +580,14 @@
   "biz.sync_off": "Každé zařízení zvlášť",
   "biz.sync_server": "Synchronizováno (klíč drží server)",
   "biz.sync_server_note": "Každé zařízení správců dostane vizitku a kontakty firmy. Nejjednodušší; klíč drží server, takže by je mohl číst.",
-  "biz.synced_note": "Tahle vizitka a tyto kontakty patří firmě a zůstávají synchronizované mezi zařízeními správců."
+  "biz.synced_note": "Tahle vizitka a tyto kontakty patří firmě a zůstávají synchronizované mezi zařízeními správců.",
+  "biz.sync_private": "Synchronizováno (klíč jen na zařízeních správců)",
+  "biz.sync_private_note": "Server je nemůže číst. Zařízení nového správce dostane klíč ze zařízení jiného správce, až oba zkontrolujete stejný kód.",
+  "js.bizkey_need": "Toto zařízení potřebuje klíč firmy: požádej jiného správce, ať otevře Firmu jako {name}, a ověřte, že oba vidíte kód {code}.",
+  "js.bizkey_asks": "@{name} žádá o klíč firmy. Pošli ho jen tehdy, když jeho obrazovka ukazuje kód {code}.",
+  "js.bizkey_send": "Poslat klíč",
+  "js.bizkey_got": "Klíč přijat: vizitka a kontakty firmy se synchronizují.",
+  "js.bizkey_bar_need": "Toto zařízení potřebuje klíč firmy.",
+  "js.bizkey_bar_asks": "Správce žádá o klíč firmy.",
+  "js.bizkey_open": "Otevřít"
 }

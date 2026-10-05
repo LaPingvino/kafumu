@@ -485,7 +485,13 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
          server forgets it; switching to server can take a device's key, else starts fresh), the setting on
          /business, device.js syncs the acting business's own store (key from the server), banner says
          "in sync". Tests: access control (Go), second device of a manager gets the business card (browser).
-      [ ] 75c-2. Private mode: key only on devices; handover to a new manager's device with a matching code.
+      [x] 75c-2. Private mode: Business.KeyReqs per DEVICE (pub), ≤ 5 open per user, a week's life, dropped
+         when no longer a manager; device asks with a one-off P-256 key; a key-holding device sees the request
+         with the 6-digit code (SHA-256 of the pub) and seals the key to it (ECDH + HKDF + AES-GCM); server sees
+         pubs + ciphertext. /business shows "needs key, code …" / "@x asks, code … [Send key]"; bars elsewhere.
+         Private→server hands the device's key over. Fixed on the way: /business didn't load device.js.
+         Browser test: third device asks, first sees the same code, sends, third gets the business card.
+      [x] 75c. Business contacts synced between managers: both modes (Joop: "enable both").
       (was) c. Business contacts synced across its managers ("company accounts could use a bit more server side help"):
          a business vault (encrypted like yours, with a business key); the key reaches a newly added manager
          through an existing manager's device (wrapped for the new manager when they first open /business, after

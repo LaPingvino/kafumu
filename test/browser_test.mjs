@@ -266,6 +266,29 @@ try {
       await A2.goto(base + "/card");
       await A2.waitFor("document.getElementById('card-form').name.value === 'Café card " + RUN + "'", "business card arrived on the second device", 20000);
     } finally { A2.close(); }
+    // Private mode (75c-2): the server forgets the key; a new device of a
+    // manager asks with a code, a device that has the key sees the same code
+    // and sends it; the new device then gets the business card.
+    await A.goto(base + "/business");
+    await A.evaluate("(() => { const f = document.querySelector('form.biz-sync'); f.mode.value = 'private'; f.requestSubmit(); return true; })()");
+    await A.waitFor("document.querySelector('form.biz-sync') && document.querySelector('form.biz-sync').mode.value === 'private'", "business sync private");
+    const A3 = await browser(9340);
+    try {
+      await A3.goto(aLink.replace(/^https?:\/\/[^/]+/, base));
+      await A3.goto(base + "/account");
+      await A3.waitFor("!![...document.querySelectorAll('form.use-as button')].find(b => b.textContent.includes('Café Teste " + RUN + "'))", "third device sees the business");
+      await A3.evaluate("[...document.querySelectorAll('form.use-as button')].find(b => b.textContent.includes('Café Teste " + RUN + "')).click(); true");
+      await A3.waitFor("!!document.querySelector('nav a.acting')", "third device acting");
+      await A3.goto(base + "/business");
+      await A3.waitFor("!!document.querySelector('#bizkey .bizkey-need')", "third device asks for the key, with a code", 20000);
+      const code = await A3.evaluate("document.querySelector('#bizkey .bizkey-need').textContent.match(/\\d{3} \\d{3}/)[0]");
+      await A.goto(base + "/business");
+      await A.waitFor("[...document.querySelectorAll('#bizkey p')].some(p => p.textContent.includes('" + code + "') && p.querySelector('button'))", "the key-holding device sees the same code", 30000);
+      await A.evaluate("[...document.querySelectorAll('#bizkey p')].find(p => p.textContent.includes('" + code + "')).querySelector('button').click(); true");
+      await A3.waitFor("window.kafumuDevice.store.get('syncKey').then(k => !!k)", "third device received the key", 30000);
+      await A3.goto(base + "/card");
+      await A3.waitFor("document.getElementById('card-form').name.value === 'Café card " + RUN + "'", "business card on the third device (private key)", 20000);
+    } finally { A3.close(); }
     // Switch back to yourself from the account page.
     await A.goto(base + "/account");
     await A.evaluate("document.querySelector('form.use-as button[value=\"\"]').click(); true");
@@ -432,7 +455,7 @@ try {
     await X.evaluate("fetch('/account/delete', { method: 'POST', body: new URLSearchParams({ confirm: 'yes' }), credentials: 'same-origin' }).then(() => true)");
   }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, business account + switched to it + host as preselected + own @name page + separate business card + synced to a second manager device (server key) + switched back, findable profile seen, named link, paid inbox message + connect back, OLN message + private answer both ways + reaction + elsewhere + travelling + tour + report + question/answer + composer tag suggestions + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, business account + switched to it + host as preselected + own @name page + separate business card + synced to a second manager device (server key) + handed the key to a third device with a matching code (private) + switched back, findable profile seen, named link, paid inbox message + connect back, OLN message + private answer both ways + reaction + elsewhere + travelling + tour + report + question/answer + composer tag suggestions + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

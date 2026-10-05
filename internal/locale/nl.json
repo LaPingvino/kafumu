@@ -580,5 +580,14 @@
   "biz.sync_off": "Elk apparaat apart",
   "biz.sync_server": "Gesynchroniseerd (de server bewaart de sleutel)",
   "biz.sync_server_note": "Elk apparaat van een beheerder krijgt het kaartje en de contacten van het bedrijf. Het eenvoudigst; de server bewaart de sleutel, dus die zou ze kunnen lezen.",
-  "biz.synced_note": "Dit kaartje en deze contacten zijn van het bedrijf en blijven gelijk op de apparaten van de beheerders."
+  "biz.synced_note": "Dit kaartje en deze contacten zijn van het bedrijf en blijven gelijk op de apparaten van de beheerders.",
+  "biz.sync_private": "Gesynchroniseerd (sleutel alleen op apparaten van beheerders)",
+  "biz.sync_private_note": "De server kan ze niet lezen. Het apparaat van een nieuwe beheerder krijgt de sleutel van het apparaat van een andere beheerder, nadat jullie allebei dezelfde code controleren.",
+  "js.bizkey_need": "Dit apparaat heeft de bedrijfssleutel nodig: vraag een andere beheerder om Bedrijf te openen als {name}, en controleer dat jullie allebei code {code} zien.",
+  "js.bizkey_asks": "@{name} vraagt om de bedrijfssleutel. Stuur hem alleen als hun scherm code {code} toont.",
+  "js.bizkey_send": "Sleutel sturen",
+  "js.bizkey_got": "Sleutel ontvangen: het kaartje en de contacten van het bedrijf worden gesynchroniseerd.",
+  "js.bizkey_bar_need": "Dit apparaat heeft de bedrijfssleutel nodig.",
+  "js.bizkey_bar_asks": "Een beheerder vraagt om de bedrijfssleutel.",
+  "js.bizkey_open": "Openen"
 }

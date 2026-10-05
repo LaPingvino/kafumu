@@ -580,5 +580,14 @@
   "biz.sync_off": "Each device on its own",
   "biz.sync_server": "Synced (the server holds the key)",
   "biz.sync_server_note": "Every manager's device gets the business's card and contacts. Simplest; the server holds the key, so it could read them.",
-  "biz.synced_note": "This card and these contacts belong to the business and stay in sync between its managers' devices."
+  "biz.synced_note": "This card and these contacts belong to the business and stay in sync between its managers' devices.",
+  "biz.sync_private": "Synced (key only on managers' devices)",
+  "biz.sync_private_note": "The server can't read them. A new manager's device gets the key from another manager's device, after you both check the same code.",
+  "js.bizkey_need": "This device needs the business key: ask another manager to open Business while acting as {name}, and check you both see code {code}.",
+  "js.bizkey_asks": "@{name} asks for the business key. Send it only if their screen shows code {code}.",
+  "js.bizkey_send": "Send key",
+  "js.bizkey_got": "Key received: the business's card and contacts are syncing.",
+  "js.bizkey_bar_need": "This device needs the business key.",
+  "js.bizkey_bar_asks": "A manager asks for the business key.",
+  "js.bizkey_open": "Open"
 }

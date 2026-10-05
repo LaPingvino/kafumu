@@ -580,5 +580,14 @@
   "biz.sync_off": "Minden eszköz külön",
   "biz.sync_server": "Szinkronizálva (a kulcsot a szerver tartja)",
   "biz.sync_server_note": "Minden kezelő eszköze megkapja a vállalkozás névjegyét és kapcsolatait. A legegyszerűbb; a kulcs a szervernél van, így olvashatná őket.",
-  "biz.synced_note": "Ez a névjegy és ezek a kapcsolatok a vállalkozáséi, és szinkronban maradnak a kezelők eszközei között."
+  "biz.synced_note": "Ez a névjegy és ezek a kapcsolatok a vállalkozáséi, és szinkronban maradnak a kezelők eszközei között.",
+  "biz.sync_private": "Szinkronizálva (a kulcs csak a kezelők eszközein)",
+  "biz.sync_private_note": "A szerver nem tudja olvasni őket. Új kezelő eszköze egy másik kezelő eszközétől kapja meg a kulcsot, miután mindketten ellenőriztétek ugyanazt a kódot.",
+  "js.bizkey_need": "Ennek az eszköznek kell a vállalkozás kulcsa: kérj meg egy másik kezelőt, hogy nyissa meg a Vállalkozást {name} nevében, és ellenőrizzétek, hogy mindketten a {code} kódot látjátok.",
+  "js.bizkey_asks": "@{name} kéri a vállalkozás kulcsát. Csak akkor küldd el, ha az ő képernyőjén a {code} kód látszik.",
+  "js.bizkey_send": "Kulcs küldése",
+  "js.bizkey_got": "Kulcs megérkezett: a vállalkozás névjegye és kapcsolatai szinkronizálódnak.",
+  "js.bizkey_bar_need": "Ennek az eszköznek kell a vállalkozás kulcsa.",
+  "js.bizkey_bar_asks": "Egy kezelő kéri a vállalkozás kulcsát.",
+  "js.bizkey_open": "Megnyitás"
 }

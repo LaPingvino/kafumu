@@ -580,5 +580,14 @@
   "biz.sync_off": "Mỗi thiết bị riêng",
   "biz.sync_server": "Đồng bộ (máy chủ giữ khóa)",
   "biz.sync_server_note": "Thiết bị của mọi quản lý đều nhận danh thiếp và danh bạ của doanh nghiệp. Đơn giản nhất; máy chủ giữ khóa nên có thể đọc chúng.",
-  "biz.synced_note": "Danh thiếp và danh bạ này thuộc về doanh nghiệp và được đồng bộ giữa các thiết bị của quản lý."
+  "biz.synced_note": "Danh thiếp và danh bạ này thuộc về doanh nghiệp và được đồng bộ giữa các thiết bị của quản lý.",
+  "biz.sync_private": "Đồng bộ (khóa chỉ trên thiết bị của quản lý)",
+  "biz.sync_private_note": "Máy chủ không đọc được. Thiết bị của quản lý mới nhận khóa từ thiết bị của quản lý khác, sau khi cả hai kiểm tra cùng một mã.",
+  "js.bizkey_need": "Thiết bị này cần khóa doanh nghiệp: nhờ một quản lý khác mở Doanh nghiệp với tư cách {name}, và kiểm tra cả hai cùng thấy mã {code}.",
+  "js.bizkey_asks": "@{name} xin khóa doanh nghiệp. Chỉ gửi nếu màn hình của họ hiện mã {code}.",
+  "js.bizkey_send": "Gửi khóa",
+  "js.bizkey_got": "Đã nhận khóa: danh thiếp và danh bạ doanh nghiệp đang đồng bộ.",
+  "js.bizkey_bar_need": "Thiết bị này cần khóa doanh nghiệp.",
+  "js.bizkey_bar_asks": "Một quản lý xin khóa doanh nghiệp.",
+  "js.bizkey_open": "Mở"
 }

@@ -20,9 +20,12 @@
     <p class="dim small">{{if .Username}}<a href="/@{{.Username}}">kafumu.com/@{{.Username}}</a> · {{end}}{{t $.Lang "biz.username_note"}}</p>
     <form method="post" action="/business/{{.ID}}/sync" class="biz-sync"><label><strong>{{t $.Lang "biz.sync_title"}}</strong>
       <select name="mode" onchange="this.form.requestSubmit()"><option value="off"{{if not .SyncMode}} selected{{end}}>{{t $.Lang "biz.sync_off"}}</option>
-        <option value="server"{{if eq .SyncMode "server"}} selected{{end}}>{{t $.Lang "biz.sync_server"}}</option></select></label>
-      <noscript><button type="submit" class="pill-sm">{{t $.Lang "account.save"}}</button></noscript></form>
-    <p class="dim small">{{if eq .SyncMode "server"}}{{t $.Lang "biz.sync_server_note"}}{{else}}{{t $.Lang "biz.device_only"}}{{end}}</p>
+        <option value="server"{{if eq .SyncMode "server"}} selected{{end}}>{{t $.Lang "biz.sync_server"}}</option>
+        <option value="private"{{if eq .SyncMode "private"}} selected{{end}}>{{t $.Lang "biz.sync_private"}}</option></select></label>
+      <input type="hidden" name="key" data-biz="{{.ID}}"></form>
+      <noscript><button type="submit" class="pill-sm">{{t $.Lang "account.save"}}</button></noscript>
+    <p class="dim small">{{if eq .SyncMode "server"}}{{t $.Lang "biz.sync_server_note"}}{{else if eq .SyncMode "private"}}{{t $.Lang "biz.sync_private_note"}}{{else}}{{t $.Lang "biz.device_only"}}{{end}}</p>
+    {{if and (eq .SyncMode "private") $.Acting (eq $.Acting.ID .ID)}}<div id="bizkey" class="card events" style="padding:8px 16px" hidden></div>{{end}}
     <p><strong>{{t $.Lang "biz.managers"}}</strong></p>
     <ul>{{$b := .}}{{range .Managers}}<li>@{{index $.Names .}}{{if ne . $.User.ID}} <form method="post" action="/business/{{$b.ID}}/managers" class="inline"><input type="hidden" name="remove" value="{{.}}"><button type="submit" class="pill-sm">×</button></form>{{end}}</li>{{end}}</ul>
     <form method="post" action="/business/{{.ID}}/managers" class="inline-row"><input name="add" placeholder="@username" maxlength="31"><button type="submit" class="pill-sm">{{t $.Lang "biz.add_manager"}}</button></form>
@@ -38,5 +41,40 @@
     </form>
   </div>{{end}}
   <p class="dim small">🖥️ {{t .Lang "biz.selfhost"}} <a href="https://github.com/LaPingvino/kafumu/blob/main/SELFHOSTING.md" rel="noopener">{{t .Lang "biz.selfhost_link"}} ↗</a></p>
+<script src="/static/device.js?v={{.V}}"></script>
+<script>
+// Private mode handover for the business you're acting as; and switching to
+// server mode hands this device's key over so the vault stays readable.
+(function () {
+  var dev = window.kafumuDevice, T = window.KAFUMU_T || {}, box = document.getElementById("bizkey");
+  var id = document.body.dataset.actingId;
+  if (dev && id) dev.store.get("syncKey").then(function (k) { document.querySelectorAll('input[name=key][data-biz="' + id + '"]').forEach(function (i) { i.value = k || ""; }); });
+  if (!dev || !box || !dev.bizKey) return;
+  function draw() {
+    dev.store.get("syncKey").then(function (have) {
+      box.textContent = ""; box.hidden = false;
+      if (!have) {
+        return dev.bizKey.mine().then(function (q) { return Promise.all([dev.bizKey.code(q.pub), dev.bizKey.request()]); }).then(function (r) {
+          if (r[1]) { box.textContent = "🔑 " + (T.bizkey_got || "Key received."); dev.sync(); return; }
+          var p = document.createElement("p"); p.textContent = "🔑 " + (T.bizkey_need || "This device needs the business key. Code: {code}").replace("{name}", document.body.dataset.acting || "").replace("{code}", r[0]);
+          p.className = "bizkey-need"; box.appendChild(p);
+          setTimeout(draw, 5000);
+        });
+      }
+      return dev.bizKey.pending().then(function (rs) {
+        box.hidden = !rs.length;
+        rs.forEach(function (x) {
+          var p = document.createElement("p"); p.textContent = "🔑 " + (T.bizkey_asks || "@{name} asks for the business key; code {code}.").replace("{name}", x.name || "?").replace("{code}", x.code);
+          var b = document.createElement("button"); b.type = "button"; b.className = "pill-sm suggested"; b.textContent = T.bizkey_send || "Send key";
+          b.onclick = function () { b.disabled = true; dev.bizKey.grant(x).then(draw, function () { b.disabled = false; }); };
+          p.appendChild(document.createTextNode(" ")); p.appendChild(b); box.appendChild(p);
+        });
+        setTimeout(draw, 10000);
+      });
+    });
+  }
+  draw();
+})();
+</script>
 </article>
 {{template "foot" .}}

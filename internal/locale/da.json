@@ -580,5 +580,14 @@
   "biz.sync_off": "Hver enhed for sig",
   "biz.sync_server": "Synkroniseret (serveren har nøglen)",
   "biz.sync_server_note": "Hver administrators enhed får virksomhedens kort og kontakter. Enklest; serveren har nøglen og kunne altså læse dem.",
-  "biz.synced_note": "Dette kort og disse kontakter tilhører virksomheden og holdes synkroniseret mellem administratorernes enheder."
+  "biz.synced_note": "Dette kort og disse kontakter tilhører virksomheden og holdes synkroniseret mellem administratorernes enheder.",
+  "biz.sync_private": "Synkroniseret (nøgle kun på administratorernes enheder)",
+  "biz.sync_private_note": "Serveren kan ikke læse dem. En ny administrators enhed får nøglen fra en anden administrators enhed, når I begge har tjekket den samme kode.",
+  "js.bizkey_need": "Denne enhed mangler virksomhedens nøgle: bed en anden administrator åbne Virksomhed som {name}, og tjek at I begge ser koden {code}.",
+  "js.bizkey_asks": "@{name} beder om virksomhedens nøgle. Send den kun, hvis deres skærm viser koden {code}.",
+  "js.bizkey_send": "Send nøgle",
+  "js.bizkey_got": "Nøgle modtaget: virksomhedens kort og kontakter synkroniseres.",
+  "js.bizkey_bar_need": "Denne enhed mangler virksomhedens nøgle.",
+  "js.bizkey_bar_asks": "En administrator beder om virksomhedens nøgle.",
+  "js.bizkey_open": "Åbn"
 }

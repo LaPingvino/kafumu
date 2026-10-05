@@ -580,5 +580,14 @@
   "biz.sync_off": "Setiap perangkat sendiri-sendiri",
   "biz.sync_server": "Disinkronkan (server menyimpan kuncinya)",
   "biz.sync_server_note": "Setiap perangkat pengelola mendapat kartu dan kontak bisnis. Paling sederhana; server menyimpan kuncinya, jadi bisa membacanya.",
-  "biz.synced_note": "Kartu dan kontak ini milik bisnis dan tetap sinkron di antara perangkat para pengelolanya."
+  "biz.synced_note": "Kartu dan kontak ini milik bisnis dan tetap sinkron di antara perangkat para pengelolanya.",
+  "biz.sync_private": "Disinkronkan (kunci hanya di perangkat pengelola)",
+  "biz.sync_private_note": "Server tidak bisa membacanya. Perangkat pengelola baru mendapat kunci dari perangkat pengelola lain, setelah kalian berdua memeriksa kode yang sama.",
+  "js.bizkey_need": "Perangkat ini butuh kunci bisnis: minta pengelola lain membuka Bisnis sebagai {name}, dan pastikan kalian berdua melihat kode {code}.",
+  "js.bizkey_asks": "@{name} meminta kunci bisnis. Kirim hanya jika layarnya menampilkan kode {code}.",
+  "js.bizkey_send": "Kirim kunci",
+  "js.bizkey_got": "Kunci diterima: kartu dan kontak bisnis sedang disinkronkan.",
+  "js.bizkey_bar_need": "Perangkat ini butuh kunci bisnis.",
+  "js.bizkey_bar_asks": "Seorang pengelola meminta kunci bisnis.",
+  "js.bizkey_open": "Buka"
 }

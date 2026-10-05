@@ -580,5 +580,14 @@
   "biz.sync_off": "Ĉiu aparato aparte",
   "biz.sync_server": "Sinkronigita (la servilo tenas la ŝlosilon)",
   "biz.sync_server_note": "Ĉiu aparato de administranto ricevas la karton kaj kontaktojn de la komerco. Plej simple; la servilo tenas la ŝlosilon, do ĝi povus legi ilin.",
-  "biz.synced_note": "Ĉi tiu karto kaj ĉi tiuj kontaktoj apartenas al la komerco kaj restas sinkronigitaj inter la aparatoj de ĝiaj administrantoj."
+  "biz.synced_note": "Ĉi tiu karto kaj ĉi tiuj kontaktoj apartenas al la komerco kaj restas sinkronigitaj inter la aparatoj de ĝiaj administrantoj.",
+  "biz.sync_private": "Sinkronigita (ŝlosilo nur en aparatoj de administrantoj)",
+  "biz.sync_private_note": "La servilo ne povas legi ilin. La aparato de nova administranto ricevas la ŝlosilon de la aparato de alia administranto, post kiam vi ambaŭ kontrolas la saman kodon.",
+  "js.bizkey_need": "Ĉi tiu aparato bezonas la ŝlosilon de la komerco: petu alian administranton malfermi Komerco agante kiel {name}, kaj kontrolu, ke vi ambaŭ vidas la kodon {code}.",
+  "js.bizkey_asks": "@{name} petas la ŝlosilon de la komerco. Sendu ĝin nur se ties ekrano montras la kodon {code}.",
+  "js.bizkey_send": "Sendi ŝlosilon",
+  "js.bizkey_got": "Ŝlosilo ricevita: la karto kaj kontaktoj de la komerco sinkroniĝas.",
+  "js.bizkey_bar_need": "Ĉi tiu aparato bezonas la ŝlosilon de la komerco.",
+  "js.bizkey_bar_asks": "Administranto petas la ŝlosilon de la komerco.",
+  "js.bizkey_open": "Malfermi"
 }

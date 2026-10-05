@@ -580,5 +580,14 @@
   "biz.sync_off": "Ogni dispositivo per conto suo",
   "biz.sync_server": "Sincronizzati (il server tiene la chiave)",
   "biz.sync_server_note": "Ogni dispositivo dei gestori riceve il biglietto e i contatti dell'attività. Il modo più semplice; il server tiene la chiave, quindi potrebbe leggerli.",
-  "biz.synced_note": "Questo biglietto e questi contatti sono dell'attività e restano sincronizzati tra i dispositivi dei gestori."
+  "biz.synced_note": "Questo biglietto e questi contatti sono dell'attività e restano sincronizzati tra i dispositivi dei gestori.",
+  "biz.sync_private": "Sincronizzati (chiave solo sui dispositivi dei gestori)",
+  "biz.sync_private_note": "Il server non può leggerli. Il dispositivo di un nuovo gestore riceve la chiave da quello di un altro, dopo che avete controllato entrambi lo stesso codice.",
+  "js.bizkey_need": "Questo dispositivo ha bisogno della chiave dell'attività: chiedi a un altro gestore di aprire Attività agendo come {name}, e verificate di vedere entrambi il codice {code}.",
+  "js.bizkey_asks": "@{name} chiede la chiave dell'attività. Inviala solo se il suo schermo mostra il codice {code}.",
+  "js.bizkey_send": "Invia chiave",
+  "js.bizkey_got": "Chiave ricevuta: il biglietto e i contatti dell'attività si stanno sincronizzando.",
+  "js.bizkey_bar_need": "Questo dispositivo ha bisogno della chiave dell'attività.",
+  "js.bizkey_bar_asks": "Un gestore chiede la chiave dell'attività.",
+  "js.bizkey_open": "Apri"
 }

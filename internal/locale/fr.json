@@ -580,5 +580,14 @@
   "biz.sync_off": "Chaque appareil de son côté",
   "biz.sync_server": "Synchronisés (le serveur garde la clé)",
   "biz.sync_server_note": "Chaque appareil des gestionnaires reçoit la carte et les contacts de l'entreprise. Le plus simple ; le serveur garde la clé, il pourrait donc les lire.",
-  "biz.synced_note": "Cette carte et ces contacts appartiennent à l'entreprise et restent synchronisés entre les appareils de ses gestionnaires."
+  "biz.synced_note": "Cette carte et ces contacts appartiennent à l'entreprise et restent synchronisés entre les appareils de ses gestionnaires.",
+  "biz.sync_private": "Synchronisés (clé seulement sur les appareils des gestionnaires)",
+  "biz.sync_private_note": "Le serveur ne peut pas les lire. L'appareil d'un nouveau gestionnaire reçoit la clé de l'appareil d'un autre, une fois que vous avez tous deux vérifié le même code.",
+  "js.bizkey_need": "Cet appareil a besoin de la clé de l'entreprise : demande à un autre gestionnaire d'ouvrir Entreprise en tant que {name}, et vérifiez que vous voyez tous deux le code {code}.",
+  "js.bizkey_asks": "@{name} demande la clé de l'entreprise. Envoie-la seulement si son écran affiche le code {code}.",
+  "js.bizkey_send": "Envoyer la clé",
+  "js.bizkey_got": "Clé reçue : la carte et les contacts de l'entreprise se synchronisent.",
+  "js.bizkey_bar_need": "Cet appareil a besoin de la clé de l'entreprise.",
+  "js.bizkey_bar_asks": "Un gestionnaire demande la clé de l'entreprise.",
+  "js.bizkey_open": "Ouvrir"
 }

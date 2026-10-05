@@ -580,5 +580,14 @@
   "biz.sync_off": "Varje enhet för sig",
   "biz.sync_server": "Synkade (servern håller nyckeln)",
   "biz.sync_server_note": "Varje förvaltares enhet får företagets kort och kontakter. Enklast; servern håller nyckeln och skulle alltså kunna läsa dem.",
-  "biz.synced_note": "Det här kortet och de här kontakterna tillhör företaget och hålls i synk mellan förvaltarnas enheter."
+  "biz.synced_note": "Det här kortet och de här kontakterna tillhör företaget och hålls i synk mellan förvaltarnas enheter.",
+  "biz.sync_private": "Synkade (nyckeln bara på förvaltarnas enheter)",
+  "biz.sync_private_note": "Servern kan inte läsa dem. En ny förvaltares enhet får nyckeln från en annan förvaltares enhet, efter att ni båda kontrollerat samma kod.",
+  "js.bizkey_need": "Den här enheten behöver företagets nyckel: be en annan förvaltare öppna Företag som {name} och kontrollera att ni båda ser koden {code}.",
+  "js.bizkey_asks": "@{name} ber om företagets nyckel. Skicka den bara om deras skärm visar koden {code}.",
+  "js.bizkey_send": "Skicka nyckel",
+  "js.bizkey_got": "Nyckel mottagen: företagets kort och kontakter synkas.",
+  "js.bizkey_bar_need": "Den här enheten behöver företagets nyckel.",
+  "js.bizkey_bar_asks": "En förvaltare ber om företagets nyckel.",
+  "js.bizkey_open": "Öppna"
 }

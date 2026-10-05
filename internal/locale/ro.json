@@ -580,5 +580,14 @@
   "biz.sync_off": "Fiecare dispozitiv separat",
   "biz.sync_server": "Sincronizat (serverul păstrează cheia)",
   "biz.sync_server_note": "Fiecare dispozitiv al administratorilor primește cardul și contactele firmei. Cel mai simplu; serverul păstrează cheia, deci le-ar putea citi.",
-  "biz.synced_note": "Acest card și aceste contacte aparțin firmei și rămân sincronizate între dispozitivele administratorilor."
+  "biz.synced_note": "Acest card și aceste contacte aparțin firmei și rămân sincronizate între dispozitivele administratorilor.",
+  "biz.sync_private": "Sincronizat (cheia doar pe dispozitivele administratorilor)",
+  "biz.sync_private_note": "Serverul nu le poate citi. Dispozitivul unui nou administrator primește cheia de la dispozitivul altuia, după ce verificați amândoi același cod.",
+  "js.bizkey_need": "Acest dispozitiv are nevoie de cheia firmei: roagă alt administrator să deschidă Firmă ca {name} și verificați că vedeți amândoi codul {code}.",
+  "js.bizkey_asks": "@{name} cere cheia firmei. Trimite-o doar dacă ecranul lui arată codul {code}.",
+  "js.bizkey_send": "Trimite cheia",
+  "js.bizkey_got": "Cheie primită: cardul și contactele firmei se sincronizează.",
+  "js.bizkey_bar_need": "Acest dispozitiv are nevoie de cheia firmei.",
+  "js.bizkey_bar_asks": "Un administrator cere cheia firmei.",
+  "js.bizkey_open": "Deschide"
 }

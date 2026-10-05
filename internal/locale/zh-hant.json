@@ -580,5 +580,14 @@
   "biz.sync_off": "各裝置各自保存",
   "biz.sync_server": "同步（伺服器保管金鑰）",
   "biz.sync_server_note": "每位管理員的裝置都會收到商家的名片和聯絡人。最簡單；但金鑰由伺服器保管，因此伺服器可以讀取它們。",
-  "biz.synced_note": "這張名片和這些聯絡人屬於商家，並在各管理員的裝置之間同步。"
+  "biz.synced_note": "這張名片和這些聯絡人屬於商家，並在各管理員的裝置之間同步。",
+  "biz.sync_private": "同步（金鑰只在管理員的裝置上）",
+  "biz.sync_private_note": "伺服器無法讀取它們。新管理員的裝置在雙方核對相同的代碼後，從另一位管理員的裝置取得金鑰。",
+  "js.bizkey_need": "此裝置需要商家金鑰：請另一位管理員以 {name} 的身分開啟「商家」，並確認你們都看到代碼 {code}。",
+  "js.bizkey_asks": "@{name} 請求商家金鑰。僅當對方螢幕顯示代碼 {code} 時才送出。",
+  "js.bizkey_send": "送出金鑰",
+  "js.bizkey_got": "已收到金鑰：商家的名片和聯絡人正在同步。",
+  "js.bizkey_bar_need": "此裝置需要商家金鑰。",
+  "js.bizkey_bar_asks": "有管理員請求商家金鑰。",
+  "js.bizkey_open": "開啟"
 }

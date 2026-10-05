@@ -160,6 +160,9 @@ func main() {
 	mux.HandleFunc("GET /api/business/{id}/vault", biz.VaultAPI)
 	mux.HandleFunc("PUT /api/business/{id}/vault", biz.VaultAPI)
 	mux.HandleFunc("GET /api/business/{id}/key", biz.KeyAPI)
+	mux.HandleFunc("GET /api/business/{id}/keyreq", biz.KeyReqAPI)
+	mux.HandleFunc("POST /api/business/{id}/keyreq", biz.KeyReqAPI)
+	mux.HandleFunc("POST /api/business/{id}/keygrant", biz.KeyReqAPI)
 	accounts.BizProfile = biz.Profile
 	mux.HandleFunc("GET /business", biz.Show)
 	mux.HandleFunc("POST /business", biz.Create)

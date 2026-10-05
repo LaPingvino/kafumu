@@ -57,8 +57,12 @@ type Business struct {
 	// managers' devices: "" (off: each device on its own), SyncServer (the
 	// server holds the key, SyncKey) or SyncPrivate (the key only on
 	// managers' devices). Managers choose.
-	SyncMode  string    `datastore:"sync_mode,noindex" json:"-"`
-	SyncKey   string    `datastore:"sync_key,noindex" json:"-"`
+	SyncMode string `datastore:"sync_mode,noindex" json:"-"`
+	SyncKey  string `datastore:"sync_key,noindex" json:"-"`
+	// KeyReqs (private mode): managers' devices asking for the key, and the
+	// key wrapped for them by another manager's device. The server holds
+	// public keys and ciphertext only.
+	KeyReqs   []KeyReq  `datastore:"key_reqs,noindex" json:"-"`
 	Managers  []string  `datastore:"managers" json:"-"` // user ids (indexed: "mine")
 	CreatedBy string    `datastore:"created_by,noindex" json:"-"`
 	CreatedAt time.Time `datastore:"created_at" json:"-"`
@@ -70,6 +74,15 @@ type Business struct {
 	PaidUntil time.Time `datastore:"paid_until,noindex" json:"-"`
 	AfterPaid string    `datastore:"after_paid,noindex" json:"-"`
 	Note      string    `datastore:"note,noindex" json:"-"` // admin's own note
+}
+
+// KeyReq is one device's request for the business key (private mode).
+type KeyReq struct {
+	UserID  string    `datastore:"user_id,noindex"`
+	Pub     string    `datastore:"pub,noindex"`     // the device's one-off ECDH public key (raw, base64)
+	Wrapped string    `datastore:"wrapped,noindex"` // the business key, sealed to Pub by a manager's device
+	From    string    `datastore:"from,noindex"`    // who sent it
+	At      time.Time `datastore:"at,noindex"`
 }
 
 // Live: may host as the business (in its trial, or active).

@@ -580,5 +580,14 @@
   "biz.sync_off": "Cada dispositivo por si",
   "biz.sync_server": "Sincronizado (o servidor guarda a chave)",
   "biz.sync_server_note": "Todos os dispositivos dos gestores recebem o cartão e os contactos da empresa. O mais simples; o servidor guarda a chave, por isso poderia lê-los.",
-  "biz.synced_note": "Este cartão e estes contactos são da empresa e ficam sincronizados entre os dispositivos dos gestores."
+  "biz.synced_note": "Este cartão e estes contactos são da empresa e ficam sincronizados entre os dispositivos dos gestores.",
+  "biz.sync_private": "Sincronizado (chave só nos dispositivos dos gestores)",
+  "biz.sync_private_note": "O servidor não os consegue ler. O dispositivo de um novo gestor recebe a chave do dispositivo de outro gestor, depois de ambos confirmarem o mesmo código.",
+  "js.bizkey_need": "Este dispositivo precisa da chave da empresa: pede a outro gestor que abra Empresa a atuar como {name} e confirmem que ambos veem o código {code}.",
+  "js.bizkey_asks": "@{name} pede a chave da empresa. Envia-a só se o ecrã dessa pessoa mostrar o código {code}.",
+  "js.bizkey_send": "Enviar chave",
+  "js.bizkey_got": "Chave recebida: o cartão e os contactos da empresa estão a sincronizar.",
+  "js.bizkey_bar_need": "Este dispositivo precisa da chave da empresa.",
+  "js.bizkey_bar_asks": "Um gestor pede a chave da empresa.",
+  "js.bizkey_open": "Abrir"
 }

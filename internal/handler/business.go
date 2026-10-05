@@ -199,7 +199,7 @@ func (h *Businesses) Sync(w http.ResponseWriter, r *http.Request) {
 	}
 	switch r.FormValue("mode") {
 	case "off":
-		b.SyncMode, b.SyncKey = "", ""
+		b.SyncMode, b.SyncKey, b.KeyReqs = "", "", nil
 	case business.SyncServer:
 		if b.SyncMode != business.SyncServer || b.SyncKey == "" {
 			key := r.FormValue("key")
@@ -224,4 +224,82 @@ func (h *Businesses) Sync(w http.ResponseWriter, r *http.Request) {
 	}
 	h.Home.forgetBiz(b.ID)
 	http.Redirect(w, r, "/business", http.StatusSeeOther)
+}
+
+// KeyReqAPI handles the key handover in private mode:
+//
+//	GET  /api/business/{id}/keyreq?pub=<this device's>: other devices' open
+//	     requests (yours included: your second phone is another device),
+//	     and this device's own, with the wrapped key once it was sent;
+//	POST /api/business/{id}/keyreq: pub=<raw base64>, this device asks;
+//	POST /api/business/{id}/keygrant: pub=<the request's>, wrapped=<…>, a
+//	     manager's device sends the key sealed to that public key.
+//
+// Requests older than a week, or from people no longer managers, drop out.
+func (h *Businesses) KeyReqAPI(w http.ResponseWriter, r *http.Request) {
+	b, ok := h.bizManaged(r)
+	if !ok || b.SyncMode != business.SyncPrivate {
+		http.Error(w, "no private sync here", http.StatusNotFound)
+		return
+	}
+	u := UserFrom(r.Context())
+	now := time.Now()
+	b.KeyReqs = slices.DeleteFunc(b.KeyReqs, func(k business.KeyReq) bool { return now.Sub(k.At) > 7*24*time.Hour || !b.Manages(k.UserID) })
+	w.Header().Set("Cache-Control", "no-store")
+	switch {
+	case r.Method == http.MethodGet:
+		type out struct {
+			Name    string `json:"name"`
+			Pub     string `json:"pub"`
+			Wrapped string `json:"wrapped,omitempty"`
+			Mine    bool   `json:"mine,omitempty"`
+		}
+		list, me := []out{}, r.URL.Query().Get("pub")
+		for _, k := range b.KeyReqs {
+			o := out{Pub: k.Pub, Mine: me != "" && k.Pub == me}
+			if o.Mine {
+				o.Wrapped = k.Wrapped
+			} else if k.Wrapped != "" {
+				continue // answered
+			}
+			if m, err := h.Accounts.Svc.ByID(r.Context(), k.UserID); err == nil && m != nil {
+				o.Name = m.Username
+			}
+			list = append(list, o)
+		}
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(list)
+		return
+	case strings.HasSuffix(r.URL.Path, "/keyreq"):
+		pub := r.FormValue("pub")
+		if raw, err := base64.StdEncoding.DecodeString(pub); err != nil || len(raw) != 65 {
+			http.Error(w, "pub: a raw P-256 key", http.StatusBadRequest)
+			return
+		}
+		b.KeyReqs = slices.DeleteFunc(b.KeyReqs, func(k business.KeyReq) bool { return k.Pub == pub })
+		mine := 0
+		for _, k := range b.KeyReqs {
+			if k.UserID == u.ID {
+				mine++
+			}
+		}
+		if mine >= 5 {
+			http.Error(w, "too many open requests", http.StatusTooManyRequests)
+			return
+		}
+		b.KeyReqs = append(b.KeyReqs, business.KeyReq{UserID: u.ID, Pub: pub, At: now})
+	default: // keygrant
+		to, wrapped := r.FormValue("pub"), r.FormValue("wrapped")
+		i := slices.IndexFunc(b.KeyReqs, func(k business.KeyReq) bool { return k.Pub == to })
+		if i < 0 || wrapped == "" || len(wrapped) > 1000 {
+			http.Error(w, "no such request", http.StatusNotFound)
+			return
+		}
+		b.KeyReqs[i].Wrapped, b.KeyReqs[i].From = wrapped, u.ID
+	}
+	if err := h.Store.Save(r.Context(), b); err != nil {
+		http.Error(w, "unavailable", http.StatusServiceUnavailable)
+		return
+	}
+	w.WriteHeader(http.StatusNoContent)
 }

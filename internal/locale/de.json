@@ -580,5 +580,14 @@
   "biz.sync_off": "Jedes Gerät für sich",
   "biz.sync_server": "Synchronisiert (der Server hält den Schlüssel)",
   "biz.sync_server_note": "Jedes Gerät der Verwaltenden bekommt Karte und Kontakte des Unternehmens. Am einfachsten; der Server hält den Schlüssel und könnte sie also lesen.",
-  "biz.synced_note": "Diese Karte und diese Kontakte gehören dem Unternehmen und bleiben auf den Geräten der Verwaltenden synchron."
+  "biz.synced_note": "Diese Karte und diese Kontakte gehören dem Unternehmen und bleiben auf den Geräten der Verwaltenden synchron.",
+  "biz.sync_private": "Synchronisiert (Schlüssel nur auf Geräten der Verwaltenden)",
+  "biz.sync_private_note": "Der Server kann sie nicht lesen. Das Gerät neuer Verwaltender bekommt den Schlüssel vom Gerät einer anderen verwaltenden Person, nachdem ihr beide denselben Code geprüft habt.",
+  "js.bizkey_need": "Dieses Gerät braucht den Unternehmensschlüssel: Bitte eine andere verwaltende Person, Unternehmen als {name} zu öffnen, und prüft, dass ihr beide den Code {code} seht.",
+  "js.bizkey_asks": "@{name} bittet um den Unternehmensschlüssel. Schick ihn nur, wenn deren Bildschirm den Code {code} zeigt.",
+  "js.bizkey_send": "Schlüssel senden",
+  "js.bizkey_got": "Schlüssel erhalten: Karte und Kontakte des Unternehmens werden synchronisiert.",
+  "js.bizkey_bar_need": "Dieses Gerät braucht den Unternehmensschlüssel.",
+  "js.bizkey_bar_asks": "Jemand aus der Verwaltung bittet um den Unternehmensschlüssel.",
+  "js.bizkey_open": "Öffnen"
 }
