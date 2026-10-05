@@ -591,5 +591,6 @@
   "js.bizkey_bar_asks": "관리자가 비즈니스 키를 요청해요.",
   "js.bizkey_open": "열기",
   "biz.you": "나",
-  "biz.no_name": "(아직 사용자 이름 없음)"
+  "biz.no_name": "(아직 사용자 이름 없음)",
+  "js.online_eo": "온라인 에스페란토 행사"
 }

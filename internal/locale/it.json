@@ -591,5 +591,6 @@
   "js.bizkey_bar_asks": "Un gestore chiede la chiave dell'attività.",
   "js.bizkey_open": "Apri",
   "biz.you": "tu",
-  "biz.no_name": "(ancora senza nome utente)"
+  "biz.no_name": "(ancora senza nome utente)",
+  "js.online_eo": "Eventi di esperanto online"
 }

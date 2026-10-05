@@ -572,13 +572,64 @@ func (g *Gazetteer) Locate(name, cc string) (float64, float64, bool) {
 	if found {
 		return lat, lon, true
 	}
-	for _, t := range towns {
-		if t.country == cc && t.key == key {
-			return t.lat, t.lon, true
-		}
+	if t, ok := altIndex()[key+"|"+cc]; ok {
+		return t.lat, t.lon, true
 	}
 	return 0, 0, false
 }
+
+// townalts.tsv.gz (tools/townalts.py, from GeoNames): every 15k+ town with
+// its Latin-script names in other languages (München / Munich / Munkeno),
+// loaded the first time a feed places a town by name.
+//
+//go:embed townalts.tsv.gz
+var townaltsGz []byte
+
+type altTown struct {
+	lat, lon float64
+	pop      int
+}
+
+var altIndex = sync.OnceValue(func() map[string]altTown {
+	m := map[string]altTown{}
+	zr, err := gzip.NewReader(bytes.NewReader(townaltsGz))
+	if err != nil {
+		return m
+	}
+	sc := bufio.NewScanner(zr)
+	sc.Buffer(make([]byte, 64<<10), 1<<20)
+	for sc.Scan() {
+		f := strings.Split(sc.Text(), "\t")
+		if len(f) < 6 {
+			continue
+		}
+		lat, _ := strconv.ParseFloat(f[2], 64)
+		lon, _ := strconv.ParseFloat(f[3], 64)
+		pop, _ := strconv.Atoi(f[4])
+		t := altTown{lat, lon, pop}
+		for _, n := range append([]string{f[0]}, strings.Split(f[5], "|")...) {
+			k := fold(n) + "|" + f[1]
+			if old, ok := m[k]; !ok || pop > old.pop { // the biggest town of that name
+				m[k] = t
+			}
+		}
+	}
+	// Villages and neighbourhoods (1,000+ people): Eventa Servo's events are
+	// often in small places.
+	villagesOnce.Do(loadVillages)
+	for _, v := range villages {
+		k := fold(v.name) + "|" + v.cc
+		if old, ok := m[k]; !ok || int(v.pop) > old.pop {
+			m[k] = altTown{float64(v.lat), float64(v.lon), int(v.pop)}
+		}
+	}
+	return m
+})
+
+// No fuzzy matching: tried on Eventa Servo's calendars, every name that
+// only matched fuzzily matched the wrong place (Bouresse → Paris's
+// "Bourse", Ommel → Ommen): the real villages were missing, and a wrong
+// place is worse than none. Those go to OpenStreetMap instead (feeds).
 
 // CountryOf is the country (two-letter code) of the town nearest to a
 // cell's centre, "" if none is within 150 km. Remembered per cell.

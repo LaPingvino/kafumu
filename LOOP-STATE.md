@@ -601,7 +601,15 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
            25 beyond the horizon, 52 placed, 1 not ("Struppen OT Naundorf"). Was: Country feeds into meetups: the feeds job (every 6 h) pulls the countries people looked at recently
            (bundle requests note the cell's country; bots don't count; ≤ 10 countries a run), imports upcoming
            events as meetups (Via eventaservo.org, tag #esperanto, lang epo, link to the event), placed by town.
-      60b. Online events (ol.ics): when the Esperanto language chip or #esperanto is active, Around shows them
+      [x] 60b. Done: GET /api/esperanto/online (ol.ics, next 60 days, ≤ 30, upcoming first then running ones;
+           shared cache 6 h; bots 403); Around shows "🌐 Online Esperanto events" when the UI language is
+           Esperanto (Joop's bonus) or the view is Esperanto (language chip / #esperanto). Live: 30 events.
+           Placement improved (Joop: "English, German and Esperanto names… fuzzy matching"): GeoNames alternate
+           names (tools/townalts.py → townalts.tsv.gz: Parizo, Varsovio, Munkeno, München…) + villages 1k+ +
+           leading words + bracket regions dropped: 292/297 upcoming events in 7 countries placed without
+           Nominatim. Fuzzy matching TRIED AND DROPPED: all 4 fuzzy-only hits were wrong places (Bouresse →
+           Paris "Bourse", Ommel → Ommen, Ashausen → Ahausen, Aßweiler → elsewhere); those go to Nominatim.
+      [x] 60. Eventa Servo without a key. Was: Online events (ol.ics): when the Esperanto language chip or #esperanto is active, Around shows them
            under "Elsewhere · online" (fetched at most every 6 h, never for bots).
       Was: 60. Eventa Servo (Esperanto events, Joop): its API (eventaservo.org/api/v2) needs a key; ask them for one
       (or for a public per-country iCal), then it is one more entry in the feeds list (internal/feeds).

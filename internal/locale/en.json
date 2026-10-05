@@ -591,5 +591,6 @@
   "js.bizkey_bar_asks": "A manager asks for the business key.",
   "js.bizkey_open": "Open",
   "biz.you": "you",
-  "biz.no_name": "(no username yet)"
+  "biz.no_name": "(no username yet)",
+  "js.online_eo": "Online Esperanto events"
 }

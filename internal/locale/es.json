@@ -591,5 +591,6 @@
   "js.bizkey_bar_asks": "Un gestor pide la clave del negocio.",
   "js.bizkey_open": "Abrir",
   "biz.you": "tú",
-  "biz.no_name": "(aún sin nombre de usuario)"
+  "biz.no_name": "(aún sin nombre de usuario)",
+  "js.online_eo": "Eventos de esperanto en línea"
 }

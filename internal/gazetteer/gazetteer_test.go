@@ -152,6 +152,16 @@ func TestLocateAndCountry(t *testing.T) {
 	if !ok || lat < 51 || lat > 51.3 || lon < 14.8 || lon > 15.1 {
 		t.Fatalf("Görlitz, DE = %v %v %v", lat, lon, ok)
 	}
+	// The names Eventa Servo uses: Esperanto, local, English.
+	for _, c := range [][2]string{{"Parizo", "FR"}, {"Varsovio", "PL"}, {"Munkeno", "DE"}, {"München", "DE"}, {"Munich", "DE"},
+		{"Romo", "IT"}, {"Bjalistoko", "PL"}, {"Madrido", "ES"}, {"Kraków", "PL"}, {"Maceió", "BR"}} {
+		if _, _, ok := g.Locate(c[0], c[1]); !ok {
+			t.Errorf("%s, %s not found", c[0], c[1])
+		}
+	}
+	if lat, _, _ := g.Locate("Parizo", "FR"); lat < 48.7 || lat > 49 {
+		t.Errorf("Parizo is not Paris: %v", lat)
+	}
 	if _, _, ok := g.Locate("Görlitz", "BR"); ok {
 		t.Fatal("Görlitz found in Brazil")
 	}

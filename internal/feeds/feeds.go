@@ -175,6 +175,9 @@ func endOf(ev *importer.Event) time.Time {
 
 var postcode = regexp.MustCompile(`^[0-9][0-9A-Z -]{2,8}\s+`)
 
+// bracket: "São Paulo (SP)", "Portugalete (Bizkaio)": the state or region.
+var bracket = regexp.MustCompile(`\s*\([^)]*\)`)
+
 // placeTown finds where "…, City[, Region], CC" is: the gazetteer first,
 // trying each part from the end (a region may follow the city; "Dresden -
 // Heidenau" is tried as both; postcodes are dropped), then OpenStreetMap
@@ -191,12 +194,19 @@ func placeTown(ctx context.Context, im *importer.Importer, venue string, lookups
 	}
 	var names []string
 	for i := n - 2; i >= 0 && i >= n-4; i-- {
-		p := postcode.ReplaceAllString(strings.TrimSpace(parts[i]), "")
+		p := postcode.ReplaceAllString(strings.TrimSpace(bracket.ReplaceAllString(parts[i], "")), "")
 		names = append(names, p)
 		for _, q := range strings.Split(p, " - ") {
 			if q = strings.TrimSpace(q); q != p {
 				names = append(names, q)
 			}
+		}
+	}
+	// Then the leading words of each part ("Struppen OT Naundorf").
+	for _, nm := range append([]string(nil), names...) {
+		ws := strings.Fields(nm)
+		for k := len(ws) - 1; k >= 1; k-- {
+			names = append(names, strings.Join(ws[:k], " "))
 		}
 	}
 	if Locate != nil {
@@ -211,4 +221,16 @@ func placeTown(ctx context.Context, im *importer.Importer, venue string, lookups
 	}
 	*lookups++
 	return geocode(ctx, im, names[0]+", "+cc)
+}
+
+// EventLink is an event's own page: its URL, or the first link in its text
+// on the feed's site, or the feed itself.
+func EventLink(ev *importer.Event, feedURL string) string {
+	if ev.Link != "" {
+		return ev.Link
+	}
+	if m := linkRE.FindString(ev.Text); m != "" && hostOf(m) == hostOf(feedURL) {
+		return m
+	}
+	return feedURL
 }

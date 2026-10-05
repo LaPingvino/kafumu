@@ -591,5 +591,6 @@
   "js.bizkey_bar_asks": "管理者がビジネスの鍵を求めています。",
   "js.bizkey_open": "開く",
   "biz.you": "あなた",
-  "biz.no_name": "（ユーザー名未設定）"
+  "biz.no_name": "（ユーザー名未設定）",
+  "js.online_eo": "オンラインのエスペラントイベント"
 }

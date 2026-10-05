@@ -920,7 +920,32 @@
   // the newest load renders: an older one finishing late is dropped, or two
   // quick loads (last area, then your location) would show things twice.
   var loadSeq = 0;
+  // Online Esperanto events (Eventa Servo): when the app speaks Esperanto,
+  // or Esperanto is what you're looking at (language chip or #esperanto).
+  var onlineEvents = null;
+  function drawOnline() {
+    var box = $("online-events");
+    if (!box) return;
+    var want = document.documentElement.lang === "eo" || view.lang === "epo" || view.tag === "esperanto";
+    if (!want) { box.hidden = true; return; }
+    (onlineEvents || (onlineEvents = fetch("/api/esperanto/online").then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; })))
+      .then(function (evs) {
+        var ul = box.querySelector("ul");
+        ul.textContent = "";
+        evs.slice(0, 8).forEach(function (e) {
+          var li = document.createElement("li"), a = document.createElement("a");
+          a.href = e.link; a.rel = "noopener"; a.target = "_blank"; a.textContent = e.title;
+          var when = document.createElement("div"); when.className = "dim small";
+          when.textContent = new Date(e.start).toLocaleString(document.documentElement.lang || undefined, { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+          li.appendChild(a); li.appendChild(when); ul.appendChild(li);
+        });
+        $("online-title").textContent = tr("online_eo");
+        box.hidden = !evs.length;
+      });
+  }
+
   function load(c, fresh) {
+    drawOnline();
     var seq = ++loadSeq;
     var near = rings(c, 2);
     var ringOf = {};

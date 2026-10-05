@@ -591,5 +591,6 @@
   "js.bizkey_bar_asks": "Egy kezelő kéri a vállalkozás kulcsát.",
   "js.bizkey_open": "Megnyitás",
   "biz.you": "te",
-  "biz.no_name": "(még nincs felhasználóneve)"
+  "biz.no_name": "(még nincs felhasználóneve)",
+  "js.online_eo": "Online eszperantó események"
 }

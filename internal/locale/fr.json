@@ -591,5 +591,6 @@
   "js.bizkey_bar_asks": "Un gestionnaire demande la clé de l'entreprise.",
   "js.bizkey_open": "Ouvrir",
   "biz.you": "toi",
-  "biz.no_name": "(pas encore de nom d'utilisateur)"
+  "biz.no_name": "(pas encore de nom d'utilisateur)",
+  "js.online_eo": "Événements en espéranto en ligne"
 }
