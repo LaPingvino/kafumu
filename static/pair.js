@@ -225,6 +225,44 @@
       });
     }
 
+    // ---- One person, one contact ----
+    // myPid: a random id for "me" (synced to my own devices with the vault),
+    // sent inside hello and card messages (encrypted: the server never sees
+    // it), so two connections with the same person fold into one contact.
+    function myPid() {
+      return store.get("me").then(function (me) {
+        if (me && me.pid) return me.pid;
+        me = { pid: hex(cryptoObj.getRandomValues(new Uint8Array(12))), createdAt: new Date().toISOString() };
+        return store.set("me", me).then(function () { return me.pid; });
+      });
+    }
+    function uniqBy(list, key) { var seen = {}; return list.filter(function (x) { var k = key(x); if (seen[k]) return false; seen[k] = true; return true; }); }
+    // fold merges c with another contact of the same person: the older one
+    // stays, keeping the other's key to read from; everything else merges.
+    function fold(c) {
+      if (!c || !c.pid) return Promise.resolve(c);
+      return store.contacts().then(function (cs) {
+        var other = cs.filter(function (x) { return x.id !== c.id && x.pid === c.pid; })[0];
+        if (!other) return c;
+        var a = (other.createdAt || "") <= (c.createdAt || "") ? other : c, b = a === other ? c : other;
+        a.altKeys = uniqBy((a.altKeys || []).concat([{ id: b.id, key: b.key, role: b.role }], b.altKeys || []), function (k) { return k.key; })
+          .filter(function (k) { return k.key !== a.key; });
+        a.messages = uniqBy((a.messages || []).concat(b.messages || []), function (m) { return (m.me ? "1" : "0") + m.at + "|" + m.text; })
+          .sort(function (x, y) { return (x.at || "").localeCompare(y.at || ""); }).slice(-200);
+        a.signals = (a.signals || []).concat(b.signals || []).sort(function (x, y) { return (y.at || "").localeCompare(x.at || ""); }).slice(0, 10);
+        a.chatSeen = uniqBy((a.chatSeen || []).concat(b.chatSeen || []), String).slice(-300);
+        a.unreadMsgs = (a.unreadMsgs || 0) + (b.unreadMsgs || 0);
+        if ((b.lastHeard || "") > (a.lastHeard || "")) a.lastHeard = b.lastHeard;
+        if ((!a.card || !a.card.name) && b.card) a.card = b.card;
+        a.cardSent = a.cardSent || b.cardSent;
+        a.note = a.note || b.note; a.alias = a.alias || b.alias;
+        a.tags = uniqBy((a.tags || []).concat(b.tags || []), String);
+        return store.putContact(a).then(function () { return store.deleteContact ? store.deleteContact(b.id) : null; }).then(function () { return a; });
+      });
+    }
+    // keysOf: every connection to this contact (the main one, then folded ones).
+    function keysOf(c) { return [{ key: c.key, role: c.role }].concat(c.altKeys || []); }
+
     // accept is run by the scanner: send our card to the inviter.
     function accept(payload, myCard) {
       var m = /^v1\.([A-Za-z0-9_-]{80,100})$/.exec((payload || "").trim());
@@ -234,7 +272,7 @@
         return rawPub(k).then(function (bRaw) {
           return Promise.all([pairKey(k.privateKey, aRaw, aRaw, bRaw), inviteBox(aRaw)]).then(function (r) {
             var key = r[0], ibox = r[1];
-            return seal(key, ibox, { t: "hello", card: myCard || {} }).then(function (ct) {
+            return myPid().then(function (pid) { return seal(key, ibox, { t: "hello", card: myCard || {}, pid: pid }); }).then(function (ct) {
               return post(ibox, JSON.stringify({ v: 1, pub: b64(bRaw), ct: ct }));
             }).then(function () { return contactID(key); }).then(function (id) {
               var c = { id: id, key: b64(key), role: 1, card: null, note: "", createdAt: new Date().toISOString(), cardSent: !!(myCard && myCard.name) };
@@ -272,10 +310,10 @@
                     return store.get("tombstones").then(function (ts) { return (ts || {})[id] ? null : id; });
                   }).then(function (id) {
                     if (!id) return; // you removed this contact: a late hello must not bring it back
-                    var c = { id: id, key: b64(key), role: 0, card: body.card || {}, note: "", createdAt: new Date().toISOString(), cardSent: !!(myCard && myCard.name) };
+                    var c = { id: id, key: b64(key), role: 0, card: body.card || {}, note: "", createdAt: new Date().toISOString(), cardSent: !!(myCard && myCard.name), pid: body.pid || undefined };
                     return boxOf(key, 1).then(function (theirs) {
-                      return seal(key, theirs, { t: "card", card: myCard || {} }).then(function (ct) { return post(theirs, ct); });
-                    }).then(function () { return store.putContact(c); }).then(function () { added.push(c); });
+                      return myPid().then(function (pid) { return seal(key, theirs, { t: "card", card: myCard || {}, pid: pid }); }).then(function (ct) { return post(theirs, ct); });
+                    }).then(function () { return store.putContact(c); }).then(function () { return fold(c); }).then(function (kept) { added.push(kept); });
                   });
                 });
               }).catch(function () { /* junk or not for us: drop it */ });
@@ -288,8 +326,17 @@
     // checkContact reads a contact's inbox for us; returns the messages and
     // applies card updates to the stored contact.
     function checkContact(c) {
-      var key = unb64(c.key);
-      return boxOf(key, c.role).then(function (mine) {
+      return keysOf(c).reduce(function (p, k) {
+        return p.then(function (all) { return checkKey(c, k.key, k.role).then(function (got) { return all.concat(got); }); });
+      }, Promise.resolve([])).then(function (got) {
+        var pidCard = got.filter(function (b) { return (b.t === "card" || b.t === "alive") && b.pid; }).pop();
+        if (pidCard && c.pid !== pidCard.pid) { c.pid = pidCard.pid; return store.putContact(c).then(function () { return fold(c); }).then(function () { return got; }); }
+        return got;
+      });
+    }
+    function checkKey(c, keyB64, role) {
+      var key = unb64(keyB64);
+      return boxOf(key, role).then(function (mine) {
         return list(mine).then(function (msgs) {
           var done = [], got = [];
           return msgs.reduce(function (p, msg) {
@@ -324,8 +371,11 @@
     // send delivers a message to a paired contact.
     function send(c, obj) {
       var key = unb64(c.key);
-      return boxOf(key, 1 - c.role).then(function (theirs) {
-        return seal(key, theirs, obj).then(function (ct) { return post(theirs, ct, obj && obj.t === "alive"); });
+      // Cards and the weekly "alive" carry the person id: existing duplicate
+      // contacts fold within a week.
+      var withPid = obj && (obj.t === "card" || obj.t === "alive") ? myPid().then(function (pid) { return Object.assign({}, obj, { pid: pid }); }) : Promise.resolve(obj);
+      return Promise.all([boxOf(key, 1 - c.role), withPid]).then(function (r) {
+        return seal(key, r[0], r[1]).then(function (ct) { return post(r[0], ct, obj && obj.t === "alive"); });
       });
     }
 
@@ -464,7 +514,7 @@
       return contactID(key).then(function (id) {
         var c = { id: id, key: m.key, role: 0, card: m.card || {}, note: "", createdAt: new Date().toISOString() };
         return boxOf(key, 1).then(function (theirs) {
-          return seal(key, theirs, { t: "card", card: myCard || {} }).then(function (ct) { return post(theirs, ct); });
+          return myPid().then(function (pid) { return seal(key, theirs, { t: "card", card: myCard || {}, pid: pid }); }).then(function (ct) { return post(theirs, ct); });
         }).then(function () { return store.putContact(c); }).then(function () { return c; });
       });
     }
@@ -513,8 +563,13 @@
     }
     // readChat folds new lines from them into c.messages; returns how many.
     function readChat(c) {
-      var key = unb64(c.key);
-      return chatTag(key, c.role).then(function (tag) {
+      return keysOf(c).reduce(function (p, k) {
+        return p.then(function (n) { return readChatKey(c, k.key, k.role).then(function (m) { return n + m; }); });
+      }, Promise.resolve(0));
+    }
+    function readChatKey(c, keyB64, role) {
+      var key = unb64(keyB64);
+      return chatTag(key, role).then(function (tag) {
         return fetchFn(base + "/api/oln/pair/" + tag, { credentials: "omit" }).then(function (r) { return r.ok ? r.json() : []; });
       }).then(function (ms) {
         var seen = {};

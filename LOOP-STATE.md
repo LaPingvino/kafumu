@@ -429,7 +429,11 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       Was: Fuzz the network (Joop): many simulated devices/accounts going online and offline at random (pairing,
       sync, chat over OLN, named links, moves), with invariants checked (no lost contacts or messages, no
       resurrections, keys never on the server); a Node harness against a local server, seeded and repeatable.
-- [ ] 66. One person, one contact (found by the fuzzer; Joop saw it as a duplicate): when two people use each
+- [x] 66. One person, one contact: a random person id ("me", synced, oldest wins) in hello/card/alive (encrypted);
+      a second connection with the same pid folds into the older contact (altKeys kept for reading mailboxes and
+      chat; messages, signals, notes, tags merged; the other removed with a tombstone); existing duplicates fold
+      via the weekly alive. Fuzz now demands exactly one contact per person and equal key sets: 8 seeds incl.
+      3 mutual pass. Was: One person, one contact (found by the fuzzer; Joop saw it as a duplicate): when two people use each
       other's code before either takes the other's hello in, they get two connections. Recognise the same person
       (a random person id in hello/card, synced via the vault) and fold the second connection into the first
       (keep both keys for reading; send on the older one).

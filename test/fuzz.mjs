@@ -112,21 +112,22 @@ for (let round = 0; round < 3; round++) for (const p of people) await takeIn(p);
 
 const fail = [];
 const byName = Object.fromEntries(people.map((p) => [p.name, p]));
-// Each connection: both sides have it, with the same key. Mutual scans may
-// make two connections between the same people (counted, see slice 66).
-const keysOf = async (p, name) => (await p.store.contacts()).filter((c) => c.card && c.card.name === name).map((c) => c.key).sort().join(",");
+// One person, one contact (slice 66): each pair of people that connected
+// has exactly one contact on each side, holding the same set of connection
+// keys (mutual scans fold into one); every chat line arrived exactly once.
+const keysOf = (c) => [c.key].concat((c.altKeys || []).map((k) => k.key)).sort().join(",");
 let mutual = 0;
 const pairs = new Set(hellos.map((h) => [h.from, h.to].sort().join("|")));
 for (const pr of pairs) {
   const [x, y] = pr.split("|");
-  const want = hellos.filter((h) => [h.from, h.to].sort().join("|") === pr).length;
-  const kx = await keysOf(byName[x], y), ky = await keysOf(byName[y], x);
-  const n = kx ? kx.split(",").length : 0;
-  if (want > 1) mutual++;
-  if (n !== want || kx !== ky) fail.push(`${x}↔${y}: ${n} connections (want ${want}), keys ${kx === ky ? "agree" : "differ"}`);
+  if (hellos.filter((h) => [h.from, h.to].sort().join("|") === pr).length > 1) mutual++;
+  const cx = (await byName[x].store.contacts()).filter((c) => c.card && c.card.name === y);
+  const cy = (await byName[y].store.contacts()).filter((c) => c.card && c.card.name === x);
+  if (cx.length !== 1 || cy.length !== 1) fail.push(`${x}↔${y}: ${cx.length} / ${cy.length} contacts (want 1 / 1)`);
+  else if (keysOf(cx[0]) !== keysOf(cy[0])) fail.push(`${x}↔${y}: connection keys differ`);
 }
 for (const m of sentChat) {
-  const c = (await byName[m.to].store.contacts()).find((x) => x.key === m.key);
+  const c = (await byName[m.to].store.contacts()).find((x) => x.card && x.card.name === m.from);
   const n = c ? (c.messages || []).filter((x) => !x.me && x.text === m.text).length : 0;
   if (n !== 1) fail.push(`chat "${m.text}" arrived ${n} times`);
 }

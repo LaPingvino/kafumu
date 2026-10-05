@@ -464,13 +464,13 @@
     }).then(function (pt) { return JSON.parse(new TextDecoder().decode(pt)); });
   }
   function snapshot() {
-    return Promise.all([store.contacts(), store.get("personas"), store.get("shareChoice"), store.get("personasAt"), store.get("tombstones"), store.get("chips"), store.get("invite:named"), store.get("handle")])
-      .then(function (r) { return { contacts: r[0] || [], personas: r[1] || [], shareChoice: r[2] || null, personasAt: r[3] || "", tombstones: r[4] || {}, chips: r[5] || null, named: r[6] && r[6].privJwk ? r[6] : null, handle: r[7] || null }; });
+    return Promise.all([store.contacts(), store.get("personas"), store.get("shareChoice"), store.get("personasAt"), store.get("tombstones"), store.get("chips"), store.get("invite:named"), store.get("handle"), store.get("me")])
+      .then(function (r) { return { contacts: r[0] || [], personas: r[1] || [], shareChoice: r[2] || null, personasAt: r[3] || "", tombstones: r[4] || {}, chips: r[5] || null, named: r[6] && r[6].privJwk ? r[6] : null, handle: r[7] || null, me: r[8] || null }; });
   }
   function stamp(c) { return (c && (c.updatedAt || c.createdAt)) || ""; }
   function canon(s) {
     var cs = s.contacts.slice().sort(function (a, b) { return a.id < b.id ? -1 : 1; });
-    return JSON.stringify([cs, s.personas, s.shareChoice, s.personasAt, Object.keys(s.tombstones).sort().map(function (k) { return [k, s.tombstones[k]]; }), s.chips || null, s.named || null, s.handle || null]);
+    return JSON.stringify([cs, s.personas, s.shareChoice, s.personasAt, Object.keys(s.tombstones).sort().map(function (k) { return [k, s.tombstones[k]]; }), s.chips || null, s.named || null, s.handle || null, s.me || null]);
   }
   function merge(a, b) {
     var cutoff = new Date(Date.now() - 30 * 864e5).toISOString(), ts = {}, byID = {};
@@ -495,7 +495,10 @@
     // including turning it off) are the same on all your devices.
     var named = ((b.named && b.named.createdAt) || 0) > ((a.named && a.named.createdAt) || 0) ? b.named : (a.named || b.named || null);
     var handle = ((b.handle && b.handle.at) || 0) > ((a.handle && a.handle.at) || 0) ? b.handle : (a.handle || b.handle || null);
-    return { contacts: contacts, personas: personas, shareChoice: a.shareChoice || b.shareChoice, personasAt: "", tombstones: ts, chips: chips, named: named, handle: handle };
+    // "me" (the person id sent in hellos and cards): the oldest one wins, so
+    // all your devices present one person.
+    var me = !a.me ? b.me : !b.me ? a.me : (a.me.createdAt || "") <= (b.me.createdAt || "") ? a.me : b.me;
+    return { contacts: contacts, personas: personas, shareChoice: a.shareChoice || b.shareChoice, personasAt: "", tombstones: ts, chips: chips, named: named, handle: handle, me: me || null };
   }
   function writeLocal(local, m) {
     var keep = {};
@@ -505,6 +508,7 @@
     steps.push(store.set("personas", m.personas), store.set("shareChoice", m.shareChoice), store.set("personasAt", m.personasAt), store.set("tombstones", m.tombstones));
     if (m.personas && m.personas[0]) steps.push(store.set("card", m.personas[0].card || {}));
     if (m.named) steps.push(store.set("invite:named", m.named));
+    if (m.me) steps.push(store.set("me", m.me));
     if (m.handle) steps.push(store.set("handle", m.handle));
     if (m.chips) { steps.push(store.set("chips", m.chips)); try { localStorage.setItem("kafumu.chips", JSON.stringify(m.chips)); } catch (e) {} }
     return Promise.all(steps);
