@@ -72,6 +72,10 @@ func main() {
 		}
 		return "", false
 	}
+	notes.PatronFor = func(r *http.Request) bool {
+		u := handler.UserFrom(r.Context())
+		return u != nil && u.Patron(time.Now())
+	}
 	home.Notes = notes
 	businesses := business.New(db)
 	home.Biz = businesses

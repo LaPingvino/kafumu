@@ -53,7 +53,7 @@
       <a href="/contacts"{{if eq .Tab "contacts"}} aria-current="page"{{end}}><svg><use href="#i-contacts"/></svg><span>{{t .Lang "nav.contacts"}}</span></a>
       <a href="/card"{{if eq .Tab "card"}} aria-current="page"{{end}}><svg><use href="#i-card"/></svg><span>{{t .Lang "nav.card"}}</span></a>
       <a href="/findable"{{if eq .Tab "findable"}} aria-current="page"{{end}}><svg><use href="#i-findable"/></svg><span>{{t .Lang "nav.findable"}}</span></a>
-      <a href="/account"{{if eq .Tab "account"}} aria-current="page"{{end}}{{if .Acting}} class="acting"{{end}}><svg><use href="#i-user"/></svg><span>{{if .Acting}}<svg class="wings{{if not (.Acting.Live .Now)}} off{{end}}"><use href="#i-wings"/></svg> {{.Acting.Name}}{{else if .User}}{{if .User.Username}}@{{.User.Username}}{{else}}{{t .Lang "nav.account"}}{{end}}{{else}}{{t .Lang "nav.signin"}}{{end}}</span></a>
+      <a href="/account"{{if eq .Tab "account"}} aria-current="page"{{end}}{{if .Acting}} class="acting"{{end}}><svg><use href="#i-user"/></svg><span>{{if .Acting}}<svg class="wings{{if not (.Acting.Live .Now)}} off{{end}}"><use href="#i-wings"/></svg> {{.Acting.Name}}{{else if .User}}{{if .User.Username}}{{if .User.Patron .Now}}<svg class="wings"><use href="#i-wings"/></svg> {{end}}@{{.User.Username}}{{else}}{{t .Lang "nav.account"}}{{end}}{{else}}{{t .Lang "nav.signin"}}{{end}}</span></a>
 {{end}}
 
 {{define "foot"}}

@@ -57,6 +57,9 @@ type User struct {
 	InboxBox  string `datastore:"inbox_box,noindex"`
 	InboxPub  string `datastore:"inbox_pub,noindex"`
 	InboxBits int    `datastore:"inbox_bits,noindex"`
+	// PatronUntil: a patron (pay what you want, set by the admin) wears gold
+	// wings until then. It buys no visibility: only the wings.
+	PatronUntil time.Time `datastore:"patron_until,noindex"`
 }
 
 // Inbox is a public inbox as others see it.
@@ -87,11 +90,13 @@ type Person struct {
 	Langs []string `json:"langs,omitempty"`
 	Tags  []string `json:"tags,omitempty"`
 	Cell  string   `json:"cell"`
+	// Patron: wears the wings (a patron of Kafumu right now).
+	Patron bool `json:"patron,omitempty"`
 }
 
 // Public returns u's public view.
 func (u *User) Public() Person {
-	p := Person{Name: u.Username, Bio: u.Bio, Where: u.Where, Langs: u.Langs, Tags: u.Tags, Cell: u.Cell}
+	p := Person{Name: u.Username, Bio: u.Bio, Where: u.Where, Langs: u.Langs, Tags: u.Tags, Cell: u.Cell, Patron: u.Patron(time.Now())}
 	if u.InboxBox != "" && u.InboxPub != "" {
 		bits := u.InboxBits
 		if bits > MaxInboxBits { // set in v1 (SHA-1) bits: about 10 bits dearer per attempt now
@@ -509,4 +514,9 @@ func cleanLangs(in []string) []string {
 		}
 	}
 	return out
+}
+
+// Patron says whether u is a patron at now (gold wings).
+func (u *User) Patron(now time.Time) bool {
+	return !u.PatronUntil.IsZero() && now.Before(u.PatronUntil)
 }

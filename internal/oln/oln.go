@@ -87,8 +87,11 @@ type Note struct {
 	// the business was in its trial or paid up then (coloured badge, else grey).
 	Biz string `datastore:"biz,noindex" json:"biz,omitempty"`
 	// Via: the node it was pulled from (a linked peer), "" when posted here.
-	Via     string `datastore:"via,noindex" json:"via,omitempty"`
-	BizLive bool   `datastore:"biz_live,noindex" json:"biz_live,omitempty"`
+	Via string `datastore:"via,noindex" json:"via,omitempty"`
+	// Patron: posted under the name of a patron of Kafumu (gold wings),
+	// as of posting.
+	Patron  bool `datastore:"patron,noindex" json:"patron,omitempty"`
+	BizLive bool `datastore:"biz_live,noindex" json:"biz_live,omitempty"`
 }
 
 // Proof of work, v2 (memory-hard, so a GPU gains little over a phone):
@@ -331,6 +334,8 @@ type Service struct {
 	// BizFor: the business a named post is made as (its name, and whether
 	// it's live); "" when posting as yourself.
 	BizFor func(r *http.Request) (string, bool)
+	// PatronFor: whether the request's user is a patron (wings on named posts).
+	PatronFor func(r *http.Request) bool
 }
 
 type cellEntry struct {
@@ -402,6 +407,9 @@ func (s *Service) PostAs(ctx context.Context, raw, author string) (*Note, error)
 		if n.Biz != "" {
 			n.By, n.Author = author, "" // the business speaks, not the person (Joop)
 		}
+	}
+	if n.Author != "" && s.PatronFor != nil && ctxReq(ctx) != nil {
+		n.Patron = s.PatronFor(ctxReq(ctx))
 	}
 	life := TTL(n.Bits, req)
 	if author == "" {

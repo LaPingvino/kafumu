@@ -614,7 +614,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       Was: 60. Eventa Servo (Esperanto events, Joop): its API (eventaservo.org/api/v2) needs a key; ask them for one
       (or for a public per-country iCal), then it is one more entry in the feeds list (internal/feeds).
 - [ ] 45. DECIDED (Joop 2026-10-05): "Mix" + pay what you want + manual payments for now.
-      45a. Patron wings for anyone: User.PatronUntil (admin sets it, like a business's paid-until); gold wings
+      [x] 45a. Done: User.PatronUntil (admin: "patron until" date per account, through the end of that day UTC;
+           empty = not a patron), User.Patron(now); gold wings on the username button, on posts made under the
+           name (Note.Patron set at posting via PatronFor), on findable people (Person.Patron); lapsed = no
+           wings. Tests: model, post flag (named yes, anonymous never), admin render. Was: Patron wings for anyone: User.PatronUntil (admin sets it, like a business's paid-until); gold wings
            on a patron's named posts, @page and username button while it runs (grey after? no: patrons just
            lose the wings). Patrons fund the commons; they get nothing that buys visibility.
       45b. Office tools for paying businesses: free = host meetups and post under its own name; Live (trial or

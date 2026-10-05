@@ -688,6 +688,10 @@
       bz.appendChild(document.createTextNode(n.biz + " · "));
       meta.appendChild(bz);
     }
+    if (n.patron && n.author) { // a patron of Kafumu: the wings
+      var pw = document.createElement("span"); pw.innerHTML = '<svg class="wings"><use href="#i-wings"/></svg> ';
+      meta.appendChild(pw);
+    }
     meta.appendChild(document.createTextNode((n.author ? "@" + n.author + " ✓ · " : "") + (opts.forYou ? "★ " + tr("ask_for_you") + " · " : "") + ago(n.at) + " · ⚡" + n.bits + " · " +
       tr("oln_left", { h: left < 1 ? "<1" : Math.round(left) }) + (n.via ? " · ↪ " + n.via.replace(/^https?:\/\//, "") : "") +
       (n.tags || []).filter(function (t) { return !/^(geo|re[0-9a-f]{10}$|ask$|rk[ab][0-9a-f]{33}$)/.test(t); }).map(function (t) { return " #" + t; }).join("")));
@@ -1092,6 +1096,7 @@
       var li = document.createElement("li");
       var head = document.createElement("strong");
       head.textContent = "@" + p.name + (p.inbox ? " ✉️" : "");
+      if (p.patron) { var pw = document.createElement("span"); pw.innerHTML = '<svg class="wings"><use href="#i-wings"/></svg> '; head.prepend(pw); }
       li.appendChild(head);
       if (p._why.length) { var w = document.createElement("div"); w.className = "why"; w.textContent = p._why.slice(0, 3).join(" · "); li.appendChild(w); }
       var meta = document.createElement("div");

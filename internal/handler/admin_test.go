@@ -49,7 +49,7 @@ func TestAdminGate(t *testing.T) {
 // exists in production, so check the template here).
 func TestAdminPageRenders(t *testing.T) {
 	_, home, _ := newServerWithMeetups(t)
-	u := &account.User{ID: "0123456789abcdef", Username: "joop", Role: "admin", KeepDays: -1, ATHandle: "joop.example", Cell: "8ccgmw"}
+	u := &account.User{ID: "0123456789abcdef", Username: "joop", Role: "admin", KeepDays: -1, ATHandle: "joop.example", Cell: "8ccgmw", PatronUntil: time.Date(2099, 1, 2, 0, 0, 0, 0, time.UTC)}
 	p := adminPage{page: home.newPage(httptest.NewRequest("GET", "/admin", nil), "Admin"), Roles: adminRoles,
 		Stats: []stat{{"Accounts", 3, "all"}, {"Push", -1, ""}}, Users: []adminUser{{User: u, Passkeys: 2, Synced: true}}, Groups: []userGroup{{Cell: "8ccgmw", Users: []adminUser{{User: u, Passkeys: 2, Synced: true}}}},
 		Areas: []areaCount{{"8ccgmw", 4}}, Jobs: []string{"feeds"}, Full: true,
@@ -63,7 +63,7 @@ func TestAdminPageRenders(t *testing.T) {
 	w := httptest.NewRecorder()
 	home.render(w, "admin.html", p)
 	body := w.Body.String()
-	for _, want := range []string{"@joop", "🔑 2", "🔄 synced", "#geo8ccgmw · 1", "Accounts by area", `name="ids"`, "Apply to selected", "buy now", "spam 2", "https://bsky.app/profile/did:plc:x/post/abc", "kept forever", `value="moderator"`, "Set role", ">3<", "Café Futuro", "· paid until ", `name="paid_until" value="2099-12-31"`, "paid until 31 Dec 2099", "paid period over (still live): contact?", `value="stay" selected`, "1 expired, 1 hidden", "Live public messages (2", "🪽 Café Futuro (by @joop)", "Fresh croissants", `value="oln-delete"`, `<span class="badge warn">hidden</span> Cheap watches`} {
+	for _, want := range []string{"@joop", "🔑 2", "🔄 synced", "#geo8ccgmw · 1", "Accounts by area", `name="ids"`, "Apply to selected", "buy now", "spam 2", "https://bsky.app/profile/did:plc:x/post/abc", "kept forever", `value="moderator"`, "Set role", ">3<", "Café Futuro", "· paid until ", `name="paid_until" value="2099-12-31"`, "paid until 31 Dec 2099", "paid period over (still live): contact?", `value="stay" selected`, "1 expired, 1 hidden", "Live public messages (2", "🪽 Café Futuro (by @joop)", "Fresh croissants", `value="oln-delete"`, `<span class="badge warn">hidden</span> Cheap watches`, "patron until 1 Jan 2099", `name="until" value="2099-01-01"`} {
 		if !strings.Contains(body, want) {
 			t.Errorf("admin page lacks %q", want)
 		}

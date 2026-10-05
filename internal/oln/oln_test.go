@@ -337,3 +337,28 @@ func TestBizByline(t *testing.T) {
 		}
 	}
 }
+
+// A patron's named post wears the wings; an anonymous one never does.
+func TestPatronPost(t *testing.T) {
+	s := NewService(NewMemoryStore())
+	s.AuthorFor = func(r *http.Request) string {
+		if r.Header.Get("X-Kafumu-As") == "1" {
+			return "joop"
+		}
+		return ""
+	}
+	s.PatronFor = func(*http.Request) bool { return true }
+	for _, named := range []bool{true, false} {
+		r := httptest.NewRequest("POST", "/api/oln", strings.NewReader(mine(BaseBits, time.Now().UTC(), fmt.Sprint("patron ", named), "#geo8ccgmw")))
+		if named {
+			r.Header.Set("X-Kafumu-As", "1")
+		}
+		w := httptest.NewRecorder()
+		s.HandlePost(w, r)
+		var n Note
+		json.Unmarshal(w.Body.Bytes(), &n)
+		if n.Patron != named {
+			t.Fatalf("named=%v: patron=%v", named, n.Patron)
+		}
+	}
+}

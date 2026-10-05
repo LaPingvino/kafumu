@@ -470,7 +470,7 @@ func (a *Admin) Action(w http.ResponseWriter, r *http.Request) {
 				}
 			}
 		}
-	case "role", "rename", "unname", "keep", "delete-user":
+	case "role", "rename", "unname", "keep", "delete-user", "patron":
 		res = a.userAction(r, id)
 	case "bulk":
 		res = a.bulkAction(r)
@@ -527,6 +527,18 @@ func (a *Admin) userAction(r *http.Request, id string) string {
 			return "save failed: " + err.Error()
 		}
 		return who + map[bool]string{true: ": kept forever", false: ": normal retention"}[u.KeepDays == -1]
+	case "patron":
+		u.PatronUntil = time.Time{}
+		if d, err := time.Parse("2006-01-02", r.FormValue("until")); err == nil {
+			u.PatronUntil = d.Add(24 * time.Hour) // through the end of that day (UTC)
+		}
+		if err := a.Accounts.Svc.Save(ctx, u); err != nil {
+			return "save failed: " + err.Error()
+		}
+		if u.PatronUntil.IsZero() {
+			return who + ": no longer a patron"
+		}
+		return who + ": patron until " + u.PatronUntil.Add(-time.Hour).Format("2 Jan 2006")
 	case "delete-user":
 		if u.ID == UserFrom(ctx).ID {
 			return "that's you"

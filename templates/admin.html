@@ -84,13 +84,15 @@
     <ul class="boxed-list admin-users">{{range .Users}}<li>
     <div><input type="checkbox" name="ids" value="{{.ID}}" form="bulk" aria-label="select"> <strong>{{if .Username}}@{{.Username}}{{else}}<span class="dim">(no name)</span>{{end}}</strong>
       <span class="dim small"> · {{slice .ID 0 8}} · since {{.CreatedAt.Format "2 Jan 2006"}} · seen {{.LastSeenAt.Format "2 Jan 15:04"}}</span></div>
-    <div class="dim small">{{if .Role}}<span class="badge">{{.Role}}</span> {{end}}🔑 {{.Passkeys}}{{if .Synced}} · 🔄 synced{{end}}{{if .ATHandle}} · 🦋 @{{.ATHandle}}{{end}}{{if .Cell}} · #geo{{.Cell}}{{end}}{{if eq .KeepDays -1}} · kept forever{{else if gt .KeepDays 0}} · kept {{.KeepDays}} d{{end}}</div>
+    <div class="dim small">{{if .Role}}<span class="badge">{{.Role}}</span> {{end}}🔑 {{.Passkeys}}{{if .Synced}} · 🔄 synced{{end}}{{if .ATHandle}} · 🦋 @{{.ATHandle}}{{end}}{{if .Cell}} · #geo{{.Cell}}{{end}}{{if eq .KeepDays -1}} · kept forever{{else if gt .KeepDays 0}} · kept {{.KeepDays}} d{{end}}{{if .Patron $.Now}} · <svg class="wings"><use href="#i-wings"/></svg> patron until {{(.PatronUntil.Add -3600000000000).UTC.Format "2 Jan 2006"}}{{end}}</div>
     <div class="actions">
       <form method="post" action="/admin/action" class="inline-row"><input type="hidden" name="id" value="{{.ID}}"><input type="hidden" name="do" value="role">
         <select name="role">{{$r := .Role}}{{range $.Roles}}<option value="{{.}}"{{if eq . $r}} selected{{end}}>{{if .}}{{.}}{{else}}user{{end}}</option>{{end}}</select><button type="submit" class="pill-sm">Set role</button></form>
       <form method="post" action="/admin/action" class="inline-row"><input type="hidden" name="id" value="{{.ID}}"><input type="hidden" name="do" value="rename">
         <input name="name" placeholder="new name" maxlength="30" style="max-width:9rem"><button type="submit" class="pill-sm">Rename</button></form>
       {{if .Username}}<form method="post" action="/admin/action" onsubmit="return confirm('Release this name?')"><input type="hidden" name="id" value="{{.ID}}"><input type="hidden" name="do" value="unname"><button type="submit" class="pill-sm">Release name</button></form>{{end}}
+      <form method="post" action="/admin/action" class="inline-row"><input type="hidden" name="id" value="{{.ID}}"><input type="hidden" name="do" value="patron">
+        <label class="small">patron until <input type="date" name="until" value="{{if not .PatronUntil.IsZero}}{{(.PatronUntil.Add -3600000000000).UTC.Format "2006-01-02"}}{{end}}" style="max-width:10rem"></label><button type="submit" class="pill-sm">Save</button></form>
       <form method="post" action="/admin/action"><input type="hidden" name="id" value="{{.ID}}"><input type="hidden" name="do" value="keep"><button type="submit" class="pill-sm">{{if eq .KeepDays -1}}Normal retention{{else}}Keep forever{{end}}</button></form>
       <form method="post" action="/admin/action" onsubmit="return confirm('Delete this account for good?')"><input type="hidden" name="id" value="{{.ID}}"><input type="hidden" name="do" value="delete-user"><button type="submit" class="pill-sm contrast">Delete</button></form>
     </div>
