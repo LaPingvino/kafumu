@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/LaPingvino/kafumu/internal/account"
+	"github.com/LaPingvino/kafumu/internal/brand"
 	"github.com/LaPingvino/kafumu/internal/business"
 	"github.com/LaPingvino/kafumu/internal/report"
 	"github.com/LaPingvino/kafumu/internal/sqlstore"
@@ -40,6 +41,7 @@ type Admin struct {
 	SQL        *sql.DB
 	Reports    *report.Service
 	Businesses *business.Store
+	Brands     *brand.Store
 	// peersMem: linked nodes without Datastore (kept via kv when self-hosted).
 	peersMu  sync.Mutex
 	peersMem *peerConfig
@@ -115,6 +117,8 @@ type adminPage struct {
 	Businesses []*business.Business
 	// Peers: linked OLN nodes this one pulls from.
 	Peers []peerEntry
+	// Brands: Kafumu's faces on other hosts.
+	Brands []brand.Brand
 }
 
 type stat struct {
@@ -233,6 +237,10 @@ func (a *Admin) Show(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	p.Peers = a.loadPeers(ctx).Peers
+	if a.Brands != nil {
+		p.Brands = a.Brands.All(ctx)
+		sort.Slice(p.Brands, func(i, j int) bool { return p.Brands[i].Host < p.Brands[j].Host })
+	}
 	a.Home.footer(ctx)
 	a.Home.foot.mu.Lock()
 	if a.Home.foot.settings != nil {
@@ -409,6 +417,25 @@ func (a *Admin) Action(w http.ResponseWriter, r *http.Request) {
 		res = fmt.Sprintf("%s: deleted %d local messages", do, n)
 		if err != nil {
 			res += " (" + err.Error() + ")"
+		}
+	case "brand-save":
+		if a.Brands == nil {
+			res = "no brands here"
+			break
+		}
+		b := &brand.Brand{Host: r.FormValue("host"), Name: r.FormValue("name"), Tagline: r.FormValue("tagline"),
+			Accent: r.FormValue("accent"), Button: r.FormValue("button"), Tags: strings.FieldsFunc(r.FormValue("tags"), func(c rune) bool { return c == ',' || c == ' ' })}
+		if old := a.Brands.For(ctx, b.Host); old != nil {
+			b.Admins, b.PaidUntil, b.CreatedAt = old.Admins, old.PaidUntil, old.CreatedAt
+		}
+		if err := a.Brands.Save(ctx, b); err != nil {
+			res = "brand: a host like bahais.in and a name, please"
+		} else {
+			res = "brand saved: " + b.Host + " (map the domain to this app on App Engine to make it live)"
+		}
+	case "brand-delete":
+		if a.Brands != nil && a.Brands.Delete(ctx, id) == nil {
+			res = "brand removed: " + id
 		}
 	case "peer-add":
 		o := peerOrigin(r.FormValue("origin"))

@@ -28,6 +28,20 @@
     <button type="submit" class="pill-sm">Save</button></form>
 </div>{{end}}
 {{if .Full}}<div class="card" style="padding:4px 16px 12px">
+  <h2>Brands</h2>
+  <p class="dim small">Kafumu's faces on other domains: same network underneath (areas, local messages, connect codes), each with its own name, colour, main button and the tags Around starts from. A paid service; map the domain to this App Engine app for it to go live.</p>
+  {{if .Brands}}<ul class="boxed-list">{{range .Brands}}<li>
+    <div><strong{{if .Accent}} style="color:{{.Accent}}"{{end}}>{{.Name}}</strong> · {{.Host}}{{if .Tags}} <span class="dim small">· {{range .Tags}}#{{.}} {{end}}</span>{{end}}</div>
+    <div class="dim small">{{if .Tagline}}{{.Tagline}}{{end}}{{if .Button}} · button: {{.Button}}{{end}}</div>
+    <form method="post" action="/admin/action" class="inline" onsubmit="return confirm('Remove this brand?')"><input type="hidden" name="do" value="brand-delete"><input type="hidden" name="id" value="{{.Host}}"><button type="submit" class="pill-sm">Remove</button></form>
+  </li>{{end}}</ul>{{else}}<p class="dim">No brands yet.</p>{{end}}
+  <form method="post" action="/admin/action" class="grid-form"><input type="hidden" name="do" value="brand-save">
+    <input name="host" placeholder="bahais.in" required> <input name="name" placeholder="Name" required maxlength="40">
+    <input name="tagline" placeholder="Tagline (optional)" maxlength="160"> <input name="button" placeholder="Main button, e.g. 🙏 Who wants to pray with me?" maxlength="60">
+    <input name="accent" type="color" value="#865e3c" title="accent colour"> <input name="tags" placeholder="tags Around starts from: bahai prayer">
+    <button type="submit" class="pill-sm">Save brand</button></form>
+</div>{{end}}
+{{if .Full}}<div class="card" style="padding:4px 16px 12px">
   <h2>Linked nodes (OLN)</h2>
   <p class="dim small">This node pulls the local messages of other OLN nodes for the areas people here look at (and any you add), and they can pull this one's from <code>/oln.json?cell=…</code>. Pulled messages keep their own time and work, and show where they came from.</p>
   {{if .Peers}}<ul class="boxed-list">{{range .Peers}}<li>

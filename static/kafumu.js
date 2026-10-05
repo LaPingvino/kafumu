@@ -217,7 +217,9 @@
 
   // ---- Views: place + language + interest, filtered on the device ----
   var params = new URLSearchParams(location.search);
-  var view = { lang: params.get("lang") || "", tag: (params.get("tag") || "").toLowerCase().replace(/^#/, ""),
+  // A brand (bahais.in…) starts Around from its own tag.
+  var brandTag = params.has("tag") ? "" : (document.body.dataset.brandTag || "");
+  var view = { lang: params.get("lang") || "", tag: (params.get("tag") || brandTag).toLowerCase().replace(/^#/, ""),
     // 0 off · 1 boost · 2 strong boost · 3 only matching
     strength: Math.max(0, Math.min(3, parseInt(params.get("w") || "2", 10))) };
   function viewURL(c) {

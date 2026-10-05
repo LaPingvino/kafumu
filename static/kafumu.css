@@ -314,3 +314,5 @@ a.acting span svg.wings.off { color: #c8c8c8; }
 .answer-form, .answer-form-row { flex-wrap: wrap; }
 .answer-form input, .answer-form-row input { flex: 1 1 100%; min-width: 0; }
 .badge.new-count { background: var(--accent-bg); color: var(--accent-fg); }
+
+.brand-tagline { font-size: 1.1em; margin: .2em 0 .8em; }

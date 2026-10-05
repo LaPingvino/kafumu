@@ -5,6 +5,7 @@ import (
 	"cloud.google.com/go/datastore"
 	"context"
 	"encoding/json"
+	"github.com/LaPingvino/kafumu/internal/brand"
 	"github.com/LaPingvino/kafumu/internal/business"
 	"github.com/LaPingvino/kafumu/internal/cache"
 	"github.com/LaPingvino/kafumu/internal/report"
@@ -39,6 +40,8 @@ const (
 )
 
 type Home struct {
+	// Brands: the faces of Kafumu on other hosts (bahais.in…); nil = none.
+	Brands *brand.Store
 	// Biz: business accounts, for acting as one (acting.go).
 	Biz  *business.Store
 	bizc bizCache
@@ -71,11 +74,14 @@ type Home struct {
 // page is the data every full page gets.
 type page struct {
 	Brand string
-	Title string
-	Tab   string // active view-switcher tab
-	Cell  string
-	Lang  string
-	V     string // asset version, so a deploy never mixes old and new JS
+	// BrandInfo: the brand of this host (its colour, tagline, main button,
+	// default tags), nil on plain Kafumu.
+	BrandInfo *brand.Brand
+	Title     string
+	Tab       string // active view-switcher tab
+	Cell      string
+	Lang      string
+	V         string // asset version, so a deploy never mixes old and new JS
 	// MovedTo is set on a legacy origin: the canonical origin to move to.
 	MovedTo string
 	// Passkeys is true when passkeys work on this host.
@@ -111,7 +117,11 @@ func (h *Home) newPage(r *http.Request, title string) page {
 	if u := UserFrom(r.Context()); u != nil {
 		acting = h.acting(r.Context(), r, u.ID)
 	}
-	return page{Acting: acting, Now: time.Now(), Brand: h.Cfg.Brand, Title: title, Lang: lang, V: h.Cfg.Version, Langs: locale.Langs(), MovedTo: moved,
+	name, bi := h.Cfg.Brand, h.Brands.For(r.Context(), r.Host)
+	if bi != nil {
+		name = bi.Name
+	}
+	return page{Acting: acting, Now: time.Now(), Brand: name, BrandInfo: bi, Title: title, Lang: lang, V: h.Cfg.Version, Langs: locale.Langs(), MovedTo: moved,
 		Passkeys: h.Cfg.Passkeys && moved == "", ATproto: h.ATproto != nil && moved == "",
 		User: UserFrom(r.Context()), JS: locale.Prefix(lang, "js."), Maker: maker, Contact: contact, ContactText: contactText}
 }

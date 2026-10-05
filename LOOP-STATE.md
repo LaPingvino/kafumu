@@ -639,7 +639,11 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       that buys visibility over what's actually near and relevant. Don't build until Joop picks a direction.
 - [ ] 46. DECIDED (Joop 2026-10-05: "2 and 4"): brands are set up by Joop in admin as a PAID service (manual
       payment, like 45c), with brand admins; and forks (self-hosting + OLN linking, done in 64) are the free
-      route. Build after 45: 46a Brand entity + Host routing + admin; 46b brand admins + wording/tags/colours;
+      route. [x] 46a done: internal/brand (host-keyed, Datastore or kv, all brands loaded together and kept a
+      minute: choosing a request's brand is free); newPage picks it from r.Host (name, accent colour as a CSS
+      variable (hex only), main-button wording, tagline, Around's starting tag); admin "Brands" section (save,
+      remove; note: the domain must be mapped to the App Engine app). Tests: store, brand page vs plain host,
+      admin. Before 46a: 46b brand admins + wording/tags/colours;
       46c brand-local accounts (passkeys per domain) and the shared network underneath.
       Was: Brands on other domains (Joop's idea, 2026-10-04; part of 45): one app, several faces chosen by
       Host: e.g. bahais.in / localprayers.net with "Who wants to pray with me?" and "Register our local

@@ -1,5 +1,6 @@
 {{template "head" .}}
 <section id="here" data-cell="{{.Cell}}" data-guess="{{.GuessCell}}" data-guess-name="{{.GuessName}}">
+  {{with .BrandInfo}}{{if .Tagline}}<p class="brand-tagline">{{.Tagline}}</p>{{end}}{{end}}
   <div id="guess" class="card events" style="padding:8px 16px" hidden>
     <p><strong id="guess-q"></strong></p>
     <div class="actions"><button type="button" id="guess-yes" class="pill suggested">{{t .Lang "guess.yes"}}</button>
@@ -13,7 +14,7 @@
   <p id="place-also" class="place-also" hidden></p>
   <div id="cell-actions" hidden>
     <p class="actions">
-      <button type="button" id="coffee" class="suggested pill">☕ {{t .Lang "coffee.button"}}</button>
+      <button type="button" id="coffee" class="suggested pill">{{if and .BrandInfo .BrandInfo.Button}}{{.BrandInfo.Button}}{{else}}☕ {{t .Lang "coffee.button"}}{{end}}</button>
       <button type="button" id="say" class="pill">💬 {{t .Lang "oln.say"}}</button>
       <button type="button" id="ask" class="pill">❓ {{t .Lang "ask.button"}}</button>
       <button type="button" id="learn" class="pill" hidden></button>

@@ -7,6 +7,7 @@ import (
 	"database/sql"
 	"embed"
 	"fmt"
+	"github.com/LaPingvino/kafumu/internal/brand"
 	"github.com/LaPingvino/kafumu/internal/feeds"
 	"github.com/LaPingvino/kafumu/internal/kv"
 	"github.com/LaPingvino/kafumu/internal/sqlstore"
@@ -78,6 +79,7 @@ func main() {
 	}
 	home.Notes = notes
 	businesses := business.New(db)
+	home.Brands = brand.New(db)
 	home.Biz = businesses
 	meetups := &handler.Meetups{Home: home, Svc: home.Meetups, Importer: importer.New(), Businesses: businesses}
 	accounts := &handler.Accounts{Home: home, Svc: account.NewService(users)}
@@ -223,7 +225,7 @@ func main() {
 		}
 		fmt.Fprintln(w, runPurge(r.Context()))
 	})
-	adminH := &handler.Admin{Home: home, Accounts: accounts, Meetups: meetups, Notes: notes, DB: db, SQL: sqliteDB(),
+	adminH := &handler.Admin{Home: home, Accounts: accounts, Meetups: meetups, Notes: notes, DB: db, SQL: sqliteDB(), Brands: home.Brands,
 		Jobs: map[string]func(context.Context) string{"purge": runPurge, "feeds": meetups.RunFeeds}}
 	adminH.Jobs["oln-pull"] = adminH.PullPeers
 	// Linked nodes: pulled from cron where scheduled (on App Engine each
