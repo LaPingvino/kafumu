@@ -562,5 +562,7 @@
   "biz.profile_note": "Firma na Kafumu: setkání a zprávy pod vlastním jménem.",
   "biz.working_as": "Pracuješ jako",
   "biz.device_only": "Tahle vizitka a tyto kontakty patří firmě, odděleně od tvých; zatím zůstávají na tomto zařízení.",
-  "biz.switch": "Přepnout"
+  "biz.switch": "Přepnout",
+  "biz.paid_until": "Zaplaceno do",
+  "biz.paid_over": "Zaplacené období skončilo; ozveme se."
 }

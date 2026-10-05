@@ -562,5 +562,7 @@
   "biz.profile_note": "Komerco en Kafumu: renkontiĝoj kaj mesaĝoj sub sia propra nomo.",
   "biz.working_as": "Vi laboras kiel",
   "biz.device_only": "Ĉi tiu karto kaj ĉi tiuj kontaktoj apartenas al la komerco, aparte de viaj propraj; nuntempe ili restas en ĉi tiu aparato.",
-  "biz.switch": "Ŝanĝi"
+  "biz.switch": "Ŝanĝi",
+  "biz.paid_until": "Pagita ĝis",
+  "biz.paid_over": "La pagita periodo finiĝis; ni kontaktos vin."
 }

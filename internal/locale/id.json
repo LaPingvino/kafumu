@@ -562,5 +562,7 @@
   "biz.profile_note": "Bisnis di Kafumu: pertemuan dan pesan atas namanya sendiri.",
   "biz.working_as": "Kamu bekerja sebagai",
   "biz.device_only": "Kartu dan kontak ini milik bisnis, terpisah dari milikmu sendiri; untuk sekarang hanya ada di perangkat ini.",
-  "biz.switch": "Ganti"
+  "biz.switch": "Ganti",
+  "biz.paid_until": "Dibayar sampai",
+  "biz.paid_over": "Masa berbayar sudah berakhir; kami akan menghubungimu."
 }

@@ -26,13 +26,12 @@ type businessPage struct {
 	Mine    []*business.Business
 	Names   map[string]string // manager user id → username
 	Kinds   []string
-	Now     time.Time
 	Created bool
 	Error   string
 }
 
 func (h *Businesses) Show(w http.ResponseWriter, r *http.Request) {
-	p := businessPage{page: h.Home.newPage(r, ""), Kinds: business.Kinds, Now: time.Now(), Names: map[string]string{}, Created: r.URL.Query().Get("new") == "1"}
+	p := businessPage{page: h.Home.newPage(r, ""), Kinds: business.Kinds, Names: map[string]string{}, Created: r.URL.Query().Get("new") == "1"}
 	switch r.URL.Query().Get("err") {
 	case "taken":
 		p.Error = locale.T(p.Lang, "account.err_taken")

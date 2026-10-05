@@ -562,5 +562,7 @@
   "biz.profile_note": "Een bedrijf op Kafumu: meetups en berichten onder eigen naam.",
   "biz.working_as": "Je werkt als",
   "biz.device_only": "Dit kaartje en deze contacten zijn van het bedrijf, apart van die van jezelf; voorlopig blijven ze op dit apparaat.",
-  "biz.switch": "Wisselen"
+  "biz.switch": "Wisselen",
+  "biz.paid_until": "Betaald tot",
+  "biz.paid_over": "De betaalde periode is voorbij; we nemen contact op."
 }

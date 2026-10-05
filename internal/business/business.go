@@ -30,6 +30,9 @@ const (
 	StatusActive = "active"
 	StatusPaused = "paused"
 	StatusEnded  = "ended"
+
+	AfterStop = "stop"
+	AfterStay = "stay"
 )
 
 var (
@@ -51,12 +54,30 @@ type Business struct {
 	CreatedAt time.Time `datastore:"created_at" json:"-"`
 	TrialEnds time.Time `datastore:"trial_ends,noindex" json:"-"`
 	Status    string    `datastore:"status,noindex" json:"status"`
+	// PaidUntil (active accounts): the end of what was paid for; AfterPaid
+	// says what happens after it: AfterStop (no longer live, the default)
+	// or AfterStay (stays live: invoiced later, a friend, a partner…).
+	PaidUntil time.Time `datastore:"paid_until,noindex" json:"-"`
+	AfterPaid string    `datastore:"after_paid,noindex" json:"-"`
 	Note      string    `datastore:"note,noindex" json:"-"` // admin's own note
 }
 
 // Live: may host as the business (in its trial, or active).
 func (b *Business) Live(now time.Time) bool {
-	return b.Status == StatusActive || (b.Status == StatusTrial && now.Before(b.TrialEnds))
+	if b.Status == StatusActive {
+		return b.PaidUntil.IsZero() || now.Before(b.PaidUntil) || b.AfterPaid == AfterStay
+	}
+	return b.Status == StatusTrial && now.Before(b.TrialEnds)
+}
+
+// PaidDay is the last day paid for (PaidUntil is the start of the day
+// after it, in UTC; this keeps templates free of that arithmetic).
+func (b *Business) PaidDay() time.Time { return b.PaidUntil.UTC().Add(-time.Hour) }
+
+// PaidOver: active, but past the paid-until date (admin follow-up; still
+// live only if AfterPaid is AfterStay).
+func (b *Business) PaidOver(now time.Time) bool {
+	return b.Status == StatusActive && !b.PaidUntil.IsZero() && !now.Before(b.PaidUntil)
 }
 
 // TrialOver: the free month ended and nobody decided yet (admin follow-up).

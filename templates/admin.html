@@ -40,10 +40,12 @@
 <div class="card" style="padding:4px 16px 12px">
   <h2>Business accounts{{if .Businesses}} ({{len .Businesses}}){{end}}</h2>
   {{if .Businesses}}<ul class="boxed-list admin-users">{{range .Businesses}}<li>
-    <div><strong>{{.Name}}</strong> <span class="badge">{{.Kind}}</span> {{if .TrialOver $.Now}}<span class="badge warn">trial ended: contact?</span>{{else}}<span class="badge">{{.Status}}{{if eq .Status "trial"}} until {{.TrialEnds.Format "2 Jan"}}{{end}}</span>{{end}}</div>
+    <div><strong>{{.Name}}</strong> <span class="badge">{{.Kind}}</span> {{if .TrialOver $.Now}}<span class="badge warn">trial ended: contact?</span>{{else if .PaidOver $.Now}}<span class="badge warn">paid period over{{if eq .AfterPaid "stay"}} (still live){{end}}: contact?</span>{{else}}<span class="badge">{{.Status}}{{if eq .Status "trial"}} until {{.TrialEnds.Format "2 Jan"}}{{end}}{{if and (eq .Status "active") (not .PaidUntil.IsZero)}} · paid until {{.PaidDay.Format "2 Jan 2006"}}{{end}}</span>{{end}}</div>
     <div class="dim small">{{if .Contact}}{{.Contact}} · {{end}}{{len .Managers}} manager(s) · since {{.CreatedAt.Format "2 Jan 2006"}}{{if .Note}} · {{.Note}}{{end}}</div>
     <form method="post" action="/admin/action" class="inline-row"><input type="hidden" name="do" value="biz-status"><input type="hidden" name="id" value="{{.ID}}">
       <select name="status">{{$s := .Status}}{{range (list "trial" "active" "paused" "ended")}}<option value="{{.}}"{{if eq . $s}} selected{{end}}>{{.}}</option>{{end}}</select>
+      <label class="small">paid until <input type="date" name="paid_until" value="{{if not .PaidUntil.IsZero}}{{.PaidDay.Format "2006-01-02"}}{{end}}" style="max-width:10rem"></label>
+      <select name="after" title="after the paid-until date"><option value="stop"{{if ne .AfterPaid "stay"}} selected{{end}}>then inactive</option><option value="stay"{{if eq .AfterPaid "stay"}} selected{{end}}>then stays active</option></select>
       <input name="note" value="{{.Note}}" placeholder="note (contract, price…)" style="max-width:12rem"><button type="submit" class="pill-sm">Save</button></form>
   </li>{{end}}</ul>{{else}}<p class="dim">None yet.</p>{{end}}
 </div>

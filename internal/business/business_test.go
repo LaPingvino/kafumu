@@ -23,3 +23,25 @@ func TestBusiness(t *testing.T) {
 		t.Fatalf("ForUser = %+v", mine)
 	}
 }
+
+// Paid until: live through that date; after it, live only when set to stay.
+func TestPaidUntil(t *testing.T) {
+	now := time.Date(2026, 12, 1, 12, 0, 0, 0, time.UTC)
+	b := &Business{Status: StatusActive}
+	if !b.Live(now) || b.PaidOver(now) {
+		t.Fatal("active without a date should be live")
+	}
+	b.PaidUntil = now.Add(24 * time.Hour)
+	if !b.Live(now) || b.PaidOver(now) {
+		t.Fatal("before paid-until: live")
+	}
+	later := now.Add(48 * time.Hour)
+	b.AfterPaid = AfterStop
+	if b.Live(later) || !b.PaidOver(later) {
+		t.Fatal("after paid-until, stop: not live, follow up")
+	}
+	b.AfterPaid = AfterStay
+	if !b.Live(later) || !b.PaidOver(later) {
+		t.Fatal("after paid-until, stay: live, still follow up")
+	}
+}

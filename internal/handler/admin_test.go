@@ -2,11 +2,13 @@ package handler
 
 import (
 	"context"
+	"github.com/LaPingvino/kafumu/internal/business"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/LaPingvino/kafumu/internal/account"
 	"github.com/LaPingvino/kafumu/internal/report"
@@ -51,11 +53,14 @@ func TestAdminPageRenders(t *testing.T) {
 	p := adminPage{page: home.newPage(httptest.NewRequest("GET", "/admin", nil), "Admin"), Roles: adminRoles,
 		Stats: []stat{{"Accounts", 3, "all"}, {"Push", -1, ""}}, Users: []adminUser{{User: u, Passkeys: 2, Synced: true}}, Groups: []userGroup{{Cell: "8ccgmw", Users: []adminUser{{User: u, Passkeys: 2, Synced: true}}}},
 		Areas: []areaCount{{"8ccgmw", 4}}, Jobs: []string{"feeds"}, Full: true,
-		Queue: []report.Item{{Kind: "post", Item: "at://did:plc:x/app.bsky.feed.post/abc", Snippet: "buy now", Reasons: map[string]int{"spam": 2}, Count: 2}}}
+		Queue: []report.Item{{Kind: "post", Item: "at://did:plc:x/app.bsky.feed.post/abc", Snippet: "buy now", Reasons: map[string]int{"spam": 2}, Count: 2}},
+		Businesses: []*business.Business{
+			{ID: "b1", Name: "Café Futuro", Kind: "cafe", Status: "active", PaidUntil: time.Date(2099, 12, 31, 0, 0, 0, 0, time.UTC).Add(24 * time.Hour), AfterPaid: "stop"},
+			{ID: "b2", Name: "Café Passado", Kind: "cafe", Status: "active", PaidUntil: time.Now().AddDate(0, 0, -3), AfterPaid: "stay"}}}
 	w := httptest.NewRecorder()
 	home.render(w, "admin.html", p)
 	body := w.Body.String()
-	for _, want := range []string{"@joop", "🔑 2", "🔄 synced", "#geo8ccgmw · 1", "Accounts by area", `name="ids"`, "Apply to selected", "buy now", "spam 2", "https://bsky.app/profile/did:plc:x/post/abc", "kept forever", `value="moderator"`, "Set role", ">3<"} {
+	for _, want := range []string{"@joop", "🔑 2", "🔄 synced", "#geo8ccgmw · 1", "Accounts by area", `name="ids"`, "Apply to selected", "buy now", "spam 2", "https://bsky.app/profile/did:plc:x/post/abc", "kept forever", `value="moderator"`, "Set role", ">3<", "Café Futuro", "· paid until ", `name="paid_until" value="2099-12-31"`, "paid until 31 Dec 2099", "paid period over (still live): contact?", `value="stay" selected`} {
 		if !strings.Contains(body, want) {
 			t.Errorf("admin page lacks %q", want)
 		}

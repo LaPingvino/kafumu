@@ -562,5 +562,7 @@
   "biz.profile_note": "Vállalkozás a Kafumun: találkozók és üzenetek saját néven.",
   "biz.working_as": "Így dolgozol:",
   "biz.device_only": "Ez a névjegy és ezek a kapcsolatok a vállalkozáséi, a sajátjaidtól külön; egyelőre ezen az eszközön maradnak.",
-  "biz.switch": "Váltás"
+  "biz.switch": "Váltás",
+  "biz.paid_until": "Kifizetve eddig:",
+  "biz.paid_over": "A kifizetett időszak lejárt; jelentkezünk."
 }

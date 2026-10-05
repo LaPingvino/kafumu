@@ -562,5 +562,7 @@
   "biz.profile_note": "Kafumu 上的商家：以自己的名义发起聚会和发布消息。",
   "biz.working_as": "你正在以此身份工作：",
   "biz.device_only": "这张名片和这些联系人属于商家，与你个人的分开；目前只保存在这台设备上。",
-  "biz.switch": "切换"
+  "biz.switch": "切换",
+  "biz.paid_until": "已付费至",
+  "biz.paid_over": "付费期已结束；我们会与你联系。"
 }

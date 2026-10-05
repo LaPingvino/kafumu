@@ -562,5 +562,7 @@
   "biz.profile_note": "En virksomhed på Kafumu: møder og beskeder i eget navn.",
   "biz.working_as": "Du arbejder som",
   "biz.device_only": "Dette kort og disse kontakter tilhører virksomheden, adskilt fra dine egne; indtil videre bliver de på denne enhed.",
-  "biz.switch": "Skift"
+  "biz.switch": "Skift",
+  "biz.paid_until": "Betalt til",
+  "biz.paid_over": "Den betalte periode er slut; vi kontakter dig."
 }

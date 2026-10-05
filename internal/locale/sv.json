@@ -562,5 +562,7 @@
   "biz.profile_note": "Ett företag på Kafumu: träffar och meddelanden i eget namn.",
   "biz.working_as": "Du arbetar som",
   "biz.device_only": "Det här kortet och de här kontakterna tillhör företaget, skilda från dina egna; tills vidare stannar de på den här enheten.",
-  "biz.switch": "Byt"
+  "biz.switch": "Byt",
+  "biz.paid_until": "Betalt till",
+  "biz.paid_over": "Den betalda perioden är slut; vi hör av oss."
 }

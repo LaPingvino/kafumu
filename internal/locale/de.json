@@ -562,5 +562,7 @@
   "biz.profile_note": "Ein Unternehmen auf Kafumu: Treffen und Nachrichten unter eigenem Namen.",
   "biz.working_as": "Du arbeitest als",
   "biz.device_only": "Diese Karte und diese Kontakte gehören dem Unternehmen, getrennt von deinen eigenen; vorerst bleiben sie auf diesem Gerät.",
-  "biz.switch": "Wechseln"
+  "biz.switch": "Wechseln",
+  "biz.paid_until": "Bezahlt bis",
+  "biz.paid_over": "Der bezahlte Zeitraum ist vorbei; wir melden uns."
 }

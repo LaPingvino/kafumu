@@ -475,7 +475,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
          a business vault (encrypted like yours, with a business key); the key reaches a newly added manager
          through an existing manager's device (wrapped for the new manager when they first open /business, after
          the existing one approves) — the server stores only ciphertext. Design to confirm with Joop.
-- [ ] 73. Paid until (Joop: "when putting on active, add a 'paid until' date, and configure active beyond or
+- [x] 73. Paid until: Business.PaidUntil (start of the day after, UTC) + AfterPaid stop|stay; Live() honours it
+      (wings go grey after it unless "stay"); PaidOver() flags admin follow-up ("paid period over (still live):
+      contact?"); admin sets date + after; /business shows "Paid until …" or "paid period over". PaidDay() does
+      the date maths in UTC (templates did it in local time). Was: Paid until (Joop: "when putting on active, add a 'paid until' date, and configure active beyond or
       inactive beyond that date"): admin sets Status active + PaidUntil + AfterPaid (stay active / go inactive);
       Live() honours it; the business page shows "paid until"; admin follow-up lists those past PaidUntil.
 - [ ] 74. Admin OLN tools, complete (Joop: "doesn't enable me to remove stored but not live, or to see all live

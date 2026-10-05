@@ -562,5 +562,7 @@
   "biz.profile_note": "Kafumu'da bir işletme: kendi adıyla buluşmalar ve mesajlar.",
   "biz.working_as": "Şu olarak çalışıyorsun:",
   "biz.device_only": "Bu kart ve bu kişiler işletmeye ait, seninkilerden ayrı; şimdilik bu cihazda kalıyorlar.",
-  "biz.switch": "Değiştir"
+  "biz.switch": "Değiştir",
+  "biz.paid_until": "Şu tarihe kadar ödendi:",
+  "biz.paid_over": "Ödenen dönem bitti; sizinle iletişime geçeceğiz."
 }

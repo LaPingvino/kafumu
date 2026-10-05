@@ -562,5 +562,7 @@
   "biz.profile_note": "Un'attività su Kafumu: incontri e messaggi a proprio nome.",
   "biz.working_as": "Stai lavorando come",
   "biz.device_only": "Questo biglietto e questi contatti sono dell'attività, separati dai tuoi; per ora restano su questo dispositivo.",
-  "biz.switch": "Cambia"
+  "biz.switch": "Cambia",
+  "biz.paid_until": "Pagato fino al",
+  "biz.paid_over": "Il periodo pagato è finito; ci faremo sentire."
 }

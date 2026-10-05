@@ -562,5 +562,7 @@
   "biz.profile_note": "Kafumu의 비즈니스: 자기 이름으로 모임과 메시지를 엽니다.",
   "biz.working_as": "지금 이 이름으로 일하는 중:",
   "biz.device_only": "이 카드와 연락처는 비즈니스의 것으로, 개인 것과 따로 보관돼요. 지금은 이 기기에만 있어요.",
-  "biz.switch": "전환"
+  "biz.switch": "전환",
+  "biz.paid_until": "결제 기간 만료일",
+  "biz.paid_over": "결제 기간이 끝났어요. 곧 연락드릴게요."
 }
