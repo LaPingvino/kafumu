@@ -106,7 +106,7 @@ func (h *Meetups) publishEvent(r *http.Request, u *account.User, m *meetup.Meetu
 		return
 	}
 	lat, lon := geo.Center(m.Cell)
-	link := h.Home.Cfg.Origin + "/meetups/" + m.ID
+	link := h.Home.Origin(r) + "/meetups/" + m.ID
 	rec := atp.EventRecord(m.Title, m.Text, m.StartAt, m.EndAt, m.Venue, lat, lon, link, time.Now())
 	uri, cid, err := h.Home.ATproto.CreateRecord(r.Context(), u.DID, u.ATSession, "community.lexicon.calendar.event", rec)
 	if err != nil {
@@ -191,7 +191,7 @@ func (h *Meetups) ICS(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "text/calendar; charset=utf-8")
 	w.Header().Set("Cache-Control", "public, max-age=600")
-	w.Write([]byte(meetup.ICS(name, h.Home.Cfg.Origin, ms)))
+	w.Write([]byte(meetup.ICS(name, h.Home.Origin(r), ms)))
 }
 
 // Import handles POST /meetups/import {url}: read an event page (Luma,

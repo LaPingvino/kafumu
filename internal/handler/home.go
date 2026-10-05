@@ -111,7 +111,8 @@ func (h *Home) newPage(r *http.Request, title string) page {
 	}
 	lang := locale.Pick(choice, r.Header.Get("Accept-Language"))
 	moved := ""
-	if canon := h.Cfg.Origin; canon != "" && len(h.Cfg.LegacyOrigins) > 0 && !strings.HasSuffix(canon, "://"+r.Host) {
+	// "We moved" is for the old domains, never for a brand's own (46c).
+	if canon := h.Cfg.Origin; canon != "" && len(h.Cfg.LegacyOrigins) > 0 && !strings.HasSuffix(canon, "://"+r.Host) && h.Brands.For(r.Context(), r.Host) == nil {
 		moved = canon
 	}
 	maker, contact, contactText := h.footer(r.Context())
@@ -595,4 +596,14 @@ func (h *Home) foundEvents(b *bundle, now time.Time) []gazetteer.EventTag {
 		out = out[:3]
 	}
 	return out
+}
+
+// Origin is where this request is served from, for absolute links: the
+// brand's own domain on a brand's host (46c: its accounts, passkeys and
+// links live there), else the configured origin.
+func (h *Home) Origin(r *http.Request) string {
+	if b := h.Brands.For(r.Context(), r.Host); b != nil {
+		return "https://" + b.Host
+	}
+	return h.Cfg.Origin
 }

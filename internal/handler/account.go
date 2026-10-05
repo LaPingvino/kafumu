@@ -94,7 +94,7 @@ func (a *Accounts) show(w http.ResponseWriter, r *http.Request, findable bool) {
 		p.Title, p.Tab = locale.T(p.Lang, "profile.title"), "findable"
 	}
 	if u := p.User; u != nil {
-		p.MagicURL = a.Home.Cfg.Origin + "/auth/link?k=" + template.URLQueryEscaper(mustCookie(r))
+		p.MagicURL = a.Home.Origin(r) + "/auth/link?k=" + template.URLQueryEscaper(mustCookie(r))
 	}
 	p.New = r.URL.Query().Get("new") == "1"
 	if b := p.Acting; findable && b != nil && p.User != nil {
@@ -500,7 +500,7 @@ func (a *Accounts) SetHandle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]string{"url": a.Home.Cfg.Origin + "/@" + name})
+	json.NewEncoder(w).Encode(map[string]string{"url": a.Home.Origin(r) + "/@" + name})
 }
 
 // FollowHandle serves /@name: to that person's connect code, marked as theirs.

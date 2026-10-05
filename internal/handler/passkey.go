@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"sync"
 	"time"
 
 	"github.com/go-webauthn/webauthn/protocol"
@@ -23,6 +24,33 @@ type Passkeys struct {
 	Accounts *Accounts
 	WA       *webauthn.WebAuthn
 	Cache    cache.Cache
+
+	mu    sync.Mutex
+	brand map[string]*webauthn.WebAuthn // per brand domain (46c)
+}
+
+// waFor: the WebAuthn of this request's domain. Passkeys are bound to a
+// domain, so a brand's domain has its own (its accounts sign in there).
+func (p *Passkeys) waFor(r *http.Request) *webauthn.WebAuthn {
+	b := p.Accounts.Home.Brands.For(r.Context(), r.Host)
+	if b == nil {
+		return p.WA
+	}
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	if wa, ok := p.brand[b.Host]; ok {
+		return wa
+	}
+	wa, err := webauthn.New(&webauthn.Config{RPDisplayName: b.Name, RPID: b.Host, RPOrigins: []string{"https://" + b.Host, "https://www." + b.Host}})
+	if err != nil {
+		log.Printf("passkeys: %s: %v", b.Host, err)
+		return p.WA
+	}
+	if p.brand == nil {
+		p.brand = map[string]*webauthn.WebAuthn{}
+	}
+	p.brand[b.Host] = wa
+	return wa
 }
 
 // NewPasskeys returns nil when origin isn't a usable https origin.
@@ -75,7 +103,7 @@ func (p *Passkeys) RegisterBegin(w http.ResponseWriter, r *http.Request) {
 	}
 	// Discoverable (resident) credentials, so "Sign in with a passkey" works
 	// without typing a username.
-	opts, sd, err := p.WA.BeginRegistration(u, webauthn.WithResidentKeyRequirement(protocol.ResidentKeyRequirementRequired))
+	opts, sd, err := p.waFor(r).BeginRegistration(u, webauthn.WithResidentKeyRequirement(protocol.ResidentKeyRequirementRequired))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -96,7 +124,7 @@ func (p *Passkeys) RegisterFinish(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "session expired, try again", http.StatusBadRequest)
 		return
 	}
-	cred, err := p.WA.FinishRegistration(u, *sd, r)
+	cred, err := p.waFor(r).FinishRegistration(u, *sd, r)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -110,7 +138,7 @@ func (p *Passkeys) RegisterFinish(w http.ResponseWriter, r *http.Request) {
 
 // LoginBegin handles POST /auth/passkey/login/begin (discoverable login).
 func (p *Passkeys) LoginBegin(w http.ResponseWriter, r *http.Request) {
-	opts, sd, err := p.WA.BeginDiscoverableLogin()
+	opts, sd, err := p.waFor(r).BeginDiscoverableLogin()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -152,7 +180,7 @@ func (p *Passkeys) LoginFinish(w http.ResponseWriter, r *http.Request) {
 		}
 		return u, err
 	}
-	if _, err := p.WA.FinishDiscoverableLogin(lookup, *sd, r); err != nil || found == "" {
+	if _, err := p.waFor(r).FinishDiscoverableLogin(lookup, *sd, r); err != nil || found == "" {
 		http.Error(w, "that passkey didn't work", http.StatusUnauthorized)
 		return
 	}

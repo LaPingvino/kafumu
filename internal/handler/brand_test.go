@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/LaPingvino/kafumu/internal/account"
 	"github.com/LaPingvino/kafumu/internal/business"
+	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
@@ -111,5 +112,41 @@ func TestBrandAdminBusiness(t *testing.T) {
 	home.forgetBiz(org.ID)
 	if page(&account.User{ID: "mgr1"}) || !page(&account.User{ID: "mgr2"}) {
 		t.Fatal("brand access doesn't follow the business's managers")
+	}
+}
+
+// On a brand's own domain (46c): no "we moved" banner, links and passkeys
+// belong to that domain; the plain host keeps the configured origin.
+func TestBrandDomain(t *testing.T) {
+	_, home, svc := newServerWithMeetups(t)
+	home.Cfg.Origin, home.Cfg.LegacyOrigins, home.Cfg.Passkeys = "https://kafumu.test", []string{"https://old.test"}, true
+	home.Brands = brand.New(nil)
+	home.Brands.Save(context.Background(), &brand.Brand{Host: "bahais.test", Name: "Bahá'í Local"})
+	req := func(host string) *http.Request {
+		r := httptest.NewRequest("GET", "/account", nil)
+		r.Host = host
+		return r
+	}
+	if p := home.newPage(req("bahais.test"), ""); p.MovedTo != "" || !p.Passkeys {
+		t.Fatalf("brand page: moved %q, passkeys %v", p.MovedTo, p.Passkeys)
+	}
+	if p := home.newPage(req("old.test"), ""); p.MovedTo == "" {
+		t.Fatal("old domain lost its moved banner")
+	}
+	if o := home.Origin(req("bahais.test")); o != "https://bahais.test" {
+		t.Fatalf("brand origin %q", o)
+	}
+	if o := home.Origin(req("kafumu.test")); o != "https://kafumu.test" {
+		t.Fatalf("plain origin %q", o)
+	}
+	pk := NewPasskeys(&Accounts{Home: home, Svc: svc}, "https://kafumu.test", nil)
+	if pk == nil {
+		t.Fatal("no passkeys")
+	}
+	if id := pk.waFor(req("bahais.test")).Config.RPID; id != "bahais.test" {
+		t.Fatalf("brand passkeys bound to %q", id)
+	}
+	if id := pk.waFor(req("kafumu.test")).Config.RPID; id != "kafumu.test" {
+		t.Fatalf("plain passkeys bound to %q", id)
 	}
 }

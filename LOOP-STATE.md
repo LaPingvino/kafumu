@@ -676,7 +676,13 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       admin. [x] 46b done: brand admins (admin sets @usernames per brand; resolved to ids, businesses refused);
       /brand on the brand's own host lets them edit name, tagline, main button, colour, starting tags (not
       the host); "🎨 <brand> →" on their account page. English-only, like /admin. Test: 404 for others and
-      other hosts, admin saves. Then (Joop: "either personal or business"): a brand admin is a person's
+      other hosts, admin saves. [x] 46c done: on a brand's domain, absolute links come from Home.Origin(r)
+      (sign-in link, named-link URL, meetup links, calendar feeds), passkeys use a WebAuthn per brand domain
+      (RP ID = the brand host, made on first use), and the "we moved" banner (meant for old domains, which
+      also switched passkeys off) never shows there. Cookies were already per domain, so accounts are
+      separate per brand; areas, local messages and connect codes stay shared. Test: banner, origin, RP ID.
+      [x] 46. Brands (46a–c). Going live per brand: map its domain to the App Engine app.
+      Then (Joop: "either personal or business"): a brand admin is a person's
       @username or a business's @name ("biz:<id>"); its managers manage the brand, acting as it or not, and
       access follows the manager list. Test: person, manager, stranger, manager removed. Before 46a: 46b brand admins + wording/tags/colours;
       46c brand-local accounts (passkeys per domain) and the shared network underneath.
