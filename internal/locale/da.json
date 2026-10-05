@@ -592,5 +592,8 @@
   "js.bizkey_open": "Åbn",
   "biz.you": "dig",
   "biz.no_name": "(intet brugernavn endnu)",
-  "js.online_eo": "Esperanto-arrangementer online"
+  "js.online_eo": "Esperanto-arrangementer online",
+  "biz.paid_feature": "Det er et kontorværktøj: det virker, mens virksomhedskontoen er i sin gratis måned eller betalt.",
+  "biz.paused_note": "På pause indtil betaling: flere administratorer, synkroniseret kort og kontakter, @navn-siden. At holde møder og poste i virksomhedens navn forbliver gratis, og intet slettes.",
+  "biz.profile_paused": "Denne virksomhedskonto er sat på pause."
 }

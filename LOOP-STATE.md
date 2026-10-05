@@ -620,7 +620,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
            wings. Tests: model, post flag (named yes, anonymous never), admin render. Was: Patron wings for anyone: User.PatronUntil (admin sets it, like a business's paid-until); gold wings
            on a patron's named posts, @page and username button while it runs (grey after? no: patrons just
            lose the wings). Patrons fund the commons; they get nothing that buys visibility.
-      45b. Office tools for paying businesses: free = host meetups and post under its own name; Live (trial or
+      [x] 45b. Done: not Live → adding managers, setting the @name and turning sync on redirect with
+           "biz.paid_feature"; business vault/key/handover answer 402 (devices keep their data, sync just stops);
+           /business shows the paused note; the @name page says "paused". Hosting meetups as the business no longer
+           needs Live (free). Test: lapsed business → 402s, refusals, vault kept. Was: Office tools for paying businesses: free = host meetups and post under its own name; Live (trial or
            paid) adds more than one manager, synced card + contacts, the @name page, gold wings. Lapsed: nothing
            deleted; sync pauses (devices keep their data), no new managers, wings grey, @page stays but says so.
       45c. How to pay: "pay what you want" on /business and /support: suggested €5/month (business), €2/month

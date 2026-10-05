@@ -592,5 +592,8 @@
   "js.bizkey_open": "Öppna",
   "biz.you": "du",
   "biz.no_name": "(inget användarnamn än)",
-  "js.online_eo": "Esperantoevenemang online"
+  "js.online_eo": "Esperantoevenemang online",
+  "biz.paid_feature": "Det är ett kontorsverktyg: det fungerar medan företagskontot är i sin gratismånad eller betalt.",
+  "biz.paused_note": "Pausat tills betalning: fler förvaltare, synkat kort och kontakter, @namn-sidan. Att ordna träffar och posta i företagets namn är fortfarande gratis, och inget raderas.",
+  "biz.profile_paused": "Det här företagskontot är pausat."
 }

@@ -592,5 +592,8 @@
   "js.bizkey_open": "Aç",
   "biz.you": "sen",
   "biz.no_name": "(henüz kullanıcı adı yok)",
-  "js.online_eo": "Çevrimiçi Esperanto etkinlikleri"
+  "js.online_eo": "Çevrimiçi Esperanto etkinlikleri",
+  "biz.paid_feature": "Bu bir ofis aracı: işletme hesabı ücretsiz ayındayken veya ödendiğinde çalışır.",
+  "biz.paused_note": "Ödenene kadar duraklatıldı: daha fazla yönetici, eşitlenen kart ve kişiler, @ad sayfası. Buluşma düzenlemek ve işletme adına paylaşım yapmak ücretsiz kalır, hiçbir şey silinmez.",
+  "biz.profile_paused": "Bu işletme hesabı duraklatıldı."
 }

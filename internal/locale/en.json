@@ -592,5 +592,8 @@
   "js.bizkey_open": "Open",
   "biz.you": "you",
   "biz.no_name": "(no username yet)",
-  "js.online_eo": "Online Esperanto events"
+  "js.online_eo": "Online Esperanto events",
+  "biz.paid_feature": "That's an office tool: it works while the business account is in its free month or paid up.",
+  "biz.paused_note": "Paused until paid: more managers, the card and contacts in sync, the @name page. Hosting meetups and posting under the business's name stay free, and nothing is deleted.",
+  "biz.profile_paused": "This business account is paused."
 }

@@ -592,5 +592,8 @@
   "js.bizkey_open": "Apri",
   "biz.you": "tu",
   "biz.no_name": "(ancora senza nome utente)",
-  "js.online_eo": "Eventi di esperanto online"
+  "js.online_eo": "Eventi di esperanto online",
+  "biz.paid_feature": "È uno strumento d'ufficio: funziona finché l'account aziendale è nel mese gratuito o pagato.",
+  "biz.paused_note": "In pausa fino al pagamento: altri gestori, biglietto e contatti sincronizzati, la pagina @nome. Organizzare incontri e pubblicare a nome dell'attività restano gratuiti, e non si cancella nulla.",
+  "biz.profile_paused": "Questo account aziendale è in pausa."
 }

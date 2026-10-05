@@ -592,5 +592,8 @@
   "js.bizkey_open": "開啟",
   "biz.you": "你",
   "biz.no_name": "（尚無使用者名稱）",
-  "js.online_eo": "線上世界語活動"
+  "js.online_eo": "線上世界語活動",
+  "biz.paid_feature": "這是辦公工具：在商家帳戶免費月內或已付費時可用。",
+  "biz.paused_note": "付費前暫停：新增更多管理員、同步名片和聯絡人、@名稱頁面。以商家名義舉辦聚會和發文仍然免費，也不會刪除任何內容。",
+  "biz.profile_paused": "此商家帳戶已暫停。"
 }

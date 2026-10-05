@@ -592,5 +592,8 @@
   "js.bizkey_open": "Malfermi",
   "biz.you": "vi",
   "biz.no_name": "(ankoraŭ sen uzantnomo)",
-  "js.online_eo": "Retaj Esperanto-eventoj"
+  "js.online_eo": "Retaj Esperanto-eventoj",
+  "biz.paid_feature": "Tio estas oficeja ilo: ĝi funkcias dum la komerca konto estas en sia senpaga monato aŭ pagita.",
+  "biz.paused_note": "Paŭzita ĝis pago: pliaj administrantoj, sinkronigitaj karto kaj kontaktoj, la paĝo @nomo. Gastigi renkontiĝojn kaj afiŝi sub la nomo de la komerco restas senpagaj, kaj nenio estas forigita.",
+  "biz.profile_paused": "Ĉi tiu komerca konto estas paŭzita."
 }

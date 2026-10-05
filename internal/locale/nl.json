@@ -592,5 +592,8 @@
   "js.bizkey_open": "Openen",
   "biz.you": "jij",
   "biz.no_name": "(nog geen gebruikersnaam)",
-  "js.online_eo": "Online Esperanto-evenementen"
+  "js.online_eo": "Online Esperanto-evenementen",
+  "biz.paid_feature": "Dat is een kantoorfunctie: die werkt zolang het zakelijke account in de gratis maand zit of betaald is.",
+  "biz.paused_note": "Gepauzeerd tot betaling: meer beheerders, gesynchroniseerd kaartje en contacten, de @naam-pagina. Meetups organiseren en posten onder de bedrijfsnaam blijven gratis, en er wordt niets verwijderd.",
+  "biz.profile_paused": "Dit zakelijke account is gepauzeerd."
 }

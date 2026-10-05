@@ -40,6 +40,8 @@ func (h *Businesses) Show(w http.ResponseWriter, r *http.Request) {
 		p.Error = locale.T(p.Lang, "account.err_taken")
 	case "invalid":
 		p.Error = locale.T(p.Lang, "account.err_invalid")
+	case "paid":
+		p.Error = locale.T(p.Lang, "biz.paid_feature")
 	}
 	p.Title, p.Tab = locale.T(p.Lang, "biz.title"), "account"
 	if u := p.User; u != nil {
@@ -83,7 +85,10 @@ func (h *Businesses) Managers(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
-	if name := strings.ToLower(strings.TrimPrefix(strings.TrimSpace(r.FormValue("add")), "@")); name != "" {
+	if name := strings.ToLower(strings.TrimPrefix(strings.TrimSpace(r.FormValue("add")), "@")); name != "" && !b.Live(time.Now()) {
+		http.Redirect(w, r, "/business?err=paid", http.StatusSeeOther) // more managers: an office tool (45b)
+		return
+	} else if name != "" {
 		if id, err := h.Accounts.Svc.Store.LookupUsername(r.Context(), name); err == nil && id != "" && !strings.HasPrefix(id, "biz:") && !b.Manages(id) && len(b.Managers) < 20 {
 			b.Managers = append(b.Managers, id)
 		}
@@ -111,6 +116,10 @@ func (h *Businesses) Name(w http.ResponseWriter, r *http.Request) {
 	}
 	if !account.ValidUsername(name) {
 		http.Redirect(w, r, "/business?err=invalid", http.StatusSeeOther)
+		return
+	}
+	if !b.Live(time.Now()) {
+		http.Redirect(w, r, "/business?err=paid", http.StatusSeeOther)
 		return
 	}
 	if err := h.Accounts.Svc.Store.ClaimUsername(r.Context(), name, "biz:"+b.ID); err != nil {
@@ -151,6 +160,21 @@ func (h *Businesses) Profile(w http.ResponseWriter, r *http.Request, id string) 
 }
 
 // bizManaged: the business at {id} if the signed-in user manages it.
+// bizSyncing: the business at {id} for one of its managers, with sync
+// usable: a lapsed business's sync pauses (devices keep their data).
+func (h *Businesses) bizSyncing(w http.ResponseWriter, r *http.Request) (*business.Business, bool) {
+	b, ok := h.bizManaged(r)
+	if !ok {
+		http.Error(w, "not found", http.StatusNotFound)
+		return nil, false
+	}
+	if !b.Live(time.Now()) {
+		http.Error(w, "paused until the business account is paid", http.StatusPaymentRequired)
+		return nil, false
+	}
+	return b, true
+}
+
 func (h *Businesses) bizManaged(r *http.Request) (*business.Business, bool) {
 	u := UserFrom(r.Context())
 	if u == nil || IsBot(r) {
@@ -166,8 +190,11 @@ func (h *Businesses) bizManaged(r *http.Request) (*business.Business, bool) {
 // VaultAPI handles GET/PUT /api/business/{id}/vault: the business's card
 // and contacts, encrypted, for its managers' devices (when sync is on).
 func (h *Businesses) VaultAPI(w http.ResponseWriter, r *http.Request) {
-	b, ok := h.bizManaged(r)
-	if !ok || b.SyncMode == "" || h.Accounts.Vault == nil {
+	b, ok := h.bizSyncing(w, r)
+	if !ok {
+		return
+	}
+	if b.SyncMode == "" || h.Accounts.Vault == nil {
 		http.Error(w, "not synced", http.StatusNotFound)
 		return
 	}
@@ -177,8 +204,11 @@ func (h *Businesses) VaultAPI(w http.ResponseWriter, r *http.Request) {
 // KeyAPI handles GET /api/business/{id}/key: in server mode, the key that
 // opens the business vault, for its managers' devices.
 func (h *Businesses) KeyAPI(w http.ResponseWriter, r *http.Request) {
-	b, ok := h.bizManaged(r)
-	if !ok || b.SyncMode != business.SyncServer || b.SyncKey == "" {
+	b, ok := h.bizSyncing(w, r)
+	if !ok {
+		return
+	}
+	if b.SyncMode != business.SyncServer || b.SyncKey == "" {
 		http.Error(w, "no key here", http.StatusNotFound)
 		return
 	}
@@ -195,6 +225,10 @@ func (h *Businesses) Sync(w http.ResponseWriter, r *http.Request) {
 	b, ok := h.bizManaged(r)
 	if !ok {
 		http.NotFound(w, r)
+		return
+	}
+	if mode := r.FormValue("mode"); mode != "off" && mode != b.SyncMode && !b.Live(time.Now()) {
+		http.Redirect(w, r, "/business?err=paid", http.StatusSeeOther)
 		return
 	}
 	switch r.FormValue("mode") {
@@ -237,8 +271,11 @@ func (h *Businesses) Sync(w http.ResponseWriter, r *http.Request) {
 //
 // Requests older than a week, or from people no longer managers, drop out.
 func (h *Businesses) KeyReqAPI(w http.ResponseWriter, r *http.Request) {
-	b, ok := h.bizManaged(r)
-	if !ok || b.SyncMode != business.SyncPrivate {
+	b, ok := h.bizSyncing(w, r)
+	if !ok {
+		return
+	}
+	if b.SyncMode != business.SyncPrivate {
 		http.Error(w, "no private sync here", http.StatusNotFound)
 		return
 	}

@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/LaPingvino/kafumu/internal/business"
 	"github.com/LaPingvino/kafumu/internal/vault"
@@ -71,10 +72,31 @@ func TestBusinessSyncServerMode(t *testing.T) {
 	if w := do(h, "GET", "/api/business/"+id+"/vault", nil, owner); !strings.Contains(w.Body.String(), "sealed-blob") {
 		t.Fatalf("manager GET: %s", w.Body)
 	}
+	// Lapsed (trial over, unpaid): sync pauses (402), office tools refuse,
+	// nothing is deleted.
+	b, _ := bs.Store.Get(context.Background(), id)
+	b.TrialEnds = time.Now().Add(-time.Hour)
+	bs.Store.Save(context.Background(), b)
+	home.forgetBiz(id)
+	for _, p := range []string{"/key", "/vault"} {
+		if w := do(h, "GET", "/api/business/"+id+p, nil, owner); w.Code != http.StatusPaymentRequired {
+			t.Fatalf("lapsed GET %s: %d", p, w.Code)
+		}
+	}
+	mux.HandleFunc("POST /business/{id}/managers", bs.Managers)
+	mux.HandleFunc("POST /business/{id}/name", bs.Name)
+	for path, form := range map[string]url.Values{"/managers": {"add": {"someone"}}, "/name": {"username": {"cafe-teste"}}, "/sync": {"mode": {"private"}}} {
+		if w := do(h, "POST", "/business/"+id+path, form, owner); w.Header().Get("Location") != "/business?err=paid" {
+			t.Fatalf("lapsed %s → %q", path, w.Header().Get("Location"))
+		}
+	}
+	if v, _ := a.Vault.Get(context.Background(), "biz:"+id); v == nil {
+		t.Fatal("lapsing deleted the vault")
+	}
 	// Turning it off: the server forgets the key.
 	do(h, "POST", "/business/"+id+"/sync", url.Values{"mode": {"off"}}, owner)
-	if w := do(h, "GET", "/api/business/"+id+"/key", nil, owner); w.Code != http.StatusNotFound {
-		t.Fatalf("key after sync off: %d", w.Code)
+	if b, _ := bs.Store.Get(context.Background(), id); b.SyncKey != "" || b.SyncMode != "" {
+		t.Fatalf("after sync off the server still has mode %q key %q", b.SyncMode, b.SyncKey)
 	}
 }
 

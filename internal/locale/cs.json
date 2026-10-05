@@ -592,5 +592,8 @@
   "js.bizkey_open": "Otevřít",
   "biz.you": "ty",
   "biz.no_name": "(zatím bez uživatelského jména)",
-  "js.online_eo": "Esperantské akce online"
+  "js.online_eo": "Esperantské akce online",
+  "biz.paid_feature": "To je kancelářský nástroj: funguje, dokud je firemní účet v bezplatném měsíci nebo zaplacený.",
+  "biz.paused_note": "Pozastaveno do zaplacení: další správci, synchronizovaná vizitka a kontakty, stránka @jméno. Pořádání setkání a příspěvky pod jménem firmy zůstávají zdarma a nic se nemaže.",
+  "biz.profile_paused": "Tento firemní účet je pozastavený."
 }

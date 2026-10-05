@@ -592,5 +592,8 @@
   "js.bizkey_open": "Ouvrir",
   "biz.you": "toi",
   "biz.no_name": "(pas encore de nom d'utilisateur)",
-  "js.online_eo": "Événements en espéranto en ligne"
+  "js.online_eo": "Événements en espéranto en ligne",
+  "biz.paid_feature": "C'est un outil de bureau : il fonctionne tant que le compte professionnel est dans son mois gratuit ou payé.",
+  "biz.paused_note": "En pause jusqu'au paiement : d'autres gestionnaires, carte et contacts synchronisés, la page @nom. Organiser des rencontres et publier au nom de l'entreprise restent gratuits, et rien n'est supprimé.",
+  "biz.profile_paused": "Ce compte professionnel est en pause."
 }

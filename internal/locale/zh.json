@@ -592,5 +592,8 @@
   "js.bizkey_open": "打开",
   "biz.you": "你",
   "biz.no_name": "（尚无用户名）",
-  "js.online_eo": "线上世界语活动"
+  "js.online_eo": "线上世界语活动",
+  "biz.paid_feature": "这是办公工具：在商家账户免费月内或已付费时可用。",
+  "biz.paused_note": "付费前暂停：添加更多管理员、同步名片和联系人、@名称页面。以商家名义举办聚会和发帖仍然免费，也不会删除任何内容。",
+  "biz.profile_paused": "此商家账户已暂停。"
 }

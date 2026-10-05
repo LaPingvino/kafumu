@@ -592,5 +592,8 @@
   "js.bizkey_open": "Deschide",
   "biz.you": "tu",
   "biz.no_name": "(încă fără nume de utilizator)",
-  "js.online_eo": "Evenimente de esperanto online"
+  "js.online_eo": "Evenimente de esperanto online",
+  "biz.paid_feature": "Acesta e un instrument de birou: funcționează cât timp contul de firmă e în luna gratuită sau plătit.",
+  "biz.paused_note": "În pauză până la plată: mai mulți administratori, card și contacte sincronizate, pagina @nume. Organizarea întâlnirilor și postarea în numele firmei rămân gratuite și nu se șterge nimic.",
+  "biz.profile_paused": "Acest cont de firmă este în pauză."
 }

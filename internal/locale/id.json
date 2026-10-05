@@ -592,5 +592,8 @@
   "js.bizkey_open": "Buka",
   "biz.you": "kamu",
   "biz.no_name": "(belum ada nama pengguna)",
-  "js.online_eo": "Acara Esperanto daring"
+  "js.online_eo": "Acara Esperanto daring",
+  "biz.paid_feature": "Itu alat kantor: berfungsi selama akun bisnis masih dalam bulan gratis atau sudah dibayar.",
+  "biz.paused_note": "Dijeda sampai dibayar: pengelola tambahan, kartu dan kontak yang tersinkron, halaman @nama. Mengadakan pertemuan dan memposting atas nama bisnis tetap gratis, dan tidak ada yang dihapus.",
+  "biz.profile_paused": "Akun bisnis ini sedang dijeda."
 }

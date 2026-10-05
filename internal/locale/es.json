@@ -592,5 +592,8 @@
   "js.bizkey_open": "Abrir",
   "biz.you": "tú",
   "biz.no_name": "(aún sin nombre de usuario)",
-  "js.online_eo": "Eventos de esperanto en línea"
+  "js.online_eo": "Eventos de esperanto en línea",
+  "biz.paid_feature": "Eso es una herramienta de oficina: funciona mientras la cuenta de empresa está en su mes gratis o pagada.",
+  "biz.paused_note": "En pausa hasta el pago: más gestores, tarjeta y contactos sincronizados, la página @nombre. Organizar encuentros y publicar con el nombre del negocio siguen gratis, y no se borra nada.",
+  "biz.profile_paused": "Esta cuenta de empresa está en pausa."
 }

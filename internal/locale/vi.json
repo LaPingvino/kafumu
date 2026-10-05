@@ -592,5 +592,8 @@
   "js.bizkey_open": "Mở",
   "biz.you": "bạn",
   "biz.no_name": "(chưa có tên người dùng)",
-  "js.online_eo": "Sự kiện Esperanto trực tuyến"
+  "js.online_eo": "Sự kiện Esperanto trực tuyến",
+  "biz.paid_feature": "Đó là công cụ văn phòng: hoạt động khi tài khoản doanh nghiệp còn trong tháng miễn phí hoặc đã thanh toán.",
+  "biz.paused_note": "Tạm dừng đến khi thanh toán: thêm quản lý, đồng bộ danh thiếp và danh bạ, trang @tên. Tổ chức buổi gặp và đăng bài dưới tên doanh nghiệp vẫn miễn phí, và không có gì bị xóa.",
+  "biz.profile_paused": "Tài khoản doanh nghiệp này đang tạm dừng."
 }

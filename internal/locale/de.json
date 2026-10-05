@@ -592,5 +592,8 @@
   "js.bizkey_open": "Öffnen",
   "biz.you": "du",
   "biz.no_name": "(noch kein Benutzername)",
-  "js.online_eo": "Esperanto-Veranstaltungen online"
+  "js.online_eo": "Esperanto-Veranstaltungen online",
+  "biz.paid_feature": "Das ist ein Büro-Werkzeug: Es funktioniert, solange das Business-Konto im Gratismonat oder bezahlt ist.",
+  "biz.paused_note": "Pausiert bis zur Zahlung: weitere Verwaltende, synchronisierte Karte und Kontakte, die @Name-Seite. Treffen ausrichten und unter dem Namen des Unternehmens posten bleiben kostenlos, und nichts wird gelöscht.",
+  "biz.profile_paused": "Dieses Business-Konto ist pausiert."
 }
