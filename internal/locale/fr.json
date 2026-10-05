@@ -572,5 +572,7 @@
   "js.answers_title": "Réponses privées",
   "js.answers_on": "sur « {text} »",
   "js.answer_reply": "Répondre en privé",
-  "js.answer_failed": "Envoi impossible. Réessaie."
+  "js.answer_failed": "Envoi impossible. Réessaie.",
+  "biz.selfhost": "Plutôt sur ton propre serveur ? Kafumu est libre et tourne comme un seul programme avec un seul fichier de base de données.",
+  "biz.selfhost_link": "Guide d'auto-hébergement"
 }

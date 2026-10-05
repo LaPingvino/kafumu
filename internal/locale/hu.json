@@ -572,5 +572,7 @@
   "js.answers_title": "Privát válaszok",
   "js.answers_on": "erre: „{text}”",
   "js.answer_reply": "Privát válasz",
-  "js.answer_failed": "Nem sikerült elküldeni. Próbáld újra."
+  "js.answer_failed": "Nem sikerült elküldeni. Próbáld újra.",
+  "biz.selfhost": "Inkább saját szerveren? A Kafumu nyílt forráskódú, egy program és egy adatbázisfájl.",
+  "biz.selfhost_link": "Útmutató saját üzemeltetéshez"
 }

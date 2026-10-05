@@ -572,5 +572,7 @@
   "js.answers_title": "Private answers",
   "js.answers_on": "on “{text}”",
   "js.answer_reply": "Reply privately",
-  "js.answer_failed": "Couldn't send. Try again."
+  "js.answer_failed": "Couldn't send. Try again.",
+  "biz.selfhost": "Rather run it on your own server? Kafumu is open source and runs as one program with one database file.",
+  "biz.selfhost_link": "Self-hosting guide"
 }

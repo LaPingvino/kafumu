@@ -572,5 +572,7 @@
   "js.answers_title": "Respostas privadas",
   "js.answers_on": "sobre “{text}”",
   "js.answer_reply": "Responder em privado",
-  "js.answer_failed": "Não foi possível enviar. Tenta de novo."
+  "js.answer_failed": "Não foi possível enviar. Tenta de novo.",
+  "biz.selfhost": "Preferes no teu próprio servidor? O Kafumu é de código aberto e corre como um só programa com um ficheiro de base de dados.",
+  "biz.selfhost_link": "Guia de alojamento próprio"
 }

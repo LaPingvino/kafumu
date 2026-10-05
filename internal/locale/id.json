@@ -572,5 +572,7 @@
   "js.answers_title": "Jawaban pribadi",
   "js.answers_on": "tentang “{text}”",
   "js.answer_reply": "Balas secara pribadi",
-  "js.answer_failed": "Gagal mengirim. Coba lagi."
+  "js.answer_failed": "Gagal mengirim. Coba lagi.",
+  "biz.selfhost": "Lebih suka di server sendiri? Kafumu bersumber terbuka dan berjalan sebagai satu program dengan satu berkas basis data.",
+  "biz.selfhost_link": "Panduan hosting sendiri"
 }

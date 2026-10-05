@@ -572,5 +572,7 @@
   "js.answers_title": "私下回覆",
   "js.answers_on": "關於「{text}」",
   "js.answer_reply": "私下回覆",
-  "js.answer_failed": "送出失敗，請再試一次。"
+  "js.answer_failed": "送出失敗，請再試一次。",
+  "biz.selfhost": "想在自己的伺服器上執行？Kafumu 是開源的，只需一個程式和一個資料庫檔案。",
+  "biz.selfhost_link": "自架指南"
 }

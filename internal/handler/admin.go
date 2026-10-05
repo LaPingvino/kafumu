@@ -2,14 +2,18 @@ package handler
 
 import (
 	"context"
+	"crypto/subtle"
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	"github.com/LaPingvino/kafumu/internal/account"
 	"github.com/LaPingvino/kafumu/internal/business"
 	"github.com/LaPingvino/kafumu/internal/report"
+	"github.com/LaPingvino/kafumu/internal/sqlstore"
 	"html/template"
 	"log"
 	"net/http"
+	"os"
 	"slices"
 	"sort"
 	"strings"
@@ -26,21 +30,34 @@ import (
 // admin login (app.yaml `login: admin` on /admin/initial, and IsAdmin
 // checked again here) and a Kafumu account — typically with a passkey.
 type Admin struct {
-	Home       *Home
-	Accounts   *Accounts
-	Meetups    *Meetups
-	Notes      *oln.Service
-	DB         *datastore.Client
+	Home     *Home
+	Accounts *Accounts
+	Meetups  *Meetups
+	Notes    *oln.Service
+	DB       *datastore.Client
+	// SQL: the self-hosted store (KAFUMU_SQLITE), when there's no Datastore.
+	SQL        *sql.DB
 	Reports    *report.Service
 	Businesses *business.Store
 	// Jobs are the cron jobs, runnable by hand: name → run.
 	Jobs map[string]func(ctx context.Context) string
 }
 
-// Initial handles GET /admin/initial.
+// mayBootstrap: who may make themselves admin. On App Engine, the
+// project's admins; self-hosted, whoever brings the token the operator
+// set in KAFUMU_ADMIN_TOKEN (at least 16 characters; never on App Engine).
+func (a *Admin) mayBootstrap(r *http.Request) bool {
+	if cache.OnAppEngine() {
+		return gaeuser.IsAdmin(r.Context())
+	}
+	want, got := os.Getenv("KAFUMU_ADMIN_TOKEN"), r.URL.Query().Get("token")
+	return len(want) >= 16 && subtle.ConstantTimeCompare([]byte(want), []byte(got)) == 1
+}
+
+// Initial handles GET /admin/initial (?token=… when self-hosted).
 func (a *Admin) Initial(w http.ResponseWriter, r *http.Request) {
-	if !cache.OnAppEngine() || !gaeuser.IsAdmin(r.Context()) {
-		http.Error(w, "only for the App Engine project's admins", http.StatusForbidden)
+	if !a.mayBootstrap(r) {
+		http.Error(w, "only for the App Engine project's admins (or, self-hosted, with KAFUMU_ADMIN_TOKEN)", http.StatusForbidden)
 		return
 	}
 	u := UserFrom(r.Context())
@@ -49,7 +66,7 @@ func (a *Admin) Initial(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, `<!DOCTYPE html><meta charset="utf-8"><title>Admin setup</title>
 <h1>Admin setup</h1><p>You're an App Engine admin. Now sign in to Kafumu on this browser —
 with your passkey or sign-in link at <a href="/account">/account</a> — and come back to
-<a href="/admin/initial">/admin/initial</a>.</p>`)
+this same link again.</p>`)
 		return
 	}
 	if u.Role != "admin" {
@@ -167,8 +184,9 @@ func (a *Admin) Show(w http.ResponseWriter, r *http.Request) {
 		p.Jobs = append(p.Jobs, name)
 	}
 	sort.Strings(p.Jobs)
+	now := time.Now()
+	p.Now = now
 	if a.DB != nil {
-		now := time.Now()
 		u := func() *datastore.Query { return datastore.NewQuery("User") }
 		live := func(kind string) *datastore.Query {
 			return datastore.NewQuery(kind).FilterField("expires_at", ">", now)
@@ -189,33 +207,65 @@ func (a *Admin) Show(w http.ResponseWriter, r *http.Request) {
 			{"Bluesky linked", a.count(ctx, live("ATSession")), "OAuth sessions"},
 		}
 		p.Users = a.findUsers(ctx, p.Search)
-		p.Now = now
 		p.OLN = a.olnStats(ctx, now)
-		a.Home.footer(ctx)
-		a.Home.foot.mu.Lock()
-		if a.Home.foot.settings != nil {
-			p.Footer = *a.Home.foot.settings
-		}
-		a.Home.foot.mu.Unlock()
-		if a.Businesses != nil {
-			if bs, err := a.Businesses.All(ctx); err == nil {
-				sort.SliceStable(bs, func(i, j int) bool { return bs[i].TrialOver(now) && !bs[j].TrialOver(now) })
-				p.Businesses = bs
-			}
-		}
-		by := map[string]int{}
-		for _, u := range p.Users {
-			if _, ok := by[u.Cell]; !ok {
-				by[u.Cell] = len(p.Groups)
-				p.Groups = append(p.Groups, userGroup{Cell: u.Cell})
-			}
-			g := &p.Groups[by[u.Cell]]
-			g.Users = append(g.Users, u)
-		}
-		sort.SliceStable(p.Groups, func(i, j int) bool { return len(p.Groups[i].Users) < len(p.Groups[j].Users) })
 		p.Areas = a.areas(ctx)
+	} else if a.SQL != nil {
+		// Self-hosted (SQLite): the same numbers and account search.
+		for _, st := range sqlstore.Stats(ctx, a.SQL, now) {
+			p.Stats = append(p.Stats, stat{st.Name, st.N, st.Note})
+		}
+		if u, err := a.Accounts.Svc.ByID(ctx, strings.ToLower(p.Search)); p.Search != "" && err == nil && u != nil {
+			p.Users = a.adminUsers(ctx, []*account.User{u})
+		} else {
+			var us []*account.User
+			for _, id := range sqlstore.FindUsers(ctx, a.SQL, p.Search) {
+				if u, err := a.Accounts.Svc.ByID(ctx, id); err == nil && u != nil {
+					us = append(us, u)
+				}
+			}
+			p.Users = a.adminUsers(ctx, us)
+		}
 	}
+	a.Home.footer(ctx)
+	a.Home.foot.mu.Lock()
+	if a.Home.foot.settings != nil {
+		p.Footer = *a.Home.foot.settings
+	}
+	a.Home.foot.mu.Unlock()
+	if a.Businesses != nil {
+		if bs, err := a.Businesses.All(ctx); err == nil {
+			sort.SliceStable(bs, func(i, j int) bool { return bs[i].TrialOver(now) && !bs[j].TrialOver(now) })
+			p.Businesses = bs
+		}
+	}
+	by := map[string]int{}
+	for _, u := range p.Users {
+		if _, ok := by[u.Cell]; !ok {
+			by[u.Cell] = len(p.Groups)
+			p.Groups = append(p.Groups, userGroup{Cell: u.Cell})
+		}
+		g := &p.Groups[by[u.Cell]]
+		g.Users = append(g.Users, u)
+	}
+	sort.SliceStable(p.Groups, func(i, j int) bool { return len(p.Groups[i].Users) < len(p.Groups[j].Users) })
 	a.Home.render(w, "admin.html", p)
+}
+
+// adminUsers adds passkey and sync facts to accounts for the admin list.
+func (a *Admin) adminUsers(ctx context.Context, us []*account.User) []adminUser {
+	var out []adminUser
+	for _, u := range us {
+		var pk []json.RawMessage
+		_ = json.Unmarshal(u.Passkeys, &pk)
+		au := adminUser{User: u, Passkeys: len(pk)}
+		if a.Accounts.Vault != nil {
+			if v, _ := a.Accounts.Vault.Get(ctx, u.ID); v != nil {
+				au.Synced = true
+			}
+		}
+		out = append(out, au)
+	}
+	return out
 }
 
 // findUsers: a name prefix or an account id; with no search, the first

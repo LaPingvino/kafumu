@@ -572,5 +572,7 @@
   "js.answers_title": "非公開の返信",
   "js.answers_on": "「{text}」への返信",
   "js.answer_reply": "非公開で返信",
-  "js.answer_failed": "送信できませんでした。もう一度お試しください。"
+  "js.answer_failed": "送信できませんでした。もう一度お試しください。",
+  "biz.selfhost": "自分のサーバーで動かしたい？Kafumu はオープンソースで、1つのプログラムと1つのデータベースファイルで動きます。",
+  "biz.selfhost_link": "セルフホストガイド"
 }

@@ -572,5 +572,7 @@
   "js.answers_title": "Private svar",
   "js.answers_on": "på “{text}”",
   "js.answer_reply": "Svar privat",
-  "js.answer_failed": "Kunne ikke sende. Prøv igen."
+  "js.answer_failed": "Kunne ikke sende. Prøv igen.",
+  "biz.selfhost": "Hellere på din egen server? Kafumu er open source og kører som ét program med én databasefil.",
+  "biz.selfhost_link": "Guide til selv-hosting"
 }

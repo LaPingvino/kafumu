@@ -572,5 +572,7 @@
   "js.answers_title": "Prywatne odpowiedzi",
   "js.answers_on": "na „{text}”",
   "js.answer_reply": "Odpowiedz prywatnie",
-  "js.answer_failed": "Nie udało się wysłać. Spróbuj ponownie."
+  "js.answer_failed": "Nie udało się wysłać. Spróbuj ponownie.",
+  "biz.selfhost": "Wolisz własny serwer? Kafumu jest open source i działa jako jeden program z jednym plikiem bazy danych.",
+  "biz.selfhost_link": "Przewodnik po samodzielnym hostingu"
 }

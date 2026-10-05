@@ -2,6 +2,7 @@ package handler
 
 import (
 	"context"
+	"github.com/LaPingvino/kafumu/internal/kv"
 	"sync"
 	"time"
 
@@ -39,6 +40,12 @@ func (h *Home) footer(ctx context.Context) (maker, url, text string) {
 			if err := h.DB.Get(ctx, footerKey(), &stored); err == nil {
 				s = &stored
 			}
+		} else {
+			stored := map[string]footerSettings{}
+			kv.Load("Config", stored) // self-hosted
+			if f, ok := stored["footer"]; ok {
+				s = &f
+			}
 		}
 		h.foot.settings, h.foot.at, h.foot.liveAt = s, now, time.Time{}
 	}
@@ -59,6 +66,8 @@ func (h *Home) SaveFooter(ctx context.Context, s footerSettings) error {
 		if _, err := h.DB.Put(ctx, footerKey(), &s); err != nil {
 			return err
 		}
+	} else {
+		kv.Save("Config", "footer", s)
 	}
 	h.foot.mu.Lock()
 	h.foot.settings, h.foot.liveAt = &s, time.Time{}

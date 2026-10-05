@@ -208,7 +208,7 @@ func main() {
 		}
 		fmt.Fprintln(w, runPurge(r.Context()))
 	})
-	adminH := &handler.Admin{Home: home, Accounts: accounts, Meetups: meetups, Notes: notes, DB: db,
+	adminH := &handler.Admin{Home: home, Accounts: accounts, Meetups: meetups, Notes: notes, DB: db, SQL: sqliteDB(),
 		Jobs: map[string]func(context.Context) string{"purge": runPurge, "feeds": meetups.RunFeeds}}
 	mux.HandleFunc("GET /admin/initial", adminH.Initial)
 	mux.HandleFunc("GET /admin", adminH.Show)
