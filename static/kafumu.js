@@ -1099,6 +1099,7 @@
       var head = document.createElement("strong");
       head.textContent = "@" + p.name + (p.inbox ? " ✉️" : "");
       if (p.patron) { var pw = document.createElement("span"); pw.innerHTML = '<svg class="wings"><use href="#i-wings"/></svg> '; head.prepend(pw); }
+      if (p.biz) head.appendChild(document.createTextNode(" 🏢")); // a business, findable like a person
       li.appendChild(head);
       if (p._why.length) { var w = document.createElement("div"); w.className = "why"; w.textContent = p._why.slice(0, 3).join(" · "); li.appendChild(w); }
       var meta = document.createElement("div");

@@ -651,7 +651,14 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
          own device store; weekly refresh too); its @name page stays the profile, with "☕ Connect" when the link
          is live. Browser test: on, Connect on the page, visitor lands on connecting. Was: A business's /@name connects like a person's (a named link holding the business card, kept by a
          manager's device acting as it), with its profile page shown alongside.
-      c. Findable + public inbox for businesses (messages to the business, read by its managers' devices).
+      [x] c-1. Findable businesses: acting, /findable edits the business's profile (Cell, VisibleUntil indexed,
+         Bio, Where, Langs, Tags; free, like a person's; the inbox part hidden until c-2); bundles add findable
+         businesses from one cached list (Store.Findable: one query a minute per instance, filtered by area) as
+         people with Biz (🏢) and Patron = live (wings). Browser test: findable, B sees "@biz 🏢".
+         FLAKY (seen once, passed on rerun): "business card synced up" (kafumuDevice.sync() not 'on' in 20 s);
+         harden: find why a sync right after saving the business card can stay off.
+      [ ] c-2. A public inbox for businesses (read by its managers' devices, the key via the business vault).
+      (was) c. Findable + public inbox for businesses (messages to the business, read by its managers' devices).
       d. Later, if wanted: Bluesky for a business.
       Already equal: named posts, hosting, wings (patron / live), synced card + contacts, brand admin.
 - [ ] 46. DECIDED (Joop 2026-10-05: "2 and 4"): brands are set up by Joop in admin as a PAID service (manual

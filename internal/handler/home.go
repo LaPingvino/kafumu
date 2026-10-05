@@ -416,6 +416,19 @@ func (h *Home) Bundle(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
+	if h.Biz != nil { // findable businesses (76c): one list, kept a minute
+		in := map[string]bool{}
+		for _, c := range cells {
+			in[c] = true
+		}
+		now := time.Now()
+		for _, bz := range h.Biz.Findable(r.Context(), now) {
+			if in[bz.Cell] && bz.Username != "" && (h.Reports == nil || !h.Reports.Hidden(r.Context(), "person", bz.Username)) {
+				b.People = append(b.People, account.Person{Name: bz.Username, Bio: bz.Bio, Where: bz.Where, Langs: bz.Langs, Tags: bz.Tags,
+					Cell: bz.Cell, Patron: bz.Live(now), Biz: true})
+			}
+		}
+	}
 	if h.Meetups != nil {
 		if ms, err := h.Meetups.InCells(r.Context(), cells); err != nil {
 			log.Printf("bundle: meetups: %v", err)

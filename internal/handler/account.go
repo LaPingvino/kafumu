@@ -97,6 +97,13 @@ func (a *Accounts) show(w http.ResponseWriter, r *http.Request, findable bool) {
 		p.MagicURL = a.Home.Cfg.Origin + "/auth/link?k=" + template.URLQueryEscaper(mustCookie(r))
 	}
 	p.New = r.URL.Query().Get("new") == "1"
+	if b := p.Acting; findable && b != nil && p.User != nil {
+		// Acting as a business: the form is the business's profile (76c).
+		view := *p.User
+		view.Username, view.Bio, view.Where, view.Cell, view.Langs, view.Tags, view.VisibleUntil = b.Username, b.Bio, b.Where, b.Cell, b.Langs, b.Tags, b.VisibleUntil
+		view.InboxBox, view.InboxPub, view.InboxBits = "", "", 0
+		p.User = &view
+	}
 	if u := p.User; u != nil {
 		if a.Home.Biz != nil && !findable {
 			p.MyBiz, _ = a.Home.bizFor(r.Context(), u.ID)
@@ -262,6 +269,23 @@ func (a *Accounts) SetProfile(w http.ResponseWriter, r *http.Request) {
 	}
 	hours, _ := strconv.Atoi(r.FormValue("visible_hours"))
 	tags := strings.FieldsFunc(r.FormValue("tags"), func(c rune) bool { return c == ',' })
+	if b := a.Home.ActingAs(r); b != nil && a.Home.Biz != nil { // the business you act as becomes findable (76c)
+		b.Bio, b.Where, b.Langs, b.Tags = account.CleanProfile(r.FormValue("bio"), r.FormValue("where"), ls, tags)
+		b.Cell = strings.ToLower(strings.TrimSpace(r.FormValue("cell")))
+		visible := min(time.Duration(hours)*time.Hour, account.MaxVisible)
+		b.VisibleUntil = time.Time{}
+		if visible > 0 && b.Username != "" && len(b.Cell) == 6 {
+			b.VisibleUntil = time.Now().Add(visible)
+		}
+		if err := a.Home.Biz.Save(r.Context(), b); err != nil {
+			http.Error(w, "could not save", http.StatusInternalServerError)
+			return
+		}
+		a.Home.forgetBiz(b.ID)
+		a.Home.Biz.ForgetFindable()
+		http.Redirect(w, r, "/findable", http.StatusSeeOther)
+		return
+	}
 	if err := a.Svc.SetProfile(r.Context(), u, r.FormValue("cell"), r.FormValue("bio"), r.FormValue("where"), ls, tags, time.Duration(hours)*time.Hour); err != nil {
 		log.Printf("account: profile: %v", err)
 		http.Error(w, "could not save", http.StatusInternalServerError)

@@ -62,12 +62,21 @@ type Business struct {
 	// KeyReqs (private mode): managers' devices asking for the key, and the
 	// key wrapped for them by another manager's device. The server holds
 	// public keys and ciphertext only.
-	KeyReqs   []KeyReq  `datastore:"key_reqs,noindex" json:"-"`
-	Managers  []string  `datastore:"managers" json:"-"` // user ids (indexed: "mine")
-	CreatedBy string    `datastore:"created_by,noindex" json:"-"`
-	CreatedAt time.Time `datastore:"created_at" json:"-"`
-	TrialEnds time.Time `datastore:"trial_ends,noindex" json:"-"`
-	Status    string    `datastore:"status,noindex" json:"status"`
+	KeyReqs []KeyReq `datastore:"key_reqs,noindex" json:"-"`
+	// Findable (76c): like a person's public profile, in one area for a
+	// while. VisibleUntil is indexed: findable businesses are loaded
+	// together (few), not queried per area.
+	Cell         string    `datastore:"cell,noindex" json:"-"`
+	VisibleUntil time.Time `datastore:"visible_until" json:"-"`
+	Bio          string    `datastore:"bio,noindex" json:"-"`
+	Where        string    `datastore:"where,noindex" json:"-"`
+	Langs        []string  `datastore:"langs,noindex" json:"-"`
+	Tags         []string  `datastore:"tags,noindex" json:"-"`
+	Managers     []string  `datastore:"managers" json:"-"` // user ids (indexed: "mine")
+	CreatedBy    string    `datastore:"created_by,noindex" json:"-"`
+	CreatedAt    time.Time `datastore:"created_at" json:"-"`
+	TrialEnds    time.Time `datastore:"trial_ends,noindex" json:"-"`
+	Status       string    `datastore:"status,noindex" json:"status"`
 	// PaidUntil (active accounts): the end of what was paid for; AfterPaid
 	// says what happens after it: AfterStop (no longer live, the default)
 	// or AfterStay (stays live: invoiced later, a friend, a partner…).
@@ -120,9 +129,11 @@ func clip(s string, n int) string {
 
 // Store keeps business accounts in Datastore (or memory when DB is nil).
 type Store struct {
-	DB  *datastore.Client
-	mu  sync.Mutex
-	mem map[string]Business
+	DB         *datastore.Client
+	mu         sync.Mutex
+	mem        map[string]Business
+	findable   []*Business
+	findableAt time.Time
 }
 
 func New(db *datastore.Client) *Store {
@@ -224,4 +235,44 @@ func (s *Store) query(ctx context.Context, q *datastore.Query) ([]*Business, err
 		bs[i].ID = k.Name
 	}
 	return bs, nil
+}
+
+// Findable lists the businesses findable at now: one query (few), kept a
+// minute per instance; the bundle filters them by area.
+func (s *Store) Findable(ctx context.Context, now time.Time) []*Business {
+	s.mu.Lock()
+	if s.findable != nil && now.Sub(s.findableAt) < time.Minute {
+		out := s.findable
+		s.mu.Unlock()
+		return out
+	}
+	s.mu.Unlock()
+	out := []*Business{}
+	if s.DB == nil {
+		s.mu.Lock()
+		for _, b := range s.mem {
+			if b.VisibleUntil.After(now) {
+				c := b
+				out = append(out, &c)
+			}
+		}
+		s.mu.Unlock()
+	} else {
+		bs, err := s.query(ctx, datastore.NewQuery(kind).FilterField("visible_until", ">", now).Limit(500))
+		if err != nil {
+			return nil
+		}
+		out = bs
+	}
+	s.mu.Lock()
+	s.findable, s.findableAt = out, now
+	s.mu.Unlock()
+	return out
+}
+
+// ForgetFindable drops the cached list (after a business changed it).
+func (s *Store) ForgetFindable() {
+	s.mu.Lock()
+	s.findable = nil
+	s.mu.Unlock()
 }

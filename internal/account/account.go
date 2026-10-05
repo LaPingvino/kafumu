@@ -92,6 +92,8 @@ type Person struct {
 	Cell  string   `json:"cell"`
 	// Patron: wears the wings (a patron of Kafumu right now).
 	Patron bool `json:"patron,omitempty"`
+	// Biz: this is a business (76c), not a person; Patron then means live.
+	Biz bool `json:"biz,omitempty"`
 }
 
 // Public returns u's public view.
@@ -519,4 +521,10 @@ func cleanLangs(in []string) []string {
 // Patron says whether u is a patron at now (gold wings).
 func (u *User) Patron(now time.Time) bool {
 	return !u.PatronUntil.IsZero() && now.Before(u.PatronUntil)
+}
+
+// CleanProfile tidies profile fields as SetProfile does (for businesses).
+func CleanProfile(bio, where string, langs, tags []string) (string, string, []string, []string) {
+	return clip(strings.TrimSpace(bio), 160), clip(strings.TrimSpace(where), 80), cleanLangs(langs),
+		cleanList(tags, 12, func(t string) bool { return len(t) <= 40 })
 }
