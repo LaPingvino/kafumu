@@ -7,6 +7,7 @@ package handle
 
 import (
 	"context"
+	"github.com/LaPingvino/kafumu/internal/kv"
 	"regexp"
 	"sync"
 	"time"
@@ -34,7 +35,13 @@ type Store struct {
 	mem map[string]entry
 }
 
-func New(db *datastore.Client) *Store { return &Store{DB: db, mem: map[string]entry{}} }
+func New(db *datastore.Client) *Store {
+	s := &Store{DB: db, mem: map[string]entry{}}
+	if db == nil {
+		kv.Load(kind, s.mem) // self-hosted: kept across restarts
+	}
+	return s
+}
 
 // Set points name at payload for userID, for TTL from now.
 func (s *Store) Set(ctx context.Context, name, userID, payload string, now time.Time) error {
@@ -43,6 +50,7 @@ func (s *Store) Set(ctx context.Context, name, userID, payload string, now time.
 		s.mu.Lock()
 		s.mem[name] = e
 		s.mu.Unlock()
+		kv.Save(kind, name, e)
 		return nil
 	}
 	_, err := s.DB.Put(ctx, datastore.NameKey(kind, name, nil), &e)
@@ -68,6 +76,7 @@ func (s *Store) Delete(ctx context.Context, name string) error {
 		s.mu.Lock()
 		delete(s.mem, name)
 		s.mu.Unlock()
+		kv.Delete(kind, name)
 		return nil
 	}
 	return s.DB.Delete(ctx, datastore.NameKey(kind, name, nil))

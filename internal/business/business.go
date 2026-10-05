@@ -10,6 +10,7 @@ import (
 	"crypto/rand"
 	"encoding/hex"
 	"errors"
+	"github.com/LaPingvino/kafumu/internal/kv"
 	"slices"
 	"sort"
 	"strings"
@@ -102,7 +103,13 @@ type Store struct {
 	mem map[string]Business
 }
 
-func New(db *datastore.Client) *Store { return &Store{DB: db, mem: map[string]Business{}} }
+func New(db *datastore.Client) *Store {
+	s := &Store{DB: db, mem: map[string]Business{}}
+	if db == nil {
+		kv.Load(kind, s.mem) // self-hosted: kept across restarts
+	}
+	return s
+}
 
 func newID() string { b := make([]byte, 8); rand.Read(b); return hex.EncodeToString(b) }
 
@@ -121,6 +128,7 @@ func (s *Store) Save(ctx context.Context, b *Business) error {
 		s.mu.Lock()
 		s.mem[b.ID] = *b
 		s.mu.Unlock()
+		kv.Save(kind, b.ID, b)
 		return nil
 	}
 	_, err := s.DB.Put(ctx, datastore.NameKey(kind, b.ID, nil), b)

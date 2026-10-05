@@ -7,6 +7,7 @@ import (
 	"database/sql"
 	"embed"
 	"fmt"
+	"github.com/LaPingvino/kafumu/internal/kv"
 	"github.com/LaPingvino/kafumu/internal/sqlstore"
 	"html/template"
 	"log"
@@ -49,6 +50,9 @@ func main() {
 	tmpl := template.Must(template.New("").Funcs(handler.Funcs).ParseFS(templateFS, "templates/*.html"))
 
 	home := &handler.Home{Cfg: cfg, Tmpl: tmpl, Bsky: bsky.NewClient(), Gaz: gazetteer.Load()}
+	if sq := sqliteDB(); sq != nil {
+		kv.Default = &sqlstore.KV{DB: sq} // before the stores that load from it
+	}
 	users, boxes, meetupStore, slots, db := stores(cfg)
 	kv := cache.New()
 	home.Meetups = meetup.NewService(meetupStore)

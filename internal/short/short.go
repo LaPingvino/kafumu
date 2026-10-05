@@ -9,6 +9,7 @@ import (
 	"crypto/rand"
 	"encoding/json"
 	"errors"
+	"github.com/LaPingvino/kafumu/internal/kv"
 	"io"
 	"net/http"
 	"regexp"
@@ -42,7 +43,13 @@ type Service struct {
 	mem map[string]entry
 }
 
-func New(db *datastore.Client) *Service { return &Service{DB: db, mem: map[string]entry{}} }
+func New(db *datastore.Client) *Service {
+	s := &Service{DB: db, mem: map[string]entry{}}
+	if db == nil {
+		kv.Load(kind, s.mem) // self-hosted: kept across restarts
+	}
+	return s
+}
 
 func newCode() string {
 	b := make([]byte, Length)
@@ -61,6 +68,7 @@ func (s *Service) put(ctx context.Context, code string, e entry) (bool, error) {
 			return false, nil
 		}
 		s.mem[code] = e
+		kv.Save(kind, code, e)
 		return true, nil
 	}
 	k := datastore.NameKey(kind, code, nil)
