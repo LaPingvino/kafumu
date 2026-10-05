@@ -102,7 +102,10 @@ for (let i = 0; i < steps; i++) {
     } else if (r < 0.75) {                           // chat with a contact
       const cs = (await p.store.contacts()).filter((c) => c.card && c.card.name);
       if (!cs.length) continue;
-      const c = pick(cs), text = `${p.name}→${c.card.name} #${i}`;
+      // Lengths up to the 500-character limit, in scripts of 1–4 bytes
+      // per character (a full line is far longer once encrypted).
+      const fill = pick(["", "a", "ĉ", "中", "🙂"]), len = Math.floor(rnd() * 470);
+      const c = pick(cs), text = `${p.name}→${c.card.name} #${i} ` + fill.repeat(fill ? len : 0);
       await p.pair.sendChat(c, text, p.mine);
       sentChat.push({ from: p.name, to: c.card.name, text, key: c.key });
       if (p.netDown) offlineActs++;

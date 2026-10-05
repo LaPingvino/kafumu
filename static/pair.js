@@ -618,7 +618,7 @@
     function chatTag(key, role) { return hmacHex(key, "chat" + role).then(function (h) { return "p" + h.slice(0, 32); }); }
     function sendChat(c, text, mine) {
       var key = unb64(c.key), at = new Date().toISOString();
-      return Promise.all([chatTag(key, 1 - c.role), seal(key, "chat", { text: String(text).slice(0, 500), at: at })]).then(function (r) {
+      return Promise.all([chatTag(key, 1 - c.role), seal(key, "chat", { text: Array.from(String(text)).slice(0, 500).join(""), at: at })]).then(function (r) {
         return mine(r[1], "#" + r[0], 4).catch(function (e) { // oln.BaseBits (v2): about a second
           if (!isNetErr(e)) throw e;
           return enqueue({ kind: "oln", text: r[1], keywords: "#" + r[0], bits: 4 }); // offline: waits in the outbox

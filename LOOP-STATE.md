@@ -442,6 +442,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       cards/signals/alive, chat lines (re-mined at send time); flush() on page open and on "online". The service
       worker precaches /c and /contacts with their assets, so a connect link opens offline. Fuzz: networks drop at
       random, 1–5 actions per run happen offline, outboxes must end empty, nothing lost or doubled.
+- [x] 70. Long chat lines were refused (found while sizing 69): a sealed line is base64 ciphertext, so beyond ~330
+      characters it broke the 500-character text limit meant for readable text. Pair notes now have MaxPairText
+      (3000 bytes: 500 characters of any script); public notes keep 500 code points. pair.js cuts at whole code
+      points (never half an emoji). Fuzz sends lines up to the limit in 1–4-byte scripts (old server: 400).
 - [ ] 69. Private answers to anonymous posts (Joop: "OLN should also enable privately answering anonymous
       posts"): posting, the device makes a reply key per post (P-256) and adds its public half as a keyword
       (#rk<b64>; format-level, any OLN client can use it). Answering: encrypt to it (ephemeral ECDH), post as a

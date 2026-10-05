@@ -34,16 +34,20 @@ import (
 )
 
 const (
-	BaseBits  = 4 // 16 Argon2id attempts ≈ 1 s on a phone: cheap once, expensive in bulk
-	MaxBits   = 14
-	BaseTTL   = time.Hour
-	MaxTTL    = 7 * 24 * time.Hour // as in eolnpoc
-	Window    = 10 * time.Minute
-	MaxText   = 500
-	MaxRaw    = 4000 // a chat line is ciphertext inside base64: room for 500 characters
-	PerBundle = 50
-	busyPer   = 30 // messages per hour per doubling of difficulty
-	burstPer  = 5  // messages per 10 minutes per doubling: bursts get dear fast
+	BaseBits = 4 // 16 Argon2id attempts ≈ 1 s on a phone: cheap once, expensive in bulk
+	MaxBits  = 14
+	BaseTTL  = time.Hour
+	MaxTTL   = 7 * 24 * time.Hour // as in eolnpoc
+	Window   = 10 * time.Minute
+	MaxText  = 500
+	MaxRaw   = 4000 // a chat line is ciphertext inside base64: room for 500 characters
+	// MaxPairText bounds a private message's text, which is ciphertext in
+	// base64: 500 characters of any script (up to 4 bytes each) plus JSON,
+	// IV and tag come to about 2.8 KB. MaxText is for readable text.
+	MaxPairText = 3000
+	PerBundle   = 50
+	busyPer     = 30 // messages per hour per doubling of difficulty
+	burstPer    = 5  // messages per 10 minutes per doubling: bursts get dear fast
 )
 
 var (
@@ -143,7 +147,7 @@ func Parse(raw string, now time.Time) (*Note, error) {
 		}
 	}
 	text := strings.TrimSpace(string(msg))
-	if text == "" || !utf8.ValidString(text) || utf8.RuneCountInString(text) > MaxText {
+	if text == "" || !utf8.ValidString(text) || len(text) > MaxPairText {
 		return nil, ErrFormat
 	}
 	var cells, tags []string
@@ -165,6 +169,9 @@ func Parse(raw string, now time.Time) (*Note, error) {
 	// keyword is the pair's tag, #p<32 hex>, and its text is ciphertext.
 	if len(cells) == 0 && len(tags) == 1 && pairTag.MatchString(tags[0]) {
 		return &Note{ID: ID(raw), Raw: raw, Text: text, Tags: tags, Pair: tags[0], Bits: Bits(raw), At: at}, nil
+	}
+	if utf8.RuneCountInString(text) > MaxText {
+		return nil, ErrFormat // readable text: the long limit is for ciphertext only
 	}
 	if len(cells) != 1 {
 		return nil, ErrPlace

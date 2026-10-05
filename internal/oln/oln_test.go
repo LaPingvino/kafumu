@@ -277,3 +277,18 @@ func TestOffsetTrickle(t *testing.T) {
 	}
 	t.Logf("offset trickle: %d of 30 accepted", ok)
 }
+
+// A full 500-character chat line is ciphertext in base64, far longer than
+// 500: private messages take it; public notes keep the readable limit.
+func TestSizes(t *testing.T) {
+	now := time.Now().UTC()
+	if _, err := Parse(mine(0, now, strings.Repeat("A", 2800), "#p0123456789abcdef0123456789abcdef"), now); err != nil {
+		t.Fatalf("long private message: %v", err)
+	}
+	if _, err := Parse(mine(0, now, strings.Repeat("A", 501), "#geo8ccgmw"), now); !errors.Is(err, ErrFormat) {
+		t.Fatalf("501-character public note: %v", err)
+	}
+	if _, err := Parse(mine(0, now, strings.Repeat("ĉ", 500), "#geo8ccgmw"), now); err != nil {
+		t.Fatalf("500 characters (1000 bytes) public: %v", err)
+	}
+}
