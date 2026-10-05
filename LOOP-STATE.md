@@ -589,11 +589,25 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       (peers pulled from / pushed to, last seen). Also mention self-hosting on /business.
       Joop (2026-10-05): bahais.in will be a GAE-less fork (adding local-community options). Most useful here: a
       SQLite implementation of the store interfaces, picked by env var, so forks needn't write their own.
-- [ ] 45. OPEN DESIGN (with Joop, not a tick): a better model for paid services. Joop (2026-10-04): the
+- [ ] 45. DECIDED (Joop 2026-10-05): "Mix" + pay what you want + manual payments for now.
+      45a. Patron wings for anyone: User.PatronUntil (admin sets it, like a business's paid-until); gold wings
+           on a patron's named posts, @page and username button while it runs (grey after? no: patrons just
+           lose the wings). Patrons fund the commons; they get nothing that buys visibility.
+      45b. Office tools for paying businesses: free = host meetups and post under its own name; Live (trial or
+           paid) adds more than one manager, synced card + contacts, the @name page, gold wings. Lapsed: nothing
+           deleted; sync pauses (devices keep their data), no new managers, wings grey, @page stays but says so.
+      45c. How to pay: "pay what you want" on /business and /support: suggested €5/month (business), €2/month
+           (patron), floor €1; the configured links (Liberapay, PayPal, bunq, Stripe link) + a reference to quote
+           (the business's id/@name, or your @username); admin sets the dates.
+      Was: OPEN DESIGN (with Joop, not a tick): a better model for paid services. Joop (2026-10-04): the
       "For cafés and venues" page "isn't well thought out", "we'll need a better model for paid services".
       Constraints from VISION: core use free forever, Lichess-style patrons, relevance instead of ads, nothing
       that buys visibility over what's actually near and relevant. Don't build until Joop picks a direction.
-- [ ] 46. Brands on other domains (Joop's idea, 2026-10-04; part of 45): one app, several faces chosen by
+- [ ] 46. DECIDED (Joop 2026-10-05: "2 and 4"): brands are set up by Joop in admin as a PAID service (manual
+      payment, like 45c), with brand admins; and forks (self-hosting + OLN linking, done in 64) are the free
+      route. Build after 45: 46a Brand entity + Host routing + admin; 46b brand admins + wording/tags/colours;
+      46c brand-local accounts (passkeys per domain) and the shared network underneath.
+      Was: Brands on other domains (Joop's idea, 2026-10-04; part of 45): one app, several faces chosen by
       Host: e.g. bahais.in / localprayers.net with "Who wants to pray with me?" and "Register our local
       events". A Brand entity (domain, name, tagline, colours/icon, wording of the main button, default view
       tags, feeds, which kinds show), set up by an admin; brand admins (role scoped to one brand) manage it.
