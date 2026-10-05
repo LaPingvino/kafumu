@@ -589,5 +589,7 @@
   "js.bizkey_got": "已收到密钥：商家的名片和联系人正在同步。",
   "js.bizkey_bar_need": "此设备需要商家密钥。",
   "js.bizkey_bar_asks": "有管理员请求商家密钥。",
-  "js.bizkey_open": "打开"
+  "js.bizkey_open": "打开",
+  "biz.you": "你",
+  "biz.no_name": "（尚无用户名）"
 }

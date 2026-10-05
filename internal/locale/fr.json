@@ -589,5 +589,7 @@
   "js.bizkey_got": "Clé reçue : la carte et les contacts de l'entreprise se synchronisent.",
   "js.bizkey_bar_need": "Cet appareil a besoin de la clé de l'entreprise.",
   "js.bizkey_bar_asks": "Un gestionnaire demande la clé de l'entreprise.",
-  "js.bizkey_open": "Ouvrir"
+  "js.bizkey_open": "Ouvrir",
+  "biz.you": "toi",
+  "biz.no_name": "(pas encore de nom d'utilisateur)"
 }

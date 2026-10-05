@@ -589,5 +589,7 @@
   "js.bizkey_got": "鍵を受け取りました。ビジネスの名刺と連絡先を同期しています。",
   "js.bizkey_bar_need": "この端末にはビジネスの鍵が必要です。",
   "js.bizkey_bar_asks": "管理者がビジネスの鍵を求めています。",
-  "js.bizkey_open": "開く"
+  "js.bizkey_open": "開く",
+  "biz.you": "あなた",
+  "biz.no_name": "（ユーザー名未設定）"
 }

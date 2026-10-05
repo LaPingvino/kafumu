@@ -589,5 +589,7 @@
   "js.bizkey_got": "Sleutel ontvangen: het kaartje en de contacten van het bedrijf worden gesynchroniseerd.",
   "js.bizkey_bar_need": "Dit apparaat heeft de bedrijfssleutel nodig.",
   "js.bizkey_bar_asks": "Een beheerder vraagt om de bedrijfssleutel.",
-  "js.bizkey_open": "Openen"
+  "js.bizkey_open": "Openen",
+  "biz.you": "jij",
+  "biz.no_name": "(nog geen gebruikersnaam)"
 }

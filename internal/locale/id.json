@@ -589,5 +589,7 @@
   "js.bizkey_got": "Kunci diterima: kartu dan kontak bisnis sedang disinkronkan.",
   "js.bizkey_bar_need": "Perangkat ini butuh kunci bisnis.",
   "js.bizkey_bar_asks": "Seorang pengelola meminta kunci bisnis.",
-  "js.bizkey_open": "Buka"
+  "js.bizkey_open": "Buka",
+  "biz.you": "kamu",
+  "biz.no_name": "(belum ada nama pengguna)"
 }

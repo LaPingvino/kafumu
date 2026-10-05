@@ -589,5 +589,7 @@
   "js.bizkey_got": "Đã nhận khóa: danh thiếp và danh bạ doanh nghiệp đang đồng bộ.",
   "js.bizkey_bar_need": "Thiết bị này cần khóa doanh nghiệp.",
   "js.bizkey_bar_asks": "Một quản lý xin khóa doanh nghiệp.",
-  "js.bizkey_open": "Mở"
+  "js.bizkey_open": "Mở",
+  "biz.you": "bạn",
+  "biz.no_name": "(chưa có tên người dùng)"
 }

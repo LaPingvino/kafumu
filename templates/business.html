@@ -27,7 +27,7 @@
     <p class="dim small">{{if eq .SyncMode "server"}}{{t $.Lang "biz.sync_server_note"}}{{else if eq .SyncMode "private"}}{{t $.Lang "biz.sync_private_note"}}{{else}}{{t $.Lang "biz.device_only"}}{{end}}</p>
     {{if and (eq .SyncMode "private") $.Acting (eq $.Acting.ID .ID)}}<div id="bizkey" class="card events" style="padding:8px 16px" hidden></div>{{end}}
     <p><strong>{{t $.Lang "biz.managers"}}</strong></p>
-    <ul>{{$b := .}}{{range .Managers}}<li>@{{index $.Names .}}{{if ne . $.User.ID}} <form method="post" action="/business/{{$b.ID}}/managers" class="inline"><input type="hidden" name="remove" value="{{.}}"><button type="submit" class="pill-sm">×</button></form>{{end}}</li>{{end}}</ul>
+    <ul>{{$b := .}}{{range $m := .Managers}}<li>{{with index $.Names $m}}@{{.}}{{if eq $m $.User.ID}} <span class="dim small">({{t $.Lang "biz.you"}})</span>{{end}}{{else}}{{if eq $m $.User.ID}}{{t $.Lang "biz.you"}}{{else}}{{t $.Lang "biz.no_name"}}{{end}}{{end}}{{if ne $m $.User.ID}} <form method="post" action="/business/{{$b.ID}}/managers" class="inline"><input type="hidden" name="remove" value="{{$m}}"><button type="submit" class="pill-sm">×</button></form>{{end}}</li>{{end}}</ul>
     <form method="post" action="/business/{{.ID}}/managers" class="inline-row"><input name="add" placeholder="@username" maxlength="31"><button type="submit" class="pill-sm">{{t $.Lang "biz.add_manager"}}</button></form>
     <p><a href="/meetups/new">＋ {{t $.Lang "meetup.new_title"}} →</a></p>
   </div>{{end}}
@@ -73,7 +73,9 @@
       });
     });
   }
-  draw();
+  // First let the device sync: the first device of a business makes the key
+  // there, and only a device that still lacks it should ask.
+  (dev.sync ? dev.sync() : Promise.resolve()).then(draw, draw);
 })();
 </script>
 </article>

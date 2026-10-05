@@ -589,5 +589,7 @@
   "js.bizkey_got": "Chave recebida: o cartão e os contactos da empresa estão a sincronizar.",
   "js.bizkey_bar_need": "Este dispositivo precisa da chave da empresa.",
   "js.bizkey_bar_asks": "Um gestor pede a chave da empresa.",
-  "js.bizkey_open": "Abrir"
+  "js.bizkey_open": "Abrir",
+  "biz.you": "tu",
+  "biz.no_name": "(ainda sem nome de utilizador)"
 }

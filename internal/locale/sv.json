@@ -589,5 +589,7 @@
   "js.bizkey_got": "Nyckel mottagen: företagets kort och kontakter synkas.",
   "js.bizkey_bar_need": "Den här enheten behöver företagets nyckel.",
   "js.bizkey_bar_asks": "En förvaltare ber om företagets nyckel.",
-  "js.bizkey_open": "Öppna"
+  "js.bizkey_open": "Öppna",
+  "biz.you": "du",
+  "biz.no_name": "(inget användarnamn än)"
 }

@@ -1,7 +1,7 @@
 {{template "head" .}}
 <article>
   <h1>{{t .Lang "card.title"}}</h1>
-  {{if .User}}<p id="sync-on" class="dim small" hidden>🔄 {{t .Lang "sync.on"}} <button type="button" id="sync-now" class="pill-sm">{{t .Lang "sync.now"}}</button></p>{{end}}
+  {{if .User}}<p id="sync-on" class="dim small" hidden>🔄 {{if not .Acting}}{{t .Lang "sync.on"}} {{end}}<button type="button" id="sync-now" class="pill-sm">{{t .Lang "sync.now"}}</button></p>{{end}}
   <p>{{t .Lang "card.explain"}}</p>
   <div id="personas" class="chips switch" role="tablist" aria-label="{{ts .Lang "card.personas"}}"></div>
   <div class="grid">

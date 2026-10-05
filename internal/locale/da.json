@@ -589,5 +589,7 @@
   "js.bizkey_got": "Nøgle modtaget: virksomhedens kort og kontakter synkroniseres.",
   "js.bizkey_bar_need": "Denne enhed mangler virksomhedens nøgle.",
   "js.bizkey_bar_asks": "En administrator beder om virksomhedens nøgle.",
-  "js.bizkey_open": "Åbn"
+  "js.bizkey_open": "Åbn",
+  "biz.you": "dig",
+  "biz.no_name": "(intet brugernavn endnu)"
 }

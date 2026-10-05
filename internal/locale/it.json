@@ -589,5 +589,7 @@
   "js.bizkey_got": "Chiave ricevuta: il biglietto e i contatti dell'attività si stanno sincronizzando.",
   "js.bizkey_bar_need": "Questo dispositivo ha bisogno della chiave dell'attività.",
   "js.bizkey_bar_asks": "Un gestore chiede la chiave dell'attività.",
-  "js.bizkey_open": "Apri"
+  "js.bizkey_open": "Apri",
+  "biz.you": "tu",
+  "biz.no_name": "(ancora senza nome utente)"
 }

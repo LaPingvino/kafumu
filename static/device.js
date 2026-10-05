@@ -645,11 +645,19 @@
         });
       });
     }
-    // pending: other managers' open requests, with their codes.
+    // cleanup: a device that has the key withdraws a request it left behind
+    // (it asked before the key existed, or got it by another way).
+    function cleanup() {
+      return Promise.all([store.get("syncKey"), store.get("bizKeyReq")]).then(function (r) {
+        if (!r[0] || !r[1]) return;
+        return post("/keyreq", { pub: r[1].pub, cancel: "1" }).then(function () { return store.set("bizKeyReq", null); }, function () {});
+      });
+    }
+    // pending: other devices' open requests, with their codes.
     function pending() {
       return store.get("syncKey").then(function (have) {
         if (!have || actingSync !== "private") return [];
-        return list().then(function (rs) {
+        return cleanup().then(function () { return list(); }).then(function (rs) {
           rs = rs.filter(function (x) { return !x.mine && !x.wrapped; });
           return Promise.all(rs.map(function (x) { return code(x.pub).then(function (c) { x.code = c; return x; }); }));
         });
@@ -670,7 +678,7 @@
         });
       }).then(function (r) { if (!r.ok) throw new Error("grant " + r.status); });
     }
-    return { code: code, mine: mine, request: request, pending: pending, grant: grant };
+    return { code: code, mine: mine, request: request, pending: pending, grant: grant, cleanup: cleanup };
   })();
   function askedForKey() {
     Promise.all([fetch("/account/move", { credentials: "same-origin" }).then(function (r) { return r.ok ? r.json() : {}; }), store.get("invite:move"), store.get("syncKey")])

@@ -589,5 +589,7 @@
   "js.bizkey_got": "Kulcs megérkezett: a vállalkozás névjegye és kapcsolatai szinkronizálódnak.",
   "js.bizkey_bar_need": "Ennek az eszköznek kell a vállalkozás kulcsa.",
   "js.bizkey_bar_asks": "Egy kezelő kéri a vállalkozás kulcsát.",
-  "js.bizkey_open": "Megnyitás"
+  "js.bizkey_open": "Megnyitás",
+  "biz.you": "te",
+  "biz.no_name": "(még nincs felhasználóneve)"
 }

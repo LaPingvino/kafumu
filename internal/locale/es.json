@@ -589,5 +589,7 @@
   "js.bizkey_got": "Clave recibida: la tarjeta y los contactos del negocio se están sincronizando.",
   "js.bizkey_bar_need": "Este dispositivo necesita la clave del negocio.",
   "js.bizkey_bar_asks": "Un gestor pide la clave del negocio.",
-  "js.bizkey_open": "Abrir"
+  "js.bizkey_open": "Abrir",
+  "biz.you": "tú",
+  "biz.no_name": "(aún sin nombre de usuario)"
 }

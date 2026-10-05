@@ -276,7 +276,14 @@ func (h *Businesses) KeyReqAPI(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "pub: a raw P-256 key", http.StatusBadRequest)
 			return
 		}
-		b.KeyReqs = slices.DeleteFunc(b.KeyReqs, func(k business.KeyReq) bool { return k.Pub == pub })
+		b.KeyReqs = slices.DeleteFunc(b.KeyReqs, func(k business.KeyReq) bool { return k.Pub == pub && k.UserID == u.ID })
+		if r.FormValue("cancel") == "1" { // this device has the key now: withdraw its request
+			break
+		}
+		if slices.ContainsFunc(b.KeyReqs, func(k business.KeyReq) bool { return k.Pub == pub }) {
+			http.Error(w, "taken", http.StatusConflict)
+			return
+		}
 		mine := 0
 		for _, k := range b.KeyReqs {
 			if k.UserID == u.ID {

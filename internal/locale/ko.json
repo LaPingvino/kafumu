@@ -589,5 +589,7 @@
   "js.bizkey_got": "키를 받았어요: 비즈니스의 카드와 연락처를 동기화하는 중이에요.",
   "js.bizkey_bar_need": "이 기기에는 비즈니스 키가 필요해요.",
   "js.bizkey_bar_asks": "관리자가 비즈니스 키를 요청해요.",
-  "js.bizkey_open": "열기"
+  "js.bizkey_open": "열기",
+  "biz.you": "나",
+  "biz.no_name": "(아직 사용자 이름 없음)"
 }

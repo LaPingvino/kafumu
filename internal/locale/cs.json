@@ -589,5 +589,7 @@
   "js.bizkey_got": "Klíč přijat: vizitka a kontakty firmy se synchronizují.",
   "js.bizkey_bar_need": "Toto zařízení potřebuje klíč firmy.",
   "js.bizkey_bar_asks": "Správce žádá o klíč firmy.",
-  "js.bizkey_open": "Otevřít"
+  "js.bizkey_open": "Otevřít",
+  "biz.you": "ty",
+  "biz.no_name": "(zatím bez uživatelského jména)"
 }

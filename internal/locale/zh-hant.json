@@ -589,5 +589,7 @@
   "js.bizkey_got": "已收到金鑰：商家的名片和聯絡人正在同步。",
   "js.bizkey_bar_need": "此裝置需要商家金鑰。",
   "js.bizkey_bar_asks": "有管理員請求商家金鑰。",
-  "js.bizkey_open": "開啟"
+  "js.bizkey_open": "開啟",
+  "biz.you": "你",
+  "biz.no_name": "（尚無使用者名稱）"
 }

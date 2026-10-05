@@ -589,5 +589,7 @@
   "js.bizkey_got": "Anahtar alındı: işletmenin kartı ve kişileri eşitleniyor.",
   "js.bizkey_bar_need": "Bu cihazın işletme anahtarına ihtiyacı var.",
   "js.bizkey_bar_asks": "Bir yönetici işletme anahtarını istiyor.",
-  "js.bizkey_open": "Aç"
+  "js.bizkey_open": "Aç",
+  "biz.you": "sen",
+  "biz.no_name": "(henüz kullanıcı adı yok)"
 }

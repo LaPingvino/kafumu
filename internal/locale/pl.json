@@ -589,5 +589,7 @@
   "js.bizkey_got": "Klucz odebrany: wizytówka i kontakty firmy się synchronizują.",
   "js.bizkey_bar_need": "To urządzenie potrzebuje klucza firmy.",
   "js.bizkey_bar_asks": "Osoba zarządzająca prosi o klucz firmy.",
-  "js.bizkey_open": "Otwórz"
+  "js.bizkey_open": "Otwórz",
+  "biz.you": "ty",
+  "biz.no_name": "(jeszcze bez nazwy użytkownika)"
 }

@@ -589,5 +589,7 @@
   "js.bizkey_got": "Ŝlosilo ricevita: la karto kaj kontaktoj de la komerco sinkroniĝas.",
   "js.bizkey_bar_need": "Ĉi tiu aparato bezonas la ŝlosilon de la komerco.",
   "js.bizkey_bar_asks": "Administranto petas la ŝlosilon de la komerco.",
-  "js.bizkey_open": "Malfermi"
+  "js.bizkey_open": "Malfermi",
+  "biz.you": "vi",
+  "biz.no_name": "(ankoraŭ sen uzantnomo)"
 }

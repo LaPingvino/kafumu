@@ -589,5 +589,7 @@
   "js.bizkey_got": "Cheie primită: cardul și contactele firmei se sincronizează.",
   "js.bizkey_bar_need": "Acest dispozitiv are nevoie de cheia firmei.",
   "js.bizkey_bar_asks": "Un administrator cere cheia firmei.",
-  "js.bizkey_open": "Deschide"
+  "js.bizkey_open": "Deschide",
+  "biz.you": "tu",
+  "biz.no_name": "(încă fără nume de utilizator)"
 }
