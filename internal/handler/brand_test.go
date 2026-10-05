@@ -179,3 +179,23 @@ func TestCityWideMeetup(t *testing.T) {
 		t.Fatalf("La Défense bundle: citywide %v, precise %v", strings.Contains(body, "Parolrondo"), strings.Contains(body, "At the fountain"))
 	}
 }
+
+// Widening a quiet area (wide=1): meetups from rings further out, more
+// cells than a normal bundle, and nothing from Bluesky (no upstream calls).
+func TestWideBundle(t *testing.T) {
+	ctx := context.Background()
+	_, home, _ := newServerWithMeetups(t)
+	// The device's first widening band: rings 4 and 5 (72 cells).
+	cells := geo.Rings("8ccgmw", 5)[len(geo.Rings("8ccgmw", 3)):]
+	last := cells[len(cells)-1]
+	home.Meetups.Store.Put(ctx, &meetup.Meetup{ID: "far", Title: "Far away kafo", Cell: last, StartAt: time.Now().Add(time.Hour), EndAt: time.Now().Add(2 * time.Hour), ExpiresAt: time.Now().Add(48 * time.Hour)})
+	r := httptest.NewRequest("GET", "/bundle?wide=1&cells="+strings.Join(cells, ","), nil)
+	r.Header.Set("User-Agent", "Mozilla/5.0 Firefox/130")
+	r.Header.Set("Accept-Language", "en")
+	w := httptest.NewRecorder()
+	home.Bundle(w, r)
+	body := w.Body.String()
+	if len(cells) <= maxBundleCells || !strings.Contains(body, "Far away kafo") || strings.Contains(body, `"posts"`) {
+		t.Fatalf("wide bundle (%d cells): %.200s", len(cells), body)
+	}
+}

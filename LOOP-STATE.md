@@ -856,3 +856,10 @@ start (magic link re-binds them after a domain move).
 - No posts on Bluesky carry `#geo…` tags yet (checked 2026-10-03): the gazetteer slice matters most.
 - `public.api.bsky.app` may 403 from some networks; client falls back to `api.bsky.app`.
 - AppView marks some authors with a `bot` label; the client downranks them.
+- [x] 77. Around widens like a spiral (Joop: "at least 3 circles… increase circles until you have a certain amount
+      of posts… that's what the Ulam spiral approach achieved"): start at 3 rings (49 cells; Bluesky still only
+      for the inner 25); while fewer than 15 things show, the device fetches the next band (rings 4–5, 6–7, 8)
+      as a wide bundle (wide=1, ≤ 120 cells: local messages, meetups, people only, no upstream calls, cached a
+      minute). Datastore "in" queries are chunked by 30. Also: city-wide events (placed by city name) carry
+      the city's radius (AreaKm) and reach the whole city via its centre cell. Tests: wide bundle, city-wide.
+

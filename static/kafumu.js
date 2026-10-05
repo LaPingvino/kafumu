@@ -860,7 +860,7 @@
   function showNotes(notes) {
     var have = {};
     notes.forEach(function (n) { have[n.id] = true; });
-    ownNotes = ownNotes.filter(function (n) { return new Date(n.expires) > Date.now() && n.cell && currentCell && rings(currentCell, 2).some(function (p) { return p[0] === n.cell; }); });
+    ownNotes = ownNotes.filter(function (n) { return new Date(n.expires) > Date.now() && n.cell && currentCell && rings(currentCell, 3).some(function (p) { return p[0] === n.cell; }); });
     notes = ownNotes.filter(function (n) { return !have[n.id]; }).concat(notes);
     var hidden = hiddenNotes(), list = sinks.here, mySeq = loadSeq;
     notes = notes.filter(function (n) { return hidden.indexOf(n.id) < 0; });
@@ -953,7 +953,9 @@
   function load(c, fresh) {
     drawOnline();
     var seq = ++loadSeq;
-    var near = rings(c, 2);
+    // Three rings around you to start (7×7 cells, ~15 km); a quiet area
+    // then widens ring by ring until there's enough to see (widen, below).
+    var near = rings(c, 3);
     var ringOf = {};
     near.forEach(function (p) { ringOf["geo" + p[0]] = p[1]; });
     ["here", "meetups", "people", "posts"].forEach(function (k) { feed[k] = []; });
@@ -1003,8 +1005,38 @@
         $("list-note").textContent = named.length
           ? tr("also_tags", { tags: named.join(", ") })
           : "";
+        widen(c, seq, ringOf, b, 4);
       })
       .catch(function () { feed.posts = []; scheduleDraw(); note(tr("load_failed")); });
+  }
+
+  // widen: like a spiral outwards (Joop; eolnpoc's Ulam spiral): while
+  // fewer than WIDEN_ENOUGH things show, fetch the next two rings (local
+  // messages, meetups, people only: no upstream calls), up to ring 8.
+  var WIDEN_ENOUGH = 15, WIDEN_MAX = 8;
+  function widen(c, seq, ringOf, acc, from) {
+    var have = (acc.notes || []).length + (acc.meetups || []).length + (acc.people || []).length + (acc.posts || []).length;
+    if (have >= WIDEN_ENOUGH || from > WIDEN_MAX || seq !== loadSeq) return;
+    var to = Math.min(from + 1, WIDEN_MAX);
+    var band = rings(c, to).filter(function (p) { return p[1] >= from; });
+    band.forEach(function (p) { ringOf["geo" + p[0]] = p[1]; });
+    fetch("/bundle?wide=1&cells=" + band.map(function (p) { return p[0]; }).join(","))
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (wb) {
+        if (!wb || seq !== loadSeq) return;
+        wb = filterBundle(wb);
+        function merge(a, b, key) {
+          var seen = {}; (a || []).forEach(function (x) { seen[key(x)] = true; });
+          return (a || []).concat((b || []).filter(function (x) { return !seen[key(x)]; }));
+        }
+        acc.notes = merge(acc.notes, wb.notes, function (x) { return x.id; });
+        acc.meetups = merge(acc.meetups, wb.meetups, function (x) { return x.id; });
+        acc.people = merge(acc.people, wb.people, function (x) { return x.name; });
+        if ((wb.notes || []).length) showNotes(acc.notes);
+        if ((wb.meetups || []).length) showMeetups(acc.meetups, acc.events || []);
+        if ((wb.people || []).length) showPeople(acc.people);
+        widen(c, seq, ringOf, acc, to + 1);
+      }).catch(function () {});
   }
 
   // myTags: the tags on your personas, used only here on the device to

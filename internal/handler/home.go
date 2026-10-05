@@ -34,7 +34,12 @@ import (
 
 const (
 	// maxBundleCells bounds a bundle request to rings 0–2 (5×5).
-	maxBundleCells = 25
+	maxBundleCells = 49 // three rings around you (7×7)
+	// maxWideCells: a "wide" bundle (wide=1) widens a quiet area by rings
+	// further out: local messages, meetups and people only.
+	maxWideCells = 120
+	// bskyCells: Bluesky is searched for the inner two rings only (5×5).
+	bskyCells = 25
 	// maxPlaceTags bounds upstream searches for gazetteer place tags per bundle.
 	maxPlaceTags = 4
 )
@@ -382,14 +387,22 @@ func (h *Home) Bundle(w http.ResponseWriter, r *http.Request) {
 	}
 	var cells []string
 	seen := map[string]bool{}
+	wide, limit := r.URL.Query().Get("wide") == "1", maxBundleCells
+	if wide {
+		limit = maxWideCells
+	}
 	for _, c := range strings.Split(strings.ToLower(r.URL.Query().Get("cells")), ",") {
-		if geo.Valid(c) && !seen[c] && len(cells) < maxBundleCells {
+		if geo.Valid(c) && !seen[c] && len(cells) < limit {
 			seen[c] = true
 			cells = append(cells, c)
 		}
 	}
 	if len(cells) == 0 {
 		http.Error(w, "cells: want comma-separated 6-char #geo cells", http.StatusBadRequest)
+		return
+	}
+	if wide {
+		h.wideBundle(w, r, cells)
 		return
 	}
 	h.noteCountry(r.Context(), cells[0])
@@ -454,9 +467,11 @@ func (h *Home) Bundle(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
-	tags := make([]string, 0, len(cells)+maxPlaceTags)
-	for _, c := range cells {
-		tags = append(tags, geo.Tag(c))
+	tags := make([]string, 0, bskyCells+maxPlaceTags)
+	for i, c := range cells {
+		if i < bskyCells {
+			tags = append(tags, geo.Tag(c))
+		}
 	}
 	if h.Gaz != nil {
 		if ev := h.Gaz.EventsAt(cells, time.Now()); ev != nil {
@@ -619,4 +634,38 @@ func (h *Home) Origin(r *http.Request) string {
 		return "https://" + b.Host
 	}
 	return h.Cfg.Origin
+}
+
+// wideBundle: the rings further out of a quiet area (wide=1): local
+// messages, meetups and people, from the same per-cell caches; never
+// Bluesky, place names or events, so widening costs no upstream calls.
+func (h *Home) wideBundle(w http.ResponseWriter, r *http.Request, cells []string) {
+	out := struct {
+		Notes   []*oln.Note      `json:"notes"`
+		Meetups []*meetup.Meetup `json:"meetups"`
+		People  []account.Person `json:"people"`
+	}{Notes: []*oln.Note{}, Meetups: []*meetup.Meetup{}, People: []account.Person{}}
+	ctx := r.Context()
+	if h.Notes != nil {
+		if ns, err := h.Notes.InCells(ctx, cells); err == nil && ns != nil {
+			out.Notes = ns
+		}
+	}
+	if h.Meetups != nil {
+		if ms, err := h.Meetups.InCells(ctx, cells); err == nil && ms != nil {
+			out.Meetups = ms
+		}
+	}
+	if h.Accounts != nil {
+		if ps, err := h.Accounts.People(ctx, cells); err == nil {
+			for _, p := range ps {
+				if h.Reports == nil || !h.Reports.Hidden(ctx, "person", p.Name) {
+					out.People = append(out.People, p)
+				}
+			}
+		}
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Cache-Control", "public, max-age=60")
+	json.NewEncoder(w).Encode(out)
 }

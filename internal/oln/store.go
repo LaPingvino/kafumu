@@ -35,7 +35,21 @@ func (s *DatastoreStore) Put(ctx context.Context, n *Note) error {
 	return err
 }
 
+// InCells queries in chunks of 30 cells (Datastore's limit for "in"):
+// areas widen to many cells where little happens.
 func (s *DatastoreStore) InCells(ctx context.Context, cells []string, now time.Time) ([]*Note, error) {
+	var out []*Note
+	for i := 0; i < len(cells); i += 30 {
+		part, err := s.inCells(ctx, cells[i:min(i+30, len(cells))], now)
+		if err != nil {
+			return out, err
+		}
+		out = append(out, part...)
+	}
+	return out, nil
+}
+
+func (s *DatastoreStore) inCells(ctx context.Context, cells []string, now time.Time) ([]*Note, error) {
 	vals := make([]any, len(cells))
 	for i, c := range cells {
 		vals[i] = c

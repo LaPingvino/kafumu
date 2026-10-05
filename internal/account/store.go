@@ -75,7 +75,20 @@ func (s *DatastoreStore) ReleaseUsername(ctx context.Context, name, id string) e
 	return err
 }
 
+// VisibleIn queries in chunks of 30 cells (Datastore's limit for "in").
 func (s *DatastoreStore) VisibleIn(ctx context.Context, cells []string, now time.Time) ([]*User, error) {
+	var out []*User
+	for i := 0; i < len(cells); i += 30 {
+		part, err := s.visibleIn(ctx, cells[i:min(i+30, len(cells))], now)
+		if err != nil {
+			return out, err
+		}
+		out = append(out, part...)
+	}
+	return out, nil
+}
+
+func (s *DatastoreStore) visibleIn(ctx context.Context, cells []string, now time.Time) ([]*User, error) {
 	vals := make([]any, len(cells))
 	for i, c := range cells {
 		vals[i] = c
