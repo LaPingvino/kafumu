@@ -32,7 +32,7 @@ func (h *Home) acting(ctx context.Context, r *http.Request, userID string) *busi
 		return nil
 	}
 	b := h.bizByID(ctx, c.Value)
-	if b == nil || !b.Manages(userID) {
+	if b == nil || !h.managesBiz(ctx, b, userID) {
 		return nil
 	}
 	return b
@@ -88,7 +88,7 @@ func (h *Businesses) Use(w http.ResponseWriter, r *http.Request) {
 	id := r.FormValue("id")
 	if id != "" {
 		b, err := h.Store.Get(r.Context(), id)
-		if err != nil || !b.Manages(u.ID) {
+		if err != nil || !h.Home.managesBiz(r.Context(), b, u.ID) {
 			http.Redirect(w, r, "/account", http.StatusSeeOther)
 			return
 		}

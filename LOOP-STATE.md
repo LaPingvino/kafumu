@@ -640,7 +640,11 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
 - [ ] 76. Business ≡ person (Joop: "a check for the equivalence of business accounts to personal accounts…
       that would be the better place to fix"). One "who": an owner is a user id or "biz:<id>"; actsFor(u, owner)
       = it's u, or a business u manages (identity.go; brand admins use it). Gaps found:
-      a. A business as manager of another business (managers may be "biz:<id>": its managers manage; ForUser
+      [x] a. Done: "add manager" takes a business's @name (not itself); managesBiz (direct, or manager of a
+         managing business; one level) replaces b.Manages in every handler check (acting, /business, sync,
+         key handover, hosting as, brand admins via actsFor); bizFor lists direct + through-a-business ones
+         (one indexed query per business of yours); manager list shows businesses by @name. Test: agency
+         manages café, ana manages both, chains not followed. Was: A business as manager of another business (managers may be "biz:<id>": its managers manage; ForUser
          needs the indirect ones).
       b. A business's /@name connects like a person's (a named link holding the business card, kept by a
          manager's device acting as it), with its profile page shown alongside.

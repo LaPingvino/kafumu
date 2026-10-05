@@ -99,7 +99,7 @@ func (a *Accounts) show(w http.ResponseWriter, r *http.Request, findable bool) {
 	p.New = r.URL.Query().Get("new") == "1"
 	if u := p.User; u != nil {
 		if a.Home.Biz != nil && !findable {
-			p.MyBiz, _ = a.Home.Biz.ForUser(r.Context(), u.ID)
+			p.MyBiz, _ = a.Home.bizFor(r.Context(), u.ID)
 		}
 		p.Visible = u.Visible(time.Now())
 		for _, l := range u.Langs {

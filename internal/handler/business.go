@@ -45,12 +45,10 @@ func (h *Businesses) Show(w http.ResponseWriter, r *http.Request) {
 	}
 	p.Title, p.Tab = locale.T(p.Lang, "biz.title"), "account"
 	if u := p.User; u != nil {
-		p.Mine, _ = h.Store.ForUser(r.Context(), u.ID)
+		p.Mine, _ = h.Home.bizFor(r.Context(), u.ID)
 		for _, b := range p.Mine {
 			for _, id := range b.Managers {
-				if m, err := h.Accounts.Svc.ByID(r.Context(), id); err == nil && m != nil {
-					p.Names[id] = m.Username
-				}
+				p.Names[id] = strings.TrimPrefix(h.Home.ownerName(r.Context(), h.Accounts.Svc, id), "@")
 			}
 		}
 	}
@@ -81,7 +79,7 @@ func (h *Businesses) Create(w http.ResponseWriter, r *http.Request) {
 func (h *Businesses) Managers(w http.ResponseWriter, r *http.Request) {
 	u := UserFrom(r.Context())
 	b, err := h.Store.Get(r.Context(), r.PathValue("id"))
-	if u == nil || err != nil || !b.Manages(u.ID) {
+	if u == nil || err != nil || !h.Home.managesBiz(r.Context(), b, u.ID) {
 		http.NotFound(w, r)
 		return
 	}
@@ -89,7 +87,7 @@ func (h *Businesses) Managers(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/business?err=paid", http.StatusSeeOther) // more managers: an office tool (45b)
 		return
 	} else if name != "" {
-		if id, err := h.Accounts.Svc.Store.LookupUsername(r.Context(), name); err == nil && id != "" && !strings.HasPrefix(id, "biz:") && !b.Manages(id) && len(b.Managers) < 20 {
+		if id, err := h.Accounts.Svc.Store.LookupUsername(r.Context(), name); err == nil && id != "" && id != "biz:"+b.ID && !b.Manages(id) && len(b.Managers) < 20 {
 			b.Managers = append(b.Managers, id)
 		}
 	}
@@ -105,7 +103,7 @@ func (h *Businesses) Managers(w http.ResponseWriter, r *http.Request) {
 func (h *Businesses) Name(w http.ResponseWriter, r *http.Request) {
 	u := UserFrom(r.Context())
 	b, err := h.Store.Get(r.Context(), r.PathValue("id"))
-	if u == nil || err != nil || !b.Manages(u.ID) {
+	if u == nil || err != nil || !h.Home.managesBiz(r.Context(), b, u.ID) {
 		http.NotFound(w, r)
 		return
 	}
@@ -181,7 +179,7 @@ func (h *Businesses) bizManaged(r *http.Request) (*business.Business, bool) {
 		return nil, false
 	}
 	b, err := h.Store.Get(r.Context(), r.PathValue("id"))
-	if err != nil || !b.Manages(u.ID) {
+	if err != nil || !h.Home.managesBiz(r.Context(), b, u.ID) {
 		return nil, false
 	}
 	return b, true
@@ -281,7 +279,9 @@ func (h *Businesses) KeyReqAPI(w http.ResponseWriter, r *http.Request) {
 	}
 	u := UserFrom(r.Context())
 	now := time.Now()
-	b.KeyReqs = slices.DeleteFunc(b.KeyReqs, func(k business.KeyReq) bool { return now.Sub(k.At) > 7*24*time.Hour || !b.Manages(k.UserID) })
+	b.KeyReqs = slices.DeleteFunc(b.KeyReqs, func(k business.KeyReq) bool {
+		return now.Sub(k.At) > 7*24*time.Hour || !h.Home.managesBiz(r.Context(), b, k.UserID)
+	})
 	w.Header().Set("Cache-Control", "no-store")
 	switch {
 	case r.Method == http.MethodGet:

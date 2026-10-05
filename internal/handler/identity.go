@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/LaPingvino/kafumu/internal/account"
+	"github.com/LaPingvino/kafumu/internal/business"
 )
 
 // One kind of "who", for persons and businesses alike (Joop: business
@@ -22,7 +23,7 @@ func (h *Home) actsFor(ctx context.Context, u *account.User, owner string) bool 
 		return true
 	}
 	if id, ok := strings.CutPrefix(owner, "biz:"); ok {
-		if b := h.bizByID(ctx, id); b != nil && b.Manages(u.ID) {
+		if b := h.bizByID(ctx, id); b != nil && h.managesBiz(ctx, b, u.ID) {
 			return true
 		}
 	}
@@ -41,4 +42,47 @@ func (h *Home) ownerName(ctx context.Context, svc *account.Service, owner string
 		return "@" + u.Username
 	}
 	return ""
+}
+
+// managesBiz: userID manages b, directly or as a manager of a business
+// that is one of b's managers ("biz:<id>"). One level only: no chains,
+// no loops.
+func (h *Home) managesBiz(ctx context.Context, b *business.Business, userID string) bool {
+	if b == nil || userID == "" {
+		return false
+	}
+	if b.Manages(userID) {
+		return true
+	}
+	for _, m := range b.Managers {
+		if id, ok := strings.CutPrefix(m, "biz:"); ok && id != b.ID {
+			if mb := h.bizByID(ctx, id); mb != nil && mb.Manages(userID) {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+// bizFor: the businesses userID manages, directly or through a business
+// of theirs that manages them (one indexed query per business of theirs).
+func (h *Home) bizFor(ctx context.Context, userID string) ([]*business.Business, error) {
+	if h.Biz == nil {
+		return nil, nil
+	}
+	direct, err := h.Biz.ForUser(ctx, userID)
+	out, seen := append([]*business.Business(nil), direct...), map[string]bool{}
+	for _, b := range direct {
+		seen[b.ID] = true
+	}
+	for _, b := range direct {
+		more, _ := h.Biz.ForUser(ctx, "biz:"+b.ID)
+		for _, m := range more {
+			if !seen[m.ID] {
+				seen[m.ID] = true
+				out = append(out, m)
+			}
+		}
+	}
+	return out, err
 }

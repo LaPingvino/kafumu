@@ -46,7 +46,7 @@ func (h *Meetups) New(w http.ResponseWriter, r *http.Request) {
 		p.Error = locale.T(p.Lang, "meetup.err_"+r.URL.Query().Get("err"))
 	}
 	if u := p.User; u != nil && h.Businesses != nil {
-		bs, _ := h.Businesses.ForUser(r.Context(), u.ID)
+		bs, _ := h.Home.bizFor(r.Context(), u.ID)
 		p.HostAs = bs // hosting under the business's name is free (LOOP-STATE 45b)
 	}
 	h.Home.render(w, "meetup_new.html", p)
@@ -81,7 +81,7 @@ func (h *Meetups) Create(w http.ResponseWriter, r *http.Request) {
 	}
 	name := u.Username
 	if as := r.FormValue("as"); as != "" && h.Businesses != nil {
-		if b, err := h.Businesses.Get(r.Context(), as); err == nil && b.Manages(u.ID) {
+		if b, err := h.Businesses.Get(r.Context(), as); err == nil && h.Home.managesBiz(r.Context(), b, u.ID) {
 			m.Business = b.Name
 		}
 	}
