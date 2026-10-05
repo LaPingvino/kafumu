@@ -862,4 +862,10 @@ start (magic link re-binds them after a domain move).
       as a wide bundle (wide=1, ≤ 120 cells: local messages, meetups, people only, no upstream calls, cached a
       minute). Datastore "in" queries are chunked by 30. Also: city-wide events (placed by city name) carry
       the city's radius (AreaKm) and reach the whole city via its centre cell. Tests: wide bundle, city-wide.
+- [x] 78. Slow Bluesky for the wider rings (Joop: "slowly retrieve from Bluesky for the wider areas if the server
+      is idle enough… to get to the 15 things in the least covered areas"): wide bundles include only cached
+      Bluesky posts for their cells (bsky.Cached) and queue the rest (bsky.Later); one worker per instance
+      searches one queued tag every 3 s, only after 2 s without a foreground search, queue ≤ 300 (deduped,
+      fresh tags skipped), stops when empty. The device, still under 15 at ring 8, looks once more after 25 s.
+      Tests: trickle (once per tag, then cached), wide bundle (cached posts in, the rest queued, no fetch).
 

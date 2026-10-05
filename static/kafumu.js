@@ -1005,6 +1005,7 @@
         $("list-note").textContent = named.length
           ? tr("also_tags", { tags: named.join(", ") })
           : "";
+        b._places = places;
         widen(c, seq, ringOf, b, 4);
       })
       .catch(function () { feed.posts = []; scheduleDraw(); note(tr("load_failed")); });
@@ -1016,7 +1017,13 @@
   var WIDEN_ENOUGH = 15, WIDEN_MAX = 8;
   function widen(c, seq, ringOf, acc, from) {
     var have = (acc.notes || []).length + (acc.meetups || []).length + (acc.people || []).length + (acc.posts || []).length;
-    if (have >= WIDEN_ENOUGH || from > WIDEN_MAX || seq !== loadSeq) return;
+    if (have >= WIDEN_ENOUGH || seq !== loadSeq) return;
+    if (from > WIDEN_MAX) {
+      // Still quiet: the server fetches the outer rings' Bluesky posts slowly
+      // while idle; look once more in a while (once per load).
+      if (!acc._again) { acc._again = true; setTimeout(function () { widen(c, seq, ringOf, acc, 4); }, 25000); }
+      return;
+    }
     var to = Math.min(from + 1, WIDEN_MAX);
     var band = rings(c, to).filter(function (p) { return p[1] >= from; });
     band.forEach(function (p) { ringOf["geo" + p[0]] = p[1]; });
@@ -1032,9 +1039,11 @@
         acc.notes = merge(acc.notes, wb.notes, function (x) { return x.id; });
         acc.meetups = merge(acc.meetups, wb.meetups, function (x) { return x.id; });
         acc.people = merge(acc.people, wb.people, function (x) { return x.name; });
+        acc.posts = merge(acc.posts, wb.posts, function (x) { return x.uri; });
         if ((wb.notes || []).length) showNotes(acc.notes);
         if ((wb.meetups || []).length) showMeetups(acc.meetups, acc.events || []);
         if ((wb.people || []).length) showPeople(acc.people);
+        if ((wb.posts || []).length) render(acc.posts, ringOf, acc._places || {}, c);
         widen(c, seq, ringOf, acc, to + 1);
       }).catch(function () {});
   }

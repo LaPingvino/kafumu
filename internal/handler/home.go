@@ -644,7 +644,8 @@ func (h *Home) wideBundle(w http.ResponseWriter, r *http.Request, cells []string
 		Notes   []*oln.Note      `json:"notes"`
 		Meetups []*meetup.Meetup `json:"meetups"`
 		People  []account.Person `json:"people"`
-	}{Notes: []*oln.Note{}, Meetups: []*meetup.Meetup{}, People: []account.Person{}}
+		Posts   []bsky.Post      `json:"posts"`
+	}{Notes: []*oln.Note{}, Meetups: []*meetup.Meetup{}, People: []account.Person{}, Posts: []bsky.Post{}}
 	ctx := r.Context()
 	if h.Notes != nil {
 		if ns, err := h.Notes.InCells(ctx, cells); err == nil && ns != nil {
@@ -665,7 +666,25 @@ func (h *Home) wideBundle(w http.ResponseWriter, r *http.Request, cells []string
 			}
 		}
 	}
+	// Bluesky: only what's cached; the rest is searched slowly in the
+	// background while the server is idle, for the next look.
+	if h.Bsky != nil {
+		uris := map[string]bool{}
+		for _, c := range cells {
+			ps, ok := h.Bsky.Cached(geo.Tag(c), 25)
+			if !ok {
+				h.Bsky.Later(geo.Tag(c), 25)
+				continue
+			}
+			for _, p := range ps {
+				if !uris[p.URI] && (h.Reports == nil || !h.Reports.Hidden(ctx, "post", p.URI)) {
+					uris[p.URI] = true
+					out.Posts = append(out.Posts, p)
+				}
+			}
+		}
+	}
 	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Cache-Control", "public, max-age=60")
+	w.Header().Set("Cache-Control", "public, max-age=20")
 	json.NewEncoder(w).Encode(out)
 }

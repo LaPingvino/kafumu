@@ -50,8 +50,16 @@ type Client struct {
 	HTTP *http.Client
 	TTL  time.Duration
 
+	// TrickleEvery: the background pace (trickle.go); 0 = the default.
+	TrickleEvery time.Duration
+
 	mu    sync.Mutex
 	cache map[string]cached
+	// The slow background searches for wider areas (trickle.go).
+	queue          []trickleItem
+	queued         map[string]bool
+	trickling      bool
+	lastForeground time.Time
 }
 
 type cached struct {
@@ -70,12 +78,21 @@ func NewClient() *Client {
 // SearchTag returns recent posts carrying #tag. Errors are swallowed into an
 // empty, briefly cached result: a missing feed must never break the home page.
 func (c *Client) SearchTag(ctx context.Context, tag string, limit int) []Post {
+	return c.search(ctx, tag, limit, true)
+}
+
+// search is SearchTag; foreground marks a request's own search, which the
+// background trickle makes way for.
+func (c *Client) search(ctx context.Context, tag string, limit int, foreground bool) []Post {
 	tag = strings.ToLower(strings.TrimPrefix(tag, "#"))
 	key := fmt.Sprintf("%s/%d", tag, limit)
 	c.mu.Lock()
 	if e, ok := c.cache[key]; ok && time.Since(e.at) < c.TTL {
 		c.mu.Unlock()
 		return e.posts
+	}
+	if foreground {
+		c.lastForeground = time.Now()
 	}
 	c.mu.Unlock()
 

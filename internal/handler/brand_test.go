@@ -3,6 +3,7 @@ package handler
 import (
 	"context"
 	"github.com/LaPingvino/kafumu/internal/account"
+	"github.com/LaPingvino/kafumu/internal/bsky"
 	"github.com/LaPingvino/kafumu/internal/business"
 	"github.com/LaPingvino/kafumu/internal/geo"
 	"github.com/LaPingvino/kafumu/internal/meetup"
@@ -181,7 +182,8 @@ func TestCityWideMeetup(t *testing.T) {
 }
 
 // Widening a quiet area (wide=1): meetups from rings further out, more
-// cells than a normal bundle, and nothing from Bluesky (no upstream calls).
+// cells than a normal bundle, and no Bluesky fetch during the request
+// (nothing cached here: no posts; the rest is queued for later).
 func TestWideBundle(t *testing.T) {
 	ctx := context.Background()
 	_, home, _ := newServerWithMeetups(t)
@@ -195,7 +197,26 @@ func TestWideBundle(t *testing.T) {
 	w := httptest.NewRecorder()
 	home.Bundle(w, r)
 	body := w.Body.String()
-	if len(cells) <= maxBundleCells || !strings.Contains(body, "Far away kafo") || strings.Contains(body, `"posts"`) {
+	if len(cells) <= maxBundleCells || !strings.Contains(body, "Far away kafo") || !strings.Contains(body, `"posts":[]`) {
 		t.Fatalf("wide bundle (%d cells): %.200s", len(cells), body)
+	}
+}
+
+// Wide bundles include Bluesky posts already cached for the outer cells
+// and queue the rest for the slow background search; never a fetch now.
+func TestWideBundlePosts(t *testing.T) {
+	_, home, _ := newServerWithMeetups(t)
+	cells := geo.Rings("8ccgmw", 5)[len(geo.Rings("8ccgmw", 3)):]
+	home.Bsky.Prime(geo.Tag(cells[0]), 25, []bsky.Post{{URI: "at://x/app.bsky.feed.post/1", Text: "Kafo en la vilaĝo"}})
+	r := httptest.NewRequest("GET", "/bundle?wide=1&cells="+strings.Join(cells, ","), nil)
+	r.Header.Set("User-Agent", "Mozilla/5.0 Firefox/130")
+	r.Header.Set("Accept-Language", "en")
+	w := httptest.NewRecorder()
+	home.Bundle(w, r)
+	if !strings.Contains(w.Body.String(), "Kafo en la vilaĝo") {
+		t.Fatalf("cached post missing: %.200s", w.Body.String())
+	}
+	if n := home.Bsky.QueueLen(); n < len(cells)-1-5 { // the rest queued (the worker may have taken a few)
+		t.Fatalf("queued %d of %d uncached cells", n, len(cells)-1)
 	}
 }
