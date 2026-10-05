@@ -10,6 +10,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"errors"
+	"github.com/LaPingvino/kafumu/internal/kv"
 	"io"
 	"net/http"
 	"sort"
@@ -68,7 +69,12 @@ type Service struct {
 }
 
 func New(db *datastore.Client) *Service {
-	return &Service{DB: db, mem: map[string]Report{}, memHide: map[string]time.Time{}}
+	s := &Service{DB: db, mem: map[string]Report{}, memHide: map[string]time.Time{}}
+	if db == nil { // self-hosted: kept across restarts (kv)
+		kv.Load(kind, s.mem)
+		kv.Load(hidKind, s.memHide)
+	}
+	return s
 }
 
 func valid(list []string, v string) bool {
@@ -119,6 +125,7 @@ func (s *Service) put(ctx context.Context, id string, rep Report) error {
 		s.mu.Lock()
 		s.mem[id] = rep
 		s.mu.Unlock()
+		kv.Save(kind, id, rep)
 		return nil
 	}
 	_, err := s.DB.Put(ctx, datastore.NameKey(kind, id, nil), &rep)
@@ -177,6 +184,7 @@ func (s *Service) Dismiss(ctx context.Context, kindName, item string) error {
 		for id, r := range s.mem {
 			if r.Kind == kindName && r.Item == item {
 				delete(s.mem, id)
+				kv.Delete(kind, id)
 			}
 		}
 		s.mu.Unlock()
@@ -200,6 +208,7 @@ func (s *Service) Hide(ctx context.Context, kindName, item string) error {
 		s.memHide[k] = until
 		s.hidAt = time.Time{}
 		s.mu.Unlock()
+		kv.Save(hidKind, k, until)
 	} else if _, err := s.DB.Put(ctx, datastore.NameKey(hidKind, hideKey(k), nil), &hidden{ExpiresAt: until}); err != nil {
 		return err
 	}

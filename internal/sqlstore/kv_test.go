@@ -6,9 +6,12 @@ import (
 	"testing"
 	"time"
 
+	"github.com/LaPingvino/kafumu/internal/box"
 	"github.com/LaPingvino/kafumu/internal/business"
 	"github.com/LaPingvino/kafumu/internal/handle"
 	"github.com/LaPingvino/kafumu/internal/kv"
+	"github.com/LaPingvino/kafumu/internal/push"
+	"github.com/LaPingvino/kafumu/internal/report"
 )
 
 // Stores without Datastore keep their data across a restart when kv has a
@@ -48,5 +51,27 @@ func TestKVRestart(t *testing.T) {
 	}
 	if _, ok := h2.Get(ctx, "gone", now); ok {
 		t.Fatal("deleted link came back")
+	}
+
+	// Push: the same server keys after a restart (new ones would break
+	// every phone's subscription), and the subscriptions themselves.
+	ps := push.NewMemoryStore()
+	priv, pub, _ := ps.Keys(ctx)
+	ps.Put(ctx, &push.Sub{Endpoint: "https://push.example/abc", Boxes: []string{"box1"}})
+	ps2 := push.NewMemoryStore()
+	if p2, q2, _ := ps2.Keys(ctx); p2 != priv || q2 != pub {
+		t.Fatal("push keys changed across a restart")
+	}
+	if subs, _ := ps2.ForBox(ctx, "box1"); len(subs) != 1 {
+		t.Fatalf("push subscriptions after restart: %d", len(subs))
+	}
+	// An inbox price, and a moderator's hide.
+	box.NewPrices(nil).Set(ctx, "inbox9", 7)
+	if got := box.NewPrices(nil).Price(ctx, "inbox9"); got != 7 {
+		t.Fatalf("inbox price after restart = %d", got)
+	}
+	report.New(nil).Hide(ctx, "post", "at://x/y")
+	if !report.New(nil).Hidden(ctx, "post", "at://x/y") {
+		t.Fatal("hidden post visible again after a restart")
 	}
 }

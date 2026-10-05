@@ -2,6 +2,7 @@ package box
 
 import (
 	"context"
+	"github.com/LaPingvino/kafumu/internal/kv"
 	"sync"
 	"time"
 
@@ -30,7 +31,11 @@ type priceEntity struct {
 }
 
 func NewPrices(db *datastore.Client) *Prices {
-	return &Prices{DB: db, mem: map[string]int{}, cache: map[string]priceEntry{}}
+	p := &Prices{DB: db, mem: map[string]int{}, cache: map[string]priceEntry{}}
+	if db == nil {
+		kv.Load(priceKind, p.mem) // self-hosted: kept across restarts
+	}
+	return p
 }
 
 func (p *Prices) Set(ctx context.Context, id string, bits int) error {
@@ -39,6 +44,7 @@ func (p *Prices) Set(ctx context.Context, id string, bits int) error {
 	p.mem[id] = bits
 	p.mu.Unlock()
 	if p.DB == nil {
+		kv.Save(priceKind, id, bits)
 		return nil
 	}
 	_, err := p.DB.Put(ctx, datastore.NameKey(priceKind, id, nil), &priceEntity{bits})
@@ -51,6 +57,7 @@ func (p *Prices) Delete(ctx context.Context, id string) error {
 	p.cache[id] = priceEntry{0, time.Now()}
 	p.mu.Unlock()
 	if p.DB == nil {
+		kv.Delete(priceKind, id)
 		return nil
 	}
 	return p.DB.Delete(ctx, datastore.NameKey(priceKind, id, nil))

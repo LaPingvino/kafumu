@@ -538,6 +538,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       table; gob keeps fields hidden from JSON), loaded at construction — businesses, named links, short codes.
       Restart test: business with managers/trial, link, delete sticks. Next: report, push, atp, prices; then a
       self-hosted purge loop, admin stats, the guide.
+- [~] 64b-7. kv write-through also for reports + moderators' hides, inbox prices, Bluesky (ATproto) sessions and
+      push (subscriptions and the VAPID keys: regenerated keys would break every phone's push). Restart test covers
+      them. Every store now persists under KAFUMU_SQLITE. Next: a self-hosted purge loop (sqlstore Purge* + kv
+      expiry), admin stats without Datastore, and the self-hosting guide on /business (linking nodes = 64c).
 - [ ] 64. Self-hosting and OLN nodes (Joop): run Kafumu outside GAE (plain Go binary + a file/SQL store, no
       memcache), a page on how to self-host and link a node into OLN, and linked nodes on the admin page
       (peers pulled from / pushed to, last seen). Also mention self-hosting on /business.

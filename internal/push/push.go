@@ -10,6 +10,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"errors"
+	"github.com/LaPingvino/kafumu/internal/kv"
 	"io"
 	"log"
 	"net/http"
@@ -105,13 +106,24 @@ type MemoryStore struct {
 	priv, pub string
 }
 
-func NewMemoryStore() *MemoryStore { return &MemoryStore{subs: map[string]*Sub{}} }
+// NewMemoryStore keeps subscriptions and the VAPID keys in memory;
+// self-hosted (kv set) they persist: new keys on every restart would
+// silently break every phone's subscription.
+func NewMemoryStore() *MemoryStore {
+	s := &MemoryStore{subs: map[string]*Sub{}}
+	kv.Load("PushSub", s.subs)
+	keys := map[string]string{}
+	kv.Load("PushKeys", keys)
+	s.priv, s.pub = keys["priv"], keys["pub"]
+	return s
+}
 
 func (s *MemoryStore) Put(_ context.Context, sub *Sub) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	c := *sub
 	s.subs[subID(sub.Endpoint)] = &c
+	kv.Save("PushSub", subID(sub.Endpoint), &c)
 	return nil
 }
 
@@ -119,6 +131,7 @@ func (s *MemoryStore) Delete(_ context.Context, endpoint string) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	delete(s.subs, subID(endpoint))
+	kv.Delete("PushSub", subID(endpoint))
 	return nil
 }
 
@@ -146,6 +159,8 @@ func (s *MemoryStore) Keys(context.Context) (string, string, error) {
 		if s.priv, s.pub, err = webpush.GenerateVAPIDKeys(); err != nil {
 			return "", "", err
 		}
+		kv.Save("PushKeys", "priv", s.priv)
+		kv.Save("PushKeys", "pub", s.pub)
 	}
 	return s.priv, s.pub, nil
 }

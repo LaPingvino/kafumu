@@ -7,6 +7,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"github.com/LaPingvino/kafumu/internal/kv"
 	"sync"
 	"time"
 
@@ -93,7 +94,13 @@ type MemoryStore struct {
 	m  map[string][]byte
 }
 
-func NewMemoryStore() *MemoryStore { return &MemoryStore{m: map[string][]byte{}} }
+// NewMemoryStore keeps sessions in memory; self-hosted (kv set) they also
+// persist, so people stay connected to Bluesky across restarts.
+func NewMemoryStore() *MemoryStore {
+	s := &MemoryStore{m: map[string][]byte{}}
+	kv.Load("ATSession", s.m)
+	return s
+}
 
 func (s *MemoryStore) load(k string, v any) error {
 	s.mu.Lock()
@@ -110,10 +117,17 @@ func (s *MemoryStore) save(k string, v any) error {
 	s.mu.Lock()
 	s.m[k] = b
 	s.mu.Unlock()
+	kv.Save("ATSession", k, b)
 	return err
 }
 
-func (s *MemoryStore) drop(k string) error { s.mu.Lock(); delete(s.m, k); s.mu.Unlock(); return nil }
+func (s *MemoryStore) drop(k string) error {
+	s.mu.Lock()
+	delete(s.m, k)
+	s.mu.Unlock()
+	kv.Delete("ATSession", k)
+	return nil
+}
 
 func (s *MemoryStore) GetSession(_ context.Context, did syntax.DID, id string) (*oauth.ClientSessionData, error) {
 	var d oauth.ClientSessionData
