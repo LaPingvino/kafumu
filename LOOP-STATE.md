@@ -455,6 +455,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
 - [~] 64b-2. Meetups on SQLite (sqlstore.Meetups: cell/author/expiry columns, full-field JSON via a tag-only
       mirror struct so a new Meetup field fails to compile rather than vanish; RSVP Update in a transaction);
       tested through meetup.Service incl. reopen; wired in stores() under KAFUMU_SQLITE. Next: accounts.
+- [x] 68. OLN pricing by arrival (Joop: pre-mine for a moment a day ahead; "offset a little"): Note.Recv (node's
+      receive time) drives the area price, not the claimed time (which can sit ±10 min off and dropped out of the
+      10-minute count in seconds: offset-trickle got 30/30 through at base, now ~half); a future stamp buys no
+      extra life. Tests: TestMassRelease, TestOffsetTrickle (fails on the old counting).
 - [ ] 64. Self-hosting and OLN nodes (Joop): run Kafumu outside GAE (plain Go binary + a file/SQL store, no
       memcache), a page on how to self-host and link a node into OLN, and linked nodes on the admin page
       (peers pulled from / pushed to, last seen). Also mention self-hosting on /business.

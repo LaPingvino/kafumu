@@ -64,6 +64,10 @@ type Note struct {
 	Bits      int       `datastore:"bits,noindex" json:"bits"`
 	At        time.Time `datastore:"at,noindex" json:"at"`
 	ExpiresAt time.Time `datastore:"expires_at" json:"expires"`
+	// Recv is when this node received it. The area's price counts arrivals,
+	// not the claimed time: a sender can shift that by up to ten minutes
+	// either way (and pre-mine for a future moment), not when it arrives.
+	Recv time.Time `datastore:"recv,noindex" json:"-"`
 	// Asks: a question's subjects (its tags minus #geo, #lang…, #re…, #ask),
 	// indexed so people with those interests can find it from further away.
 	Asks []string `datastore:"asks" json:"-"`
@@ -323,10 +327,14 @@ func (s *Service) RequiredFor(ctx context.Context, cell string) int {
 	now := s.Now()
 	hour, ten := 0, 0
 	for _, x := range ns {
-		if x.At.After(now.Add(-time.Hour)) {
+		arrived := x.Recv
+		if arrived.IsZero() {
+			arrived = x.At // stored before Recv existed
+		}
+		if arrived.After(now.Add(-time.Hour)) {
 			hour++
 		}
-		if x.At.After(now.Add(-10 * time.Minute)) {
+		if arrived.After(now.Add(-10 * time.Minute)) {
 			ten++
 		}
 	}
@@ -345,6 +353,7 @@ func (s *Service) PostAs(ctx context.Context, raw, author string) (*Note, error)
 	if err != nil {
 		return nil, err
 	}
+	n.Recv = now
 	if old, err := s.Store.Get(ctx, n.ID); err == nil {
 		return old, nil
 	}
@@ -368,7 +377,8 @@ func (s *Service) PostAs(ctx context.Context, raw, author string) (*Note, error)
 	if author == "" {
 		life /= 2
 	}
-	n.ExpiresAt = n.At.Add(life)
+	// Life runs from the claimed time, but a time in the future buys none.
+	n.ExpiresAt = minTime(n.At, now).Add(life)
 	if err := s.Store.Put(ctx, n); err != nil {
 		return nil, err
 	}
@@ -526,4 +536,11 @@ func (s *Service) ForgetAll() {
 	s.mu.Lock()
 	s.cells, s.asks, s.hidden = map[string]cellEntry{}, map[string]cellEntry{}, nil
 	s.mu.Unlock()
+}
+
+func minTime(a, b time.Time) time.Time {
+	if a.Before(b) {
+		return a
+	}
+	return b
 }

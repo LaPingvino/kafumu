@@ -218,3 +218,62 @@ func TestRepeats(t *testing.T) {
 		t.Fatalf("second identical reaction: %v", err)
 	}
 }
+
+// A mass release (Joop): a batch mined ahead of time for one moment, all
+// posted at once in one area. Mining early doesn't make it cheaper: the
+// node prices each message on arrival against what's already there, so
+// as the area fills the cheap ones are refused (402 with a higher
+// need) and the rest of the batch was work for nothing.
+func TestMassRelease(t *testing.T) {
+	s := NewService(NewMemoryStore())
+	at := time.Now().UTC().Add(24 * time.Hour) // the target moment, a day ahead
+	batch := make([]string, 30)
+	for i := range batch {
+		batch[i] = mine(BaseBits, at, fmt.Sprintf("Big sale, stall %d!", i), "#geo8ccgmw")
+	}
+	s.Now = func() time.Time { return at.Add(time.Minute) } // released inside the window
+	ok := 0
+	var need *NeedError
+	for _, raw := range batch {
+		_, err := s.Post(context.Background(), raw)
+		switch {
+		case err == nil:
+			ok++
+		case errors.As(err, &need):
+		default:
+			t.Fatalf("unexpected: %v", err)
+		}
+	}
+	// Mining "at base" overshoots (half the lines have a bit more), so about
+	// half the batch gets in before the price outruns it; the rest is lost.
+	if ok >= 22 || need == nil || need.Need <= BaseBits {
+		t.Fatalf("mass release: %d of 30 pre-mined messages accepted (last need %+v)", ok, need)
+	}
+	t.Logf("mass release: %d of 30 accepted, then the node asked for %d bits", ok, need.Need)
+}
+
+// The same attack, offset (Joop: "you can offset a little and still
+// defend"): every line claims a time 9:50 in the past (still inside the
+// window) and they arrive one every 20 seconds. Counted by claimed time,
+// each would leave the ten-minute count within seconds and the price would
+// never rise; counted by arrival, it rises as with a plain burst.
+func TestOffsetTrickle(t *testing.T) {
+	s := NewService(NewMemoryStore())
+	start := time.Now().UTC()
+	now := start
+	s.Now = func() time.Time { return now }
+	ok := 0
+	for i := 0; i < 30; i++ {
+		now = start.Add(time.Duration(i) * 20 * time.Second)
+		raw := mine(BaseBits, now.Add(-9*time.Minute-50*time.Second), fmt.Sprintf("Cheap watches %d", i), "#geo8ccgmw")
+		if _, err := s.Post(context.Background(), raw); err == nil {
+			ok++
+		} else if _, isNeed := err.(*NeedError); !isNeed {
+			t.Fatalf("unexpected: %v", err)
+		}
+	}
+	if ok >= 22 {
+		t.Fatalf("offset trickle: %d of 30 accepted; the price should rise with arrivals", ok)
+	}
+	t.Logf("offset trickle: %d of 30 accepted", ok)
+}

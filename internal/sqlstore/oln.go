@@ -19,12 +19,13 @@ var _ oln.Store = (*Notes)(nil)
 // noteRow is everything of a note, including what its JSON form leaves out.
 type noteRow struct {
 	oln.Note
-	Asks []string `json:"asks,omitempty"`
-	Pair string   `json:"pair,omitempty"`
+	Asks []string  `json:"asks,omitempty"`
+	Pair string    `json:"pair,omitempty"`
+	Recv time.Time `json:"recv,omitempty"`
 }
 
 func (s *Notes) Put(ctx context.Context, n *oln.Note) error {
-	b, err := json.Marshal(noteRow{Note: *n, Asks: n.Asks, Pair: n.Pair})
+	b, err := json.Marshal(noteRow{Note: *n, Asks: n.Asks, Pair: n.Pair, Recv: n.Recv})
 	if err != nil {
 		return err
 	}
@@ -50,7 +51,7 @@ func scanNotes(rows *sql.Rows) ([]*oln.Note, error) {
 			return nil, err
 		}
 		n := r.Note
-		n.Asks, n.Pair = r.Asks, r.Pair
+		n.Asks, n.Pair, n.Recv = r.Asks, r.Pair, r.Recv
 		out = append(out, &n)
 	}
 	return out, rows.Err()
