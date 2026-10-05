@@ -60,6 +60,7 @@ type Client struct {
 	queued         map[string]bool
 	trickling      bool
 	lastForeground time.Time
+	goodHost       string // the AppView that answered last
 }
 
 type cached struct {
@@ -121,7 +122,15 @@ func (c *Client) Prime(tag string, limit int, posts []Post) {
 func (c *Client) fetch(ctx context.Context, tag string, limit int) ([]Post, error) {
 	q := url.Values{"q": {"#" + tag}, "tag": {tag}, "limit": {fmt.Sprint(limit)}, "sort": {"latest"}}
 	var lastErr error
-	for _, host := range AppViews {
+	// The host that worked last goes first (one of them may refuse this
+	// server for a while: no need to spend a request on it every time).
+	hosts := AppViews
+	c.mu.Lock()
+	if c.goodHost != "" && c.goodHost != hosts[0] {
+		hosts = append([]string{c.goodHost}, hosts...)
+	}
+	c.mu.Unlock()
+	for _, host := range hosts {
 		req, err := http.NewRequestWithContext(ctx, "GET", host+"/xrpc/app.bsky.feed.searchPosts?"+q.Encode(), nil)
 		if err != nil {
 			return nil, err
@@ -139,6 +148,9 @@ func (c *Client) fetch(ctx context.Context, tag string, limit int) ([]Post, erro
 			lastErr = fmt.Errorf("%s: status %d: %v", host, resp.StatusCode, err)
 			continue
 		}
+		c.mu.Lock()
+		c.goodHost = host
+		c.mu.Unlock()
 		return body.posts(tag), nil
 	}
 	return nil, lastErr

@@ -677,7 +677,7 @@ func (h *Home) wideBundle(w http.ResponseWriter, r *http.Request, cells []string
 			tags = append(tags, geo.Tag(c))
 		}
 		if h.Gaz != nil {
-			tags = append(tags, h.Gaz.TownTags(cells, 4)...)
+			tags = append(tags, h.Gaz.TownTags(cells, 6)...) // ~4 towns, accented and plain
 		}
 		for _, tag := range tags {
 			ps, ok := h.Bsky.Cached(tag, 25)

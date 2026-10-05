@@ -1,6 +1,7 @@
 package bsky
 
 import (
+	"context"
 	"net/http"
 	"net/http/httptest"
 	"sync/atomic"
@@ -38,5 +39,24 @@ func TestTrickle(t *testing.T) {
 	c.Later("geo8ccgmw", 25) // fresh in the cache: not queued again
 	if c.QueueLen() != 0 {
 		t.Fatal("a fresh tag was queued")
+	}
+}
+
+// A host that refuses is tried once; then the one that answered goes first.
+func TestGoodHostFirst(t *testing.T) {
+	var bad, good atomic.Int32
+	no := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) { bad.Add(1); w.WriteHeader(403) }))
+	yes := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) { good.Add(1); w.Write([]byte(`{"posts":[]}`)) }))
+	defer no.Close()
+	defer yes.Close()
+	old := AppViews
+	AppViews = []string{no.URL, yes.URL}
+	defer func() { AppViews = old }()
+	c := NewClient()
+	for _, tag := range []string{"a1", "a2", "a3"} {
+		c.SearchTag(context.Background(), tag, 5)
+	}
+	if bad.Load() != 1 || good.Load() != 3 {
+		t.Fatalf("refusing host asked %d times, good one %d", bad.Load(), good.Load())
 	}
 }

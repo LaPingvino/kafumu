@@ -717,6 +717,11 @@ func (g *Gazetteer) TownTags(cells []string, max int) []string {
 			}
 			if tag := townTag(v.name); tag != "" {
 				hits = append(hits, hit{tag, v.pop})
+				// Bluesky ignores case but not accents: #évora and #evora
+				// are different posts, and people write both.
+				if plain := fold(v.name); plain != tag && len(plain) >= 3 {
+					hits = append(hits, hit{plain, v.pop})
+				}
 			}
 		}
 	}

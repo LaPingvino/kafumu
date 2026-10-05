@@ -873,4 +873,8 @@ start (magic link re-binds them after a domain move).
       also cover their towns' tags: gazetteer.TownTags (villages and towns of 1,000+ people, not neighbourhoods,
       biggest first, 4 per band; "#vianadoalentejo #portel" around Évora). Test: a town's cached post reaches
       the wide bundle.
+- [x] 80. Bluesky checked (polish): tag search ignores case (#lisboa = #Lisboa) but not accents (#evora ≠ #évora,
+      different posts): town tags now come accented and plain. public.api.bsky.app answered 403 from the dev
+      machine while api.bsky.app answered: the client now tries the host that answered last first, instead
+      of spending a refused request on every search. Tests: both spellings, refusing host asked once.
 

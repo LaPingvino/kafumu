@@ -195,3 +195,18 @@ func TestCityArea(t *testing.T) {
 		t.Fatalf("Görlitz should be placed without an area, km=%v", km)
 	}
 }
+
+// Town tags come accented and plain (Bluesky treats #évora and #evora as
+// different tags).
+func TestTownTagsAccents(t *testing.T) {
+	g := Load()
+	c := geo.Cell(38.571, -7.909) // Évora
+	tags := g.TownTags(geo.Rings(c, 1), 10)
+	has := map[string]bool{}
+	for _, x := range tags {
+		has[x] = true
+	}
+	if !has["évora"] || !has["evora"] {
+		t.Fatalf("tags around Évora: %v", tags)
+	}
+}
