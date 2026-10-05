@@ -258,7 +258,16 @@ try {
     await A.goto(base + "/card");
     await A.waitFor("!!document.querySelector('.biz-banner') && !!document.getElementById('card-form')", "business card page, synced");
     await A.evaluate("(() => { const f = document.getElementById('card-form'); f.name.value = 'Café card " + RUN + "'; f.requestSubmit(); return true; })()");
-    await A.waitFor("window.kafumuDevice.sync().then(s => s === 'on')", "business card synced up", 20000);
+    { // sync until 'on'; on failure, say what sync kept answering
+      const seen = [];
+      for (let i = 0; ; i++) {
+        const st = await A.evaluate("window.kafumuDevice.sync()");
+        seen.push(st);
+        if (st === "on") break;
+        if (i >= 40) throw new Error("business card never synced: " + seen.join(" "));
+        await sleep(500);
+      }
+    }
     // The business's own named link (76b): on, then its @name page offers
     // Connect, which leads a visitor into connecting with the business.
     await A.goto(base + "/card");
@@ -493,7 +502,17 @@ try {
     await X.evaluate("fetch('/account/delete', { method: 'POST', body: new URLSearchParams({ confirm: 'yes' }), credentials: 'same-origin' }).then(() => true)");
   }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, business account + switched to it (account page swaps) + host as preselected + own @name page + separate business card + its own named link (Connect on its page) + findable like a person + its public inbox + synced to a second manager device (server key) + handed the key to a third device with a matching code (private) + switched back, findable profile seen, named link, paid inbox message + connect back, OLN message + private answer both ways + reaction + elsewhere + travelling + tour + report + question/answer + composer tag suggestions + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
+  // Phones (Joop: "doesn't fit on mobile… check other possible overflows"):
+  // at 390 px nothing may widen the page.
+  await A.send("Emulation.setDeviceMetricsOverride", { width: 390, height: 844, deviceScaleFactor: 2, mobile: true });
+  for (const pg of ["/business", "/account", "/meetups/new", "/card", "/?cell=6fg222"]) {
+    await A.goto(base + pg);
+    await sleep(600);
+    const w = await A.evaluate("document.documentElement.scrollWidth");
+    if (w > 390) throw new Error(pg + " is " + w + " px wide on a 390 px phone");
+  }
+  await A.send("Emulation.clearDeviceMetricsOverride");
+  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, business account + switched to it (account page swaps) + host as preselected + own @name page + separate business card + its own named link (Connect on its page) + findable like a person + its public inbox + synced to a second manager device (server key) + handed the key to a third device with a matching code (private) + switched back, findable profile seen, named link, paid inbox message + connect back, OLN message + private answer both ways + reaction + elsewhere + travelling + tour + report + question/answer + composer tag suggestions + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join + fits a 390 px phone)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

@@ -320,3 +320,9 @@ a.acting span svg.wings.off { color: #c8c8c8; }
 /* Acting as a business: the parts about you are shown, greyed, not editable. */
 fieldset.personal-only { opacity: .5; border: 0; padding: 0; margin: 0; }
 fieldset.personal-only legend { opacity: 1; }
+
+/* Phones: rows of controls wrap instead of running off the screen, and no
+   field (a select with a long business name…) is wider than its column. */
+.inline-row { flex-wrap: wrap; }
+.inline-row > * { min-width: 0; max-width: 100%; }
+select, input, textarea { max-width: 100%; }
