@@ -93,6 +93,8 @@ func main() {
 	accounts.Vault = vault.NewMemoryStore()
 	if db != nil {
 		accounts.Vault = &vault.DatastoreStore{DB: db}
+	} else if sq := sqliteDB(); sq != nil {
+		accounts.Vault = &sqlstore.Vaults{DB: sq}
 	}
 
 	mux := http.NewServeMux()
@@ -274,6 +276,6 @@ var sqliteDB = sync.OnceValue(func() *sql.DB {
 	if err != nil {
 		log.Fatalf("sqlite: %v", err)
 	}
-	log.Printf("stores: SQLite at %s (local messages, meetups, accounts, mailboxes, slots; more to come)", path)
+	log.Printf("stores: SQLite at %s (local messages, meetups, accounts, mailboxes, slots, sync; more to come)", path)
 	return db
 })

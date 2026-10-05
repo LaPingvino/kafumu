@@ -44,4 +44,5 @@ var schema = []string{
 	`CREATE TABLE IF NOT EXISTS box_msgs (box TEXT NOT NULL, id TEXT NOT NULL, data TEXT NOT NULL, at INTEGER, PRIMARY KEY (box, id))`,
 	`CREATE INDEX IF NOT EXISTS box_msgs_at ON box_msgs (box, at)`,
 	`CREATE TABLE IF NOT EXISTS slots (id TEXT PRIMARY KEY, tokens TEXT, expires_at INTEGER)`,
+	`CREATE TABLE IF NOT EXISTS vaults (user TEXT PRIMARY KEY, data BLOB, version INTEGER NOT NULL, updated_at INTEGER)`,
 }
