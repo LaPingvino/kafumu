@@ -368,6 +368,10 @@
       var dev = window.kafumuDevice, pair = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin });
       ready = pair.invite(false).then(function (inv) { text += "\n" + inv.url; });
     }
+    // Every top-level post can be answered privately: a reply key rides along.
+    if (!composeMode.re && answersPair()) ready = ready.then(function () {
+      return answersPair().replyKey(text, 7 * 864e5).then(function (kw) { keywords += " " + kw; myReplyPubs = null; });
+    });
     var asMe = !!(f.asme && f.asme.checked);
     if (f.asme) pref("kafumu.postAsMe", asMe ? "1" : "0");
     ready.then(function () { return window.kafumuOLN.post(text, keywords, bits, function (tries, ms) {
@@ -576,6 +580,66 @@
 
   function hiddenNotes() { try { return JSON.parse(pref("kafumu.hiddenNotes") || "[]"); } catch (e) { return []; } }
   var ownNotes = []; // shown at once, even if another instance's cache lags
+
+  // ---- Private answers (LOOP-STATE 69) ----
+  // Posts carry a reply key; anyone can answer privately, and the
+  // conversation shows in "Private answers" above the feed, on both sides.
+  var aPair = null, myReplyPubs = null, replyPubsReady = Promise.resolve();
+  function answerMine(t, kw, b) { return window.kafumuOLN.post(t, kw, b, function () {}); }
+  function answersPair() {
+    if (!aPair && window.kafumuDevice && window.kafumuPair) aPair = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: window.kafumuDevice.store, origin: location.origin, mine: answerMine });
+    if (aPair && !myReplyPubs) {
+      var pubs = myReplyPubs = {};
+      replyPubsReady = window.kafumuDevice.store.get("replyKeys").then(function (ks) { (ks || []).forEach(function (k) { pubs[k.pub] = true; }); }, function () {});
+    }
+    return aPair;
+  }
+  function drawAnswers() {
+    if (!answersPair()) return Promise.resolve();
+    return aPair.threads().then(function (ts) {
+      var sec = $("answers"), ul = $("answers-list");
+      if (!sec) return;
+      sec.hidden = !ts.length;
+      $("answers-title").textContent = "🔒 " + tr("answers_title");
+      ul.textContent = "";
+      ts.slice().sort(function (a, b) {
+        var la = (a.messages || []).slice(-1)[0] || {}, lb = (b.messages || []).slice(-1)[0] || {};
+        return (lb.at || "").localeCompare(la.at || "");
+      }).slice(0, 20).forEach(function (t) {
+        var li = document.createElement("li");
+        var about = document.createElement("div"); about.className = "dim small";
+        about.textContent = tr("answers_on", { text: (t.post && t.post.text || "").slice(0, 80) }) + (t.unreadMsgs ? " · " + t.unreadMsgs + " ★" : "");
+        li.appendChild(about);
+        (t.messages || []).slice(-6).forEach(function (m) {
+          var p = document.createElement("p"); p.className = m.me ? "chat-me" : "chat-them";
+          p.textContent = (m.me ? "→ " : "← ") + m.text;
+          li.appendChild(p);
+        });
+        var form = document.createElement("form"); form.className = "inline-row";
+        var inp = document.createElement("input"); inp.maxLength = 500; inp.placeholder = tr("answer_reply"); inp.required = true;
+        var go = document.createElement("button"); go.type = "submit"; go.className = "pill-sm"; go.textContent = tr("answer_send");
+        form.appendChild(inp); form.appendChild(go); li.appendChild(form);
+        form.onsubmit = function (e) {
+          e.preventDefault(); go.disabled = true;
+          var text = inp.value;
+          aPair.sendChat(t, text, answerMine).then(function (at) {
+            t.messages = (t.messages || []).concat([{ me: true, text: text, at: at }]).slice(-200);
+            return aPair.putThread(t);
+          }).then(drawAnswers, function () { go.disabled = false; });
+        };
+        ul.appendChild(li);
+        if (t.unreadMsgs) { t.unreadMsgs = 0; aPair.putThread(t); }
+      });
+    });
+  }
+  function pollAnswers() {
+    if (!answersPair()) return;
+    aPair.readAnswers().then(drawAnswers, drawAnswers).then(function () {
+      setTimeout(function () { if (!document.hidden) pollAnswers(); }, 60000);
+    });
+  }
+  setTimeout(pollAnswers, 1500);
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) pollAnswers(); });
   // Notes, questions and answers. A question is a note tagged #ask (with a
   // connect code for private answers); a public answer is tagged #re<id>
   // and shown under it. Questions matching your own tags come first.
@@ -592,7 +656,7 @@
     }
     meta.appendChild(document.createTextNode((n.author ? "@" + n.author + " ✓ · " : "") + (opts.forYou ? "★ " + tr("ask_for_you") + " · " : "") + ago(n.at) + " · ⚡" + n.bits + " · " +
       tr("oln_left", { h: left < 1 ? "<1" : Math.round(left) }) +
-      (n.tags || []).filter(function (t) { return !/^(geo|re[0-9a-f]{10}$|ask$)/.test(t); }).map(function (t) { return " #" + t; }).join("")));
+      (n.tags || []).filter(function (t) { return !/^(geo|re[0-9a-f]{10}$|ask$|rk[ab][0-9a-f]{33}$)/.test(t); }).map(function (t) { return " #" + t; }).join("")));
     var text = document.createElement("p");
     text.className = "text";
     var m = n.text.match(/https?:\/\/[^\s]+\/c#v1\.[A-Za-z0-9_-]+/);
@@ -605,6 +669,27 @@
       join.href = m[0]; join.setAttribute("role", "button"); join.className = "pill-sm suggested";
       join.textContent = opts.question ? "🔒 " + tr("ask_private") : "☕ " + tr("coffee_join");
       row.appendChild(join);
+    }
+    var rk = answersPair() && answersPair().replyKeyOf(n.tags);
+    if (rk && !opts.reply) {
+      var pa = document.createElement("button");
+      pa.type = "button"; pa.className = "pill-sm"; pa.textContent = "🔒 " + tr("answer_private");
+      pa.onclick = function () {
+        if (li.querySelector(".answer-form")) return;
+        var form = document.createElement("form"); form.className = "answer-form inline-row";
+        var inp = document.createElement("input"); inp.name = "text"; inp.maxLength = 500; inp.placeholder = tr("answer_placeholder"); inp.required = true;
+        var go = document.createElement("button"); go.type = "submit"; go.className = "pill-sm suggested"; go.textContent = tr("answer_send");
+        var st = document.createElement("p"); st.className = "dim small"; st.setAttribute("role", "status");
+        form.appendChild(inp); form.appendChild(go); li.appendChild(form); li.appendChild(st);
+        form.onsubmit = function (e) {
+          e.preventDefault(); go.disabled = true; st.textContent = tr("oln_working", { n: 0 });
+          answersPair().answer(n, inp.value, answerMine).then(function () { form.remove(); st.textContent = "🔒 " + tr("answer_sent"); drawAnswers(); },
+            function () { go.disabled = false; st.textContent = tr("answer_failed"); });
+        };
+        inp.focus();
+      };
+      // Only on others' posts: added once we know which keys are ours.
+      replyPubsReady.then(function () { if (!myReplyPubs[rk]) row.insertBefore(pa, row.firstChild); });
     }
     if (opts.question) {
       var ans = document.createElement("button");

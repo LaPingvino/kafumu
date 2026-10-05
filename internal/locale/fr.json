@@ -564,5 +564,13 @@
   "biz.device_only": "Cette carte et ces contacts appartiennent à l'entreprise, à part des tiens ; pour l'instant ils restent sur cet appareil.",
   "biz.switch": "Changer",
   "biz.paid_until": "Payé jusqu'au",
-  "biz.paid_over": "La période payée est terminée ; nous te contacterons."
+  "biz.paid_over": "La période payée est terminée ; nous te contacterons.",
+  "js.answer_private": "Répondre en privé",
+  "js.answer_placeholder": "Ta réponse : seule la personne qui a publié peut la lire",
+  "js.answer_send": "Envoyer",
+  "js.answer_sent": "Envoyé en privé. La conversation continue sous Réponses privées.",
+  "js.answers_title": "Réponses privées",
+  "js.answers_on": "sur « {text} »",
+  "js.answer_reply": "Répondre en privé",
+  "js.answer_failed": "Envoi impossible. Réessaie."
 }

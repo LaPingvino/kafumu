@@ -564,5 +564,13 @@
   "biz.device_only": "Ĉi tiu karto kaj ĉi tiuj kontaktoj apartenas al la komerco, aparte de viaj propraj; nuntempe ili restas en ĉi tiu aparato.",
   "biz.switch": "Ŝanĝi",
   "biz.paid_until": "Pagita ĝis",
-  "biz.paid_over": "La pagita periodo finiĝis; ni kontaktos vin."
+  "biz.paid_over": "La pagita periodo finiĝis; ni kontaktos vin.",
+  "js.answer_private": "Respondi private",
+  "js.answer_placeholder": "Via respondo: nur la afiŝinto povas legi ĝin",
+  "js.answer_send": "Sendi",
+  "js.answer_sent": "Sendita private. La konversacio daŭras sub Privataj respondoj.",
+  "js.answers_title": "Privataj respondoj",
+  "js.answers_on": "pri “{text}”",
+  "js.answer_reply": "Respondi private",
+  "js.answer_failed": "Ne eblis sendi. Provu denove."
 }

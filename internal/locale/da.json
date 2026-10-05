@@ -564,5 +564,13 @@
   "biz.device_only": "Dette kort og disse kontakter tilhører virksomheden, adskilt fra dine egne; indtil videre bliver de på denne enhed.",
   "biz.switch": "Skift",
   "biz.paid_until": "Betalt til",
-  "biz.paid_over": "Den betalte periode er slut; vi kontakter dig."
+  "biz.paid_over": "Den betalte periode er slut; vi kontakter dig.",
+  "js.answer_private": "Svar privat",
+  "js.answer_placeholder": "Dit svar: kun den, der skrev, kan læse det",
+  "js.answer_send": "Send",
+  "js.answer_sent": "Sendt privat. Samtalen fortsætter under Private svar.",
+  "js.answers_title": "Private svar",
+  "js.answers_on": "på “{text}”",
+  "js.answer_reply": "Svar privat",
+  "js.answer_failed": "Kunne ikke sende. Prøv igen."
 }

@@ -564,5 +564,13 @@
   "biz.device_only": "Det här kortet och de här kontakterna tillhör företaget, skilda från dina egna; tills vidare stannar de på den här enheten.",
   "biz.switch": "Byt",
   "biz.paid_until": "Betalt till",
-  "biz.paid_over": "Den betalda perioden är slut; vi hör av oss."
+  "biz.paid_over": "Den betalda perioden är slut; vi hör av oss.",
+  "js.answer_private": "Svara privat",
+  "js.answer_placeholder": "Ditt svar: bara den som skrev kan läsa det",
+  "js.answer_send": "Skicka",
+  "js.answer_sent": "Skickat privat. Samtalet fortsätter under Privata svar.",
+  "js.answers_title": "Privata svar",
+  "js.answers_on": "på ”{text}”",
+  "js.answer_reply": "Svara privat",
+  "js.answer_failed": "Kunde inte skicka. Försök igen."
 }

@@ -564,5 +564,13 @@
   "biz.device_only": "Ta wizytówka i te kontakty należą do firmy, osobno od twoich; na razie zostają na tym urządzeniu.",
   "biz.switch": "Przełącz",
   "biz.paid_until": "Opłacone do",
-  "biz.paid_over": "Opłacony okres się skończył; odezwiemy się."
+  "biz.paid_over": "Opłacony okres się skończył; odezwiemy się.",
+  "js.answer_private": "Odpowiedz prywatnie",
+  "js.answer_placeholder": "Twoja odpowiedź: przeczyta ją tylko autor wpisu",
+  "js.answer_send": "Wyślij",
+  "js.answer_sent": "Wysłano prywatnie. Rozmowa toczy się dalej w Prywatnych odpowiedziach.",
+  "js.answers_title": "Prywatne odpowiedzi",
+  "js.answers_on": "na „{text}”",
+  "js.answer_reply": "Odpowiedz prywatnie",
+  "js.answer_failed": "Nie udało się wysłać. Spróbuj ponownie."
 }

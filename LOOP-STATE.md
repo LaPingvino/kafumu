@@ -493,7 +493,11 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       and reads follow-ups with readChat (saveThing → threads). pair_test: post, answer, read, reply, no dupes,
       keyless post refuses. Next 69b: UI (composer adds the key; "Answer privately" on posts with one; answers
       under your posts; hide #rka/#rkb from tag lists; poll on Around).
-- [ ] 69. Private answers to anonymous posts (Joop: "OLN should also enable privately answering anonymous
+- [x] 69b. UI: every top-level post carries a reply key; others' posts get "🔒 Answer privately" (inline form;
+      added only after the own-keys set loaded, so never on your own post); "🔒 Private answers" above the feed
+      lists threads with the post they're about, last lines, a reply box; polled on open, every minute and on
+      return to the tab; #rka/#rkb hidden from tag lists. Browser test: B answers A's post, A replies, B reads.
+- [x] 69. Private answers to anonymous posts (Joop: "OLN should also enable privately answering anonymous
       posts"): posting, the device makes a reply key per post (P-256) and adds its public half as a keyword
       (#rk<b64>; format-level, any OLN client can use it). Answering: encrypt to it (ephemeral ECDH), post as a
       pair note under #p<hash of the reply key> (no place, base work, a week), fetched with credentials omitted.

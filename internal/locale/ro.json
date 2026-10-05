@@ -564,5 +564,13 @@
   "biz.device_only": "Acest card și aceste contacte aparțin firmei, separat de ale tale; deocamdată rămân pe acest dispozitiv.",
   "biz.switch": "Schimbă",
   "biz.paid_until": "Plătit până la",
-  "biz.paid_over": "Perioada plătită s-a încheiat; te vom contacta."
+  "biz.paid_over": "Perioada plătită s-a încheiat; te vom contacta.",
+  "js.answer_private": "Răspunde în privat",
+  "js.answer_placeholder": "Răspunsul tău: doar autorul îl poate citi",
+  "js.answer_send": "Trimite",
+  "js.answer_sent": "Trimis în privat. Conversația continuă la Răspunsuri private.",
+  "js.answers_title": "Răspunsuri private",
+  "js.answers_on": "la „{text}”",
+  "js.answer_reply": "Răspunde în privat",
+  "js.answer_failed": "Nu s-a putut trimite. Încearcă din nou."
 }

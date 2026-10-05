@@ -564,5 +564,13 @@
   "biz.device_only": "Tahle vizitka a tyto kontakty patří firmě, odděleně od tvých; zatím zůstávají na tomto zařízení.",
   "biz.switch": "Přepnout",
   "biz.paid_until": "Zaplaceno do",
-  "biz.paid_over": "Zaplacené období skončilo; ozveme se."
+  "biz.paid_over": "Zaplacené období skončilo; ozveme se.",
+  "js.answer_private": "Odpovědět soukromě",
+  "js.answer_placeholder": "Tvoje odpověď: přečte ji jen autor",
+  "js.answer_send": "Odeslat",
+  "js.answer_sent": "Odesláno soukromě. Konverzace pokračuje v Soukromých odpovědích.",
+  "js.answers_title": "Soukromé odpovědi",
+  "js.answers_on": "na „{text}“",
+  "js.answer_reply": "Odpovědět soukromě",
+  "js.answer_failed": "Odeslání se nepovedlo. Zkus to znovu."
 }

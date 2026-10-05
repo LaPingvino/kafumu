@@ -86,6 +86,23 @@ try {
     try { await B.waitFor("document.getElementById('feed').textContent.includes('hi from the OLN " + RUN + "')", "B sees A's message", 8000); break; }
     catch (e) { if (i >= 6) throw e; }
   }
+  // Private answers (slice 69): B answers A's anonymous post privately; A
+  // sees it under Private answers and replies; B sees the reply.
+  const pickPrivate = "[...[...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')).querySelectorAll('.actions button')].find(b => b.textContent.startsWith('🔒'))";
+  await B.waitFor("!!" + pickPrivate, "Answer privately on A's post");
+  await B.evaluate(pickPrivate + ".click(); true");
+  await B.waitFor("!!document.querySelector('.answer-form input')", "private answer form");
+  await B.evaluate("(() => { const f = document.querySelector('.answer-form'); f.text.value = 'Private hello back " + RUN + "'; f.requestSubmit(); return true; })()");
+  await B.waitFor("document.getElementById('feed').textContent.includes('🔒')  && !document.querySelector('.answer-form')", "private answer sent", 30000);
+  await A.goto(base + "/?cell=6fg223");
+  await A.waitFor("!document.getElementById('answers').hidden && document.getElementById('answers-list').textContent.includes('Private hello back " + RUN + "')", "A gets the private answer", 30000);
+  await A.evaluate("(() => { const f = document.querySelector('#answers-list form'); f.querySelector('input').value = 'Thanks, see you " + RUN + "'; f.requestSubmit(); return true; })()");
+  await A.waitFor("document.getElementById('answers-list').textContent.includes('→ Thanks, see you " + RUN + "')", "A's reply shown", 30000);
+  await B.goto(base + "/?cell=6fg223");
+  await B.waitFor("document.getElementById('answers-list').textContent.includes('← Thanks, see you " + RUN + "')", "B gets A's reply", 30000);
+  // A's own post offers no private answer to itself.
+  const selfAnswer = await A.evaluate("!![...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "'))?.textContent.includes('🔒')");
+  if (selfAnswer) throw new Error("own post offers a private answer");
   // Questions: A asks; B gets it (with a private-answer button) and answers
   // publicly; the answer shows under the question.
   await A.evaluate("(() => { document.getElementById('ask').click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test: best pastel de nata nearby? " + RUN + "'; f.tags.value = 'food'; f.requestSubmit(); return true; })()");
@@ -95,7 +112,7 @@ try {
     try { await B.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('pastel de nata') && li.querySelector('a[href*=\"/c#v1.\"]'))", "B sees the question with a private-answer button", 8000); break; }
     catch (e) { if (i >= 8) throw e; }
   }
-  await B.evaluate("(() => { [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('pastel de nata')).querySelectorAll('button')[0].click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test answer: Manteigaria " + RUN + "'; f.requestSubmit(); return true; })()");
+  await B.evaluate("(() => { [...[...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('pastel de nata')).querySelectorAll('button')].find(b => b.textContent.startsWith('💬')).click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test answer: Manteigaria " + RUN + "'; f.requestSubmit(); return true; })()");
   await B.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('pastel de nata') && li.querySelector('.replies') && li.querySelector('.replies').textContent.includes('Manteigaria'))", "answer threaded under the question", 30000);
 
   // Card themes from local activity: the "food" question tag shows up as a
@@ -387,7 +404,7 @@ try {
     await X.evaluate("fetch('/account/delete', { method: 'POST', body: new URLSearchParams({ confirm: 'yes' }), credentials: 'same-origin' }).then(() => true)");
   }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, business account + switched to it + host as preselected + own @name page + separate business card + switched back, findable profile seen, named link, paid inbox message + connect back, OLN message + reaction + elsewhere + travelling + tour + report + question/answer + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, business account + switched to it + host as preselected + own @name page + separate business card + switched back, findable profile seen, named link, paid inbox message + connect back, OLN message + private answer both ways + reaction + elsewhere + travelling + tour + report + question/answer + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

@@ -564,5 +564,13 @@
   "biz.device_only": "Diese Karte und diese Kontakte gehören dem Unternehmen, getrennt von deinen eigenen; vorerst bleiben sie auf diesem Gerät.",
   "biz.switch": "Wechseln",
   "biz.paid_until": "Bezahlt bis",
-  "biz.paid_over": "Der bezahlte Zeitraum ist vorbei; wir melden uns."
+  "biz.paid_over": "Der bezahlte Zeitraum ist vorbei; wir melden uns.",
+  "js.answer_private": "Privat antworten",
+  "js.answer_placeholder": "Deine Antwort: nur die Person, die gepostet hat, kann sie lesen",
+  "js.answer_send": "Senden",
+  "js.answer_sent": "Privat gesendet. Das Gespräch geht unter Private Antworten weiter.",
+  "js.answers_title": "Private Antworten",
+  "js.answers_on": "zu „{text}“",
+  "js.answer_reply": "Privat antworten",
+  "js.answer_failed": "Senden fehlgeschlagen. Versuch es noch einmal."
 }

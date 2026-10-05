@@ -564,5 +564,13 @@
   "biz.device_only": "Questo biglietto e questi contatti sono dell'attività, separati dai tuoi; per ora restano su questo dispositivo.",
   "biz.switch": "Cambia",
   "biz.paid_until": "Pagato fino al",
-  "biz.paid_over": "Il periodo pagato è finito; ci faremo sentire."
+  "biz.paid_over": "Il periodo pagato è finito; ci faremo sentire.",
+  "js.answer_private": "Rispondi in privato",
+  "js.answer_placeholder": "La tua risposta: solo chi ha pubblicato può leggerla",
+  "js.answer_send": "Invia",
+  "js.answer_sent": "Inviato in privato. La conversazione continua in Risposte private.",
+  "js.answers_title": "Risposte private",
+  "js.answers_on": "su “{text}”",
+  "js.answer_reply": "Rispondi in privato",
+  "js.answer_failed": "Invio non riuscito. Riprova."
 }

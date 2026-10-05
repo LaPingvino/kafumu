@@ -564,5 +564,13 @@
   "biz.device_only": "Ez a névjegy és ezek a kapcsolatok a vállalkozáséi, a sajátjaidtól külön; egyelőre ezen az eszközön maradnak.",
   "biz.switch": "Váltás",
   "biz.paid_until": "Kifizetve eddig:",
-  "biz.paid_over": "A kifizetett időszak lejárt; jelentkezünk."
+  "biz.paid_over": "A kifizetett időszak lejárt; jelentkezünk.",
+  "js.answer_private": "Privát válasz",
+  "js.answer_placeholder": "A válaszod: csak a szerző olvashatja",
+  "js.answer_send": "Küldés",
+  "js.answer_sent": "Privátban elküldve. A beszélgetés a Privát válaszok alatt folytatódik.",
+  "js.answers_title": "Privát válaszok",
+  "js.answers_on": "erre: „{text}”",
+  "js.answer_reply": "Privát válasz",
+  "js.answer_failed": "Nem sikerült elküldeni. Próbáld újra."
 }

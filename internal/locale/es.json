@@ -564,5 +564,13 @@
   "biz.device_only": "Esta tarjeta y estos contactos son del negocio, separados de los tuyos; por ahora se quedan en este dispositivo.",
   "biz.switch": "Cambiar",
   "biz.paid_until": "Pagado hasta",
-  "biz.paid_over": "El periodo pagado terminó; nos pondremos en contacto."
+  "biz.paid_over": "El periodo pagado terminó; nos pondremos en contacto.",
+  "js.answer_private": "Responder en privado",
+  "js.answer_placeholder": "Tu respuesta: solo quien publicó puede leerla",
+  "js.answer_send": "Enviar",
+  "js.answer_sent": "Enviado en privado. La conversación sigue en Respuestas privadas.",
+  "js.answers_title": "Respuestas privadas",
+  "js.answers_on": "sobre “{text}”",
+  "js.answer_reply": "Responder en privado",
+  "js.answer_failed": "No se pudo enviar. Inténtalo de nuevo."
 }

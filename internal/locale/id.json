@@ -564,5 +564,13 @@
   "biz.device_only": "Kartu dan kontak ini milik bisnis, terpisah dari milikmu sendiri; untuk sekarang hanya ada di perangkat ini.",
   "biz.switch": "Ganti",
   "biz.paid_until": "Dibayar sampai",
-  "biz.paid_over": "Masa berbayar sudah berakhir; kami akan menghubungimu."
+  "biz.paid_over": "Masa berbayar sudah berakhir; kami akan menghubungimu.",
+  "js.answer_private": "Jawab secara pribadi",
+  "js.answer_placeholder": "Jawabanmu hanya bisa dibaca pemilik postingan",
+  "js.answer_send": "Kirim",
+  "js.answer_sent": "Terkirim secara pribadi. Percakapan berlanjut di Jawaban pribadi.",
+  "js.answers_title": "Jawaban pribadi",
+  "js.answers_on": "tentang “{text}”",
+  "js.answer_reply": "Balas secara pribadi",
+  "js.answer_failed": "Gagal mengirim. Coba lagi."
 }

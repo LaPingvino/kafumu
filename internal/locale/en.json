@@ -564,5 +564,13 @@
   "biz.device_only": "This card and these contacts belong to the business, kept apart from your own; for now they stay on this device.",
   "biz.switch": "Switch",
   "biz.paid_until": "Paid until",
-  "biz.paid_over": "The paid period is over; we'll be in touch."
+  "biz.paid_over": "The paid period is over; we'll be in touch.",
+  "js.answer_private": "Answer privately",
+  "js.answer_placeholder": "Your answer: only the poster can read it",
+  "js.answer_send": "Send",
+  "js.answer_sent": "Sent privately. The conversation continues under Private answers.",
+  "js.answers_title": "Private answers",
+  "js.answers_on": "on “{text}”",
+  "js.answer_reply": "Reply privately",
+  "js.answer_failed": "Couldn't send. Try again."
 }

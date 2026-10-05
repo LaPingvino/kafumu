@@ -564,5 +564,13 @@
   "biz.device_only": "Bu kart ve bu kişiler işletmeye ait, seninkilerden ayrı; şimdilik bu cihazda kalıyorlar.",
   "biz.switch": "Değiştir",
   "biz.paid_until": "Şu tarihe kadar ödendi:",
-  "biz.paid_over": "Ödenen dönem bitti; sizinle iletişime geçeceğiz."
+  "biz.paid_over": "Ödenen dönem bitti; sizinle iletişime geçeceğiz.",
+  "js.answer_private": "Özel yanıtla",
+  "js.answer_placeholder": "Yanıtın: yalnızca paylaşan kişi okuyabilir",
+  "js.answer_send": "Gönder",
+  "js.answer_sent": "Özel olarak gönderildi. Sohbet Özel yanıtlar altında sürüyor.",
+  "js.answers_title": "Özel yanıtlar",
+  "js.answers_on": "“{text}” hakkında",
+  "js.answer_reply": "Özel yanıtla",
+  "js.answer_failed": "Gönderilemedi. Tekrar dene."
 }

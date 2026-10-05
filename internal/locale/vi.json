@@ -564,5 +564,13 @@
   "biz.device_only": "Danh thiếp và danh bạ này thuộc về doanh nghiệp, tách biệt với của bạn; hiện chỉ lưu trên thiết bị này.",
   "biz.switch": "Đổi",
   "biz.paid_until": "Đã thanh toán đến",
-  "biz.paid_over": "Thời hạn đã thanh toán đã hết; chúng tôi sẽ liên hệ với bạn."
+  "biz.paid_over": "Thời hạn đã thanh toán đã hết; chúng tôi sẽ liên hệ với bạn.",
+  "js.answer_private": "Trả lời riêng",
+  "js.answer_placeholder": "Câu trả lời của bạn chỉ người đăng đọc được",
+  "js.answer_send": "Gửi",
+  "js.answer_sent": "Đã gửi riêng. Cuộc trò chuyện tiếp tục trong mục Trả lời riêng.",
+  "js.answers_title": "Trả lời riêng",
+  "js.answers_on": "về “{text}”",
+  "js.answer_reply": "Trả lời riêng",
+  "js.answer_failed": "Không gửi được. Hãy thử lại."
 }

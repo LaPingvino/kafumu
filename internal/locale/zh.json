@@ -564,5 +564,13 @@
   "biz.device_only": "这张名片和这些联系人属于商家，与你个人的分开；目前只保存在这台设备上。",
   "biz.switch": "切换",
   "biz.paid_until": "已付费至",
-  "biz.paid_over": "付费期已结束；我们会与你联系。"
+  "biz.paid_over": "付费期已结束；我们会与你联系。",
+  "js.answer_private": "私下回复",
+  "js.answer_placeholder": "你的回复只有发帖人能看到",
+  "js.answer_send": "发送",
+  "js.answer_sent": "已私下发送。对话会在“私下回复”中继续。",
+  "js.answers_title": "私下回复",
+  "js.answers_on": "关于“{text}”",
+  "js.answer_reply": "私下回复",
+  "js.answer_failed": "发送失败，请重试。"
 }

@@ -564,5 +564,13 @@
   "biz.device_only": "이 카드와 연락처는 비즈니스의 것으로, 개인 것과 따로 보관돼요. 지금은 이 기기에만 있어요.",
   "biz.switch": "전환",
   "biz.paid_until": "결제 기간 만료일",
-  "biz.paid_over": "결제 기간이 끝났어요. 곧 연락드릴게요."
+  "biz.paid_over": "결제 기간이 끝났어요. 곧 연락드릴게요.",
+  "js.answer_private": "비공개로 답하기",
+  "js.answer_placeholder": "내 답장은 글쓴이만 읽을 수 있어요",
+  "js.answer_send": "보내기",
+  "js.answer_sent": "비공개로 보냈어요. 대화는 '비공개 답장'에서 이어져요.",
+  "js.answers_title": "비공개 답장",
+  "js.answers_on": "“{text}”에 대해",
+  "js.answer_reply": "비공개로 답하기",
+  "js.answer_failed": "보내지 못했어요. 다시 시도해 주세요."
 }

@@ -564,5 +564,13 @@
   "biz.device_only": "這張名片和這些聯絡人屬於商家，與你個人的分開；目前只保存在這台裝置上。",
   "biz.switch": "切換",
   "biz.paid_until": "已付費至",
-  "biz.paid_over": "付費期已結束；我們會與你聯絡。"
+  "biz.paid_over": "付費期已結束；我們會與你聯絡。",
+  "js.answer_private": "私下回覆",
+  "js.answer_placeholder": "你的回覆只有發文者能看到",
+  "js.answer_send": "送出",
+  "js.answer_sent": "已私下送出。對話會在「私下回覆」中繼續。",
+  "js.answers_title": "私下回覆",
+  "js.answers_on": "關於「{text}」",
+  "js.answer_reply": "私下回覆",
+  "js.answer_failed": "送出失敗，請再試一次。"
 }
