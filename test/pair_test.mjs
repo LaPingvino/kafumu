@@ -127,4 +127,43 @@ check(got2 && got2.contacts.length === 40 && got2.contacts[39].card.name === "Pe
 check((await N.pair.moveReceive()) === null, "move chunks acked");
 
 if (fail) process.exit(1);
-console.log("ok  static/pair.js handshake (A↔B, A↔C, isolation, signal) + friends around + replaced codes + badge + public inbox + move to new device");
+// Private answers to an anonymous post (slice 69): A posts with a reply
+// key, B answers privately, A reads it and answers back on the same thread.
+{
+  const salt = new TextEncoder().encode("OLN-v2-proofwork");
+  const mineOLN = async (text, keywords, bits) => {
+    const date = new Date().toISOString().replace(/[-:T]/g, "").slice(0, 14), b64t = Buffer.from(text, "utf8").toString("base64url");
+    for (let n = 0; ; n++) {
+      const line = `v2;${n};${date};${b64t};${keywords}`;
+      const h = await hashwasm.argon2id({ password: line, salt, parallelism: 1, iterations: 1, memorySize: 4096, hashLength: 32, outputType: "binary" });
+      let z = 0; for (const b of h) { if (b === 0) { z += 8; continue; } z += Math.clz32(b) - 24; break; }
+      if (z < bits) continue;
+      const r = await fetch(base + "/api/oln", { method: "POST", body: line });
+      if (r.status === 402) return mineOLN(text, keywords, (await r.json()).need);
+      if (!r.ok) throw new Error("oln " + r.status + " " + await r.text());
+      return r.json();
+    }
+  };
+  const P = device("Poster"), Q = device("Answerer");
+  const text = "Anyone up for a run along the river at 7? " + Date.now();
+  const kw = await P.pair.replyKey(text, 36e5);
+  check(/^#rka[0-9a-f]{33} #rkb[0-9a-f]{33}$/.test(kw), "reply key keywords " + kw);
+  const note = await mineOLN(text, "#geo6fg222 " + kw, 4);
+  check(Q.pair.replyKeyOf(note.tags) !== null, "the post carries its reply key");
+  const t = await Q.pair.answer(note, "Yes! Meet at the bridge? 🙂", mineOLN);
+  check(t.answer && t.role === 1, "answerer keeps a thread");
+  check(await P.pair.readAnswers() === 1, "poster takes in one answer");
+  const [pt] = await P.pair.threads();
+  check(pt && pt.messages[0].text === "Yes! Meet at the bridge? 🙂" && pt.post.text === text, "poster reads the answer next to the post");
+  check(await P.pair.readAnswers() === 0, "no answer twice");
+  await P.pair.sendChat(pt, "See you there.", mineOLN);
+  check(await Q.pair.readAnswers() === 1, "answerer gets the reply");
+  const [qt] = await Q.pair.threads();
+  check(qt.messages.some((m) => !m.me && m.text === "See you there."), "reply on the same thread");
+  check((await P.store.contacts()).length === 0 && (await Q.store.contacts()).length === 0, "answers are not contacts");
+  let refused = false;
+  try { await Q.pair.answer({ id: "x", text: "no key", tags: ["geo6fg222"] }, "hi", mineOLN); } catch { refused = true; }
+  check(refused, "a post without a reply key takes no private answers");
+}
+
+console.log("ok  static/pair.js handshake (A↔B, A↔C, isolation, signal) + private answers to an anonymous post + friends around + replaced codes + badge + public inbox + move to new device");

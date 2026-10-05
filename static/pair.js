@@ -649,11 +649,126 @@
               return n + 1;
             }, function () { return n; }); // not for us, or tampered
           });
-        }, Promise.resolve(0)).then(function (n) { return (fresh.length ? store.putContact(c) : Promise.resolve()).then(function () { return n; }); });
+        }, Promise.resolve(0)).then(function (n) { return (fresh.length ? saveThing(c) : Promise.resolve()).then(function () { return n; }); });
       });
     }
 
-    return { flush: flush, outboxSize: outboxSize, sendChat: sendChat, readChat: readChat, report: report, namedLink: namedLink, shortLink: shortLink, inbox: inbox, writeTo: writeTo, readInbox: readInbox, connectBack: connectBack, checkIn: checkIn, around: around, invite: invite, accept: accept, moveSend: moveSend, moveReceive: moveReceive, checkInvite: checkInvite, checkContact: checkContact, send: send,
+    // ---- Private answers to anonymous posts (LOOP-STATE 69) ----
+    // Posting, the device makes a reply key for that post; its public half
+    // rides along as two keywords (#rka/#rkb: the compressed P-256 point in
+    // hex, split to fit keyword limits). Anyone can answer: a one-off key,
+    // a pair key as between contacts, the first line on a tag derived from
+    // the reply key (its one-off public key in front), and from then on the
+    // ordinary private chat on that pair key. The server sees ciphertext;
+    // neither side learns who the other is unless they choose to.
+    var P256 = BigInt("0xffffffff00000001000000000000000000000000ffffffffffffffffffffffff");
+    var P256B = BigInt("0x5ac635d8aa3a93e7b3ebbd55769886bc651d06b0cc53b0f63bce3c3e27d2604b");
+    function modpow(b, e, m) { var r = BigInt(1); b %= m; while (e > 0) { if (e & BigInt(1)) r = r * b % m; b = b * b % m; e >>= BigInt(1); } return r; }
+    function bigOf(bytes) { return BigInt("0x" + hex(bytes)); }
+    function bytesOf(n) { var h = n.toString(16).padStart(64, "0"), o = new Uint8Array(32); for (var i = 0; i < 32; i++) o[i] = parseInt(h.substr(i * 2, 2), 16); return o; }
+    function compress(raw) { var o = new Uint8Array(33); o[0] = 2 + (raw[64] & 1); o.set(raw.slice(1, 33), 1); return o; }
+    function decompress(c) {
+      var x = bigOf(c.slice(1)), rhs = ((x * x % P256 - BigInt(3)) * x + P256B) % P256;
+      if (rhs < 0) rhs += P256;
+      var y = modpow(rhs, (P256 + BigInt(1)) / BigInt(4), P256);
+      if (Number(y & BigInt(1)) !== (c[0] & 1)) y = P256 - y;
+      var o = new Uint8Array(65); o[0] = 4; o.set(c.slice(1), 1); o.set(bytesOf(y), 33);
+      return o;
+    }
+    function unhex(h) { var o = new Uint8Array(h.length / 2); for (var i = 0; i < o.length; i++) o[i] = parseInt(h.substr(i * 2, 2), 16); return o; }
+    function answerTag(rkRaw) {
+      return subtle.digest("SHA-256", concat(enc.encode("kafumu answer v1|"), rkRaw)).then(function (h) { return "p" + hex(new Uint8Array(h)).slice(0, 32); });
+    }
+    // replyKey makes a post's reply key; returns the keywords to add. The
+    // key is kept (with the post's text, to show answers next to it) until
+    // the post's life is over plus a week.
+    function replyKey(text, lifeMs) {
+      return genKey(true).then(function (k) {
+        return Promise.all([rawPub(k), subtle.exportKey("jwk", k.privateKey)]).then(function (r) {
+          var h = hex(compress(r[0]));
+          return answerTag(r[0]).then(function (tag) {
+            return store.get("replyKeys").then(function (ks) {
+              var until = Date.now() + (lifeMs || 864e5) + 7 * 864e5;
+              ks = (ks || []).filter(function (x) { return x.until > Date.now(); })
+                .concat([{ tag: tag, pub: h, privJwk: r[1], text: String(text || "").slice(0, 140), until: until }]).slice(-100);
+              return store.set("replyKeys", ks).then(function () { return "#rka" + h.slice(0, 33) + " #rkb" + h.slice(33); });
+            });
+          });
+        });
+      });
+    }
+    // replyKeyOf: a post's reply key from its tags, or null.
+    function replyKeyOf(tags) {
+      var a = (tags || []).filter(function (t) { return /^rka[0-9a-f]{33}$/.test(t); })[0], b = (tags || []).filter(function (t) { return /^rkb[0-9a-f]{33}$/.test(t); })[0];
+      return a && b ? a.slice(3) + b.slice(3) : null;
+    }
+    function threads() { return store.get("answers").then(function (t) { return t || []; }); }
+    function putThread(c) {
+      return threads().then(function (ts) {
+        ts = ts.filter(function (x) { return x.id !== c.id; }).concat([c]);
+        return store.set("answers", ts.slice(-200));
+      });
+    }
+    function saveThing(c) { return c.answer ? putThread(c) : store.putContact(c); }
+    // answer sends a private answer to a post (note: {id, text, tags}).
+    function answer(note, text, mine) {
+      var h = replyKeyOf(note.tags);
+      if (!h) return Promise.reject(new Error("this post takes no private answers"));
+      var rkRaw = decompress(unhex(h)), at = new Date().toISOString(), body = Array.from(String(text)).slice(0, 500).join("");
+      return genKey().then(function (k) {
+        return rawPub(k).then(function (ephRaw) {
+          return pairKey(k.privateKey, rkRaw, rkRaw, ephRaw).then(function (key) {
+            return Promise.all([answerTag(rkRaw), seal(key, "answer", { text: body, at: at }), contactID(key)]).then(function (r) {
+              return mine(b64(ephRaw) + "." + r[1], "#" + r[0], 4).then(function () {
+                var c = { answer: true, id: r[2], key: b64(key), role: 1, post: { id: note.id, text: String(note.text || "").slice(0, 140) },
+                  messages: [{ me: true, text: body, at: at }], createdAt: at };
+                return putThread(c).then(function () { return c; });
+              });
+            });
+          });
+        });
+      });
+    }
+    // readAnswers takes in new answers to your posts and new lines in every
+    // answer thread (yours and theirs); returns how many are new.
+    function readAnswers() {
+      return Promise.all([store.get("replyKeys"), threads()]).then(function (r) {
+        var keys = (r[0] || []).filter(function (x) { return x.until > Date.now(); }), known = {}, fresh = 0;
+        r[1].forEach(function (t) { known[t.id] = t; });
+        return keys.reduce(function (p, rk) {
+          return p.then(function () {
+            return fetchFn(base + "/api/oln/pair/" + rk.tag, { credentials: "omit" }).then(function (res) { return res.ok ? res.json() : []; }).then(function (ms) {
+              return ms.reduce(function (q, m) {
+                return q.then(function () {
+                  var dot = m.text.indexOf("."), ephRaw = unb64(m.text.slice(0, dot));
+                  return subtle.importKey("jwk", rk.privJwk, ECDH, false, ["deriveBits"]).then(function (priv) {
+                    var rkRaw = decompress(unhex(rk.pub));
+                    return pairKey(priv, ephRaw, rkRaw, ephRaw);
+                  }).then(function (key) {
+                    return contactID(key).then(function (id) {
+                      if (known[id]) return;
+                      return open(key, "answer", m.text.slice(dot + 1)).then(function (body) {
+                        var c = { answer: true, id: id, key: b64(key), role: 0, post: { text: rk.text },
+                          messages: [{ me: false, text: String(body.text || "").slice(0, 2000), at: body.at || m.at }], unreadMsgs: 1, createdAt: m.at };
+                        known[id] = c; fresh++;
+                        return putThread(c);
+                      });
+                    });
+                  }).catch(function () { /* junk on the tag: not for us */ });
+                });
+              }, Promise.resolve());
+            });
+          });
+        }, Promise.resolve()).then(function () {
+          return threads().then(function (ts) {
+            return ts.reduce(function (p, t) { return p.then(function () { return readChat(t).then(function (n) { fresh += n; }); }); }, Promise.resolve());
+          });
+        }).then(function () { return fresh; });
+      });
+    }
+
+    return { replyKey: replyKey, replyKeyOf: replyKeyOf, answer: answer, readAnswers: readAnswers, threads: threads, putThread: putThread,
+      flush: flush, outboxSize: outboxSize, sendChat: sendChat, readChat: readChat, report: report, namedLink: namedLink, shortLink: shortLink, inbox: inbox, writeTo: writeTo, readInbox: readInbox, connectBack: connectBack, checkIn: checkIn, around: around, invite: invite, accept: accept, moveSend: moveSend, moveReceive: moveReceive, checkInvite: checkInvite, checkContact: checkContact, send: send,
       _open: open, _boxOf: boxOf, _inviteBox: inviteBox, _unb64: unb64 };
   }
 

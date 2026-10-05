@@ -487,6 +487,12 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       Emulator test (run.sh): stats, purge, markers gone. Was: Admin OLN tools, complete (Joop: "doesn't enable me to remove stored but not live, or to see all live
       messages"): list all live messages (paged, newest first, with cell, bits, author, expiry, hide/delete), and a
       purge of stored-but-expired/hidden notes now (not waiting for the TTL policy), with counts.
+- [~] 69a. Protocol done (pair.js): replyKey(text, life) → "#rka<33 hex> #rkb<33 hex>" (compressed P-256, BigInt
+      decompression), kept in kv "replyKeys" until life + a week; answer(note, text, mine) posts b64(eph).seal on
+      #p<sha256("kafumu answer v1|"+rk)>; readAnswers() opens new ones into kv "answers" threads (not contacts)
+      and reads follow-ups with readChat (saveThing → threads). pair_test: post, answer, read, reply, no dupes,
+      keyless post refuses. Next 69b: UI (composer adds the key; "Answer privately" on posts with one; answers
+      under your posts; hide #rka/#rkb from tag lists; poll on Around).
 - [ ] 69. Private answers to anonymous posts (Joop: "OLN should also enable privately answering anonymous
       posts"): posting, the device makes a reply key per post (P-256) and adds its public half as a keyword
       (#rk<b64>; format-level, any OLN client can use it). Answering: encrypt to it (ephemeral ECDH), post as a
