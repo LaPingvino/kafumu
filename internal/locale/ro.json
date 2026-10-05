@@ -559,5 +559,8 @@
   "biz.username": "Nume de utilizator",
   "biz.username_note": "Adresa proprie a firmei pe Kafumu și felul în care oamenii o găsesc.",
   "biz.contact_public": "Contact",
-  "biz.profile_note": "O firmă pe Kafumu: întâlniri și mesaje în nume propriu."
+  "biz.profile_note": "O firmă pe Kafumu: întâlniri și mesaje în nume propriu.",
+  "biz.working_as": "Lucrezi ca",
+  "biz.device_only": "Acest card și aceste contacte aparțin firmei, separat de ale tale; deocamdată rămân pe acest dispozitiv.",
+  "biz.switch": "Schimbă"
 }

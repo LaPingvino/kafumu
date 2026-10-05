@@ -559,5 +559,8 @@
   "biz.username": "Nama pengguna",
   "biz.username_note": "Alamat milik bisnismu sendiri di Kafumu, cara orang menemukannya.",
   "biz.contact_public": "Kontak",
-  "biz.profile_note": "Bisnis di Kafumu: pertemuan dan pesan atas namanya sendiri."
+  "biz.profile_note": "Bisnis di Kafumu: pertemuan dan pesan atas namanya sendiri.",
+  "biz.working_as": "Kamu bekerja sebagai",
+  "biz.device_only": "Kartu dan kontak ini milik bisnis, terpisah dari milikmu sendiri; untuk sekarang hanya ada di perangkat ini.",
+  "biz.switch": "Ganti"
 }

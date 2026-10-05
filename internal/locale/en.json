@@ -559,5 +559,8 @@
   "biz.username": "Username",
   "biz.username_note": "Your business's own address on Kafumu, and how people find it.",
   "biz.contact_public": "Contact",
-  "biz.profile_note": "A business on Kafumu: meetups and messages under its own name."
+  "biz.profile_note": "A business on Kafumu: meetups and messages under its own name.",
+  "biz.working_as": "You're working as",
+  "biz.device_only": "This card and these contacts belong to the business, kept apart from your own; for now they stay on this device.",
+  "biz.switch": "Switch"
 }

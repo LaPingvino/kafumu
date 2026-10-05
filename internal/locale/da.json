@@ -559,5 +559,8 @@
   "biz.username": "Brugernavn",
   "biz.username_note": "Virksomhedens egen adresse på Kafumu, og hvordan folk finder den.",
   "biz.contact_public": "Kontakt",
-  "biz.profile_note": "En virksomhed på Kafumu: møder og beskeder i eget navn."
+  "biz.profile_note": "En virksomhed på Kafumu: møder og beskeder i eget navn.",
+  "biz.working_as": "Du arbejder som",
+  "biz.device_only": "Dette kort og disse kontakter tilhører virksomheden, adskilt fra dine egne; indtil videre bliver de på denne enhed.",
+  "biz.switch": "Skift"
 }

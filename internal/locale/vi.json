@@ -559,5 +559,8 @@
   "biz.username": "Tên người dùng",
   "biz.username_note": "Địa chỉ riêng của doanh nghiệp bạn trên Kafumu, để mọi người tìm thấy.",
   "biz.contact_public": "Liên hệ",
-  "biz.profile_note": "Một doanh nghiệp trên Kafumu: buổi gặp và tin nhắn mang tên riêng."
+  "biz.profile_note": "Một doanh nghiệp trên Kafumu: buổi gặp và tin nhắn mang tên riêng.",
+  "biz.working_as": "Bạn đang làm việc với tư cách",
+  "biz.device_only": "Danh thiếp và danh bạ này thuộc về doanh nghiệp, tách biệt với của bạn; hiện chỉ lưu trên thiết bị này.",
+  "biz.switch": "Đổi"
 }

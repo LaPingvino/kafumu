@@ -2,7 +2,10 @@
 // never leaves the device unencrypted (VISION.md, tier 1).
 (function () {
   "use strict";
-  var DB = "kafumu", VERSION = 1, db;
+  // Each identity has its own store: yourself ("kafumu"), and each business
+  // you act as ("kafumu-biz-<id>"), so its card and contacts stay apart.
+  var actingID = typeof document !== "undefined" && document.body ? document.body.dataset.actingId || "" : "";
+  var DB = actingID ? "kafumu-biz-" + actingID : "kafumu", VERSION = 1, db;
 
   function open() {
     if (db) return Promise.resolve(db);
@@ -444,7 +447,9 @@
       return store.set("tombstones", ts);
     }).then(syncSoon);
   };
-  function signedIn() { return typeof document !== "undefined" && !!(document.body && document.body.dataset.signedIn); }
+  // Sync is your own vault: off while acting as a business (its contacts
+  // must not land in your personal account; business sync is LOOP-STATE 75c).
+  function signedIn() { return typeof document !== "undefined" && !!(document.body && document.body.dataset.signedIn) && !actingID; }
   function syncSoon() { if (!signedIn()) return; clearTimeout(syncTimer); syncTimer = setTimeout(function () { sync(); }, 1500); }
   function setSync(state) { window.kafumuSync = state; window.dispatchEvent(new CustomEvent("kafumu:sync", { detail: state })); }
   function b64e(u8) { var s = ""; for (var i = 0; i < u8.length; i++) s += String.fromCharCode(u8[i]); return btoa(s); }

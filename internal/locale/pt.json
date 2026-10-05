@@ -559,5 +559,8 @@
   "biz.username": "Nome de utilizador",
   "biz.username_note": "O endereço próprio da empresa no Kafumu, e como as pessoas a encontram.",
   "biz.contact_public": "Contacto",
-  "biz.profile_note": "Uma empresa no Kafumu: encontros e mensagens em nome próprio."
+  "biz.profile_note": "Uma empresa no Kafumu: encontros e mensagens em nome próprio.",
+  "biz.working_as": "Estás a trabalhar como",
+  "biz.device_only": "Este cartão e estes contactos são da empresa, separados dos teus; por agora ficam neste dispositivo.",
+  "biz.switch": "Mudar"
 }

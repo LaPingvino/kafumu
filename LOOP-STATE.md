@@ -465,7 +465,11 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
          single cached reads, no query). Browser test: set, visitor sees it. Meetups list on it: later (needs an
          index by business). Was: A business username (/@cafe-x; managers set it; same namespace as people, so no clash), and its public
          page (name, kind, contact, upcoming meetups, wings).
-      b. While acting: the Card page edits the business's card; Connect shares it; new contacts land in the
+      [x] b. Done: a device store per identity (IndexedDB "kafumu-biz-<id>" from body data-acting-id), so card,
+         personas, codes, contacts, outbox are the business's while acting; personal vault sync, device moves and
+         the personal /@name link are off then; a "working as" banner on Card/Connect/Contacts says business data
+         stays on this device until 75c. Caveat: the offline-precached /c and /contacts carry the identity of the
+         moment they were cached. Browser test: separate card, own card back. Was: While acting: the Card page edits the business's card; Connect shares it; new contacts land in the
          business's contacts, not yours (and vice versa).
       c. Business contacts synced across its managers ("company accounts could use a bit more server side help"):
          a business vault (encrypted like yours, with a business key); the key reaches a newly added manager

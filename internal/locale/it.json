@@ -559,5 +559,8 @@
   "biz.username": "Nome utente",
   "biz.username_note": "L'indirizzo proprio della tua attività su Kafumu, e come la gente la trova.",
   "biz.contact_public": "Contatto",
-  "biz.profile_note": "Un'attività su Kafumu: incontri e messaggi a proprio nome."
+  "biz.profile_note": "Un'attività su Kafumu: incontri e messaggi a proprio nome.",
+  "biz.working_as": "Stai lavorando come",
+  "biz.device_only": "Questo biglietto e questi contatti sono dell'attività, separati dai tuoi; per ora restano su questo dispositivo.",
+  "biz.switch": "Cambia"
 }

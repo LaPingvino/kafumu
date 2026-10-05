@@ -559,5 +559,8 @@
   "biz.username": "Nazwa użytkownika",
   "biz.username_note": "Własny adres twojej firmy na Kafumu – po nim ludzie ją znajdą.",
   "biz.contact_public": "Kontakt",
-  "biz.profile_note": "Firma na Kafumu: spotkania i wiadomości pod własną nazwą."
+  "biz.profile_note": "Firma na Kafumu: spotkania i wiadomości pod własną nazwą.",
+  "biz.working_as": "Działasz jako",
+  "biz.device_only": "Ta wizytówka i te kontakty należą do firmy, osobno od twoich; na razie zostają na tym urządzeniu.",
+  "biz.switch": "Przełącz"
 }

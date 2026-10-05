@@ -559,5 +559,8 @@
   "biz.username": "Uzantnomo",
   "biz.username_note": "La propra adreso de la komerco en Kafumu, kaj kiel homoj trovas ĝin.",
   "biz.contact_public": "Kontakto",
-  "biz.profile_note": "Komerco en Kafumu: renkontiĝoj kaj mesaĝoj sub sia propra nomo."
+  "biz.profile_note": "Komerco en Kafumu: renkontiĝoj kaj mesaĝoj sub sia propra nomo.",
+  "biz.working_as": "Vi laboras kiel",
+  "biz.device_only": "Ĉi tiu karto kaj ĉi tiuj kontaktoj apartenas al la komerco, aparte de viaj propraj; nuntempe ili restas en ĉi tiu aparato.",
+  "biz.switch": "Ŝanĝi"
 }

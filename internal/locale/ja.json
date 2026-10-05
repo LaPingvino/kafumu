@@ -559,5 +559,8 @@
   "biz.username": "ユーザー名",
   "biz.username_note": "Kafumu 上のビジネス専用アドレス。これで見つけてもらえます。",
   "biz.contact_public": "連絡先",
-  "biz.profile_note": "Kafumu のビジネス：自分の名前でミートアップやメッセージを発信します。"
+  "biz.profile_note": "Kafumu のビジネス：自分の名前でミートアップやメッセージを発信します。",
+  "biz.working_as": "現在の名義:",
+  "biz.device_only": "この名刺と連絡先はビジネスのもので、あなた個人のものとは別です。今のところこの端末にだけ保存されます。",
+  "biz.switch": "切り替え"
 }

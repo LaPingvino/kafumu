@@ -559,5 +559,8 @@
   "biz.username": "Gebruikersnaam",
   "biz.username_note": "Het eigen adres van je bedrijf op Kafumu, en hoe mensen het vinden.",
   "biz.contact_public": "Contact",
-  "biz.profile_note": "Een bedrijf op Kafumu: meetups en berichten onder eigen naam."
+  "biz.profile_note": "Een bedrijf op Kafumu: meetups en berichten onder eigen naam.",
+  "biz.working_as": "Je werkt als",
+  "biz.device_only": "Dit kaartje en deze contacten zijn van het bedrijf, apart van die van jezelf; voorlopig blijven ze op dit apparaat.",
+  "biz.switch": "Wisselen"
 }

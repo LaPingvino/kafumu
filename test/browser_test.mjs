@@ -218,10 +218,15 @@ try {
     await A.waitFor("!!document.querySelector('a[href=\"/@" + bizName + "\"]')", "business username set");
     await B.goto(base + "/@" + bizName);
     await B.waitFor("!!document.querySelector('.biz-profile svg.wings') && document.querySelector('h1').textContent.includes('Café Teste " + RUN + "')", "business page at /@name");
+    // Acting: the Card page is the business's (banner, its own empty card).
+    await A.goto(base + "/card");
+    await A.waitFor("!!document.querySelector('.biz-banner') && document.getElementById('card-form').name.value === ''", "business card kept apart from yours");
     // Switch back to yourself from the account page.
     await A.goto(base + "/account");
     await A.evaluate("document.querySelector('form.use-as button[value=\"\"]').click(); true");
     await A.waitFor("location.pathname === '/account' && !document.querySelector('nav a.acting')", "switched back to yourself");
+    await A.goto(base + "/card");
+    await A.waitFor("!document.querySelector('.biz-banner') && document.getElementById('card-form').name.value !== ''", "your own card back after switching");
   }
 
   // Discoverable: A names itself, speaks Esperanto, becomes visible; B sees A.
@@ -382,7 +387,7 @@ try {
     await X.evaluate("fetch('/account/delete', { method: 'POST', body: new URLSearchParams({ confirm: 'yes' }), credentials: 'same-origin' }).then(() => true)");
   }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, business account + switched to it + host as preselected + own @name page + switched back, findable profile seen, named link, paid inbox message + connect back, OLN message + reaction + elsewhere + travelling + tour + report + question/answer + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, business account + switched to it + host as preselected + own @name page + separate business card + switched back, findable profile seen, named link, paid inbox message + connect back, OLN message + reaction + elsewhere + travelling + tour + report + question/answer + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

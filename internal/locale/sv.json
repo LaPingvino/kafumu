@@ -559,5 +559,8 @@
   "biz.username": "Användarnamn",
   "biz.username_note": "Företagets egen adress på Kafumu, och hur folk hittar det.",
   "biz.contact_public": "Kontakt",
-  "biz.profile_note": "Ett företag på Kafumu: träffar och meddelanden i eget namn."
+  "biz.profile_note": "Ett företag på Kafumu: träffar och meddelanden i eget namn.",
+  "biz.working_as": "Du arbetar som",
+  "biz.device_only": "Det här kortet och de här kontakterna tillhör företaget, skilda från dina egna; tills vidare stannar de på den här enheten.",
+  "biz.switch": "Byt"
 }

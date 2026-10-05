@@ -5,7 +5,7 @@
   <p>{{t .Lang "card.explain"}}</p>
   <div id="personas" class="chips switch" role="tablist" aria-label="{{ts .Lang "card.personas"}}"></div>
   <div class="grid">
-    {{if .User}}{{if .User.Username}}<div id="link" class="card" style="padding:4px 16px 12px">
+    {{if and .User (not .Acting)}}{{if .User.Username}}<div id="link" class="card" style="padding:4px 16px 12px">
       <h2>🔗 {{t .Lang "handle.title"}}</h2>
       <p class="dim">{{t .Lang "handle.explain"}}</p>
       <p class="inline-row"><input id="handle-url" readonly value="/@{{.User.Username}}" data-name="{{.User.Username}}" onclick="this.select()" aria-label="link"></p>

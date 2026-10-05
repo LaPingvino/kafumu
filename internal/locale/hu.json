@@ -559,5 +559,8 @@
   "biz.username": "Felhasználónév",
   "biz.username_note": "A vállalkozásod saját címe a Kafumun – így találnak rá.",
   "biz.contact_public": "Kapcsolat",
-  "biz.profile_note": "Vállalkozás a Kafumun: találkozók és üzenetek saját néven."
+  "biz.profile_note": "Vállalkozás a Kafumun: találkozók és üzenetek saját néven.",
+  "biz.working_as": "Így dolgozol:",
+  "biz.device_only": "Ez a névjegy és ezek a kapcsolatok a vállalkozáséi, a sajátjaidtól külön; egyelőre ezen az eszközön maradnak.",
+  "biz.switch": "Váltás"
 }

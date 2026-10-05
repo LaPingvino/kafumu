@@ -44,7 +44,7 @@
     <button type="button" id="move-ignore" class="pill">{{t .Lang "move.ignore"}}</button></div>
   <p id="move-offer-status" class="dim small" role="status"></p>
 </div>
-<div class="card" style="padding:4px 16px 12px">
+<div class="card" style="padding:4px 16px 12px"{{if .Acting}} hidden{{end}}>
   <h2>{{t .Lang "move.title"}}</h2>
   <p class="dim">{{t .Lang "move.account_explain"}}</p>
   <div class="actions"><button type="button" id="move-start" class="pill">{{t .Lang "move.receive"}}</button></div>

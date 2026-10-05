@@ -559,5 +559,8 @@
   "biz.username": "Uživatelské jméno",
   "biz.username_note": "Vlastní adresa vaší firmy na Kafumu – podle ní ji lidé najdou.",
   "biz.contact_public": "Kontakt",
-  "biz.profile_note": "Firma na Kafumu: setkání a zprávy pod vlastním jménem."
+  "biz.profile_note": "Firma na Kafumu: setkání a zprávy pod vlastním jménem.",
+  "biz.working_as": "Pracuješ jako",
+  "biz.device_only": "Tahle vizitka a tyto kontakty patří firmě, odděleně od tvých; zatím zůstávají na tomto zařízení.",
+  "biz.switch": "Přepnout"
 }

@@ -559,5 +559,8 @@
   "biz.username": "Kullanıcı adı",
   "biz.username_note": "İşletmenin Kafumu'daki kendi adresi; insanlar onu böyle bulur.",
   "biz.contact_public": "İletişim",
-  "biz.profile_note": "Kafumu'da bir işletme: kendi adıyla buluşmalar ve mesajlar."
+  "biz.profile_note": "Kafumu'da bir işletme: kendi adıyla buluşmalar ve mesajlar.",
+  "biz.working_as": "Şu olarak çalışıyorsun:",
+  "biz.device_only": "Bu kart ve bu kişiler işletmeye ait, seninkilerden ayrı; şimdilik bu cihazda kalıyorlar.",
+  "biz.switch": "Değiştir"
 }

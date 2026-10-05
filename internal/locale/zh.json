@@ -559,5 +559,8 @@
   "biz.username": "用户名",
   "biz.username_note": "商家在 Kafumu 上的专属地址，大家借此找到你。",
   "biz.contact_public": "联系方式",
-  "biz.profile_note": "Kafumu 上的商家：以自己的名义发起聚会和发布消息。"
+  "biz.profile_note": "Kafumu 上的商家：以自己的名义发起聚会和发布消息。",
+  "biz.working_as": "你正在以此身份工作：",
+  "biz.device_only": "这张名片和这些联系人属于商家，与你个人的分开；目前只保存在这台设备上。",
+  "biz.switch": "切换"
 }
