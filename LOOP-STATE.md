@@ -526,6 +526,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       table shared with businesses "biz:<id>", claim = insert-or-nothing then check owner); tested through
       account.Service incl. reopen; live: an account made on a SQLite server is still signed in after a restart.
       Next: boxes + slots, vault, then handle/business/report/short/push/atp/prices, purge, admin stats.
+- [~] 64b-4. Mailboxes + slots on SQLite (box_msgs rows, limit counted in a transaction, week's life by time;
+      slots with expiry; Purge* for the self-hosted purge). Tested incl. reopen; live: the full pairing E2E and a
+      fuzz run against a SQLite-only server pass. Next: vault, then handle/business/report/short/push/atp/prices,
+      a self-hosted purge loop, admin stats.
 - [ ] 64. Self-hosting and OLN nodes (Joop): run Kafumu outside GAE (plain Go binary + a file/SQL store, no
       memcache), a page on how to self-host and link a node into OLN, and linked nodes on the admin page
       (peers pulled from / pushed to, last seen). Also mention self-hosting on /business.

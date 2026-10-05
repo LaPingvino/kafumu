@@ -41,4 +41,7 @@ var schema = []string{
 		id TEXT PRIMARY KEY, cell TEXT, visible_until INTEGER, last_seen_at INTEGER, data TEXT NOT NULL)`,
 	`CREATE INDEX IF NOT EXISTS users_visible ON users (cell, visible_until)`,
 	`CREATE TABLE IF NOT EXISTS usernames (name TEXT PRIMARY KEY, owner TEXT NOT NULL)`,
+	`CREATE TABLE IF NOT EXISTS box_msgs (box TEXT NOT NULL, id TEXT NOT NULL, data TEXT NOT NULL, at INTEGER, PRIMARY KEY (box, id))`,
+	`CREATE INDEX IF NOT EXISTS box_msgs_at ON box_msgs (box, at)`,
+	`CREATE TABLE IF NOT EXISTS slots (id TEXT PRIMARY KEY, tokens TEXT, expires_at INTEGER)`,
 }
