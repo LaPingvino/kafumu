@@ -40,21 +40,15 @@ func (h *Home) BrandPage(w http.ResponseWriter, r *http.Request) {
 	h.render(w, "brand.html", p)
 }
 
-// isBrandAdmin: u may manage brand bi, as one of its admins in person, or
-// as a manager of a business that is one ("biz:<id>"), acting as it or not:
-// an organisation can run its own brand, whoever its managers are.
+// isBrandAdmin: u may manage brand bi: as one of its admins, a person or
+// a business (actsFor: its managers, acting as it or not).
 func (h *Home) isBrandAdmin(ctx context.Context, bi *brand.Brand, u *account.User) bool {
-	if bi == nil || u == nil {
+	if bi == nil {
 		return false
 	}
 	for _, a := range bi.Admins {
-		if a == u.ID {
+		if h.actsFor(ctx, u, a) {
 			return true
-		}
-		if id, ok := strings.CutPrefix(a, "biz:"); ok {
-			if b := h.bizByID(ctx, id); b != nil && b.Manages(u.ID) {
-				return true
-			}
 		}
 	}
 	return false

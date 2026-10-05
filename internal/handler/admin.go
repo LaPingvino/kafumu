@@ -245,12 +245,8 @@ func (a *Admin) Show(w http.ResponseWriter, r *http.Request) {
 		for _, b := range p.Brands {
 			var names []string
 			for _, id := range b.Admins {
-				if bid, ok := strings.CutPrefix(id, "biz:"); ok {
-					if biz := a.Home.bizByID(ctx, bid); biz != nil && biz.Username != "" {
-						names = append(names, "@"+biz.Username)
-					}
-				} else if u, err := a.Accounts.Svc.ByID(ctx, id); err == nil && u != nil && u.Username != "" {
-					names = append(names, "@"+u.Username)
+				if n := a.Home.ownerName(ctx, a.Accounts.Svc, id); n != "" {
+					names = append(names, n)
 				}
 			}
 			p.BrandAdmins[b.Host] = strings.Join(names, " ")

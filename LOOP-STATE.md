@@ -637,6 +637,16 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       "For cafés and venues" page "isn't well thought out", "we'll need a better model for paid services".
       Constraints from VISION: core use free forever, Lichess-style patrons, relevance instead of ads, nothing
       that buys visibility over what's actually near and relevant. Don't build until Joop picks a direction.
+- [ ] 76. Business ≡ person (Joop: "a check for the equivalence of business accounts to personal accounts…
+      that would be the better place to fix"). One "who": an owner is a user id or "biz:<id>"; actsFor(u, owner)
+      = it's u, or a business u manages (identity.go; brand admins use it). Gaps found:
+      a. A business as manager of another business (managers may be "biz:<id>": its managers manage; ForUser
+         needs the indirect ones).
+      b. A business's /@name connects like a person's (a named link holding the business card, kept by a
+         manager's device acting as it), with its profile page shown alongside.
+      c. Findable + public inbox for businesses (messages to the business, read by its managers' devices).
+      d. Later, if wanted: Bluesky for a business.
+      Already equal: named posts, hosting, wings (patron / live), synced card + contacts, brand admin.
 - [ ] 46. DECIDED (Joop 2026-10-05: "2 and 4"): brands are set up by Joop in admin as a PAID service (manual
       payment, like 45c), with brand admins; and forks (self-hosting + OLN linking, done in 64) are the free
       route. [x] 46a done: internal/brand (host-keyed, Datastore or kv, all brands loaded together and kept a
