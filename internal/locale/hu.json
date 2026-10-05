@@ -575,5 +575,10 @@
   "js.answer_failed": "Nem sikerült elküldeni. Próbáld újra.",
   "biz.selfhost": "Inkább saját szerveren? A Kafumu nyílt forráskódú, egy program és egy adatbázisfájl.",
   "biz.selfhost_link": "Útmutató saját üzemeltetéshez",
-  "js.tags_here": "Errefelé használt:"
+  "js.tags_here": "Errefelé használt:",
+  "biz.sync_title": "Névjegy és kapcsolatok a kezelők között",
+  "biz.sync_off": "Minden eszköz külön",
+  "biz.sync_server": "Szinkronizálva (a kulcsot a szerver tartja)",
+  "biz.sync_server_note": "Minden kezelő eszköze megkapja a vállalkozás névjegyét és kapcsolatait. A legegyszerűbb; a kulcs a szervernél van, így olvashatná őket.",
+  "biz.synced_note": "Ez a névjegy és ezek a kapcsolatok a vállalkozáséi, és szinkronban maradnak a kezelők eszközei között."
 }

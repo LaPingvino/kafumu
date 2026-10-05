@@ -575,5 +575,10 @@
   "js.answer_failed": "Nu s-a putut trimite. Încearcă din nou.",
   "biz.selfhost": "Preferi pe serverul tău? Kafumu e open source și rulează ca un singur program cu un singur fișier de bază de date.",
   "biz.selfhost_link": "Ghid de găzduire proprie",
-  "js.tags_here": "Folosite pe aici:"
+  "js.tags_here": "Folosite pe aici:",
+  "biz.sync_title": "Card și contacte între administratori",
+  "biz.sync_off": "Fiecare dispozitiv separat",
+  "biz.sync_server": "Sincronizat (serverul păstrează cheia)",
+  "biz.sync_server_note": "Fiecare dispozitiv al administratorilor primește cardul și contactele firmei. Cel mai simplu; serverul păstrează cheia, deci le-ar putea citi.",
+  "biz.synced_note": "Acest card și aceste contacte aparțin firmei și rămân sincronizate între dispozitivele administratorilor."
 }

@@ -575,5 +575,10 @@
   "js.answer_failed": "Kunne ikke sende. Prøv igen.",
   "biz.selfhost": "Hellere på din egen server? Kafumu er open source og kører som ét program med én databasefil.",
   "biz.selfhost_link": "Guide til selv-hosting",
-  "js.tags_here": "Bruges her:"
+  "js.tags_here": "Bruges her:",
+  "biz.sync_title": "Kort og kontakter mellem administratorer",
+  "biz.sync_off": "Hver enhed for sig",
+  "biz.sync_server": "Synkroniseret (serveren har nøglen)",
+  "biz.sync_server_note": "Hver administrators enhed får virksomhedens kort og kontakter. Enklest; serveren har nøglen og kunne altså læse dem.",
+  "biz.synced_note": "Dette kort og disse kontakter tilhører virksomheden og holdes synkroniseret mellem administratorernes enheder."
 }

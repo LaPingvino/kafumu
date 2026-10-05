@@ -575,5 +575,10 @@
   "js.answer_failed": "Ne eblis sendi. Provu denove.",
   "biz.selfhost": "Ĉu prefere sur via propra servilo? Kafumu estas malfermitkoda kaj funkcias kiel unu programo kun unu datumbaza dosiero.",
   "biz.selfhost_link": "Gvidilo por memgastigado",
-  "js.tags_here": "Uzataj ĉi tie:"
+  "js.tags_here": "Uzataj ĉi tie:",
+  "biz.sync_title": "Karto kaj kontaktoj inter administrantoj",
+  "biz.sync_off": "Ĉiu aparato aparte",
+  "biz.sync_server": "Sinkronigita (la servilo tenas la ŝlosilon)",
+  "biz.sync_server_note": "Ĉiu aparato de administranto ricevas la karton kaj kontaktojn de la komerco. Plej simple; la servilo tenas la ŝlosilon, do ĝi povus legi ilin.",
+  "biz.synced_note": "Ĉi tiu karto kaj ĉi tiuj kontaktoj apartenas al la komerco kaj restas sinkronigitaj inter la aparatoj de ĝiaj administrantoj."
 }

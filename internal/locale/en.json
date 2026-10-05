@@ -575,5 +575,10 @@
   "js.answer_failed": "Couldn't send. Try again.",
   "biz.selfhost": "Rather run it on your own server? Kafumu is open source and runs as one program with one database file.",
   "biz.selfhost_link": "Self-hosting guide",
-  "js.tags_here": "Used around here:"
+  "js.tags_here": "Used around here:",
+  "biz.sync_title": "Card and contacts between managers",
+  "biz.sync_off": "Each device on its own",
+  "biz.sync_server": "Synced (the server holds the key)",
+  "biz.sync_server_note": "Every manager's device gets the business's card and contacts. Simplest; the server holds the key, so it could read them.",
+  "biz.synced_note": "This card and these contacts belong to the business and stay in sync between its managers' devices."
 }

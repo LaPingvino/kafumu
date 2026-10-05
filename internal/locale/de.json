@@ -575,5 +575,10 @@
   "js.answer_failed": "Senden fehlgeschlagen. Versuch es noch einmal.",
   "biz.selfhost": "Lieber auf dem eigenen Server? Kafumu ist Open Source und läuft als ein Programm mit einer Datenbankdatei.",
   "biz.selfhost_link": "Anleitung zum Selbsthosten",
-  "js.tags_here": "Hier verwendet:"
+  "js.tags_here": "Hier verwendet:",
+  "biz.sync_title": "Karte und Kontakte zwischen Verwaltenden",
+  "biz.sync_off": "Jedes Gerät für sich",
+  "biz.sync_server": "Synchronisiert (der Server hält den Schlüssel)",
+  "biz.sync_server_note": "Jedes Gerät der Verwaltenden bekommt Karte und Kontakte des Unternehmens. Am einfachsten; der Server hält den Schlüssel und könnte sie also lesen.",
+  "biz.synced_note": "Diese Karte und diese Kontakte gehören dem Unternehmen und bleiben auf den Geräten der Verwaltenden synchron."
 }

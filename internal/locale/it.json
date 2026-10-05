@@ -575,5 +575,10 @@
   "js.answer_failed": "Invio non riuscito. Riprova.",
   "biz.selfhost": "Meglio sul tuo server? Kafumu è open source e gira come un unico programma con un solo file di database.",
   "biz.selfhost_link": "Guida all'auto-hosting",
-  "js.tags_here": "Usati qui intorno:"
+  "js.tags_here": "Usati qui intorno:",
+  "biz.sync_title": "Biglietto e contatti tra gestori",
+  "biz.sync_off": "Ogni dispositivo per conto suo",
+  "biz.sync_server": "Sincronizzati (il server tiene la chiave)",
+  "biz.sync_server_note": "Ogni dispositivo dei gestori riceve il biglietto e i contatti dell'attività. Il modo più semplice; il server tiene la chiave, quindi potrebbe leggerli.",
+  "biz.synced_note": "Questo biglietto e questi contatti sono dell'attività e restano sincronizzati tra i dispositivi dei gestori."
 }

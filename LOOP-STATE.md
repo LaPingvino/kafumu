@@ -474,7 +474,19 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
          stays on this device until 75c. Caveat: the offline-precached /c and /contacts carry the identity of the
          moment they were cached. Browser test: separate card, own card back. Was: While acting: the Card page edits the business's card; Connect shares it; new contacts land in the
          business's contacts, not yours (and vice versa).
-      c. Business contacts synced across its managers ("company accounts could use a bit more server side help"):
+      c. DECIDED (Joop 2026-10-05: "enable both, company admin configures"): per business, managers choose
+         SyncMode: "server" (server holds the business key, gives it to managers' devices: simplest) or
+         "private" (key only on managers' devices; a new manager's device requests it, an existing one wraps
+         it for them after both show the same short code; server sees public keys + ciphertext only). Both use
+         a business vault (versioned blob like the personal one, managers only). 75c-1: vault + server mode +
+         the setting + device sync while acting; 75c-2: private mode key handover.
+      [x] 75c-1. Business vault (/api/business/{id}/vault, managers only, 404 when sync is off; shares the
+         vault store as "biz:<id>"), server mode (Business.SyncKey; /api/business/{id}/key for managers; off →
+         server forgets it; switching to server can take a device's key, else starts fresh), the setting on
+         /business, device.js syncs the acting business's own store (key from the server), banner says
+         "in sync". Tests: access control (Go), second device of a manager gets the business card (browser).
+      [ ] 75c-2. Private mode: key only on devices; handover to a new manager's device with a matching code.
+      (was) c. Business contacts synced across its managers ("company accounts could use a bit more server side help"):
          a business vault (encrypted like yours, with a business key); the key reaches a newly added manager
          through an existing manager's device (wrapped for the new manager when they first open /business, after
          the existing one approves) — the server stores only ciphertext. Design to confirm with Joop.

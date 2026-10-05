@@ -575,5 +575,10 @@
   "js.answer_failed": "Gagal mengirim. Coba lagi.",
   "biz.selfhost": "Lebih suka di server sendiri? Kafumu bersumber terbuka dan berjalan sebagai satu program dengan satu berkas basis data.",
   "biz.selfhost_link": "Panduan hosting sendiri",
-  "js.tags_here": "Dipakai di sekitar sini:"
+  "js.tags_here": "Dipakai di sekitar sini:",
+  "biz.sync_title": "Kartu dan kontak antar pengelola",
+  "biz.sync_off": "Setiap perangkat sendiri-sendiri",
+  "biz.sync_server": "Disinkronkan (server menyimpan kuncinya)",
+  "biz.sync_server_note": "Setiap perangkat pengelola mendapat kartu dan kontak bisnis. Paling sederhana; server menyimpan kuncinya, jadi bisa membacanya.",
+  "biz.synced_note": "Kartu dan kontak ini milik bisnis dan tetap sinkron di antara perangkat para pengelolanya."
 }

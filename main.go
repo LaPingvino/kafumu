@@ -156,6 +156,10 @@ func main() {
 	biz := &handler.Businesses{Home: home, Accounts: accounts, Store: businesses}
 	mux.HandleFunc("POST /account/as", biz.Use)
 	mux.HandleFunc("POST /business/{id}/name", biz.Name)
+	mux.HandleFunc("POST /business/{id}/sync", biz.Sync)
+	mux.HandleFunc("GET /api/business/{id}/vault", biz.VaultAPI)
+	mux.HandleFunc("PUT /api/business/{id}/vault", biz.VaultAPI)
+	mux.HandleFunc("GET /api/business/{id}/key", biz.KeyAPI)
 	accounts.BizProfile = biz.Profile
 	mux.HandleFunc("GET /business", biz.Show)
 	mux.HandleFunc("POST /business", biz.Create)

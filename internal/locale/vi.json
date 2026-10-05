@@ -575,5 +575,10 @@
   "js.answer_failed": "Không gửi được. Hãy thử lại.",
   "biz.selfhost": "Muốn chạy trên máy chủ của riêng bạn? Kafumu là mã nguồn mở, chạy bằng một chương trình với một tệp cơ sở dữ liệu.",
   "biz.selfhost_link": "Hướng dẫn tự lưu trữ",
-  "js.tags_here": "Được dùng quanh đây:"
+  "js.tags_here": "Được dùng quanh đây:",
+  "biz.sync_title": "Danh thiếp và danh bạ giữa các quản lý",
+  "biz.sync_off": "Mỗi thiết bị riêng",
+  "biz.sync_server": "Đồng bộ (máy chủ giữ khóa)",
+  "biz.sync_server_note": "Thiết bị của mọi quản lý đều nhận danh thiếp và danh bạ của doanh nghiệp. Đơn giản nhất; máy chủ giữ khóa nên có thể đọc chúng.",
+  "biz.synced_note": "Danh thiếp và danh bạ này thuộc về doanh nghiệp và được đồng bộ giữa các thiết bị của quản lý."
 }

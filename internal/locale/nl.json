@@ -575,5 +575,10 @@
   "js.answer_failed": "Versturen lukte niet. Probeer het opnieuw.",
   "biz.selfhost": "Liever op je eigen server? Kafumu is open source en draait als één programma met één databasebestand.",
   "biz.selfhost_link": "Handleiding zelf hosten",
-  "js.tags_here": "Hier gebruikt:"
+  "js.tags_here": "Hier gebruikt:",
+  "biz.sync_title": "Kaartje en contacten tussen beheerders",
+  "biz.sync_off": "Elk apparaat apart",
+  "biz.sync_server": "Gesynchroniseerd (de server bewaart de sleutel)",
+  "biz.sync_server_note": "Elk apparaat van een beheerder krijgt het kaartje en de contacten van het bedrijf. Het eenvoudigst; de server bewaart de sleutel, dus die zou ze kunnen lezen.",
+  "biz.synced_note": "Dit kaartje en deze contacten zijn van het bedrijf en blijven gelijk op de apparaten van de beheerders."
 }

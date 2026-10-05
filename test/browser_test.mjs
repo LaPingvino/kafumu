@@ -245,6 +245,27 @@ try {
     // Acting: the Card page is the business's (banner, its own empty card).
     await A.goto(base + "/card");
     await A.waitFor("!!document.querySelector('.biz-banner') && document.getElementById('card-form').name.value === ''", "business card kept apart from yours");
+    // Sync between managers (75c, server mode): A turns it on and fills in
+    // the business card; A on a second device, acting as the business,
+    // gets the same card.
+    await A.goto(base + "/business");
+    await A.evaluate("(() => { const f = document.querySelector('form.biz-sync'); f.mode.value = 'server'; f.requestSubmit(); return true; })()");
+    await A.waitFor("document.querySelector('form.biz-sync') && document.querySelector('form.biz-sync').mode.value === 'server'", "business sync on (server key)");
+    await A.goto(base + "/card");
+    await A.waitFor("!!document.querySelector('.biz-banner') && !!document.getElementById('card-form')", "business card page, synced");
+    await A.evaluate("(() => { const f = document.getElementById('card-form'); f.name.value = 'Café card " + RUN + "'; f.requestSubmit(); return true; })()");
+    await A.waitFor("window.kafumuDevice.sync().then(s => s === 'on')", "business card synced up", 20000);
+    const aLink = await (async () => { await A.goto(base + "/account"); return A.evaluate("document.querySelector('.magic input').value"); })();
+    const A2 = await browser(9339);
+    try {
+      await A2.goto(aLink.replace(/^https?:\/\/[^/]+/, base));
+      await A2.goto(base + "/account");
+      await A2.waitFor("!![...document.querySelectorAll('form.use-as button')].find(b => b.textContent.includes('Café Teste " + RUN + "'))", "A's second device sees the business");
+      await A2.evaluate("[...document.querySelectorAll('form.use-as button')].find(b => b.textContent.includes('Café Teste " + RUN + "')).click(); true");
+      await A2.waitFor("!!document.querySelector('nav a.acting')", "second device acting as the business");
+      await A2.goto(base + "/card");
+      await A2.waitFor("document.getElementById('card-form').name.value === 'Café card " + RUN + "'", "business card arrived on the second device", 20000);
+    } finally { A2.close(); }
     // Switch back to yourself from the account page.
     await A.goto(base + "/account");
     await A.evaluate("document.querySelector('form.use-as button[value=\"\"]').click(); true");
@@ -411,7 +432,7 @@ try {
     await X.evaluate("fetch('/account/delete', { method: 'POST', body: new URLSearchParams({ confirm: 'yes' }), credentials: 'same-origin' }).then(() => true)");
   }
   console.log("ok  area picker (search, 7×7 map, tap a block)");
-  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, business account + switched to it + host as preselected + own @name page + separate business card + switched back, findable profile seen, named link, paid inbox message + connect back, OLN message + private answer both ways + reaction + elsewhere + travelling + tour + report + question/answer + composer tag suggestions + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
+  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, business account + switched to it + host as preselected + own @name page + separate business card + synced to a second manager device (server key) + switched back, findable profile seen, named link, paid inbox message + connect back, OLN message + private answer both ways + reaction + elsewhere + travelling + tour + report + question/answer + composer tag suggestions + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }

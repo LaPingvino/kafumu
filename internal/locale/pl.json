@@ -575,5 +575,10 @@
   "js.answer_failed": "Nie udało się wysłać. Spróbuj ponownie.",
   "biz.selfhost": "Wolisz własny serwer? Kafumu jest open source i działa jako jeden program z jednym plikiem bazy danych.",
   "biz.selfhost_link": "Przewodnik po samodzielnym hostingu",
-  "js.tags_here": "Używane w okolicy:"
+  "js.tags_here": "Używane w okolicy:",
+  "biz.sync_title": "Wizytówka i kontakty między zarządzającymi",
+  "biz.sync_off": "Każde urządzenie osobno",
+  "biz.sync_server": "Synchronizowane (klucz trzyma serwer)",
+  "biz.sync_server_note": "Każde urządzenie zarządzających dostaje wizytówkę i kontakty firmy. Najprościej; klucz trzyma serwer, więc mógłby je odczytać.",
+  "biz.synced_note": "Ta wizytówka i te kontakty należą do firmy i są zsynchronizowane między urządzeniami zarządzających."
 }

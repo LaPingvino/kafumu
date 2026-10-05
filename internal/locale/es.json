@@ -575,5 +575,10 @@
   "js.answer_failed": "No se pudo enviar. Inténtalo de nuevo.",
   "biz.selfhost": "¿Prefieres tu propio servidor? Kafumu es de código abierto y funciona como un solo programa con un archivo de base de datos.",
   "biz.selfhost_link": "Guía para alojarlo tú mismo",
-  "js.tags_here": "Usadas por aquí:"
+  "js.tags_here": "Usadas por aquí:",
+  "biz.sync_title": "Tarjeta y contactos entre gestores",
+  "biz.sync_off": "Cada dispositivo por su cuenta",
+  "biz.sync_server": "Sincronizado (el servidor guarda la clave)",
+  "biz.sync_server_note": "Cada dispositivo de los gestores recibe la tarjeta y los contactos del negocio. Lo más sencillo; el servidor guarda la clave, así que podría leerlos.",
+  "biz.synced_note": "Esta tarjeta y estos contactos son del negocio y se mantienen sincronizados entre los dispositivos de sus gestores."
 }

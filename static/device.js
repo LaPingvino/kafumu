@@ -6,6 +6,10 @@
   // you act as ("kafumu-biz-<id>"), so its card and contacts stay apart.
   var actingID = typeof document !== "undefined" && document.body ? document.body.dataset.actingId || "" : "";
   var DB = actingID ? "kafumu-biz-" + actingID : "kafumu", VERSION = 1, db;
+  // A business's managers may sync its card and contacts (its vault):
+  // "server" (the server holds the key) or "private" (devices only).
+  var actingSync = actingID && document.body ? document.body.dataset.actingSync || "" : "";
+  var VAULT = actingID ? "/api/business/" + actingID + "/vault" : "/api/vault";
 
   function open() {
     if (db) return Promise.resolve(db);
@@ -449,7 +453,7 @@
   };
   // Sync is your own vault: off while acting as a business (its contacts
   // must not land in your personal account; business sync is LOOP-STATE 75c).
-  function signedIn() { return typeof document !== "undefined" && !!(document.body && document.body.dataset.signedIn) && !actingID; }
+  function signedIn() { return typeof document !== "undefined" && !!(document.body && document.body.dataset.signedIn) && (!actingID || !!actingSync); }
   function syncSoon() { if (!signedIn()) return; clearTimeout(syncTimer); syncTimer = setTimeout(function () { sync(); }, 1500); }
   function setSync(state) { window.kafumuSync = state; window.dispatchEvent(new CustomEvent("kafumu:sync", { detail: state })); }
   function b64e(u8) { var s = ""; for (var i = 0; i < u8.length; i++) s += String.fromCharCode(u8[i]); return btoa(s); }
@@ -522,8 +526,8 @@
   function sync(retry) {
     if (!signedIn()) return Promise.resolve("off");
     if (syncing && !retry) return syncing;
-    var run = fetch("/api/vault", { credentials: "same-origin" }).then(function (r) { if (!r.ok) throw new Error("off"); return r.json(); }).then(function (v) {
-      return Promise.all([store.get("syncKey"), snapshot()]).then(function (r) {
+    var run = fetch(VAULT, { credentials: "same-origin" }).then(function (r) { if (!r.ok) throw new Error("off"); return r.json(); }).then(function (v) {
+      return Promise.all([serverKey(), snapshot()]).then(function (r) {
         var key = r[0], local = r[1];
         if (!v.data && !key) {
           // First device of this account: make the key.
@@ -547,9 +551,19 @@
     if (!retry) { syncing = run; run.then(function () { syncing = null; }); }
     return run;
   }
+  // serverKey: the vault key on this device; for a business in server mode,
+  // fetched from the server (kept here too).
+  function serverKey() {
+    return store.get("syncKey").then(function (have) {
+      if (actingSync !== "server") return have;
+      return fetch("/api/business/" + actingID + "/key", { credentials: "same-origin" })
+        .then(function (r) { return r.ok ? r.json() : {}; })
+        .then(function (j) { return j.key && j.key !== have ? store.set("syncKey", j.key).then(function () { return j.key; }) : have; }, function () { return have; });
+    });
+  }
   function push(key, snap, version) {
     return seal(key, snap).then(function (text) {
-      return fetch("/api/vault", { method: "PUT", credentials: "same-origin", headers: { "If-Match": String(version || 0) }, body: text });
+      return fetch(VAULT, { method: "PUT", credentials: "same-origin", headers: { "If-Match": String(version || 0) }, body: text });
     }).then(function (r) { return r.status === 409 ? "conflict" : r.ok ? "on" : "off"; });
   }
   // On every page, signed in: say when this device still needs the key
@@ -581,7 +595,7 @@
         if (req.box && !(mine && mine.box === req.box) && r[2]) bar(T.sync_asked || "Another of your devices asks for your cards and contacts.", T.sync_send || "Send", "/contacts");
       }).catch(function () {});
   }
-  if (signedIn()) { setTimeout(function () { sync(); }, 300); setTimeout(askedForKey, 800); }
+  if (signedIn()) { setTimeout(function () { sync(); }, 300); if (!actingID) setTimeout(askedForKey, 800); }
   // Something worth keeping here (contacts, a card) but no way back in if
   // this device is lost: suggest an account, a username and a passkey.
   // Dismissed, it stays away for a week.

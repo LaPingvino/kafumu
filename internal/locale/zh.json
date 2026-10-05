@@ -575,5 +575,10 @@
   "js.answer_failed": "发送失败，请重试。",
   "biz.selfhost": "想在自己的服务器上运行？Kafumu 是开源的，只需一个程序和一个数据库文件。",
   "biz.selfhost_link": "自托管指南",
-  "js.tags_here": "附近常用："
+  "js.tags_here": "附近常用：",
+  "biz.sync_title": "管理员之间的名片和联系人",
+  "biz.sync_off": "各设备各自保存",
+  "biz.sync_server": "同步（服务器保管密钥）",
+  "biz.sync_server_note": "每位管理员的设备都会收到商家的名片和联系人。最简单；但密钥由服务器保管，因此服务器可以读取它们。",
+  "biz.synced_note": "这张名片和这些联系人属于商家，并在各管理员的设备之间同步。"
 }

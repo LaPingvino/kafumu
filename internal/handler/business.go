@@ -1,6 +1,9 @@
 package handler
 
 import (
+	"crypto/rand"
+	"encoding/base64"
+	"encoding/json"
 	"github.com/LaPingvino/kafumu/internal/account"
 	"log"
 	"net/http"
@@ -145,4 +148,80 @@ func (h *Businesses) Profile(w http.ResponseWriter, r *http.Request, id string) 
 	p := bizProfilePage{page: h.Home.newPage(r, b.Name), B: b,
 		Link: strings.HasPrefix(b.Contact, "https://") || strings.HasPrefix(b.Contact, "http://")}
 	h.Home.render(w, "business_profile.html", p)
+}
+
+// bizManaged: the business at {id} if the signed-in user manages it.
+func (h *Businesses) bizManaged(r *http.Request) (*business.Business, bool) {
+	u := UserFrom(r.Context())
+	if u == nil || IsBot(r) {
+		return nil, false
+	}
+	b, err := h.Store.Get(r.Context(), r.PathValue("id"))
+	if err != nil || !b.Manages(u.ID) {
+		return nil, false
+	}
+	return b, true
+}
+
+// VaultAPI handles GET/PUT /api/business/{id}/vault: the business's card
+// and contacts, encrypted, for its managers' devices (when sync is on).
+func (h *Businesses) VaultAPI(w http.ResponseWriter, r *http.Request) {
+	b, ok := h.bizManaged(r)
+	if !ok || b.SyncMode == "" || h.Accounts.Vault == nil {
+		http.Error(w, "not synced", http.StatusNotFound)
+		return
+	}
+	h.Accounts.serveVault(w, r, "biz:"+b.ID)
+}
+
+// KeyAPI handles GET /api/business/{id}/key: in server mode, the key that
+// opens the business vault, for its managers' devices.
+func (h *Businesses) KeyAPI(w http.ResponseWriter, r *http.Request) {
+	b, ok := h.bizManaged(r)
+	if !ok || b.SyncMode != business.SyncServer || b.SyncKey == "" {
+		http.Error(w, "no key here", http.StatusNotFound)
+		return
+	}
+	w.Header().Set("Cache-Control", "no-store")
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{"key": b.SyncKey})
+}
+
+// Sync handles POST /business/{id}/sync: mode=off|server|private. Going to
+// server mode takes the key a device already has (key=…), so the vault
+// stays readable; without one, it starts a fresh key and vault. Leaving
+// server mode, the server forgets the key.
+func (h *Businesses) Sync(w http.ResponseWriter, r *http.Request) {
+	b, ok := h.bizManaged(r)
+	if !ok {
+		http.NotFound(w, r)
+		return
+	}
+	switch r.FormValue("mode") {
+	case "off":
+		b.SyncMode, b.SyncKey = "", ""
+	case business.SyncServer:
+		if b.SyncMode != business.SyncServer || b.SyncKey == "" {
+			key := r.FormValue("key")
+			if raw, err := base64.StdEncoding.DecodeString(key); err != nil || len(raw) != 32 {
+				raw = make([]byte, 32)
+				rand.Read(raw)
+				key = base64.StdEncoding.EncodeToString(raw)
+				if h.Accounts.Vault != nil {
+					_ = h.Accounts.Vault.Delete(r.Context(), "biz:"+b.ID) // sealed with a key nobody gave us
+				}
+			}
+			b.SyncMode, b.SyncKey = business.SyncServer, key
+		}
+	case business.SyncPrivate:
+		b.SyncMode, b.SyncKey = business.SyncPrivate, ""
+	default:
+		http.Redirect(w, r, "/business", http.StatusSeeOther)
+		return
+	}
+	if err := h.Store.Save(r.Context(), b); err != nil {
+		log.Printf("business: sync mode: %v", err)
+	}
+	h.Home.forgetBiz(b.ID)
+	http.Redirect(w, r, "/business", http.StatusSeeOther)
 }

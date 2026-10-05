@@ -575,5 +575,10 @@
   "js.answer_failed": "Odeslání se nepovedlo. Zkus to znovu.",
   "biz.selfhost": "Raději na vlastním serveru? Kafumu je open source a běží jako jeden program s jedním databázovým souborem.",
   "biz.selfhost_link": "Návod na vlastní hosting",
-  "js.tags_here": "Používané tady:"
+  "js.tags_here": "Používané tady:",
+  "biz.sync_title": "Vizitka a kontakty mezi správci",
+  "biz.sync_off": "Každé zařízení zvlášť",
+  "biz.sync_server": "Synchronizováno (klíč drží server)",
+  "biz.sync_server_note": "Každé zařízení správců dostane vizitku a kontakty firmy. Nejjednodušší; klíč drží server, takže by je mohl číst.",
+  "biz.synced_note": "Tahle vizitka a tyto kontakty patří firmě a zůstávají synchronizované mezi zařízeními správců."
 }

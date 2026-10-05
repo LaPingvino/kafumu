@@ -32,6 +32,9 @@ const (
 	StatusPaused = "paused"
 	StatusEnded  = "ended"
 
+	SyncServer  = "server"
+	SyncPrivate = "private"
+
 	AfterStop = "stop"
 	AfterStay = "stay"
 )
@@ -49,7 +52,13 @@ type Business struct {
 	Contact string `datastore:"contact,noindex" json:"contact,omitempty"`
 	// Username: the business's own kafumu.com/@name, claimed in the same
 	// registry as people's (as "biz:<id>"), so a name is one or the other.
-	Username  string    `datastore:"username,noindex" json:"username,omitempty"`
+	Username string `datastore:"username,noindex" json:"username,omitempty"`
+	// SyncMode: how the business's card and contacts sync between its
+	// managers' devices: "" (off: each device on its own), SyncServer (the
+	// server holds the key, SyncKey) or SyncPrivate (the key only on
+	// managers' devices). Managers choose.
+	SyncMode  string    `datastore:"sync_mode,noindex" json:"-"`
+	SyncKey   string    `datastore:"sync_key,noindex" json:"-"`
 	Managers  []string  `datastore:"managers" json:"-"` // user ids (indexed: "mine")
 	CreatedBy string    `datastore:"created_by,noindex" json:"-"`
 	CreatedAt time.Time `datastore:"created_at" json:"-"`

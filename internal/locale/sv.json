@@ -575,5 +575,10 @@
   "js.answer_failed": "Kunde inte skicka. Försök igen.",
   "biz.selfhost": "Hellre på din egen server? Kafumu är öppen källkod och körs som ett program med en databasfil.",
   "biz.selfhost_link": "Guide för egen drift",
-  "js.tags_here": "Används här:"
+  "js.tags_here": "Används här:",
+  "biz.sync_title": "Kort och kontakter mellan förvaltare",
+  "biz.sync_off": "Varje enhet för sig",
+  "biz.sync_server": "Synkade (servern håller nyckeln)",
+  "biz.sync_server_note": "Varje förvaltares enhet får företagets kort och kontakter. Enklast; servern håller nyckeln och skulle alltså kunna läsa dem.",
+  "biz.synced_note": "Det här kortet och de här kontakterna tillhör företaget och hålls i synk mellan förvaltarnas enheter."
 }

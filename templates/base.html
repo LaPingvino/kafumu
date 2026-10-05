@@ -16,7 +16,7 @@
     // (day before month, 24-hour clock).
     window.KAFUMU_LOCALE = ({ en: "en-GB", pt: "pt-PT", nl: "nl-NL", eo: "eo", zh: "zh-Hans", "zh-hant": "zh-Hant-TW" })[document.documentElement.lang] || document.documentElement.lang;</script>
 </head>
-<body{{if .Acting}} data-acting="{{.Acting.Name}}" data-acting-id="{{.Acting.ID}}"{{end}}{{if .User}} data-signed-in="1"{{if .User.Username}} data-named="1"{{end}}{{if .User.Passkeys}} data-passkey="1"{{end}}{{end}}>
+<body{{if .Acting}} data-acting="{{.Acting.Name}}" data-acting-id="{{.Acting.ID}}"{{if .Acting.SyncMode}} data-acting-sync="{{.Acting.SyncMode}}"{{end}}{{end}}{{if .User}} data-signed-in="1"{{if .User.Username}} data-named="1"{{end}}{{if .User.Passkeys}} data-passkey="1"{{end}}{{end}}>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <symbol id="i-around" viewBox="0 0 16 16"><path fill="currentColor" d="M8 1a5 5 0 0 0-5 5c0 3.5 5 9 5 9s5-5.5 5-9a5 5 0 0 0-5-5zm0 3a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/></symbol>
     <symbol id="i-card" viewBox="0 0 16 16"><path fill="currentColor" d="M2 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm3 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM9 6h5v1.5H9zm0 3h4v1.5H9zm-6.5 2.5c.3-1.2 1.3-2 2.5-2s2.2.8 2.5 2z"/></symbol>
@@ -44,7 +44,7 @@
     <button type="button" class="go pill-sm">{{t .Lang "install.go"}}</button><button type="button" class="no pill-sm">×</button></div>
   <main class="clamp">
   {{if and .Acting (or (eq .Tab "card") (eq .Tab "contacts") (eq .Tab "connect"))}}<p class="biz-banner"><svg class="wings{{if not (.Acting.Live .Now)}} off{{end}}"><use href="#i-wings"/></svg>
-    {{t .Lang "biz.working_as"}} <strong>{{.Acting.Name}}</strong>. {{t .Lang "biz.device_only"}} <a href="/account">{{t .Lang "biz.switch"}}</a></p>{{end}}
+    {{t .Lang "biz.working_as"}} <strong>{{.Acting.Name}}</strong>. {{if .Acting.SyncMode}}{{t .Lang "biz.synced_note"}}{{else}}{{t .Lang "biz.device_only"}}{{end}} <a href="/account">{{t .Lang "biz.switch"}}</a></p>{{end}}
 {{end}}
 
 {{define "tabs"}}

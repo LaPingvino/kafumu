@@ -357,6 +357,12 @@ func (a *Accounts) VaultAPI(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "sign in first", http.StatusUnauthorized)
 		return
 	}
+	a.serveVault(w, r, u.ID)
+}
+
+// serveVault is GET/PUT of one encrypted vault: yours, or a business's
+// ("biz:<id>", for its managers).
+func (a *Accounts) serveVault(w http.ResponseWriter, r *http.Request, owner string) {
 	w.Header().Set("Cache-Control", "no-store")
 	w.Header().Set("Content-Type", "application/json")
 	if r.Method == http.MethodPut {
@@ -370,7 +376,7 @@ func (a *Accounts) VaultAPI(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "bad body", http.StatusBadRequest)
 			return
 		}
-		v, err := a.Vault.Put(r.Context(), u.ID, want, body, time.Now())
+		v, err := a.Vault.Put(r.Context(), owner, want, body, time.Now())
 		switch {
 		case errors.Is(err, vault.ErrConflict):
 			http.Error(w, "conflict", http.StatusConflict)
@@ -384,7 +390,7 @@ func (a *Accounts) VaultAPI(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
-	v, err := a.Vault.Get(r.Context(), u.ID)
+	v, err := a.Vault.Get(r.Context(), owner)
 	if err != nil {
 		http.Error(w, "unavailable", http.StatusServiceUnavailable)
 		return

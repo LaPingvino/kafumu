@@ -575,5 +575,10 @@
   "js.answer_failed": "Gönderilemedi. Tekrar dene.",
   "biz.selfhost": "Kendi sunucunda mı çalıştırmak istersin? Kafumu açık kaynaklıdır; tek program ve tek veritabanı dosyasıyla çalışır.",
   "biz.selfhost_link": "Kendi sunucunda barındırma rehberi",
-  "js.tags_here": "Burada kullanılanlar:"
+  "js.tags_here": "Burada kullanılanlar:",
+  "biz.sync_title": "Yöneticiler arasında kart ve kişiler",
+  "biz.sync_off": "Her cihaz kendi başına",
+  "biz.sync_server": "Eşitlenmiş (anahtarı sunucu tutar)",
+  "biz.sync_server_note": "Her yöneticinin cihazı işletmenin kartını ve kişilerini alır. En basiti; anahtarı sunucu tuttuğu için onları okuyabilir.",
+  "biz.synced_note": "Bu kart ve bu kişiler işletmeye aittir ve yöneticilerin cihazları arasında eşitlenir."
 }

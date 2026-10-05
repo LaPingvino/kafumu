@@ -575,5 +575,10 @@
   "js.answer_failed": "送出失敗，請再試一次。",
   "biz.selfhost": "想在自己的伺服器上執行？Kafumu 是開源的，只需一個程式和一個資料庫檔案。",
   "biz.selfhost_link": "自架指南",
-  "js.tags_here": "附近常用："
+  "js.tags_here": "附近常用：",
+  "biz.sync_title": "管理員之間的名片和聯絡人",
+  "biz.sync_off": "各裝置各自保存",
+  "biz.sync_server": "同步（伺服器保管金鑰）",
+  "biz.sync_server_note": "每位管理員的裝置都會收到商家的名片和聯絡人。最簡單；但金鑰由伺服器保管，因此伺服器可以讀取它們。",
+  "biz.synced_note": "這張名片和這些聯絡人屬於商家，並在各管理員的裝置之間同步。"
 }
