@@ -39,10 +39,13 @@ var (
 )
 
 type Business struct {
-	ID        string    `datastore:"-" json:"id"`
-	Name      string    `datastore:"name,noindex" json:"name"`
-	Kind      string    `datastore:"kind,noindex" json:"kind"`
-	Contact   string    `datastore:"contact,noindex" json:"contact,omitempty"`
+	ID      string `datastore:"-" json:"id"`
+	Name    string `datastore:"name,noindex" json:"name"`
+	Kind    string `datastore:"kind,noindex" json:"kind"`
+	Contact string `datastore:"contact,noindex" json:"contact,omitempty"`
+	// Username: the business's own kafumu.com/@name, claimed in the same
+	// registry as people's (as "biz:<id>"), so a name is one or the other.
+	Username  string    `datastore:"username,noindex" json:"username,omitempty"`
 	Managers  []string  `datastore:"managers" json:"-"` // user ids (indexed: "mine")
 	CreatedBy string    `datastore:"created_by,noindex" json:"-"`
 	CreatedAt time.Time `datastore:"created_at" json:"-"`

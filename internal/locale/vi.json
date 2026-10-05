@@ -555,5 +555,9 @@
   "biz.use_as": "Dùng Kafumu với tư cách",
   "biz.personal": "Chính bạn",
   "js.nudge_biz": "Cảm ơn bạn đã tạo tài khoản doanh nghiệp! Bạn đang dùng Kafumu với tư cách {name}: các buổi gặp bạn tạo sẽ mang tên này.",
-  "js.nudge_biz_go": "Quản lý"
+  "js.nudge_biz_go": "Quản lý",
+  "biz.username": "Tên người dùng",
+  "biz.username_note": "Địa chỉ riêng của doanh nghiệp bạn trên Kafumu, để mọi người tìm thấy.",
+  "biz.contact_public": "Liên hệ",
+  "biz.profile_note": "Một doanh nghiệp trên Kafumu: buổi gặp và tin nhắn mang tên riêng."
 }

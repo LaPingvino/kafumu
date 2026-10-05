@@ -555,5 +555,9 @@
   "biz.use_as": "Používat Kafumu jako",
   "biz.personal": "Ty sám",
   "js.nudge_biz": "Díky za založení firemního účtu! Používáš Kafumu jako {name}: setkání, která vytvoříš, jsou pod jeho jménem.",
-  "js.nudge_biz_go": "Spravovat"
+  "js.nudge_biz_go": "Spravovat",
+  "biz.username": "Uživatelské jméno",
+  "biz.username_note": "Vlastní adresa vaší firmy na Kafumu – podle ní ji lidé najdou.",
+  "biz.contact_public": "Kontakt",
+  "biz.profile_note": "Firma na Kafumu: setkání a zprávy pod vlastním jménem."
 }

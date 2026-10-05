@@ -555,5 +555,9 @@
   "biz.use_as": "Uzi Kafumu kiel",
   "biz.personal": "Vi mem",
   "js.nudge_biz": "Dankon pro krei komercan konton! Vi uzas Kafumu kiel {name}: renkontiĝoj, kiujn vi kreas, aperas sub ĝia nomo.",
-  "js.nudge_biz_go": "Administri"
+  "js.nudge_biz_go": "Administri",
+  "biz.username": "Uzantnomo",
+  "biz.username_note": "La propra adreso de la komerco en Kafumu, kaj kiel homoj trovas ĝin.",
+  "biz.contact_public": "Kontakto",
+  "biz.profile_note": "Komerco en Kafumu: renkontiĝoj kaj mesaĝoj sub sia propra nomo."
 }

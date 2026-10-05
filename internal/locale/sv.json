@@ -555,5 +555,9 @@
   "biz.use_as": "Använd Kafumu som",
   "biz.personal": "Du själv",
   "js.nudge_biz": "Tack för att du skapade ett företagskonto! Du använder Kafumu som {name}: träffar du skapar visas i dess namn.",
-  "js.nudge_biz_go": "Hantera"
+  "js.nudge_biz_go": "Hantera",
+  "biz.username": "Användarnamn",
+  "biz.username_note": "Företagets egen adress på Kafumu, och hur folk hittar det.",
+  "biz.contact_public": "Kontakt",
+  "biz.profile_note": "Ett företag på Kafumu: träffar och meddelanden i eget namn."
 }

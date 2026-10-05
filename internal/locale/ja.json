@@ -555,5 +555,9 @@
   "biz.use_as": "Kafumu を使う名義",
   "biz.personal": "自分",
   "js.nudge_biz": "ビジネスアカウントの作成ありがとうございます！いま {name} として Kafumu を使っています。作成するミートアップはこの名義で公開されます。",
-  "js.nudge_biz_go": "管理"
+  "js.nudge_biz_go": "管理",
+  "biz.username": "ユーザー名",
+  "biz.username_note": "Kafumu 上のビジネス専用アドレス。これで見つけてもらえます。",
+  "biz.contact_public": "連絡先",
+  "biz.profile_note": "Kafumu のビジネス：自分の名前でミートアップやメッセージを発信します。"
 }

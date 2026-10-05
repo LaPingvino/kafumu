@@ -460,7 +460,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       shows (meetups, named OLN posts as the business, the profile); coloured while Live, grey when not.
 - [ ] 75. The business runs the thing (Joop: "switching to the business account should fully make it feel like the
       business running the thing and keeping the personal part out of it"):
-      a. A business username (/@cafe-x; managers set it; same namespace as people, so no clash), and its public
+      [x] a. Done: Business.Username claimed in the people's registry as "biz:<id>" (one namespace; "add manager"
+         refuses business names); set on /business; /@name falls back to the business page (wings, kind, contact;
+         single cached reads, no query). Browser test: set, visitor sees it. Meetups list on it: later (needs an
+         index by business). Was: A business username (/@cafe-x; managers set it; same namespace as people, so no clash), and its public
          page (name, kind, contact, upcoming meetups, wings).
       b. While acting: the Card page edits the business's card; Connect shares it; new contacts land in the
          business's contacts, not yours (and vice versa).

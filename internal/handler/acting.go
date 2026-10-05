@@ -31,11 +31,23 @@ func (h *Home) acting(ctx context.Context, r *http.Request, userID string) *busi
 	if err != nil || c.Value == "" || h.Biz == nil {
 		return nil
 	}
+	b := h.bizByID(ctx, c.Value)
+	if b == nil || !b.Manages(userID) {
+		return nil
+	}
+	return b
+}
+
+// bizByID is a business, cached a minute (nil if there is none).
+func (h *Home) bizByID(ctx context.Context, id string) *business.Business {
+	if h.Biz == nil || id == "" {
+		return nil
+	}
 	h.bizc.mu.Lock()
-	e, ok := h.bizc.m[c.Value]
+	e, ok := h.bizc.m[id]
 	h.bizc.mu.Unlock()
 	if !ok || time.Since(e.at) > time.Minute {
-		b, err := h.Biz.Get(ctx, c.Value)
+		b, err := h.Biz.Get(ctx, id)
 		if err != nil {
 			b = nil
 		}
@@ -44,11 +56,8 @@ func (h *Home) acting(ctx context.Context, r *http.Request, userID string) *busi
 		if h.bizc.m == nil || len(h.bizc.m) > 1000 {
 			h.bizc.m = map[string]bizEntry{}
 		}
-		h.bizc.m[c.Value] = e
+		h.bizc.m[id] = e
 		h.bizc.mu.Unlock()
-	}
-	if e.b == nil || !e.b.Manages(userID) {
-		return nil
 	}
 	return e.b
 }

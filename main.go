@@ -149,6 +149,8 @@ func main() {
 	mux.HandleFunc("DELETE /account/move", accounts.MoveRequest)
 	biz := &handler.Businesses{Home: home, Accounts: accounts, Store: businesses}
 	mux.HandleFunc("POST /account/as", biz.Use)
+	mux.HandleFunc("POST /business/{id}/name", biz.Name)
+	accounts.BizProfile = biz.Profile
 	mux.HandleFunc("GET /business", biz.Show)
 	mux.HandleFunc("POST /business", biz.Create)
 	mux.HandleFunc("POST /business/{id}/managers", biz.Managers)

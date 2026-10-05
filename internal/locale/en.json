@@ -555,5 +555,9 @@
   "biz.use_as": "Use Kafumu as",
   "biz.personal": "Yourself",
   "js.nudge_biz": "Thanks for creating a business account! You're using Kafumu as {name}: meetups you create are hosted under its name.",
-  "js.nudge_biz_go": "Manage"
+  "js.nudge_biz_go": "Manage",
+  "biz.username": "Username",
+  "biz.username_note": "Your business's own address on Kafumu, and how people find it.",
+  "biz.contact_public": "Contact",
+  "biz.profile_note": "A business on Kafumu: meetups and messages under its own name."
 }

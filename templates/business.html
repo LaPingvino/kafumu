@@ -9,10 +9,15 @@
   </ul>
   <p class="dim">{{t .Lang "biz.no_ads"}}</p>
   {{if not .User}}<p><a href="/account?next=/business" role="button" class="pill suggested">{{t .Lang "biz.signin"}}</a></p>{{else}}
+  {{if .Error}}<p role="alert" class="error">{{.Error}}</p>{{end}}
   {{if .Created}}<p class="card" style="padding:8px 16px">✓ {{t .Lang "biz.created"}}</p>{{end}}
   {{range .Mine}}<div class="card" style="padding:4px 16px 12px">
     <h2>{{.Name}} <span class="badge">{{.Kind}}</span></h2>
     <p class="dim small">{{if .TrialOver $.Now}}{{t $.Lang "biz.trial_over"}}{{else if eq .Status "trial"}}{{t $.Lang "biz.trial_until"}} {{.TrialEnds.Format "2 Jan 2006"}}{{else}}{{.Status}}{{end}}</p>
+    <form method="post" action="/business/{{.ID}}/name" class="inline-row"><label>{{t $.Lang "biz.username"}}
+      <input name="username" value="{{.Username}}" placeholder="cafe-x" maxlength="31" pattern="@?[A-Za-z0-9_-]{3,30}"></label>
+      <button type="submit" class="pill-sm">{{t $.Lang "account.save"}}</button></form>
+    <p class="dim small">{{if .Username}}<a href="/@{{.Username}}">kafumu.com/@{{.Username}}</a> · {{end}}{{t $.Lang "biz.username_note"}}</p>
     <p><strong>{{t $.Lang "biz.managers"}}</strong></p>
     <ul>{{$b := .}}{{range .Managers}}<li>@{{index $.Names .}}{{if ne . $.User.ID}} <form method="post" action="/business/{{$b.ID}}/managers" class="inline"><input type="hidden" name="remove" value="{{.}}"><button type="submit" class="pill-sm">×</button></form>{{end}}</li>{{end}}</ul>
     <form method="post" action="/business/{{.ID}}/managers" class="inline-row"><input name="add" placeholder="@username" maxlength="31"><button type="submit" class="pill-sm">{{t $.Lang "biz.add_manager"}}</button></form>

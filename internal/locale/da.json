@@ -555,5 +555,9 @@
   "biz.use_as": "Brug Kafumu som",
   "biz.personal": "Dig selv",
   "js.nudge_biz": "Tak fordi du oprettede en virksomhedskonto! Du bruger Kafumu som {name}: møder, du opretter, står i dens navn.",
-  "js.nudge_biz_go": "Administrer"
+  "js.nudge_biz_go": "Administrer",
+  "biz.username": "Brugernavn",
+  "biz.username_note": "Virksomhedens egen adresse på Kafumu, og hvordan folk finder den.",
+  "biz.contact_public": "Kontakt",
+  "biz.profile_note": "En virksomhed på Kafumu: møder og beskeder i eget navn."
 }

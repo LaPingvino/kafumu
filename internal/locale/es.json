@@ -555,5 +555,9 @@
   "biz.use_as": "Usar Kafumu como",
   "biz.personal": "Tú mismo",
   "js.nudge_biz": "¡Gracias por crear una cuenta de empresa! Estás usando Kafumu como {name}: los encuentros que crees irán a su nombre.",
-  "js.nudge_biz_go": "Gestionar"
+  "js.nudge_biz_go": "Gestionar",
+  "biz.username": "Nombre de usuario",
+  "biz.username_note": "La dirección propia de tu negocio en Kafumu, y cómo la gente lo encuentra.",
+  "biz.contact_public": "Contacto",
+  "biz.profile_note": "Un negocio en Kafumu: encuentros y mensajes con su propio nombre."
 }

@@ -555,5 +555,9 @@
   "biz.use_as": "Kafumu'yu şu olarak kullan",
   "biz.personal": "Kendin",
   "js.nudge_biz": "İşletme hesabı oluşturduğun için teşekkürler! Kafumu'yu {name} olarak kullanıyorsun: oluşturduğun buluşmalar onun adına olur.",
-  "js.nudge_biz_go": "Yönet"
+  "js.nudge_biz_go": "Yönet",
+  "biz.username": "Kullanıcı adı",
+  "biz.username_note": "İşletmenin Kafumu'daki kendi adresi; insanlar onu böyle bulur.",
+  "biz.contact_public": "İletişim",
+  "biz.profile_note": "Kafumu'da bir işletme: kendi adıyla buluşmalar ve mesajlar."
 }

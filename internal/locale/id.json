@@ -555,5 +555,9 @@
   "biz.use_as": "Gunakan Kafumu sebagai",
   "biz.personal": "Diri sendiri",
   "js.nudge_biz": "Terima kasih telah membuat akun bisnis! Kamu menggunakan Kafumu sebagai {name}: pertemuan yang kamu buat diselenggarakan atas namanya.",
-  "js.nudge_biz_go": "Kelola"
+  "js.nudge_biz_go": "Kelola",
+  "biz.username": "Nama pengguna",
+  "biz.username_note": "Alamat milik bisnismu sendiri di Kafumu, cara orang menemukannya.",
+  "biz.contact_public": "Kontak",
+  "biz.profile_note": "Bisnis di Kafumu: pertemuan dan pesan atas namanya sendiri."
 }

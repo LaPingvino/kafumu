@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"github.com/LaPingvino/kafumu/internal/account"
 	"log"
 	"net/http"
 	"slices"
@@ -27,10 +28,17 @@ type businessPage struct {
 	Kinds   []string
 	Now     time.Time
 	Created bool
+	Error   string
 }
 
 func (h *Businesses) Show(w http.ResponseWriter, r *http.Request) {
 	p := businessPage{page: h.Home.newPage(r, ""), Kinds: business.Kinds, Now: time.Now(), Names: map[string]string{}, Created: r.URL.Query().Get("new") == "1"}
+	switch r.URL.Query().Get("err") {
+	case "taken":
+		p.Error = locale.T(p.Lang, "account.err_taken")
+	case "invalid":
+		p.Error = locale.T(p.Lang, "account.err_invalid")
+	}
 	p.Title, p.Tab = locale.T(p.Lang, "biz.title"), "account"
 	if u := p.User; u != nil {
 		p.Mine, _ = h.Store.ForUser(r.Context(), u.ID)
@@ -74,7 +82,7 @@ func (h *Businesses) Managers(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if name := strings.ToLower(strings.TrimPrefix(strings.TrimSpace(r.FormValue("add")), "@")); name != "" {
-		if id, err := h.Accounts.Svc.Store.LookupUsername(r.Context(), name); err == nil && id != "" && !b.Manages(id) && len(b.Managers) < 20 {
+		if id, err := h.Accounts.Svc.Store.LookupUsername(r.Context(), name); err == nil && id != "" && !strings.HasPrefix(id, "biz:") && !b.Manages(id) && len(b.Managers) < 20 {
 			b.Managers = append(b.Managers, id)
 		}
 	}
@@ -84,4 +92,58 @@ func (h *Businesses) Managers(w http.ResponseWriter, r *http.Request) {
 	_ = h.Store.Save(r.Context(), b)
 	h.Home.forgetBiz(b.ID)
 	http.Redirect(w, r, "/business", http.StatusSeeOther)
+}
+
+// Name handles POST /business/{id}/name: the business's own @username.
+func (h *Businesses) Name(w http.ResponseWriter, r *http.Request) {
+	u := UserFrom(r.Context())
+	b, err := h.Store.Get(r.Context(), r.PathValue("id"))
+	if u == nil || err != nil || !b.Manages(u.ID) {
+		http.NotFound(w, r)
+		return
+	}
+	name := strings.ToLower(strings.TrimPrefix(strings.TrimSpace(r.FormValue("username")), "@"))
+	if name == b.Username {
+		http.Redirect(w, r, "/business", http.StatusSeeOther)
+		return
+	}
+	if !account.ValidUsername(name) {
+		http.Redirect(w, r, "/business?err=invalid", http.StatusSeeOther)
+		return
+	}
+	if err := h.Accounts.Svc.Store.ClaimUsername(r.Context(), name, "biz:"+b.ID); err != nil {
+		http.Redirect(w, r, "/business?err=taken", http.StatusSeeOther)
+		return
+	}
+	old := b.Username
+	b.Username = name
+	if err := h.Store.Save(r.Context(), b); err != nil {
+		_ = h.Accounts.Svc.Store.ReleaseUsername(r.Context(), name, "biz:"+b.ID)
+		http.Redirect(w, r, "/business", http.StatusSeeOther)
+		return
+	}
+	if old != "" {
+		_ = h.Accounts.Svc.Store.ReleaseUsername(r.Context(), old, "biz:"+b.ID)
+	}
+	h.Home.forgetBiz(b.ID)
+	http.Redirect(w, r, "/business", http.StatusSeeOther)
+}
+
+type bizProfilePage struct {
+	page
+	B    *business.Business
+	Link bool // Contact is a web address
+}
+
+// Profile renders kafumu.com/@name for a business: who it is and how to
+// reach it. No query: the name and the business are single cached reads.
+func (h *Businesses) Profile(w http.ResponseWriter, r *http.Request, id string) {
+	b := h.Home.bizByID(r.Context(), id)
+	if b == nil {
+		http.NotFound(w, r)
+		return
+	}
+	p := bizProfilePage{page: h.Home.newPage(r, b.Name), B: b,
+		Link: strings.HasPrefix(b.Contact, "https://") || strings.HasPrefix(b.Contact, "http://")}
+	h.Home.render(w, "business_profile.html", p)
 }

@@ -555,5 +555,9 @@
   "biz.use_as": "Folosește Kafumu ca",
   "biz.personal": "Tu",
   "js.nudge_biz": "Mulțumim că ai creat un cont de firmă! Folosești Kafumu ca {name}: întâlnirile pe care le creezi apar în numele ei.",
-  "js.nudge_biz_go": "Gestionează"
+  "js.nudge_biz_go": "Gestionează",
+  "biz.username": "Nume de utilizator",
+  "biz.username_note": "Adresa proprie a firmei pe Kafumu și felul în care oamenii o găsesc.",
+  "biz.contact_public": "Contact",
+  "biz.profile_note": "O firmă pe Kafumu: întâlniri și mesaje în nume propriu."
 }

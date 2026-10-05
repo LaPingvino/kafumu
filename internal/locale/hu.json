@@ -555,5 +555,9 @@
   "biz.use_as": "Kafumu használata mint",
   "biz.personal": "Saját magad",
   "js.nudge_biz": "Köszönjük, hogy üzleti fiókot hoztál létre! A Kafumut most mint {name} használod: az általad létrehozott találkozók az ő nevén futnak.",
-  "js.nudge_biz_go": "Kezelés"
+  "js.nudge_biz_go": "Kezelés",
+  "biz.username": "Felhasználónév",
+  "biz.username_note": "A vállalkozásod saját címe a Kafumun – így találnak rá.",
+  "biz.contact_public": "Kapcsolat",
+  "biz.profile_note": "Vállalkozás a Kafumun: találkozók és üzenetek saját néven."
 }

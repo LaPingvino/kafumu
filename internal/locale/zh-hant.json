@@ -555,5 +555,9 @@
   "biz.use_as": "以此身分使用 Kafumu",
   "biz.personal": "我自己",
   "js.nudge_biz": "感謝你建立商家帳戶！你正以 {name} 的身分使用 Kafumu：你建立的聚會將以它的名義發布。",
-  "js.nudge_biz_go": "管理"
+  "js.nudge_biz_go": "管理",
+  "biz.username": "使用者名稱",
+  "biz.username_note": "商家在 Kafumu 上的專屬網址，大家藉此找到你。",
+  "biz.contact_public": "聯絡方式",
+  "biz.profile_note": "Kafumu 上的商家：以自己的名義發起聚會和發布訊息。"
 }

@@ -45,6 +45,8 @@ type Accounts struct {
 	Vault vault.Store
 	// Handles maps usernames to long-lived connect codes (kafumu.com/@name).
 	Handles *handle.Store
+	// BizProfile serves /@name when the name is a business's.
+	BizProfile func(w http.ResponseWriter, r *http.Request, id string)
 }
 
 // Middleware resolves the "k" cookie. It never creates an account: page views
@@ -429,6 +431,11 @@ func (a *Accounts) FollowHandle(w http.ResponseWriter, r *http.Request, name str
 	}
 	payload, ok := a.Handles.Get(r.Context(), name, time.Now())
 	if !ok {
+		// A business's own name: its public page.
+		if id, err := a.Svc.Store.LookupUsername(r.Context(), name); err == nil && strings.HasPrefix(id, "biz:") && a.BizProfile != nil {
+			a.BizProfile(w, r, strings.TrimPrefix(id, "biz:"))
+			return
+		}
 		http.NotFound(w, r)
 		return
 	}
