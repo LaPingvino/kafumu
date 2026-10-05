@@ -589,7 +589,7 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       (peers pulled from / pushed to, last seen). Also mention self-hosting on /business.
       Joop (2026-10-05): bahais.in will be a GAE-less fork (adding local-community options). Most useful here: a
       SQLite implementation of the store interfaces, picked by env var, so forks needn't write their own.
-- [ ] 60. Eventa Servo without a key (Joop 2026-10-05): per-country iCal feeds,
+- [x] 60. Eventa Servo without a key (Joop 2026-10-05): per-country iCal feeds,
       https://eventaservo.org/webcal/lando/<cc>.ics (de, fr, …) and ol.ics (online). Checked: 200 with an honest
       UA (curl's default gets 403), de.ics 230 events, ol.ics 376; no GEO, but LOCATION ends "…, City, CC" →
       gazetteer town lookup → cell; feeds include past events (drop them).
@@ -613,7 +613,7 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
            under "Elsewhere · online" (fetched at most every 6 h, never for bots).
       Was: 60. Eventa Servo (Esperanto events, Joop): its API (eventaservo.org/api/v2) needs a key; ask them for one
       (or for a public per-country iCal), then it is one more entry in the feeds list (internal/feeds).
-- [ ] 45. DECIDED (Joop 2026-10-05): "Mix" + pay what you want + manual payments for now.
+- [x] 45. DECIDED (Joop 2026-10-05): "Mix" + pay what you want + manual payments for now.
       [x] 45a. Done: User.PatronUntil (admin: "patron until" date per account, through the end of that day UTC;
            empty = not a patron), User.Patron(now); gold wings on the username button, on posts made under the
            name (Note.Patron set at posting via PatronFor), on findable people (Person.Patron); lapsed = no
@@ -637,7 +637,7 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       "For cafés and venues" page "isn't well thought out", "we'll need a better model for paid services".
       Constraints from VISION: core use free forever, Lichess-style patrons, relevance instead of ads, nothing
       that buys visibility over what's actually near and relevant. Don't build until Joop picks a direction.
-- [ ] 76. Business ≡ person (Joop: "a check for the equivalence of business accounts to personal accounts…
+- [x] 76. Business ≡ person (Joop: "a check for the equivalence of business accounts to personal accounts…
       that would be the better place to fix"). One "who": an owner is a user id or "biz:<id>"; actsFor(u, owner)
       = it's u, or a business u manages (identity.go; brand admins use it). Gaps found:
       [x] a. Done: "add manager" takes a business's @name (not itself); managesBiz (direct, or manager of a
@@ -668,7 +668,7 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       (was) c. Findable + public inbox for businesses (messages to the business, read by its managers' devices).
       d. Later, if wanted: Bluesky for a business.
       Already equal: named posts, hosting, wings (patron / live), synced card + contacts, brand admin.
-- [ ] 46. DECIDED (Joop 2026-10-05: "2 and 4"): brands are set up by Joop in admin as a PAID service (manual
+- [x] 46. DECIDED (Joop 2026-10-05: "2 and 4"): brands are set up by Joop in admin as a PAID service (manual
       payment, like 45c), with brand admins; and forks (self-hosting + OLN linking, done in 64) are the free
       route. [x] 46a done: internal/brand (host-keyed, Datastore or kv, all brands loaded together and kept a
       minute: choosing a request's brand is free); newPage picks it from r.Host (name, accent colour as a CSS
