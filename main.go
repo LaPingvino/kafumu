@@ -210,6 +210,27 @@ func main() {
 	})
 	adminH := &handler.Admin{Home: home, Accounts: accounts, Meetups: meetups, Notes: notes, DB: db, SQL: sqliteDB(),
 		Jobs: map[string]func(context.Context) string{"purge": runPurge, "feeds": meetups.RunFeeds}}
+	adminH.Jobs["oln-pull"] = adminH.PullPeers
+	// Linked nodes: pulled from cron where scheduled (on App Engine each
+	// cron wake costs instance hours, so it isn't in cron.yaml by default),
+	// and every ten minutes self-hosted.
+	mux.HandleFunc("GET /cron/oln-pull", func(w http.ResponseWriter, r *http.Request) {
+		if r.Header.Get("X-Appengine-Cron") != "true" {
+			http.NotFound(w, r)
+			return
+		}
+		fmt.Fprintln(w, adminH.PullPeers(r.Context()))
+	})
+	if sqliteDB() != nil && db == nil {
+		go func() {
+			for {
+				time.Sleep(10 * time.Minute)
+				if res := adminH.PullPeers(context.Background()); res != "no linked nodes" {
+					log.Printf("oln-pull: %s", res)
+				}
+			}
+		}()
+	}
 	mux.HandleFunc("GET /admin/initial", adminH.Initial)
 	mux.HandleFunc("GET /admin", adminH.Show)
 	mux.HandleFunc("POST /admin/action", adminH.Action)

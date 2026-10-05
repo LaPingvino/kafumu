@@ -625,3 +625,17 @@ func (s *Service) Relay(ctx context.Context, raw, via string) (*Note, bool, erro
 	s.mu.Unlock()
 	return n, true, nil
 }
+
+// RecentCells: the areas people looked at on this instance in the last
+// hour (the list cache), for pulling from linked nodes.
+func (s *Service) RecentCells(now time.Time) []string {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	var out []string
+	for c, e := range s.cells {
+		if c != "" && now.Sub(e.at) < time.Hour {
+			out = append(out, c)
+		}
+	}
+	return out
+}

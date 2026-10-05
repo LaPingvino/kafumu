@@ -557,7 +557,13 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       relays. Test: two httptest nodes, old line arrives, no dupes, expired/future refused, bad address.
       Next 64c-2: peers in admin (add/remove, last pull, seen/new, error), a pull job (cron on GAE when peers
       exist, a loop self-hosted) over the cells this node has lines/meetups in; "via" shown on relayed posts.
-- [ ] 64c. (Was 64) OLN nodes linking (Joop): run Kafumu outside GAE (plain Go binary + a file/SQL store, no
+- [x] 64c-2. Linked nodes in admin: add (https origin + optional areas) / unlink, "Pull now", last pull per peer
+      (seen, new, error); stored in Config/peers (Datastore) or kv; pulls cover the peer's areas + the areas people
+      here looked at in the last hour (Service.RecentCells). Job "oln-pull"; /cron/oln-pull exists but is NOT in
+      cron.yaml (each wake costs instance hours on the free tier: Joop to decide); self-hosted pulls every 10 min.
+      Relayed posts show "↪ host". Test: peer with a message → linked → pulled with via → admin shows it.
+- [x] 64. Self-hosting and OLN nodes (Joop): done in 64a–64c.
+      Was: OLN nodes linking (Joop): run Kafumu outside GAE (plain Go binary + a file/SQL store, no
       memcache), a page on how to self-host and link a node into OLN, and linked nodes on the admin page
       (peers pulled from / pushed to, last seen). Also mention self-hosting on /business.
       Joop (2026-10-05): bahais.in will be a GAE-less fork (adding local-community options). Most useful here: a

@@ -17,6 +17,7 @@ import (
 	"slices"
 	"sort"
 	"strings"
+	"sync"
 	"time"
 
 	"cloud.google.com/go/datastore"
@@ -39,6 +40,9 @@ type Admin struct {
 	SQL        *sql.DB
 	Reports    *report.Service
 	Businesses *business.Store
+	// peersMem: linked nodes without Datastore (kept via kv when self-hosted).
+	peersMu  sync.Mutex
+	peersMem *peerConfig
 	// Jobs are the cron jobs, runnable by hand: name → run.
 	Jobs map[string]func(ctx context.Context) string
 }
@@ -109,6 +113,8 @@ type adminPage struct {
 	OLN *olnStats
 	// Businesses: business accounts, trials that ended first ("contact?").
 	Businesses []*business.Business
+	// Peers: linked OLN nodes this one pulls from.
+	Peers []peerEntry
 }
 
 type stat struct {
@@ -226,6 +232,7 @@ func (a *Admin) Show(w http.ResponseWriter, r *http.Request) {
 			p.Users = a.adminUsers(ctx, us)
 		}
 	}
+	p.Peers = a.loadPeers(ctx).Peers
 	a.Home.footer(ctx)
 	a.Home.foot.mu.Lock()
 	if a.Home.foot.settings != nil {
@@ -403,6 +410,30 @@ func (a *Admin) Action(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			res += " (" + err.Error() + ")"
 		}
+	case "peer-add":
+		o := peerOrigin(r.FormValue("origin"))
+		if o == "" {
+			res = "a node address is https://host (http only for localhost)"
+			break
+		}
+		c := a.loadPeers(ctx)
+		c.Peers = slices.DeleteFunc(c.Peers, func(p peerEntry) bool { return p.Origin == o })
+		c.Peers = append(c.Peers, peerEntry{Origin: o, Cells: cleanCells(r.FormValue("cells"))})
+		if err := a.savePeers(ctx, c); err != nil {
+			res = "save failed: " + err.Error()
+		} else {
+			res = "linked " + o
+		}
+	case "peer-remove":
+		c := a.loadPeers(ctx)
+		c.Peers = slices.DeleteFunc(c.Peers, func(p peerEntry) bool { return p.Origin == id })
+		if err := a.savePeers(ctx, c); err != nil {
+			res = "save failed: " + err.Error()
+		} else {
+			res = "unlinked " + id
+		}
+	case "oln-pull":
+		res = a.PullPeers(ctx)
 	case "footer":
 		s := footerSettings{Maker: strings.ToLower(strings.TrimPrefix(strings.TrimSpace(r.FormValue("maker")), "@")),
 			ContactURL: strings.TrimSpace(r.FormValue("contact_url")), ContactText: strings.TrimSpace(r.FormValue("contact_text"))}

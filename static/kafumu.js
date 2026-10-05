@@ -655,7 +655,7 @@
       meta.appendChild(bz);
     }
     meta.appendChild(document.createTextNode((n.author ? "@" + n.author + " ✓ · " : "") + (opts.forYou ? "★ " + tr("ask_for_you") + " · " : "") + ago(n.at) + " · ⚡" + n.bits + " · " +
-      tr("oln_left", { h: left < 1 ? "<1" : Math.round(left) }) +
+      tr("oln_left", { h: left < 1 ? "<1" : Math.round(left) }) + (n.via ? " · ↪ " + n.via.replace(/^https?:\/\//, "") : "") +
       (n.tags || []).filter(function (t) { return !/^(geo|re[0-9a-f]{10}$|ask$|rk[ab][0-9a-f]{33}$)/.test(t); }).map(function (t) { return " #" + t; }).join("")));
     var text = document.createElement("p");
     text.className = "text";

@@ -27,6 +27,18 @@
     <label>Contact link text (empty: "ideas and bugs" in each language)<input name="contact_text" value="{{.Footer.ContactText}}"></label>
     <button type="submit" class="pill-sm">Save</button></form>
 </div>{{end}}
+{{if .Full}}<div class="card" style="padding:4px 16px 12px">
+  <h2>Linked nodes (OLN)</h2>
+  <p class="dim small">This node pulls the local messages of other OLN nodes for the areas people here look at (and any you add), and they can pull this one's from <code>/oln.json?cell=…</code>. Pulled messages keep their own time and work, and show where they came from.</p>
+  {{if .Peers}}<ul class="boxed-list">{{range .Peers}}<li>
+    <div><strong>{{.Origin}}</strong>{{if .Cells}} <span class="dim small">· {{range .Cells}}#geo{{.}} {{end}}</span>{{end}}</div>
+    <div class="dim small">{{if .Last.At.IsZero}}not pulled yet{{else}}last pull {{.Last.At.Format "2 Jan 15:04"}} UTC: {{.Last.Seen}} seen, {{.Last.New}} new{{if .Last.Err}} · <span class="warn">{{.Last.Err}}</span>{{end}}{{end}}</div>
+    <form method="post" action="/admin/action" class="inline"><input type="hidden" name="do" value="peer-remove"><input type="hidden" name="id" value="{{.Origin}}"><button type="submit" class="pill-sm">Unlink</button></form>
+  </li>{{end}}</ul>
+  <form method="post" action="/admin/action"><input type="hidden" name="do" value="oln-pull"><button type="submit" class="pill-sm suggested">Pull now</button></form>{{else}}<p class="dim">No linked nodes.</p>{{end}}
+  <form method="post" action="/admin/action" class="inline-row"><input type="hidden" name="do" value="peer-add">
+    <input name="origin" placeholder="https://node.example" required style="max-width:16rem"><input name="cells" placeholder="areas (optional): 8ccgmw 9f469w" style="max-width:14rem"><button type="submit" class="pill-sm">Link node</button></form>
+</div>{{end}}
 {{with .OLN}}<div class="card" style="padding:4px 16px 12px">
   <h2>Local messages (OLN)</h2>
   <p>{{.Total}} stored · {{.Live}} live · {{.Expired}} expired · {{.Hidden}} hidden · {{.V2}} v2 · {{.V1}} v1 leftovers · {{.Private}} private chat · {{.Named}} named</p>
