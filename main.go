@@ -4,12 +4,15 @@ package main
 
 import (
 	"context"
+	"database/sql"
 	"embed"
 	"fmt"
+	"github.com/LaPingvino/kafumu/internal/sqlstore"
 	"html/template"
 	"log"
 	"net/http"
 	"os"
+	"sync"
 	"time"
 
 	"cloud.google.com/go/datastore"
@@ -237,8 +240,26 @@ func stores(cfg *config.Config) (account.Store, box.Store, meetup.Store, slot.St
 }
 
 func olnStore(db *datastore.Client) oln.Store {
+	if sq := sqliteDB(); sq != nil {
+		return &sqlstore.Notes{DB: sq}
+	}
 	if db == nil {
 		return oln.NewMemoryStore()
 	}
 	return &oln.DatastoreStore{DB: db}
 }
+
+// sqliteDB opens KAFUMU_SQLITE (self-hosting) once; nil when unset. Stores
+// move to it one by one (LOOP-STATE 64b); the rest stay in memory there.
+var sqliteDB = sync.OnceValue(func() *sql.DB {
+	path := os.Getenv("KAFUMU_SQLITE")
+	if path == "" {
+		return nil
+	}
+	db, err := sqlstore.Open(path)
+	if err != nil {
+		log.Fatalf("sqlite: %v", err)
+	}
+	log.Printf("stores: SQLite at %s (local messages; more to come)", path)
+	return db
+})

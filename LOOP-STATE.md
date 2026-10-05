@@ -443,6 +443,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       directly (not via an interface) in account, box, meetup, slot, oln, vault, handle, business, report, short,
       push, atp, purge, admin stats, prices: 64b introduces store interfaces where missing and a SQLite
       implementation (KAFUMU_SQLITE=path), core first (oln, meetups, accounts, boxes, slots, vault), then the rest.
+- [~] 64b-1. internal/sqlstore (modernc.org/sqlite, pure Go): Open(path) with schema; Notes = oln.Store on SQLite
+      (columns for cell/pair/asks/expiry, JSON for the rest), service-level test incl. reopen; main picks it with
+      KAFUMU_SQLITE. Next stores: meetups, accounts (+usernames), boxes, slots, vault, then handle/business/report/
+      short/push/atp/prices, purge, admin stats.
 - [ ] 64. Self-hosting and OLN nodes (Joop): run Kafumu outside GAE (plain Go binary + a file/SQL store, no
       memcache), a page on how to self-host and link a node into OLN, and linked nodes on the admin page
       (peers pulled from / pushed to, last seen). Also mention self-hosting on /business.
