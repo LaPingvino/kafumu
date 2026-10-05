@@ -4,6 +4,8 @@ import (
 	"context"
 	"github.com/LaPingvino/kafumu/internal/account"
 	"github.com/LaPingvino/kafumu/internal/business"
+	"github.com/LaPingvino/kafumu/internal/geo"
+	"github.com/LaPingvino/kafumu/internal/meetup"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -148,5 +150,32 @@ func TestBrandDomain(t *testing.T) {
 	}
 	if id := pk.waFor(req("kafumu.test")).Config.RPID; id != "kafumu.test" {
 		t.Fatalf("plain passkeys bound to %q", id)
+	}
+}
+
+// A citywide event (placed only by its city) is in the bundle anywhere in
+// that city; a precise one at the centre stays local.
+func TestCityWideMeetup(t *testing.T) {
+	ctx := context.Background()
+	_, home, _ := newServerWithMeetups(t)
+	lat, lon, km, _ := home.Gaz.LocateArea("Parizo", "FR")
+	centre := geo.Cell(lat, lon)
+	store := home.Meetups.Store
+	for _, m := range []*meetup.Meetup{
+		{ID: "citywide", Title: "Parolrondo", Cell: centre, AreaKm: km, StartAt: time.Now().Add(24 * time.Hour), EndAt: time.Now().Add(26 * time.Hour), ExpiresAt: time.Now().Add(48 * time.Hour)},
+		{ID: "precise", Title: "At the fountain", Cell: centre, StartAt: time.Now().Add(24 * time.Hour), EndAt: time.Now().Add(26 * time.Hour), ExpiresAt: time.Now().Add(48 * time.Hour)},
+	} {
+		if err := store.Put(ctx, m); err != nil {
+			t.Fatal(err)
+		}
+	}
+	r := httptest.NewRequest("GET", "/bundle?cells="+geo.Cell(48.892, 2.236), nil)
+	r.Header.Set("User-Agent", "Mozilla/5.0 Firefox/130")
+	r.Header.Set("Accept-Language", "en")
+	w := httptest.NewRecorder()
+	home.Bundle(w, r)
+	body := w.Body.String()
+	if !strings.Contains(body, "Parolrondo") || strings.Contains(body, "At the fountain") {
+		t.Fatalf("La Défense bundle: citywide %v, precise %v", strings.Contains(body, "Parolrondo"), strings.Contains(body, "At the fountain"))
 	}
 }

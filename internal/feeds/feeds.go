@@ -80,12 +80,16 @@ func Sync(ctx context.Context, fs []Feed, im *importer.Importer, store meetup.St
 		lookups := 0
 		for _, ev := range evs {
 			r.Events++
+			area := 0.0
 			if f.Place == "town" && !ev.HasGeo && !ev.Start.After(now.Add(Horizon)) && !endOf(ev).Before(now) {
-				if lat, lon, ok := placeTown(ctx, im, ev.Venue, &lookups); ok {
-					ev.Lat, ev.Lon, ev.HasGeo = lat, lon, true
+				if lat, lon, km, ok := placeTown(ctx, im, ev.Venue, &lookups); ok {
+					ev.Lat, ev.Lon, ev.HasGeo, area = lat, lon, true, km
 				}
 			}
 			m := toMeetup(ev, f, host)
+			if m != nil {
+				m.AreaKm = area
+			}
 			if m == nil || m.StartAt.After(now.Add(Horizon)) {
 				r.Skipped++
 				continue
@@ -113,7 +117,7 @@ func Sync(ctx context.Context, fs []Feed, im *importer.Importer, store meetup.St
 
 // Locate places a town by name in a country (the gazetteer's), for feeds
 // whose events say where in words only; set by main.
-var Locate func(name, cc string) (float64, float64, bool)
+var Locate func(name, cc string) (lat, lon, km float64, ok bool)
 
 func toMeetup(ev *importer.Event, f Feed, host string) *meetup.Meetup {
 	cell := strings.ToLower(f.Cell)
@@ -182,15 +186,15 @@ var bracket = regexp.MustCompile(`\s*\([^)]*\)`)
 // trying each part from the end (a region may follow the city; "Dresden -
 // Heidenau" is tried as both; postcodes are dropped), then OpenStreetMap
 // for "City, CC" (at most 30 lookups a run, within Nominatim's policy).
-func placeTown(ctx context.Context, im *importer.Importer, venue string, lookups *int) (float64, float64, bool) {
+func placeTown(ctx context.Context, im *importer.Importer, venue string, lookups *int) (lat, lon, km float64, ok bool) {
 	parts := strings.Split(venue, ",")
 	n := len(parts)
 	if n < 2 {
-		return 0, 0, false
+		return 0, 0, 0, false
 	}
 	cc := strings.TrimSpace(parts[n-1])
 	if len(cc) != 2 {
-		return 0, 0, false
+		return 0, 0, 0, false
 	}
 	var names []string
 	for i := n - 2; i >= 0 && i >= n-4; i-- {
@@ -211,16 +215,17 @@ func placeTown(ctx context.Context, im *importer.Importer, venue string, lookups
 	}
 	if Locate != nil {
 		for _, name := range names {
-			if lat, lon, ok := Locate(name, cc); ok {
-				return lat, lon, true
+			if lat, lon, km, ok := Locate(name, cc); ok {
+				return lat, lon, km, true
 			}
 		}
 	}
 	if im == nil || *lookups >= 30 || len(names) == 0 {
-		return 0, 0, false
+		return 0, 0, 0, false
 	}
 	*lookups++
-	return geocode(ctx, im, names[0]+", "+cc)
+	lat, lon, ok = geocode(ctx, im, names[0]+", "+cc)
+	return lat, lon, 0, ok
 }
 
 // EventLink is an event's own page: its URL, or the first link in its text

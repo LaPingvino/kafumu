@@ -51,6 +51,9 @@ type Meetup struct {
 	Going     int       `datastore:"-" json:"going"`
 	CreatedAt time.Time `datastore:"created_at,noindex" json:"-"`
 	// ExpiresAt drives the Datastore TTL policy and the live filter.
+	// AreaKm: placed only by its town (a feed saying "…, Parizo, FR"): it's
+	// somewhere in a city this wide, so the whole city sees it.
+	AreaKm    float64   `datastore:"area_km,noindex" json:"area_km,omitempty"`
 	ExpiresAt time.Time `datastore:"expires_at" json:"-"`
 }
 

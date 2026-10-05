@@ -30,7 +30,7 @@ END:VCALENDAR
 // tagged Esperanto.
 func TestEventaServoEvent(t *testing.T) {
 	g := gazetteer.Load()
-	Locate = g.Locate
+	Locate = g.LocateArea
 	defer func() { Locate = nil }()
 	evs := importer.ParseICS(esICS)
 	if len(evs) != 1 {
@@ -38,7 +38,7 @@ func TestEventaServoEvent(t *testing.T) {
 	}
 	f := EventaServo("de")
 	lookups := 0
-	if lat, lon, ok := placeTown(context.Background(), nil, evs[0].Venue, &lookups); ok {
+	if lat, lon, _, ok := placeTown(context.Background(), nil, evs[0].Venue, &lookups); ok {
 		evs[0].Lat, evs[0].Lon, evs[0].HasGeo = lat, lon, true
 	}
 	m := toMeetup(evs[0], f, hostOf(f.URL))
@@ -57,12 +57,12 @@ func TestEventaServoEvent(t *testing.T) {
 // Venues as Eventa Servo writes them: the town is not always the part
 // before the country.
 func TestPlaceTown(t *testing.T) {
-	Locate = gazetteer.Load().Locate
+	Locate = gazetteer.Load().LocateArea
 	defer func() { Locate = nil }()
 	for _, v := range []string{"Alt Schmidd, Kardinal-Wendel-Str. 2, 66440 Blieskastel, Blieskastel, Sarlando, DE",
 		"hotelo Ausspann en Heidenau, Großlugauer Str. 1, Dresden - Heidenau, DE", "Köln, DE", "02826 Görlitz, DE"} {
 		n := 0
-		if _, _, ok := placeTown(context.Background(), nil, v, &n); !ok {
+		if _, _, _, ok := placeTown(context.Background(), nil, v, &n); !ok {
 			t.Errorf("not placed: %q", v)
 		}
 	}
@@ -73,7 +73,7 @@ func TestEventaServoLive(t *testing.T) {
 	if os.Getenv("KAFUMU_LIVE") == "" {
 		t.Skip("set KAFUMU_LIVE=1 to fetch eventaservo.org")
 	}
-	Locate = gazetteer.Load().Locate
+	Locate = gazetteer.Load().LocateArea
 	defer func() { Locate = nil }()
 	store := meetup.NewMemoryStore()
 	r := Sync(context.Background(), []Feed{EventaServo("de")}, importer.New(), store, time.Now())

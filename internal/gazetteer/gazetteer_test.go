@@ -172,3 +172,26 @@ func TestLocateAndCountry(t *testing.T) {
 		t.Fatalf("country of Lisbon's cell = %q", cc)
 	}
 }
+
+// Events known only as "in Paris" reach all of Paris (Joop: bigger blocks
+// for bigger cities): Paris has a city-sized area, and from La Défense its
+// centre cell is among the cities covering you; a small town has none.
+func TestCityArea(t *testing.T) {
+	g := Load()
+	lat, lon, km, ok := g.LocateArea("Parizo", "FR")
+	if !ok || km < 5 {
+		t.Fatalf("Parizo: %v %v km=%v ok=%v", lat, lon, km, ok)
+	}
+	centre := geo.Cell(lat, lon)
+	defense := geo.Cell(48.892, 2.236)
+	found := false
+	for _, c := range g.CityCentres([]string{defense}) {
+		found = found || c == centre
+	}
+	if !found {
+		t.Fatalf("La Défense (%s) doesn't reach Paris's centre %s: %v", defense, centre, g.CityCentres([]string{defense}))
+	}
+	if _, _, km, ok := g.LocateArea("Görlitz", "DE"); !ok || km != 0 {
+		t.Fatalf("Görlitz should be placed without an area, km=%v", km)
+	}
+}

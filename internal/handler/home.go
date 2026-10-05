@@ -440,6 +440,19 @@ func (h *Home) Bundle(w http.ResponseWriter, r *http.Request) {
 		} else if ms != nil {
 			b.Meetups = ms
 		}
+		// Anywhere in a big city: its citywide events too (placed only by
+		// the city's name, at its centre).
+		if h.Gaz != nil {
+			if centres := h.Gaz.CityCentres(cells); len(centres) > 0 {
+				if ms, err := h.Meetups.InCells(r.Context(), centres); err == nil {
+					for _, m := range ms {
+						if m.AreaKm > 0 {
+							b.Meetups = append(b.Meetups, m)
+						}
+					}
+				}
+			}
+		}
 	}
 	tags := make([]string, 0, len(cells)+maxPlaceTags)
 	for _, c := range cells {

@@ -38,6 +38,7 @@ type meetupRow struct {
 	RSVPs      []string  `json:"rsvps,omitempty"`
 	Going      int       `json:"-"`
 	CreatedAt  time.Time `json:"created_at"`
+	AreaKm     float64   `json:"area_km,omitempty"`
 	ExpiresAt  time.Time `json:"expires_at"`
 }
 

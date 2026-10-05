@@ -559,23 +559,37 @@ func (g *Gazetteer) CountPlaces(tags []string) int {
 // Locate finds a place by its name in a country (two-letter code): the
 // biggest place of that name, from the place list and then the towns.
 func (g *Gazetteer) Locate(name, cc string) (float64, float64, bool) {
+	lat, lon, _, ok := g.LocateArea(name, cc)
+	return lat, lon, ok
+}
+
+// LocateArea is Locate plus the place's radius in km: a big city's (from
+// the place list), 0 for a town found only by name (its centre is close
+// enough to wherever in it the event is).
+func (g *Gazetteer) LocateArea(name, cc string) (float64, float64, float64, bool) {
 	key, cc := fold(name), strings.ToUpper(strings.TrimSpace(cc))
 	if key == "" || len(cc) != 2 {
-		return 0, 0, false
+		return 0, 0, 0, false
 	}
-	best, found, lat, lon := -1, false, 0.0, 0.0
+	best, found, lat, lon, km := -1, false, 0.0, 0.0, 0.0
 	for _, p := range g.Places {
 		if strings.EqualFold(p.Country, cc) && fold(p.Name) == key && p.Population > best {
-			best, found, lat, lon = p.Population, true, p.Lat, p.Lon
+			best, found, lat, lon, km = p.Population, true, p.Lat, p.Lon, p.Km
 		}
 	}
 	if found {
-		return lat, lon, true
+		return lat, lon, km, true
 	}
 	if t, ok := altIndex()[key+"|"+cc]; ok {
-		return t.lat, t.lon, true
+		// Another name of a big city (Parizo): that city's place and radius.
+		for _, p := range g.Places {
+			if strings.EqualFold(p.Country, cc) && distKm(p.Lat, p.Lon, t.lat, t.lon) < 3 && p.Km >= 5 {
+				return p.Lat, p.Lon, p.Km, true
+			}
+		}
+		return t.lat, t.lon, 0, true
 	}
-	return 0, 0, false
+	return 0, 0, 0, false
 }
 
 // townalts.tsv.gz (tools/townalts.py, from GeoNames): every 15k+ town with
@@ -657,4 +671,29 @@ func (g *Gazetteer) CountryOf(cell string) string {
 	g.country[cell] = cc
 	g.mu.Unlock()
 	return cc
+}
+
+// CityCentres: the centre cells of the big cities (5 km or more across)
+// that cover any of cells, other than those cells themselves. Events known
+// only to be "in Paris" sit at Paris's centre; asking from anywhere in
+// Paris should find them.
+func (g *Gazetteer) CityCentres(cells []string) []string {
+	have := map[string]bool{}
+	for _, c := range cells {
+		have[c] = true
+	}
+	var out []string
+	for _, c := range cells {
+		for _, i := range g.placesNear(c) {
+			p := g.Places[i]
+			if p.Km < 5 {
+				continue
+			}
+			if cc := geo.Cell(p.Lat, p.Lon); !have[cc] {
+				have[cc] = true
+				out = append(out, cc)
+			}
+		}
+	}
+	return out
 }
