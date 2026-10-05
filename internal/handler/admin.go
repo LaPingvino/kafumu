@@ -245,7 +245,11 @@ func (a *Admin) Show(w http.ResponseWriter, r *http.Request) {
 		for _, b := range p.Brands {
 			var names []string
 			for _, id := range b.Admins {
-				if u, err := a.Accounts.Svc.ByID(ctx, id); err == nil && u != nil && u.Username != "" {
+				if bid, ok := strings.CutPrefix(id, "biz:"); ok {
+					if biz := a.Home.bizByID(ctx, bid); biz != nil && biz.Username != "" {
+						names = append(names, "@"+biz.Username)
+					}
+				} else if u, err := a.Accounts.Svc.ByID(ctx, id); err == nil && u != nil && u.Username != "" {
 					names = append(names, "@"+u.Username)
 				}
 			}
@@ -454,7 +458,8 @@ func (a *Admin) Action(w http.ResponseWriter, r *http.Request) {
 		var names []string
 		for _, n := range strings.FieldsFunc(r.FormValue("admins"), func(c rune) bool { return c == ',' || c == ' ' }) {
 			n = strings.ToLower(strings.TrimPrefix(n, "@"))
-			if uid, err := a.Accounts.Svc.Store.LookupUsername(ctx, n); err == nil && uid != "" && !strings.HasPrefix(uid, "biz:") && !slices.Contains(b.Admins, uid) {
+			// A person's @username, or a business's @name ("biz:<id>": its managers).
+			if uid, err := a.Accounts.Svc.Store.LookupUsername(ctx, n); err == nil && uid != "" && !slices.Contains(b.Admins, uid) {
 				b.Admins = append(b.Admins, uid)
 				names = append(names, "@"+n)
 			}

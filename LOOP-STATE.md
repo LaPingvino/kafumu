@@ -646,7 +646,9 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       admin. [x] 46b done: brand admins (admin sets @usernames per brand; resolved to ids, businesses refused);
       /brand on the brand's own host lets them edit name, tagline, main button, colour, starting tags (not
       the host); "🎨 <brand> →" on their account page. English-only, like /admin. Test: 404 for others and
-      other hosts, admin saves. Before 46a: 46b brand admins + wording/tags/colours;
+      other hosts, admin saves. Then (Joop: "either personal or business"): a brand admin is a person's
+      @username or a business's @name ("biz:<id>"); its managers manage the brand, acting as it or not, and
+      access follows the manager list. Test: person, manager, stranger, manager removed. Before 46a: 46b brand admins + wording/tags/colours;
       46c brand-local accounts (passkeys per domain) and the shared network underneath.
       Was: Brands on other domains (Joop's idea, 2026-10-04; part of 45): one app, several faces chosen by
       Host: e.g. bahais.in / localprayers.net with "Who wants to pray with me?" and "Register our local

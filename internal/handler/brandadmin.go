@@ -1,8 +1,10 @@
 package handler
 
 import (
+	"context"
+
+	"github.com/LaPingvino/kafumu/internal/account"
 	"net/http"
-	"slices"
 	"strings"
 
 	"github.com/LaPingvino/kafumu/internal/brand"
@@ -14,7 +16,7 @@ import (
 func (h *Home) BrandPage(w http.ResponseWriter, r *http.Request) {
 	u := UserFrom(r.Context())
 	bi := h.Brands.For(r.Context(), r.Host)
-	if u == nil || bi == nil || !slices.Contains(bi.Admins, u.ID) {
+	if !h.isBrandAdmin(r.Context(), bi, u) {
 		http.NotFound(w, r)
 		return
 	}
@@ -36,4 +38,24 @@ func (h *Home) BrandPage(w http.ResponseWriter, r *http.Request) {
 	}{page: h.newPage(r, ""), B: bi, Saved: saved}
 	p.Title, p.Tab = bi.Name, "account"
 	h.render(w, "brand.html", p)
+}
+
+// isBrandAdmin: u may manage brand bi, as one of its admins in person, or
+// as a manager of a business that is one ("biz:<id>"), acting as it or not:
+// an organisation can run its own brand, whoever its managers are.
+func (h *Home) isBrandAdmin(ctx context.Context, bi *brand.Brand, u *account.User) bool {
+	if bi == nil || u == nil {
+		return false
+	}
+	for _, a := range bi.Admins {
+		if a == u.ID {
+			return true
+		}
+		if id, ok := strings.CutPrefix(a, "biz:"); ok {
+			if b := h.bizByID(ctx, id); b != nil && b.Manages(u.ID) {
+				return true
+			}
+		}
+	}
+	return false
 }

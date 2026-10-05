@@ -14,7 +14,6 @@ import (
 	"math"
 	"net/http"
 	"net/url"
-	"slices"
 	"sort"
 	"strconv"
 	"strings"
@@ -124,10 +123,7 @@ func (h *Home) newPage(r *http.Request, title string) page {
 	if bi != nil {
 		name = bi.Name
 	}
-	brandAdmin := false
-	if u := UserFrom(r.Context()); u != nil && bi != nil {
-		brandAdmin = slices.Contains(bi.Admins, u.ID)
-	}
+	brandAdmin := h.isBrandAdmin(r.Context(), bi, UserFrom(r.Context()))
 	return page{Acting: acting, Now: time.Now(), Brand: name, BrandInfo: bi, BrandAdmin: brandAdmin, Title: title, Lang: lang, V: h.Cfg.Version, Langs: locale.Langs(), MovedTo: moved,
 		Passkeys: h.Cfg.Passkeys && moved == "", ATproto: h.ATproto != nil && moved == "",
 		User: UserFrom(r.Context()), JS: locale.Prefix(lang, "js."), Maker: maker, Contact: contact, ContactText: contactText}

@@ -3,9 +3,11 @@ package handler
 import (
 	"context"
 	"github.com/LaPingvino/kafumu/internal/account"
+	"github.com/LaPingvino/kafumu/internal/business"
 	"net/http/httptest"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/LaPingvino/kafumu/internal/brand"
 )
@@ -77,5 +79,37 @@ func TestBrandAdmin(t *testing.T) {
 	r = r.WithContext(context.WithValue(r.Context(), ctxKey{}, admin))
 	if !home.newPage(r, "").BrandAdmin {
 		t.Fatal("account page won't show the brand link")
+	}
+}
+
+// A brand admin can be a person or a business: a business's managers
+// manage the brand whether or not they act as it; others can't, and a
+// manager removed from the business loses it at once.
+func TestBrandAdminBusiness(t *testing.T) {
+	ctx := context.Background()
+	_, home, _ := newServerWithMeetups(t)
+	home.Brands, home.Biz = brand.New(nil), business.New(nil)
+	org, _ := home.Biz.Create(ctx, "Bahá'í Office", "community", "", "mgr1", time.Now())
+	home.Brands.Save(ctx, &brand.Brand{Host: "bahais.test", Name: "Bahá'í Local", Admins: []string{"person1", "biz:" + org.ID}})
+	page := func(u *account.User) bool {
+		r := httptest.NewRequest("GET", "/account", nil)
+		r.Host = "bahais.test"
+		r = r.WithContext(context.WithValue(r.Context(), ctxKey{}, u))
+		return home.newPage(r, "").BrandAdmin
+	}
+	if !page(&account.User{ID: "person1"}) {
+		t.Fatal("a personal brand admin lost access")
+	}
+	if !page(&account.User{ID: "mgr1"}) {
+		t.Fatal("the business's manager can't manage the brand")
+	}
+	if page(&account.User{ID: "stranger"}) {
+		t.Fatal("a stranger manages the brand")
+	}
+	org.Managers = []string{"mgr2"}
+	home.Biz.Save(ctx, org)
+	home.forgetBiz(org.ID)
+	if page(&account.User{ID: "mgr1"}) || !page(&account.User{ID: "mgr2"}) {
+		t.Fatal("brand access doesn't follow the business's managers")
 	}
 }
