@@ -551,6 +551,12 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       (json_extract), businesses and footer (footer kept via kv). SELFHOSTING.md (build, env vars, admin, what it
       does, what's not there yet) linked from /business. Live: wrong token 403, right one → admin, stats shown.
       Remaining for 64: node linking (64c, below).
+- [~] 64c-1. Relay + Pull (oln): Service.Relay(raw, via) — format + work checked, clock only "not ahead" (and
+      ≤ MaxTTL old), life = this node's anonymous rule from the line's time (never extended), no area/repeat
+      pricing, Note.Via = peer; Service.Pull(client, peer, cells) fetches peer/oln.json?cell= (≤ 20 cells) and
+      relays. Test: two httptest nodes, old line arrives, no dupes, expired/future refused, bad address.
+      Next 64c-2: peers in admin (add/remove, last pull, seen/new, error), a pull job (cron on GAE when peers
+      exist, a loop self-hosted) over the cells this node has lines/meetups in; "via" shown on relayed posts.
 - [ ] 64c. (Was 64) OLN nodes linking (Joop): run Kafumu outside GAE (plain Go binary + a file/SQL store, no
       memcache), a page on how to self-host and link a node into OLN, and linked nodes on the admin page
       (peers pulled from / pushed to, last seen). Also mention self-hosting on /business.

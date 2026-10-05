@@ -85,7 +85,9 @@ type Note struct {
 	By string `datastore:"by,noindex" json:"-"`
 	// Biz: posted as a business account (by By, its manager); BizLive:
 	// the business was in its trial or paid up then (coloured badge, else grey).
-	Biz     string `datastore:"biz,noindex" json:"biz,omitempty"`
+	Biz string `datastore:"biz,noindex" json:"biz,omitempty"`
+	// Via: the node it was pulled from (a linked peer), "" when posted here.
+	Via     string `datastore:"via,noindex" json:"via,omitempty"`
 	BizLive bool   `datastore:"biz_live,noindex" json:"biz_live,omitempty"`
 }
 
@@ -129,7 +131,12 @@ func ID(raw string) string {
 }
 
 // Parse checks the format and returns the note (without TTL) or an error.
-func Parse(raw string, now time.Time) (*Note, error) {
+func Parse(raw string, now time.Time) (*Note, error) { return parse(raw, now, false) }
+
+// parse is Parse; relay (a line pulled from another node) drops the
+// lower bound of the clock window, since relayed lines are older by
+// nature, but keeps the upper one: a line dated ahead is still refused.
+func parse(raw string, now time.Time, relay bool) (*Note, error) {
 	if len(raw) > MaxRaw {
 		return nil, ErrFormat
 	}
@@ -144,7 +151,7 @@ func Parse(raw string, now time.Time) (*Note, error) {
 	if err != nil {
 		return nil, ErrFormat
 	}
-	if d := now.Sub(at); d > Window || d < -Window {
+	if d := now.Sub(at); d < -Window || (!relay && d > Window) || d > MaxTTL {
 		return nil, ErrClock
 	}
 	msg, err := base64.URLEncoding.DecodeString(parts[2])
@@ -575,4 +582,46 @@ func withReq(r *http.Request) context.Context { return context.WithValue(r.Conte
 func ctxReq(ctx context.Context) *http.Request {
 	r, _ := ctx.Value(reqKey{}).(*http.Request)
 	return r
+}
+
+// ErrExpired: a relayed line whose life (by this node's rules) is over.
+var ErrExpired = errors.New("oln: expired")
+
+// Relay takes in a line pulled from a linked node (via). The work and the
+// format are checked as for a post; the time only for not being ahead;
+// the life is this node's own rule for anonymous lines of that work,
+// counted from the line's time, so a relay never extends a life. Area
+// prices and repeat rules don't apply: they price speaking here, and the
+// line was spoken elsewhere.
+func (s *Service) Relay(ctx context.Context, raw, via string) (*Note, bool, error) {
+	now := s.Now().UTC()
+	n, err := parse(strings.TrimSpace(raw), now, true)
+	if err != nil {
+		return nil, false, err
+	}
+	if old, err := s.Store.Get(ctx, n.ID); err == nil {
+		return old, false, nil
+	}
+	if n.Bits < BaseBits {
+		return nil, false, ErrWork
+	}
+	if n.Pair != "" {
+		n.ExpiresAt = n.At.Add(PairTTL)
+	} else {
+		n.ExpiresAt = minTime(n.At, now).Add(TTL(n.Bits, BaseBits) / 2)
+	}
+	if !n.ExpiresAt.After(now) {
+		return nil, false, ErrExpired
+	}
+	n.Recv, n.Via = now, via
+	if err := s.Store.Put(ctx, n); err != nil {
+		return nil, false, err
+	}
+	s.mu.Lock()
+	delete(s.cells, n.Cell)
+	for _, t := range n.Asks {
+		delete(s.asks, t)
+	}
+	s.mu.Unlock()
+	return n, true, nil
 }
