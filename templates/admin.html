@@ -29,13 +29,21 @@
 </div>{{end}}
 {{with .OLN}}<div class="card" style="padding:4px 16px 12px">
   <h2>Local messages (OLN)</h2>
-  <p>{{.Total}} stored · {{.Live}} live · {{.V2}} v2 · {{.V1}} v1 leftovers · {{.Private}} private chat · {{.Named}} named</p>
+  <p>{{.Total}} stored · {{.Live}} live · {{.Expired}} expired · {{.Hidden}} hidden · {{.V2}} v2 · {{.V1}} v1 leftovers · {{.Private}} private chat · {{.Named}} named</p>
   {{if .Cells}}<p class="dim small">Busiest areas: {{range .Cells}}<a href="/?cell={{.Cell}}">#geo{{.Cell}}</a> {{.N}} · {{end}}</p>{{end}}
   <div class="actions">
+    <form method="post" action="/admin/action"><input type="hidden" name="do" value="oln-purge"><button type="submit" class="pill-sm">Delete stored but not live ({{.Expired}} expired, {{.Hidden}} hidden)</button></form>
     <form method="post" action="/admin/action"><input type="hidden" name="do" value="oln-clean-v1"><button type="submit" class="pill-sm">Delete v1 leftovers ({{.V1}})</button></form>
     <form method="post" action="/admin/action" class="inline-row" onsubmit="return confirm('Delete ALL local messages, chat included?')"><input type="hidden" name="do" value="oln-reset">
       <input name="confirm" placeholder="type RESET" style="max-width:8rem"><button type="submit" class="pill-sm contrast">Reset all</button></form>
   </div>
+  <details class="oln-live"{{if le (len .Messages) 10}} open{{end}}><summary>Live public messages ({{len .Messages}}{{if ge (len .Messages) 300}}, newest 300{{end}})</summary>
+  <ul class="boxed-list">{{range .Messages}}<li{{if .Hidden}} class="dim"{{end}}>
+    <div>{{if .Hidden}}<span class="badge warn">hidden</span> {{end}}{{.Text}}</div>
+    <div class="dim small"><a href="/?cell={{.Cell}}">#geo{{.Cell}}</a> · ⚡{{.Bits}} · {{if .Biz}}🪽 {{.Biz}} (by @{{.By}}){{else if .Author}}@{{.Author}}{{else}}anonymous{{end}} · {{.At.Format "2 Jan 15:04"}} UTC · until {{.ExpiresAt.Format "2 Jan 15:04"}}</div>
+    <div class="actions">{{if not .Hidden}}<form method="post" action="/admin/action"><input type="hidden" name="do" value="oln-hide"><input type="hidden" name="id" value="{{.ID}}"><button type="submit" class="pill-sm">Hide</button></form>{{end}}
+      <form method="post" action="/admin/action" onsubmit="return confirm('Delete this message?')"><input type="hidden" name="do" value="oln-delete"><input type="hidden" name="id" value="{{.ID}}"><button type="submit" class="pill-sm contrast">Delete</button></form></div>
+  </li>{{end}}</ul></details>
 </div>{{end}}
 <div class="card" style="padding:4px 16px 12px">
   <h2>Business accounts{{if .Businesses}} ({{len .Businesses}}){{end}}</h2>

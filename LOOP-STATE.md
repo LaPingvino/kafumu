@@ -481,7 +481,10 @@ crypto) ≈ 172k hashes/s here, assume 4× slower on phones: 14 bits ≈ 0.4 s, 
       the date maths in UTC (templates did it in local time). Was: Paid until (Joop: "when putting on active, add a 'paid until' date, and configure active beyond or
       inactive beyond that date"): admin sets Status active + PaidUntil + AfterPaid (stay active / go inactive);
       Live() honours it; the business page shows "paid until"; admin follow-up lists those past PaidUntil.
-- [ ] 74. Admin OLN tools, complete (Joop: "doesn't enable me to remove stored but not live, or to see all live
+- [x] 74. Admin OLN tools: counts expired + hidden ("stored but not live") and a purge for them (expired and
+      hidden notes, plus all hidden markers); a list of live public messages, newest first (300 max; area, work,
+      author or 🪽 business with the manager, times), Hide / Delete per message. Same single read as the stats.
+      Emulator test (run.sh): stats, purge, markers gone. Was: Admin OLN tools, complete (Joop: "doesn't enable me to remove stored but not live, or to see all live
       messages"): list all live messages (paged, newest first, with cell, bits, author, expiry, hide/delete), and a
       purge of stored-but-expired/hidden notes now (not waiting for the TTL policy), with counts.
 - [ ] 69. Private answers to anonymous posts (Joop: "OLN should also enable privately answering anonymous

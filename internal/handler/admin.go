@@ -310,6 +310,35 @@ func (a *Admin) Action(w http.ResponseWriter, r *http.Request) {
 			a.Meetups.Svc.ForgetAll()
 			res = "deleted meetup " + id
 		}
+	case "oln-purge":
+		if a.DB == nil || a.Notes == nil {
+			res = "no Datastore"
+			break
+		}
+		e, h, err := a.olnPurge(ctx, time.Now())
+		res = fmt.Sprintf("oln-purge: deleted %d expired and %d hidden messages", e, h)
+		if err != nil {
+			res += " (" + err.Error() + ")"
+		}
+	case "oln-hide":
+		if a.Notes == nil {
+			res = "no local messages here"
+		} else if err := a.Notes.Hide(ctx, id); err != nil {
+			res = "hide failed: " + err.Error()
+		} else {
+			res = "hidden message " + id
+		}
+	case "oln-delete":
+		if a.DB == nil {
+			res = "no Datastore"
+			break
+		}
+		if err := a.DB.Delete(ctx, datastore.NameKey("Note", id, nil)); err != nil {
+			res = "delete failed: " + err.Error()
+		} else {
+			a.Notes.ForgetAll()
+			res = "deleted message " + id
+		}
 	case "oln-clean-v1", "oln-reset":
 		if a.DB == nil {
 			res = "no Datastore"
@@ -499,25 +528,59 @@ func (a *Admin) bulkAction(r *http.Request) string {
 // olnStats inspects the Note store: totals by kind and the busiest cells.
 type olnStats struct {
 	Total, V2, V1, Private, Named, Live int
-	Cells                               []areaCount
+	// Expired: stored but past their life; Hidden: hidden by moderation.
+	// Both are "stored but not live": the purge removes them now.
+	Expired, Hidden int
+	Cells           []areaCount
+	// Messages: the live public ones, newest first (private chat is
+	// ciphertext: counted only).
+	Messages []adminNote
+}
+
+type adminNote struct {
+	ID, Text, Cell, Author, By, Biz string
+	Bits                            int
+	At, ExpiresAt                   time.Time
+	Hidden                          bool
 }
 
 func (a *Admin) olnStats(ctx context.Context, now time.Time) *olnStats {
 	var rows []struct {
 		Raw       string    `datastore:"raw,noindex"`
+		Text      string    `datastore:"text,noindex"`
 		Cell      string    `datastore:"cell"`
 		Pair      string    `datastore:"pair"`
 		Author    string    `datastore:"author,noindex"`
+		By        string    `datastore:"by,noindex"`
+		Biz       string    `datastore:"biz,noindex"`
+		Bits      int       `datastore:"bits,noindex"`
+		At        time.Time `datastore:"at,noindex"`
 		ExpiresAt time.Time `datastore:"expires_at"`
 	}
-	if _, err := a.DB.GetAll(ctx, datastore.NewQuery("Note").Limit(5000), &rows); err != nil {
+	keys, err := a.DB.GetAll(ctx, datastore.NewQuery("Note").Limit(5000), &rows)
+	if err != nil {
 		if _, ok := err.(*datastore.ErrFieldMismatch); !ok {
 			log.Printf("admin: oln stats: %v", err)
 			return nil
 		}
 	}
+	hidden := map[string]bool{}
+	if a.Notes != nil {
+		hidden, _ = a.Notes.Store.Hidden(ctx)
+	}
 	st, cells := &olnStats{Total: len(rows)}, map[string]int{}
-	for _, n := range rows {
+	for i, n := range rows {
+		id := keys[i].Name
+		live := n.ExpiresAt.After(now)
+		if !live {
+			st.Expired++
+		} else if hidden[id] {
+			st.Hidden++
+		}
+		if live && n.Pair == "" {
+			st.Messages = append(st.Messages, adminNote{ID: id, Text: n.Text, Cell: n.Cell, Author: n.Author, By: n.By, Biz: n.Biz,
+				Bits: n.Bits, At: n.At, ExpiresAt: n.ExpiresAt, Hidden: hidden[id]})
+		}
 		if strings.HasPrefix(n.Raw, "v2;") {
 			st.V2++
 		} else {
@@ -539,10 +602,52 @@ func (a *Admin) olnStats(ctx context.Context, now time.Time) *olnStats {
 		st.Cells = append(st.Cells, areaCount{c, k})
 	}
 	sort.Slice(st.Cells, func(i, j int) bool { return st.Cells[i].N > st.Cells[j].N })
+	sort.Slice(st.Messages, func(i, j int) bool { return st.Messages[i].At.After(st.Messages[j].At) })
+	if len(st.Messages) > 300 {
+		st.Messages = st.Messages[:300]
+	}
 	if len(st.Cells) > 10 {
 		st.Cells = st.Cells[:10]
 	}
 	return st
+}
+
+// olnPurge deletes what's stored but not live: expired messages (before
+// the Datastore TTL policy gets to them) and hidden ones, with their
+// hidden markers.
+func (a *Admin) olnPurge(ctx context.Context, now time.Time) (expired, hid int, err error) {
+	var rows []struct {
+		ExpiresAt time.Time `datastore:"expires_at"`
+	}
+	keys, err := a.DB.GetAll(ctx, datastore.NewQuery("Note").Project("expires_at").Limit(5000), &rows)
+	if err != nil {
+		return 0, 0, err
+	}
+	hidden, _ := a.Notes.Store.Hidden(ctx)
+	var del, marks []*datastore.Key
+	for i, k := range keys {
+		switch {
+		case !rows[i].ExpiresAt.After(now):
+			del = append(del, k)
+			expired++
+		case hidden[k.Name]:
+			del = append(del, k)
+			hid++
+		}
+	}
+	// Every hidden message goes, so every hidden marker is left over.
+	for id := range hidden {
+		marks = append(marks, datastore.NameKey("HiddenNote", id, nil))
+	}
+	for _, ks := range [][]*datastore.Key{del, marks} {
+		for i := 0; i < len(ks); i += 500 {
+			if err := a.DB.DeleteMulti(ctx, ks[i:min(i+500, len(ks))]); err != nil {
+				return expired, hid, err
+			}
+		}
+	}
+	a.Notes.ForgetAll()
+	return expired, hid, nil
 }
 
 // olnClean deletes local messages: only v1 leftovers, or (all) every one.

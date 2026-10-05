@@ -47,4 +47,5 @@ if [ -x "$emu" ] && command -v java >/dev/null 2>&1 && [ -z "$SKIP_EMULATOR" ]; 
   trap 'kill $pid ${pid2:-} ${pid3:-} 2>/dev/null; [ -n "$emupgid" ] && kill -- -"$emupgid" 2>/dev/null' EXIT
   for i in $(seq 1 30); do curl -s localhost:8432 >/dev/null 2>&1 && break; sleep 1; done
   DATASTORE_EMULATOR_HOST=localhost:8432 go test ./internal/purge/
+  DATASTORE_EMULATOR_HOST=localhost:8432 go test -count=1 -run OnEmulator ./internal/handler/
 fi

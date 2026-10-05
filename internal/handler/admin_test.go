@@ -56,11 +56,14 @@ func TestAdminPageRenders(t *testing.T) {
 		Queue: []report.Item{{Kind: "post", Item: "at://did:plc:x/app.bsky.feed.post/abc", Snippet: "buy now", Reasons: map[string]int{"spam": 2}, Count: 2}},
 		Businesses: []*business.Business{
 			{ID: "b1", Name: "Café Futuro", Kind: "cafe", Status: "active", PaidUntil: time.Date(2099, 12, 31, 0, 0, 0, 0, time.UTC).Add(24 * time.Hour), AfterPaid: "stop"},
-			{ID: "b2", Name: "Café Passado", Kind: "cafe", Status: "active", PaidUntil: time.Now().AddDate(0, 0, -3), AfterPaid: "stay"}}}
+			{ID: "b2", Name: "Café Passado", Kind: "cafe", Status: "active", PaidUntil: time.Now().AddDate(0, 0, -3), AfterPaid: "stay"}},
+		OLN: &olnStats{Total: 3, Live: 2, Expired: 1, Hidden: 1, Messages: []adminNote{
+			{ID: "n1", Text: "Fresh croissants", Cell: "8ccgmw", Biz: "Café Futuro", By: "joop", Bits: 5, At: time.Now(), ExpiresAt: time.Now().Add(time.Hour)},
+			{ID: "n2", Text: "Cheap watches", Cell: "8ccgmw", Bits: 4, At: time.Now(), ExpiresAt: time.Now().Add(time.Hour), Hidden: true}}}}
 	w := httptest.NewRecorder()
 	home.render(w, "admin.html", p)
 	body := w.Body.String()
-	for _, want := range []string{"@joop", "🔑 2", "🔄 synced", "#geo8ccgmw · 1", "Accounts by area", `name="ids"`, "Apply to selected", "buy now", "spam 2", "https://bsky.app/profile/did:plc:x/post/abc", "kept forever", `value="moderator"`, "Set role", ">3<", "Café Futuro", "· paid until ", `name="paid_until" value="2099-12-31"`, "paid until 31 Dec 2099", "paid period over (still live): contact?", `value="stay" selected`} {
+	for _, want := range []string{"@joop", "🔑 2", "🔄 synced", "#geo8ccgmw · 1", "Accounts by area", `name="ids"`, "Apply to selected", "buy now", "spam 2", "https://bsky.app/profile/did:plc:x/post/abc", "kept forever", `value="moderator"`, "Set role", ">3<", "Café Futuro", "· paid until ", `name="paid_until" value="2099-12-31"`, "paid until 31 Dec 2099", "paid period over (still live): contact?", `value="stay" selected`, "1 expired, 1 hidden", "Live public messages (2", "🪽 Café Futuro (by @joop)", "Fresh croissants", `value="oln-delete"`, `<span class="badge warn">hidden</span> Cheap watches`} {
 		if !strings.Contains(body, want) {
 			t.Errorf("admin page lacks %q", want)
 		}
