@@ -608,5 +608,6 @@
   "privacy.row_vault_kept": "Sampai kamu menghapus akunmu",
   "privacy.row_oln": "Pesan lokal: teks pesan publik, nama pada yang kamu posting atas namamu (milik bisnis menampilkan bisnisnya; siapa yang memposting hanya disimpan untuk moderasi), dan baris obrolan pribadi sebagai teks terenkripsi",
   "privacy.row_oln_why": "Agar orang di sekitar bisa membacanya, dan agar kami bisa menindak penyalahgunaan",
-  "privacy.row_oln_kept": "Selama kerja mereka membayarnya, paling lama 7 hari"
+  "privacy.row_oln_kept": "Selama kerja mereka membayarnya, paling lama 7 hari",
+  "account.export_data": "Unduh data tentangmu yang disimpan server kami (JSON)"
 }

@@ -608,5 +608,6 @@
   "privacy.row_vault_kept": "Jusqu'à la suppression de ton compte",
   "privacy.row_oln": "Messages locaux : le texte des publics, le nom sur ceux que tu publies sous ton nom (ceux d'une entreprise affichent l'entreprise ; qui a publié est gardé seulement pour la modération), et les lignes de discussion privées chiffrées",
   "privacy.row_oln_why": "Pour que les gens autour les lisent, et pour pouvoir agir contre les abus",
-  "privacy.row_oln_kept": "Tant que leur travail l'a payé, 7 jours au plus"
+  "privacy.row_oln_kept": "Tant que leur travail l'a payé, 7 jours au plus",
+  "account.export_data": "Télécharger ce que notre serveur garde sur toi (JSON)"
 }

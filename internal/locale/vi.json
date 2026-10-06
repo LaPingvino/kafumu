@@ -608,5 +608,6 @@
   "privacy.row_vault_kept": "Đến khi bạn xóa tài khoản",
   "privacy.row_oln": "Tin nhắn địa phương: nội dung tin công khai, tên trên tin bạn đăng dưới tên mình (tin của doanh nghiệp hiển thị doanh nghiệp; người đăng chỉ được giữ để kiểm duyệt), và các dòng trò chuyện riêng ở dạng mã hóa",
   "privacy.row_oln_why": "Để người quanh đây đọc được, và để chúng tôi xử lý lạm dụng",
-  "privacy.row_oln_kept": "Bao lâu công sức của chúng trả được, tối đa 7 ngày"
+  "privacy.row_oln_kept": "Bao lâu công sức của chúng trả được, tối đa 7 ngày",
+  "account.export_data": "Tải về những gì máy chủ của chúng tôi lưu về bạn (JSON)"
 }

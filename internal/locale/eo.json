@@ -608,5 +608,6 @@
   "privacy.row_vault_kept": "Ĝis vi forigas vian konton",
   "privacy.row_oln": "Lokaj mesaĝoj: la teksto de publikaj, la nomo sur tiuj, kiujn vi afiŝas sub via nomo (tiu de komerco montras la komercon; kiu afiŝis estas konservata nur por moderigo), kaj privataj babil-linioj kiel ĉifrita teksto",
   "privacy.row_oln_why": "Por ke homoj ĉirkaŭe legu ilin, kaj por ke ni povu agi kontraŭ misuzo",
-  "privacy.row_oln_kept": "Tiel longe, kiel ilia laboro aĉetis, maksimume 7 tagojn"
+  "privacy.row_oln_kept": "Tiel longe, kiel ilia laboro aĉetis, maksimume 7 tagojn",
+  "account.export_data": "Elŝuti tion, kion nia servilo tenas pri vi (JSON)"
 }

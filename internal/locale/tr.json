@@ -608,5 +608,6 @@
   "privacy.row_vault_kept": "Hesabını silene kadar",
   "privacy.row_oln": "Yerel mesajlar: herkese açık olanların metni, kendi adınla paylaştıklarındaki ad (bir işletmeninki işletmeyi gösterir; kimin paylaştığı yalnızca moderasyon için saklanır) ve özel sohbet satırları şifreli olarak",
   "privacy.row_oln_why": "Yakındakiler okuyabilsin ve kötüye kullanıma karşı önlem alabilelim diye",
-  "privacy.row_oln_kept": "Emekleri ne kadar yettiyse, en çok 7 gün"
+  "privacy.row_oln_kept": "Emekleri ne kadar yettiyse, en çok 7 gün",
+  "account.export_data": "Sunucumuzun senin hakkında tuttuklarını indir (JSON)"
 }

@@ -608,5 +608,6 @@
   "privacy.row_vault_kept": "Până îți ștergi contul",
   "privacy.row_oln": "Mesaje locale: textul celor publice, numele pe cele pe care le postezi în numele tău (ale unei firme arată firma; cine a postat păstrăm doar pentru moderare) și rândurile de chat privat ca text cifrat",
   "privacy.row_oln_why": "Ca oamenii din jur să le citească și ca să putem acționa împotriva abuzurilor",
-  "privacy.row_oln_kept": "Cât le-a plătit munca, cel mult 7 zile"
+  "privacy.row_oln_kept": "Cât le-a plătit munca, cel mult 7 zile",
+  "account.export_data": "Descarcă ce păstrează serverul nostru despre tine (JSON)"
 }

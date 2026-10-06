@@ -608,5 +608,6 @@
   "privacy.row_vault_kept": "Indtil du sletter din konto",
   "privacy.row_oln": "Lokale beskeder: teksten i offentlige, navnet på dem du skriver i dit navn (en virksomheds viser virksomheden; hvem der skrev, gemmes kun til moderation), og private chatlinjer som krypteret tekst",
   "privacy.row_oln_why": "Så folk i nærheden kan læse dem, og så vi kan gribe ind over for misbrug",
-  "privacy.row_oln_kept": "Så længe deres arbejde betalte, højst 7 dage"
+  "privacy.row_oln_kept": "Så længe deres arbejde betalte, højst 7 dage",
+  "account.export_data": "Download det, vores server har om dig (JSON)"
 }

@@ -608,5 +608,6 @@
   "privacy.row_vault_kept": "直到你刪除帳戶",
   "privacy.row_oln": "本地訊息：公開訊息的內容、以你名義發布的訊息上的名字（商家發布的顯示商家；發布者僅為管理保留），以及加密的私聊內容",
   "privacy.row_oln_why": "讓附近的人能看到，也讓我們能處理濫用",
-  "privacy.row_oln_kept": "在其工作量支付的期限內，最多 7 天"
+  "privacy.row_oln_kept": "在其工作量支付的期限內，最多 7 天",
+  "account.export_data": "下載我們伺服器上保存的關於你的資料（JSON）"
 }

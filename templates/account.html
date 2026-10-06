@@ -143,6 +143,7 @@
     {{end}}
 
     {{if not .Findable}}<p class="card" style="padding:8px 16px">🏪 <a href="/business">{{t .Lang "account.business"}}</a></p>
+    <p class="small"><a href="/account/data.json" download>⬇ {{t .Lang "account.export_data"}}</a></p>
     <h2>{{t .Lang "account.leave_title"}}</h2>
     <div class="actions">
     <form method="post" action="/account/signout"><button type="submit" class="secondary">{{t .Lang "account.signout"}}</button></form>

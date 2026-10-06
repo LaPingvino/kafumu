@@ -281,3 +281,16 @@ func (s *Store) ForgetFindable() {
 	s.findable = nil
 	s.mu.Unlock()
 }
+
+// Delete removes a business (its last manager left).
+func (s *Store) Delete(ctx context.Context, id string) error {
+	s.mu.Lock()
+	delete(s.mem, id)
+	s.findable = nil
+	s.mu.Unlock()
+	if s.DB == nil {
+		kv.Delete(kind, id)
+		return nil
+	}
+	return s.DB.Delete(ctx, datastore.NameKey(kind, id, nil))
+}

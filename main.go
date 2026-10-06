@@ -154,6 +154,7 @@ func main() {
 		}
 	}
 	mux.HandleFunc("GET /account", accounts.Show)
+	mux.HandleFunc("GET /account/data.json", accounts.DataExport)
 	mux.HandleFunc("GET /findable", accounts.ShowFindable)
 	mux.HandleFunc("POST /account/start", accounts.Start)
 	mux.HandleFunc("POST /account/name", accounts.SetName)

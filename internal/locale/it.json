@@ -608,5 +608,6 @@
   "privacy.row_vault_kept": "Finché non elimini l'account",
   "privacy.row_oln": "Messaggi locali: il testo di quelli pubblici, il nome su quelli che pubblichi a tuo nome (quelli di un'attività mostrano l'attività; chi ha pubblicato è conservato solo per la moderazione) e le righe di chat privata cifrate",
   "privacy.row_oln_why": "Perché chi è vicino li legga, e per poter agire contro gli abusi",
-  "privacy.row_oln_kept": "Finché il loro lavoro l'ha pagato, al massimo 7 giorni"
+  "privacy.row_oln_kept": "Finché il loro lavoro l'ha pagato, al massimo 7 giorni",
+  "account.export_data": "Scarica ciò che il nostro server conserva su di te (JSON)"
 }

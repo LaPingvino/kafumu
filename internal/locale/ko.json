@@ -608,5 +608,6 @@
   "privacy.row_vault_kept": "계정을 삭제할 때까지",
   "privacy.row_oln": "지역 메시지: 공개 메시지의 내용, 이름을 걸고 올린 메시지의 이름(비즈니스 게시물은 비즈니스를 표시하며, 작성자는 관리 목적으로만 보관), 비공개 채팅은 암호문으로",
   "privacy.row_oln_why": "근처 사람들이 읽을 수 있도록, 그리고 악용에 대응하기 위해",
-  "privacy.row_oln_kept": "작업량이 허락한 동안, 최대 7일"
+  "privacy.row_oln_kept": "작업량이 허락한 동안, 최대 7일",
+  "account.export_data": "서버가 나에 대해 보관하는 정보 내려받기(JSON)"
 }

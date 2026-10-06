@@ -608,5 +608,6 @@
   "privacy.row_vault_kept": "Tot je je account verwijdert",
   "privacy.row_oln": "Lokale berichten: de tekst van openbare, de naam bij berichten die je onder je naam plaatst (die van een bedrijf toont het bedrijf; wie het plaatste bewaren we alleen voor moderatie), en privé-chatregels als versleutelde tekst",
   "privacy.row_oln_why": "Zodat mensen in de buurt ze kunnen lezen, en zodat we tegen misbruik kunnen optreden",
-  "privacy.row_oln_kept": "Zolang hun werk dat kocht, hooguit 7 dagen"
+  "privacy.row_oln_kept": "Zolang hun werk dat kocht, hooguit 7 dagen",
+  "account.export_data": "Download wat onze server over jou bewaart (JSON)"
 }

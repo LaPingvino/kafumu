@@ -608,5 +608,6 @@
   "privacy.row_vault_kept": "Amíg nem törlöd a fiókodat",
   "privacy.row_oln": "Helyi üzenetek: a nyilvánosak szövege, a név a saját neveden posztoltakon (egy vállalkozásé a vállalkozást mutatja; hogy ki posztolta, csak moderáláshoz őrizzük), és a privát csevegés sorai titkosítva",
   "privacy.row_oln_why": "Hogy a környéken élők olvashassák, és hogy fel tudjunk lépni a visszaélések ellen",
-  "privacy.row_oln_kept": "Amíg a munkájuk kifizette, legfeljebb 7 napig"
+  "privacy.row_oln_kept": "Amíg a munkájuk kifizette, legfeljebb 7 napig",
+  "account.export_data": "Töltsd le, mit tárol rólad a szerverünk (JSON)"
 }

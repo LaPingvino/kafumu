@@ -13,6 +13,7 @@ import (
 	"net/http"
 	"net/url"
 	"regexp"
+	"slices"
 	"strconv"
 	"strings"
 	"time"
@@ -226,6 +227,7 @@ func (a *Accounts) Delete(w http.ResponseWriter, r *http.Request) {
 		if a.Handles != nil && u.Username != "" {
 			_ = a.Handles.Delete(r.Context(), u.Username)
 		}
+		a.leaveBusinesses(r, u.ID)
 		if err := a.Svc.Delete(r.Context(), u); err != nil {
 			log.Printf("account: delete: %v", err)
 			http.Error(w, "could not delete account", http.StatusInternalServerError)
@@ -596,4 +598,71 @@ func (a *Accounts) HandleViews(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Cache-Control", "no-store")
 	json.NewEncoder(w).Encode(v)
+}
+
+// leaveBusinesses takes a deleted account off every business it managed;
+// a business left without managers is closed with everything it had
+// (its @name, named link, inbox price and synced vault).
+func (a *Accounts) leaveBusinesses(r *http.Request, userID string) {
+	if a.Home.Biz == nil {
+		return
+	}
+	ctx := r.Context()
+	bs, _ := a.Home.Biz.ForUser(ctx, userID)
+	for _, b := range bs {
+		b.Managers = slices.DeleteFunc(b.Managers, func(m string) bool { return m == userID })
+		a.Home.forgetBiz(b.ID)
+		if len(b.Managers) > 0 {
+			_ = a.Home.Biz.Save(ctx, b)
+			continue
+		}
+		if b.Username != "" {
+			_ = a.Svc.Store.ReleaseUsername(ctx, b.Username, "biz:"+b.ID)
+			if a.Handles != nil {
+				_ = a.Handles.Delete(ctx, b.Username)
+			}
+		}
+		if b.InboxBox != "" && a.Prices != nil {
+			_ = a.Prices.Delete(ctx, b.InboxBox)
+		}
+		if a.Vault != nil {
+			_ = a.Vault.Delete(ctx, "biz:"+b.ID)
+		}
+		_ = a.Home.Biz.Delete(ctx, b.ID)
+	}
+}
+
+// DataExport handles GET /account/data.json: what the server holds about
+// you, to download (the privacy page promises it). Your device's own data
+// (cards, contacts) exports from Contacts; the synced vault is ciphertext
+// only your devices can open, so only its size and date are listed.
+func (a *Accounts) DataExport(w http.ResponseWriter, r *http.Request) {
+	u := UserFrom(r.Context())
+	if u == nil {
+		http.Error(w, "sign in first", http.StatusUnauthorized)
+		return
+	}
+	acct := *u
+	acct.TokenHash, acct.Sessions, acct.ATSession = "", nil, "" // sign-in secrets: not data about you
+	out := map[string]any{"account": acct, "exported": time.Now().UTC()}
+	if a.Vault != nil {
+		if v, _ := a.Vault.Get(r.Context(), u.ID); v != nil {
+			out["synced_vault"] = map[string]any{"bytes": len(v.Data), "version": v.Version, "updated": v.UpdatedAt}
+		}
+	}
+	if a.Home.Biz != nil {
+		var bs []map[string]any
+		mine, _ := a.Home.bizFor(r.Context(), u.ID)
+		for _, b := range mine {
+			bs = append(bs, map[string]any{"id": b.ID, "name": b.Name, "kind": b.Kind, "contact": b.Contact, "username": b.Username,
+				"status": b.Status, "managers": b.Managers, "created": b.CreatedAt, "sync": b.SyncMode})
+		}
+		out["businesses"] = bs
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Content-Disposition", `attachment; filename="kafumu-account.json"`)
+	w.Header().Set("Cache-Control", "no-store")
+	enc := json.NewEncoder(w)
+	enc.SetIndent("", "  ")
+	enc.Encode(out)
 }

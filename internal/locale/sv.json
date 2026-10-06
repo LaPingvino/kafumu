@@ -608,5 +608,6 @@
   "privacy.row_vault_kept": "Tills du raderar ditt konto",
   "privacy.row_oln": "Lokala meddelanden: texten i offentliga, namnet på dem du skriver i ditt namn (ett företags visar företaget; vem som skrev sparas bara för moderering), och privata chattrader som chiffertext",
   "privacy.row_oln_why": "Så att folk i närheten kan läsa dem, och så att vi kan agera mot missbruk",
-  "privacy.row_oln_kept": "Så länge deras arbete räckte, högst 7 dagar"
+  "privacy.row_oln_kept": "Så länge deras arbete räckte, högst 7 dagar",
+  "account.export_data": "Ladda ner det vår server har om dig (JSON)"
 }

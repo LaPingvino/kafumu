@@ -608,5 +608,6 @@
   "privacy.row_vault_kept": "Until you delete your account",
   "privacy.row_oln": "Local messages: the text of public ones, the name on those you post under your name (a business's post shows the business; who posted is kept only for moderation), and private chat lines as ciphertext",
   "privacy.row_oln_why": "So people around can read them, and so we can act on abuse",
-  "privacy.row_oln_kept": "As long as their work bought, at most 7 days"
+  "privacy.row_oln_kept": "As long as their work bought, at most 7 days",
+  "account.export_data": "Download what our server holds about you (JSON)"
 }
