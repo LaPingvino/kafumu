@@ -9,15 +9,25 @@ and what people around here are saying — without tracking. Live at **<https://
 ## What it does
 
 - **Around** — your area (search, map, or location after a tap) with friends who were nearby this week,
-  signals, meetups (Kafumu's own, Luma, Smoke Signal/ATproto), people who chose to be findable (ranked
-  by language exchange on your device), and local posts found through `#geo` cells and place hashtags.
+  signals, meetups (Kafumu's own, Luma, Smoke Signal/ATproto, and Esperanto events from Eventa Servo),
+  people and businesses who chose to be findable (ranked on your device), local messages, and local
+  posts found through `#geo` cells and place hashtags. Quiet areas widen ring by ring until there's
+  enough to see.
+- **Local messages (OLN)** — no account needed, paid in a little proof of work (Argon2id) instead;
+  anonymous posts can be answered privately, and contacts chat end-to-end encrypted over the same
+  format. Nodes can link and pull each other's messages.
 - **Connect** — show a QR (or print it on your badge); whoever scans it swaps cards with you,
   end-to-end encrypted. Personas let you choose what to hand over each time.
 - **Contacts** — kept on your device only; notes, tags, one-tap signals (☕ / 📍 / 👋), push
   notifications, vCard/backup export, and moving everything to a new device by scanning.
 - **Accounts** without email or phone: magic link, passkeys, and optionally your Bluesky/ATproto
-  account so meetups, RSVPs and posts are written to your own repo.
-- English, Portuguese, Esperanto and Dutch.
+  account so meetups, RSVPs and posts are written to your own repo. Your contacts and cards sync
+  between your devices, encrypted.
+- **Business accounts** — act as a café, venue or organiser: its own card, contacts (synced between
+  its managers, with the key on the server or only on their devices), @name page, inbox and wings.
+  Pay what you want; nothing buys visibility.
+- **Brands** — the same app and network under another name and domain, with its own wording and tags.
+- 24 languages.
 
 ## The idea in one paragraph
 
@@ -35,6 +45,10 @@ sh test/run.sh      # everything: Go tests, JS units, pairing E2E, two-browser +
                     # (headless Chromium), and Datastore code against the emulator
 ```
 
+## Running your own
+
+One Go program and one SQLite file, no Google Cloud needed: see [SELFHOSTING.md](SELFHOSTING.md).
+
 ## Deploying
 
 ```bash
@@ -43,7 +57,8 @@ gcloud app deploy index.yaml --project lokumo           # when Datastore indexes
 ```
 
 Place and language hashtags come from [LaPingvino/geotags](https://github.com/LaPingvino/geotags)
-(GeoNames, CC BY 4.0).
+(GeoNames, CC BY 4.0), and the alternate town names used to place events (Parizo, München…) from
+[GeoNames](https://www.geonames.org/) (CC BY 4.0), built with `tools/townalts.py`.
 
 ## Lineage
 
