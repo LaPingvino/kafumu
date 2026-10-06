@@ -1171,7 +1171,7 @@
       var f = document.createElement("form");
       f.innerHTML = '<textarea rows="2" maxlength="1000"></textarea><label class="small"><input type="checkbox" checked> ' +
         tr("inbox_share_card") + '</label><div class="actions"><button type="submit" class="pill-sm suggested"></button></div><p class="dim small"></p>';
-      f.querySelector("button").textContent = tr("oln_send") || "Send";
+      f.querySelector("button").textContent = tr("answer_send"); // "Send", in your language
       wrap.appendChild(f);
       f.querySelector("textarea").focus();
       f.onsubmit = function (e) {
