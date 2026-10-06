@@ -2,6 +2,8 @@ package handler
 
 import (
 	"context"
+	"github.com/LaPingvino/kafumu/internal/cache"
+	"github.com/LaPingvino/kafumu/internal/gazetteer"
 	"os"
 	"testing"
 	"time"
@@ -51,5 +53,25 @@ func TestAdminOLNOnEmulator(t *testing.T) {
 	}
 	if left, _ := store.Hidden(ctx); len(left) != 0 {
 		t.Fatalf("hidden markers left: %v", left)
+	}
+}
+
+// Countries looked at survive the shared cache losing them (Datastore
+// behind it), so the feeds job keeps pulling their calendars.
+func TestSeenCountriesOnEmulator(t *testing.T) {
+	if os.Getenv("DATASTORE_EMULATOR_HOST") == "" {
+		t.Skip("needs the Datastore emulator")
+	}
+	ctx := context.Background()
+	db, err := datastore.NewClient(ctx, "kafumu-seen-test")
+	if err != nil {
+		t.Fatal(err)
+	}
+	h := &Home{Gaz: gazetteer.Load(), Cache: cache.NewMemory(), DB: db}
+	h.noteCountry(ctx, "8fw4v8") // Paris
+	h.Cache = cache.NewMemory()  // the shared cache dropped everything
+	got := h.SeenCountries(ctx, time.Now())
+	if len(got) != 1 || got[0] != "FR" {
+		t.Fatalf("after losing the cache: %v", got)
 	}
 }

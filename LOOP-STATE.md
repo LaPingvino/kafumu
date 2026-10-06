@@ -877,4 +877,8 @@ start (magic link re-binds them after a domain move).
       different posts): town tags now come accented and plain. public.api.bsky.app answered 403 from the dev
       machine while api.bsky.app answered: the client now tries the host that answered last first, instead
       of spending a refused request on every search. Tests: both spellings, refusing host asked once.
+- [x] 81. (Polish: production logs clean, but the 00:00 feeds run did 2 feeds, not 4.) The countries looked at
+      lived only in shared memcache, which may evict any time: the Eventa Servo calendars silently stopped.
+      Now also in Datastore (Config/seen-countries, written ≤ once an hour per country per instance; read only
+      when the cache lost it, then put back). Emulator test: survives losing the cache.
 

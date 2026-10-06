@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/LaPingvino/kafumu/internal/cache"
+	"cloud.google.com/go/datastore"
 )
 
 // Countries people look at (Eventa Servo, LOOP-STATE 60a): the feeds job
@@ -40,17 +40,40 @@ func (h *Home) noteCountry(ctx context.Context, cell string) {
 	}
 	h.seen.noted[cc] = now
 	h.seen.mu.Unlock()
-	m := seenCountries(ctx, h.Cache)
+	m := h.seenCountries(ctx)
 	m[cc] = now.Unix()
 	if b, err := json.Marshal(m); err == nil {
 		h.Cache.Set(ctx, seenKey, b, 7*24*time.Hour)
+		// Kept in Datastore too: shared memcache may drop it any time, and
+		// then the feeds job forgot which calendars to pull (seen at
+		// midnight: 2 feeds instead of 4). At most once an hour per country
+		// per instance.
+		if h.DB != nil {
+			_, _ = h.DB.Put(ctx, seenDSKey(), &seenEntity{JSON: string(b)})
+		}
 	}
 }
 
-func seenCountries(ctx context.Context, c cache.Cache) map[string]int64 {
+type seenEntity struct {
+	JSON string `datastore:"json,noindex"`
+}
+
+func seenDSKey() *datastore.Key { return datastore.NameKey("Config", seenKey, nil) }
+
+// seenCountries: the shared cache's list, or Datastore's when the cache
+// lost it (then put back in the cache).
+func (h *Home) seenCountries(ctx context.Context) map[string]int64 {
 	m := map[string]int64{}
-	if b, ok := c.Get(ctx, seenKey); ok {
+	if b, ok := h.Cache.Get(ctx, seenKey); ok {
 		json.Unmarshal(b, &m)
+		return m
+	}
+	if h.DB != nil {
+		var e seenEntity
+		if h.DB.Get(ctx, seenDSKey(), &e) == nil {
+			json.Unmarshal([]byte(e.JSON), &m)
+			h.Cache.Set(ctx, seenKey, []byte(e.JSON), 7*24*time.Hour)
+		}
 	}
 	return m
 }
@@ -61,7 +84,7 @@ func (h *Home) SeenCountries(ctx context.Context, now time.Time) []string {
 	if h.Cache == nil {
 		return nil
 	}
-	m := seenCountries(ctx, h.Cache)
+	m := h.seenCountries(ctx)
 	var out []string
 	for cc, at := range m {
 		if now.Sub(time.Unix(at, 0)) < 3*24*time.Hour {
