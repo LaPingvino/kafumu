@@ -278,6 +278,7 @@ try {
     await B.waitFor("!!document.querySelector('.biz-profile a[href^=\"/c?from=" + bizName + "\"]')", "Connect on the business's @name page");
     await B.evaluate("document.querySelector('.biz-profile a[href^=\"/c?from=\"]').click(); true");
     await B.waitFor("location.pathname === '/c' && location.search.includes('from=" + bizName + "')", "visitor lands on connecting with the business");
+    await B.waitFor("(document.getElementById('accept-from') || {}).textContent?.includes('🏢 @" + bizName + "')", "connect page says it's a business");
     // Findable like a person (76c): the business shows up among the people
     // of its area, marked as a business.
     await A.goto(base + "/findable");

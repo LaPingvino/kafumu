@@ -163,7 +163,7 @@ func (h *Businesses) Profile(w http.ResponseWriter, r *http.Request, id, payload
 	p := bizProfilePage{page: h.Home.newPage(r, b.Name), B: b,
 		Link: strings.HasPrefix(b.Contact, "https://") || strings.HasPrefix(b.Contact, "http://")}
 	if payload != "" && b.Live(time.Now()) && b.Username != "" {
-		p.Connect = "/c?from=" + url.QueryEscape(b.Username) + "#" + payload
+		p.Connect = "/c?from=" + url.QueryEscape(b.Username) + "&biz=1#" + payload
 	}
 	h.Home.render(w, "business_profile.html", p)
 }
