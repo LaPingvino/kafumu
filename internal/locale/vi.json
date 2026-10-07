@@ -611,5 +611,6 @@
   "privacy.row_oln_kept": "Bao lâu công sức của chúng trả được, tối đa 7 ngày",
   "account.export_data": "Tải về những gì máy chủ của chúng tôi lưu về bạn (JSON)",
   "contacts.keep_explain_synced": "Danh bạ của bạn nằm trên các thiết bị của bạn và được đồng bộ giữa chúng ở dạng mã hóa: máy chủ của chúng tôi không đọc được. Dù vậy, tự giữ một bản sao vẫn là ý hay.",
-  "biz.atproto_explain": "Kết nối tài khoản Bluesky (hoặc ATproto khác) của doanh nghiệp: các buổi gặp doanh nghiệp tổ chức và bài đăng dưới tên nó được lưu ở đó, không bao giờ vào tài khoản riêng của quản lý."
+  "biz.atproto_explain": "Kết nối tài khoản Bluesky (hoặc ATproto khác) của doanh nghiệp: các buổi gặp doanh nghiệp tổ chức và bài đăng dưới tên nó được lưu ở đó, không bao giờ vào tài khoản riêng của quản lý.",
+  "js.post_sent": "Đã đăng lên Bluesky."
 }

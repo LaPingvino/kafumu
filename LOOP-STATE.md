@@ -894,8 +894,11 @@ start (magic link re-binds them after a domain move).
 Problem: responses are scattered. A post in another area loses its replies; chat lines and reactions only show
 on a contact's card; strangers' reactions show only under the post in its own cell. Built on the device (rules
 1/4): the list is assembled in the browser from what it already holds plus anonymous per-id fetches.
-- [ ] 77a. Remember own posts: at post time save {id, cell, reid, text(80), until} in kv `myPosts` (notes, asks,
+- [x] 77a. Remember own posts: at post time save {id, cell, reid, text(80), until} in kv `myPosts` (notes, asks,
       coffee, replies; meetups hosted by id; Bluesky posts by URI, which /post must return). Pruned at `until`.
+      Done: rememberPost (notes, asks, replies, coffee; max 200); /post returns the URI (&at=, &t=) and the
+      page now says "Posted to Bluesky" (posted=1/0 was never read, and "/&posted" was a broken URL). Meetups
+      come from the account in 77d. Browser test: the posted note lands in myPosts.
 - [ ] 77b. Public replies/reactions to own posts across cells: index Note `re` (the #re<id> tag, public anyway);
       `GET /api/oln/re?ids=a,b,…` (anonymous, ≤20 ids, memcached 1 min per id, no account). 
 - [ ] 77c. /activity page + 🔔 in the header with an unread count (and setAppBadge): private answers, public
@@ -907,3 +910,6 @@ on a contact's card; strangers' reactions show only under the post in its own ce
       URI, fetched by the device, no server cost).
 - [ ] 77f. Push for answers and replies too: subscriptions also watch your answer tags (Notify on pair notes);
       the notification opens /activity instead of /contacts.
+- [ ] 77g. Reactions to reactions (Joop): a reply under a card gets its own react row; its reactions (#re<its id>)
+      nest one level under it, and count as replies to your reply in Activity. Uses 77b's `re` index for the
+      ones not in the cell's bundle.

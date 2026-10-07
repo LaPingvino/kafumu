@@ -611,5 +611,6 @@
   "privacy.row_oln_kept": "Zolang hun werk dat kocht, hooguit 7 dagen",
   "account.export_data": "Download wat onze server over jou bewaart (JSON)",
   "contacts.keep_explain_synced": "Je contacten staan op je apparaten en worden versleuteld tussen hen gesynchroniseerd: onze server kan ze niet lezen. Een eigen kopie is toch een goed idee.",
-  "biz.atproto_explain": "Koppel het Bluesky-account (of ander ATproto-account) van het bedrijf: meetups die het organiseert en berichten namens het komen daar, nooit in het eigen account van een beheerder."
+  "biz.atproto_explain": "Koppel het Bluesky-account (of ander ATproto-account) van het bedrijf: meetups die het organiseert en berichten namens het komen daar, nooit in het eigen account van een beheerder.",
+  "js.post_sent": "Geplaatst op Bluesky."
 }

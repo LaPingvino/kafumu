@@ -13,6 +13,17 @@
   }
 
   function setStatus(msg) { $("status").textContent = msg; }
+  // Back from /post (Bluesky): say how it went, and remember the post (77a).
+  (function () {
+    var q = new URLSearchParams(location.search), done = q.get("posted");
+    if (done === null) return;
+    setTimeout(function () {
+      setStatus(done === "1" ? tr("post_sent") : tr("oln_failed"));
+      if (done === "1" && q.get("at")) rememberPost({ uri: q.get("at"), cell: q.get("cell") || "" }, "bsky", q.get("t") || "");
+      q.delete("posted"); q.delete("at"); q.delete("t");
+      history.replaceState(null, "", location.pathname + (q.toString() ? "?" + q : ""));
+    }, 0);
+  })();
   function note(msg) { $("list-note").textContent = msg; }
 
   // ---- One feed: every kind of card in one list, ranked on the device ----
@@ -411,6 +422,7 @@
       $("oln-status").textContent = tr("oln_working", { n: tries });
     }, 0, asMe); }).then(function (n) {
       if (n && n.id) ownNotes.push(n);
+      rememberPost(n, composeMode.re ? "reply" : composeMode.ask ? "ask" : "note", text.split("\n")[0]);
       composeMode = {};
       f.text.value = "";
       f.hidden = true;
@@ -443,6 +455,7 @@
       });
     }).then(function (n) {
       if (n && n.id) ownNotes.push(n);
+      rememberPost(n, "coffee", "☕");
       statusEl.textContent = tr("coffee_sent");
       load(currentCell, true);
       // Keep listening for people who join, like the Connect page does.
@@ -612,6 +625,21 @@
 
   function hiddenNotes() { try { return JSON.parse(pref("kafumu.hiddenNotes") || "[]"); } catch (e) { return []; } }
   var ownNotes = []; // shown at once, even if another instance's cache lags
+  // rememberPost (77a): the device keeps a list of your own posts, in any
+  // area, so Activity can gather what came back to them. Kept until a week
+  // after the post expires; ids are public anyway (they're in the cell).
+  function rememberPost(n, kind, text) {
+    var dev = window.kafumuDevice;
+    if (!dev || !n || !(n.id || n.uri)) return;
+    var until = (n.expires ? new Date(n.expires).getTime() : Date.now() + 30 * 864e5) + 7 * 864e5;
+    dev.store.get("myPosts").then(function (ps) {
+      var now = Date.now();
+      ps = (ps || []).filter(function (p) { return p.until > now; });
+      ps.push({ id: n.id || "", uri: n.uri || "", cell: n.cell || "", reid: n.id ? reID("note", n.id) : "",
+        kind: kind, text: String(text || "").slice(0, 80), at: now, until: until });
+      return dev.store.set("myPosts", ps.slice(-200));
+    }).catch(function () {});
+  }
 
   // ---- Private answers (LOOP-STATE 69) ----
   // Posts carry a reply key; anyone can answer privately, and the

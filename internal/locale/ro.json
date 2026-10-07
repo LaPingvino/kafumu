@@ -611,5 +611,6 @@
   "privacy.row_oln_kept": "Cât le-a plătit munca, cel mult 7 zile",
   "account.export_data": "Descarcă ce păstrează serverul nostru despre tine (JSON)",
   "contacts.keep_explain_synced": "Contactele tale sunt pe dispozitivele tale și se sincronizează între ele, cifrate: serverul nostru nu le poate citi. O copie proprie e totuși o idee bună.",
-  "biz.atproto_explain": "Conectează contul Bluesky (sau alt cont ATproto) al firmei: întâlnirile pe care le organizează și postările în numele ei se salvează acolo, niciodată în contul propriu al unui administrator."
+  "biz.atproto_explain": "Conectează contul Bluesky (sau alt cont ATproto) al firmei: întâlnirile pe care le organizează și postările în numele ei se salvează acolo, niciodată în contul propriu al unui administrator.",
+  "js.post_sent": "Publicat pe Bluesky."
 }

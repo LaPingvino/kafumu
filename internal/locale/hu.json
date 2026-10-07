@@ -611,5 +611,6 @@
   "privacy.row_oln_kept": "Amíg a munkájuk kifizette, legfeljebb 7 napig",
   "account.export_data": "Töltsd le, mit tárol rólad a szerverünk (JSON)",
   "contacts.keep_explain_synced": "A kapcsolataid az eszközeiden vannak, és titkosítva szinkronizálódnak köztük: a szerverünk nem tudja olvasni őket. Saját másolat azért jól jön.",
-  "biz.atproto_explain": "Kapcsold össze a vállalkozás Bluesky- (vagy más ATproto-) fiókját: az általa szervezett találkozók és a nevében tett bejegyzések oda kerülnek, sosem egy kezelő saját fiókjába."
+  "biz.atproto_explain": "Kapcsold össze a vállalkozás Bluesky- (vagy más ATproto-) fiókját: az általa szervezett találkozók és a nevében tett bejegyzések oda kerülnek, sosem egy kezelő saját fiókjába.",
+  "js.post_sent": "Közzétéve a Bluesky-on."
 }

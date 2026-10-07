@@ -611,5 +611,6 @@
   "privacy.row_oln_kept": "Så länge deras arbete räckte, högst 7 dagar",
   "account.export_data": "Ladda ner det vår server har om dig (JSON)",
   "contacts.keep_explain_synced": "Dina kontakter finns på dina enheter och synkas krypterat mellan dem: vår server kan inte läsa dem. En egen kopia är ändå en bra idé.",
-  "biz.atproto_explain": "Koppla företagets Bluesky-konto (eller annat ATproto-konto): träffar det ordnar och inlägg i dess namn sparas där, aldrig i en förvaltares eget konto."
+  "biz.atproto_explain": "Koppla företagets Bluesky-konto (eller annat ATproto-konto): träffar det ordnar och inlägg i dess namn sparas där, aldrig i en förvaltares eget konto.",
+  "js.post_sent": "Publicerat på Bluesky."
 }

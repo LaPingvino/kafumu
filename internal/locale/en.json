@@ -611,5 +611,6 @@
   "privacy.row_oln_kept": "As long as their work bought, at most 7 days",
   "account.export_data": "Download what our server holds about you (JSON)",
   "contacts.keep_explain_synced": "Your contacts are on your devices and synced between them, encrypted: our server can't read them. A copy of your own is still a good idea.",
-  "biz.atproto_explain": "Connect the business's Bluesky (or any ATproto) account: meetups it hosts and posts made as it are saved there, never in a manager's own account."
+  "biz.atproto_explain": "Connect the business's Bluesky (or any ATproto) account: meetups it hosts and posts made as it are saved there, never in a manager's own account.",
+  "js.post_sent": "Posted to Bluesky."
 }

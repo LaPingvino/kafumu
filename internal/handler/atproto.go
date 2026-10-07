@@ -3,6 +3,7 @@ package handler
 import (
 	"log"
 	"net/http"
+	"net/url"
 	"strings"
 	"time"
 
@@ -132,10 +133,24 @@ func (h *ATproto) Post(w http.ResponseWriter, r *http.Request) {
 		text += "\n\n#geo" + cell
 	}
 	lang := h.Accounts.Home.newPage(r, "").Lang
-	if _, _, err := h.Svc.CreateRecord(r.Context(), did, session, "app.bsky.feed.post", atp.PostRecord(text, lang, time.Now())); err != nil {
+	uri, _, err := h.Svc.CreateRecord(r.Context(), did, session, "app.bsky.feed.post", atp.PostRecord(text, lang, time.Now()))
+	if err != nil {
 		log.Printf("atproto: post: %v", err)
-		http.Redirect(w, r, back+"&posted=0", http.StatusSeeOther)
+		http.Redirect(w, r, back+sep(back)+"posted=0", http.StatusSeeOther)
 		return
 	}
-	http.Redirect(w, r, back+"&posted=1", http.StatusSeeOther)
+	// The device remembers it (77a), to show replies and likes in Activity.
+	first, _, _ := strings.Cut(text, "\n")
+	if len([]rune(first)) > 80 {
+		first = string([]rune(first)[:80])
+	}
+	http.Redirect(w, r, back+sep(back)+"posted=1&at="+url.QueryEscape(uri)+"&t="+url.QueryEscape(first), http.StatusSeeOther)
+}
+
+// sep: "?" or "&", whichever joins one more query parameter to u.
+func sep(u string) string {
+	if strings.Contains(u, "?") {
+		return "&"
+	}
+	return "?"
 }

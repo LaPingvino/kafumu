@@ -611,5 +611,6 @@
   "privacy.row_oln_kept": "Emekleri ne kadar yettiyse, en çok 7 gün",
   "account.export_data": "Sunucumuzun senin hakkında tuttuklarını indir (JSON)",
   "contacts.keep_explain_synced": "Kişilerin cihazlarında ve aralarında şifreli olarak eşitleniyor: sunucumuz onları okuyamaz. Yine de kendi kopyan olması iyi bir fikir.",
-  "biz.atproto_explain": "İşletmenin Bluesky (ya da başka bir ATproto) hesabını bağla: düzenlediği buluşmalar ve onun adına yapılan paylaşımlar oraya kaydedilir, asla bir yöneticinin kendi hesabına değil."
+  "biz.atproto_explain": "İşletmenin Bluesky (ya da başka bir ATproto) hesabını bağla: düzenlediği buluşmalar ve onun adına yapılan paylaşımlar oraya kaydedilir, asla bir yöneticinin kendi hesabına değil.",
+  "js.post_sent": "Bluesky'de paylaşıldı."
 }
