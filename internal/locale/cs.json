@@ -620,5 +620,8 @@
   "js.act_answer_to": "soukromá odpověď na „{post}“",
   "js.act_message": "zpráva",
   "js.act_inbox": "do tvé veřejné schránky",
-  "js.act_connected": "se s tebou spojil(a)"
+  "js.act_connected": "se s tebou spojil(a)",
+  "js.act_going": "teď jde {n}",
+  "js.act_changed": "nově {when}",
+  "js.act_cancelled": "zrušeno"
 }

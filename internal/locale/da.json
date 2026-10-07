@@ -620,5 +620,8 @@
   "js.act_answer_to": "privat svar på “{post}”",
   "js.act_message": "besked",
   "js.act_inbox": "til din offentlige indbakke",
-  "js.act_connected": "forbandt sig med dig"
+  "js.act_connected": "forbandt sig med dig",
+  "js.act_going": "nu deltager {n}",
+  "js.act_changed": "nu {when}",
+  "js.act_cancelled": "aflyst"
 }

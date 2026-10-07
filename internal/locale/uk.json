@@ -620,5 +620,8 @@
   "js.act_answer_to": "особиста відповідь на «{post}»",
   "js.act_message": "повідомлення",
   "js.act_inbox": "до вашої відкритої скриньки",
-  "js.act_connected": "з'єднався(-лася) з вами"
+  "js.act_connected": "з'єднався(-лася) з вами",
+  "js.act_going": "тепер ідуть: {n}",
+  "js.act_changed": "тепер {when}",
+  "js.act_cancelled": "скасовано"
 }

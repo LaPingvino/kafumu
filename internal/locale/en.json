@@ -620,5 +620,8 @@
   "js.act_answer_to": "private answer on “{post}”",
   "js.act_message": "message",
   "js.act_inbox": "to your public inbox",
-  "js.act_connected": "connected with you"
+  "js.act_connected": "connected with you",
+  "js.act_going": "{n} going now",
+  "js.act_changed": "now {when}",
+  "js.act_cancelled": "cancelled"
 }

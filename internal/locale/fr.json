@@ -620,5 +620,8 @@
   "js.act_answer_to": "réponse privée à « {post} »",
   "js.act_message": "message",
   "js.act_inbox": "dans ta boîte publique",
-  "js.act_connected": "s'est connecté·e avec toi"
+  "js.act_connected": "s'est connecté·e avec toi",
+  "js.act_going": "{n} y vont maintenant",
+  "js.act_changed": "désormais {when}",
+  "js.act_cancelled": "annulé"
 }

@@ -620,5 +620,8 @@
   "js.act_answer_to": "“{post}” için özel yanıt",
   "js.act_message": "mesaj",
   "js.act_inbox": "herkese açık gelen kutuna",
-  "js.act_connected": "seninle bağlandı"
+  "js.act_connected": "seninle bağlandı",
+  "js.act_going": "şimdi {n} kişi katılıyor",
+  "js.act_changed": "artık {when}",
+  "js.act_cancelled": "iptal edildi"
 }

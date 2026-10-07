@@ -620,5 +620,8 @@
   "js.act_answer_to": "「{post}」への非公開の回答",
   "js.act_message": "メッセージ",
   "js.act_inbox": "公開受信箱へ",
-  "js.act_connected": "あなたとつながりました"
+  "js.act_connected": "あなたとつながりました",
+  "js.act_going": "参加者が{n}人に",
+  "js.act_changed": "変更：{when}",
+  "js.act_cancelled": "中止になりました"
 }

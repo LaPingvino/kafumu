@@ -620,5 +620,8 @@
   "js.act_answer_to": "privat svar på ”{post}”",
   "js.act_message": "meddelande",
   "js.act_inbox": "till din öppna inkorg",
-  "js.act_connected": "kopplade ihop sig med dig"
+  "js.act_connected": "kopplade ihop sig med dig",
+  "js.act_going": "nu går {n}",
+  "js.act_changed": "nu {when}",
+  "js.act_cancelled": "inställt"
 }

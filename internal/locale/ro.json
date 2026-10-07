@@ -620,5 +620,8 @@
   "js.act_answer_to": "răspuns privat la „{post}”",
   "js.act_message": "mesaj",
   "js.act_inbox": "în căsuța ta publică",
-  "js.act_connected": "s-a conectat cu tine"
+  "js.act_connected": "s-a conectat cu tine",
+  "js.act_going": "acum merg {n}",
+  "js.act_changed": "acum {when}",
+  "js.act_cancelled": "anulat"
 }

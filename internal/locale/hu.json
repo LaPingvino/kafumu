@@ -620,5 +620,8 @@
   "js.act_answer_to": "privát válasz erre: „{post}”",
   "js.act_message": "üzenet",
   "js.act_inbox": "a nyilvános postaládádba",
-  "js.act_connected": "kapcsolódott hozzád"
+  "js.act_connected": "kapcsolódott hozzád",
+  "js.act_going": "most {n} megy",
+  "js.act_changed": "mostantól {when}",
+  "js.act_cancelled": "elmarad"
 }

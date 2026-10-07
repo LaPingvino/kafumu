@@ -221,6 +221,14 @@ try {
   await A.waitFor("!!document.getElementById('meetup-form')", "meetup form");
   await A.evaluate("(() => { const f = document.getElementById('meetup-form'); f.title.value = 'Browser test kafo'; f.cell.value = '6fg222'; f.venue.value = 'Pavilion 2'; f.requestSubmit(); return true; })()");
   await A.waitFor("location.pathname.startsWith('/meetups/') && document.querySelector('h1').textContent.includes('Browser test kafo')", "meetup page");
+  // Activity (77d): the device remembers a meetup you host; someone joining
+  // since you last looked (here: the remembered count set one lower) shows.
+  const meetupURL = await A.evaluate("location.href");
+  await A.waitFor("window.kafumuDevice.store.get('myMeetups').then(ms => (ms || []).some(m => m.role === 'host' && m.title === 'Browser test kafo' && m.going === 1))", "hosted meetup remembered on the device");
+  await A.evaluate("window.kafumuDevice.store.get('myMeetups').then(ms => window.kafumuDevice.store.set('myMeetups', ms.map(m => m.title === 'Browser test kafo' ? Object.assign(m, { going: 0 }) : m)))");
+  await A.goto(base + "/activity");
+  await A.waitFor("[...document.querySelectorAll('#activity li')].some(li => li.textContent.includes('🙋') && li.textContent.includes('1 going now') && li.textContent.includes('Browser test kafo'))", "Activity: someone joined your meetup", 15000);
+  await A.goto(meetupURL);
   // Other instances cache a cell's meetups for up to a minute: reload until it shows.
   for (let i = 0; ; i++) {
     await B.goto(base + "/?cell=6fg222");

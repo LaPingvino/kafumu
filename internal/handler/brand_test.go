@@ -2,6 +2,7 @@ package handler
 
 import (
 	"context"
+	"encoding/json"
 	"github.com/LaPingvino/kafumu/internal/account"
 	"github.com/LaPingvino/kafumu/internal/bsky"
 	"github.com/LaPingvino/kafumu/internal/business"
@@ -267,5 +268,39 @@ func TestBskyAccount(t *testing.T) {
 	}
 	if d, _ := bskyAccount(me, without); d != "" {
 		t.Fatalf("as a business without Bluesky it went to %q", d)
+	}
+}
+
+// /api/meetups (77d): the current state of meetups by id; ones that no
+// longer exist are listed as gone.
+func TestMeetupsByIDs(t *testing.T) {
+	svc := meetup.NewService(meetup.NewMemoryStore())
+	m := &meetup.Meetup{Title: "Kafo", Cell: "8ccgmw", StartAt: time.Now().Add(time.Hour), EndAt: time.Now().Add(2 * time.Hour)}
+	if err := svc.Create(context.Background(), m, "u1", "host"); err != nil {
+		t.Fatal(err)
+	}
+	if _, _, err := svc.Toggle(context.Background(), m.ID, "u2"); err != nil { // host + u2
+		t.Fatal(err)
+	}
+	h := &Meetups{Svc: svc}
+	rec := httptest.NewRecorder()
+	h.ByIDs(rec, httptest.NewRequest("GET", "/api/meetups?ids="+m.ID+",nope", nil))
+	var out struct {
+		Meetups []struct {
+			ID    string `json:"id"`
+			Going int    `json:"going"`
+		} `json:"meetups"`
+		Gone []string `json:"gone"`
+	}
+	if err := json.Unmarshal(rec.Body.Bytes(), &out); err != nil {
+		t.Fatal(err, rec.Body.String())
+	}
+	if len(out.Meetups) != 1 || out.Meetups[0].ID != m.ID || out.Meetups[0].Going != 2 || len(out.Gone) != 1 || out.Gone[0] != "nope" {
+		t.Fatalf("got %+v", out)
+	}
+	rec = httptest.NewRecorder()
+	h.ByIDs(rec, httptest.NewRequest("GET", "/api/meetups", nil))
+	if rec.Code != 400 {
+		t.Fatalf("no ids: %d", rec.Code)
 	}
 }

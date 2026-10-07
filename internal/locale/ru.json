@@ -620,5 +620,8 @@
   "js.act_answer_to": "личный ответ на «{post}»",
   "js.act_message": "сообщение",
   "js.act_inbox": "в ваш открытый ящик",
-  "js.act_connected": "связался(-ась) с вами"
+  "js.act_connected": "связался(-ась) с вами",
+  "js.act_going": "теперь идут: {n}",
+  "js.act_changed": "теперь {when}",
+  "js.act_cancelled": "отменено"
 }

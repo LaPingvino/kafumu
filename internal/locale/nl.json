@@ -620,5 +620,8 @@
   "js.act_answer_to": "privéantwoord op “{post}”",
   "js.act_message": "bericht",
   "js.act_inbox": "in je openbare inbox",
-  "js.act_connected": "heeft contact met je gemaakt"
+  "js.act_connected": "heeft contact met je gemaakt",
+  "js.act_going": "nu {n} gaan",
+  "js.act_changed": "nu {when}",
+  "js.act_cancelled": "afgelast"
 }

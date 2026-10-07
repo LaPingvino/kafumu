@@ -620,5 +620,8 @@
   "js.act_answer_to": "jawaban pribadi untuk “{post}”",
   "js.act_message": "pesan",
   "js.act_inbox": "ke kotak masuk publikmu",
-  "js.act_connected": "terhubung denganmu"
+  "js.act_connected": "terhubung denganmu",
+  "js.act_going": "sekarang {n} ikut",
+  "js.act_changed": "sekarang {when}",
+  "js.act_cancelled": "dibatalkan"
 }

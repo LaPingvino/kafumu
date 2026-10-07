@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/LaPingvino/kafumu/internal/account"
@@ -26,6 +27,14 @@ type Meetups struct {
 	Svc        *meetup.Service
 	Importer   *importer.Importer
 	Businesses *business.Store
+
+	mu   sync.Mutex
+	byID map[string]idEntry // /api/meetups, a minute per id
+}
+
+type idEntry struct {
+	m  *meetup.Meetup // nil: gone
+	at time.Time
 }
 
 type meetupPage struct {
@@ -257,4 +266,53 @@ func bskyAccount(u *account.User, as *business.Business) (did, session string) {
 		return "", ""
 	}
 	return u.DID, u.ATSession
+}
+
+// ByIDs handles GET /api/meetups?ids=a,b: the current state of up to 20
+// meetups, so the device can tell you about RSVPs to yours and changes to
+// ones you're going to (77d). Anonymous; ids missing from "meetups" are in
+// "gone" (cancelled, or over). Each id is cached a minute per instance.
+func (h *Meetups) ByIDs(w http.ResponseWriter, r *http.Request) {
+	var ids []string
+	for _, id := range strings.Split(r.URL.Query().Get("ids"), ",") {
+		if id = strings.TrimSpace(id); id != "" && len(id) <= 40 {
+			ids = append(ids, id)
+		}
+	}
+	if len(ids) == 0 || len(ids) > 20 {
+		http.Error(w, "want ?ids=a,b (1-20)", http.StatusBadRequest)
+		return
+	}
+	out := struct {
+		Meetups []*meetup.Meetup `json:"meetups"`
+		Gone    []string         `json:"gone"`
+	}{Meetups: []*meetup.Meetup{}, Gone: []string{}}
+	now := time.Now()
+	for _, id := range ids {
+		h.mu.Lock()
+		e, ok := h.byID[id]
+		h.mu.Unlock()
+		if !ok || now.Sub(e.at) > time.Minute {
+			m, err := h.Svc.Get(r.Context(), id)
+			if err != nil && !errors.Is(err, meetup.ErrNotFound) {
+				http.Error(w, "unavailable", http.StatusServiceUnavailable)
+				return
+			}
+			e = idEntry{m: m, at: now}
+			h.mu.Lock()
+			if h.byID == nil || len(h.byID) > 5000 {
+				h.byID = map[string]idEntry{}
+			}
+			h.byID[id] = e
+			h.mu.Unlock()
+		}
+		if e.m == nil {
+			out.Gone = append(out.Gone, id)
+		} else {
+			out.Meetups = append(out.Meetups, e.m)
+		}
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Cache-Control", "public, max-age=60")
+	json.NewEncoder(w).Encode(out)
 }

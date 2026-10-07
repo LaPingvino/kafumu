@@ -914,8 +914,12 @@ on a contact's card; strangers' reactions show only under the post in its own ce
       answers itself (readAnswers) instead of relying on Home's polling.
       Done: contacts with role 0 (they came to your code: Connect, Coffee, a question) from the last 30 days show
       as "🤝 … connected with you"; the Activity page runs readAnswers before gathering. Browser test checks it.
-- [ ] 77d. Meetups: RSVPs to meetups you host (going count per id, compared on the device); a meetup you're going
+- [x] 77d. Meetups: RSVPs to meetups you host (going count per id, compared on the device); a meetup you're going
       to that changed or was cancelled.
+      Done: the meetup page keeps kv `myMeetups` (host/going, with title, time, venue, going as you last saw it);
+      GET /api/meetups?ids= (anonymous, ≤20, 1-min per-id cache; missing ones in "gone"); Activity shows 🙋 new
+      going counts, ✏️ a new time/venue (feeds can move events), ❌ cancelled (gone before its end). News time =
+      first seen (kv `activity:first`). Tests: TestMeetupsByIDs; browser: hosted meetup remembered → 🙋 in Activity.
 - [ ] 77e. Bluesky: replies, likes, reposts on your own posts (public AppView getPostThread / getLikes per saved
       URI, fetched by the device, no server cost).
 - [ ] 77f. Push for answers and replies too: subscriptions also watch your answer tags (Notify on pair notes);

@@ -19,7 +19,20 @@
     <button type="button" class="pill" onclick="navigator.share?navigator.share({title:document.title,url:location.href}).catch(function(){}):navigator.clipboard&&navigator.clipboard.writeText(location.href)">{{t .Lang "meetup.share"}}</button>
   </div>
 </article>
+<script src="/static/device.js?v={{.V}}"></script>
 <script>
+// The device remembers meetups you host or are going to, as they are now,
+// so Activity can tell you about new RSVPs, changes and cancellations (77d).
+(function () {
+  var dev = window.kafumuDevice, role = {{if .Mine}}"host"{{else if .Going}}"going"{{else}}""{{end}};
+  if (!dev) return;
+  var me = { id: {{.M.ID}}, role: role, title: {{.M.Title}}, start: {{.M.StartAt}}, end: {{.M.EndAt}}, venue: {{.M.Venue}}, going: {{.M.Going}} };
+  dev.store.get("myMeetups").then(function (ms) {
+    ms = (ms || []).filter(function (x) { return x.id !== me.id && new Date(x.end) > Date.now() - 864e5; });
+    if (role) ms.push(me);
+    return dev.store.set("myMeetups", ms.slice(-100));
+  }).catch(function () {});
+})();
 (function () {
   var el = document.querySelector(".when"), s = new Date(el.dataset.start), e = new Date(el.dataset.end);
   var day = { weekday: "short", day: "numeric", month: "short" }, hm = { hour: "2-digit", minute: "2-digit" };

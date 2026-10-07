@@ -34,10 +34,35 @@
     });
   }
 
+  // meetups: new RSVPs to the ones you host; a changed time or place, or a
+  // cancellation, for the ones you're going to (77d).
+  function meetups(mine) {
+    var ids = mine.map(function (m) { return m.id; }), calls = [];
+    for (var i = 0; i < ids.length; i += 20) {
+      calls.push(fetch("/api/meetups?ids=" + ids.slice(i, i + 20).map(encodeURIComponent).join(","), { credentials: "omit" })
+        .then(function (r) { return r.ok ? r.json() : null; }, function () { return null; }));
+    }
+    return Promise.all(calls).then(function (rs) {
+      var now = {}, gone = {}, out = [];
+      rs.forEach(function (r) { if (!r) return; r.meetups.forEach(function (m) { now[m.id] = m; }); r.gone.forEach(function (id) { gone[id] = true; }); });
+      mine.forEach(function (was) {
+        var m = now[was.id], href = "/meetups/" + was.id, title = short(was.title, 50);
+        if (was.role === "host" && m && m.going > was.going)
+          out.push({ id: "g:" + was.id + ":" + m.going, icon: "🙋", who: "", text: tr("act_going", { n: m.going }), about: title, href: href });
+        if (was.role === "going" && m && (new Date(m.start).getTime() !== new Date(was.start).getTime() || (m.venue || "") !== (was.venue || "")))
+          out.push({ id: "u:" + was.id + ":" + m.start + "|" + (m.venue || ""), icon: "✏️", who: "", about: title, href: href,
+            text: tr("act_changed", { when: new Date(m.start).toLocaleString(window.KAFUMU_LOCALE, { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) + (m.venue ? " · " + m.venue : "") }) });
+        if (was.role === "going" && gone[was.id] && new Date(was.end) > Date.now())
+          out.push({ id: "x:" + was.id, icon: "❌", who: "", text: tr("act_cancelled"), about: title, href: "/" });
+      });
+      return out;
+    });
+  }
+
   // gather returns every item, newest first, each with .unread.
   function gather() {
     var s = dev.store;
-    return Promise.all([s.get("myPosts"), s.get("answers"), s.contacts(), s.get("inboxMsgs"), s.get("activity:seen")]).then(function (r) {
+    return Promise.all([s.get("myPosts"), s.get("answers"), s.contacts(), s.get("inboxMsgs"), s.get("activity:seen"), s.get("myMeetups"), s.get("activity:first")]).then(function (r) {
       var now = Date.now(), posts = (r[0] || []).filter(function (p) { return p.until > now; }), items = [];
       (r[1] || []).forEach(function (t) { // private answers, both ways
         var last = (t.messages || []).filter(function (m) { return !m.me; }).slice(-1)[0];
@@ -60,8 +85,12 @@
           about: tr("act_inbox"), href: "/contacts#inbox-section" });
       });
       var seen = r[4] || {};
-      return replies(posts).then(function (rs) {
-        items = items.concat(rs);
+      var mine = (r[5] || []).filter(function (m) { return new Date(m.end) > Date.now() - 864e5; }), first = r[6] || {};
+      return Promise.all([replies(posts), meetups(mine)]).then(function (got) {
+        items = items.concat(got[0]);
+        // Meetup news has no time of its own: it's when the device first saw it.
+        got[1].forEach(function (it) { it.at = first[it.id] || (first[it.id] = new Date().toISOString()); items.push(it); });
+        if (got[1].length) s.set("activity:first", first).catch(function () {});
         items.forEach(function (it) { it.unread = !seen[it.id] || !!it.hot; });
         items.sort(function (a, b) { return new Date(b.at) - new Date(a.at); });
         return items;

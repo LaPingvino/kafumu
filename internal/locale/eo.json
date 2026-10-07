@@ -620,5 +620,8 @@
   "js.act_answer_to": "privata respondo al “{post}”",
   "js.act_message": "mesaĝo",
   "js.act_inbox": "al via publika leterkesto",
-  "js.act_connected": "konektiĝis kun vi"
+  "js.act_connected": "konektiĝis kun vi",
+  "js.act_going": "{n} venos nun",
+  "js.act_changed": "nun {when}",
+  "js.act_cancelled": "nuligita"
 }

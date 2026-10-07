@@ -620,5 +620,8 @@
   "js.act_answer_to": "对“{post}”的私下回答",
   "js.act_message": "消息",
   "js.act_inbox": "发到你的公开收件箱",
-  "js.act_connected": "与你建立了联系"
+  "js.act_connected": "与你建立了联系",
+  "js.act_going": "现在有 {n} 人参加",
+  "js.act_changed": "改为 {when}",
+  "js.act_cancelled": "已取消"
 }
