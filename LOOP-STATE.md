@@ -931,3 +931,32 @@ on a contact's card; strangers' reactions show only under the post in its own ce
 - [ ] 77g. Reactions to reactions (Joop): a reply under a card gets its own react row; its reactions (#re<its id>)
       nest one level under it, and count as replies to your reply in Activity. Uses 77b's `re` index for the
       ones not in the cell's bundle.
+
+## 78. Reactions everywhere, and carrying them home (Joop, 2026-10-08)
+- [ ] 78a. Subject-only notes (no #geo): needed for "general" reactions and for links with only subject tags.
+      OLN Parse wants exactly one cell today; allow none when there's ≥1 subject tag, priced by a global rate,
+      indexed like `asks` (subjects), read via the subject fetch Around already does when you filter. RED FLAG
+      (rule 5: a new kind of note) — Joop asked for it; keep it the same Note, only the place is optional.
+- [ ] 78b. Online events (Esperanto online list, and any event without a place) get the react row, with a choice:
+      "here" (#geo your cell) or "everyone into #esperanto" (78a). Verify local Eventa Servo meetups' reactions in
+      production while at it.
+- [ ] 78c. Carry a reaction home: reacting to something from another area (wider ring, travel, elsewhere) can also
+      post it in your own cell (your #geo + its #re + its title/link in the text), so local friends see "X is
+      going on there"; such a note shows as a small card about the thing, with its reactions.
+
+## 79. React to any web link (Joop, 2026-10-08)
+Per the OLN json-spec, a link is an index key like a tag (index["link"] → messages).
+- [ ] 79a. "Share a link" in the composer: paste a URL → the note carries it and #re<reID("link", normalised URL)>;
+      cards show it as a link card (host + the poster's text), with the react row; all reactions to that URL from
+      anywhere come from the 77b index.
+- [ ] 79b. Post it to your area (#geo) or to a subject community only (78a); subject-only links show when you filter
+      for that subject.
+- [ ] 79c. By site: also tag the host (#site<host>, normalised) so a site's discussion can be browsed (the json-spec's
+      link index). Later: a browser extension that shows a page's OLN reactions and lets you react from there.
+
+## 80. Send things to a contact (Joop, 2026-10-08)
+- [ ] 80a. "Did you see this?": every card (meetup, note, post, link, person) can be sent to a contact you pick,
+      as a structured message in your pair chat ({t:"share", kind, title, url}); it shows as a small card in the
+      chat and in their Activity.
+- [ ] 80b. "Shall we go together?" on meetups: the same, with Yes / Can't buttons; Yes RSVPs them and tells you
+      (in the chat and your Activity).
