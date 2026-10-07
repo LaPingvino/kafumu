@@ -889,3 +889,21 @@ start (magic link re-binds them after a domain move).
       Test: bskyAccount. (The OAuth round trip itself needs a real PDS: not testable locally.) Follow-up: the
       Around post box shows the acting account's handle (page.BskyHandle), and "going" while acting RSVPs as it.
 
+
+## 77. Activity: one list of everything that happened to you (Joop, 2026-10-07)
+Problem: responses are scattered. A post in another area loses its replies; chat lines and reactions only show
+on a contact's card; strangers' reactions show only under the post in its own cell. Built on the device (rules
+1/4): the list is assembled in the browser from what it already holds plus anonymous per-id fetches.
+- [ ] 77a. Remember own posts: at post time save {id, cell, reid, text(80), until} in kv `myPosts` (notes, asks,
+      coffee, replies; meetups hosted by id; Bluesky posts by URI, which /post must return). Pruned at `until`.
+- [ ] 77b. Public replies/reactions to own posts across cells: index Note `re` (the #re<id> tag, public anyway);
+      `GET /api/oln/re?ids=a,b,…` (anonymous, ≤20 ids, memcached 1 min per id, no account). 
+- [ ] 77c. /activity page + 🔔 in the header with an unread count (and setAppBadge): private answers, public
+      replies/reactions, chat lines + reactions + signals from contacts, business inbox messages, new connections
+      through your code/invite, coffee joiners. Each item links to where to answer. "Seen" kept on the device.
+- [ ] 77d. Meetups: RSVPs to meetups you host (going count per id, compared on the device); a meetup you're going
+      to that changed or was cancelled.
+- [ ] 77e. Bluesky: replies, likes, reposts on your own posts (public AppView getPostThread / getLikes per saved
+      URI, fetched by the device, no server cost).
+- [ ] 77f. Push for answers and replies too: subscriptions also watch your answer tags (Notify on pair notes);
+      the notification opens /activity instead of /contacts.
