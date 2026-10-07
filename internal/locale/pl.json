@@ -609,5 +609,6 @@
   "privacy.row_oln": "Lokalne wiadomości: tekst publicznych, nazwa przy tych, które publikujesz pod swoim imieniem (wpisy firmy pokazują firmę; kto publikował, przechowujemy tylko do moderacji), i prywatne linie czatu jako szyfrogram",
   "privacy.row_oln_why": "Żeby ludzie w okolicy mogli je czytać i żebyśmy mogli reagować na nadużycia",
   "privacy.row_oln_kept": "Tak długo, jak opłaciła to ich praca, najwyżej 7 dni",
-  "account.export_data": "Pobierz, co nasz serwer przechowuje o tobie (JSON)"
+  "account.export_data": "Pobierz, co nasz serwer przechowuje o tobie (JSON)",
+  "contacts.keep_explain_synced": "Twoje kontakty są na twoich urządzeniach i synchronizowane między nimi, zaszyfrowane: nasz serwer nie może ich odczytać. Własna kopia i tak się przyda."
 }

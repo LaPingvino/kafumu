@@ -609,5 +609,6 @@
   "privacy.row_oln": "Mensagens locais: o texto das públicas, o nome nas que publicas em teu nome (a de uma empresa mostra a empresa; quem publicou fica só para moderação) e as linhas de conversa privada cifradas",
   "privacy.row_oln_why": "Para quem está perto as ler, e para podermos agir contra abusos",
   "privacy.row_oln_kept": "Enquanto o trabalho pago o permitir, no máximo 7 dias",
-  "account.export_data": "Descarregar o que o nosso servidor guarda sobre ti (JSON)"
+  "account.export_data": "Descarregar o que o nosso servidor guarda sobre ti (JSON)",
+  "contacts.keep_explain_synced": "Os teus contactos estão nos teus dispositivos e sincronizados entre eles, cifrados: o nosso servidor não os consegue ler. Uma cópia tua continua a ser boa ideia."
 }

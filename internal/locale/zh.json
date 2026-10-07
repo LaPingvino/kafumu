@@ -609,5 +609,6 @@
   "privacy.row_oln": "本地消息：公开消息的内容、以你名义发布的消息上的名字（商家发布的显示商家；发布者仅为管理保留），以及加密的私聊内容",
   "privacy.row_oln_why": "让附近的人能看到，也让我们能处理滥用",
   "privacy.row_oln_kept": "在其工作量支付的期限内，最多 7 天",
-  "account.export_data": "下载我们服务器上保存的关于你的数据（JSON）"
+  "account.export_data": "下载我们服务器上保存的关于你的数据（JSON）",
+  "contacts.keep_explain_synced": "你的联系人保存在你的设备上，并在设备之间加密同步：我们的服务器无法读取。自己再留一份副本仍是好主意。"
 }

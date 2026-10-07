@@ -21,7 +21,7 @@
 <p class="actions"><button type="button" id="push-on" class="pill" hidden>🔔 {{t .Lang "push.enable"}}</button> <span id="push-state" class="dim small"></span></p>
 <div class="card" style="padding:4px 16px 12px">
   <h2>{{t .Lang "contacts.keep_title"}}</h2>
-  <p class="dim">{{t .Lang "contacts.keep_explain"}}</p>
+  <p class="dim">{{if or (and .User (not .Acting)) (and .Acting .Acting.SyncMode)}}{{t .Lang "contacts.keep_explain_synced"}}{{else}}{{t .Lang "contacts.keep_explain"}}{{end}}</p>
   <div class="actions">
     <button type="button" id="export-vcf" class="pill">{{t .Lang "contacts.export_vcf"}}</button>
     <button type="button" id="export-json" class="pill">{{t .Lang "contacts.export_json"}}</button>

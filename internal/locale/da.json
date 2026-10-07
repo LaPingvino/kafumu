@@ -609,5 +609,6 @@
   "privacy.row_oln": "Lokale beskeder: teksten i offentlige, navnet på dem du skriver i dit navn (en virksomheds viser virksomheden; hvem der skrev, gemmes kun til moderation), og private chatlinjer som krypteret tekst",
   "privacy.row_oln_why": "Så folk i nærheden kan læse dem, og så vi kan gribe ind over for misbrug",
   "privacy.row_oln_kept": "Så længe deres arbejde betalte, højst 7 dage",
-  "account.export_data": "Download det, vores server har om dig (JSON)"
+  "account.export_data": "Download det, vores server har om dig (JSON)",
+  "contacts.keep_explain_synced": "Dine kontakter ligger på dine enheder og synkroniseres krypteret mellem dem: vores server kan ikke læse dem. En egen kopi er alligevel en god idé."
 }

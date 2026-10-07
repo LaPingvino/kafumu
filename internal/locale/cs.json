@@ -609,5 +609,6 @@
   "privacy.row_oln": "Místní zprávy: text veřejných, jméno u těch, které posíláš pod svým jménem (zprávy firmy ukazují firmu; kdo je poslal, uchováváme jen kvůli moderaci), a řádky soukromého chatu jako šifrovaný text",
   "privacy.row_oln_why": "Aby je lidé kolem mohli číst a abychom mohli zasáhnout proti zneužití",
   "privacy.row_oln_kept": "Dokud to zaplatila jejich práce, nejvýš 7 dní",
-  "account.export_data": "Stáhnout, co o tobě uchovává náš server (JSON)"
+  "account.export_data": "Stáhnout, co o tobě uchovává náš server (JSON)",
+  "contacts.keep_explain_synced": "Tvoje kontakty jsou na tvých zařízeních a synchronizují se mezi nimi šifrovaně: náš server je nemůže číst. Vlastní kopie je přesto dobrý nápad."
 }

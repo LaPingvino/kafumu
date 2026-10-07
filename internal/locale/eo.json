@@ -609,5 +609,6 @@
   "privacy.row_oln": "Lokaj mesaĝoj: la teksto de publikaj, la nomo sur tiuj, kiujn vi afiŝas sub via nomo (tiu de komerco montras la komercon; kiu afiŝis estas konservata nur por moderigo), kaj privataj babil-linioj kiel ĉifrita teksto",
   "privacy.row_oln_why": "Por ke homoj ĉirkaŭe legu ilin, kaj por ke ni povu agi kontraŭ misuzo",
   "privacy.row_oln_kept": "Tiel longe, kiel ilia laboro aĉetis, maksimume 7 tagojn",
-  "account.export_data": "Elŝuti tion, kion nia servilo tenas pri vi (JSON)"
+  "account.export_data": "Elŝuti tion, kion nia servilo tenas pri vi (JSON)",
+  "contacts.keep_explain_synced": "Viaj kontaktoj estas en viaj aparatoj kaj sinkronigitaj inter ili, ĉifritaj: nia servilo ne povas legi ilin. Propra kopio tamen estas bona ideo."
 }

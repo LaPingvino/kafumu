@@ -609,5 +609,6 @@
   "privacy.row_oln": "Lokala meddelanden: texten i offentliga, namnet på dem du skriver i ditt namn (ett företags visar företaget; vem som skrev sparas bara för moderering), och privata chattrader som chiffertext",
   "privacy.row_oln_why": "Så att folk i närheten kan läsa dem, och så att vi kan agera mot missbruk",
   "privacy.row_oln_kept": "Så länge deras arbete räckte, högst 7 dagar",
-  "account.export_data": "Ladda ner det vår server har om dig (JSON)"
+  "account.export_data": "Ladda ner det vår server har om dig (JSON)",
+  "contacts.keep_explain_synced": "Dina kontakter finns på dina enheter och synkas krypterat mellan dem: vår server kan inte läsa dem. En egen kopia är ändå en bra idé."
 }
