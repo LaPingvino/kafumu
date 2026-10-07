@@ -44,8 +44,10 @@
         if (last) items.push({ id: "a:" + t.id + ":" + (t.messages || []).length, at: last.at, icon: "🔒", who: "",
           text: last.text, about: tr("act_answer_to", { post: short(t.post && t.post.text, 40) }), href: "/#answers", hot: !!t.unreadMsgs });
       });
-      r[2].forEach(function (c) { // contacts: their last message, their last signal
+      r[2].forEach(function (c) { // contacts: new through your code, their last message, their last signal
         var name = (c.card && c.card.name) || tr("inbox_anonymous");
+        if (c.role === 0 && c.createdAt && now - new Date(c.createdAt) < 30 * 864e5) // they came to your code (coffee, a question, Connect)
+          items.push({ id: "c:" + c.id, at: c.createdAt, icon: "🤝", who: name, text: tr("act_connected"), about: "", href: "/contacts" });
         var last = (c.messages || []).filter(function (m) { return !m.me; }).slice(-1)[0];
         if (last) items.push({ id: "m:" + c.id + ":" + last.at, at: last.at, icon: "💬", who: name, text: last.text,
           about: tr("act_message"), href: "/contacts", hot: !!c.unreadMsgs });
@@ -109,8 +111,10 @@
   window.kafumuActivity = { gather: gather, count: count, badge: badge };
 
   var ul = document.getElementById("activity");
-  if (ul) { // the Activity page: show, then count it all as seen
-    count().then(function (items) {
+  if (ul) { // the Activity page: read new private answers first, then show, then count it all as seen
+    var fresh = window.kafumuPair ? window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin })
+      .readAnswers().catch(function () {}) : Promise.resolve();
+    fresh.then(count).then(function (items) {
       render(ul, items);
       document.getElementById("activity-empty").hidden = items.length > 0;
       return markSeen(items).then(function () { badge(items.filter(function (i) { return i.hot; }).length); });

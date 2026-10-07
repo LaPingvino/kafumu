@@ -619,5 +619,6 @@
   "js.act_reply_to": "ĉe “{post}”",
   "js.act_answer_to": "privata respondo al “{post}”",
   "js.act_message": "mesaĝo",
-  "js.act_inbox": "al via publika leterkesto"
+  "js.act_inbox": "al via publika leterkesto",
+  "js.act_connected": "konektiĝis kun vi"
 }

@@ -619,5 +619,6 @@
   "js.act_reply_to": "до «{post}»",
   "js.act_answer_to": "особиста відповідь на «{post}»",
   "js.act_message": "повідомлення",
-  "js.act_inbox": "до вашої відкритої скриньки"
+  "js.act_inbox": "до вашої відкритої скриньки",
+  "js.act_connected": "з'єднався(-лася) з вами"
 }

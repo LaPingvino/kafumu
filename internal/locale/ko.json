@@ -619,5 +619,6 @@
   "js.act_reply_to": "“{post}”에",
   "js.act_answer_to": "“{post}”에 대한 비공개 답변",
   "js.act_message": "메시지",
-  "js.act_inbox": "공개 받은편지함으로"
+  "js.act_inbox": "공개 받은편지함으로",
+  "js.act_connected": "나와 연결했어요"
 }

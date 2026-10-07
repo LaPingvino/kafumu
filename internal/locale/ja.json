@@ -619,5 +619,6 @@
   "js.act_reply_to": "「{post}」へ",
   "js.act_answer_to": "「{post}」への非公開の回答",
   "js.act_message": "メッセージ",
-  "js.act_inbox": "公開受信箱へ"
+  "js.act_inbox": "公開受信箱へ",
+  "js.act_connected": "あなたとつながりました"
 }

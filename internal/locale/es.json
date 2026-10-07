@@ -619,5 +619,6 @@
   "js.act_reply_to": "en “{post}”",
   "js.act_answer_to": "respuesta privada a “{post}”",
   "js.act_message": "mensaje",
-  "js.act_inbox": "en tu buzón público"
+  "js.act_inbox": "en tu buzón público",
+  "js.act_connected": "conectó contigo"
 }

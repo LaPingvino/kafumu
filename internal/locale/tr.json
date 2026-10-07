@@ -619,5 +619,6 @@
   "js.act_reply_to": "“{post}” için",
   "js.act_answer_to": "“{post}” için özel yanıt",
   "js.act_message": "mesaj",
-  "js.act_inbox": "herkese açık gelen kutuna"
+  "js.act_inbox": "herkese açık gelen kutuna",
+  "js.act_connected": "seninle bağlandı"
 }

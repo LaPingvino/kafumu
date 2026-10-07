@@ -619,5 +619,6 @@
   "js.act_reply_to": "k „{post}“",
   "js.act_answer_to": "soukromá odpověď na „{post}“",
   "js.act_message": "zpráva",
-  "js.act_inbox": "do tvé veřejné schránky"
+  "js.act_inbox": "do tvé veřejné schránky",
+  "js.act_connected": "se s tebou spojil(a)"
 }

@@ -619,5 +619,6 @@
   "js.act_reply_to": "erre: „{post}”",
   "js.act_answer_to": "privát válasz erre: „{post}”",
   "js.act_message": "üzenet",
-  "js.act_inbox": "a nyilvános postaládádba"
+  "js.act_inbox": "a nyilvános postaládádba",
+  "js.act_connected": "kapcsolódott hozzád"
 }

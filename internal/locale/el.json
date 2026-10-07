@@ -619,5 +619,6 @@
   "js.act_reply_to": "στο «{post}»",
   "js.act_answer_to": "ιδιωτική απάντηση στο «{post}»",
   "js.act_message": "μήνυμα",
-  "js.act_inbox": "στα δημόσια εισερχόμενά σου"
+  "js.act_inbox": "στα δημόσια εισερχόμενά σου",
+  "js.act_connected": "συνδέθηκε μαζί σου"
 }

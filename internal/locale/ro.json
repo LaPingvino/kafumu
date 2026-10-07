@@ -619,5 +619,6 @@
   "js.act_reply_to": "la „{post}”",
   "js.act_answer_to": "răspuns privat la „{post}”",
   "js.act_message": "mesaj",
-  "js.act_inbox": "în căsuța ta publică"
+  "js.act_inbox": "în căsuța ta publică",
+  "js.act_connected": "s-a conectat cu tine"
 }

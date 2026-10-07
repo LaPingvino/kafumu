@@ -619,5 +619,6 @@
   "js.act_reply_to": "på ”{post}”",
   "js.act_answer_to": "privat svar på ”{post}”",
   "js.act_message": "meddelande",
-  "js.act_inbox": "till din öppna inkorg"
+  "js.act_inbox": "till din öppna inkorg",
+  "js.act_connected": "kopplade ihop sig med dig"
 }

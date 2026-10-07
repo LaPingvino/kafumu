@@ -619,5 +619,6 @@
   "js.act_reply_to": "sur « {post} »",
   "js.act_answer_to": "réponse privée à « {post} »",
   "js.act_message": "message",
-  "js.act_inbox": "dans ta boîte publique"
+  "js.act_inbox": "dans ta boîte publique",
+  "js.act_connected": "s'est connecté·e avec toi"
 }

@@ -619,5 +619,6 @@
   "js.act_reply_to": "op “{post}”",
   "js.act_answer_to": "privéantwoord op “{post}”",
   "js.act_message": "bericht",
-  "js.act_inbox": "in je openbare inbox"
+  "js.act_inbox": "in je openbare inbox",
+  "js.act_connected": "heeft contact met je gemaakt"
 }

@@ -619,5 +619,6 @@
   "js.act_reply_to": "di “{post}”",
   "js.act_answer_to": "jawaban pribadi untuk “{post}”",
   "js.act_message": "pesan",
-  "js.act_inbox": "ke kotak masuk publikmu"
+  "js.act_inbox": "ke kotak masuk publikmu",
+  "js.act_connected": "terhubung denganmu"
 }

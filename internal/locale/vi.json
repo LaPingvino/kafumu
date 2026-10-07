@@ -619,5 +619,6 @@
   "js.act_reply_to": "về “{post}”",
   "js.act_answer_to": "trả lời riêng cho “{post}”",
   "js.act_message": "tin nhắn",
-  "js.act_inbox": "vào hộp thư công khai của bạn"
+  "js.act_inbox": "vào hộp thư công khai của bạn",
+  "js.act_connected": "đã kết nối với bạn"
 }

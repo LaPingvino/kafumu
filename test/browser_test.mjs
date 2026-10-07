@@ -130,6 +130,7 @@ try {
   await A.waitFor("(() => { const b = document.querySelector('.bell-n'); return b && !b.hidden && +b.textContent >= 1; })()", "the bell counts the answer", 15000);
   await A.goto(base + "/activity");
   await A.waitFor("[...document.querySelectorAll('#activity li.unread')].some(li => li.textContent.includes('Manteigaria') && li.textContent.includes('pastel de nata') && li.querySelector('a[href=\"/?cell=6fg223\"]'))", "Activity lists the answer as new, linking to its area", 15000);
+  await A.waitFor("[...document.querySelectorAll('#activity li')].some(li => li.textContent.includes('🤝') && li.textContent.includes('connected with you') && li.querySelector('a[href=\"/contacts\"]'))", "Activity: B connected through A's code");
   await A.goto(base + "/activity");
   await A.waitFor("[...document.querySelectorAll('#activity li')].some(li => li.textContent.includes('Manteigaria') && !li.classList.contains('unread'))", "and then as seen");
 

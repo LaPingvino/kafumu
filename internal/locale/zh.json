@@ -619,5 +619,6 @@
   "js.act_reply_to": "回复“{post}”",
   "js.act_answer_to": "对“{post}”的私下回答",
   "js.act_message": "消息",
-  "js.act_inbox": "发到你的公开收件箱"
+  "js.act_inbox": "发到你的公开收件箱",
+  "js.act_connected": "与你建立了联系"
 }

@@ -910,8 +910,10 @@ on a contact's card; strangers' reactions show only under the post in its own ce
       `activity:seen` (2 months); contact/answer items stay new until opened there ("hot"). Home and Contacts
       refresh the count (4 s after load, then every 5 min); other pages show the stored count. Browser test: B's
       answer → A's bell counts it → Activity lists it as new, linking to its area → seen on the next visit.
-- [ ] 77c-2. Also in Activity: new connections through your code/invite, coffee joiners; Activity refreshes
+- [x] 77c-2. Also in Activity: new connections through your code/invite, coffee joiners; Activity refreshes
       answers itself (readAnswers) instead of relying on Home's polling.
+      Done: contacts with role 0 (they came to your code: Connect, Coffee, a question) from the last 30 days show
+      as "🤝 … connected with you"; the Activity page runs readAnswers before gathering. Browser test checks it.
 - [ ] 77d. Meetups: RSVPs to meetups you host (going count per id, compared on the device); a meetup you're going
       to that changed or was cancelled.
 - [ ] 77e. Bluesky: replies, likes, reposts on your own posts (public AppView getPostThread / getLikes per saved
