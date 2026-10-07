@@ -59,6 +59,44 @@
     });
   }
 
+  // Bluesky (77e): likes, reposts and replies on your Bluesky posts, asked
+  // of the public AppView by this device (the server isn't involved).
+  var APPVIEWS = ["https://public.api.bsky.app", "https://api.bsky.app"];
+  function xrpc(path) { // the AppView that answered last goes first
+    var good = "";
+    try { good = localStorage.getItem("kafumu.appview") || ""; } catch (e) {}
+    var hosts = APPVIEWS.indexOf(good) >= 0 ? [good].concat(APPVIEWS.filter(function (h) { return h !== good; })) : APPVIEWS;
+    return hosts.reduce(function (p, h) {
+      return p.catch(function () {
+        return fetch(h + "/xrpc/" + path, { credentials: "omit" }).then(function (r) {
+          if (!r.ok) throw new Error("appview " + r.status);
+          try { localStorage.setItem("kafumu.appview", h); } catch (e) {}
+          return r.json();
+        });
+      });
+    }, Promise.reject(new Error("start")));
+  }
+  function bskyLink(uri, handle) { return "https://bsky.app/profile/" + handle + "/post/" + uri.split("/").pop(); }
+  function bluesky(posts) {
+    var bs = posts.filter(function (p) { return p.kind === "bsky" && p.uri; }).slice(-25);
+    if (!bs.length) return Promise.resolve([]);
+    return xrpc("app.bsky.feed.getPosts?" + bs.map(function (p) { return "uris=" + encodeURIComponent(p.uri); }).join("&")).then(function (r) {
+      var out = [], threads = [];
+      (r.posts || []).forEach(function (v) {
+        var p = bs.filter(function (x) { return x.uri === v.uri; })[0] || {}, about = tr("act_reply_to", { post: short(p.text || (v.record && v.record.text), 40) }), href = bskyLink(v.uri, v.author.handle);
+        if (v.likeCount) out.push({ id: "bl:" + v.uri + ":" + v.likeCount, icon: "❤️", who: "", text: tr("act_likes", { n: v.likeCount }), about: about, href: href });
+        if (v.repostCount) out.push({ id: "bp:" + v.uri + ":" + v.repostCount, icon: "🔁", who: "", text: tr("act_reposts", { n: v.repostCount }), about: about, href: href });
+        if (v.replyCount) threads.push(xrpc("app.bsky.feed.getPostThread?depth=1&parentHeight=0&uri=" + encodeURIComponent(v.uri)).then(function (t) {
+          return ((t.thread && t.thread.replies) || []).filter(function (x) { return x.post && x.post.author.did !== v.author.did; }).map(function (x) {
+            return { id: "br:" + x.post.uri, at: (x.post.record && x.post.record.createdAt) || x.post.indexedAt, icon: "🦋", who: "@" + x.post.author.handle,
+              text: (x.post.record && x.post.record.text) || "", about: about, href: bskyLink(x.post.uri, x.post.author.handle) };
+          }).sort(function (a, b) { return new Date(b.at) - new Date(a.at); }).slice(0, 20); // a popular post: its newest 20
+        }, function () { return []; }));
+      });
+      return Promise.all(threads).then(function (ts) { return out.concat.apply(out, ts); });
+    }, function () { return []; });
+  }
+
   // gather returns every item, newest first, each with .unread.
   function gather() {
     var s = dev.store;
@@ -86,11 +124,14 @@
       });
       var seen = r[4] || {};
       var mine = (r[5] || []).filter(function (m) { return new Date(m.end) > Date.now() - 864e5; }), first = r[6] || {};
-      return Promise.all([replies(posts), meetups(mine)]).then(function (got) {
-        items = items.concat(got[0]);
-        // Meetup news has no time of its own: it's when the device first saw it.
-        got[1].forEach(function (it) { it.at = first[it.id] || (first[it.id] = new Date().toISOString()); items.push(it); });
-        if (got[1].length) s.set("activity:first", first).catch(function () {});
+      return Promise.all([replies(posts), meetups(mine), bluesky(posts)]).then(function (got) {
+        // News without a time of its own (a count went up) is dated when the device first saw it.
+        var dated = false;
+        got[0].concat(got[1], got[2]).forEach(function (it) {
+          if (!it.at) { it.at = first[it.id] || (first[it.id] = new Date().toISOString()); dated = true; }
+          items.push(it);
+        });
+        if (dated) s.set("activity:first", first).catch(function () {});
         items.forEach(function (it) { it.unread = !seen[it.id] || !!it.hot; });
         items.sort(function (a, b) { return new Date(b.at) - new Date(a.at); });
         return items;

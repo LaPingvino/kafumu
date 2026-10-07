@@ -623,5 +623,7 @@
   "js.act_connected": "あなたとつながりました",
   "js.act_going": "参加者が{n}人に",
   "js.act_changed": "変更：{when}",
-  "js.act_cancelled": "中止になりました"
+  "js.act_cancelled": "中止になりました",
+  "js.act_likes": "いいね：{n}",
+  "js.act_reposts": "リポスト：{n}"
 }

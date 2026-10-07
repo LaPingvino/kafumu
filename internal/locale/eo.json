@@ -623,5 +623,7 @@
   "js.act_connected": "konektiĝis kun vi",
   "js.act_going": "{n} venos nun",
   "js.act_changed": "nun {when}",
-  "js.act_cancelled": "nuligita"
+  "js.act_cancelled": "nuligita",
+  "js.act_likes": "Ŝatoj: {n}",
+  "js.act_reposts": "Diskonigoj: {n}"
 }

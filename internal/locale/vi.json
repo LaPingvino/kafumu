@@ -623,5 +623,7 @@
   "js.act_connected": "đã kết nối với bạn",
   "js.act_going": "giờ có {n} người đi",
   "js.act_changed": "giờ là {when}",
-  "js.act_cancelled": "đã hủy"
+  "js.act_cancelled": "đã hủy",
+  "js.act_likes": "Lượt thích: {n}",
+  "js.act_reposts": "Đăng lại: {n}"
 }

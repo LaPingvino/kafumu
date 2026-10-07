@@ -623,5 +623,7 @@
   "js.act_connected": "terhubung denganmu",
   "js.act_going": "sekarang {n} ikut",
   "js.act_changed": "sekarang {when}",
-  "js.act_cancelled": "dibatalkan"
+  "js.act_cancelled": "dibatalkan",
+  "js.act_likes": "Suka: {n}",
+  "js.act_reposts": "Posting ulang: {n}"
 }

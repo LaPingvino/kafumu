@@ -920,8 +920,12 @@ on a contact's card; strangers' reactions show only under the post in its own ce
       GET /api/meetups?ids= (anonymous, ≤20, 1-min per-id cache; missing ones in "gone"); Activity shows 🙋 new
       going counts, ✏️ a new time/venue (feeds can move events), ❌ cancelled (gone before its end). News time =
       first seen (kv `activity:first`). Tests: TestMeetupsByIDs; browser: hosted meetup remembered → 🙋 in Activity.
-- [ ] 77e. Bluesky: replies, likes, reposts on your own posts (public AppView getPostThread / getLikes per saved
+- [x] 77e. Bluesky: replies, likes, reposts on your own posts (public AppView getPostThread / getLikes per saved
       URI, fetched by the device, no server cost).
+      Done: activity.js asks the public AppView itself (CORS *, last good host first, credentials omit): one
+      getPosts for ≤25 remembered Bluesky posts → ❤️/🔁 counts (dated first seen), getPostThread for those with
+      replies → 🦋 replies by others (newest 20 a post). Checked by hand against a real post; not in run.sh
+      (needs the network).
 - [ ] 77f. Push for answers and replies too: subscriptions also watch your answer tags (Notify on pair notes);
       the notification opens /activity instead of /contacts.
 - [ ] 77g. Reactions to reactions (Joop): a reply under a card gets its own react row; its reactions (#re<its id>)

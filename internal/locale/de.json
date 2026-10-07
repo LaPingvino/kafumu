@@ -623,5 +623,7 @@
   "js.act_connected": "hat sich mit dir verbunden",
   "js.act_going": "jetzt {n} dabei",
   "js.act_changed": "jetzt {when}",
-  "js.act_cancelled": "abgesagt"
+  "js.act_cancelled": "abgesagt",
+  "js.act_likes": "Likes: {n}",
+  "js.act_reposts": "Reposts: {n}"
 }

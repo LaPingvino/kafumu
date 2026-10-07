@@ -623,5 +623,7 @@
   "js.act_connected": "与你建立了联系",
   "js.act_going": "现在有 {n} 人参加",
   "js.act_changed": "改为 {when}",
-  "js.act_cancelled": "已取消"
+  "js.act_cancelled": "已取消",
+  "js.act_likes": "点赞：{n}",
+  "js.act_reposts": "转发：{n}"
 }

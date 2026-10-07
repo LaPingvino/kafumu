@@ -623,5 +623,7 @@
   "js.act_connected": "kopplade ihop sig med dig",
   "js.act_going": "nu går {n}",
   "js.act_changed": "nu {when}",
-  "js.act_cancelled": "inställt"
+  "js.act_cancelled": "inställt",
+  "js.act_likes": "Gillningar: {n}",
+  "js.act_reposts": "Återpubliceringar: {n}"
 }

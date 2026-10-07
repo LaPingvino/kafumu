@@ -623,5 +623,7 @@
   "js.act_connected": "나와 연결했어요",
   "js.act_going": "이제 {n}명 참여",
   "js.act_changed": "변경: {when}",
-  "js.act_cancelled": "취소됐어요"
+  "js.act_cancelled": "취소됐어요",
+  "js.act_likes": "좋아요: {n}",
+  "js.act_reposts": "재게시: {n}"
 }

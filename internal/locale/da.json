@@ -623,5 +623,7 @@
   "js.act_connected": "forbandt sig med dig",
   "js.act_going": "nu deltager {n}",
   "js.act_changed": "nu {when}",
-  "js.act_cancelled": "aflyst"
+  "js.act_cancelled": "aflyst",
+  "js.act_likes": "Likes: {n}",
+  "js.act_reposts": "Reposts: {n}"
 }

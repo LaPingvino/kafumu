@@ -623,5 +623,7 @@
   "js.act_connected": "se s tebou spojil(a)",
   "js.act_going": "teď jde {n}",
   "js.act_changed": "nově {when}",
-  "js.act_cancelled": "zrušeno"
+  "js.act_cancelled": "zrušeno",
+  "js.act_likes": "To se mi líbí: {n}",
+  "js.act_reposts": "Sdílení: {n}"
 }

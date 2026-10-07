@@ -623,5 +623,7 @@
   "js.act_connected": "συνδέθηκε μαζί σου",
   "js.act_going": "τώρα πηγαίνουν {n}",
   "js.act_changed": "τώρα {when}",
-  "js.act_cancelled": "ακυρώθηκε"
+  "js.act_cancelled": "ακυρώθηκε",
+  "js.act_likes": "Μου αρέσει: {n}",
+  "js.act_reposts": "Αναδημοσιεύσεις: {n}"
 }

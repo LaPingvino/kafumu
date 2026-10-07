@@ -623,5 +623,7 @@
   "js.act_connected": "kapcsolódott hozzád",
   "js.act_going": "most {n} megy",
   "js.act_changed": "mostantól {when}",
-  "js.act_cancelled": "elmarad"
+  "js.act_cancelled": "elmarad",
+  "js.act_likes": "Kedvelések: {n}",
+  "js.act_reposts": "Megosztások: {n}"
 }

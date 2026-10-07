@@ -623,5 +623,7 @@
   "js.act_connected": "связался(-ась) с вами",
   "js.act_going": "теперь идут: {n}",
   "js.act_changed": "теперь {when}",
-  "js.act_cancelled": "отменено"
+  "js.act_cancelled": "отменено",
+  "js.act_likes": "Нравится: {n}",
+  "js.act_reposts": "Репосты: {n}"
 }
