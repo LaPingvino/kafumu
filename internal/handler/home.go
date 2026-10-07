@@ -293,6 +293,13 @@ func (h *Home) ShowContacts(w http.ResponseWriter, r *http.Request) {
 	h.render(w, "contacts.html", p)
 }
 
+// ShowActivity renders /activity; the list itself is gathered on the device (77c).
+func (h *Home) ShowActivity(w http.ResponseWriter, r *http.Request) {
+	p := h.newPage(r, "")
+	p.Title, p.Tab = locale.T(p.Lang, "activity.title"), "activity"
+	h.render(w, "activity.html", p)
+}
+
 // ShowMove renders the page a scanned move code opens on the old device.
 func (h *Home) ShowMove(w http.ResponseWriter, r *http.Request) {
 	p := h.newPage(r, "")

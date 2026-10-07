@@ -612,5 +612,12 @@
   "account.export_data": "下載我們伺服器上保存的關於你的資料（JSON）",
   "contacts.keep_explain_synced": "你的聯絡人保存在你的裝置上，並在裝置之間加密同步：我們的伺服器無法讀取。自己再留一份副本仍是好主意。",
   "biz.atproto_explain": "連結商家的 Bluesky（或其他 ATproto）帳戶：商家舉辦的聚會和以其名義發布的內容會保存在那裡，絕不會存到管理員的個人帳戶。",
-  "js.post_sent": "已發布到 Bluesky。"
+  "js.post_sent": "已發布到 Bluesky。",
+  "activity.title": "動態",
+  "activity.explain": "來自任何區域、回到你這裡的內容：對你貼文的回覆、私下回答、聯絡人的訊息和訊號。",
+  "activity.empty": "還沒有內容。在附近發點什麼，或和別人建立聯繫。",
+  "js.act_reply_to": "回覆「{post}」",
+  "js.act_answer_to": "對「{post}」的私下回答",
+  "js.act_message": "訊息",
+  "js.act_inbox": "寄到你的公開收件匣"
 }

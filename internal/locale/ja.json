@@ -612,5 +612,12 @@
   "account.export_data": "サーバーが保持しているあなたのデータをダウンロード（JSON）",
   "contacts.keep_explain_synced": "連絡先はあなたの端末にあり、端末どうしで暗号化して同期されます。サーバーは読めません。それでも手元にコピーがあると安心です。",
   "biz.atproto_explain": "ビジネスのBluesky（または他のATproto）アカウントを連携：ビジネスが主催するミートアップとビジネス名義の投稿はそこに保存され、管理者個人のアカウントには保存されません。",
-  "js.post_sent": "Blueskyに投稿しました。"
+  "js.post_sent": "Blueskyに投稿しました。",
+  "activity.title": "アクティビティ",
+  "activity.explain": "どのエリアからでも、あなたに届いたもの：投稿への返信、非公開の回答、連絡先からのメッセージとシグナル。",
+  "activity.empty": "まだ何もありません。近くで投稿するか、誰かとつながりましょう。",
+  "js.act_reply_to": "「{post}」へ",
+  "js.act_answer_to": "「{post}」への非公開の回答",
+  "js.act_message": "メッセージ",
+  "js.act_inbox": "公開受信箱へ"
 }

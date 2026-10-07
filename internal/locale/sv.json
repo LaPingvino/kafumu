@@ -612,5 +612,12 @@
   "account.export_data": "Ladda ner det vår server har om dig (JSON)",
   "contacts.keep_explain_synced": "Dina kontakter finns på dina enheter och synkas krypterat mellan dem: vår server kan inte läsa dem. En egen kopia är ändå en bra idé.",
   "biz.atproto_explain": "Koppla företagets Bluesky-konto (eller annat ATproto-konto): träffar det ordnar och inlägg i dess namn sparas där, aldrig i en förvaltares eget konto.",
-  "js.post_sent": "Publicerat på Bluesky."
+  "js.post_sent": "Publicerat på Bluesky.",
+  "activity.title": "Aktivitet",
+  "activity.explain": "Det som kommit tillbaka till dig, från vilket område som helst: svar på dina inlägg, privata svar, meddelanden och signaler från dina kontakter.",
+  "activity.empty": "Inget än. Skriv något i närheten, eller koppla ihop dig med någon.",
+  "js.act_reply_to": "på ”{post}”",
+  "js.act_answer_to": "privat svar på ”{post}”",
+  "js.act_message": "meddelande",
+  "js.act_inbox": "till din öppna inkorg"
 }

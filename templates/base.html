@@ -32,6 +32,8 @@
     <a href="/" class="title">☕ {{.Brand}}</a>
     <nav class="switcher top" aria-label="{{.Brand}}">{{template "tabs" .}}</nav>
     {{if .User}}{{if or (eq .User.Role "admin") (eq .User.Role "moderator")}}<a href="/admin" class="about-link" title="Admin"{{if eq .Tab "admin"}} aria-current="page"{{end}}>⚙</a>{{end}}{{end}}
+    <a href="/activity" class="about-link bell" title="{{ts .Lang "activity.title"}}" aria-label="{{ts .Lang "activity.title"}}"{{if eq .Tab "activity"}} aria-current="page"{{end}}>🔔<span class="bell-n" hidden></span></a>
+    <script>try { var n = +localStorage.getItem("kafumu.activityN") || 0; if (n) { var b = document.currentScript.previousElementSibling.lastChild; b.textContent = n > 99 ? "99+" : n; b.hidden = false; } } catch (e) {}</script>
     <a href="/about" class="about-link" title="{{ts .Lang "nav.about"}}"{{if eq .Tab "about"}} aria-current="page"{{end}}><svg width="16" height="16"><use href="#i-about"/></svg></a>
     <select id="lang" class="flat" aria-label="{{ts .Lang "nav.language"}}" onchange="document.cookie='lang='+this.value+';path=/;max-age=31536000;samesite=lax';location.reload()">
       {{range .Langs}}<option value="{{.Code}}"{{if eq .Code $.Lang}} selected{{end}}>{{.Name}}</option>{{end}}

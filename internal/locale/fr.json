@@ -612,5 +612,12 @@
   "account.export_data": "Télécharger ce que notre serveur garde sur toi (JSON)",
   "contacts.keep_explain_synced": "Tes contacts sont sur tes appareils et synchronisés entre eux, chiffrés : notre serveur ne peut pas les lire. Une copie à toi reste une bonne idée.",
   "biz.atproto_explain": "Connecte le compte Bluesky (ou autre ATproto) de l'entreprise : les rencontres qu'elle organise et ce qu'elle publie y sont enregistrés, jamais dans le compte personnel d'un gestionnaire.",
-  "js.post_sent": "Publié sur Bluesky."
+  "js.post_sent": "Publié sur Bluesky.",
+  "activity.title": "Activité",
+  "activity.explain": "Ce qui t'est revenu, de n'importe quelle zone : réponses à tes messages, réponses privées, messages et signaux de tes contacts.",
+  "activity.empty": "Rien pour l'instant. Publie quelque chose près de toi, ou connecte-toi à quelqu'un.",
+  "js.act_reply_to": "sur « {post} »",
+  "js.act_answer_to": "réponse privée à « {post} »",
+  "js.act_message": "message",
+  "js.act_inbox": "dans ta boîte publique"
 }

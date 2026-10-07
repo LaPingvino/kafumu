@@ -166,6 +166,16 @@ footer { padding: 16px; }
 .contact input { margin-top: .4rem; }
 .about-link { margin-left: auto; color: var(--fg); padding: 8px; border-radius: 8px; display: flex; }
 .about-link:hover { background: var(--button-hover); }
+.about-link + script + .about-link, .about-link + .about-link { margin-left: 0; }
+.bell { position: relative; line-height: 16px; }
+.bell-n { position: absolute; top: 0; right: -2px; min-width: 16px; padding: 0 4px; border-radius: 8px; background: var(--destructive); color: #fff; font-size: 11px; line-height: 16px; text-align: center; }
+.activity { list-style: none; padding: 0; }
+.activity li { border-bottom: 1px solid var(--border); }
+.activity li a { display: flex; gap: 12px; padding: 10px 4px; color: var(--fg); text-decoration: none; }
+.activity li.unread { border-left: 3px solid var(--accent); }
+.activity li.unread .act-text { font-weight: 600; }
+.act-icon { font-size: 1.3rem; flex: none; }
+.act-body { display: flex; flex-direction: column; min-width: 0; overflow-wrap: anywhere; }
 .headerbar .about-link + select { margin-left: 0; }
 .contact-head { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
 .contact > .contrast { margin-top: .5rem; }

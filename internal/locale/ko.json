@@ -612,5 +612,12 @@
   "account.export_data": "서버가 나에 대해 보관하는 정보 내려받기(JSON)",
   "contacts.keep_explain_synced": "연락처는 내 기기들에 있고, 암호화된 채로 기기끼리 동기화돼요: 서버는 읽을 수 없어요. 그래도 직접 사본을 두면 좋아요.",
   "biz.atproto_explain": "비즈니스의 Bluesky(또는 다른 ATproto) 계정을 연결하세요: 비즈니스가 여는 모임과 비즈니스 이름의 게시물은 그 계정에 저장되며, 관리자의 개인 계정에는 저장되지 않아요.",
-  "js.post_sent": "Bluesky에 게시했어요."
+  "js.post_sent": "Bluesky에 게시했어요.",
+  "activity.title": "활동",
+  "activity.explain": "어느 지역에서든 나에게 돌아온 것들: 내 게시물에 달린 답글, 비공개 답변, 연락처의 메시지와 신호.",
+  "activity.empty": "아직 없어요. 근처에 글을 올리거나 누군가와 연결해 보세요.",
+  "js.act_reply_to": "“{post}”에",
+  "js.act_answer_to": "“{post}”에 대한 비공개 답변",
+  "js.act_message": "메시지",
+  "js.act_inbox": "공개 받은편지함으로"
 }

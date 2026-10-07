@@ -612,5 +612,12 @@
   "account.export_data": "Download det, vores server har om dig (JSON)",
   "contacts.keep_explain_synced": "Dine kontakter ligger på dine enheder og synkroniseres krypteret mellem dem: vores server kan ikke læse dem. En egen kopi er alligevel en god idé.",
   "biz.atproto_explain": "Forbind virksomhedens Bluesky-konto (eller anden ATproto-konto): møder, den holder, og opslag i dens navn gemmes der, aldrig på en administrators egen konto.",
-  "js.post_sent": "Slået op på Bluesky."
+  "js.post_sent": "Slået op på Bluesky.",
+  "activity.title": "Aktivitet",
+  "activity.explain": "Det, der er kommet tilbage til dig, fra ethvert område: svar på dine opslag, private svar, beskeder og signaler fra dine kontakter.",
+  "activity.empty": "Intet endnu. Skriv noget i nærheden, eller forbind dig med nogen.",
+  "js.act_reply_to": "til “{post}”",
+  "js.act_answer_to": "privat svar på “{post}”",
+  "js.act_message": "besked",
+  "js.act_inbox": "til din offentlige indbakke"
 }

@@ -612,5 +612,12 @@
   "account.export_data": "Stáhnout, co o tobě uchovává náš server (JSON)",
   "contacts.keep_explain_synced": "Tvoje kontakty jsou na tvých zařízeních a synchronizují se mezi nimi šifrovaně: náš server je nemůže číst. Vlastní kopie je přesto dobrý nápad.",
   "biz.atproto_explain": "Připoj Bluesky účet (nebo jiný ATproto) firmy: setkání, která pořádá, a příspěvky za ni se ukládají tam, nikdy do vlastního účtu správce.",
-  "js.post_sent": "Zveřejněno na Bluesky."
+  "js.post_sent": "Zveřejněno na Bluesky.",
+  "activity.title": "Aktivita",
+  "activity.explain": "Co se ti vrátilo, z jakékoli oblasti: odpovědi na tvé příspěvky, soukromé odpovědi, zprávy a signály od kontaktů.",
+  "activity.empty": "Zatím nic. Napiš něco poblíž, nebo se s někým spoj.",
+  "js.act_reply_to": "k „{post}“",
+  "js.act_answer_to": "soukromá odpověď na „{post}“",
+  "js.act_message": "zpráva",
+  "js.act_inbox": "do tvé veřejné schránky"
 }

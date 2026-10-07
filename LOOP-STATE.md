@@ -904,9 +904,14 @@ on a contact's card; strangers' reactions show only under the post in its own ce
       Done: Note.Re (indexed, set by Parse), Store.RepliesTo (Datastore, memory; SQLite via json_extract, no
       migration), Service.Replies (1-min per-instance cache per id, hidden notes left out), HandleRe (public,
       max-age=60). Deployed early so replies get indexed before 77c uses them; older replies (no `re`) won't show.
-- [ ] 77c. /activity page + 🔔 in the header with an unread count (and setAppBadge): private answers, public
-      replies/reactions, chat lines + reactions + signals from contacts, business inbox messages, new connections
-      through your code/invite, coffee joiners. Each item links to where to answer. "Seen" kept on the device.
+- [x] 77c-1. /activity page + 🔔 in the header with an unread count (and setAppBadge), gathered on the device by
+      static/activity.js: public replies/reactions to myPosts (/api/oln/re, credentials omit, 20 ids a call), private
+      answer threads, contacts' last message and last signal, public-inbox messages. Seen marks per item in kv
+      `activity:seen` (2 months); contact/answer items stay new until opened there ("hot"). Home and Contacts
+      refresh the count (4 s after load, then every 5 min); other pages show the stored count. Browser test: B's
+      answer → A's bell counts it → Activity lists it as new, linking to its area → seen on the next visit.
+- [ ] 77c-2. Also in Activity: new connections through your code/invite, coffee joiners; Activity refreshes
+      answers itself (readAnswers) instead of relying on Home's polling.
 - [ ] 77d. Meetups: RSVPs to meetups you host (going count per id, compared on the device); a meetup you're going
       to that changed or was cancelled.
 - [ ] 77e. Bluesky: replies, likes, reposts on your own posts (public AppView getPostThread / getLikes per saved

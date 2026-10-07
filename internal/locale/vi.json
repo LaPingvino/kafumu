@@ -612,5 +612,12 @@
   "account.export_data": "Tải về những gì máy chủ của chúng tôi lưu về bạn (JSON)",
   "contacts.keep_explain_synced": "Danh bạ của bạn nằm trên các thiết bị của bạn và được đồng bộ giữa chúng ở dạng mã hóa: máy chủ của chúng tôi không đọc được. Dù vậy, tự giữ một bản sao vẫn là ý hay.",
   "biz.atproto_explain": "Kết nối tài khoản Bluesky (hoặc ATproto khác) của doanh nghiệp: các buổi gặp doanh nghiệp tổ chức và bài đăng dưới tên nó được lưu ở đó, không bao giờ vào tài khoản riêng của quản lý.",
-  "js.post_sent": "Đã đăng lên Bluesky."
+  "js.post_sent": "Đã đăng lên Bluesky.",
+  "activity.title": "Hoạt động",
+  "activity.explain": "Những gì gửi lại cho bạn, từ bất kỳ khu vực nào: phản hồi bài đăng, câu trả lời riêng, tin nhắn và tín hiệu từ danh bạ.",
+  "activity.empty": "Chưa có gì. Hãy đăng gì đó gần bạn, hoặc kết nối với ai đó.",
+  "js.act_reply_to": "về “{post}”",
+  "js.act_answer_to": "trả lời riêng cho “{post}”",
+  "js.act_message": "tin nhắn",
+  "js.act_inbox": "vào hộp thư công khai của bạn"
 }

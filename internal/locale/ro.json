@@ -612,5 +612,12 @@
   "account.export_data": "Descarcă ce păstrează serverul nostru despre tine (JSON)",
   "contacts.keep_explain_synced": "Contactele tale sunt pe dispozitivele tale și se sincronizează între ele, cifrate: serverul nostru nu le poate citi. O copie proprie e totuși o idee bună.",
   "biz.atproto_explain": "Conectează contul Bluesky (sau alt cont ATproto) al firmei: întâlnirile pe care le organizează și postările în numele ei se salvează acolo, niciodată în contul propriu al unui administrator.",
-  "js.post_sent": "Publicat pe Bluesky."
+  "js.post_sent": "Publicat pe Bluesky.",
+  "activity.title": "Activitate",
+  "activity.explain": "Ce ți-a venit înapoi, din orice zonă: răspunsuri la postările tale, răspunsuri private, mesaje și semnale de la contacte.",
+  "activity.empty": "Încă nimic. Postează ceva în apropiere sau conectează-te cu cineva.",
+  "js.act_reply_to": "la „{post}”",
+  "js.act_answer_to": "răspuns privat la „{post}”",
+  "js.act_message": "mesaj",
+  "js.act_inbox": "în căsuța ta publică"
 }

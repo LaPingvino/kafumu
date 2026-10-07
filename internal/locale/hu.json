@@ -612,5 +612,12 @@
   "account.export_data": "Töltsd le, mit tárol rólad a szerverünk (JSON)",
   "contacts.keep_explain_synced": "A kapcsolataid az eszközeiden vannak, és titkosítva szinkronizálódnak köztük: a szerverünk nem tudja olvasni őket. Saját másolat azért jól jön.",
   "biz.atproto_explain": "Kapcsold össze a vállalkozás Bluesky- (vagy más ATproto-) fiókját: az általa szervezett találkozók és a nevében tett bejegyzések oda kerülnek, sosem egy kezelő saját fiókjába.",
-  "js.post_sent": "Közzétéve a Bluesky-on."
+  "js.post_sent": "Közzétéve a Bluesky-on.",
+  "activity.title": "Tevékenység",
+  "activity.explain": "Ami visszajött hozzád, bármelyik környékről: válaszok a bejegyzéseidre, privát válaszok, üzenetek és jelzések a kapcsolataidtól.",
+  "activity.empty": "Még semmi. Írj valamit a közelben, vagy kapcsolódj valakihez.",
+  "js.act_reply_to": "erre: „{post}”",
+  "js.act_answer_to": "privát válasz erre: „{post}”",
+  "js.act_message": "üzenet",
+  "js.act_inbox": "a nyilvános postaládádba"
 }

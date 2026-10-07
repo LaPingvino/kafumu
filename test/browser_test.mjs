@@ -124,6 +124,15 @@ try {
   await B.waitFor("document.getElementById('oln-form').tags.value === 'food' && ![...document.querySelectorAll('#tag-suggest .chip')].some(b => b.textContent === '#food')", "suggested tag added");
   await B.evaluate("document.getElementById('oln-form').hidden = true; true");
 
+  // Activity (77c): B's public answer reaches A from any area. The 🔔
+  // counts it, Activity lists it as new, and after that it's seen.
+  await A.goto(base + "/?cell=6fg222");
+  await A.waitFor("(() => { const b = document.querySelector('.bell-n'); return b && !b.hidden && +b.textContent >= 1; })()", "the bell counts the answer", 15000);
+  await A.goto(base + "/activity");
+  await A.waitFor("[...document.querySelectorAll('#activity li.unread')].some(li => li.textContent.includes('Manteigaria') && li.textContent.includes('pastel de nata') && li.querySelector('a[href=\"/?cell=6fg223\"]'))", "Activity lists the answer as new, linking to its area", 15000);
+  await A.goto(base + "/activity");
+  await A.waitFor("[...document.querySelectorAll('#activity li')].some(li => li.textContent.includes('Manteigaria') && !li.classList.contains('unread'))", "and then as seen");
+
   // Card themes from local activity: the "food" question tag shows up as a
   // 📍 suggestion in A's card editor.
   await A.goto(base + "/?cell=6fg223");
@@ -510,7 +519,7 @@ try {
   // Phones (Joop: "doesn't fit on mobile… check other possible overflows"):
   // at 390 px nothing may widen the page.
   await A.send("Emulation.setDeviceMetricsOverride", { width: 390, height: 844, deviceScaleFactor: 2, mobile: true });
-  for (const pg of ["/business", "/account", "/meetups/new", "/card", "/?cell=6fg222"]) {
+  for (const pg of ["/business", "/account", "/meetups/new", "/card", "/?cell=6fg222", "/activity"]) {
     await A.goto(base + pg);
     await sleep(600);
     const w = await A.evaluate("document.documentElement.scrollWidth");

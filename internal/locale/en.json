@@ -612,5 +612,12 @@
   "account.export_data": "Download what our server holds about you (JSON)",
   "contacts.keep_explain_synced": "Your contacts are on your devices and synced between them, encrypted: our server can't read them. A copy of your own is still a good idea.",
   "biz.atproto_explain": "Connect the business's Bluesky (or any ATproto) account: meetups it hosts and posts made as it are saved there, never in a manager's own account.",
-  "js.post_sent": "Posted to Bluesky."
+  "js.post_sent": "Posted to Bluesky.",
+  "activity.title": "Activity",
+  "activity.explain": "What came back to you, from any area: replies to your posts, answers, messages and signals from your contacts.",
+  "activity.empty": "Nothing yet. Post something nearby, or connect with someone.",
+  "js.act_reply_to": "on “{post}”",
+  "js.act_answer_to": "private answer on “{post}”",
+  "js.act_message": "message",
+  "js.act_inbox": "to your public inbox"
 }

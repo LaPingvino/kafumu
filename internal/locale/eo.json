@@ -612,5 +612,12 @@
   "account.export_data": "Elŝuti tion, kion nia servilo tenas pri vi (JSON)",
   "contacts.keep_explain_synced": "Viaj kontaktoj estas en viaj aparatoj kaj sinkronigitaj inter ili, ĉifritaj: nia servilo ne povas legi ilin. Propra kopio tamen estas bona ideo.",
   "biz.atproto_explain": "Konektu la Bluesky-konton (aŭ alian ATproto-konton) de la komerco: renkontiĝoj, kiujn ĝi gastigas, kaj afiŝoj farataj kiel ĝi estas konservataj tie, neniam en la propra konto de administranto.",
-  "js.post_sent": "Afiŝita en Bluesky."
+  "js.post_sent": "Afiŝita en Bluesky.",
+  "activity.title": "Aktivado",
+  "activity.explain": "Kio revenis al vi, el ajna regiono: respondoj al viaj afiŝoj, privataj respondoj, mesaĝoj kaj signaloj de viaj kontaktoj.",
+  "activity.empty": "Ankoraŭ nenio. Afiŝu ion proksime, aŭ konektiĝu kun iu.",
+  "js.act_reply_to": "ĉe “{post}”",
+  "js.act_answer_to": "privata respondo al “{post}”",
+  "js.act_message": "mesaĝo",
+  "js.act_inbox": "al via publika leterkesto"
 }
