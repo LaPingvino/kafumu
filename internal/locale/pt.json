@@ -610,5 +610,6 @@
   "privacy.row_oln_why": "Para quem está perto as ler, e para podermos agir contra abusos",
   "privacy.row_oln_kept": "Enquanto o trabalho pago o permitir, no máximo 7 dias",
   "account.export_data": "Descarregar o que o nosso servidor guarda sobre ti (JSON)",
-  "contacts.keep_explain_synced": "Os teus contactos estão nos teus dispositivos e sincronizados entre eles, cifrados: o nosso servidor não os consegue ler. Uma cópia tua continua a ser boa ideia."
+  "contacts.keep_explain_synced": "Os teus contactos estão nos teus dispositivos e sincronizados entre eles, cifrados: o nosso servidor não os consegue ler. Uma cópia tua continua a ser boa ideia.",
+  "biz.atproto_explain": "Liga a conta Bluesky (ou outra ATproto) da empresa: os encontros que organiza e o que publica em seu nome ficam lá, nunca na conta pessoal de um gestor."
 }

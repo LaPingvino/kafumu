@@ -610,5 +610,6 @@
   "privacy.row_oln_why": "Agar orang di sekitar bisa membacanya, dan agar kami bisa menindak penyalahgunaan",
   "privacy.row_oln_kept": "Selama kerja mereka membayarnya, paling lama 7 hari",
   "account.export_data": "Unduh data tentangmu yang disimpan server kami (JSON)",
-  "contacts.keep_explain_synced": "Kontakmu ada di perangkatmu dan disinkronkan di antaranya secara terenkripsi: server kami tak bisa membacanya. Tetap saja, salinan sendiri itu ide bagus."
+  "contacts.keep_explain_synced": "Kontakmu ada di perangkatmu dan disinkronkan di antaranya secara terenkripsi: server kami tak bisa membacanya. Tetap saja, salinan sendiri itu ide bagus.",
+  "biz.atproto_explain": "Hubungkan akun Bluesky (atau ATproto lain) milik bisnis: pertemuan yang diadakannya dan postingan atas namanya disimpan di sana, tak pernah di akun pribadi pengelola."
 }

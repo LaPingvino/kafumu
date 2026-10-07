@@ -610,5 +610,6 @@
   "privacy.row_oln_why": "Por ke homoj ĉirkaŭe legu ilin, kaj por ke ni povu agi kontraŭ misuzo",
   "privacy.row_oln_kept": "Tiel longe, kiel ilia laboro aĉetis, maksimume 7 tagojn",
   "account.export_data": "Elŝuti tion, kion nia servilo tenas pri vi (JSON)",
-  "contacts.keep_explain_synced": "Viaj kontaktoj estas en viaj aparatoj kaj sinkronigitaj inter ili, ĉifritaj: nia servilo ne povas legi ilin. Propra kopio tamen estas bona ideo."
+  "contacts.keep_explain_synced": "Viaj kontaktoj estas en viaj aparatoj kaj sinkronigitaj inter ili, ĉifritaj: nia servilo ne povas legi ilin. Propra kopio tamen estas bona ideo.",
+  "biz.atproto_explain": "Konektu la Bluesky-konton (aŭ alian ATproto-konton) de la komerco: renkontiĝoj, kiujn ĝi gastigas, kaj afiŝoj farataj kiel ĝi estas konservataj tie, neniam en la propra konto de administranto."
 }

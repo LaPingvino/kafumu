@@ -628,6 +628,9 @@ func (a *Accounts) leaveBusinesses(r *http.Request, userID string) {
 		if a.Vault != nil {
 			_ = a.Vault.Delete(ctx, "biz:"+b.ID)
 		}
+		if b.DID != "" && a.Home.ATproto != nil {
+			_ = a.Home.ATproto.Disconnect(ctx, b.DID, b.ATSession)
+		}
 		_ = a.Home.Biz.Delete(ctx, b.ID)
 	}
 }

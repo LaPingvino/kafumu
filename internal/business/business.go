@@ -74,9 +74,14 @@ type Business struct {
 	Tags         []string  `datastore:"tags,noindex" json:"-"`
 	// A public inbox (76c-2), like a person's: messages to the business,
 	// read by its managers' devices (the key travels in the business vault).
-	InboxBox  string    `datastore:"inbox_box,noindex" json:"-"`
-	InboxPub  string    `datastore:"inbox_pub,noindex" json:"-"`
-	InboxBits int       `datastore:"inbox_bits,noindex" json:"-"`
+	InboxBox  string `datastore:"inbox_box,noindex" json:"-"`
+	InboxPub  string `datastore:"inbox_pub,noindex" json:"-"`
+	InboxBits int    `datastore:"inbox_bits,noindex" json:"-"`
+	// Bluesky / ATproto (76d): the business's own account; meetups it hosts
+	// and posts made as it are written there (never to a manager's own).
+	DID       string    `datastore:"did,noindex" json:"-"`
+	ATHandle  string    `datastore:"at_handle,noindex" json:"-"`
+	ATSession string    `datastore:"at_session,noindex" json:"-"`
 	Managers  []string  `datastore:"managers" json:"-"` // user ids (indexed: "mine")
 	CreatedBy string    `datastore:"created_by,noindex" json:"-"`
 	CreatedAt time.Time `datastore:"created_at" json:"-"`

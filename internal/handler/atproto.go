@@ -18,8 +18,18 @@ type ATproto struct {
 	Svc      *atp.Service
 }
 
+// atForCookie: the business an OAuth round trip connects (76d).
+const atForCookie = "kafumu_at_for"
+
 // Login handles POST /oauth/login {handle}.
 func (h *ATproto) Login(w http.ResponseWriter, r *http.Request) {
+	// Acting as a business: the account being connected is the business's
+	// (remembered for the round trip; checked again on the way back).
+	if b := h.Accounts.Home.ActingAs(r); b != nil {
+		http.SetCookie(w, &http.Cookie{Name: atForCookie, Value: b.ID, Path: "/oauth", MaxAge: 600, HttpOnly: true, Secure: true, SameSite: http.SameSiteLaxMode})
+	} else {
+		http.SetCookie(w, &http.Cookie{Name: atForCookie, Path: "/oauth", MaxAge: -1})
+	}
 	to, err := h.Svc.Start(r.Context(), r.FormValue("handle"))
 	if err != nil {
 		log.Printf("atproto: start: %v", err)
@@ -39,6 +49,26 @@ func (h *ATproto) Callback(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	u := UserFrom(r.Context())
+	if c, err := r.Cookie(atForCookie); err == nil && c.Value != "" && u != nil && h.Accounts.Home.Biz != nil {
+		http.SetCookie(w, &http.Cookie{Name: atForCookie, Path: "/oauth", MaxAge: -1})
+		b, err := h.Accounts.Home.Biz.Get(r.Context(), c.Value)
+		if err != nil || !h.Accounts.Home.managesBiz(r.Context(), b, u.ID) {
+			_ = h.Svc.Disconnect(r.Context(), did, sid)
+			http.Redirect(w, r, "/account?err=atproto#atproto", http.StatusSeeOther)
+			return
+		}
+		if b.DID != "" && b.ATSession != "" && (b.DID != did || b.ATSession != sid) {
+			_ = h.Svc.Disconnect(r.Context(), b.DID, b.ATSession)
+		}
+		b.DID, b.ATSession, b.ATHandle = did, sid, atp.Handle(r.Context(), did)
+		if err := h.Accounts.Home.Biz.Save(r.Context(), b); err != nil {
+			http.Error(w, "could not save", http.StatusInternalServerError)
+			return
+		}
+		h.Accounts.Home.forgetBiz(b.ID)
+		http.Redirect(w, r, "/account#atproto", http.StatusSeeOther)
+		return
+	}
 	if u == nil {
 		nu, cred, err := h.Accounts.Svc.Create(r.Context(), h.Accounts.Home.newPage(r, "").Lang)
 		if err != nil {
@@ -61,6 +91,18 @@ func (h *ATproto) Callback(w http.ResponseWriter, r *http.Request) {
 
 // Disconnect handles POST /oauth/disconnect.
 func (h *ATproto) Disconnect(w http.ResponseWriter, r *http.Request) {
+	if b := h.Accounts.Home.ActingAs(r); b != nil { // the business's account
+		if b.DID != "" {
+			if err := h.Svc.Disconnect(r.Context(), b.DID, b.ATSession); err != nil {
+				log.Printf("atproto: disconnect business: %v", err)
+			}
+			b.DID, b.ATSession, b.ATHandle = "", "", ""
+			_ = h.Accounts.Home.Biz.Save(r.Context(), b)
+			h.Accounts.Home.forgetBiz(b.ID)
+		}
+		http.Redirect(w, r, "/account#atproto", http.StatusSeeOther)
+		return
+	}
 	if u := UserFrom(r.Context()); u != nil && u.DID != "" {
 		if err := h.Svc.Disconnect(r.Context(), u.DID, u.ATSession); err != nil {
 			log.Printf("atproto: disconnect: %v", err)
@@ -81,7 +123,8 @@ func (h *ATproto) Post(w http.ResponseWriter, r *http.Request) {
 		back = "/?cell=" + cell
 	}
 	text := strings.TrimSpace(r.FormValue("text"))
-	if u == nil || u.DID == "" || text == "" || len([]rune(text)) > 300 {
+	did, session := bskyAccount(u, h.Accounts.Home.ActingAs(r)) // as the business: its account, or none
+	if u == nil || did == "" || text == "" || len([]rune(text)) > 300 {
 		http.Redirect(w, r, back, http.StatusSeeOther)
 		return
 	}
@@ -89,7 +132,7 @@ func (h *ATproto) Post(w http.ResponseWriter, r *http.Request) {
 		text += "\n\n#geo" + cell
 	}
 	lang := h.Accounts.Home.newPage(r, "").Lang
-	if _, _, err := h.Svc.CreateRecord(r.Context(), u.DID, u.ATSession, "app.bsky.feed.post", atp.PostRecord(text, lang, time.Now())); err != nil {
+	if _, _, err := h.Svc.CreateRecord(r.Context(), did, session, "app.bsky.feed.post", atp.PostRecord(text, lang, time.Now())); err != nil {
 		log.Printf("atproto: post: %v", err)
 		http.Redirect(w, r, back+"&posted=0", http.StatusSeeOther)
 		return

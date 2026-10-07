@@ -881,4 +881,10 @@ start (magic link re-binds them after a domain move).
       lived only in shared memcache, which may evict any time: the Eventa Servo calendars silently stopped.
       Now also in Datastore (Config/seen-countries, written ≤ once an hour per country per instance; read only
       when the cache lost it, then put back). Emulator test: survives losing the cache.
+- [x] 76d. Bluesky for a business (Joop: "sounds obvious"): Business.DID/ATHandle/ATSession; "Connect" while acting
+      links the business's account (target kept in a 10-min cookie for the OAuth round trip, management checked
+      again on return); meetups hosted as a business (any you manage) are published to its account or not at
+      all, posting while acting posts as it (bskyAccount: never the manager's own); disconnect while acting, and
+      closing a business, end its session. Account page shows the business's Bluesky above the greyed part.
+      Test: bskyAccount. (The OAuth round trip itself needs a real PDS: not testable locally.)
 

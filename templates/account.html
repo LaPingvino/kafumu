@@ -25,6 +25,12 @@
       <input name="username" value="{{.Username}}" placeholder="cafe-x" pattern="@?[A-Za-z0-9_\-]{3,30}" aria-label="{{ts $.Lang "account.name_title"}}">
       <button type="submit">{{t $.Lang "account.save"}}</button></form>
     <p class="dim small">{{if .Username}}<a href="/@{{.Username}}">kafumu.com/@{{.Username}}</a> · {{end}}{{t $.Lang "biz.username_note"}}</p>
+    {{if $.ATproto}}<h2 id="atproto">{{t $.Lang "atproto.title"}}</h2>
+    {{if .DID}}<p>{{t $.Lang "atproto.connected"}} <strong>@{{.ATHandle}}</strong></p>
+      <form method="post" action="/oauth/disconnect"><button type="submit" class="secondary">{{t $.Lang "atproto.disconnect"}}</button></form>
+    {{else}}<p class="dim">{{t $.Lang "biz.atproto_explain"}}</p>
+      <form method="post" action="/oauth/login" class="inline"><input name="handle" placeholder="business.bsky.social" autocomplete="off" aria-label="Handle">
+        <button type="submit" class="pill">{{t $.Lang "atproto.connect"}}</button></form>{{end}}{{end}}
     <p><a href="/business" role="button" class="pill">🏪 {{t $.Lang "biz.title"}} →</a></p>
     <p class="small personal-note">🔒 {{t $.Lang "biz.personal_part"}}</p>
     <fieldset disabled class="personal-only">{{end}}
@@ -44,7 +50,7 @@
       <button type="submit">{{t .Lang "account.save"}}</button>
     </form>
 
-    {{if .ATproto}}<h2 id="atproto">{{t .Lang "atproto.title"}}</h2>
+    {{if .ATproto}}<h2{{if not .Acting}} id="atproto"{{end}}>{{t .Lang "atproto.title"}}</h2>
     {{if .User.DID}}
       <p>{{t .Lang "atproto.connected"}} <strong>@{{.User.ATHandle}}</strong></p>
       <form method="post" action="/oauth/disconnect"><button type="submit" class="secondary">{{t .Lang "atproto.disconnect"}}</button></form>

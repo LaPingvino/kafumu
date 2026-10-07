@@ -610,5 +610,6 @@
   "privacy.row_oln_why": "근처 사람들이 읽을 수 있도록, 그리고 악용에 대응하기 위해",
   "privacy.row_oln_kept": "작업량이 허락한 동안, 최대 7일",
   "account.export_data": "서버가 나에 대해 보관하는 정보 내려받기(JSON)",
-  "contacts.keep_explain_synced": "연락처는 내 기기들에 있고, 암호화된 채로 기기끼리 동기화돼요: 서버는 읽을 수 없어요. 그래도 직접 사본을 두면 좋아요."
+  "contacts.keep_explain_synced": "연락처는 내 기기들에 있고, 암호화된 채로 기기끼리 동기화돼요: 서버는 읽을 수 없어요. 그래도 직접 사본을 두면 좋아요.",
+  "biz.atproto_explain": "비즈니스의 Bluesky(또는 다른 ATproto) 계정을 연결하세요: 비즈니스가 여는 모임과 비즈니스 이름의 게시물은 그 계정에 저장되며, 관리자의 개인 계정에는 저장되지 않아요."
 }

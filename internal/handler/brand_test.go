@@ -252,3 +252,20 @@ func TestTagLabel(t *testing.T) {
 		t.Fatalf("esperanto → %q", got)
 	}
 }
+
+// Bluesky writes done as a business go to the business's account, or to
+// none, never to the manager's own (76d); otherwise to yours.
+func TestBskyAccount(t *testing.T) {
+	me := &account.User{ID: "u1", DID: "did:plc:me", ATSession: "s-me"}
+	withBsky := &business.Business{ID: "b1", DID: "did:plc:cafe", ATSession: "s-cafe"}
+	without := &business.Business{ID: "b2"}
+	if d, s := bskyAccount(me, nil); d != "did:plc:me" || s != "s-me" {
+		t.Fatalf("as yourself: %q %q", d, s)
+	}
+	if d, _ := bskyAccount(me, withBsky); d != "did:plc:cafe" {
+		t.Fatalf("as a business with Bluesky: %q", d)
+	}
+	if d, _ := bskyAccount(me, without); d != "" {
+		t.Fatalf("as a business without Bluesky it went to %q", d)
+	}
+}

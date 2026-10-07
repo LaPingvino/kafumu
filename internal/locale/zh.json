@@ -610,5 +610,6 @@
   "privacy.row_oln_why": "让附近的人能看到，也让我们能处理滥用",
   "privacy.row_oln_kept": "在其工作量支付的期限内，最多 7 天",
   "account.export_data": "下载我们服务器上保存的关于你的数据（JSON）",
-  "contacts.keep_explain_synced": "你的联系人保存在你的设备上，并在设备之间加密同步：我们的服务器无法读取。自己再留一份副本仍是好主意。"
+  "contacts.keep_explain_synced": "你的联系人保存在你的设备上，并在设备之间加密同步：我们的服务器无法读取。自己再留一份副本仍是好主意。",
+  "biz.atproto_explain": "连接商家的 Bluesky（或其他 ATproto）账户：商家举办的聚会和以其名义发布的内容会保存在那里，绝不会存到管理员的个人账户。"
 }

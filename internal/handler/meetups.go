@@ -80,9 +80,10 @@ func (h *Meetups) Create(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	name := u.Username
+	var host *business.Business // hosting as a business: its Bluesky, never yours
 	if as := r.FormValue("as"); as != "" && h.Businesses != nil {
 		if b, err := h.Businesses.Get(r.Context(), as); err == nil && h.Home.managesBiz(r.Context(), b, u.ID) {
-			m.Business = b.Name
+			m.Business, host = b.Name, b
 		}
 	}
 	switch err := h.Svc.Create(r.Context(), m, u.ID, name); {
@@ -94,21 +95,22 @@ func (h *Meetups) Create(w http.ResponseWriter, r *http.Request) {
 		log.Printf("meetup: create: %v", err)
 		http.Error(w, "could not save the meetup", http.StatusInternalServerError)
 	default:
-		h.publishEvent(r, u, m)
+		h.publishEvent(r, u, host, m)
 		http.Redirect(w, r, "/meetups/"+m.ID, http.StatusSeeOther)
 	}
 }
 
 // publishEvent also writes the meetup to the host's own ATproto repo when
 // they connected one. Failures are logged, never shown as a failed meetup.
-func (h *Meetups) publishEvent(r *http.Request, u *account.User, m *meetup.Meetup) {
-	if h.Home.ATproto == nil || u.DID == "" {
+func (h *Meetups) publishEvent(r *http.Request, u *account.User, host *business.Business, m *meetup.Meetup) {
+	did, session := bskyAccount(u, host)
+	if h.Home.ATproto == nil || did == "" {
 		return
 	}
 	lat, lon := geo.Center(m.Cell)
 	link := h.Home.Origin(r) + "/meetups/" + m.ID
 	rec := atp.EventRecord(m.Title, m.Text, m.StartAt, m.EndAt, m.Venue, lat, lon, link, time.Now())
-	uri, cid, err := h.Home.ATproto.CreateRecord(r.Context(), u.DID, u.ATSession, "community.lexicon.calendar.event", rec)
+	uri, cid, err := h.Home.ATproto.CreateRecord(r.Context(), did, session, "community.lexicon.calendar.event", rec)
 	if err != nil {
 		log.Printf("atproto: event: %v", err)
 		return
@@ -242,4 +244,16 @@ func (h *Meetups) RunFeeds(ctx context.Context) string {
 	h.Svc.ForgetAll()
 	log.Printf("feeds: %s", res)
 	return res.String()
+}
+
+// bskyAccount: whose Bluesky a write goes to: the business's when it's done
+// as one (its own account, or none at all: never the manager's), else yours.
+func bskyAccount(u *account.User, as *business.Business) (did, session string) {
+	if as != nil {
+		return as.DID, as.ATSession
+	}
+	if u == nil {
+		return "", ""
+	}
+	return u.DID, u.ATSession
 }
