@@ -59,7 +59,7 @@
 
     {{if .User.Username}}<p class="dim">🔗 {{t .Lang "handle.title"}}: <a href="/card#link">{{t .Lang "nav.card"}} →</a></p>{{end}}
     <p id="profile" class="dim">{{t .Lang "profile.explain"}}</p>
-    {{if not .User.Username}}<p class="error">{{t .Lang "profile.need_name"}} <a href="/account">→</a></p>{{end}}
+    {{if not .User.Username}}<p class="error">{{t .Lang "profile.need_name"}} <a href="/account" aria-label="{{ts .Lang "account.title"}}">→</a></p>{{end}}
     <form method="post" action="/account/profile" id="profile-form">
       <label>{{t .Lang "profile.languages"}}</label>
       <ul id="lang-rows" class="boxed-list">

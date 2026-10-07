@@ -587,6 +587,7 @@
     if (dismissKey) {
       var x = document.createElement("button");
       x.type = "button"; x.className = "no pill-sm"; x.textContent = "×";
+      x.setAttribute("aria-label", (window.KAFUMU_T || {}).oln_hide || "Hide"); // a screen reader says "Hide", not "×"
       x.onclick = function () { try { localStorage.setItem(dismissKey, String(Date.now())); } catch (e) {} d.remove(); };
       d.appendChild(x);
     }

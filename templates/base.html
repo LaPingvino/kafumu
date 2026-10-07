@@ -42,7 +42,7 @@
   <script src="/static/device.js?v={{.V}}"></script>
   <script src="/static/migrate.js?v={{.V}}" defer></script>{{end}}
   <div id="install-bar" class="install-bar" hidden><span class="text"></span>
-    <button type="button" class="go pill-sm">{{t .Lang "install.go"}}</button><button type="button" class="no pill-sm">×</button></div>
+    <button type="button" class="go pill-sm">{{t .Lang "install.go"}}</button><button type="button" class="no pill-sm" aria-label="{{ts .Lang "js.oln_hide"}}">×</button></div>
   <main class="clamp">
   {{if and .Acting (or (eq .Tab "card") (eq .Tab "contacts") (eq .Tab "connect"))}}<p class="biz-banner"><svg class="wings{{if not (.Acting.Live .Now)}} off{{end}}"><use href="#i-wings"/></svg>
     {{t .Lang "biz.working_as"}} <strong>{{.Acting.Name}}</strong>. {{if .Acting.SyncMode}}{{t .Lang "biz.synced_note"}}{{else}}{{t .Lang "biz.device_only"}}{{end}} <a href="/account">{{t .Lang "biz.switch"}}</a></p>{{end}}

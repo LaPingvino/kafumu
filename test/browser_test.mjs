@@ -511,9 +511,17 @@ try {
     await sleep(600);
     const w = await A.evaluate("document.documentElement.scrollWidth");
     if (w > 390) throw new Error(pg + " is " + w + " px wide on a 390 px phone");
+    // Every visible control has a name a screen reader can say.
+    const unnamed = await A.evaluate(`[...document.querySelectorAll('button, a[href], [role=button], input:not([type=hidden]), select, textarea')]
+      .filter(el => !el.closest('[hidden]') && el.offsetParent !== null)
+      .filter(el => !(el.getAttribute('aria-label') || el.getAttribute('title') || (el.labels && el.labels[0] && el.labels[0].textContent.trim()) || el.getAttribute('placeholder') || '').trim()
+        && !(el.textContent || '').replace(/[\\p{Extended_Pictographic}\\uFE0F×✎+→↗⚑▶◀]/gu, '').trim()
+        && !(el.tagName === 'INPUT' && el.value))
+      .map(el => el.tagName + '.' + (typeof el.className === 'string' ? el.className.split(' ')[0] : '') + ' "' + el.textContent.trim().slice(0, 4) + '"')`);
+    if (unnamed.length) throw new Error(pg + ": controls without a name: " + unnamed.join(", "));
   }
   await A.send("Emulation.clearDeviceMetricsOverride");
-  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, business account + switched to it (account page swaps) + host as preselected + own @name page + separate business card + its own named link (Connect on its page) + findable like a person + its public inbox + synced to a second manager device (server key) + handed the key to a third device with a matching code (private) + switched back, findable profile seen, named link, paid inbox message + connect back, OLN message + private answer both ways + reaction + elsewhere + travelling + tour + report + question/answer + composer tag suggestions + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join + fits a 390 px phone)");
+  console.log("ok  connect pages in two browsers (A shows, B follows a short code, both connected, both on Contacts, unticked field withheld, signal sent and seen, chat both ways, moved to a new device + synced both ways (card rename, note, removal), first-visit area guess + account nudge + connected without a card while A was away (queued) + named + late card, meetup hosted and seen, business account + switched to it (account page swaps) + host as preselected + own @name page + separate business card + its own named link (Connect on its page) + findable like a person + its public inbox + synced to a second manager device (server key) + handed the key to a third device with a matching code (private) + switched back, findable profile seen, named link, paid inbox message + connect back, OLN message + private answer both ways + reaction + elsewhere + travelling + tour + report + question/answer + composer tag suggestions + local themes + filter chips (event, language → learn, own subject pinned/unpinned) + views + coffee Join + fits a 390 px phone, every control named)");
 } catch (e) {
   console.error("FAIL", e.message); process.exitCode = 1;
 } finally { A.close(); B.close(); }
