@@ -231,6 +231,8 @@ try {
     // and what's about you is shown greyed (disabled).
     await A.goto(base + "/account");
     await A.waitFor("!!document.querySelector('form[action$=\"/name\"] input[name=next][value=\"/account\"]') && !!document.querySelector('fieldset.personal-only[disabled]')", "account page swapped to the business");
+    // Its own Bluesky (76d): one connect form, active (outside the greyed part).
+    await A.waitFor("document.querySelectorAll('#atproto').length === 1 && !!document.querySelector('form[action=\"/oauth/login\"] input[placeholder=\"business.bsky.social\"]') && !document.querySelector('fieldset[disabled] input[placeholder=\"business.bsky.social\"]')", "business Bluesky connect, active");
     await A.waitFor("!!document.querySelector('nav a.acting svg.wings:not(.off)')", "gold wings on the username button (trial = live)");
     await A.goto(base + "/meetups/new");
     await A.waitFor("!!document.querySelector('#meetup-form select[name=as]')", "host-as choice");
