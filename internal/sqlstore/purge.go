@@ -1,12 +1,15 @@
 package sqlstore
 
 import (
+	"slices"
+
 	"bytes"
 	"context"
 	"database/sql"
 	"encoding/gob"
 	"encoding/json"
 	"fmt"
+	"github.com/LaPingvino/kafumu/internal/business"
 	"time"
 
 	"github.com/LaPingvino/kafumu/internal/purge"
@@ -113,6 +116,7 @@ func purgeUsers(ctx context.Context, db *sql.DB, now time.Time) (int64, error) {
 	}
 	rows.Close()
 	for _, v := range gone {
+		leaveBusinessesKV(db, v.id)
 		for _, q := range []struct {
 			sql  string
 			args []any
@@ -124,4 +128,37 @@ func purgeUsers(ctx context.Context, db *sql.DB, now time.Time) (int64, error) {
 		}
 	}
 	return int64(len(gone)), nil
+}
+
+// leaveBusinessesKV: as purge's leaveBusinesses, for businesses kept in the
+// kv table (self-hosted).
+func leaveBusinessesKV(db *sql.DB, userID string) {
+	kvs := &KV{DB: db}
+	all, err := kvs.LoadKind("Business")
+	if err != nil {
+		return
+	}
+	for id, data := range all {
+		var b business.Business
+		if gob.NewDecoder(bytes.NewReader(data)).Decode(&b) != nil || !b.Manages(userID) {
+			continue
+		}
+		b.Managers = slices.DeleteFunc(b.Managers, func(m string) bool { return m == userID })
+		if len(b.Managers) > 0 {
+			var buf bytes.Buffer
+			if gob.NewEncoder(&buf).Encode(&b) == nil {
+				kvs.SaveOne("Business", id, buf.Bytes())
+			}
+			continue
+		}
+		kvs.DeleteOne("Business", id)
+		db.Exec(`DELETE FROM vaults WHERE user = ?`, "biz:"+id)
+		if b.Username != "" {
+			db.Exec(`DELETE FROM usernames WHERE name = ? AND owner = ?`, b.Username, "biz:"+id)
+			kvs.DeleteOne("Handle", b.Username)
+		}
+		if b.InboxBox != "" {
+			kvs.DeleteOne("InboxPrice", b.InboxBox)
+		}
+	}
 }

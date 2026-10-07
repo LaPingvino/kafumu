@@ -2,6 +2,7 @@ package purge
 
 import (
 	"context"
+	"github.com/LaPingvino/kafumu/internal/business"
 	"os"
 	"testing"
 	"time"
@@ -48,9 +49,30 @@ func TestRun(t *testing.T) {
 		UserID string `datastore:"user_id,noindex"`
 	}{"named-gone"})
 
+	// named-gone managed two businesses: one shared, one alone.
+	put(datastore.NameKey("Business", "shared", nil), &business.Business{Name: "Shared", Managers: []string{"named-gone", "anon-active"}})
+	put(datastore.NameKey("Business", "solo", nil), &business.Business{Name: "Solo", Username: "solo-shop", Managers: []string{"named-gone"}})
+	put(datastore.NameKey("Username", "solo-shop", nil), &struct {
+		UserID string `datastore:"user_id,noindex"`
+	}{"biz:solo"})
+
 	r, err := Run(ctx, db, now)
 	if err != nil {
 		t.Fatal(err)
+	}
+	var sh business.Business
+	if err := db.Get(ctx, datastore.NameKey("Business", "shared", nil), &sh); err != nil || len(sh.Managers) != 1 || sh.Managers[0] != "anon-active" {
+		t.Errorf("shared business after purge: %+v %v", sh, err)
+	}
+	var so business.Business
+	if err := db.Get(ctx, datastore.NameKey("Business", "solo", nil), &so); err != datastore.ErrNoSuchEntity {
+		t.Errorf("business without managers: %v", err)
+	}
+	var un struct {
+		UserID string `datastore:"user_id,noindex"`
+	}
+	if err := db.Get(ctx, datastore.NameKey("Username", "solo-shop", nil), &un); err != datastore.ErrNoSuchEntity {
+		t.Errorf("closed business's name still taken: %v", err)
 	}
 	if r.Meetups != 1 || r.Boxes != 1 || r.Slots != 1 || r.Users != 2 || r.Usernames != 1 {
 		t.Errorf("result = %s", r)

@@ -4,8 +4,11 @@
 package purge
 
 import (
+	"slices"
+
 	"context"
 	"fmt"
+	"github.com/LaPingvino/kafumu/internal/business"
 	"time"
 
 	"cloud.google.com/go/datastore"
@@ -81,6 +84,9 @@ func Run(ctx context.Context, db *datastore.Client, now time.Time) (Result, erro
 			return r, fmt.Errorf("users: %w", err)
 		}
 		r.Users = len(del) / 2
+		for i := 0; i < len(del); i += 2 {
+			leaveBusinesses(ctx, db, del[i].Name)
+		}
 	}
 	if len(names) > 0 {
 		if err := db.DeleteMulti(ctx, names); err == nil {
@@ -96,4 +102,33 @@ func deleteAll(ctx context.Context, db *datastore.Client, q *datastore.Query) (i
 		return 0, err
 	}
 	return len(keys), db.DeleteMulti(ctx, keys)
+}
+
+// leaveBusinesses takes a purged account off the businesses it managed,
+// and closes those left without managers, with their @name, named link,
+// inbox price and synced vault (as deleting an account does).
+func leaveBusinesses(ctx context.Context, db *datastore.Client, userID string) {
+	var bs []business.Business
+	keys, err := db.GetAll(ctx, datastore.NewQuery("Business").FilterField("managers", "=", userID).Limit(50), &bs)
+	if err != nil {
+		if _, ok := err.(*datastore.ErrFieldMismatch); !ok {
+			return
+		}
+	}
+	for i, k := range keys {
+		b := bs[i]
+		b.Managers = slices.DeleteFunc(b.Managers, func(m string) bool { return m == userID })
+		if len(b.Managers) > 0 {
+			db.Put(ctx, k, &b)
+			continue
+		}
+		gone := []*datastore.Key{k, datastore.NameKey("Vault", "biz:"+k.Name, nil)}
+		if b.Username != "" {
+			gone = append(gone, datastore.NameKey("Username", b.Username, nil), datastore.NameKey("Handle", b.Username, nil))
+		}
+		if b.InboxBox != "" {
+			gone = append(gone, datastore.NameKey("InboxPrice", b.InboxBox, nil))
+		}
+		db.DeleteMulti(ctx, gone)
+	}
 }

@@ -2,6 +2,7 @@ package sqlstore
 
 import (
 	"context"
+	"github.com/LaPingvino/kafumu/internal/business"
 	"path/filepath"
 	"testing"
 	"time"
@@ -39,6 +40,14 @@ func TestPurge(t *testing.T) {
 		}
 		(&Vaults{DB: db}).Put(ctx, id, 0, []byte("sealed"), now)
 	}
+	bs := business.New(nil)
+	shared, _ := bs.Create(ctx, "Shared Café", "cafe", "", "named-old", now)
+	shared.Managers = append(shared.Managers, "anon-new")
+	bs.Save(ctx, shared)
+	solo, _ := bs.Create(ctx, "Solo Shop", "cafe", "", "named-old", now)
+	solo.Username = "solo-shop"
+	bs.Save(ctx, solo)
+	acc.ClaimUsername(ctx, "solo-shop", "biz:"+solo.ID)
 	put("anon-old", "", 31*24*time.Hour, 0)
 	put("anon-new", "", 2*24*time.Hour, 0)
 	put("named-old", "olda", 366*24*time.Hour, 0)
@@ -70,6 +79,18 @@ func TestPurge(t *testing.T) {
 	}
 	if owner, _ := acc.LookupUsername(ctx, "olda"); owner != "" {
 		t.Error("deleted account's username still taken")
+	}
+	// The purged manager's businesses: the shared one keeps its other
+	// manager, the solo one is closed and its @name freed.
+	after := business.New(nil)
+	if b, err := after.Get(ctx, shared.ID); err != nil || len(b.Managers) != 1 || b.Managers[0] != "anon-new" {
+		t.Errorf("shared business after purge: %+v %v", b, err)
+	}
+	if _, err := after.Get(ctx, solo.ID); err == nil {
+		t.Error("business without managers kept")
+	}
+	if owner, _ := acc.LookupUsername(ctx, "solo-shop"); owner != "" {
+		t.Error("closed business's name still taken")
 	}
 	if owner, _ := acc.LookupUsername(ctx, "keeper"); owner != "named-kept" {
 		t.Error("kept account lost its name")
