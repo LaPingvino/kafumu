@@ -28,10 +28,10 @@
       <a id="be-findable" href="/findable" role="button" class="pill-sm">👁 {{t .Lang "home.be_findable"}}</a>
     </p>
   </div>
-  {{if and .ATproto .User}}{{if .User.DID}}
+  {{if and .ATproto .User}}{{if .BskyHandle}}
   <form id="composer" method="post" action="/post" class="card" style="padding:4px 16px 12px" hidden>
     <input type="hidden" name="cell">
-    <label>{{t .Lang "post.label"}} <span class="dim">@{{.User.ATHandle}}</span>
+    <label>{{t .Lang "post.label"}} <span class="dim">@{{.BskyHandle}}</span>
       <textarea name="text" rows="3" maxlength="300" placeholder="{{ts .Lang "post.placeholder"}}"></textarea></label>
     <div class="actions"><button type="submit" class="pill">{{t .Lang "post.send"}}</button></div>
   </form>{{end}}{{end}}

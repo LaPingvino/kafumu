@@ -99,6 +99,9 @@ type page struct {
 	User    *account.User
 	// Acting: the business you're using Kafumu as (nil: yourself).
 	Acting *business.Business
+	// BskyHandle: the Bluesky account your posts go to right now: the
+	// business's while acting as one (or none), else yours.
+	BskyHandle string
 	// Now: the time of this request (for Live checks in templates).
 	Now time.Time
 	// Maker, Contact, ContactText: footer "Contact the maker" (see footer.go).
@@ -122,15 +125,22 @@ func (h *Home) newPage(r *http.Request, title string) page {
 	}
 	maker, contact, contactText := h.footer(r.Context())
 	var acting *business.Business
+	bsky := ""
 	if u := UserFrom(r.Context()); u != nil {
-		acting = h.acting(r.Context(), r, u.ID)
+		acting, bsky = h.acting(r.Context(), r, u.ID), u.ATHandle
+		if u.DID == "" {
+			bsky = ""
+		}
+		if acting != nil {
+			bsky = acting.ATHandle
+		}
 	}
 	name, bi := h.Cfg.Brand, h.Brands.For(r.Context(), r.Host)
 	if bi != nil {
 		name = bi.Name
 	}
 	brandAdmin := h.isBrandAdmin(r.Context(), bi, UserFrom(r.Context()))
-	return page{Acting: acting, Now: time.Now(), Brand: name, BrandInfo: bi, BrandAdmin: brandAdmin, Title: title, Lang: lang, V: h.Cfg.Version, Langs: locale.Langs(), MovedTo: moved,
+	return page{Acting: acting, BskyHandle: bsky, Now: time.Now(), Brand: name, BrandInfo: bi, BrandAdmin: brandAdmin, Title: title, Lang: lang, V: h.Cfg.Version, Langs: locale.Langs(), MovedTo: moved,
 		Passkeys: h.Cfg.Passkeys && moved == "", ATproto: h.ATproto != nil && moved == "",
 		User: UserFrom(r.Context()), JS: locale.Prefix(lang, "js."), Maker: maker, Contact: contact, ContactText: contactText}
 }

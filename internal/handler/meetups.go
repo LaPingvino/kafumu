@@ -148,8 +148,9 @@ func (h *Meetups) RSVP(w http.ResponseWriter, r *http.Request) {
 		log.Printf("meetup: rsvp: %v", err)
 	}
 	// "Going" to an event that exists on ATproto: say so in your own repo too.
-	if err == nil && going && m.ATURI != "" && m.ATCID != "" && u.DID != "" && h.Home.ATproto != nil {
-		if _, _, err := h.Home.ATproto.CreateRecord(r.Context(), u.DID, u.ATSession, "community.lexicon.calendar.rsvp",
+	did, session := bskyAccount(u, h.Home.ActingAs(r)) // going as a business: its Bluesky says so, not yours
+	if err == nil && going && m.ATURI != "" && m.ATCID != "" && did != "" && h.Home.ATproto != nil {
+		if _, _, err := h.Home.ATproto.CreateRecord(r.Context(), did, session, "community.lexicon.calendar.rsvp",
 			atp.RSVPRecord(m.ATURI, m.ATCID, time.Now())); err != nil {
 			log.Printf("atproto: rsvp: %v", err)
 		}

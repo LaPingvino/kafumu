@@ -886,5 +886,6 @@ start (magic link re-binds them after a domain move).
       again on return); meetups hosted as a business (any you manage) are published to its account or not at
       all, posting while acting posts as it (bskyAccount: never the manager's own); disconnect while acting, and
       closing a business, end its session. Account page shows the business's Bluesky above the greyed part.
-      Test: bskyAccount. (The OAuth round trip itself needs a real PDS: not testable locally.)
+      Test: bskyAccount. (The OAuth round trip itself needs a real PDS: not testable locally.) Follow-up: the
+      Around post box shows the acting account's handle (page.BskyHandle), and "going" while acting RSVPs as it.
 
