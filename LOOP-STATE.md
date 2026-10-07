@@ -899,8 +899,11 @@ on a contact's card; strangers' reactions show only under the post in its own ce
       Done: rememberPost (notes, asks, replies, coffee; max 200); /post returns the URI (&at=, &t=) and the
       page now says "Posted to Bluesky" (posted=1/0 was never read, and "/&posted" was a broken URL). Meetups
       come from the account in 77d. Browser test: the posted note lands in myPosts.
-- [ ] 77b. Public replies/reactions to own posts across cells: index Note `re` (the #re<id> tag, public anyway);
-      `GET /api/oln/re?ids=a,b,…` (anonymous, ≤20 ids, memcached 1 min per id, no account). 
+- [x] 77b. Public replies/reactions to own posts across cells: index Note `re` (the #re<id> tag, public anyway);
+      `GET /api/oln/re?ids=a,b,…` (anonymous, ≤20 ids, memcached 1 min per id, no account).
+      Done: Note.Re (indexed, set by Parse), Store.RepliesTo (Datastore, memory; SQLite via json_extract, no
+      migration), Service.Replies (1-min per-instance cache per id, hidden notes left out), HandleRe (public,
+      max-age=60). Deployed early so replies get indexed before 77c uses them; older replies (no `re`) won't show.
 - [ ] 77c. /activity page + 🔔 in the header with an unread count (and setAppBadge): private answers, public
       replies/reactions, chat lines + reactions + signals from contacts, business inbox messages, new connections
       through your code/invite, coffee joiners. Each item links to where to answer. "Seen" kept on the device.

@@ -113,3 +113,30 @@ func (s *Service) HandlePair(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Cache-Control", "no-store")
 	json.NewEncoder(w).Encode(out)
 }
+
+// HandleRe is GET /api/oln/re?ids=a,b: public replies and reactions to
+// those posts (#re ids), wherever they were posted, so their author sees
+// them from any area (77b). Anonymous; the ids are public tags.
+func (s *Service) HandleRe(w http.ResponseWriter, r *http.Request) {
+	var ids []string
+	for _, id := range strings.Split(strings.ToLower(r.URL.Query().Get("ids")), ",") {
+		if id = strings.TrimSpace(id); reTag.MatchString("re" + id) {
+			ids = append(ids, id)
+		}
+	}
+	if len(ids) == 0 || len(ids) > MaxReIDs {
+		http.Error(w, "want ?ids=a,b (1-20 ids of 10 hex)", http.StatusBadRequest)
+		return
+	}
+	ns, err := s.Replies(r.Context(), ids)
+	if err != nil {
+		http.Error(w, "unavailable", http.StatusServiceUnavailable)
+		return
+	}
+	if ns == nil {
+		ns = []*Note{}
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Cache-Control", "public, max-age=60")
+	json.NewEncoder(w).Encode(ns)
+}

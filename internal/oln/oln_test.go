@@ -149,6 +149,30 @@ func TestAsks(t *testing.T) {
 	}
 }
 
+// Replies and reactions are found by what they answer, from any area
+// (77b): a reply posted far from the post still comes back to its author.
+func TestReplies(t *testing.T) {
+	s := NewService(NewMemoryStore())
+	ctx, now := context.Background(), time.Now().UTC()
+	post, err := s.Post(ctx, mine(BaseBits, now, "Coffee at the square?", "#geo8ccgmw"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	re := post.ID[:10]
+	near, _ := s.Post(ctx, mine(BaseBits, now, "👍", "#geo8ccgmw #re"+re))
+	far, _ := s.Post(ctx, mine(BaseBits, now.Add(time.Second), "Count me in", "#geo9c2v2v #re"+re))
+	if _, err := s.Post(ctx, mine(BaseBits, now, "unrelated", "#geo8ccgmw")); err != nil {
+		t.Fatal(err)
+	}
+	if near.Re != re || far.Re != re || post.Re != "" {
+		t.Fatalf("re = %q %q %q", near.Re, far.Re, post.Re)
+	}
+	got, err := s.Replies(ctx, []string{re, "0123456789"})
+	if err != nil || len(got) != 2 || got[0].ID != near.ID || got[1].ID != far.ID {
+		t.Fatalf("replies = %+v, %v", got, err)
+	}
+}
+
 // Private messages: no place, one pair tag; a week's life at base work;
 // fetched by tag, never in an area's list.
 func TestPairMessages(t *testing.T) {

@@ -46,6 +46,11 @@ func TestNotesOnSQLite(t *testing.T) {
 	if ps, _ := s.ForPair(ctx, "p0123456789abcdef0123456789abcdef"); len(ps) != 1 || ps[0].ID != p.ID {
 		t.Fatalf("ForPair = %+v", ps)
 	}
+	// A reply from another area, found by what it answers (77b).
+	re, _ := s.Post(ctx, mine(oln.BaseBits, now, "Count me in", "#geo9c2v2v #re"+n.ID[:10]))
+	if rs, err := s.Replies(ctx, []string{n.ID[:10]}); err != nil || len(rs) != 1 || rs[0].ID != re.ID {
+		t.Fatalf("Replies = %+v, %v", rs, err)
+	}
 	db.Close()
 	db2, _ := Open(path)
 	s2 := oln.NewService(&Notes{DB: db2})

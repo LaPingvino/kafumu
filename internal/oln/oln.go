@@ -75,6 +75,9 @@ type Note struct {
 	// Asks: a question's subjects (its tags minus #geo, #lang…, #re…, #ask),
 	// indexed so people with those interests can find it from further away.
 	Asks []string `datastore:"asks" json:"-"`
+	// Re: what a reply or reaction answers (its #re tag without "re"),
+	// indexed so the author can find replies from anywhere (77b).
+	Re string `datastore:"re" json:"-"`
 	// Pair: a private message's pair tag (indexed); empty for public ones.
 	Pair string `datastore:"pair" json:"-"`
 	// Author: the username that posted it, vouched for by this node (the
@@ -194,6 +197,12 @@ func parse(raw string, now time.Time, relay bool) (*Note, error) {
 		return nil, ErrPlace
 	}
 	n := &Note{ID: ID(raw), Raw: raw, Text: text, Cell: cells[0], Tags: tags, Bits: Bits(raw), At: at}
+	for _, t := range tags {
+		if reTag.MatchString(t) {
+			n.Re = t[2:]
+			break
+		}
+	}
 	if slices.Contains(tags, "ask") {
 		for _, t := range tags {
 			if t != "ask" && !strings.HasPrefix(t, "geo") && !strings.HasPrefix(t, "lang") && !reTag.MatchString(t) {
@@ -249,6 +258,8 @@ type Store interface {
 	Hide(ctx context.Context, id string) error
 	// AskedAbout returns live questions with subject tag (any distance).
 	AskedAbout(ctx context.Context, tag string, now time.Time) ([]*Note, error)
+	// RepliesTo returns live public replies and reactions to re (a #re id).
+	RepliesTo(ctx context.Context, re string, now time.Time) ([]*Note, error)
 	// ByPair returns live private messages under a pair tag.
 	ByPair(ctx context.Context, tag string, now time.Time) ([]*Note, error)
 }
@@ -272,6 +283,46 @@ func (s *Service) ForPair(ctx context.Context, tag string) ([]*Note, error) {
 	}
 	sort.Slice(ns, func(i, j int) bool { return ns[i].At.Before(ns[j].At) })
 	return ns, nil
+}
+
+// MaxReIDs bounds one /api/oln/re request.
+const MaxReIDs = 20
+
+// Replies returns the live, unhidden replies and reactions to any of ids
+// (#re ids), oldest first, each id's list cached a minute per instance.
+func (s *Service) Replies(ctx context.Context, ids []string) ([]*Note, error) {
+	now := s.Now()
+	seen, hidden := map[string]bool{}, s.hiddenSet(ctx)
+	var out []*Note
+	for i, id := range ids {
+		if i == MaxReIDs {
+			break
+		}
+		s.mu.Lock()
+		e, ok := s.res[id]
+		s.mu.Unlock()
+		if !ok || now.Sub(e.at) > time.Minute {
+			ns, err := s.Store.RepliesTo(ctx, id, now)
+			if err != nil {
+				return nil, err
+			}
+			e = cellEntry{ns: ns, at: now}
+			s.mu.Lock()
+			if s.res == nil || len(s.res) > 5000 {
+				s.res = map[string]cellEntry{}
+			}
+			s.res[id] = e
+			s.mu.Unlock()
+		}
+		for _, n := range e.ns {
+			if !seen[n.ID] && n.ExpiresAt.After(now) && !hidden[n.ID] {
+				seen[n.ID] = true
+				out = append(out, n)
+			}
+		}
+	}
+	sort.Slice(out, func(i, j int) bool { return out[i].At.Before(out[j].At) })
+	return out, nil
 }
 
 // MaxAskTags bounds one /api/asks request.
@@ -324,6 +375,7 @@ type Service struct {
 	hidden map[string]bool
 	hidAt  time.Time
 	asks   map[string]cellEntry
+	res    map[string]cellEntry // replies per #re id (77b)
 	// repeats: recently posted texts (normalised) and the cells they went
 	// to, for this node's repeat policy (see repeatPrice).
 	repeats map[string]map[string]time.Time

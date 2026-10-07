@@ -21,11 +21,12 @@ type noteRow struct {
 	oln.Note
 	Asks []string  `json:"asks,omitempty"`
 	Pair string    `json:"pair,omitempty"`
+	Re   string    `json:"re,omitempty"`
 	Recv time.Time `json:"recv,omitempty"`
 }
 
 func (s *Notes) Put(ctx context.Context, n *oln.Note) error {
-	b, err := json.Marshal(noteRow{Note: *n, Asks: n.Asks, Pair: n.Pair, Recv: n.Recv})
+	b, err := json.Marshal(noteRow{Note: *n, Asks: n.Asks, Pair: n.Pair, Re: n.Re, Recv: n.Recv})
 	if err != nil {
 		return err
 	}
@@ -51,7 +52,7 @@ func scanNotes(rows *sql.Rows) ([]*oln.Note, error) {
 			return nil, err
 		}
 		n := r.Note
-		n.Asks, n.Pair, n.Recv = r.Asks, r.Pair, r.Recv
+		n.Asks, n.Pair, n.Re, n.Recv = r.Asks, r.Pair, r.Re, r.Recv
 		out = append(out, &n)
 	}
 	return out, rows.Err()
@@ -133,4 +134,14 @@ func (s *Notes) PurgeNotes(ctx context.Context, now time.Time) (int64, error) {
 		return 0, err
 	}
 	return r.RowsAffected()
+}
+
+// RepliesTo reads the re out of each row's JSON: no column, no migration
+// (a self-hosted node's notes table is small).
+func (s *Notes) RepliesTo(ctx context.Context, re string, now time.Time) ([]*oln.Note, error) {
+	rows, err := s.DB.QueryContext(ctx, `SELECT data FROM notes WHERE expires_at > ? AND json_extract(data, '$.re') = ? LIMIT 100`, now.Unix(), re)
+	if err != nil {
+		return nil, err
+	}
+	return scanNotes(rows)
 }
