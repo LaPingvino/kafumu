@@ -4,7 +4,7 @@
   <h1>{{.M.Title}}</h1>
   <p class="when" data-start="{{.M.StartAt.Format "2006-01-02T15:04:05Z07:00"}}" data-end="{{.M.EndAt.Format "2006-01-02T15:04:05Z07:00"}}">{{.M.StartAt.Format "Mon 2 Jan 15:04 MST"}}</p>
   {{if .M.Venue}}<p>📍 {{venue .M.Venue}}</p>{{end}}
-  <p class="dim">#geo{{.M.Cell}}{{range .M.Tags}} · #{{.}}{{end}}</p>
+  <p class="dim">#geo{{.M.Cell}}{{range .M.Tags}} · {{tagLabel .}}{{end}}</p>
   {{if .M.Text}}<p class="text">{{.M.Text}}</p>{{end}}
   {{if .M.Link}}<p><a href="{{.M.Link}}" rel="noopener nofollow ugc" target="_blank">{{t .Lang "meetup.open_on"}} {{host .M.Link}} ↗</a></p>{{end}}
   <p>{{if or .M.Going (not .M.Via)}}<strong>{{.M.Going}}</strong> {{t .Lang "meetup.going_here"}}{{end}}{{if and .M.Via .M.Going (ne (host .M.Link) .M.Via)}} · {{end}}{{if .M.Via}}{{if ne (host .M.Link) .M.Via}}<span class="dim">{{t .Lang "meetup.via"}} {{.M.Via}}</span>{{end}}{{else if .M.Business}} · {{t .Lang "meetup.host"}} <svg class="wings"><use href="#i-wings"/></svg> <strong>{{.M.Business}}</strong>{{else if .M.AuthorName}} · {{t .Lang "meetup.host"}} @{{.M.AuthorName}}{{end}}</p>

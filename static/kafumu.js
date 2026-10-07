@@ -1089,7 +1089,8 @@
         title.textContent = m.title;
         var meta = document.createElement("div");
         meta.className = "meta";
-        meta.textContent = [m.venue, m.via ? tr("via", { site: m.via }) : tr("going_n", { n: m.going })].concat((m.tags || []).map(function (t) { return "#" + t; })).filter(Boolean).join(" · ");
+        meta.textContent = [m.venue, m.via ? tr("via", { site: m.via }) : tr("going_n", { n: m.going })].concat((m.tags || []).map(function (t) { // "lang:epo" is a language, not a hashtag
+          return t.indexOf("lang:") === 0 ? "🗣 " + (((window.KAFUMU_ME || {}).names || {})[t.slice(5)] || t.slice(5)) : "#" + t; })).filter(Boolean).join(" · ");
         a.appendChild(when); a.appendChild(title); a.appendChild(meta);
         li.appendChild(a);
         var mrow = document.createElement("div");

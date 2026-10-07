@@ -338,6 +338,17 @@ var Funcs = template.FuncMap{
 	"t":     func(lang, key string) template.HTML { return template.HTML(locale.T(lang, key)) },
 	"ts":    locale.T,
 	"venue": meetup.CleanVenue,
+	// tagLabel shows a tag to people: "lang:epo" as "🗣 Esperanto" (an
+	// internal language tag), anything else as "#tag".
+	"tagLabel": func(tag string) string {
+		if code, ok := strings.CutPrefix(tag, "lang:"); ok {
+			if n := langs.Names[code]; n != "" {
+				return "🗣 " + n
+			}
+			return "🗣 " + code
+		}
+		return "#" + tag
+	},
 	// bskyURL: at://did/app.bsky.feed.post/rkey → its bsky.app page.
 	"bskyURL": func(uri string) string {
 		p := strings.Split(strings.TrimPrefix(uri, "at://"), "/")

@@ -241,3 +241,14 @@ func TestWideBundleTownTags(t *testing.T) {
 		t.Fatalf("town tag #%s not used: %.200s", town[0], w.Body.String())
 	}
 }
+
+// A meetup's language tag reads as a language, not as "#lang:epo".
+func TestTagLabel(t *testing.T) {
+	f := Funcs["tagLabel"].(func(string) string)
+	if got := f("lang:epo"); got != "🗣 Esperanto" {
+		t.Fatalf("lang:epo → %q", got)
+	}
+	if got := f("esperanto"); got != "#esperanto" {
+		t.Fatalf("esperanto → %q", got)
+	}
+}
