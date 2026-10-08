@@ -939,6 +939,9 @@ on a contact's card; strangers' reactions show only under the post in its own ce
       ones not in the cell's bundle.
 
 ## 78. Reactions everywhere, and carrying them home (Joop, 2026-10-08)
+Tagging rule (Joop): tag a reaction with the clearest indication of what it reacts to — its #re, plus the
+target's own place and subject tags (an Esperanto event's #esperanto and its #geo if it has one; a link's
+#site<host>; a meetup's tags), so it can be found from the thing, not only from where you stood.
 - [ ] 78a. "General" notes: needed for "general" reactions and for links with only subject tags.
       Decided (Joop, 2026-10-08): the one-cell rule is Kafumu's API, not the OLN message format. A general line
       simply has no #geo (`…;#esperanto #re…`); the API files it under the internal cell "000000" (all zero =
