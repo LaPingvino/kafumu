@@ -176,7 +176,10 @@
       var body = document.createElement("span"); body.className = "act-body";
       var head = document.createElement("span"); head.className = "dim small";
       head.textContent = [it.who, it.about, new Date(it.at).toLocaleString(window.KAFUMU_LOCALE, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })].filter(Boolean).join(" · ");
-      var text = document.createElement("span"); text.className = "act-text"; text.textContent = short(it.text, 200);
+      // Several lines ("👀 Did you see this?", a title, a link) read as one: "line · line", the bare link left
+      // out (the chat it opens has it, clickable).
+      var lines = String(it.text || "").split("\n").map(function (l) { return l.trim(); }).filter(function (l) { return l && !/^https?:\/\/\S+$/.test(l); });
+      var text = document.createElement("span"); text.className = "act-text"; text.textContent = short(lines.join(" · "), 200);
       body.appendChild(head); body.appendChild(text);
       a.appendChild(icon); a.appendChild(body);
       li.appendChild(a);
