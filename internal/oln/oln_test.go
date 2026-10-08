@@ -417,3 +417,33 @@ func TestOnPair(t *testing.T) {
 		t.Fatalf("woke = %v", woke)
 	}
 }
+
+// A reaction needs no place (78a): "#re<id>" alone is filed under
+// Everywhere, found by what it answers, and priced by that thing's replies.
+func TestReactionWithoutPlace(t *testing.T) {
+	s := NewService(NewMemoryStore())
+	ctx, now := context.Background(), time.Now().UTC()
+	post, err := s.Post(ctx, mine(BaseBits, now, "Coffee at the square?", "#geo8ccgmw"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	re := post.ID[:10]
+	r, err := s.Post(ctx, mine(BaseBits, now, "👍", "#re"+re))
+	if err != nil || r.Cell != Everywhere || r.Re != re {
+		t.Fatalf("reaction = %+v, %v", r, err)
+	}
+	if got, _ := s.Replies(ctx, []string{re}); len(got) != 1 || got[0].ID != r.ID {
+		t.Fatalf("replies = %+v", got)
+	}
+	if got, _ := s.InCells(ctx, []string{"8ccgmw"}); len(got) != 1 {
+		t.Fatalf("the area's list has %d, want just the post", len(got))
+	}
+	if _, err := s.Post(ctx, mine(BaseBits, now, "no place, no re", "#esperanto")); err != ErrPlace {
+		t.Fatalf("subject-only: %v (78a-3 adds those)", err)
+	}
+	w := httptest.NewRecorder()
+	s.HandleRequired(w, httptest.NewRequest("GET", "/api/oln/required?re="+re, nil))
+	if w.Code != 200 || !strings.Contains(w.Body.String(), `"bits"`) {
+		t.Fatalf("required?re: %d %s", w.Code, w.Body)
+	}
+}

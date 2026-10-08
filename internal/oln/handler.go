@@ -80,15 +80,21 @@ func (s *Service) HandleAsks(w http.ResponseWriter, r *http.Request) {
 // HandleRequired is GET /api/oln/required?cell=…: the work (bits) a new
 // message in that cell needs right now.
 func (s *Service) HandleRequired(w http.ResponseWriter, r *http.Request) {
-	cell := strings.ToLower(r.URL.Query().Get("cell"))
-	if !geo.Valid(cell) {
-		http.Error(w, "want ?cell=<6-char #geo cell>", http.StatusBadRequest)
+	cell, re := strings.ToLower(r.URL.Query().Get("cell")), strings.ToLower(r.URL.Query().Get("re"))
+	var bits int
+	switch {
+	case reTag.MatchString("re" + re): // ?re=<10 hex>: a reaction without a place
+		bits = s.requiredForRe(r.Context(), re)
+	case geo.Valid(cell):
+		bits = s.RequiredFor(r.Context(), cell)
+	default:
+		http.Error(w, "want ?cell=<6-char #geo cell> or ?re=<10 hex>", http.StatusBadRequest)
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Cache-Control", "public, max-age=30")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	json.NewEncoder(w).Encode(map[string]int{"bits": s.RequiredFor(r.Context(), cell)})
+	json.NewEncoder(w).Encode(map[string]int{"bits": bits})
 }
 
 // HandlePair is GET /api/oln/pair/{tag}: the private messages waiting under

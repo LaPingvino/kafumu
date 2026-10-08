@@ -946,7 +946,14 @@ on a contact's card; strangers' reactions show only under the post in its own ce
 Tagging rule (Joop): tag a reaction with the clearest indication of what it reacts to, and #re<id> alone is
 that (the most focused): a reaction line is just `…;#re<id>` (plus #lang for text), no #geo. It's found from
 the thing through the 77b index, wherever the thing is.
-- [ ] 78a. "General" notes: needed for "general" reactions and for links with only subject tags.
+- [x] 78a-1. Server: lines with a #re and no #geo are accepted, filed under oln.Everywhere ("000000", not a valid
+      area cell, so no bundle includes it), priced by the replies to that same target (requiredForRe; also
+      /api/oln/required?re=). OLN page documents it and /api/oln/re. Test: TestReactionWithoutPlace. Not yet:
+      linked nodes don't pull Everywhere lines (pull is per area).
+- [ ] 78a-2. Client: react buttons and 💬 replies post `#re<id>` only (+#lang for text), mining at required?re=;
+      Around fetches the reactions of the cards it shows from /api/oln/re (≤20 ids a call) and merges them with
+      the bundle's (old #geo-tagged ones).
+- [ ] 78a-3. "General" notes: needed for "general" reactions and for links with only subject tags.
       Decided (Joop, 2026-10-08): the one-cell rule is Kafumu's API, not the OLN message format. A general line
       simply has no #geo (`…;#esperanto #re…`); the API files it under the internal cell "000000" (all zero =
       everywhere), so Store/Note stay the same. Parse: no cell + ≥1 subject tag (not lang/re/ask-only) → Cell

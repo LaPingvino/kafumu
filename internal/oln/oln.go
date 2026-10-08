@@ -193,6 +193,12 @@ func parse(raw string, now time.Time, relay bool) (*Note, error) {
 	if utf8.RuneCountInString(text) > MaxText {
 		return nil, ErrFormat // readable text: the long limit is for ciphertext only
 	}
+	// A reaction needs no place (Joop): "#re<id>" says what it's about, and
+	// it's found from that thing wherever it is (77b). The API files such
+	// lines under the cell Everywhere, which no area's list includes.
+	if len(cells) == 0 && slices.ContainsFunc(tags, reTag.MatchString) {
+		cells = []string{Everywhere}
+	}
 	if len(cells) != 1 {
 		return nil, ErrPlace
 	}
@@ -265,6 +271,11 @@ type Store interface {
 }
 
 var reTag = regexp.MustCompile(`^re[0-9a-f]{10}$`)
+
+// Everywhere is the cell lines without a #geo are filed under (all zero, as
+// a padded plustag: no place in particular). Not a valid area cell, so no
+// bundle ever asks for it.
+const Everywhere = "000000"
 
 var pairTag = regexp.MustCompile(`^p[0-9a-f]{32}$`)
 
@@ -425,6 +436,26 @@ func (s *Service) RequiredFor(ctx context.Context, cell string) int {
 	return Required(hour, ten)
 }
 
+// requiredForRe is the difficulty of answering re right now: the same
+// formula as an area, counting recent replies to that one thing.
+func (s *Service) requiredForRe(ctx context.Context, re string) int {
+	ns, err := s.Store.RepliesTo(ctx, re, s.Now())
+	if err != nil {
+		return BaseBits
+	}
+	now := s.Now()
+	hour, ten := 0, 0
+	for _, x := range ns {
+		if x.Recv.After(now.Add(-time.Hour)) {
+			hour++
+		}
+		if x.Recv.After(now.Add(-10 * time.Minute)) {
+			ten++
+		}
+	}
+	return Required(hour, ten)
+}
+
 // Post verifies and stores a raw message; an identical message is accepted
 // again without being stored twice.
 func (s *Service) Post(ctx context.Context, raw string) (*Note, error) { return s.PostAs(ctx, raw, "") }
@@ -453,6 +484,9 @@ func (s *Service) PostAs(ctx context.Context, raw, author string) (*Note, error)
 		return nil, err
 	}
 	req := s.RequiredFor(ctx, n.Cell) + extra
+	if n.Cell == Everywhere && n.Re != "" {
+		req = s.requiredForRe(ctx, n.Re) + extra // priced by the thing it answers, not by the whole world
+	}
 	if n.Bits < req {
 		return nil, &NeedError{Need: req}
 	}
