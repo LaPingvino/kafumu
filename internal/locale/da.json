@@ -635,5 +635,11 @@
   "js.seen_none": "Ingen kontakter endnu: forbind dig med nogen først.",
   "js.go_together": "Skal vi tage derhen sammen?",
   "js.together_yes": "Ja, lad os tage afsted!",
-  "js.together_no": "Jeg kan ikke"
+  "js.together_no": "Jeg kan ikke",
+  "privacy.row_push": "Notifikationer (kun hvis du slår dem til): din browsers push-adresse og de tilfældige id'er, din enhed holder øje med (dens postkasser, og hvor chatlinjer og svar til dig ankommer)",
+  "privacy.row_push_why": "For at vække din telefon, når noget ankommer; id'erne siger intet om hvem eller hvad",
+  "privacy.row_push_kept": "90 dage efter din enhed sidst fornyede den; indtil du slår notifikationer fra",
+  "privacy.row_bluesky": "En forbundet Bluesky-konto (ATproto), din eller en virksomheds (kun hvis du forbinder en): dens id, navn og login-session",
+  "privacy.row_bluesky_why": "For at gemme de møder og opslag, du laver her, på den konto",
+  "privacy.row_bluesky_kept": "Indtil du afbryder den; en ubrugt session ophører efter 90 dage"
 }

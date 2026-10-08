@@ -635,5 +635,11 @@
   "js.seen_none": "还没有联系人：先和别人建立联系吧。",
   "js.go_together": "一起去吗？",
   "js.together_yes": "好啊，一起去！",
-  "js.together_no": "去不了"
+  "js.together_no": "去不了",
+  "privacy.row_push": "通知（仅在你开启时）：你浏览器的推送地址，以及你的设备关注的随机标识（它的信箱，以及发给你的聊天和回答所到之处）",
+  "privacy.row_push_why": "有新消息时唤醒你的手机；这些标识看不出是谁、是什么",
+  "privacy.row_push_kept": "设备最后一次续期后 90 天；直到你关闭通知",
+  "privacy.row_bluesky": "已连接的 Bluesky（ATproto）账户，你的或商家的（仅在你连接时）：其标识、用户名和登录会话",
+  "privacy.row_bluesky_why": "把你在这里创建的聚会和帖子保存到那个账户",
+  "privacy.row_bluesky_kept": "直到你断开连接；未使用的会话 90 天后结束"
 }

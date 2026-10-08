@@ -635,5 +635,11 @@
   "js.seen_none": "No contacts yet: connect with someone first.",
   "js.go_together": "Shall we go together?",
   "js.together_yes": "Yes, let's go!",
-  "js.together_no": "Can't make it"
+  "js.together_no": "Can't make it",
+  "privacy.row_push": "Notifications (only if you turn them on): your browser's push address, and the random ids your device watches (its mailboxes, and where chat lines and answers to you arrive)",
+  "privacy.row_push_why": "To wake your phone when something arrives; the ids say nothing about who or what",
+  "privacy.row_push_kept": "90 days after your device last renewed it; until you turn notifications off",
+  "privacy.row_bluesky": "A connected Bluesky (ATproto) account, yours or a business's (only if you connect one): its id, handle and sign-in session",
+  "privacy.row_bluesky_why": "To save the meetups and posts you make here in that account",
+  "privacy.row_bluesky_kept": "Until you disconnect it; an unused session ends after 90 days"
 }

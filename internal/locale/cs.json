@@ -635,5 +635,11 @@
   "js.seen_none": "Zatím žádné kontakty: nejdřív se s někým spoj.",
   "js.go_together": "Půjdeme spolu?",
   "js.together_yes": "Jo, pojďme!",
-  "js.together_no": "Nemůžu"
+  "js.together_no": "Nemůžu",
+  "privacy.row_push": "Oznámení (jen když je zapneš): push adresa tvého prohlížeče a náhodné identifikátory, které tvé zařízení sleduje (jeho schránky a kam přicházejí řádky chatu a odpovědi pro tebe)",
+  "privacy.row_push_why": "Aby se telefon probudil, když něco přijde; identifikátory neříkají nic o tom, kdo ani co",
+  "privacy.row_push_kept": "90 dní od posledního obnovení tvým zařízením; dokud oznámení nevypneš",
+  "privacy.row_bluesky": "Propojený účet Bluesky (ATproto), tvůj nebo firmy (jen když nějaký propojíš): jeho id, jméno a přihlašovací relace",
+  "privacy.row_bluesky_why": "Aby se setkání a příspěvky, které tu vytvoříš, ukládaly do toho účtu",
+  "privacy.row_bluesky_kept": "Dokud ho neodpojíš; nepoužívaná relace skončí po 90 dnech"
 }

@@ -635,5 +635,11 @@
   "js.seen_none": "Még nincsenek kapcsolataid: előbb kapcsolódj valakihez.",
   "js.go_together": "Elmenjünk együtt?",
   "js.together_yes": "Igen, menjünk!",
-  "js.together_no": "Nem tudok"
+  "js.together_no": "Nem tudok",
+  "privacy.row_push": "Értesítések (csak ha bekapcsolod): a böngésződ push-címe és a véletlen azonosítók, amelyeket az eszközöd figyel (a postafiókjai, és ahová a neked szóló csevegősorok és válaszok érkeznek)",
+  "privacy.row_push_why": "Hogy felébressze a telefonodat, ha valami érkezik; az azonosítók semmit nem árulnak el arról, ki vagy mi",
+  "privacy.row_push_kept": "90 nappal az eszközöd utolsó megújítása után; amíg ki nem kapcsolod az értesítéseket",
+  "privacy.row_bluesky": "Egy összekapcsolt Bluesky- (ATproto-) fiók, a tiéd vagy egy vállalkozásé (csak ha összekapcsolsz egyet): azonosítója, neve és bejelentkezési munkamenete",
+  "privacy.row_bluesky_why": "Hogy az itt készített találkozóid és bejegyzéseid abba a fiókba kerüljenek",
+  "privacy.row_bluesky_kept": "Amíg le nem választod; a nem használt munkamenet 90 nap után lejár"
 }

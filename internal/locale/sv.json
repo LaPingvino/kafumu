@@ -635,5 +635,11 @@
   "js.seen_none": "Inga kontakter än: koppla ihop dig med någon först.",
   "js.go_together": "Ska vi gå tillsammans?",
   "js.together_yes": "Ja, vi går!",
-  "js.together_no": "Jag kan inte"
+  "js.together_no": "Jag kan inte",
+  "privacy.row_push": "Aviseringar (bara om du slår på dem): webbläsarens push-adress och de slumpmässiga id:n din enhet bevakar (dess brevlådor och var chattrader och svar till dig kommer in)",
+  "privacy.row_push_why": "För att väcka telefonen när något kommer; id:na säger inget om vem eller vad",
+  "privacy.row_push_kept": "90 dagar efter att din enhet senast förnyade den; tills du stänger av aviseringar",
+  "privacy.row_bluesky": "Ett kopplat Bluesky-konto (ATproto), ditt eller ett företags (bara om du kopplar ett): dess id, namn och inloggningssession",
+  "privacy.row_bluesky_why": "För att spara träffarna och inläggen du gör här i det kontot",
+  "privacy.row_bluesky_kept": "Tills du kopplar bort det; en oanvänd session upphör efter 90 dagar"
 }

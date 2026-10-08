@@ -635,5 +635,11 @@
   "js.seen_none": "Ancora nessun contatto: prima connettiti con qualcuno.",
   "js.go_together": "Andiamo insieme?",
   "js.together_yes": "Sì, andiamo!",
-  "js.together_no": "Non posso"
+  "js.together_no": "Non posso",
+  "privacy.row_push": "Notifiche (solo se le attivi): l'indirizzo push del tuo browser e gli identificativi casuali che il tuo dispositivo osserva (le sue caselle e dove arrivano righe di chat e risposte per te)",
+  "privacy.row_push_why": "Per svegliare il telefono quando arriva qualcosa; gli identificativi non dicono nulla su chi o cosa",
+  "privacy.row_push_kept": "90 giorni dall'ultimo rinnovo del tuo dispositivo; finché non disattivi le notifiche",
+  "privacy.row_bluesky": "Un account Bluesky (ATproto) collegato, tuo o di un'attività (solo se ne colleghi uno): id, nome e sessione",
+  "privacy.row_bluesky_why": "Per salvare in quell'account gli incontri e i post che fai qui",
+  "privacy.row_bluesky_kept": "Finché non lo scolleghi; una sessione inutilizzata termina dopo 90 giorni"
 }

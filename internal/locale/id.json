@@ -635,5 +635,11 @@
   "js.seen_none": "Belum ada kontak: terhubunglah dulu dengan seseorang.",
   "js.go_together": "Mau pergi bareng?",
   "js.together_yes": "Ya, ayo!",
-  "js.together_no": "Tidak bisa"
+  "js.together_no": "Tidak bisa",
+  "privacy.row_push": "Notifikasi (hanya jika kamu menyalakannya): alamat push browsermu, dan ID acak yang dipantau perangkatmu (kotak suratnya, dan tempat pesan obrolan serta jawaban untukmu tiba)",
+  "privacy.row_push_why": "Untuk membangunkan ponselmu saat ada yang tiba; ID-nya tidak menunjukkan siapa atau apa",
+  "privacy.row_push_kept": "90 hari setelah perangkatmu terakhir memperbaruinya; sampai kamu mematikan notifikasi",
+  "privacy.row_bluesky": "Akun Bluesky (ATproto) yang terhubung, milikmu atau bisnis (hanya jika kamu menghubungkannya): id, nama, dan sesi masuknya",
+  "privacy.row_bluesky_why": "Untuk menyimpan pertemuan dan postingan yang kamu buat di sini ke akun itu",
+  "privacy.row_bluesky_kept": "Sampai kamu memutuskannya; sesi yang tak terpakai berakhir setelah 90 hari"
 }

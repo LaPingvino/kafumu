@@ -635,5 +635,11 @@
   "js.seen_none": "Chưa có liên hệ: hãy kết nối với ai đó trước.",
   "js.go_together": "Mình đi cùng nhau nhé?",
   "js.together_yes": "Được, đi thôi!",
-  "js.together_no": "Mình không đi được"
+  "js.together_no": "Mình không đi được",
+  "privacy.row_push": "Thông báo (chỉ khi bạn bật): địa chỉ push của trình duyệt, và các mã ngẫu nhiên thiết bị của bạn theo dõi (hộp thư của nó, và nơi tin nhắn trò chuyện và câu trả lời cho bạn đến)",
+  "privacy.row_push_why": "Để đánh thức điện thoại khi có gì đến; các mã không cho biết ai hay cái gì",
+  "privacy.row_push_kept": "90 ngày sau lần thiết bị gia hạn gần nhất; cho đến khi bạn tắt thông báo",
+  "privacy.row_bluesky": "Tài khoản Bluesky (ATproto) đã kết nối, của bạn hoặc của doanh nghiệp (chỉ khi bạn kết nối): mã, tên và phiên đăng nhập",
+  "privacy.row_bluesky_why": "Để lưu các buổi gặp và bài đăng bạn tạo ở đây vào tài khoản đó",
+  "privacy.row_bluesky_kept": "Cho đến khi bạn ngắt kết nối; phiên không dùng kết thúc sau 90 ngày"
 }

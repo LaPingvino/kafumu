@@ -635,5 +635,11 @@
   "js.seen_none": "まだ連絡先がありません。まず誰かとつながりましょう。",
   "js.go_together": "一緒に行かない？",
   "js.together_yes": "うん、行こう！",
-  "js.together_no": "行けない"
+  "js.together_no": "行けない",
+  "privacy.row_push": "通知（オンにした場合のみ）：ブラウザのプッシュ用アドレスと、端末が見張るランダムなID（受信箱、あなた宛てのチャットや回答が届く場所）",
+  "privacy.row_push_why": "何か届いたときに端末を起こすため。IDからは誰が何を送ったかは分かりません",
+  "privacy.row_push_kept": "端末が最後に更新してから90日。通知をオフにするまで",
+  "privacy.row_bluesky": "連携したBluesky（ATproto）アカウント（あなたかビジネスのもの、連携した場合のみ）：ID、ハンドル、ログインセッション",
+  "privacy.row_bluesky_why": "ここで作ったミートアップや投稿をそのアカウントに保存するため",
+  "privacy.row_bluesky_kept": "連携を解除するまで。使われないセッションは90日で終了"
 }

@@ -635,5 +635,11 @@
   "js.seen_none": "Henüz kişi yok: önce biriyle bağlan.",
   "js.go_together": "Birlikte gidelim mi?",
   "js.together_yes": "Evet, gidelim!",
-  "js.together_no": "Gelemem"
+  "js.together_no": "Gelemem",
+  "privacy.row_push": "Bildirimler (yalnızca açarsan): tarayıcının push adresi ve cihazının izlediği rastgele kimlikler (posta kutuları ve sana gelen sohbet satırlarının ve yanıtların düştüğü yerler)",
+  "privacy.row_push_why": "Bir şey geldiğinde telefonunu uyandırmak için; kimlikler kim ya da ne olduğu hakkında hiçbir şey söylemez",
+  "privacy.row_push_kept": "Cihazının son yenilemesinden 90 gün sonrasına kadar; bildirimleri kapatana dek",
+  "privacy.row_bluesky": "Bağlı bir Bluesky (ATproto) hesabı, senin ya da bir işletmenin (yalnızca bağlarsan): kimliği, adı ve oturumu",
+  "privacy.row_bluesky_why": "Burada yaptığın buluşmaları ve paylaşımları o hesaba kaydetmek için",
+  "privacy.row_bluesky_kept": "Bağlantıyı kesene dek; kullanılmayan oturum 90 gün sonra biter"
 }

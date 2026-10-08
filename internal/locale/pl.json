@@ -635,5 +635,11 @@
   "js.seen_none": "Brak kontaktów: najpierw połącz się z kimś.",
   "js.go_together": "Idziemy razem?",
   "js.together_yes": "Tak, chodźmy!",
-  "js.together_no": "Nie mogę"
+  "js.together_no": "Nie mogę",
+  "privacy.row_push": "Powiadomienia (tylko jeśli je włączysz): adres push twojej przeglądarki i losowe identyfikatory, które obserwuje twoje urządzenie (jego skrzynki i miejsca, gdzie trafiają wiadomości czatu i odpowiedzi do ciebie)",
+  "privacy.row_push_why": "By obudzić twój telefon, gdy coś przyjdzie; identyfikatory nic nie mówią o tym, kto ani co",
+  "privacy.row_push_kept": "90 dni od ostatniego odnowienia przez twoje urządzenie; do wyłączenia powiadomień",
+  "privacy.row_bluesky": "Połączone konto Bluesky (ATproto), twoje lub firmy (tylko jeśli je połączysz): jego id, nazwa i sesja logowania",
+  "privacy.row_bluesky_why": "By zapisywać na tym koncie spotkania i wpisy, które tu tworzysz",
+  "privacy.row_bluesky_kept": "Do rozłączenia; nieużywana sesja wygasa po 90 dniach"
 }

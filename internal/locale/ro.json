@@ -635,5 +635,11 @@
   "js.seen_none": "Încă nu ai contacte: conectează-te mai întâi cu cineva.",
   "js.go_together": "Mergem împreună?",
   "js.together_yes": "Da, hai să mergem!",
-  "js.together_no": "Nu pot"
+  "js.together_no": "Nu pot",
+  "privacy.row_push": "Notificări (doar dacă le pornești): adresa push a browserului tău și identificatorii aleatori pe care îi urmărește dispozitivul (căsuțele lui și unde sosesc mesajele de chat și răspunsurile pentru tine)",
+  "privacy.row_push_why": "Ca să-ți trezească telefonul când sosește ceva; identificatorii nu spun nimic despre cine sau ce",
+  "privacy.row_push_kept": "90 de zile de la ultima reînnoire de către dispozitiv; până oprești notificările",
+  "privacy.row_bluesky": "Un cont Bluesky (ATproto) conectat, al tău sau al unei firme (doar dacă conectezi unul): id-ul, numele și sesiunea",
+  "privacy.row_bluesky_why": "Ca să salvăm în acel cont întâlnirile și postările pe care le faci aici",
+  "privacy.row_bluesky_kept": "Până îl deconectezi; o sesiune nefolosită expiră după 90 de zile"
 }

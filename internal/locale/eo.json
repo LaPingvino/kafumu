@@ -635,5 +635,11 @@
   "js.seen_none": "Ankoraŭ neniuj kontaktoj: unue konektiĝu kun iu.",
   "js.go_together": "Ĉu ni iru kune?",
   "js.together_yes": "Jes, ni iru!",
-  "js.together_no": "Mi ne povas"
+  "js.together_no": "Mi ne povas",
+  "privacy.row_push": "Sciigoj (nur se vi ŝaltas ilin): la puŝadreso de via retumilo, kaj la hazardaj identigiloj, kiujn via aparato observas (ĝiaj leterkestoj, kaj kie alvenas babilaj linioj kaj respondoj al vi)",
+  "privacy.row_push_why": "Por veki vian telefonon, kiam io alvenas; la identigiloj diras nenion pri kiu aŭ kio",
+  "privacy.row_push_kept": "90 tagojn post la lasta renovigo de via aparato; ĝis vi malŝaltas sciigojn",
+  "privacy.row_bluesky": "Konektita Bluesky-konto (ATproto), via aŭ de komerco (nur se vi konektas ĝin): ĝia identigilo, nomo kaj ensaluta seanco",
+  "privacy.row_bluesky_why": "Por konservi en tiu konto la renkontiĝojn kaj afiŝojn, kiujn vi faras ĉi tie",
+  "privacy.row_bluesky_kept": "Ĝis vi malkonektas ĝin; neuzata seanco finiĝas post 90 tagoj"
 }
