@@ -630,5 +630,7 @@
   "js.general_for": "everywhere · {tag}",
   "js.post_everywhere": "Everyone into {tag}, not just here",
   "js.carry_home": "Also show it at home",
-  "js.carried": "from elsewhere"
+  "js.carried": "from elsewhere",
+  "js.did_you_see": "Did you see this?",
+  "js.seen_none": "No contacts yet: connect with someone first."
 }

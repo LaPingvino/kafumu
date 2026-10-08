@@ -630,5 +630,7 @@
   "js.general_for": "všude · {tag}",
   "js.post_everywhere": "Všem, kdo mají rádi {tag}, nejen tady",
   "js.carry_home": "Ukázat i doma",
-  "js.carried": "odjinud"
+  "js.carried": "odjinud",
+  "js.did_you_see": "Viděl jsi tohle?",
+  "js.seen_none": "Zatím žádné kontakty: nejdřív se s někým spoj."
 }

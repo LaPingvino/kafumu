@@ -291,7 +291,12 @@
         var log = thread.querySelector(".chat-log") || thread.appendChild(el("div", "chat-log"));
         log.textContent = "";
         (c.messages || []).forEach(function (m) {
-          var b = el("div", "bubble" + (m.me ? " me" : ""), m.text);
+          var b = el("div", "bubble" + (m.me ? " me" : ""), "");
+          // Links in a line open (a "👀 Did you see this?" carries one).
+          String(m.text).split(/(https?:\/\/[^\s<>"]+)/).forEach(function (part, i) {
+            if (i % 2) { var a = el("a", "", part); a.href = part; a.rel = "noopener nofollow"; a.target = "_blank"; b.appendChild(a); }
+            else if (part) b.appendChild(document.createTextNode(part));
+          });
           b.title = new Date(m.at).toLocaleString(window.KAFUMU_LOCALE);
           log.appendChild(b);
         });

@@ -630,5 +630,7 @@
   "js.general_for": "en todas partes · {tag}",
   "js.post_everywhere": "Para todos los de {tag}, no solo aquí",
   "js.carry_home": "Mostrarlo también en mi zona",
-  "js.carried": "de otro lugar"
+  "js.carried": "de otro lugar",
+  "js.did_you_see": "¿Has visto esto?",
+  "js.seen_none": "Aún no tienes contactos: conecta primero con alguien."
 }

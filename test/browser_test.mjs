@@ -181,6 +181,18 @@ try {
   }
   await B.evaluate("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('Worth reading " + RUN + "')); [...li.querySelectorAll('button.react')].find(b => b.textContent === '👍').click(); return true; })()");
   await B.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('Worth reading " + RUN + "') && (li.querySelector(':scope > .reactions') || {}).textContent === '👍 1')", "👍 on the link", 30000);
+  // "Did you see this?" (80a): B sends that link to A over their chat; A
+  // gets it as a message (Contacts reads it, Activity lists it).
+  await B.evaluate("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('Worth reading " + RUN + "')); [...li.querySelectorAll(':scope > .actions button')].find(b => b.textContent === '👀').click(); return true; })()");
+  await B.waitFor("!!document.querySelector('#feed .seen-pick .chip')", "contacts to send it to");
+  await B.evaluate("document.querySelector('#feed .seen-pick .chip').click(); true");
+  await B.waitFor("document.querySelector('#feed .seen-pick .chip').textContent.startsWith('✓')", "sent to a contact", 30000);
+  for (let i = 0; ; i++) {
+    await A.goto(base + "/contacts"); await sleep(2500);
+    await A.goto(base + "/activity");
+    try { await A.waitFor("[...document.querySelectorAll('#activity li')].some(li => li.textContent.includes('👀') && li.textContent.includes('kafumu-" + RUN + "'))", "A has B's 👀 in Activity", 6000); break; }
+    catch (e) { if (i >= 5) throw e; }
+  }
 
   // Card themes from local activity: the "food" question tag shows up as a
   // 📍 suggestion in A's card editor.

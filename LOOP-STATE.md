@@ -1001,13 +1001,17 @@ Per the OLN json-spec, a link is an index key like a tag (index["link"] → mess
 - [x] 79b. Post it to your area (#geo) or to a subject community only (78a); subject-only links show when you filter
       for that subject.
       Done by 78b: type a subject, tick "🌍 Everyone into #tag" → a link line without a place.
-- [ ] 79c. By site: also tag the host (#site<host>, normalised) so a site's discussion can be browsed (the json-spec's
+- [ ] 79c (deferred, waiting for Joop: by the "#re alone" rule it may not be needed). By site: also tag the host (#site<host>, normalised) so a site's discussion can be browsed (the json-spec's
       link index). Later: a browser extension that shows a page's OLN reactions and lets you react from there.
 
 ## 80. Send things to a contact (Joop, 2026-10-08)
-- [ ] 80a. "Did you see this?": every card (meetup, note, post, link, person) can be sent to a contact you pick,
+- [x] 80a. "Did you see this?": every card (meetup, note, post, link, person) can be sent to a contact you pick,
       as a structured message in your pair chat ({t:"share", kind, title, url}); it shows as a small card in the
       chat and in their Activity.
+      Done, minimal: a 👀 on every card with a link (notes, meetups, online events, shared links) lists your
+      contacts; a tap sends "👀 Did you see this?" + title + link as a line in your encrypted chat with them (no new
+      message type); chat bubbles make links clickable; it reaches their Activity as a message. Browser test: B →
+      A, A's Activity shows it. Suite now ~450 s of the 590 s limit: trim before adding much more.
 - [ ] 80b. "Shall we go together?" on meetups: the same, with Yes / Can't buttons; Yes RSVPs them and tells you
       (in the chat and your Activity).
 - [ ] Polish: "business card never synced" browser-test flake (sync() keeps answering "off" for 20 s; 3× on

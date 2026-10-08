@@ -630,5 +630,7 @@
   "js.general_for": "her yerde · {tag}",
   "js.post_everywhere": "Sadece burası değil, {tag} ile ilgilenen herkes",
   "js.carry_home": "Kendi bölgemde de göster",
-  "js.carried": "başka yerden"
+  "js.carried": "başka yerden",
+  "js.did_you_see": "Bunu gördün mü?",
+  "js.seen_none": "Henüz kişi yok: önce biriyle bağlan."
 }

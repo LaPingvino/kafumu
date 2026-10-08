@@ -630,5 +630,7 @@
   "js.general_for": "di mana saja · {tag}",
   "js.post_everywhere": "Untuk semua penggemar {tag}, bukan hanya di sini",
   "js.carry_home": "Tampilkan juga di daerahku",
-  "js.carried": "dari tempat lain"
+  "js.carried": "dari tempat lain",
+  "js.did_you_see": "Sudah lihat ini?",
+  "js.seen_none": "Belum ada kontak: terhubunglah dulu dengan seseorang."
 }

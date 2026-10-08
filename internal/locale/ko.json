@@ -630,5 +630,7 @@
   "js.general_for": "어디서나 · {tag}",
   "js.post_everywhere": "여기만이 아니라 {tag}에 관심 있는 모두에게",
   "js.carry_home": "우리 동네에도 보여주기",
-  "js.carried": "다른 곳에서"
+  "js.carried": "다른 곳에서",
+  "js.did_you_see": "이거 봤어요?",
+  "js.seen_none": "아직 연락처가 없어요: 먼저 누군가와 연결하세요."
 }

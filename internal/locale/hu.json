@@ -630,5 +630,7 @@
   "js.general_for": "mindenhol · {tag}",
   "js.post_everywhere": "Mindenkinek, akit érdekel a(z) {tag}, nem csak itt",
   "js.carry_home": "Otthon is mutasd",
-  "js.carried": "máshonnan"
+  "js.carried": "máshonnan",
+  "js.did_you_see": "Láttad ezt?",
+  "js.seen_none": "Még nincsenek kapcsolataid: előbb kapcsolódj valakihez."
 }

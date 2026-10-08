@@ -630,5 +630,7 @@
   "js.general_for": "overal · {tag}",
   "js.post_everywhere": "Voor iedereen die van {tag} houdt, niet alleen hier",
   "js.carry_home": "Ook thuis laten zien",
-  "js.carried": "van elders"
+  "js.carried": "van elders",
+  "js.did_you_see": "Heb je dit gezien?",
+  "js.seen_none": "Nog geen contacten: maak eerst contact met iemand."
 }

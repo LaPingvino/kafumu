@@ -630,5 +630,7 @@
   "js.general_for": "peste tot · {tag}",
   "js.post_everywhere": "Tuturor celor pasionați de {tag}, nu doar aici",
   "js.carry_home": "Arată și acasă",
-  "js.carried": "din altă parte"
+  "js.carried": "din altă parte",
+  "js.did_you_see": "Ai văzut asta?",
+  "js.seen_none": "Încă nu ai contacte: conectează-te mai întâi cu cineva."
 }

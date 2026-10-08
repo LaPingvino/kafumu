@@ -630,5 +630,7 @@
   "js.general_for": "所有地方 · {tag}",
   "js.post_everywhere": "發給所有關注 {tag} 的人，不只是附近",
   "js.carry_home": "也在我家附近顯示",
-  "js.carried": "來自別處"
+  "js.carried": "來自別處",
+  "js.did_you_see": "你看到這個了嗎？",
+  "js.seen_none": "還沒有聯絡人：先和別人建立聯繫吧。"
 }

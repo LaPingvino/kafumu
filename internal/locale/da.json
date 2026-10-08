@@ -630,5 +630,7 @@
   "js.general_for": "overalt · {tag}",
   "js.post_everywhere": "Til alle, der kan lide {tag}, ikke kun her",
   "js.carry_home": "Vis det også derhjemme",
-  "js.carried": "fra et andet sted"
+  "js.carried": "fra et andet sted",
+  "js.did_you_see": "Har du set det her?",
+  "js.seen_none": "Ingen kontakter endnu: forbind dig med nogen først."
 }

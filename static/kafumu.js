@@ -912,6 +912,42 @@
     var u = urlIn(n.text);
     return u && (n.tags || []).indexOf("re" + reID("link", u)) >= 0 ? u : "";
   }
+  // seenButton: 👀 "Did you see this?" — send the thing to a contact, as a
+  // line in your encrypted chat with them: the question, its title, its link (80a).
+  function seenButton(about, link, row) {
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "pill-sm"; b.textContent = "👀";
+    b.title = tr("did_you_see"); b.setAttribute("aria-label", tr("did_you_see"));
+    b.onclick = function (ev) {
+      ev.preventDefault(); ev.stopPropagation();
+      var open = row.parentNode.querySelector(":scope > .seen-pick");
+      if (open) { open.remove(); return; }
+      var dev = window.kafumuDevice;
+      if (!dev || !answersPair()) return;
+      dev.store.contacts().then(function (cs) {
+        var pick = document.createElement("div");
+        pick.className = "chips seen-pick";
+        if (!cs.length) pick.appendChild(Object.assign(document.createElement("span"), { className: "dim small", textContent: tr("seen_none") }));
+        cs.sort(function (a, z) { return (z.lastChat || z.createdAt || "").localeCompare(a.lastChat || a.createdAt || ""); }).slice(0, 12).forEach(function (c) {
+          var chip = document.createElement("button");
+          chip.type = "button"; chip.className = "chip"; chip.textContent = (c.card && c.card.name) || "?";
+          chip.onclick = function (e2) {
+            e2.preventDefault(); e2.stopPropagation();
+            chip.disabled = true;
+            var text = "👀 " + tr("did_you_see") + "\n" + String(about || "").replace(/\s+/g, " ").slice(0, 80) + "\n" + link;
+            aPair.sendChat(c, text, answerMine).then(function (at) {
+              c.messages = (c.messages || []).concat([{ me: true, text: text, at: at }]).slice(-200);
+              c.lastChat = at;
+              return dev.store.putContact(c);
+            }).then(function () { chip.textContent = "✓ " + chip.textContent; }, function () { chip.disabled = false; });
+          };
+          pick.appendChild(chip);
+        });
+        row.parentNode.insertBefore(pick, row.nextSibling);
+      });
+    };
+    return b;
+  }
   // firstLine: what a reply says; further lines are context (78c).
   function firstLine(t) { return String(t || "").split("\n")[0]; }
   // carryText: a reaction carried home says what it's about, on the lines
@@ -945,6 +981,7 @@
       };
       row.appendChild(b);
     });
+    if (ctx && ctx.link) row.appendChild(seenButton(about, ctx.link, row));
     var t = document.createElement("button");
     t.type = "button"; t.className = "pill-sm"; t.textContent = "💬 " + tr("react");
     t.onclick = function (ev) { ev.preventDefault(); ev.stopPropagation(); openComposer({ re: rid, about: about, carry: carry }); };

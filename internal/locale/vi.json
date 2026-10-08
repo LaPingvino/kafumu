@@ -630,5 +630,7 @@
   "js.general_for": "mọi nơi · {tag}",
   "js.post_everywhere": "Gửi mọi người quan tâm {tag}, không chỉ ở đây",
   "js.carry_home": "Cũng hiện ở khu nhà mình",
-  "js.carried": "từ nơi khác"
+  "js.carried": "từ nơi khác",
+  "js.did_you_see": "Bạn đã thấy cái này chưa?",
+  "js.seen_none": "Chưa có liên hệ: hãy kết nối với ai đó trước."
 }
