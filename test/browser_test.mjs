@@ -618,7 +618,7 @@ try {
   // Phones (Joop: "doesn't fit on mobile… check other possible overflows"):
   // at 390 px nothing may widen the page.
   await A.send("Emulation.setDeviceMetricsOverride", { width: 390, height: 844, deviceScaleFactor: 2, mobile: true });
-  for (const pg of ["/business", "/account", "/meetups/new", "/card", "/?cell=6fg222", "/activity"]) {
+  for (const pg of ["/business", "/account", "/meetups/new", "/card", "/?cell=6fg222", "/activity", "/oln", "/privacy", "/about", "/patrons"]) {
     await A.goto(base + pg);
     await sleep(600);
     const w = await A.evaluate("document.documentElement.scrollWidth");
