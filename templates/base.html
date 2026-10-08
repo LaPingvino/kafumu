@@ -16,6 +16,7 @@
     // Dates follow the UI language, but never US-style: English is en-GB
     // (day before month, 24-hour clock).
     window.KAFUMU_LOCALE = ({ en: "en-GB", pt: "pt-PT", nl: "nl-NL", eo: "eo", zh: "zh-Hans", "zh-hant": "zh-Hant-TW" })[document.documentElement.lang] || document.documentElement.lang;</script>
+  {{if eq .Lang "eo"}}<script src="/static/eo-dates.js?v={{.V}}"></script>{{end}}
 </head>
 <body{{with .BrandInfo}}{{if .Tags}} data-brand-tag="{{index .Tags 0}}"{{end}}{{end}}{{if .Acting}} data-acting="{{.Acting.Name}}" data-acting-id="{{.Acting.ID}}"{{if .Acting.Username}} data-acting-named="1"{{end}}{{if .Acting.SyncMode}} data-acting-sync="{{.Acting.SyncMode}}"{{end}}{{end}}{{if .User}} data-signed-in="1"{{if .User.Username}} data-named="1"{{end}}{{if .User.Passkeys}} data-passkey="1"{{end}}{{end}}>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">

@@ -1175,7 +1175,7 @@
           var li = document.createElement("li"), a = document.createElement("a");
           a.href = e.link; a.rel = "noopener"; a.target = "_blank"; a.textContent = e.title;
           var when = document.createElement("div"); when.className = "dim small";
-          when.textContent = new Date(e.start).toLocaleString(document.documentElement.lang || undefined, { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+          when.textContent = new Date(e.start).toLocaleString(window.KAFUMU_LOCALE, { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
           li.appendChild(a); li.appendChild(when);
           var row = document.createElement("div"); // reactions: "#re" of the event's link, from anywhere (78b)
           row.className = "actions";
