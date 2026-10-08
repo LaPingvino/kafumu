@@ -138,8 +138,15 @@ func (s *Notes) PurgeNotes(ctx context.Context, now time.Time) (int64, error) {
 
 // RepliesTo reads the re out of each row's JSON: no column, no migration
 // (a self-hosted node's notes table is small).
-func (s *Notes) RepliesTo(ctx context.Context, re string, now time.Time) ([]*oln.Note, error) {
-	rows, err := s.DB.QueryContext(ctx, `SELECT data FROM notes WHERE expires_at > ? AND json_extract(data, '$.re') = ? LIMIT 100`, now.Unix(), re)
+func (s *Notes) RepliesTo(ctx context.Context, res []string, now time.Time) ([]*oln.Note, error) {
+	if len(res) == 0 {
+		return nil, nil
+	}
+	args := []any{now.Unix()}
+	for _, re := range res {
+		args = append(args, re)
+	}
+	rows, err := s.DB.QueryContext(ctx, `SELECT data FROM notes WHERE expires_at > ? AND json_extract(data, '$.re') IN (?`+strings.Repeat(", ?", len(res)-1)+`) LIMIT 300`, args...)
 	if err != nil {
 		return nil, err
 	}

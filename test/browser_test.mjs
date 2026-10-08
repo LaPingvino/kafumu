@@ -143,6 +143,14 @@ try {
 
   // Card themes from local activity: the "food" question tag shows up as a
   // 📍 suggestion in A's card editor.
+  // Reactions carry no place (78a): A's Around fetches them by id, B's
+  // answer under A's question with B's 👍 under the answer (reload past the
+  // one-minute cache).
+  for (let i = 0; ; i++) {
+    await A.goto(base + "/?cell=6fg223");
+    try { await A.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('pastel de nata') && [...li.querySelectorAll('.replies > li')].some(r => r.textContent.includes('Manteigaria') && (r.querySelector(':scope > .reactions') || {}).textContent === '👍 1'))", "A sees B's answer and its 👍, fetched by id", 8000); break; }
+    catch (e) { if (i >= 9) throw e; }
+  }
   await A.goto(base + "/?cell=6fg223");
   await A.waitFor("document.getElementById('feed').textContent.includes('pastel de nata')", "Around loaded for tag counting", 15000);
   await A.goto(base + "/card");

@@ -102,6 +102,7 @@
     ul.classList.toggle("mixed", on.length > 1);
     ul.textContent = "";
     items.forEach(function (li) { attachReplies(li); ul.appendChild(li); });
+    pullReactions();
   }
 
   // friendsAround: check in (only from a real location fix) and show which
@@ -404,7 +405,8 @@
     if (!text || !currentCell) return;
     f.querySelector("button[type=submit]").disabled = true;
     var t0 = Date.now(), keywords = olnKeywords(), ready = Promise.resolve();
-    if (composeMode.re) keywords += " #re" + composeMode.re.slice(0, 10);
+    // A reply carries "#re" (and its language) only: no place, no other tags (78a).
+    if (composeMode.re) keywords = keywords.split(" ").filter(function (k) { return /^#lang/.test(k); }).concat(["#re" + composeMode.re.slice(0, 10)]).join(" ");
     if (composeMode.ask) {
       keywords += " #ask";
       // A question carries a connect code, so answers can also come privately.
@@ -422,6 +424,7 @@
       $("oln-status").textContent = tr("oln_working", { n: tries });
     }, 0, asMe); }).then(function (n) {
       if (n && n.id) ownNotes.push(n);
+      if (composeMode.re) showOwnReaction(composeMode.re.slice(0, 10), n);
       rememberPost(n, composeMode.re ? "reply" : composeMode.ask ? "ask" : "note", text.split("\n")[0]);
       if (!composeMode.re && aPair) aPair.pushSubscribe(false).catch(function () {}); // its answers can wake you now
       composeMode = {};
@@ -785,6 +788,53 @@
   // or for anything else (Bluesky post, meetup, person) a hash of what it is.
   // Emoji-only reactions show as counts; text ones as a thread under the card.
   var olnReplies = {};
+  // Reactions carry no place (78a: "#re<id>" alone), so the cards on screen
+  // fetch theirs by id: fetchedRe[rid] is what came back (plus your own,
+  // shown at once), fetchedAt[rid] when it was asked.
+  var fetchedRe = {}, fetchedAt = {};
+  function repliesFor(rid) {
+    var seen = {}, out = [];
+    (olnReplies[rid] || []).concat(fetchedRe[rid] || []).forEach(function (n) { if (!seen[n.id]) { seen[n.id] = true; out.push(n); } });
+    return out;
+  }
+  function reattach() {
+    Array.prototype.forEach.call(document.querySelectorAll("#feed > li[data-reid]"), function (li) { attachReplies(li); });
+  }
+  // pullReactions asks /api/oln/re for the cards (and replies) on screen
+  // whose reactions weren't asked for in the last minute, 20 ids a call.
+  function pullReactions() {
+    var now = Date.now(), ids = [];
+    Array.prototype.forEach.call(document.querySelectorAll("#feed li[data-reid]"), function (li) {
+      var rid = li.dataset.reid;
+      if (ids.indexOf(rid) < 0 && !(fetchedAt[rid] > now - 60000)) ids.push(rid);
+    });
+    if (!ids.length) return;
+    ids.forEach(function (rid) { fetchedAt[rid] = now; });
+    var calls = [];
+    for (var i = 0; i < ids.length; i += 20) {
+      calls.push(fetch("/api/oln/re?ids=" + ids.slice(i, i + 20).join(","), { credentials: "omit" })
+        .then(function (r) { return r.ok ? r.json() : []; }, function () { return []; }));
+    }
+    Promise.all(calls).then(function (lists) {
+      var got = {};
+      lists.forEach(function (ns) { ns.forEach(function (n) {
+        (n.tags || []).forEach(function (t) { var m = /^re([0-9a-f]{10})$/.exec(t); if (m) (got[m[1]] = got[m[1]] || []).push(n); });
+      }); });
+      ids.forEach(function (rid) { // keep your own until the server's (cached) answer has them
+        var mine = (fetchedRe[rid] || []).filter(function (n) { return n.mine; });
+        fetchedRe[rid] = (got[rid] || []).concat(mine);
+      });
+      reattach();
+      pullReactions(); // replies just drawn may have reactions of their own
+    });
+  }
+  // showOwnReaction: what you just posted, under its card, right away.
+  function showOwnReaction(rid, n) {
+    if (!n || !n.id) return;
+    n.mine = true;
+    (fetchedRe[rid] = fetchedRe[rid] || []).push(n);
+    reattach();
+  }
   function reID(kind, id) {
     if (kind === "note") return String(id).slice(0, 10);
     var h = window.kafumuSHA1.sha1(new TextEncoder().encode(kind + ":" + id));
@@ -801,8 +851,8 @@
         ev.preventDefault(); ev.stopPropagation();
         if (!currentCell || !window.kafumuOLN) return;
         b.disabled = true;
-        window.kafumuOLN.post(e, "#geo" + currentCell + " #re" + rid, requiredBits, function () {})
-          .then(function (n) { if (n && n.id) ownNotes.push(n); b.textContent = e + " ✓"; load(currentCell, true); }, function () { b.disabled = false; });
+        window.kafumuOLN.post(e, "#re" + rid, requiredBits, function () {}) // "#re" alone: no place needed (78a)
+          .then(function (n) { b.textContent = e + " ✓"; showOwnReaction(rid, n); }, function () { b.disabled = false; });
       };
       row.appendChild(b);
     });
@@ -817,7 +867,7 @@
     var rid = li.dataset.reid;
     if (!rid) return;
     Array.prototype.forEach.call(li.querySelectorAll(":scope > .reactions, :scope > .replies"), function (x) { x.remove(); });
-    var rs = olnReplies[rid] || [];
+    var rs = repliesFor(rid);
     if (!rs.length) return;
     var counts = {}, texts = [];
     rs.forEach(function (r) { if (isEmojiOnly(r.text)) { var k = r.text.trim(); counts[k] = (counts[k] || 0) + 1; } else texts.push(r); });

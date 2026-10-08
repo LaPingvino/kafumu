@@ -10,6 +10,12 @@
   function tr(k, v) { var s = T[k] || k; for (var n in v || {}) s = s.replace("{" + n + "}", v[n]); return s; }
   function short(s, n) { s = String(s || "").replace(/\s+/g, " ").trim(); return s.length > n ? s.slice(0, n - 1) + "…" : s; }
 
+  // areaLink: the area to open for a reply, its own or else the post's; a
+  // reaction without a place ("000000") has neither: Around as it is.
+  function areaLink() {
+    for (var i = 0; i < arguments.length; i++) if (/^[23456789cfghjmpqrvwx]{6}$/.test(arguments[i] || "")) return "/?cell=" + arguments[i];
+    return "/";
+  }
   // replies fetches the public replies to your live posts, 20 ids a call.
   function replies(posts) {
     var byRe = {}, mine = {}, ids = [];
@@ -27,7 +33,7 @@
           if (!p || mine[n.id]) return; // your own reply to your own post isn't news
           out.push({ id: "r:" + n.id, at: n.at, icon: /^\s*(\p{Extended_Pictographic}️?\s*){1,3}$/u.test(n.text) ? n.text.trim() : "💬",
             who: n.author ? "@" + n.author : (n.biz || ""), text: n.text, about: tr("act_reply_to", { post: short(p.text, 40) }),
-            href: "/?cell=" + (n.cell || p.cell) });
+            href: areaLink(n.cell, p.cell) });
         });
       });
       return out;

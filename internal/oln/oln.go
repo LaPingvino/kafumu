@@ -264,8 +264,9 @@ type Store interface {
 	Hide(ctx context.Context, id string) error
 	// AskedAbout returns live questions with subject tag (any distance).
 	AskedAbout(ctx context.Context, tag string, now time.Time) ([]*Note, error)
-	// RepliesTo returns live public replies and reactions to re (a #re id).
-	RepliesTo(ctx context.Context, re string, now time.Time) ([]*Note, error)
+	// RepliesTo returns live public replies and reactions to any of res
+	// (#re ids, at most 30: one query).
+	RepliesTo(ctx context.Context, res []string, now time.Time) ([]*Note, error)
 	// ByPair returns live private messages under a pair tag.
 	ByPair(ctx context.Context, tag string, now time.Time) ([]*Note, error)
 }
@@ -303,35 +304,48 @@ const MaxReIDs = 20
 // (#re ids), oldest first, each id's list cached a minute per instance.
 func (s *Service) Replies(ctx context.Context, ids []string) ([]*Note, error) {
 	now := s.Now()
-	seen, hidden := map[string]bool{}, s.hiddenSet(ctx)
-	var out []*Note
-	for i, id := range ids {
-		if i == MaxReIDs {
-			break
+	if len(ids) > MaxReIDs {
+		ids = ids[:MaxReIDs]
+	}
+	// The ids not cached (or stale) are read together: one query.
+	var stale []string
+	s.mu.Lock()
+	for _, id := range ids {
+		if e, ok := s.res[id]; !ok || now.Sub(e.at) > time.Minute {
+			stale = append(stale, id)
+		}
+	}
+	s.mu.Unlock()
+	if len(stale) > 0 {
+		ns, err := s.Store.RepliesTo(ctx, stale, now)
+		if err != nil {
+			return nil, err
+		}
+		by := map[string][]*Note{}
+		for _, n := range ns {
+			by[n.Re] = append(by[n.Re], n)
 		}
 		s.mu.Lock()
-		e, ok := s.res[id]
-		s.mu.Unlock()
-		if !ok || now.Sub(e.at) > time.Minute {
-			ns, err := s.Store.RepliesTo(ctx, id, now)
-			if err != nil {
-				return nil, err
-			}
-			e = cellEntry{ns: ns, at: now}
-			s.mu.Lock()
-			if s.res == nil || len(s.res) > 5000 {
-				s.res = map[string]cellEntry{}
-			}
-			s.res[id] = e
-			s.mu.Unlock()
+		if s.res == nil || len(s.res) > 5000 {
+			s.res = map[string]cellEntry{}
 		}
-		for _, n := range e.ns {
+		for _, id := range stale {
+			s.res[id] = cellEntry{ns: by[id], at: now}
+		}
+		s.mu.Unlock()
+	}
+	seen, hidden := map[string]bool{}, s.hiddenSet(ctx)
+	var out []*Note
+	s.mu.Lock()
+	for _, id := range ids {
+		for _, n := range s.res[id].ns {
 			if !seen[n.ID] && n.ExpiresAt.After(now) && !hidden[n.ID] {
 				seen[n.ID] = true
 				out = append(out, n)
 			}
 		}
 	}
+	s.mu.Unlock()
 	sort.Slice(out, func(i, j int) bool { return out[i].At.Before(out[j].At) })
 	return out, nil
 }
@@ -439,7 +453,7 @@ func (s *Service) RequiredFor(ctx context.Context, cell string) int {
 // requiredForRe is the difficulty of answering re right now: the same
 // formula as an area, counting recent replies to that one thing.
 func (s *Service) requiredForRe(ctx context.Context, re string) int {
-	ns, err := s.Store.RepliesTo(ctx, re, s.Now())
+	ns, err := s.Store.RepliesTo(ctx, []string{re}, s.Now())
 	if err != nil {
 		return BaseBits
 	}
