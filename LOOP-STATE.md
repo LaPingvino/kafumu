@@ -1001,8 +1001,12 @@ Per the OLN json-spec, a link is an index key like a tag (index["link"] → mess
 - [x] 79b. Post it to your area (#geo) or to a subject community only (78a); subject-only links show when you filter
       for that subject.
       Done by 78b: type a subject, tick "🌍 Everyone into #tag" → a link line without a place.
-- [ ] 79c (deferred, waiting for Joop: by the "#re alone" rule it may not be needed). By site: also tag the host (#site<host>, normalised) so a site's discussion can be browsed (the json-spec's
+- [x] 79c (Joop: "good to add already"). By site: also tag the host (#site<host>, normalised) so a site's discussion can be browsed (the json-spec's
       link index). Later: a browser extension that shows a page's OLN reactions and lets you react from there.
+      Done: link shares also carry #site_<host> (no www., dots as _); the link card's "🌐 example.org" filters
+      Around on it (local shares + general ones via /api/oln/general). Extension still later. Also: tagText renders
+      every displayed tag — "langepo"/"lang:epo" as "🗣 Esperanto", site tags as 🌐 — in meta lines, chips, tag
+      suggestions, headings, filter notes, why-lines (Joop: raw #lang tags were still showing in places).
 
 ## 80. Send things to a contact (Joop, 2026-10-08)
 - [x] 80a. "Did you see this?": every card (meetup, note, post, link, person) can be sent to a contact you pick,

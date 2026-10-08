@@ -76,6 +76,8 @@ try {
   await A.goto(base + "/?cell=6fg223");
   await A.evaluate("(() => { document.getElementById('say').click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test: hi from the OLN " + RUN + "'; f.requestSubmit(); return true; })()");
   await A.waitFor("document.getElementById('feed').textContent.includes('hi from the OLN " + RUN + "')", "A's message in Here now", 30000);
+  // Its language tag reads as the language, never as a raw "#langeng".
+  await A.waitFor("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')); return li && !/#lang/.test(li.textContent) && li.textContent.includes('🗣'); })()", "language shown as 🗣, not #lang…");
   // The device remembers it as one of your posts (77a), for Activity.
   await A.waitFor("window.kafumuDevice.store.get('myPosts').then(ps => (ps || []).some(p => p.kind === 'note' && p.text.includes('hi from the OLN " + RUN + "') && p.id && p.cell && p.reid))", "own post remembered on the device");
   // Joop saw messages twice: two loads in a row must still show each once.

@@ -371,7 +371,7 @@
     box.appendChild(lab);
     tags.forEach(function (t) {
       var b = document.createElement("button");
-      b.type = "button"; b.className = "chip"; b.textContent = "#" + t;
+      b.type = "button"; b.className = "chip"; b.textContent = tagText(t);
       b.onclick = function () {
         f.tags.value = (f.tags.value.trim() ? f.tags.value.trim().replace(/,$/, "") + ", " : "") + t; updateEverywhere();
         updateEstimate(); suggestTags();
@@ -559,9 +559,9 @@
     if (view.lang) add("lang", view.lang, "🗣 " + short(view.lang));
     var counts = {};
     try { counts = JSON.parse(localStorage.getItem("kafumu.localTags") || "{}"); } catch (e) {}
-    Object.keys(counts).sort(function (a, z) { return counts[z] - counts[a]; }).slice(0, 6).forEach(function (t) { add("tag", t, "#" + t); });
-    (me.tags || []).slice(0, 6).forEach(function (t) { add("tag", normTag(t), "#" + normTag(t)); });
-    if (view.tag) add("tag", view.tag, "#" + view.tag);
+    Object.keys(counts).sort(function (a, z) { return counts[z] - counts[a]; }).slice(0, 6).forEach(function (t) { add("tag", t, tagText(t)); });
+    (me.tags || []).slice(0, 6).forEach(function (t) { add("tag", normTag(t), tagText(normTag(t))); });
+    if (view.tag) add("tag", view.tag, tagText(view.tag));
     chips.forEach(function (c) {
       var on = c.kind === "tag" ? view.tag === c.value : view.lang === c.value;
       var a = document.createElement("a");
@@ -920,7 +920,13 @@
     try { return ("site_" + new URL(u).hostname.replace(/^www\./, "").replace(/[^a-z0-9]/g, "_")).slice(0, 40); } catch (e) { return ""; }
   }
   // tagText: how a tag reads: a site tag as "🌐 example.org", others as "#tag".
-  function tagText(t) { return /^site_/.test(t) ? "🌐 " + t.slice(5).replace(/_/g, ".") : "#" + t; }
+  // A language tag ("langepo" on a message, "lang:epo" on a meetup) reads as
+  // the language, named in yours: "🗣 Esperanto".
+  function tagText(t) {
+    var l = /^lang:?([a-z]{3})$/.exec(t);
+    if (l) return "🗣 " + String(((window.KAFUMU_ME || {}).names || {})[l[1]] || l[1]).split(" (")[0];
+    return /^site_/.test(t) ? "🌐 " + t.slice(5).replace(/_/g, ".") : "#" + t;
+  }
   // linkOf: the link a note shares (its #re is that link's), or "".
   function linkOf(n) {
     var u = urlIn(n.text);
@@ -1221,7 +1227,7 @@
           var placeText = b.near.name + (b.near.city ? ", " + b.near.city : "");
           // With a filter on, the heading says what you're looking at here.
           var langName = view.lang ? (((window.KAFUMU_ME || {}).names || {})[view.lang] || view.lang) : "";
-          $("place-name").textContent = view.tag ? "#" + view.tag + " · " + placeText : langName ? "🗣 " + langName + " · " + placeText : placeText;
+          $("place-name").textContent = view.tag ? tagText(view.tag) + " · " + placeText : langName ? "🗣 " + langName + " · " + placeText : placeText;
           document.querySelector(".cell-tag").classList.add("named");
           // The cloud: neighbourhoods and villages around, small.
           var also = $("place-also");
@@ -1236,7 +1242,7 @@
         asksForMe(b, c);
         generalFor(b);
         var named = (b.places || []).filter(function (pt) { return pt.weight >= 0.5; })
-          .slice(0, 3).map(function (pt) { return "#" + pt.tag; });
+          .slice(0, 3).map(function (pt) { return tagText(pt.tag); });
         $("list-note").textContent = named.length
           ? tr("also_tags", { tags: named.join(", ") })
           : "";
@@ -1325,7 +1331,7 @@
         var meta = document.createElement("div");
         meta.className = "meta";
         meta.textContent = [m.venue, m.via ? tr("via", { site: m.via }) : tr("going_n", { n: m.going })].concat((m.tags || []).map(function (t) { // "lang:epo" is a language, not a hashtag
-          return t.indexOf("lang:") === 0 ? "🗣 " + (((window.KAFUMU_ME || {}).names || {})[t.slice(5)] || t.slice(5)) : "#" + t; })).filter(Boolean).join(" · ");
+          return tagText(t); })).filter(Boolean).join(" · ");
         a.appendChild(when); a.appendChild(title); a.appendChild(meta);
         li.appendChild(a);
         var mrow = document.createElement("div");
@@ -1366,7 +1372,7 @@
       Object.keys(th.speak).forEach(function (c) {
         if (mine.speak[c]) { score += 4 / count[c]; if (count[c] <= 3) why.push(tr("rare_shared", { lang: name(c) })); }
       });
-      (p.tags || []).forEach(function (t) { if (myTags[t]) { score += 1; why.push("#" + t); } });
+      (p.tags || []).forEach(function (t) { if (myTags[t]) { score += 1; why.push(tagText(t)); } });
       p._score = score; p._why = why;
     });
     people.sort(function (a, b) { return b._score - a._score; });
@@ -1488,7 +1494,7 @@
     var me = window.KAFUMU_ME || {}, tags = me.langTags || {}, from1 = me.from1 || {}, hit = "";
     (p.tags || []).forEach(function (t) {
       var lt = tags[t];
-      if (lt && (lt.codes.length === 0 ? false : lt.codes.some(function (c) { return myLangs[c]; }))) hit = "#" + t;
+      if (lt && (lt.codes.length === 0 ? false : lt.codes.some(function (c) { return myLangs[c]; }))) hit = tagText(t);
     });
     var postLang = ((p.langs || [])[0] || "").slice(0, 2);
     return { tag: hit, lang: !!myLangs[from1[postLang]] };
@@ -1626,7 +1632,7 @@
     var fn = $("filter-note");
     fn.hidden = !(view.tag || view.lang);
     if (view.tag || view.lang) {
-      var what = view.tag ? "#" + view.tag : "🗣 " + String(((window.KAFUMU_ME || {}).names || {})[view.lang] || view.lang).split(" (")[0];
+      var what = view.tag ? tagText(view.tag) : "🗣 " + String(((window.KAFUMU_ME || {}).names || {})[view.lang] || view.lang).split(" (")[0];
       fn.textContent = tr(matched >= 5 ? "filter_here" : "filter_few", { what: what, n: matched, tag: "#" + etag });
     }
     if (!etag) return;
@@ -1658,7 +1664,7 @@
     if (!f || !box) return;
     var subj = subjectsTyped();
     box.hidden = !subj.length || !!composeMode.re;
-    box.querySelector("span").textContent = "🌍 " + tr("post_everywhere", { tag: subj.map(function (t) { return "#" + t; }).join(" ") });
+    box.querySelector("span").textContent = "🌍 " + tr("post_everywhere", { tag: subj.map(tagText).join(" ") });
     if (box.hidden) f.everywhere.checked = false;
   }
   var ownGeneral = []; // your own general lines, shown at once while filtering
@@ -1678,7 +1684,7 @@
         var li = noteItem(n, {});
         var why = document.createElement("div");
         why.className = "why";
-        why.textContent = "🌍 " + tr("general_for", { tag: "#" + view.tag });
+        why.textContent = "🌍 " + tr("general_for", { tag: tagText(view.tag) });
         li.insertBefore(why, li.firstChild);
         li.dataset.score = 9 - i * 0.3;
         sinks.here.appendChild(li);
@@ -1706,7 +1712,7 @@
         .sort(function (a, z) { return a._km - z._km; }).slice(0, 10)
         .forEach(function (n, i) {
           var li = noteItem(n, { question: true, forYou: true });
-          var subj = (n.tags || []).filter(function (t) { return tags[t]; }).map(function (t) { return "#" + t; }).join(" ");
+          var subj = (n.tags || []).filter(function (t) { return tags[t]; }).map(tagText).join(" ");
           var far = document.createElement("div");
           far.className = "why";
           far.textContent = "❓ " + tr("ask_far", { tags: subj, km: Math.max(1, Math.round(n._km)) });
@@ -1804,7 +1810,7 @@
   $("view-save").onclick = function () {
     $("view-apply").onclick();
     var place = travel.place || ((window.kafumuGeo && currentCell) ? "#geo" + currentCell : "");
-    var name = prompt(tr("view_name"), [place, view.lang ? ((window.KAFUMU_ME || {}).names || {})[view.lang] : "", view.tag ? "#" + view.tag : ""].filter(Boolean).join(" · "));
+    var name = prompt(tr("view_name"), [place, view.lang ? ((window.KAFUMU_ME || {}).names || {})[view.lang] : "", view.tag ? tagText(view.tag) : ""].filter(Boolean).join(" · "));
     if (!name) return;
     var vs = savedViews().filter(function (v) { return v.name !== name; });
     vs.push({ name: name.slice(0, 40), url: viewURL(currentCell) });
