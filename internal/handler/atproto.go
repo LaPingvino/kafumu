@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"github.com/LaPingvino/kafumu/internal/account"
 	"github.com/LaPingvino/kafumu/internal/business"
 	"log"
 	"net/http"
@@ -86,8 +87,8 @@ func (h *ATproto) Callback(w http.ResponseWriter, r *http.Request) {
 	if u.DID != "" && u.ATSession != "" && (u.DID != did || u.ATSession != sid) {
 		_ = h.Svc.Disconnect(r.Context(), u.DID, u.ATSession)
 	}
-	u.DID, u.ATSession, u.ATHandle = did, sid, atp.Handle(r.Context(), did)
-	if err := h.Accounts.Svc.Save(r.Context(), u); err != nil {
+	handle := atp.Handle(r.Context(), did)
+	if err := h.Accounts.Svc.Update(r.Context(), u, func(x *account.User) { x.DID, x.ATSession, x.ATHandle = did, sid, handle }); err != nil {
 		http.Error(w, "could not save", http.StatusInternalServerError)
 		return
 	}
@@ -114,8 +115,7 @@ func (h *ATproto) Disconnect(w http.ResponseWriter, r *http.Request) {
 		if err := h.Svc.Disconnect(r.Context(), u.DID, u.ATSession); err != nil {
 			log.Printf("atproto: disconnect: %v", err)
 		}
-		u.DID, u.ATSession, u.ATHandle = "", "", ""
-		_ = h.Accounts.Svc.Save(r.Context(), u)
+		_ = h.Accounts.Svc.Update(r.Context(), u, func(x *account.User) { x.DID, x.ATSession, x.ATHandle = "", "", "" })
 	}
 	http.Redirect(w, r, "/account#atproto", http.StatusSeeOther)
 }

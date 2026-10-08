@@ -189,3 +189,42 @@ func (s *MemoryStore) LookupUsername(_ context.Context, name string) (string, er
 	defer s.mu.Unlock()
 	return s.names[name], nil
 }
+
+func (s *DatastoreStore) Update(ctx context.Context, id string, fn func(*User) error) (*User, error) {
+	var out *User
+	_, err := s.DB.RunInTransaction(ctx, func(tx *datastore.Transaction) error {
+		var u User
+		k := datastore.NameKey(userKind, id, nil)
+		if err := tx.Get(k, &u); err != nil {
+			if errors.Is(err, datastore.ErrNoSuchEntity) {
+				return ErrNotFound
+			}
+			return err
+		}
+		u.ID = id
+		if err := fn(&u); err != nil {
+			return err
+		}
+		if _, err := tx.Put(k, &u); err != nil {
+			return err
+		}
+		out = &u
+		return nil
+	})
+	return out, err
+}
+
+func (s *MemoryStore) Update(_ context.Context, id string, fn func(*User) error) (*User, error) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	u, ok := s.users[id]
+	if !ok {
+		return nil, ErrNotFound
+	}
+	u.ID = id
+	if err := fn(&u); err != nil {
+		return nil, err
+	}
+	s.users[id] = u
+	return &u, nil
+}

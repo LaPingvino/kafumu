@@ -126,3 +126,35 @@ func TestCleanLangs(t *testing.T) {
 		t.Errorf("cleanLangs = %v, want %v", got, want)
 	}
 }
+
+// Two instances share the store. B signs a new device in (a new session)
+// while A still has an older cached copy; A's hourly "last seen" touch must
+// not put that copy back and sign the new device out (it could, with Save).
+func TestTouchKeepsOtherInstancesSession(t *testing.T) {
+	ctx, st := context.Background(), NewMemoryStore()
+	a, b := NewService(st), NewService(st)
+	u, cred, err := a.Create(ctx, "en")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := a.Resolve(ctx, cred); err != nil { // A caches u
+		t.Fatal(err)
+	}
+	ub, _ := b.ByID(ctx, u.ID)
+	newDevice, err := b.NewSession(ctx, ub)
+	if err != nil {
+		t.Fatal(err)
+	}
+	// An hour on: A's cached copy is old and gets touched.
+	a.mu.Lock()
+	c := a.cache[u.ID]
+	c.u.LastSeenAt = time.Now().Add(-2 * time.Hour)
+	a.cache[u.ID] = c
+	a.mu.Unlock()
+	if _, err := a.Resolve(ctx, cred); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := NewService(st).Resolve(ctx, newDevice); err != nil {
+		t.Fatalf("the new device was signed out by A's touch: %v", err)
+	}
+}

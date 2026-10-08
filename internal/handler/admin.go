@@ -77,8 +77,7 @@ this same link again.</p>`)
 		return
 	}
 	if u.Role != "admin" {
-		u.Role = "admin"
-		if err := a.Accounts.Svc.Save(r.Context(), u); err != nil {
+		if err := a.Accounts.Svc.Update(r.Context(), u, func(x *account.User) { x.Role = "admin" }); err != nil {
 			http.Error(w, "could not save", http.StatusInternalServerError)
 			return
 		}
@@ -562,8 +561,7 @@ func (a *Admin) userAction(r *http.Request, id string) string {
 		if u.ID == UserFrom(ctx).ID && role != "admin" {
 			return "you can't drop your own admin role here"
 		}
-		u.Role = role
-		if err := a.Accounts.Svc.Save(ctx, u); err != nil {
+		if err := a.Accounts.Svc.Update(ctx, u, func(x *account.User) { x.Role = role }); err != nil {
 			return "save failed: " + err.Error()
 		}
 		return who + " is now " + map[bool]string{true: "a regular user", false: role}[role == ""]
@@ -578,21 +576,22 @@ func (a *Admin) userAction(r *http.Request, id string) string {
 		}
 		return who + ": name released"
 	case "keep":
-		if u.KeepDays == -1 {
-			u.KeepDays = 0
-		} else {
-			u.KeepDays = -1
-		}
-		if err := a.Accounts.Svc.Save(ctx, u); err != nil {
+		if err := a.Accounts.Svc.Update(ctx, u, func(x *account.User) {
+			if x.KeepDays == -1 {
+				x.KeepDays = 0
+			} else {
+				x.KeepDays = -1
+			}
+		}); err != nil {
 			return "save failed: " + err.Error()
 		}
 		return who + map[bool]string{true: ": kept forever", false: ": normal retention"}[u.KeepDays == -1]
 	case "patron":
-		u.PatronUntil = time.Time{}
+		until := time.Time{}
 		if d, err := time.Parse("2006-01-02", r.FormValue("until")); err == nil {
-			u.PatronUntil = d.Add(24 * time.Hour) // through the end of that day (UTC)
+			until = d.Add(24 * time.Hour) // through the end of that day (UTC)
 		}
-		if err := a.Accounts.Svc.Save(ctx, u); err != nil {
+		if err := a.Accounts.Svc.Update(ctx, u, func(x *account.User) { x.PatronUntil = until }); err != nil {
 			return "save failed: " + err.Error()
 		}
 		if u.PatronUntil.IsZero() {
@@ -660,8 +659,8 @@ func (a *Admin) bulkAction(r *http.Request) string {
 			}
 			err = a.Accounts.Svc.Delete(ctx, u)
 		case "day", "keep", "normal":
-			u.KeepDays = map[string]int{"day": 1, "keep": -1, "normal": 0}[act]
-			err = a.Accounts.Svc.Save(ctx, u)
+			keep := map[string]int{"day": 1, "keep": -1, "normal": 0}[act]
+			err = a.Accounts.Svc.Update(ctx, u, func(x *account.User) { x.KeepDays = keep })
 		default:
 			return "unknown bulk action"
 		}

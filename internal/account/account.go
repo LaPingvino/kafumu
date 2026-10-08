@@ -130,6 +130,10 @@ type Store interface {
 	LookupUsername(ctx context.Context, name string) (string, error)
 	// VisibleIn returns users visible in any of cells (≤ 30) at now.
 	VisibleIn(ctx context.Context, cells []string, now time.Time) ([]*User, error)
+	// Update changes a user atomically: fn gets the stored copy (in a
+	// transaction, or under a lock) and what it leaves is saved, unless it
+	// returns an error.
+	Update(ctx context.Context, id string, fn func(*User) error) (*User, error)
 }
 
 // Service is the account logic on top of a Store, with a small per-instance
@@ -189,11 +193,26 @@ func (s *Service) Resolve(ctx context.Context, cred string) (*User, error) {
 	if !ok {
 		return nil, ErrNotFound
 	}
-	if time.Since(u.LastSeenAt) > time.Hour {
-		u.LastSeenAt = time.Now()
-		_ = s.Save(ctx, u)
+	if time.Since(u.LastSeenAt) > time.Hour { // u may be a cached copy: touch only this field
+		now := time.Now()
+		_ = s.Update(ctx, u, func(x *User) { x.LastSeenAt = now })
 	}
 	return u, nil
+}
+
+// Update applies change to the stored copy of u atomically, then makes u
+// (and the cache) that fresh copy. Unlike Save, it can't put back what
+// another request changed meanwhile: a session or passkey added on another
+// instance, a profile saved a moment ago.
+func (s *Service) Update(ctx context.Context, u *User, change func(*User)) error {
+	nu, err := s.Store.Update(ctx, u.ID, func(x *User) error { change(x); return nil })
+	if err != nil {
+		return err
+	}
+	nu.ID = u.ID
+	*u = *nu
+	s.remember(nu)
+	return nil
 }
 
 // Save writes u and refreshes the local cache.
@@ -218,8 +237,7 @@ func (s *Service) SetUsername(ctx context.Context, u *User, name string) error {
 		return err
 	}
 	old := u.Username
-	u.Username = name
-	if err := s.Save(ctx, u); err != nil {
+	if err := s.Update(ctx, u, func(x *User) { x.Username = name }); err != nil {
 		return err
 	}
 	if old != "" {
@@ -234,8 +252,7 @@ func (s *Service) ClearUsername(ctx context.Context, u *User) error {
 		return nil
 	}
 	old := u.Username
-	u.Username = ""
-	if err := s.Save(ctx, u); err != nil {
+	if err := s.Update(ctx, u, func(x *User) { x.Username = "" }); err != nil {
 		return err
 	}
 	return s.Store.ReleaseUsername(ctx, old, u.ID)
@@ -265,8 +282,7 @@ func (s *Service) SetInbox(ctx context.Context, prices InboxPrices, u *User, box
 		if u.InboxBox != "" && prices != nil {
 			_ = prices.Delete(ctx, u.InboxBox)
 		}
-		u.InboxBox, u.InboxPub, u.InboxBits = "", "", 0
-		return s.Save(ctx, u)
+		return s.Update(ctx, u, func(x *User) { x.InboxBox, x.InboxPub, x.InboxBits = "", "", 0 })
 	}
 	if !boxRE.MatchString(box) || !pubRE.MatchString(pub) {
 		return errors.New("account: bad inbox")
@@ -275,13 +291,12 @@ func (s *Service) SetInbox(ctx context.Context, prices InboxPrices, u *User, box
 	if u.InboxBox != "" && u.InboxBox != box && prices != nil {
 		_ = prices.Delete(ctx, u.InboxBox)
 	}
-	u.InboxBox, u.InboxPub, u.InboxBits = box, pub, bitsWanted
 	if prices != nil {
 		if err := prices.Set(ctx, box, bitsWanted); err != nil {
 			return err
 		}
 	}
-	return s.Save(ctx, u)
+	return s.Update(ctx, u, func(x *User) { x.InboxBox, x.InboxPub, x.InboxBits = box, pub, bitsWanted })
 }
 
 // InboxPrices maps a public inbox's box id to the work it requires.
@@ -295,22 +310,23 @@ const MaxVisible = 7 * 24 * time.Hour
 
 // SetProfile validates and saves u's public profile. visibleFor <= 0 hides it.
 func (s *Service) SetProfile(ctx context.Context, u *User, cell, bio, where string, langs, tags []string, visibleFor time.Duration) error {
-	u.Cell = strings.ToLower(strings.TrimSpace(cell))
-	u.Bio = clip(strings.TrimSpace(bio), 160)
-	u.Where = clip(strings.TrimSpace(where), 80)
-	u.Langs = cleanLangs(langs)
-	u.Tags = cleanList(tags, 12, func(t string) bool { return len(t) <= 40 })
+	c := strings.ToLower(strings.TrimSpace(cell))
+	b, w := clip(strings.TrimSpace(bio), 160), clip(strings.TrimSpace(where), 80)
+	ls, ts := cleanLangs(langs), cleanList(tags, 12, func(t string) bool { return len(t) <= 40 })
 	if visibleFor > MaxVisible {
 		visibleFor = MaxVisible
 	}
-	u.VisibleUntil = time.Time{}
-	if visibleFor > 0 && u.Username != "" && len(u.Cell) == 6 {
-		u.VisibleUntil = time.Now().Add(visibleFor)
-	}
+	err := s.Update(ctx, u, func(x *User) {
+		x.Cell, x.Bio, x.Where, x.Langs, x.Tags = c, b, w, ls, ts
+		x.VisibleUntil = time.Time{}
+		if visibleFor > 0 && x.Username != "" && len(x.Cell) == 6 {
+			x.VisibleUntil = time.Now().Add(visibleFor)
+		}
+	})
 	s.mu.Lock()
 	s.people = map[string]peopleEntry{}
 	s.mu.Unlock()
-	return s.Save(ctx, u)
+	return err
 }
 
 // People returns the discoverable people in cells, via a per-instance
@@ -456,13 +472,19 @@ func (u *User) label() string {
 
 // AddPasskey stores a new credential on u.
 func (s *Service) AddPasskey(ctx context.Context, u *User, c webauthn.Credential) error {
-	cs := append(u.WebAuthnCredentials(), c)
-	b, err := json.Marshal(cs)
-	if err != nil {
-		return err
+	var bad error
+	err := s.Update(ctx, u, func(x *User) { // added to the stored ones, not to a cached list
+		b, err := json.Marshal(append(x.WebAuthnCredentials(), c))
+		if err != nil {
+			bad = err
+			return
+		}
+		x.Passkeys = b
+	})
+	if bad != nil {
+		return bad
 	}
-	u.Passkeys = b
-	return s.Save(ctx, u)
+	return err
 }
 
 // ByID returns a user by id, read fresh from the store: passkey logins
@@ -483,11 +505,12 @@ func (s *Service) NewSession(ctx context.Context, u *User) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	u.Sessions = append(u.Sessions, hash(tok))
-	if len(u.Sessions) > 5 {
-		u.Sessions = u.Sessions[len(u.Sessions)-5:]
-	}
-	return u.ID + "." + tok, s.Save(ctx, u)
+	return u.ID + "." + tok, s.Update(ctx, u, func(x *User) { // added to the stored sessions, not a cached list
+		x.Sessions = append(x.Sessions, hash(tok))
+		if len(x.Sessions) > 5 {
+			x.Sessions = x.Sessions[len(x.Sessions)-5:]
+		}
+	})
 }
 
 // cleanLangs normalises "code/level": codes lowercase, CEFR levels upper,

@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/LaPingvino/kafumu/internal/account"
@@ -13,7 +14,10 @@ import (
 // Accounts is account.Store on SQLite: users as JSON with the queried
 // fields (cell, visibility) in columns, and the username registry (shared
 // with businesses, as "biz:<id>") in its own table.
-type Accounts struct{ DB *sql.DB }
+type Accounts struct {
+	DB *sql.DB
+	mu sync.Mutex // Update: one read-change-write at a time (one process owns the file)
+}
 
 var _ account.Store = (*Accounts)(nil)
 
@@ -106,4 +110,17 @@ func (s *Accounts) VisibleIn(ctx context.Context, cells []string, now time.Time)
 		out = append(out, &u)
 	}
 	return out, rows.Err()
+}
+
+func (s *Accounts) Update(ctx context.Context, id string, fn func(*account.User) error) (*account.User, error) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	u, err := s.Get(ctx, id)
+	if err != nil {
+		return nil, err
+	}
+	if err := fn(u); err != nil {
+		return nil, err
+	}
+	return u, s.Put(ctx, u)
 }

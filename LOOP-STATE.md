@@ -1034,6 +1034,11 @@ Per the OLN json-spec, a link is an index key like a tag (index["link"] → mess
       loops. oln.Fresh / meetup.Fresh (default a minute) set the per-instance caches and Cache-Control; the test
       server runs with KAFUMU_FRESH=2s. A 👍 check that only passed while a carried ☕ was still cached now looks for
       "👍 1" among the reactions.
-- [ ] Accounts: the same lost-update audit. Requests load the user once (UserFrom) and many handlers Save it
+- [x] Accounts: the same lost-update audit. Requests load the user once (UserFrom) and many handlers Save it
       whole (profile, inbox, Bluesky, LastSeen…); two overlapping ones can undo each other. An atomic
       account Update (like business.Store.Update) for those, field by field.
+      Done: account.Store.Update (Datastore transaction, memory/SQLite lock) and Service.Update (refreshes the
+      caller's copy and the cache). Converted: the hourly LastSeen touch, new sessions, passkeys, @name set/clear,
+      inbox, profile, Bluesky connect/disconnect, admin role/keep/patron. The touch was the dangerous one: from an
+      instance's cached copy it could drop a session another instance had just added (a new device signed out).
+      Test TestTouchKeepsOtherInstancesSession fails on the old code, passes now.
