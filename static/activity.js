@@ -182,8 +182,9 @@
 
   var ul = document.getElementById("activity");
   if (ul) { // the Activity page: read new private answers first, then show, then count it all as seen
-    var fresh = window.kafumuPair ? window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin })
-      .readAnswers().catch(function () {}) : Promise.resolve();
+    var aPair = window.kafumuPair && window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin });
+    var fresh = aPair ? aPair.readAnswers().catch(function () {}) : Promise.resolve();
+    if (aPair) aPair.pushSubscribe(false).catch(function () {}); // keep what wakes you up to date
     fresh.then(count).then(function (items) {
       render(ul, items);
       document.getElementById("activity-empty").hidden = items.length > 0;

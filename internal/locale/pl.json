@@ -625,5 +625,6 @@
   "js.act_changed": "teraz {when}",
   "js.act_cancelled": "odwołane",
   "js.act_likes": "Polubienia: {n}",
-  "js.act_reposts": "Udostępnienia: {n}"
+  "js.act_reposts": "Udostępnienia: {n}",
+  "push.message": "💬 Nowa wiadomość lub odpowiedź dla ciebie"
 }

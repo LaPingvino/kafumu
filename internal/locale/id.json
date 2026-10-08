@@ -625,5 +625,6 @@
   "js.act_changed": "sekarang {when}",
   "js.act_cancelled": "dibatalkan",
   "js.act_likes": "Suka: {n}",
-  "js.act_reposts": "Posting ulang: {n}"
+  "js.act_reposts": "Posting ulang: {n}",
+  "push.message": "💬 Ada pesan atau jawaban baru untukmu"
 }

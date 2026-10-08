@@ -625,5 +625,6 @@
   "js.act_changed": "artık {when}",
   "js.act_cancelled": "iptal edildi",
   "js.act_likes": "Beğeni: {n}",
-  "js.act_reposts": "Yeniden paylaşım: {n}"
+  "js.act_reposts": "Yeniden paylaşım: {n}",
+  "push.message": "💬 Sana yeni bir mesaj ya da yanıt var"
 }

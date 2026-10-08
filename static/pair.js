@@ -769,7 +769,44 @@
       });
     }
 
-    return { replyKey: replyKey, replyKeyOf: replyKeyOf, answer: answer, readAnswers: readAnswers, threads: threads, putThread: putThread,
+    // ---- Push: what wakes this phone ----
+    // watched: our own inboxes (one per contact, plus invite codes and the
+    // public inbox) and the private tags where chat lines and answers to
+    // our posts arrive (77f). All random ids: the server learns endpoint ↔
+    // ids, never who or what.
+    function watched() {
+      return Promise.all([store.contacts(), store.get("invite"), store.get("invite:badge"), store.get("publicInbox"), store.get("replyKeys"), threads()]).then(function (r) {
+        var boxes = r[0].map(function (c) { return boxOf(unb64(c.key), c.role); });
+        [r[1], r[2], r[3]].forEach(function (x) { if (x && x.box) boxes.push(Promise.resolve(x.box)); });
+        var now = Date.now(), tags = (r[4] || []).filter(function (k) { return k.until > now; }).map(function (k) { return Promise.resolve(k.tag); });
+        r[0].concat(r[5]).forEach(function (c) { keysOf(c).forEach(function (k) { tags.push(chatTag(unb64(k.key), k.role)); }); });
+        return Promise.all([Promise.all(boxes), Promise.all(tags)]).then(function (got) {
+          return got[0].filter(Boolean).concat(got[1].filter(Boolean)).slice(0, 300);
+        });
+      });
+    }
+    function b64ToBytes(s) { s = s.replace(/-/g, "+").replace(/_/g, "/"); while (s.length % 4) s += "="; return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }); }
+    // pushSubscribe: (re)register what this device watches; ask=true may
+    // prompt for a new subscription, false only refreshes an existing one.
+    function pushSubscribe(ask) {
+      if (typeof navigator === "undefined" || !("serviceWorker" in navigator) || !("PushManager" in window)) return Promise.reject(new Error("unsupported"));
+      return navigator.serviceWorker.ready.then(function (reg) {
+        return reg.pushManager.getSubscription().then(function (sub) {
+          if (sub) return sub;
+          if (!ask) return null;
+          return fetchFn(base + "/api/push/key").then(function (r) { return r.json(); }).then(function (k) {
+            return reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64ToBytes(k.publicKey) });
+          });
+        });
+      }).then(function (sub) {
+        if (!sub) return false;
+        return watched().then(function (ids) {
+          return fetchFn(base + "/api/push/subscribe", { method: "POST", credentials: "omit", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ subscription: sub.toJSON(), boxes: ids, lang: document.documentElement.lang }) });
+        }).then(function () { return true; });
+      });
+    }
+    return { pushSubscribe: pushSubscribe, watched: watched, replyKey: replyKey, replyKeyOf: replyKeyOf, answer: answer, readAnswers: readAnswers, threads: threads, putThread: putThread,
       flush: flush, outboxSize: outboxSize, sendChat: sendChat, readChat: readChat, report: report, namedLink: namedLink, shortLink: shortLink, inbox: inbox, writeTo: writeTo, readInbox: readInbox, connectBack: connectBack, checkIn: checkIn, around: around, invite: invite, accept: accept, moveSend: moveSend, moveReceive: moveReceive, checkInvite: checkInvite, checkContact: checkContact, send: send,
       _open: open, _boxOf: boxOf, _inviteBox: inviteBox, _unb64: unb64 };
   }

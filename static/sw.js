@@ -59,7 +59,7 @@ self.addEventListener("push", function (e) {
   var d = {};
   try { d = e.data ? e.data.json() : {}; } catch (err) {}
   e.waitUntil(self.registration.showNotification("Kafumu", {
-    body: d.text || "☕", tag: "kafumu-signal", renotify: true, icon: "/static/icon.svg", data: { url: "/contacts" }
+    body: d.text || "☕", tag: d.url === "/activity" ? "kafumu-activity" : "kafumu-signal", renotify: true, icon: "/static/icon.svg", data: { url: d.url || "/contacts" }
   }));
 });
 self.addEventListener("notificationclick", function (e) {

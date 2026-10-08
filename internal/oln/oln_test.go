@@ -25,6 +25,19 @@ func mine(bitsWanted int, at time.Time, msg, keywords string) string {
 	}
 }
 
+// mineExact is mine with exactly bitsWanted: luck can give mine a few
+// extra bits, and each doubles the lifetime, which a test about expiry
+// can't have.
+func mineExact(bitsWanted int, at time.Time, msg, keywords string) string {
+	format := "v2;%d;" + at.UTC().Format("20060102150405") + ";" + base64.URLEncoding.EncodeToString([]byte(msg)) + ";" + keywords
+	for i := 0; ; i++ {
+		raw := fmt.Sprintf(format, i)
+		if Bits(raw) == bitsWanted {
+			return raw
+		}
+	}
+}
+
 func TestPostAndRank(t *testing.T) {
 	ctx := context.Background()
 	now := time.Date(2026, 11, 10, 15, 0, 0, 0, time.UTC)
@@ -384,5 +397,23 @@ func TestPatronPost(t *testing.T) {
 		if n.Patron != named {
 			t.Fatalf("named=%v: patron=%v", named, n.Patron)
 		}
+	}
+}
+
+// A private message (chat line, answer) wakes whoever watches its tag (77f).
+func TestOnPair(t *testing.T) {
+	s := NewService(NewMemoryStore())
+	var woke []string
+	s.OnPair = func(_ context.Context, tag string) { woke = append(woke, tag) }
+	tag := "p0123456789abcdef0123456789abcdef"
+	for _, raw := range []string{mine(BaseBits, time.Now().UTC(), "c2VjcmV0", "#"+tag), mine(BaseBits, time.Now().UTC(), "public", "#geo8ccgmw")} {
+		w := httptest.NewRecorder()
+		s.HandlePost(w, httptest.NewRequest("POST", "/api/oln", strings.NewReader(raw)))
+		if w.Code != 200 {
+			t.Fatalf("post: %d %s", w.Code, w.Body)
+		}
+	}
+	if len(woke) != 1 || woke[0] != tag {
+		t.Fatalf("woke = %v", woke)
 	}
 }

@@ -625,5 +625,6 @@
   "js.act_changed": "désormais {when}",
   "js.act_cancelled": "annulé",
   "js.act_likes": "J'aime : {n}",
-  "js.act_reposts": "Republications : {n}"
+  "js.act_reposts": "Republications : {n}",
+  "push.message": "💬 Un nouveau message ou une réponse pour toi"
 }

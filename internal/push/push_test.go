@@ -30,9 +30,10 @@ func TestSubscribeAndNotify(t *testing.T) {
 	auth := make([]byte, 16)
 	rand.Read(auth)
 	box := strings.Repeat("ab", 32)
+	tag := "p" + strings.Repeat("ef", 16) // an OLN pair tag: chat lines and answers (77f)
 	body := `{"subscription":{"endpoint":"https://push.example/x","keys":{"p256dh":"` +
 		base64.RawURLEncoding.EncodeToString(key.PublicKey().Bytes()) + `","auth":"` + base64.RawURLEncoding.EncodeToString(auth) +
-		`"}},"boxes":["` + box + `","not-a-box"]}`
+		`"}},"boxes":["` + box + `","not-a-box","` + tag + `"]}`
 	w := httptest.NewRecorder()
 	s.Subscribe(w, httptest.NewRequest("POST", "/api/push/subscribe", strings.NewReader(body)))
 	if w.Code != http.StatusNoContent {
@@ -45,6 +46,10 @@ func TestSubscribeAndNotify(t *testing.T) {
 	s.Notify(context.Background(), strings.Repeat("cd", 32))
 	if len(fc.reqs) != 1 {
 		t.Error("notified for a box nobody watches")
+	}
+	s.Notify(context.Background(), tag)
+	if len(fc.reqs) != 2 {
+		t.Errorf("a watched pair tag: %d requests", len(fc.reqs))
 	}
 	fc.status = http.StatusGone
 	s.Notify(context.Background(), box)

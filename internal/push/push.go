@@ -15,6 +15,7 @@ import (
 	"log"
 	"net/http"
 	"regexp"
+	"strings"
 	"sync"
 	"time"
 
@@ -29,7 +30,8 @@ const (
 	configKey = "vapid"
 )
 
-var boxRE = regexp.MustCompile(`^[0-9a-f]{64}$`)
+// boxRE: a mailbox id, or an OLN pair tag (chat lines, answers; 77f).
+var boxRE = regexp.MustCompile(`^([0-9a-f]{64}|p[0-9a-f]{32})$`)
 
 // Sub is one browser's push subscription and the inboxes it watches.
 type Sub struct {
@@ -173,6 +175,8 @@ type Service struct {
 	// Text returns the notification line in a language; it never names
 	// anyone — the app decrypts and shows who when opened.
 	Text func(lang string) string
+	// MsgText: the line for a chat line or an answer (an OLN pair tag).
+	MsgText func(lang string) string
 }
 
 // Notify wakes every device watching box. Gone subscriptions are removed.
@@ -187,11 +191,17 @@ func (s *Service) Notify(ctx context.Context, box string) {
 		return
 	}
 	for _, sub := range subs {
-		text := "☕"
+		text, url := "☕", "/contacts"
 		if s.Text != nil {
 			text = s.Text(sub.Lang)
 		}
-		payload, _ := json.Marshal(map[string]string{"t": "signal", "text": text})
+		if strings.HasPrefix(box, "p") { // a chat line or an answer: Activity has it
+			url = "/activity"
+			if s.MsgText != nil {
+				text = s.MsgText(sub.Lang)
+			}
+		}
+		payload, _ := json.Marshal(map[string]string{"t": "signal", "text": text, "url": url})
 		resp, err := webpush.SendNotificationWithContext(ctx, payload,
 			&webpush.Subscription{Endpoint: sub.Endpoint, Keys: webpush.Keys{Auth: sub.Auth, P256dh: sub.P256dh}},
 			&webpush.Options{HTTPClient: s.Client, Subscriber: s.Contact, VAPIDPublicKey: pub, VAPIDPrivateKey: priv,

@@ -92,6 +92,8 @@ func main() {
 	}
 	pusher := &push.Service{Store: pushStore, Contact: cfg.Origin, Text: func(l string) string { return locale.T(l, "push.signal") }}
 	mailbox.OnAppend = pusher.Notify
+	pusher.MsgText = func(l string) string { return locale.T(l, "push.message") }
+	notes.OnPair = pusher.Notify // chat lines and answers wake their reader too (77f)
 	prices := box.NewPrices(db)
 	mailbox.Price = prices.Price
 	accounts.Prices = prices

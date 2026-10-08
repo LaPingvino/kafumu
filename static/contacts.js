@@ -198,35 +198,9 @@
   }
   showInbox();
 
-  // Push: watch our own inboxes (one per contact, plus invite codes) so a
-  // signal wakes the phone. The server only learns endpoint ↔ random ids.
-  function inboxes() {
-    return Promise.all([dev.store.contacts(), dev.store.get("invite"), dev.store.get("invite:badge")]).then(function (r) {
-      var ids = r[0].map(function (c) { return pair._boxOf(pair._unb64(c.key), c.role); });
-      [r[1], r[2]].forEach(function (inv) { if (inv && inv.box) ids.push(Promise.resolve(inv.box)); });
-      ids.push(dev.store.get("publicInbox").then(function (ib) { return ib && ib.box; }));
-      return Promise.all(ids).then(function (all) { return all.filter(Boolean); });
-    });
-  }
-  function b64ToBytes(s) { s = s.replace(/-/g, "+").replace(/_/g, "/"); while (s.length % 4) s += "="; return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }); }
-  function subscribe(ask) {
-    if (!("serviceWorker" in navigator) || !("PushManager" in window)) return Promise.reject(new Error("unsupported"));
-    return navigator.serviceWorker.ready.then(function (reg) {
-      return reg.pushManager.getSubscription().then(function (sub) {
-        if (sub) return sub;
-        if (!ask) return null;
-        return fetch("/api/push/key").then(function (r) { return r.json(); }).then(function (k) {
-          return reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64ToBytes(k.publicKey) });
-        });
-      });
-    }).then(function (sub) {
-      if (!sub) return false;
-      return inboxes().then(function (boxes) {
-        return fetch("/api/push/subscribe", { method: "POST", credentials: "omit", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ subscription: sub.toJSON(), boxes: boxes, lang: document.documentElement.lang }) });
-      }).then(function () { return true; });
-    });
-  }
+  // Push (pair.pushSubscribe): wake this phone for signals, chat lines and
+  // answers. The server only learns endpoint ↔ random ids.
+  function subscribe(ask) { return pair.pushSubscribe(ask); }
   var bell = $("push-on");
   if (bell) {
     subscribe(false).then(function (on) { bell.hidden = on; $("push-state").textContent = on ? (T.push_on || "On") : ""; }, function () { bell.hidden = true; });

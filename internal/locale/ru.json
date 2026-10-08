@@ -625,5 +625,6 @@
   "js.act_changed": "теперь {when}",
   "js.act_cancelled": "отменено",
   "js.act_likes": "Нравится: {n}",
-  "js.act_reposts": "Репосты: {n}"
+  "js.act_reposts": "Репосты: {n}",
+  "push.message": "💬 Новое сообщение или ответ для вас"
 }

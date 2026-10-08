@@ -44,6 +44,9 @@ func (s *Service) HandlePost(w http.ResponseWriter, r *http.Request) {
 		log.Printf("oln: post: %v", err)
 		http.Error(w, "unavailable", http.StatusServiceUnavailable)
 	default:
+		if n.Pair != "" && s.OnPair != nil {
+			s.OnPair(r.Context(), n.Pair)
+		}
 		json.NewEncoder(w).Encode(n)
 	}
 }

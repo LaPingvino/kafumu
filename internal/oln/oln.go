@@ -367,8 +367,11 @@ func (s *Service) Asks(ctx context.Context, tags []string) ([]*Note, error) {
 
 // Service accepts notes and serves them per cell through a short cache.
 type Service struct {
-	Store Store
-	Now   func() time.Time
+	// OnPair, if set, runs after a private message lands (chat line or
+	// answer), with its pair tag, to wake whoever watches it (77f).
+	OnPair func(ctx context.Context, tag string)
+	Store  Store
+	Now    func() time.Time
 
 	mu     sync.Mutex
 	cells  map[string]cellEntry

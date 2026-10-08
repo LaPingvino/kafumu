@@ -625,5 +625,6 @@
   "js.act_changed": "mostantól {when}",
   "js.act_cancelled": "elmarad",
   "js.act_likes": "Kedvelések: {n}",
-  "js.act_reposts": "Megosztások: {n}"
+  "js.act_reposts": "Megosztások: {n}",
+  "push.message": "💬 Új üzenet vagy válasz érkezett"
 }

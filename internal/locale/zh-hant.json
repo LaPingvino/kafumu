@@ -625,5 +625,6 @@
   "js.act_changed": "改為 {when}",
   "js.act_cancelled": "已取消",
   "js.act_likes": "按讚：{n}",
-  "js.act_reposts": "轉發：{n}"
+  "js.act_reposts": "轉發：{n}",
+  "push.message": "💬 你有一則新訊息或回答"
 }

@@ -625,5 +625,6 @@
   "js.act_changed": "тепер {when}",
   "js.act_cancelled": "скасовано",
   "js.act_likes": "Вподобання: {n}",
-  "js.act_reposts": "Репости: {n}"
+  "js.act_reposts": "Репости: {n}",
+  "push.message": "💬 Нове повідомлення або відповідь для вас"
 }

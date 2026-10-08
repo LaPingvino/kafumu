@@ -423,6 +423,7 @@
     }, 0, asMe); }).then(function (n) {
       if (n && n.id) ownNotes.push(n);
       rememberPost(n, composeMode.re ? "reply" : composeMode.ask ? "ask" : "note", text.split("\n")[0]);
+      if (!composeMode.re && aPair) aPair.pushSubscribe(false).catch(function () {}); // its answers can wake you now
       composeMode = {};
       f.text.value = "";
       f.hidden = true;

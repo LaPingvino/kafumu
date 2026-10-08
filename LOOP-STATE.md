@@ -926,8 +926,14 @@ on a contact's card; strangers' reactions show only under the post in its own ce
       getPosts for ≤25 remembered Bluesky posts → ❤️/🔁 counts (dated first seen), getPostThread for those with
       replies → 🦋 replies by others (newest 20 a post). Checked by hand against a real post; not in run.sh
       (needs the network).
-- [ ] 77f. Push for answers and replies too: subscriptions also watch your answer tags (Notify on pair notes);
+- [x] 77f. Push for answers and replies too: subscriptions also watch your answer tags (Notify on pair notes);
       the notification opens /activity instead of /contacts.
+      Done: push subscriptions also take OLN pair tags (p+32 hex): the device watches its live answer tags and
+      the chat tags of contacts and answer threads (pair.watched; subscribe code moved from contacts.js to
+      pair.pushSubscribe, refreshed by Contacts, Activity and after posting). oln.Service.OnPair → push.Notify;
+      a pair-tag push says "💬 A new message or answer for you" and opens /activity. Contact chat lines didn't push
+      before either. Public #re replies: not pushed (watching post ids would tell the server which posts are yours).
+      Also: TestPullFromPeer flaked when mining got lucky extra bits (longer life); mineExact fixes it.
 - [ ] 77g. Reactions to reactions (Joop): a reply under a card gets its own react row; its reactions (#re<its id>)
       nest one level under it, and count as replies to your reply in Activity. Uses 77b's `re` index for the
       ones not in the cell's bundle.

@@ -625,5 +625,6 @@
   "js.act_changed": "nu {when}",
   "js.act_cancelled": "inställt",
   "js.act_likes": "Gillningar: {n}",
-  "js.act_reposts": "Återpubliceringar: {n}"
+  "js.act_reposts": "Återpubliceringar: {n}",
+  "push.message": "💬 Ett nytt meddelande eller svar till dig"
 }

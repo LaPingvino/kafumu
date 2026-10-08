@@ -22,7 +22,7 @@ func TestPullFromPeer(t *testing.T) {
 	if _, ok, err := b.Relay(ctx, mine(BaseBits+2, now.Add(-20*time.Minute), "Concert tonight", "#geo8ccgmw"), "http://c.example"); err != nil || !ok {
 		t.Fatalf("relay into B: %v", err)
 	}
-	if _, _, err := b.Relay(ctx, mine(BaseBits, now.Add(-3*time.Hour), "Old news", "#geo8ccgmw"), "http://c.example"); err != ErrExpired {
+	if _, _, err := b.Relay(ctx, mineExact(BaseBits, now.Add(-3*time.Hour), "Old news", "#geo8ccgmw"), "http://c.example"); err != ErrExpired {
 		t.Fatalf("expired relay: %v", err)
 	}
 	if _, _, err := b.Relay(ctx, mine(BaseBits, now.Add(time.Hour), "From the future", "#geo8ccgmw"), "http://c.example"); err != ErrClock {

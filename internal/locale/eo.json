@@ -625,5 +625,6 @@
   "js.act_changed": "nun {when}",
   "js.act_cancelled": "nuligita",
   "js.act_likes": "Ŝatoj: {n}",
-  "js.act_reposts": "Diskonigoj: {n}"
+  "js.act_reposts": "Diskonigoj: {n}",
+  "push.message": "💬 Nova mesaĝo aŭ respondo por vi"
 }
