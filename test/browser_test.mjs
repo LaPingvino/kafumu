@@ -181,6 +181,11 @@ try {
   }
   await B.evaluate("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('Worth reading " + RUN + "')); [...li.querySelectorAll('button.react')].find(b => b.textContent === '👍').click(); return true; })()");
   await B.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('Worth reading " + RUN + "') && (li.querySelector(':scope > .reactions') || {}).textContent === '👍 1')", "👍 on the link", 30000);
+  // By site (79c): "🌐 example.org" on the card filters Around on that site.
+  await B.evaluate("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('Worth reading " + RUN + "')); location.href = li.querySelector('a.site-link').href; return true; })()");
+  await B.waitFor("location.search.includes('tag=site_example_org') && [...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('Worth reading " + RUN + "')) && document.body.textContent.includes('× 🌐 example.org')", "Around filtered on example.org, the share in it", 20000);
+  await B.goto(base + "/?cell=6fg222");
+  await B.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('Worth reading " + RUN + "'))", "back to the area", 20000);
   // "Did you see this?" (80a): B sends that link to A over their chat; A
   // gets it as a message (Contacts reads it, Activity lists it).
   await B.evaluate("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('Worth reading " + RUN + "')); [...li.querySelectorAll(':scope > .actions button')].find(b => b.textContent === '👀').click(); return true; })()");

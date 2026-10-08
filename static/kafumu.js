@@ -310,7 +310,7 @@
     if (view.lang || view.tag) {
       var clear = document.createElement("a");
       clear.className = "chip"; clear.href = viewURL(currentCell).replace(/&?(lang|tag)=[^&]*/g, "").replace("?&", "?");
-      clear.textContent = "× " + [view.lang ? ((window.KAFUMU_ME || {}).names || {})[view.lang] || view.lang : "", view.tag ? "#" + view.tag : ""].filter(Boolean).join(" ");
+      clear.textContent = "× " + [view.lang ? ((window.KAFUMU_ME || {}).names || {})[view.lang] || view.lang : "", view.tag ? tagText(view.tag) : ""].filter(Boolean).join(" ");
       box.appendChild(clear);
     }
   }
@@ -411,7 +411,7 @@
     // A reply carries "#re" (and its language) only: no place, no other tags (78a).
     if (composeMode.re) keywords = keywords.split(" ").filter(function (k) { return /^#lang/.test(k); }).concat(["#re" + composeMode.re.slice(0, 10)]).join(" ");
     var shared = !composeMode.re && urlIn(text);
-    if (shared) keywords += " #re" + reID("link", shared); // sharing a link: a reaction to it (79a)
+    if (shared) keywords += " #re" + reID("link", shared) + (siteTag(shared) ? " #" + siteTag(shared) : ""); // sharing a link: a reaction to it (79a), and its site (79c)
     if (composeMode.re && composeMode.carry) { // carried home (78c): your area too, and what it's about
       keywords = "#geo" + composeMode.carry.cell + " " + keywords;
       text = carryText(text, composeMode.carry.about, composeMode.carry.link);
@@ -741,7 +741,7 @@
     }
     meta.appendChild(document.createTextNode((n.author ? "@" + n.author + " ✓ · " : "") + (opts.forYou ? "★ " + tr("ask_for_you") + " · " : "") + ago(n.at) + " · ⚡" + n.bits + " · " +
       tr("oln_left", { h: left < 1 ? "<1" : Math.round(left) }) + (n.via ? " · ↪ " + n.via.replace(/^https?:\/\//, "") : "") +
-      (n.tags || []).filter(function (t) { return !/^(geo|re[0-9a-f]{10}$|ask$|rk[ab][0-9a-f]{33}$)/.test(t); }).map(function (t) { return " #" + t; }).join("")));
+      (n.tags || []).filter(function (t) { return !/^(geo|re[0-9a-f]{10}$|ask$|rk[ab][0-9a-f]{33}$)/.test(t); }).map(function (t) { return " " + tagText(t); }).join("")));
     var text = document.createElement("p");
     text.className = "text";
     var m = n.text.match(/https?:\/\/[^\s]+\/c#v1\.[A-Za-z0-9_-]+/);
@@ -794,6 +794,13 @@
       la.className = "link-line"; la.href = link; la.rel = "noopener nofollow ugc"; la.target = "_blank";
       la.textContent = "🔗 " + link.replace(/^https?:\/\//, "").slice(0, 60) + " ↗";
       li.insertBefore(la, row.parentNode === li ? row : null);
+      var st = siteTag(link);
+      if (st && view.tag !== st) { // everything shared from this site (79c)
+        var sa = document.createElement("a");
+        sa.className = "pill-sm site-link"; sa.setAttribute("role", "button");
+        sa.href = chipURL("tag", st, false); sa.textContent = tagText(st);
+        li.insertBefore(sa, row.parentNode === li ? row : null);
+      }
       li.dataset.self = n.id;
     }
     if (!opts.question && !opts.nested) li.dataset.reid = link ? reactRow("link", link, firstLine(n.text), row, { link: link })
@@ -907,6 +914,13 @@
     for (var i = 0; i < m.length; i++) if (m[i].indexOf("/c#v1.") < 0) return normURL(m[i].replace(/[.,;:!?)\]]+$/, ""));
     return "";
   }
+  // siteTag (79c): a link's site as a tag, so everything shared from one
+  // site can be browsed: "#site_example_org" (no www., dots as _).
+  function siteTag(u) {
+    try { return ("site_" + new URL(u).hostname.replace(/^www\./, "").replace(/[^a-z0-9]/g, "_")).slice(0, 40); } catch (e) { return ""; }
+  }
+  // tagText: how a tag reads: a site tag as "🌐 example.org", others as "#tag".
+  function tagText(t) { return /^site_/.test(t) ? "🌐 " + t.slice(5).replace(/_/g, ".") : "#" + t; }
   // linkOf: the link a note shares (its #re is that link's), or "".
   function linkOf(n) {
     var u = urlIn(n.text);
