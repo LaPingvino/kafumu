@@ -65,7 +65,7 @@ func TestPostAndRank(t *testing.T) {
 	}{
 		{"nonsense", ErrFormat},
 		{mine(BaseBits, now.Add(-20*time.Minute), "old", "#geo8ccgqw"), ErrClock},
-		{mine(BaseBits, now, "where?", "#hello"), ErrPlace},
+		{mine(BaseBits, now, "where?", "#langeng"), ErrPlace}, // no place, no subject, no #re
 		{func() string { // too little work: find a hash with exactly 0 leading zero bits
 			for i := 0; ; i++ {
 				r := fmt.Sprintf("v2;%d;%s;%s;#geo8ccgqw", i, now.Format("20060102150405"), base64.URLEncoding.EncodeToString([]byte("x")))
@@ -203,7 +203,7 @@ func TestPairMessages(t *testing.T) {
 	if len(got) != 1 || got[0].ID != n.ID {
 		t.Fatalf("for pair = %+v", got)
 	}
-	if _, err := s.Post(context.Background(), mine(BaseBits, now, "no place", "#coffee")); err != ErrPlace {
+	if _, err := s.Post(context.Background(), mine(BaseBits, now, "no place", "#langeng")); err != ErrPlace { // "#coffee" alone would be a general line (78a)
 		t.Fatalf("placeless public note = %v", err)
 	}
 }
@@ -244,7 +244,7 @@ func TestRepeats(t *testing.T) {
 	if _, err := s.Post(ctx, mine(BaseBits, now, text+" ", "#geo8ccgmw")); !errors.Is(err, ErrRepeat) {
 		t.Fatalf("same cell repeat = %v", err)
 	}
-	_, err := s.Post(ctx, mine(BaseBits, now, text, "#geo9f469w"))
+	_, err := s.Post(ctx, mineExact(BaseBits, now, text, "#geo9f469w")) // exact: luck could give it the extra bits
 	var ne *NeedError
 	if !errors.As(err, &ne) || ne.Need != BaseBits+RepeatBits {
 		t.Fatalf("other cell repeat = %v", err)
@@ -438,12 +438,35 @@ func TestReactionWithoutPlace(t *testing.T) {
 	if got, _ := s.InCells(ctx, []string{"8ccgmw"}); len(got) != 1 {
 		t.Fatalf("the area's list has %d, want just the post", len(got))
 	}
-	if _, err := s.Post(ctx, mine(BaseBits, now, "no place, no re", "#esperanto")); err != ErrPlace {
-		t.Fatalf("subject-only: %v (78a-3 adds those)", err)
+	if _, err := s.Post(ctx, mine(BaseBits, now, "no place, no subject", "#langepo")); err != ErrPlace {
+		t.Fatalf("no place, only a language: %v", err)
 	}
 	w := httptest.NewRecorder()
 	s.HandleRequired(w, httptest.NewRequest("GET", "/api/oln/required?re="+re, nil))
 	if w.Code != 200 || !strings.Contains(w.Body.String(), `"bits"`) {
 		t.Fatalf("required?re: %d %s", w.Code, w.Body)
+	}
+}
+
+// A line without a place about a subject (78a): filed Everywhere, found
+// by its subject from anywhere, never in an area's list.
+func TestGeneral(t *testing.T) {
+	s := NewService(NewMemoryStore())
+	ctx, now := context.Background(), time.Now().UTC()
+	g, err := s.Post(ctx, mine(BaseBits, now, "Online kafumado ĉi-vespere", "#esperanto #langepo"))
+	if err != nil || g.Cell != Everywhere || !slices.Equal(g.Subj, []string{"esperanto"}) {
+		t.Fatalf("general = %+v, %v", g, err)
+	}
+	if _, err := s.Post(ctx, mine(BaseBits, now, "local", "#geo8ccgmw #esperanto")); err != nil {
+		t.Fatal(err)
+	}
+	got, err := s.General(ctx, []string{"esperanto", "go"})
+	if err != nil || len(got) != 1 || got[0].ID != g.ID {
+		t.Fatalf("General = %+v, %v", got, err)
+	}
+	w := httptest.NewRecorder()
+	s.HandleGeneral(w, httptest.NewRequest("GET", "/api/oln/general?tags=esperanto", nil))
+	if w.Code != 200 || !strings.Contains(w.Body.String(), g.ID) {
+		t.Fatalf("handler: %d %s", w.Code, w.Body)
 	}
 }

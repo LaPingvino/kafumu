@@ -626,5 +626,6 @@
   "js.act_cancelled": "ακυρώθηκε",
   "js.act_likes": "Μου αρέσει: {n}",
   "js.act_reposts": "Αναδημοσιεύσεις: {n}",
-  "push.message": "💬 Νέο μήνυμα ή απάντηση για σένα"
+  "push.message": "💬 Νέο μήνυμα ή απάντηση για σένα",
+  "js.general_for": "παντού · {tag}"
 }

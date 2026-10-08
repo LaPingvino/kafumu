@@ -626,5 +626,6 @@
   "js.act_cancelled": "aflyst",
   "js.act_likes": "Likes: {n}",
   "js.act_reposts": "Reposts: {n}",
-  "push.message": "💬 En ny besked eller et svar til dig"
+  "push.message": "💬 En ny besked eller et svar til dig",
+  "js.general_for": "overalt · {tag}"
 }

@@ -626,5 +626,6 @@
   "js.act_cancelled": "abgesagt",
   "js.act_likes": "Likes: {n}",
   "js.act_reposts": "Reposts: {n}",
-  "push.message": "💬 Eine neue Nachricht oder Antwort für dich"
+  "push.message": "💬 Eine neue Nachricht oder Antwort für dich",
+  "js.general_for": "überall · {tag}"
 }

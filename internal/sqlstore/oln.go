@@ -22,11 +22,12 @@ type noteRow struct {
 	Asks []string  `json:"asks,omitempty"`
 	Pair string    `json:"pair,omitempty"`
 	Re   string    `json:"re,omitempty"`
+	Subj []string  `json:"subj,omitempty"`
 	Recv time.Time `json:"recv,omitempty"`
 }
 
 func (s *Notes) Put(ctx context.Context, n *oln.Note) error {
-	b, err := json.Marshal(noteRow{Note: *n, Asks: n.Asks, Pair: n.Pair, Re: n.Re, Recv: n.Recv})
+	b, err := json.Marshal(noteRow{Note: *n, Asks: n.Asks, Pair: n.Pair, Re: n.Re, Subj: n.Subj, Recv: n.Recv})
 	if err != nil {
 		return err
 	}
@@ -52,7 +53,7 @@ func scanNotes(rows *sql.Rows) ([]*oln.Note, error) {
 			return nil, err
 		}
 		n := r.Note
-		n.Asks, n.Pair, n.Re, n.Recv = r.Asks, r.Pair, r.Re, r.Recv
+		n.Asks, n.Pair, n.Re, n.Subj, n.Recv = r.Asks, r.Pair, r.Re, r.Subj, r.Recv
 		out = append(out, &n)
 	}
 	return out, rows.Err()
@@ -147,6 +148,23 @@ func (s *Notes) RepliesTo(ctx context.Context, res []string, now time.Time) ([]*
 		args = append(args, re)
 	}
 	rows, err := s.DB.QueryContext(ctx, `SELECT data FROM notes WHERE expires_at > ? AND json_extract(data, '$.re') IN (?`+strings.Repeat(", ?", len(res)-1)+`) LIMIT 300`, args...)
+	if err != nil {
+		return nil, err
+	}
+	return scanNotes(rows)
+}
+
+// About reads the subjects out of each row's JSON (no column, no migration).
+func (s *Notes) About(ctx context.Context, subj []string, now time.Time) ([]*oln.Note, error) {
+	if len(subj) == 0 {
+		return nil, nil
+	}
+	args := []any{now.Unix()}
+	for _, t := range subj {
+		args = append(args, t)
+	}
+	rows, err := s.DB.QueryContext(ctx, `SELECT data FROM notes WHERE expires_at > ? AND cell = '000000' AND EXISTS
+		(SELECT 1 FROM json_each(data, '$.subj') WHERE value IN (?`+strings.Repeat(", ?", len(subj)-1)+`)) LIMIT 300`, args...)
 	if err != nil {
 		return nil, err
 	}

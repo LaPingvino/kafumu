@@ -626,5 +626,6 @@
   "js.act_cancelled": "đã hủy",
   "js.act_likes": "Lượt thích: {n}",
   "js.act_reposts": "Đăng lại: {n}",
-  "push.message": "💬 Bạn có tin nhắn hoặc câu trả lời mới"
+  "push.message": "💬 Bạn có tin nhắn hoặc câu trả lời mới",
+  "js.general_for": "mọi nơi · {tag}"
 }

@@ -141,6 +141,17 @@ try {
   await A.goto(base + "/activity");
   await A.waitFor("[...document.querySelectorAll('#activity li')].some(li => li.textContent.includes('Manteigaria') && !li.classList.contains('unread'))", "and then as seen");
 
+  // A line without a place about a subject (78a): B sees it from anywhere,
+  // marked 🌍, when filtering on that subject.
+  await A.goto(base + "/?cell=6fg222");
+  await A.waitFor("!!window.kafumuOLN", "OLN ready");
+  await A.evaluate("window.kafumuOLN.post('General line " + RUN + "', '#kafumutest', 4, function () {}).then(() => true)");
+  for (let i = 0; ; i++) {
+    await B.goto(base + "/?cell=9c2v2v&tag=kafumutest");
+    try { await B.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('General line " + RUN + "') && li.textContent.includes('🌍'))", "general line shown when filtering its subject", 8000); break; }
+    catch (e) { if (i >= 9) throw e; }
+  }
+
   // Card themes from local activity: the "food" question tag shows up as a
   // 📍 suggestion in A's card editor.
   // Reactions carry no place (78a): A's Around fetches them by id, B's

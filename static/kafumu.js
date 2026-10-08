@@ -1084,6 +1084,7 @@
         render(b.posts || [], ringOf, places, c);
         elsewhere(b, c);
         asksForMe(b, c);
+        generalFor(b);
         var named = (b.places || []).filter(function (pt) { return pt.weight >= 0.5; })
           .slice(0, 3).map(function (pt) { return "#" + pt.tag; });
         $("list-note").textContent = named.length
@@ -1492,6 +1493,28 @@
         sinks.elsewhere.appendChild(li);
         li.dataset.label = tr("elsewhere", { tag: "#" + etag });
       });
+    }).catch(function () {});
+  }
+
+  // generalFor: lines without a place about the subject you filter on
+  // (78a), from anywhere; marked 🌍. Only when filtering: they belong to a
+  // subject, not to this area.
+  function generalFor(b) {
+    if (!view.tag) return;
+    var seq = loadSeq, have = {}, hidden = hiddenNotes();
+    (b.notes || []).forEach(function (n) { have[n.id] = true; });
+    fetch("/api/oln/general?tags=" + encodeURIComponent(view.tag), { credentials: "omit" }).then(function (r) { return r.ok ? r.json() : []; }).then(function (ns) {
+      if (seq !== loadSeq) return;
+      ns.filter(function (n) { return !have[n.id] && hidden.indexOf(n.id) < 0; }).slice(0, 10).forEach(function (n, i) {
+        var li = noteItem(n, {});
+        var why = document.createElement("div");
+        why.className = "why";
+        why.textContent = "🌍 " + tr("general_for", { tag: "#" + view.tag });
+        li.insertBefore(why, li.firstChild);
+        li.dataset.score = 9 - i * 0.3;
+        sinks.here.appendChild(li);
+      });
+      scheduleDraw();
     }).catch(function () {});
   }
 

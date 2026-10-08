@@ -626,5 +626,6 @@
   "js.act_cancelled": "nuligita",
   "js.act_likes": "Ŝatoj: {n}",
   "js.act_reposts": "Diskonigoj: {n}",
-  "push.message": "💬 Nova mesaĝo aŭ respondo por vi"
+  "push.message": "💬 Nova mesaĝo aŭ respondo por vi",
+  "js.general_for": "ĉie · {tag}"
 }

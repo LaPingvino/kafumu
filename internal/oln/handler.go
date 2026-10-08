@@ -150,3 +150,30 @@ func (s *Service) HandleRe(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Cache-Control", "public, max-age=60")
 	json.NewEncoder(w).Encode(ns)
 }
+
+// HandleGeneral is GET /api/oln/general?tags=esperanto,go: lines without a
+// place about those subjects, for people looking at one of them (78a).
+func (s *Service) HandleGeneral(w http.ResponseWriter, r *http.Request) {
+	var tags []string
+	for _, t := range strings.Split(strings.ToLower(r.URL.Query().Get("tags")), ",") {
+		if t = strings.TrimPrefix(strings.TrimSpace(t), "#"); t != "" && len(t) <= 40 && isSubject(t) {
+			tags = append(tags, t)
+		}
+	}
+	if len(tags) == 0 || len(tags) > MaxAskTags {
+		http.Error(w, "want ?tags=a,b (1-8 subjects)", http.StatusBadRequest)
+		return
+	}
+	ns, err := s.General(r.Context(), tags)
+	if err != nil {
+		log.Printf("oln: general: %v", err)
+		http.Error(w, "unavailable", http.StatusServiceUnavailable)
+		return
+	}
+	if ns == nil {
+		ns = []*Note{}
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Cache-Control", "public, max-age=60")
+	json.NewEncoder(w).Encode(ns)
+}

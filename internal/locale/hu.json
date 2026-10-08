@@ -626,5 +626,6 @@
   "js.act_cancelled": "elmarad",
   "js.act_likes": "Kedvelések: {n}",
   "js.act_reposts": "Megosztások: {n}",
-  "push.message": "💬 Új üzenet vagy válasz érkezett"
+  "push.message": "💬 Új üzenet vagy válasz érkezett",
+  "js.general_for": "mindenhol · {tag}"
 }

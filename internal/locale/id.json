@@ -626,5 +626,6 @@
   "js.act_cancelled": "dibatalkan",
   "js.act_likes": "Suka: {n}",
   "js.act_reposts": "Posting ulang: {n}",
-  "push.message": "💬 Ada pesan atau jawaban baru untukmu"
+  "push.message": "💬 Ada pesan atau jawaban baru untukmu",
+  "js.general_for": "di mana saja · {tag}"
 }

@@ -626,5 +626,6 @@
   "js.act_cancelled": "취소됐어요",
   "js.act_likes": "좋아요: {n}",
   "js.act_reposts": "재게시: {n}",
-  "push.message": "💬 새 메시지나 답변이 왔어요"
+  "push.message": "💬 새 메시지나 답변이 왔어요",
+  "js.general_for": "어디서나 · {tag}"
 }

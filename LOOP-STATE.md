@@ -959,7 +959,12 @@ the thing through the 77b index, wherever the thing is.
       per id). Activity links a placeless reply to the post's area. Browser test: A sees B's answer and its 👍
       on A's own Around, fetched by id. Datastore "in" wants []interface{} (a []string 503'd in production for
       ~10 min after the first deploy); checked live with a two-id lookup; the emulator test skips (no "in" there).
-- [ ] 78a-3. "General" notes: needed for "general" reactions and for links with only subject tags.
+- [x] 78a-3a. General lines, server + reading: no #geo, no #re, ≥1 subject → filed Everywhere with Note.Subj
+      (indexed); Store.About (one "in" query; SQLite json_each); Service.General (per-tag 1-min cache);
+      GET /api/oln/general?tags=; priced by recent lines about its first subject. Around shows them (🌍 everywhere ·
+      #tag) only while filtering on that subject. Posting UI: 78b. Tests: TestGeneral (memory, SQLite), browser.
+      Also fixed TestRepeats' lucky-bits flake (mineExact). Flaky still: "business card never synced" (2× today).
+- [x] 78a-3 (reference). "General" notes: needed for "general" reactions and for links with only subject tags.
       Decided (Joop, 2026-10-08): the one-cell rule is Kafumu's API, not the OLN message format. A general line
       simply has no #geo (`…;#esperanto #re…`); the API files it under the internal cell "000000" (all zero =
       everywhere), so Store/Note stay the same. Parse: no cell + ≥1 subject tag (not lang/re/ask-only) → Cell
@@ -991,3 +996,4 @@ Per the OLN json-spec, a link is an index key like a tag (index["link"] → mess
       chat and in their Activity.
 - [ ] 80b. "Shall we go together?" on meetups: the same, with Yes / Can't buttons; Yes RSVPs them and tells you
       (in the chat and your Activity).
+- [ ] Polish: "business card never synced" browser-test flake (sync() keeps answering "off" for 20 s); find why.

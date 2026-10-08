@@ -78,6 +78,9 @@ type Note struct {
 	// Re: what a reply or reaction answers (its #re tag without "re"),
 	// indexed so the author can find replies from anywhere (77b).
 	Re string `datastore:"re" json:"-"`
+	// Subj: a line without a place, about these subjects (indexed): shown
+	// to people who look at one of them, wherever they are (78a).
+	Subj []string `datastore:"subj" json:"-"`
 	// Pair: a private message's pair tag (indexed); empty for public ones.
 	Pair string `datastore:"pair" json:"-"`
 	// Author: the username that posted it, vouched for by this node (the
@@ -196,13 +199,24 @@ func parse(raw string, now time.Time, relay bool) (*Note, error) {
 	// A reaction needs no place (Joop): "#re<id>" says what it's about, and
 	// it's found from that thing wherever it is (77b). The API files such
 	// lines under the cell Everywhere, which no area's list includes.
-	if len(cells) == 0 && slices.ContainsFunc(tags, reTag.MatchString) {
+	// A line without a place about a subject ("#esperanto") is filed there
+	// too, found by its subjects (78a).
+	var subj []string
+	for _, t := range tags {
+		if isSubject(t) {
+			subj = append(subj, t)
+		}
+	}
+	if len(cells) == 0 && (slices.ContainsFunc(tags, reTag.MatchString) || len(subj) > 0) {
 		cells = []string{Everywhere}
 	}
 	if len(cells) != 1 {
 		return nil, ErrPlace
 	}
 	n := &Note{ID: ID(raw), Raw: raw, Text: text, Cell: cells[0], Tags: tags, Bits: Bits(raw), At: at}
+	if n.Cell == Everywhere && !slices.ContainsFunc(tags, reTag.MatchString) {
+		n.Subj = subj
+	}
 	for _, t := range tags {
 		if reTag.MatchString(t) {
 			n.Re = t[2:]
@@ -264,6 +278,9 @@ type Store interface {
 	Hide(ctx context.Context, id string) error
 	// AskedAbout returns live questions with subject tag (any distance).
 	AskedAbout(ctx context.Context, tag string, now time.Time) ([]*Note, error)
+	// About returns live lines without a place about any of subj (at most
+	// 30: one query).
+	About(ctx context.Context, subj []string, now time.Time) ([]*Note, error)
 	// RepliesTo returns live public replies and reactions to any of res
 	// (#re ids, at most 30: one query).
 	RepliesTo(ctx context.Context, res []string, now time.Time) ([]*Note, error)
@@ -272,6 +289,13 @@ type Store interface {
 }
 
 var reTag = regexp.MustCompile(`^re[0-9a-f]{10}$`)
+
+// isSubject: a tag that says what a line is about, not where, in what
+// language, what it answers or how to reach its author.
+func isSubject(t string) bool {
+	return t != "ask" && !strings.HasPrefix(t, "geo") && !strings.HasPrefix(t, "lang") && !reTag.MatchString(t) &&
+		!pairTag.MatchString(t) && !strings.HasPrefix(t, "rka") && !strings.HasPrefix(t, "rkb")
+}
 
 // Everywhere is the cell lines without a #geo are filed under (all zero, as
 // a padded plustag: no place in particular). Not a valid area cell, so no
@@ -404,6 +428,7 @@ type Service struct {
 	hidAt  time.Time
 	asks   map[string]cellEntry
 	res    map[string]cellEntry // replies per #re id (77b)
+	subj   map[string]cellEntry // lines without a place per subject (78a)
 	// repeats: recently posted texts (normalised) and the cells they went
 	// to, for this node's repeat policy (see repeatPrice).
 	repeats map[string]map[string]time.Time
@@ -450,14 +475,18 @@ func (s *Service) RequiredFor(ctx context.Context, cell string) int {
 	return Required(hour, ten)
 }
 
-// requiredForRe is the difficulty of answering re right now: the same
-// formula as an area, counting recent replies to that one thing.
-func (s *Service) requiredForRe(ctx context.Context, re string) int {
-	ns, err := s.Store.RepliesTo(ctx, []string{re}, s.Now())
+// requiredForSubject: the difficulty of a line without a place about subj,
+// counting recent ones about it (same formula as an area).
+func (s *Service) requiredForSubject(ctx context.Context, subj string) int {
+	ns, err := s.Store.About(ctx, []string{subj}, s.Now())
 	if err != nil {
 		return BaseBits
 	}
-	now := s.Now()
+	return requiredFrom(ns, s.Now())
+}
+
+// requiredFrom applies the area formula to recent arrivals in ns.
+func requiredFrom(ns []*Note, now time.Time) int {
 	hour, ten := 0, 0
 	for _, x := range ns {
 		if x.Recv.After(now.Add(-time.Hour)) {
@@ -468,6 +497,68 @@ func (s *Service) requiredForRe(ctx context.Context, re string) int {
 		}
 	}
 	return Required(hour, ten)
+}
+
+// General returns live lines without a place about any of tags, newest
+// first; each tag's list is cached a minute per instance, the stale ones
+// read with one query.
+func (s *Service) General(ctx context.Context, tags []string) ([]*Note, error) {
+	now := s.Now()
+	if len(tags) > MaxAskTags {
+		tags = tags[:MaxAskTags]
+	}
+	var stale []string
+	s.mu.Lock()
+	for _, t := range tags {
+		if e, ok := s.subj[t]; !ok || now.Sub(e.at) > time.Minute {
+			stale = append(stale, t)
+		}
+	}
+	s.mu.Unlock()
+	if len(stale) > 0 {
+		ns, err := s.Store.About(ctx, stale, now)
+		if err != nil {
+			return nil, err
+		}
+		by := map[string][]*Note{}
+		for _, n := range ns {
+			for _, t := range n.Subj {
+				by[t] = append(by[t], n)
+			}
+		}
+		s.mu.Lock()
+		if s.subj == nil || len(s.subj) > 5000 {
+			s.subj = map[string]cellEntry{}
+		}
+		for _, t := range stale {
+			s.subj[t] = cellEntry{ns: by[t], at: now}
+		}
+		s.mu.Unlock()
+	}
+	seen, hidden := map[string]bool{}, s.hiddenSet(ctx)
+	var out []*Note
+	s.mu.Lock()
+	for _, t := range tags {
+		for _, n := range s.subj[t].ns {
+			if !seen[n.ID] && n.ExpiresAt.After(now) && !hidden[n.ID] {
+				seen[n.ID] = true
+				out = append(out, n)
+			}
+		}
+	}
+	s.mu.Unlock()
+	sort.Slice(out, func(i, j int) bool { return out[i].At.After(out[j].At) })
+	return out, nil
+}
+
+// requiredForRe is the difficulty of answering re right now: the same
+// formula as an area, counting recent replies to that one thing.
+func (s *Service) requiredForRe(ctx context.Context, re string) int {
+	ns, err := s.Store.RepliesTo(ctx, []string{re}, s.Now())
+	if err != nil {
+		return BaseBits
+	}
+	return requiredFrom(ns, s.Now())
 }
 
 // Post verifies and stores a raw message; an identical message is accepted
@@ -500,6 +591,8 @@ func (s *Service) PostAs(ctx context.Context, raw, author string) (*Note, error)
 	req := s.RequiredFor(ctx, n.Cell) + extra
 	if n.Cell == Everywhere && n.Re != "" {
 		req = s.requiredForRe(ctx, n.Re) + extra // priced by the thing it answers, not by the whole world
+	} else if n.Cell == Everywhere {
+		req = s.requiredForSubject(ctx, n.Subj[0]) + extra // by its (first) subject
 	}
 	if n.Bits < req {
 		return nil, &NeedError{Need: req}

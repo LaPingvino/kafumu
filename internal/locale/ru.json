@@ -626,5 +626,6 @@
   "js.act_cancelled": "отменено",
   "js.act_likes": "Нравится: {n}",
   "js.act_reposts": "Репосты: {n}",
-  "push.message": "💬 Новое сообщение или ответ для вас"
+  "push.message": "💬 Новое сообщение или ответ для вас",
+  "js.general_for": "везде · {tag}"
 }

@@ -626,5 +626,6 @@
   "js.act_cancelled": "afgelast",
   "js.act_likes": "Likes: {n}",
   "js.act_reposts": "Reposts: {n}",
-  "push.message": "💬 Een nieuw bericht of antwoord voor je"
+  "push.message": "💬 Een nieuw bericht of antwoord voor je",
+  "js.general_for": "overal · {tag}"
 }

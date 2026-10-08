@@ -626,5 +626,6 @@
   "js.act_cancelled": "中止になりました",
   "js.act_likes": "いいね：{n}",
   "js.act_reposts": "リポスト：{n}",
-  "push.message": "💬 新しいメッセージか回答が届きました"
+  "push.message": "💬 新しいメッセージか回答が届きました",
+  "js.general_for": "どこでも · {tag}"
 }

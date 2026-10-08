@@ -626,5 +626,6 @@
   "js.act_cancelled": "zrušeno",
   "js.act_likes": "To se mi líbí: {n}",
   "js.act_reposts": "Sdílení: {n}",
-  "push.message": "💬 Nová zpráva nebo odpověď pro tebe"
+  "push.message": "💬 Nová zpráva nebo odpověď pro tebe",
+  "js.general_for": "všude · {tag}"
 }

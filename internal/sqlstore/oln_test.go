@@ -51,6 +51,11 @@ func TestNotesOnSQLite(t *testing.T) {
 	if rs, err := s.Replies(ctx, []string{n.ID[:10]}); err != nil || len(rs) != 1 || rs[0].ID != re.ID {
 		t.Fatalf("Replies = %+v, %v", rs, err)
 	}
+	// A line without a place about a subject (78a).
+	g, _ := s.Post(ctx, mine(oln.BaseBits, now, "Online kafumado", "#esperanto"))
+	if gs, err := s.General(ctx, []string{"esperanto"}); err != nil || len(gs) != 1 || gs[0].ID != g.ID {
+		t.Fatalf("General = %+v, %v", gs, err)
+	}
 	db.Close()
 	db2, _ := Open(path)
 	s2 := oln.NewService(&Notes{DB: db2})
