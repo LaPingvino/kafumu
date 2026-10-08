@@ -627,5 +627,6 @@
   "js.act_likes": "いいね：{n}",
   "js.act_reposts": "リポスト：{n}",
   "push.message": "💬 新しいメッセージか回答が届きました",
-  "js.general_for": "どこでも · {tag}"
+  "js.general_for": "どこでも · {tag}",
+  "js.post_everywhere": "ここだけでなく、{tag} に関心のある全員へ"
 }

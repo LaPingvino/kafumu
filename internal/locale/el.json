@@ -627,5 +627,6 @@
   "js.act_likes": "Μου αρέσει: {n}",
   "js.act_reposts": "Αναδημοσιεύσεις: {n}",
   "push.message": "💬 Νέο μήνυμα ή απάντηση για σένα",
-  "js.general_for": "παντού · {tag}"
+  "js.general_for": "παντού · {tag}",
+  "js.post_everywhere": "Σε όλους όσοι ασχολούνται με {tag}, όχι μόνο εδώ"
 }

@@ -627,5 +627,6 @@
   "js.act_likes": "To se mi líbí: {n}",
   "js.act_reposts": "Sdílení: {n}",
   "push.message": "💬 Nová zpráva nebo odpověď pro tebe",
-  "js.general_for": "všude · {tag}"
+  "js.general_for": "všude · {tag}",
+  "js.post_everywhere": "Všem, kdo mají rádi {tag}, nejen tady"
 }

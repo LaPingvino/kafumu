@@ -973,9 +973,13 @@ the thing through the 77b index, wherever the thing is.
       Also lines with a #re and no place (reactions, per the tagging rule): filed under 000000 too. Around then
       fetches reactions for the cards it shows through /api/oln/re (≤20 ids a call, cached) instead of from the
       cell bundle, and the react buttons and replies post `#re<id>` only. Old #geo-tagged reactions still show.
-- [ ] 78b. Online events (Esperanto online list, and any event without a place) get the react row, with a choice:
+- [x] 78b. Online events (Esperanto online list, and any event without a place) get the react row, with a choice:
       "here" (#geo your cell) or "everyone into #esperanto" (78a). Verify local Eventa Servo meetups' reactions in
       production while at it.
+      Done (reactions are "#re"-only now, so the here/everyone choice is for text posts): online events get the
+      react row (reID("event", link)) and fetch their reactions like cards; the composer offers "🌍 Everyone into
+      #tag, not just here" once a subject is typed → a general line (no #geo). Your own general lines show at once
+      while filtering. Browser test: posted through the composer, seen by B elsewhere when filtering.
 - [ ] 78c. Carry a reaction home: reacting to something from another area (wider ring, travel, elsewhere) can also
       post it in your own cell (your #geo + its #re + its title/link in the text), so local friends see "X is
       going on there"; such a note shows as a small card about the thing, with its reactions.

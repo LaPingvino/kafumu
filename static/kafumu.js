@@ -372,7 +372,7 @@
       var b = document.createElement("button");
       b.type = "button"; b.className = "chip"; b.textContent = "#" + t;
       b.onclick = function () {
-        f.tags.value = (f.tags.value.trim() ? f.tags.value.trim().replace(/,$/, "") + ", " : "") + t;
+        f.tags.value = (f.tags.value.trim() ? f.tags.value.trim().replace(/,$/, "") + ", " : "") + t; updateEverywhere();
         updateEstimate(); suggestTags();
       };
       box.appendChild(b);
@@ -389,6 +389,7 @@
     f.text.placeholder = composeMode.ask ? tr("ask_placeholder") : sayPlaceholder();
     if (!f.lang.value) f.lang.value = view.lang || ((window.KAFUMU_ME || {}).from1 || {})[document.documentElement.lang] || "";
     if (!f.tags.value && view.tag) f.tags.value = view.tag;
+    updateEverywhere();
     updateEstimate(); suggestTags(); f.text.focus();
     f.scrollIntoView({ block: "nearest" });
   }
@@ -399,6 +400,7 @@
     openComposer({}); // starts from the current view's language and interest
   };
   $("oln-form").extra.onchange = updateEstimate;
+  $("oln-form").tags.addEventListener("input", updateEverywhere);
   $("oln-form").addEventListener("submit", function (e) {
     e.preventDefault();
     var f = this, text = f.text.value.trim(), bits = requiredBits + parseInt(f.extra.value, 10);
@@ -407,6 +409,9 @@
     var t0 = Date.now(), keywords = olnKeywords(), ready = Promise.resolve();
     // A reply carries "#re" (and its language) only: no place, no other tags (78a).
     if (composeMode.re) keywords = keywords.split(" ").filter(function (k) { return /^#lang/.test(k); }).concat(["#re" + composeMode.re.slice(0, 10)]).join(" ");
+    // "Everyone into #tag": no place, a general line about its subjects (78a/b).
+    var everywhere = !composeMode.re && f.everywhere && f.everywhere.checked && subjectsTyped().length;
+    if (everywhere) keywords = keywords.split(" ").filter(function (k) { return !/^#geo/.test(k); }).join(" ");
     if (composeMode.ask) {
       keywords += " #ask";
       // A question carries a connect code, so answers can also come privately.
@@ -423,7 +428,7 @@
       if (ms > 0) pref("kafumu.workRate", String(Math.round(tries / ms * 10000) / 10));
       $("oln-status").textContent = tr("oln_working", { n: tries });
     }, 0, asMe); }).then(function (n) {
-      if (n && n.id) ownNotes.push(n);
+      if (n && n.id) (n.cell === "000000" ? ownGeneral : ownNotes).push(n);
       if (composeMode.re) showOwnReaction(composeMode.re.slice(0, 10), n);
       rememberPost(n, composeMode.re ? "reply" : composeMode.ask ? "ask" : "note", text.split("\n")[0]);
       if (!composeMode.re && aPair) aPair.pushSubscribe(false).catch(function () {}); // its answers can wake you now
@@ -798,13 +803,13 @@
     return out;
   }
   function reattach() {
-    Array.prototype.forEach.call(document.querySelectorAll("#feed > li[data-reid]"), function (li) { attachReplies(li); });
+    Array.prototype.forEach.call(document.querySelectorAll("#feed > li[data-reid], #online-events li[data-reid]"), function (li) { attachReplies(li); });
   }
   // pullReactions asks /api/oln/re for the cards (and replies) on screen
   // whose reactions weren't asked for in the last minute, 20 ids a call.
   function pullReactions() {
     var now = Date.now(), ids = [];
-    Array.prototype.forEach.call(document.querySelectorAll("#feed li[data-reid]"), function (li) {
+    Array.prototype.forEach.call(document.querySelectorAll("#feed li[data-reid], #online-events li[data-reid]"), function (li) {
       var rid = li.dataset.reid;
       if (ids.indexOf(rid) < 0 && !(fetchedAt[rid] > now - 60000)) ids.push(rid);
     });
@@ -1027,10 +1032,17 @@
           a.href = e.link; a.rel = "noopener"; a.target = "_blank"; a.textContent = e.title;
           var when = document.createElement("div"); when.className = "dim small";
           when.textContent = new Date(e.start).toLocaleString(document.documentElement.lang || undefined, { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
-          li.appendChild(a); li.appendChild(when); ul.appendChild(li);
+          li.appendChild(a); li.appendChild(when);
+          var row = document.createElement("div"); // reactions: "#re" of the event's link, from anywhere (78b)
+          row.className = "actions";
+          li.dataset.reid = reactRow("event", e.link, e.title, row);
+          li.appendChild(row);
+          attachReplies(li);
+          ul.appendChild(li);
         });
         $("online-title").textContent = tr("online_eo");
         box.hidden = !evs.length;
+        pullReactions();
       });
   }
 
@@ -1305,7 +1317,7 @@
       var say = document.createElement("button");
       say.type = "button"; say.className = "pill-sm suggested";
       say.textContent = "💬 " + tr("say_with", { tag: "#" + e.tag });
-      say.onclick = function () { openComposer({}); var f = $("oln-form"); f.tags.value = e.tag; updateEstimate(); f.text.focus(); };
+      say.onclick = function () { openComposer({}); var f = $("oln-form"); f.tags.value = e.tag; updateEverywhere(); updateEstimate(); f.text.focus(); };
       var a = document.createElement("a");
       a.href = "https://bsky.app/intent/compose?text=" + encodeURIComponent("\n\n#geo" + c + " #" + e.tag);
       a.target = "_blank"; a.rel = "noopener"; a.className = "pill-sm"; a.setAttribute("role", "button");
@@ -1496,6 +1508,22 @@
     }).catch(function () {});
   }
 
+  // subjectsTyped: the subjects in the composer's tags field.
+  function subjectsTyped() {
+    var f = $("oln-form");
+    return ((f && f.tags.value) || "").split(/[,\s]+/).map(function (t) { return t.trim().toLowerCase().replace(/^#/, "").replace(/[^\p{L}\p{N}_]/gu, ""); })
+      .filter(function (t) { return t && !/^(geo|lang|re[0-9a-f]{10}$|ask$)/.test(t); });
+  }
+  // The "everyone into #tag" choice shows once a subject is typed (not for replies).
+  function updateEverywhere() {
+    var f = $("oln-form"), box = $("oln-everywhere");
+    if (!f || !box) return;
+    var subj = subjectsTyped();
+    box.hidden = !subj.length || !!composeMode.re;
+    box.querySelector("span").textContent = "🌍 " + tr("post_everywhere", { tag: subj.map(function (t) { return "#" + t; }).join(" ") });
+    if (box.hidden) f.everywhere.checked = false;
+  }
+  var ownGeneral = []; // your own general lines, shown at once while filtering
   // generalFor: lines without a place about the subject you filter on
   // (78a), from anywhere; marked 🌍. Only when filtering: they belong to a
   // subject, not to this area.
@@ -1505,6 +1533,9 @@
     (b.notes || []).forEach(function (n) { have[n.id] = true; });
     fetch("/api/oln/general?tags=" + encodeURIComponent(view.tag), { credentials: "omit" }).then(function (r) { return r.ok ? r.json() : []; }).then(function (ns) {
       if (seq !== loadSeq) return;
+      var got = {};
+      ns.forEach(function (n) { got[n.id] = true; });
+      ns = ownGeneral.filter(function (n) { return !got[n.id] && (n.tags || []).indexOf(view.tag) >= 0 && new Date(n.expires) > Date.now(); }).concat(ns);
       ns.filter(function (n) { return !have[n.id] && hidden.indexOf(n.id) < 0; }).slice(0, 10).forEach(function (n, i) {
         var li = noteItem(n, {});
         var why = document.createElement("div");

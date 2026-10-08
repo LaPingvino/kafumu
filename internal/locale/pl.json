@@ -627,5 +627,6 @@
   "js.act_likes": "Polubienia: {n}",
   "js.act_reposts": "Udostępnienia: {n}",
   "push.message": "💬 Nowa wiadomość lub odpowiedź dla ciebie",
-  "js.general_for": "wszędzie · {tag}"
+  "js.general_for": "wszędzie · {tag}",
+  "js.post_everywhere": "Do wszystkich od {tag}, nie tylko tutaj"
 }

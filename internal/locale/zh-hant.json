@@ -627,5 +627,6 @@
   "js.act_likes": "按讚：{n}",
   "js.act_reposts": "轉發：{n}",
   "push.message": "💬 你有一則新訊息或回答",
-  "js.general_for": "所有地方 · {tag}"
+  "js.general_for": "所有地方 · {tag}",
+  "js.post_everywhere": "發給所有關注 {tag} 的人，不只是附近"
 }

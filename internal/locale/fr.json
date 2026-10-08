@@ -627,5 +627,6 @@
   "js.act_likes": "J'aime : {n}",
   "js.act_reposts": "Republications : {n}",
   "push.message": "💬 Un nouveau message ou une réponse pour toi",
-  "js.general_for": "partout · {tag}"
+  "js.general_for": "partout · {tag}",
+  "js.post_everywhere": "À tous les fans de {tag}, pas seulement ici"
 }

@@ -627,5 +627,6 @@
   "js.act_likes": "좋아요: {n}",
   "js.act_reposts": "재게시: {n}",
   "push.message": "💬 새 메시지나 답변이 왔어요",
-  "js.general_for": "어디서나 · {tag}"
+  "js.general_for": "어디서나 · {tag}",
+  "js.post_everywhere": "여기만이 아니라 {tag}에 관심 있는 모두에게"
 }

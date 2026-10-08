@@ -627,5 +627,6 @@
   "js.act_likes": "Вподобання: {n}",
   "js.act_reposts": "Репости: {n}",
   "push.message": "💬 Нове повідомлення або відповідь для вас",
-  "js.general_for": "скрізь · {tag}"
+  "js.general_for": "скрізь · {tag}",
+  "js.post_everywhere": "Усім, хто цікавиться {tag}, а не лише тут"
 }

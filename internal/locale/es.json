@@ -627,5 +627,6 @@
   "js.act_likes": "Me gusta: {n}",
   "js.act_reposts": "Reposts: {n}",
   "push.message": "💬 Un nuevo mensaje o respuesta para ti",
-  "js.general_for": "en todas partes · {tag}"
+  "js.general_for": "en todas partes · {tag}",
+  "js.post_everywhere": "Para todos los de {tag}, no solo aquí"
 }

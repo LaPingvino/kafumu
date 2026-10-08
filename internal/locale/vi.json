@@ -627,5 +627,6 @@
   "js.act_likes": "Lượt thích: {n}",
   "js.act_reposts": "Đăng lại: {n}",
   "push.message": "💬 Bạn có tin nhắn hoặc câu trả lời mới",
-  "js.general_for": "mọi nơi · {tag}"
+  "js.general_for": "mọi nơi · {tag}",
+  "js.post_everywhere": "Gửi mọi người quan tâm {tag}, không chỉ ở đây"
 }

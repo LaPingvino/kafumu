@@ -627,5 +627,6 @@
   "js.act_likes": "Beğeni: {n}",
   "js.act_reposts": "Yeniden paylaşım: {n}",
   "push.message": "💬 Sana yeni bir mesaj ya da yanıt var",
-  "js.general_for": "her yerde · {tag}"
+  "js.general_for": "her yerde · {tag}",
+  "js.post_everywhere": "Sadece burası değil, {tag} ile ilgilenen herkes"
 }

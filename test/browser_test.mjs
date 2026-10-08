@@ -145,7 +145,10 @@ try {
   // marked 🌍, when filtering on that subject.
   await A.goto(base + "/?cell=6fg222");
   await A.waitFor("!!window.kafumuOLN", "OLN ready");
-  await A.evaluate("window.kafumuOLN.post('General line " + RUN + "', '#kafumutest', 4, function () {}).then(() => true)");
+  await A.evaluate("(() => { document.getElementById('oln-form').hidden = true; document.getElementById('say').click(); const f = document.getElementById('oln-form'); f.text.value = 'General line " + RUN + "'; f.tags.value = 'kafumutest'; f.tags.dispatchEvent(new Event('input')); return true; })()");
+  await A.waitFor("!document.getElementById('oln-everywhere').hidden && document.getElementById('oln-everywhere').textContent.includes('#kafumutest')", "composer offers: everyone into #kafumutest");
+  await A.evaluate("(() => { const f = document.getElementById('oln-form'); f.everywhere.checked = true; f.requestSubmit(); return true; })()");
+  await A.waitFor("/Sent/.test(document.getElementById('status').textContent)", "general line sent", 30000);
   for (let i = 0; ; i++) {
     await B.goto(base + "/?cell=9c2v2v&tag=kafumutest");
     try { await B.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('General line " + RUN + "') && li.textContent.includes('🌍'))", "general line shown when filtering its subject", 8000); break; }

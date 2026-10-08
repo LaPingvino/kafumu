@@ -627,5 +627,6 @@
   "js.act_likes": "Нравится: {n}",
   "js.act_reposts": "Репосты: {n}",
   "push.message": "💬 Новое сообщение или ответ для вас",
-  "js.general_for": "везде · {tag}"
+  "js.general_for": "везде · {tag}",
+  "js.post_everywhere": "Всем, кто интересуется {tag}, а не только здесь"
 }
