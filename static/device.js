@@ -310,7 +310,10 @@
           var b = el("div", "bubble" + (m.me ? " me" : ""), "");
           // Links in a line open (a "👀 Did you see this?" carries one).
           String(m.text).split(/(https?:\/\/[^\s<>"]+)/).forEach(function (part, i) {
-            if (i % 2) { var a = el("a", "", part); a.href = part; a.rel = "noopener nofollow"; a.target = "_blank"; b.appendChild(a); }
+            if (i % 2) { // shown short: "kafumu.com/meetups/abc ↗"
+              var a = el("a", "", part.replace(/^https?:\/\//, "").replace(/\/$/, "").slice(0, 40) + " ↗");
+              a.href = part; a.rel = "noopener nofollow"; a.target = "_blank"; b.appendChild(a);
+            }
             else if (part) b.appendChild(document.createTextNode(part));
           });
           b.title = new Date(m.at).toLocaleString(window.KAFUMU_LOCALE);
