@@ -641,5 +641,6 @@
   "privacy.row_push_kept": "90 dagen nadat je apparaat het laatst vernieuwde; tot je meldingen uitzet",
   "privacy.row_bluesky": "Een gekoppeld Bluesky-account (ATproto), van jou of van een bedrijf (alleen als je er een koppelt): de id, naam en inlogsessie",
   "privacy.row_bluesky_why": "Om de meetups en berichten die je hier maakt in dat account op te slaan",
-  "privacy.row_bluesky_kept": "Tot je het ontkoppelt; een ongebruikte sessie stopt na 90 dagen"
+  "privacy.row_bluesky_kept": "Tot je het ontkoppelt; een ongebruikte sessie stopt na 90 dagen",
+  "js.tour_bell": "🔔 Activiteit: wat er bij je terugkwam uit elk gebied — reacties op je berichten, antwoorden, berichten van je contacten. Het getal is wat nieuw is."
 }

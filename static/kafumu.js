@@ -487,7 +487,7 @@
 
   // ---- "I'm confused": a short tour of the page, one thing at a time ----
   var TOUR = [[".cell-tag", "tour_area"], ["#coffee", "tour_coffee"], ["#say", "tour_say"], ["#ask", "tour_ask"],
-    ["#filter-chips", "tour_chips"], ["#feed-kinds", "tour_feed"], ["#change-area", "tour_change"], [".switcher.bottom", "tour_tabs"]];
+    ["#filter-chips", "tour_chips"], ["#feed-kinds", "tour_feed"], ["#change-area", "tour_change"], [".switcher.bottom", "tour_tabs"], [".bell", "tour_bell"]];
   var tourAt = -1;
   function tourShow(i) {
     var old = document.querySelector(".tour-focus");

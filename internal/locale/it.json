@@ -641,5 +641,6 @@
   "privacy.row_push_kept": "90 giorni dall'ultimo rinnovo del tuo dispositivo; finché non disattivi le notifiche",
   "privacy.row_bluesky": "Un account Bluesky (ATproto) collegato, tuo o di un'attività (solo se ne colleghi uno): id, nome e sessione",
   "privacy.row_bluesky_why": "Per salvare in quell'account gli incontri e i post che fai qui",
-  "privacy.row_bluesky_kept": "Finché non lo scolleghi; una sessione inutilizzata termina dopo 90 giorni"
+  "privacy.row_bluesky_kept": "Finché non lo scolleghi; una sessione inutilizzata termina dopo 90 giorni",
+  "js.tour_bell": "🔔 Attività: ciò che ti è arrivato da qualsiasi zona — risposte e reazioni ai tuoi post, risposte private, messaggi dei tuoi contatti. Il numero indica le novità."
 }

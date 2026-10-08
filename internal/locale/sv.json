@@ -641,5 +641,6 @@
   "privacy.row_push_kept": "90 dagar efter att din enhet senast förnyade den; tills du stänger av aviseringar",
   "privacy.row_bluesky": "Ett kopplat Bluesky-konto (ATproto), ditt eller ett företags (bara om du kopplar ett): dess id, namn och inloggningssession",
   "privacy.row_bluesky_why": "För att spara träffarna och inläggen du gör här i det kontot",
-  "privacy.row_bluesky_kept": "Tills du kopplar bort det; en oanvänd session upphör efter 90 dagar"
+  "privacy.row_bluesky_kept": "Tills du kopplar bort det; en oanvänd session upphör efter 90 dagar",
+  "js.tour_bell": "🔔 Aktivitet: det som kommit tillbaka till dig från vilket område som helst — svar och reaktioner på dina inlägg, privata svar, meddelanden från kontakter. Siffran är det nya."
 }

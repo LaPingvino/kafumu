@@ -641,5 +641,6 @@
   "privacy.row_push_kept": "90 jours après le dernier renouvellement par ton appareil ; jusqu'à ce que tu coupes les notifications",
   "privacy.row_bluesky": "Un compte Bluesky (ATproto) connecté, le tien ou celui d'une entreprise (seulement si tu en connectes un) : son identifiant, son nom et sa session",
   "privacy.row_bluesky_why": "Pour enregistrer dans ce compte les rencontres et messages que tu fais ici",
-  "privacy.row_bluesky_kept": "Jusqu'à ce que tu le déconnectes ; une session inutilisée prend fin après 90 jours"
+  "privacy.row_bluesky_kept": "Jusqu'à ce que tu le déconnectes ; une session inutilisée prend fin après 90 jours",
+  "js.tour_bell": "🔔 Activité : ce qui t'est revenu de n'importe quelle zone — réponses et réactions à tes messages, réponses privées, messages de tes contacts. Le nombre, c'est ce qui est nouveau."
 }

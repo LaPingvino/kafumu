@@ -641,5 +641,6 @@
   "privacy.row_push_kept": "90 ngày sau lần thiết bị gia hạn gần nhất; cho đến khi bạn tắt thông báo",
   "privacy.row_bluesky": "Tài khoản Bluesky (ATproto) đã kết nối, của bạn hoặc của doanh nghiệp (chỉ khi bạn kết nối): mã, tên và phiên đăng nhập",
   "privacy.row_bluesky_why": "Để lưu các buổi gặp và bài đăng bạn tạo ở đây vào tài khoản đó",
-  "privacy.row_bluesky_kept": "Cho đến khi bạn ngắt kết nối; phiên không dùng kết thúc sau 90 ngày"
+  "privacy.row_bluesky_kept": "Cho đến khi bạn ngắt kết nối; phiên không dùng kết thúc sau 90 ngày",
+  "js.tour_bell": "🔔 Hoạt động: những gì gửi lại cho bạn từ bất kỳ khu vực nào — phản hồi và bày tỏ cảm xúc với bài đăng, câu trả lời riêng, tin nhắn từ danh bạ. Con số là những gì mới."
 }

@@ -273,6 +273,8 @@ try {
   await A.waitFor("!document.getElementById('tour').hidden && !!document.querySelector('.cell-tag.tour-focus') && document.getElementById('tour-step').textContent.startsWith('1 /')", "tour starts at the area");
   await A.evaluate("document.getElementById('tour-next').click(); true");
   await A.waitFor("!!document.querySelector('#coffee.tour-focus')", "tour step 2: coffee");
+  for (let i = 0; i < 12 && !(await A.evaluate("!!document.querySelector('.bell.tour-focus')")); i++) await A.evaluate("document.getElementById('tour-next').click(); true");
+  await A.waitFor("!!document.querySelector('.bell.tour-focus') && /Activity/.test(document.getElementById('tour').textContent)", "the tour ends at the 🔔");
   await A.evaluate("document.getElementById('tour-done').click(); true");
   await A.waitFor("document.getElementById('tour').hidden && !document.querySelector('.tour-focus')", "tour done");
   // Report: ⚑ on the card, a reason, a stamped report; the card goes away here.

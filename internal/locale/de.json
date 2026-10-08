@@ -641,5 +641,6 @@
   "privacy.row_push_kept": "90 Tage nach der letzten Erneuerung durch dein Gerät; bis du Benachrichtigungen ausschaltest",
   "privacy.row_bluesky": "Ein verbundenes Bluesky-Konto (ATproto), deines oder eines Unternehmens (nur wenn du eins verbindest): seine ID, sein Name und die Anmeldesitzung",
   "privacy.row_bluesky_why": "Um die Treffen und Beiträge, die du hier machst, in diesem Konto zu speichern",
-  "privacy.row_bluesky_kept": "Bis du es trennst; eine ungenutzte Sitzung endet nach 90 Tagen"
+  "privacy.row_bluesky_kept": "Bis du es trennst; eine ungenutzte Sitzung endet nach 90 Tagen",
+  "js.tour_bell": "🔔 Aktivität: was aus jeder Gegend bei dir ankam — Antworten und Reaktionen auf deine Beiträge, private Antworten, Nachrichten deiner Kontakte. Die Zahl ist das Neue."
 }

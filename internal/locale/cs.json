@@ -641,5 +641,6 @@
   "privacy.row_push_kept": "90 dní od posledního obnovení tvým zařízením; dokud oznámení nevypneš",
   "privacy.row_bluesky": "Propojený účet Bluesky (ATproto), tvůj nebo firmy (jen když nějaký propojíš): jeho id, jméno a přihlašovací relace",
   "privacy.row_bluesky_why": "Aby se setkání a příspěvky, které tu vytvoříš, ukládaly do toho účtu",
-  "privacy.row_bluesky_kept": "Dokud ho neodpojíš; nepoužívaná relace skončí po 90 dnech"
+  "privacy.row_bluesky_kept": "Dokud ho neodpojíš; nepoužívaná relace skončí po 90 dnech",
+  "js.tour_bell": "🔔 Aktivita: co se ti vrátilo z jakékoli oblasti — odpovědi a reakce na tvé příspěvky, soukromé odpovědi, zprávy od kontaktů. Číslo ukazuje novinky."
 }

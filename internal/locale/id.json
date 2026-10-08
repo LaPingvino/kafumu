@@ -641,5 +641,6 @@
   "privacy.row_push_kept": "90 hari setelah perangkatmu terakhir memperbaruinya; sampai kamu mematikan notifikasi",
   "privacy.row_bluesky": "Akun Bluesky (ATproto) yang terhubung, milikmu atau bisnis (hanya jika kamu menghubungkannya): id, nama, dan sesi masuknya",
   "privacy.row_bluesky_why": "Untuk menyimpan pertemuan dan postingan yang kamu buat di sini ke akun itu",
-  "privacy.row_bluesky_kept": "Sampai kamu memutuskannya; sesi yang tak terpakai berakhir setelah 90 hari"
+  "privacy.row_bluesky_kept": "Sampai kamu memutuskannya; sesi yang tak terpakai berakhir setelah 90 hari",
+  "js.tour_bell": "🔔 Aktivitas: apa yang kembali kepadamu dari area mana pun — balasan dan reaksi untuk postinganmu, jawaban pribadi, pesan dari kontakmu. Angkanya menunjukkan yang baru."
 }

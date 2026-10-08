@@ -641,5 +641,6 @@
   "privacy.row_push_kept": "Cihazının son yenilemesinden 90 gün sonrasına kadar; bildirimleri kapatana dek",
   "privacy.row_bluesky": "Bağlı bir Bluesky (ATproto) hesabı, senin ya da bir işletmenin (yalnızca bağlarsan): kimliği, adı ve oturumu",
   "privacy.row_bluesky_why": "Burada yaptığın buluşmaları ve paylaşımları o hesaba kaydetmek için",
-  "privacy.row_bluesky_kept": "Bağlantıyı kesene dek; kullanılmayan oturum 90 gün sonra biter"
+  "privacy.row_bluesky_kept": "Bağlantıyı kesene dek; kullanılmayan oturum 90 gün sonra biter",
+  "js.tour_bell": "🔔 Etkinlik: herhangi bir bölgeden sana dönenler — paylaşımlarına yanıtlar ve tepkiler, özel yanıtlar, kişilerinden mesajlar. Sayı yeni olanları gösterir."
 }

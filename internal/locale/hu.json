@@ -641,5 +641,6 @@
   "privacy.row_push_kept": "90 nappal az eszközöd utolsó megújítása után; amíg ki nem kapcsolod az értesítéseket",
   "privacy.row_bluesky": "Egy összekapcsolt Bluesky- (ATproto-) fiók, a tiéd vagy egy vállalkozásé (csak ha összekapcsolsz egyet): azonosítója, neve és bejelentkezési munkamenete",
   "privacy.row_bluesky_why": "Hogy az itt készített találkozóid és bejegyzéseid abba a fiókba kerüljenek",
-  "privacy.row_bluesky_kept": "Amíg le nem választod; a nem használt munkamenet 90 nap után lejár"
+  "privacy.row_bluesky_kept": "Amíg le nem választod; a nem használt munkamenet 90 nap után lejár",
+  "js.tour_bell": "🔔 Tevékenység: ami bármelyik környékről visszajött hozzád — válaszok és reakciók a bejegyzéseidre, privát válaszok, üzenetek a kapcsolataidtól. A szám az új dolgokat mutatja."
 }

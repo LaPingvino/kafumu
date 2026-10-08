@@ -641,5 +641,6 @@
   "privacy.row_push_kept": "90 dni od ostatniego odnowienia przez twoje urządzenie; do wyłączenia powiadomień",
   "privacy.row_bluesky": "Połączone konto Bluesky (ATproto), twoje lub firmy (tylko jeśli je połączysz): jego id, nazwa i sesja logowania",
   "privacy.row_bluesky_why": "By zapisywać na tym koncie spotkania i wpisy, które tu tworzysz",
-  "privacy.row_bluesky_kept": "Do rozłączenia; nieużywana sesja wygasa po 90 dniach"
+  "privacy.row_bluesky_kept": "Do rozłączenia; nieużywana sesja wygasa po 90 dniach",
+  "js.tour_bell": "🔔 Aktywność: co do ciebie wróciło z dowolnej okolicy — odpowiedzi i reakcje na twoje wpisy, prywatne odpowiedzi, wiadomości od kontaktów. Liczba to nowości."
 }
