@@ -102,6 +102,7 @@
     ul.classList.toggle("mixed", on.length > 1);
     ul.textContent = "";
     items.forEach(function (li) { attachReplies(li); ul.appendChild(li); });
+    carriedCards(ul, items);
     pullReactions();
   }
 
@@ -409,6 +410,10 @@
     var t0 = Date.now(), keywords = olnKeywords(), ready = Promise.resolve();
     // A reply carries "#re" (and its language) only: no place, no other tags (78a).
     if (composeMode.re) keywords = keywords.split(" ").filter(function (k) { return /^#lang/.test(k); }).concat(["#re" + composeMode.re.slice(0, 10)]).join(" ");
+    if (composeMode.re && composeMode.carry) { // carried home (78c): your area too, and what it's about
+      keywords = "#geo" + composeMode.carry.cell + " " + keywords;
+      text = carryText(text, composeMode.carry.about, composeMode.carry.link);
+    }
     // "Everyone into #tag": no place, a general line about its subjects (78a/b).
     var everywhere = !composeMode.re && f.everywhere && f.everywhere.checked && subjectsTyped().length;
     if (everywhere) keywords = keywords.split(" ").filter(function (k) { return !/^#geo/.test(k); }).join(" ");
@@ -737,7 +742,8 @@
     var text = document.createElement("p");
     text.className = "text";
     var m = n.text.match(/https?:\/\/[^\s]+\/c#v1\.[A-Za-z0-9_-]+/);
-    text.textContent = (opts.question ? "❓ " : "") + (m ? n.text.replace(m[0], "").trim() : n.text);
+    var shown = opts.reply ? firstLine(n.text) : n.text; // a carried reaction's context lines aren't shown at its target
+    text.textContent = (opts.question ? "❓ " : "") + (m ? shown.replace(m[0], "").trim() : shown);
     li.appendChild(meta); li.appendChild(text);
     var row = document.createElement("div");
     row.className = "actions";
@@ -779,7 +785,7 @@
     hide.type = "button"; hide.className = "pill-sm"; hide.textContent = tr("oln_hide");
     hide.onclick = hideIt;
     // Replies can be reacted to as well (77g), one level deep: a reaction to a reply shows under it.
-    if (!opts.question && !opts.nested) li.dataset.reid = reactRow("note", n.id, n.text, row);
+    if (!opts.question && !opts.nested) li.dataset.reid = reactRow("note", n.id, firstLine(n.text), row, n.cell && n.cell !== "000000" ? { cell: n.cell, link: location.origin + "/?cell=" + n.cell } : null);
     else if (opts.question) li.dataset.reid = reID("note", n.id);
     row.appendChild(hide);
     row.appendChild(reportButton("note", n.id, n.text, li, hideIt));
@@ -833,6 +839,30 @@
       pullReactions(); // replies just drawn may have reactions of their own
     });
   }
+  // carriedCards: reactions carried here from elsewhere (78c) whose thing
+  // isn't on screen: one small card per thing, "👍 2 · its title", linking to it.
+  function carriedCards(ul, items) {
+    var on = {};
+    items.forEach(function (li) { if (li.dataset.reid) on[li.dataset.reid] = true; });
+    Object.keys(olnReplies).forEach(function (rid) {
+      if (on[rid]) return;
+      var rs = olnReplies[rid].filter(function (n) { var l = String(n.text).split("\n"); return l.length >= 3 && /^https?:\/\//.test(l[l.length - 1]); });
+      if (!rs.length) return;
+      var lines = String(rs[0].text).split("\n"), counts = {}, texts = [];
+      rs.forEach(function (n) { var t = firstLine(n.text); if (isEmojiOnly(t)) counts[t.trim()] = (counts[t.trim()] || 0) + 1; else texts.push(t); });
+      var li = document.createElement("li"), a = document.createElement("a");
+      li.className = "carried";
+      a.href = lines[lines.length - 1];
+      if (!a.href.startsWith(location.origin)) { a.rel = "noopener"; a.target = "_blank"; }
+      var why = document.createElement("div"); why.className = "why"; why.textContent = "📍 " + tr("carried");
+      var title = document.createElement("strong"); title.textContent = lines[1];
+      var what = document.createElement("div"); what.className = "reactions";
+      what.textContent = Object.keys(counts).map(function (k) { return k + " " + counts[k]; }).concat(texts.slice(0, 2)).join("  ");
+      a.appendChild(title);
+      li.appendChild(why); li.appendChild(a); li.appendChild(what);
+      ul.appendChild(li);
+    });
+  }
   // showOwnReaction: what you just posted, under its card, right away.
   function showOwnReaction(rid, n) {
     if (!n || !n.id) return;
@@ -847,8 +877,27 @@
   }
   var QUICK = ["👍", "❤️", "😂", "☕"];
   function isEmojiOnly(t) { return /^\s*(\p{Extended_Pictographic}\uFE0F?\s*){1,3}$/u.test(t || ""); }
-  function reactRow(kind, id, about, row) {
-    var rid = reID(kind, id);
+  // firstLine: what a reply says; further lines are context (78c).
+  function firstLine(t) { return String(t || "").split("\n")[0]; }
+  // carryText: a reaction carried home says what it's about, on the lines
+  // after it: the thing's title and link (78c).
+  function carryText(text, about, link) { return text + "\n" + String(about || "").replace(/\s+/g, " ").slice(0, 80) + "\n" + link; }
+  function reactRow(kind, id, about, row, ctx) {
+    var rid = reID(kind, id), home = currentCell && homeCell(currentCell, false), carry = null;
+    // 📍: also show the reaction in your home area, so friends there see
+    // what you found elsewhere (78c). Offered for things away from home.
+    if (home && ctx && ctx.link && (!ctx.cell || kmBetween(home, ctx.cell) > 20)) {
+      var pin = document.createElement("button");
+      pin.type = "button"; pin.className = "pill-sm"; pin.textContent = "📍"; pin.title = tr("carry_home");
+      pin.setAttribute("aria-label", tr("carry_home")); pin.setAttribute("aria-pressed", "false");
+      pin.onclick = function (ev) {
+        ev.preventDefault(); ev.stopPropagation();
+        carry = carry ? null : { cell: home, about: about, link: ctx.link };
+        pin.setAttribute("aria-pressed", carry ? "true" : "false");
+        pin.classList.toggle("suggested", !!carry);
+      };
+      row.appendChild(pin);
+    }
     QUICK.forEach(function (e) {
       var b = document.createElement("button");
       b.type = "button"; b.className = "pill-sm react"; b.textContent = e; b.title = tr("react");
@@ -856,14 +905,14 @@
         ev.preventDefault(); ev.stopPropagation();
         if (!currentCell || !window.kafumuOLN) return;
         b.disabled = true;
-        window.kafumuOLN.post(e, "#re" + rid, requiredBits, function () {}) // "#re" alone: no place needed (78a)
+        window.kafumuOLN.post(carry ? carryText(e, carry.about, carry.link) : e, (carry ? "#geo" + carry.cell + " " : "") + "#re" + rid, requiredBits, function () {}) // "#re" alone: no place needed (78a)
           .then(function (n) { b.textContent = e + " ✓"; showOwnReaction(rid, n); }, function () { b.disabled = false; });
       };
       row.appendChild(b);
     });
     var t = document.createElement("button");
     t.type = "button"; t.className = "pill-sm"; t.textContent = "💬 " + tr("react");
-    t.onclick = function (ev) { ev.preventDefault(); ev.stopPropagation(); openComposer({ re: rid, about: about }); };
+    t.onclick = function (ev) { ev.preventDefault(); ev.stopPropagation(); openComposer({ re: rid, about: about, carry: carry }); };
     row.appendChild(t);
     return rid;
   }
@@ -875,7 +924,7 @@
     var rs = repliesFor(rid);
     if (!rs.length) return;
     var counts = {}, texts = [];
-    rs.forEach(function (r) { if (isEmojiOnly(r.text)) { var k = r.text.trim(); counts[k] = (counts[k] || 0) + 1; } else texts.push(r); });
+    rs.forEach(function (r) { var t = firstLine(r.text); if (isEmojiOnly(t)) { var k = t.trim(); counts[k] = (counts[k] || 0) + 1; } else texts.push(r); });
     if (Object.keys(counts).length) {
       var c = document.createElement("div");
       c.className = "reactions";
@@ -1035,7 +1084,7 @@
           li.appendChild(a); li.appendChild(when);
           var row = document.createElement("div"); // reactions: "#re" of the event's link, from anywhere (78b)
           row.className = "actions";
-          li.dataset.reid = reactRow("event", e.link, e.title, row);
+          li.dataset.reid = reactRow("event", e.link, e.title, row, { link: e.link });
           li.appendChild(row);
           attachReplies(li);
           ul.appendChild(li);
@@ -1192,7 +1241,7 @@
         li.appendChild(a);
         var mrow = document.createElement("div");
         mrow.className = "actions";
-        li.dataset.reid = reactRow("meetup", m.id, m.title, mrow);
+        li.dataset.reid = reactRow("meetup", m.id, m.title, mrow, { cell: m.cell, link: location.origin + "/meetups/" + m.id });
         mrow.appendChild(reportButton("meetup", m.id, m.title, li));
         li.appendChild(mrow);
         list.appendChild(li);

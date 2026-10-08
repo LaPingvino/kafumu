@@ -32,7 +32,7 @@
           var re = ((n.tags || []).filter(function (t) { return /^re[0-9a-f]{10}$/.test(t); })[0] || "").slice(2), p = byRe[re];
           if (!p || mine[n.id]) return; // your own reply to your own post isn't news
           out.push({ id: "r:" + n.id, at: n.at, icon: /^\s*(\p{Extended_Pictographic}️?\s*){1,3}$/u.test(n.text) ? n.text.trim() : "💬",
-            who: n.author ? "@" + n.author : (n.biz || ""), text: n.text, about: tr("act_reply_to", { post: short(p.text, 40) }),
+            who: n.author ? "@" + n.author : (n.biz || ""), text: String(n.text).split("\n")[0], about: tr("act_reply_to", { post: short(p.text, 40) }),
             href: areaLink(n.cell, p.cell) });
         });
       });

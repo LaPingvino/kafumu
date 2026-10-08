@@ -628,5 +628,7 @@
   "js.act_reposts": "Partilhas: {n}",
   "push.message": "💬 Uma nova mensagem ou resposta para ti",
   "js.general_for": "em todo o lado · {tag}",
-  "js.post_everywhere": "Para toda a gente de {tag}, não só daqui"
+  "js.post_everywhere": "Para toda a gente de {tag}, não só daqui",
+  "js.carry_home": "Mostrar também na minha zona",
+  "js.carried": "de outro lado"
 }

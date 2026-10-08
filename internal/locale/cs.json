@@ -628,5 +628,7 @@
   "js.act_reposts": "Sdílení: {n}",
   "push.message": "💬 Nová zpráva nebo odpověď pro tebe",
   "js.general_for": "všude · {tag}",
-  "js.post_everywhere": "Všem, kdo mají rádi {tag}, nejen tady"
+  "js.post_everywhere": "Všem, kdo mají rádi {tag}, nejen tady",
+  "js.carry_home": "Ukázat i doma",
+  "js.carried": "odjinud"
 }

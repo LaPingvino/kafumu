@@ -628,5 +628,7 @@
   "js.act_reposts": "Posting ulang: {n}",
   "push.message": "💬 Ada pesan atau jawaban baru untukmu",
   "js.general_for": "di mana saja · {tag}",
-  "js.post_everywhere": "Untuk semua penggemar {tag}, bukan hanya di sini"
+  "js.post_everywhere": "Untuk semua penggemar {tag}, bukan hanya di sini",
+  "js.carry_home": "Tampilkan juga di daerahku",
+  "js.carried": "dari tempat lain"
 }

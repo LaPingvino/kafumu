@@ -628,5 +628,7 @@
   "js.act_reposts": "Đăng lại: {n}",
   "push.message": "💬 Bạn có tin nhắn hoặc câu trả lời mới",
   "js.general_for": "mọi nơi · {tag}",
-  "js.post_everywhere": "Gửi mọi người quan tâm {tag}, không chỉ ở đây"
+  "js.post_everywhere": "Gửi mọi người quan tâm {tag}, không chỉ ở đây",
+  "js.carry_home": "Cũng hiện ở khu nhà mình",
+  "js.carried": "từ nơi khác"
 }

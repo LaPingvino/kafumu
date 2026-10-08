@@ -628,5 +628,7 @@
   "js.act_reposts": "Redistribuiri: {n}",
   "push.message": "💬 Un mesaj sau un răspuns nou pentru tine",
   "js.general_for": "peste tot · {tag}",
-  "js.post_everywhere": "Tuturor celor pasionați de {tag}, nu doar aici"
+  "js.post_everywhere": "Tuturor celor pasionați de {tag}, nu doar aici",
+  "js.carry_home": "Arată și acasă",
+  "js.carried": "din altă parte"
 }

@@ -628,5 +628,7 @@
   "js.act_reposts": "Udostępnienia: {n}",
   "push.message": "💬 Nowa wiadomość lub odpowiedź dla ciebie",
   "js.general_for": "wszędzie · {tag}",
-  "js.post_everywhere": "Do wszystkich od {tag}, nie tylko tutaj"
+  "js.post_everywhere": "Do wszystkich od {tag}, nie tylko tutaj",
+  "js.carry_home": "Pokaż też u mnie",
+  "js.carried": "z innego miejsca"
 }

@@ -628,5 +628,7 @@
   "js.act_reposts": "リポスト：{n}",
   "push.message": "💬 新しいメッセージか回答が届きました",
   "js.general_for": "どこでも · {tag}",
-  "js.post_everywhere": "ここだけでなく、{tag} に関心のある全員へ"
+  "js.post_everywhere": "ここだけでなく、{tag} に関心のある全員へ",
+  "js.carry_home": "地元にも表示する",
+  "js.carried": "よそから"
 }

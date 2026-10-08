@@ -628,5 +628,7 @@
   "js.act_reposts": "Репосты: {n}",
   "push.message": "💬 Новое сообщение или ответ для вас",
   "js.general_for": "везде · {tag}",
-  "js.post_everywhere": "Всем, кто интересуется {tag}, а не только здесь"
+  "js.post_everywhere": "Всем, кто интересуется {tag}, а не только здесь",
+  "js.carry_home": "Показать и у себя",
+  "js.carried": "из другого места"
 }

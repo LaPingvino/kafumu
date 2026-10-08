@@ -628,5 +628,7 @@
   "js.act_reposts": "Reposts: {n}",
   "push.message": "💬 En ny besked eller et svar til dig",
   "js.general_for": "overalt · {tag}",
-  "js.post_everywhere": "Til alle, der kan lide {tag}, ikke kun her"
+  "js.post_everywhere": "Til alle, der kan lide {tag}, ikke kun her",
+  "js.carry_home": "Vis det også derhjemme",
+  "js.carried": "fra et andet sted"
 }

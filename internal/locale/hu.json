@@ -628,5 +628,7 @@
   "js.act_reposts": "Megosztások: {n}",
   "push.message": "💬 Új üzenet vagy válasz érkezett",
   "js.general_for": "mindenhol · {tag}",
-  "js.post_everywhere": "Mindenkinek, akit érdekel a(z) {tag}, nem csak itt"
+  "js.post_everywhere": "Mindenkinek, akit érdekel a(z) {tag}, nem csak itt",
+  "js.carry_home": "Otthon is mutasd",
+  "js.carried": "máshonnan"
 }

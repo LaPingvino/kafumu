@@ -155,6 +155,20 @@ try {
     catch (e) { if (i >= 9) throw e; }
   }
 
+  // Carry a reaction home (78c): A's home is far away (9c2v2v); A reacts ☕
+  // to its message here with 📍 on; B, looking at A's home, sees it there.
+  await A.evaluate("localStorage.setItem('kafumu.cellCounts', JSON.stringify({ '9c2v2v': 9 })); true");
+  await A.goto(base + "/?cell=6fg223");
+  await A.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('hi from the OLN " + RUN + "') && [...li.querySelectorAll(':scope > .actions button')].some(b => b.textContent === '📍'))", "📍 offered on a card away from home", 15000);
+  await A.evaluate("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')); const bs = [...li.querySelectorAll(':scope > .actions button')]; bs.find(b => b.textContent === '📍').click(); bs.find(b => b.textContent === '☕').click(); return true; })()");
+  await A.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('hi from the OLN " + RUN + "') && [...li.querySelectorAll('button.react')].some(b => b.textContent === '☕ ✓'))", "carried ☕ sent", 30000);
+  await A.evaluate("localStorage.removeItem('kafumu.cellCounts'); true");
+  for (let i = 0; ; i++) {
+    await B.goto(base + "/?cell=9c2v2v");
+    try { await B.waitFor("[...document.querySelectorAll('#feed > li.carried')].some(li => li.textContent.includes('hi from the OLN " + RUN + "') && li.textContent.includes('☕ 1') && li.querySelector('a[href*=\"/?cell=6fg223\"]'))", "the carried ☕ shows at A's home, linking to it", 8000); break; }
+    catch (e) { if (i >= 9) throw e; }
+  }
+
   // Card themes from local activity: the "food" question tag shows up as a
   // 📍 suggestion in A's card editor.
   // Reactions carry no place (78a): A's Around fetches them by id, B's
@@ -315,7 +329,10 @@ try {
         const st = await A.evaluate("window.kafumuDevice.sync()");
         seen.push(st);
         if (st === "on") break;
-        if (i >= 40) throw new Error("business card never synced: " + seen.join(" "));
+        if (i >= 40) { // say why: the page's acting state and what the vault answers
+          const why = await A.evaluate("(() => { const d = document.body.dataset; const v = '/api/business/' + d.actingId + '/vault'; return fetch(v, { credentials: 'same-origin' }).then(r => r.text().then(t => 'actingId=' + d.actingId + ' actingSync=' + d.actingSync + ' signedIn=' + d.signedIn + ' GET ' + v + ' → ' + r.status + ' ' + t.slice(0, 120))); })()");
+          throw new Error("business card never synced: " + seen.slice(0, 3).join(" ") + "… | " + why);
+        }
         await sleep(500);
       }
     }

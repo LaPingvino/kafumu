@@ -980,9 +980,14 @@ the thing through the 77b index, wherever the thing is.
       react row (reID("event", link)) and fetch their reactions like cards; the composer offers "🌍 Everyone into
       #tag, not just here" once a subject is typed → a general line (no #geo). Your own general lines show at once
       while filtering. Browser test: posted through the composer, seen by B elsewhere when filtering.
-- [ ] 78c. Carry a reaction home: reacting to something from another area (wider ring, travel, elsewhere) can also
+- [x] 78c. Carry a reaction home: reacting to something from another area (wider ring, travel, elsewhere) can also
       post it in your own cell (your #geo + its #re + its title/link in the text), so local friends see "X is
       going on there"; such a note shows as a small card about the thing, with its reactions.
+      Done: a 📍 toggle on react rows for things >20 km from your home cell (homeCell, from GPS use) or with no
+      place (online events); on, the reaction posts "#geo<home> #re<id>" and its text gets two context lines (title,
+      link). At the thing only the first line shows (a carried 👍 still counts as 👍); at home, carried reactions
+      whose thing isn't on screen show as a "📍 from elsewhere" card (counts + title, linking to it). Questions have
+      no react row (answers instead), so no 📍 there. Browser test: A carries ☕ home, B sees it there.
 
 ## 79. React to any web link (Joop, 2026-10-08)
 Per the OLN json-spec, a link is an index key like a tag (index["link"] → messages).
@@ -1000,4 +1005,5 @@ Per the OLN json-spec, a link is an index key like a tag (index["link"] → mess
       chat and in their Activity.
 - [ ] 80b. "Shall we go together?" on meetups: the same, with Yes / Can't buttons; Yes RSVPs them and tells you
       (in the chat and your Activity).
-- [ ] Polish: "business card never synced" browser-test flake (sync() keeps answering "off" for 20 s); find why.
+- [ ] Polish: "business card never synced" browser-test flake (sync() keeps answering "off" for 20 s; 3× on
+      2026-10-08). The test now reports actingSync and the vault's answer when it fails: read that next time.

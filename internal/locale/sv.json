@@ -628,5 +628,7 @@
   "js.act_reposts": "Återpubliceringar: {n}",
   "push.message": "💬 Ett nytt meddelande eller svar till dig",
   "js.general_for": "överallt · {tag}",
-  "js.post_everywhere": "Till alla som gillar {tag}, inte bara här"
+  "js.post_everywhere": "Till alla som gillar {tag}, inte bara här",
+  "js.carry_home": "Visa det även hemma",
+  "js.carried": "från annat håll"
 }

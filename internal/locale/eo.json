@@ -628,5 +628,7 @@
   "js.act_reposts": "Diskonigoj: {n}",
   "push.message": "💬 Nova mesaĝo aŭ respondo por vi",
   "js.general_for": "ĉie · {tag}",
-  "js.post_everywhere": "Al ĉiuj interesitaj pri {tag}, ne nur ĉi tie"
+  "js.post_everywhere": "Al ĉiuj interesitaj pri {tag}, ne nur ĉi tie",
+  "js.carry_home": "Montri ankaŭ hejme",
+  "js.carried": "el alia loko"
 }
