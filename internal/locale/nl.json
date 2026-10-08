@@ -632,5 +632,8 @@
   "js.carry_home": "Ook thuis laten zien",
   "js.carried": "van elders",
   "js.did_you_see": "Heb je dit gezien?",
-  "js.seen_none": "Nog geen contacten: maak eerst contact met iemand."
+  "js.seen_none": "Nog geen contacten: maak eerst contact met iemand.",
+  "js.go_together": "Zullen we samen gaan?",
+  "js.together_yes": "Ja, laten we gaan!",
+  "js.together_no": "Ik kan niet"
 }

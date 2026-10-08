@@ -632,5 +632,8 @@
   "js.carry_home": "Ukázat i doma",
   "js.carried": "odjinud",
   "js.did_you_see": "Viděl jsi tohle?",
-  "js.seen_none": "Zatím žádné kontakty: nejdřív se s někým spoj."
+  "js.seen_none": "Zatím žádné kontakty: nejdřív se s někým spoj.",
+  "js.go_together": "Půjdeme spolu?",
+  "js.together_yes": "Jo, pojďme!",
+  "js.together_no": "Nemůžu"
 }

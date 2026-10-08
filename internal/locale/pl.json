@@ -632,5 +632,8 @@
   "js.carry_home": "Pokaż też u mnie",
   "js.carried": "z innego miejsca",
   "js.did_you_see": "Widziałeś to?",
-  "js.seen_none": "Brak kontaktów: najpierw połącz się z kimś."
+  "js.seen_none": "Brak kontaktów: najpierw połącz się z kimś.",
+  "js.go_together": "Idziemy razem?",
+  "js.together_yes": "Tak, chodźmy!",
+  "js.together_no": "Nie mogę"
 }

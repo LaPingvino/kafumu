@@ -193,6 +193,16 @@ try {
     try { await A.waitFor("[...document.querySelectorAll('#activity li')].some(li => li.textContent.includes('👀') && li.textContent.includes('kafumu-" + RUN + "'))", "A has B's 👀 in Activity", 6000); break; }
     catch (e) { if (i >= 5) throw e; }
   }
+  // "Shall we go together?" (80b): such a line in A's chat offers Yes / Can't.
+  await A.goto(base + "/contacts");
+  await A.waitFor("!!document.querySelector('#contacts li.contact')", "contacts listed");
+  await A.evaluate("window.kafumuDevice.store.contacts().then(cs => Promise.all(cs.map(c => { c.messages = (c.messages || []).concat([{ me: false, text: '🤝 Shall we go together?\\nKafo " + RUN + "\\n' + location.origin + '/meetups/x" + RUN + "', at: new Date().toISOString() }]); return window.kafumuDevice.store.putContact(c); })))");
+  await A.goto(base + "/contacts");
+  await A.waitFor("!!document.querySelector('#contacts li.contact')", "contacts listed again");
+  await A.evaluate("[...document.querySelectorAll('#contacts li.contact button')].find(b => b.textContent.startsWith('💬')).click(); true");
+  await A.waitFor("[...document.querySelectorAll('.chat-log .actions button')].some(b => b.textContent === \"Can't make it\")", "Yes / Can't under the 🤝 line");
+  await A.evaluate("[...document.querySelectorAll('.chat-log .actions button')].find(b => b.textContent === \"Can't make it\").click(); true");
+  await A.waitFor("[...document.querySelectorAll('.chat-log .bubble.me')].some(b => b.textContent.includes(\"🙁 Can't make it\")) && !document.querySelector('.chat-log .actions')", "answered, buttons gone", 30000);
 
   // Card themes from local activity: the "food" question tag shows up as a
   // 📍 suggestion in A's card editor.

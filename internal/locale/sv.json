@@ -632,5 +632,8 @@
   "js.carry_home": "Visa det även hemma",
   "js.carried": "från annat håll",
   "js.did_you_see": "Har du sett det här?",
-  "js.seen_none": "Inga kontakter än: koppla ihop dig med någon först."
+  "js.seen_none": "Inga kontakter än: koppla ihop dig med någon först.",
+  "js.go_together": "Ska vi gå tillsammans?",
+  "js.together_yes": "Ja, vi går!",
+  "js.together_no": "Jag kan inte"
 }

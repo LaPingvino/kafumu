@@ -632,5 +632,8 @@
   "js.carry_home": "Mostrarlo también en mi zona",
   "js.carried": "de otro lugar",
   "js.did_you_see": "¿Has visto esto?",
-  "js.seen_none": "Aún no tienes contactos: conecta primero con alguien."
+  "js.seen_none": "Aún no tienes contactos: conecta primero con alguien.",
+  "js.go_together": "¿Vamos juntos?",
+  "js.together_yes": "¡Sí, vamos!",
+  "js.together_no": "No puedo"
 }

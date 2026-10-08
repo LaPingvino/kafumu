@@ -632,5 +632,8 @@
   "js.carry_home": "Otthon is mutasd",
   "js.carried": "máshonnan",
   "js.did_you_see": "Láttad ezt?",
-  "js.seen_none": "Még nincsenek kapcsolataid: előbb kapcsolódj valakihez."
+  "js.seen_none": "Még nincsenek kapcsolataid: előbb kapcsolódj valakihez.",
+  "js.go_together": "Elmenjünk együtt?",
+  "js.together_yes": "Igen, menjünk!",
+  "js.together_no": "Nem tudok"
 }

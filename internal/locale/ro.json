@@ -632,5 +632,8 @@
   "js.carry_home": "Arată și acasă",
   "js.carried": "din altă parte",
   "js.did_you_see": "Ai văzut asta?",
-  "js.seen_none": "Încă nu ai contacte: conectează-te mai întâi cu cineva."
+  "js.seen_none": "Încă nu ai contacte: conectează-te mai întâi cu cineva.",
+  "js.go_together": "Mergem împreună?",
+  "js.together_yes": "Da, hai să mergem!",
+  "js.together_no": "Nu pot"
 }

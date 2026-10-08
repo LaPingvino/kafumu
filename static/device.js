@@ -287,6 +287,22 @@
       chatBtn.type = "button";
       var thread = el("div", "chat");
       thread.hidden = true;
+      // "🤝 Shall we go together?" with a meetup link (80b): answer in one tap.
+      function togetherRow(m) {
+        var link = !m.me && !m.answered && /^🤝/.test(m.text) && (String(m.text).match(/https?:\/\/\S+\/meetups\/\S+/) || [])[0];
+        if (!link) return null;
+        var row = el("div", "actions");
+        var yes = el("button", "pill-sm suggested", T.together_yes || "Yes, let's go!"), no = el("button", "pill-sm", T.together_no || "Can't make it");
+        yes.type = no.type = "button";
+        function answer(text, then) {
+          yes.disabled = no.disabled = true;
+          sendLine(text).then(function () { m.answered = true; return store.putContact(c); }).then(function () { drawThread(); if (then) then(); }, function () { yes.disabled = no.disabled = false; });
+        }
+        yes.onclick = function () { answer("✅ " + yes.textContent, function () { location.href = link; }); }; // they say "I'm going" there
+        no.onclick = function () { answer("🙁 " + no.textContent); };
+        row.appendChild(yes); row.appendChild(no);
+        return row;
+      }
       function drawThread() {
         var log = thread.querySelector(".chat-log") || thread.appendChild(el("div", "chat-log"));
         log.textContent = "";
@@ -299,6 +315,8 @@
           });
           b.title = new Date(m.at).toLocaleString(window.KAFUMU_LOCALE);
           log.appendChild(b);
+          var tg = togetherRow(m);
+          if (tg) log.appendChild(tg);
         });
         if (!(c.messages || []).length) log.appendChild(el("p", "dim small", T.chat_empty || "No messages yet."));
         log.scrollTop = log.scrollHeight;
@@ -310,17 +328,19 @@
       var sendBtn = el("button", "pill-sm suggested", T.chat_send || "Send");
       sendBtn.type = "submit";
       form.appendChild(input); form.appendChild(sendBtn);
+      function sendLine(text) {
+        var msg = { t: "msg", text: text, at: new Date().toISOString() };
+        return opts.send(c, msg).then(function () {
+          c.messages = (c.messages || []).concat([{ me: true, text: text, at: msg.at }]).slice(-200);
+          return store.putContact(c);
+        });
+      }
       form.onsubmit = function (e) {
         e.preventDefault();
         var text = input.value.trim();
         if (!text) return;
         sendBtn.disabled = true;
-        var msg = { t: "msg", text: text, at: new Date().toISOString() };
-        opts.send(c, msg).then(function () {
-          c.messages = (c.messages || []).concat([{ me: true, text: text, at: msg.at }]).slice(-200);
-          input.value = "";
-          return store.putContact(c);
-        }).then(drawThread, function () { input.placeholder = T.network_retry || "Try again"; })
+        sendLine(text).then(function () { input.value = ""; }).then(drawThread, function () { input.placeholder = T.network_retry || "Try again"; })
           .then(function () { sendBtn.disabled = false; input.focus(); });
       };
       chatBtn.onclick = function () {

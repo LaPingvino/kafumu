@@ -632,5 +632,8 @@
   "js.carry_home": "Montri ankaŭ hejme",
   "js.carried": "el alia loko",
   "js.did_you_see": "Ĉu vi vidis ĉi tion?",
-  "js.seen_none": "Ankoraŭ neniuj kontaktoj: unue konektiĝu kun iu."
+  "js.seen_none": "Ankoraŭ neniuj kontaktoj: unue konektiĝu kun iu.",
+  "js.go_together": "Ĉu ni iru kune?",
+  "js.together_yes": "Jes, ni iru!",
+  "js.together_no": "Mi ne povas"
 }

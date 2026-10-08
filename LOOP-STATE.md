@@ -1012,7 +1012,11 @@ Per the OLN json-spec, a link is an index key like a tag (index["link"] → mess
       contacts; a tap sends "👀 Did you see this?" + title + link as a line in your encrypted chat with them (no new
       message type); chat bubbles make links clickable; it reaches their Activity as a message. Browser test: B →
       A, A's Activity shows it. Suite now ~450 s of the 590 s limit: trim before adding much more.
-- [ ] 80b. "Shall we go together?" on meetups: the same, with Yes / Can't buttons; Yes RSVPs them and tells you
+- [x] 80b. "Shall we go together?" on meetups: the same, with Yes / Can't buttons; Yes RSVPs them and tells you
       (in the chat and your Activity).
+      Done, minimal: 🤝 on meetup cards sends "🤝 Shall we go together?" + title + link as a chat line (same picker
+      as 👀). In their chat that line gets Yes / Can't: either answers in the chat; Yes then opens the meetup page,
+      where they tap "I'm going" (the RSVP endpoint toggles, so no blind RSVP). Browser test: Can't answers, the
+      buttons go. Suite ~465 s of 590.
 - [ ] Polish: "business card never synced" browser-test flake (sync() keeps answering "off" for 20 s; 3× on
       2026-10-08). The test now reports actingSync and the vault's answer when it fails: read that next time.

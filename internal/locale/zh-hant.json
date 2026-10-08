@@ -632,5 +632,8 @@
   "js.carry_home": "也在我家附近顯示",
   "js.carried": "來自別處",
   "js.did_you_see": "你看到這個了嗎？",
-  "js.seen_none": "還沒有聯絡人：先和別人建立聯繫吧。"
+  "js.seen_none": "還沒有聯絡人：先和別人建立聯繫吧。",
+  "js.go_together": "一起去嗎？",
+  "js.together_yes": "好啊，一起去！",
+  "js.together_no": "去不了"
 }

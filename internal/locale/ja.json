@@ -632,5 +632,8 @@
   "js.carry_home": "地元にも表示する",
   "js.carried": "よそから",
   "js.did_you_see": "これ見た？",
-  "js.seen_none": "まだ連絡先がありません。まず誰かとつながりましょう。"
+  "js.seen_none": "まだ連絡先がありません。まず誰かとつながりましょう。",
+  "js.go_together": "一緒に行かない？",
+  "js.together_yes": "うん、行こう！",
+  "js.together_no": "行けない"
 }

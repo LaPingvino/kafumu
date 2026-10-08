@@ -914,10 +914,12 @@
   }
   // seenButton: 👀 "Did you see this?" — send the thing to a contact, as a
   // line in your encrypted chat with them: the question, its title, its link (80a).
-  function seenButton(about, link, row) {
+  // With "🤝"/"go_together" it asks "Shall we go together?" (80b): their
+  // chat then offers Yes / Can't.
+  function seenButton(about, link, row, icon, key) {
     var b = document.createElement("button");
-    b.type = "button"; b.className = "pill-sm"; b.textContent = "👀";
-    b.title = tr("did_you_see"); b.setAttribute("aria-label", tr("did_you_see"));
+    b.type = "button"; b.className = "pill-sm"; b.textContent = icon;
+    b.title = tr(key); b.setAttribute("aria-label", tr(key));
     b.onclick = function (ev) {
       ev.preventDefault(); ev.stopPropagation();
       var open = row.parentNode.querySelector(":scope > .seen-pick");
@@ -934,7 +936,7 @@
           chip.onclick = function (e2) {
             e2.preventDefault(); e2.stopPropagation();
             chip.disabled = true;
-            var text = "👀 " + tr("did_you_see") + "\n" + String(about || "").replace(/\s+/g, " ").slice(0, 80) + "\n" + link;
+            var text = icon + " " + tr(key) + "\n" + String(about || "").replace(/\s+/g, " ").slice(0, 80) + "\n" + link;
             aPair.sendChat(c, text, answerMine).then(function (at) {
               c.messages = (c.messages || []).concat([{ me: true, text: text, at: at }]).slice(-200);
               c.lastChat = at;
@@ -981,7 +983,8 @@
       };
       row.appendChild(b);
     });
-    if (ctx && ctx.link) row.appendChild(seenButton(about, ctx.link, row));
+    if (ctx && ctx.link) row.appendChild(seenButton(about, ctx.link, row, "👀", "did_you_see"));
+    if (kind === "meetup" && ctx && ctx.link) row.appendChild(seenButton(about, ctx.link, row, "🤝", "go_together")); // 80b
     var t = document.createElement("button");
     t.type = "button"; t.className = "pill-sm"; t.textContent = "💬 " + tr("react");
     t.onclick = function (ev) { ev.preventDefault(); ev.stopPropagation(); openComposer({ re: rid, about: about, carry: carry }); };

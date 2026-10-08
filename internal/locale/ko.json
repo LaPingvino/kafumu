@@ -632,5 +632,8 @@
   "js.carry_home": "우리 동네에도 보여주기",
   "js.carried": "다른 곳에서",
   "js.did_you_see": "이거 봤어요?",
-  "js.seen_none": "아직 연락처가 없어요: 먼저 누군가와 연결하세요."
+  "js.seen_none": "아직 연락처가 없어요: 먼저 누군가와 연결하세요.",
+  "js.go_together": "같이 갈래요?",
+  "js.together_yes": "좋아요, 가요!",
+  "js.together_no": "못 가요"
 }

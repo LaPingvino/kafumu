@@ -632,5 +632,8 @@
   "js.carry_home": "Vis det også derhjemme",
   "js.carried": "fra et andet sted",
   "js.did_you_see": "Har du set det her?",
-  "js.seen_none": "Ingen kontakter endnu: forbind dig med nogen først."
+  "js.seen_none": "Ingen kontakter endnu: forbind dig med nogen først.",
+  "js.go_together": "Skal vi tage derhen sammen?",
+  "js.together_yes": "Ja, lad os tage afsted!",
+  "js.together_no": "Jeg kan ikke"
 }

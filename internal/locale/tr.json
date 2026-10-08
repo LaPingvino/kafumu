@@ -632,5 +632,8 @@
   "js.carry_home": "Kendi bölgemde de göster",
   "js.carried": "başka yerden",
   "js.did_you_see": "Bunu gördün mü?",
-  "js.seen_none": "Henüz kişi yok: önce biriyle bağlan."
+  "js.seen_none": "Henüz kişi yok: önce biriyle bağlan.",
+  "js.go_together": "Birlikte gidelim mi?",
+  "js.together_yes": "Evet, gidelim!",
+  "js.together_no": "Gelemem"
 }

@@ -632,5 +632,8 @@
   "js.carry_home": "Cũng hiện ở khu nhà mình",
   "js.carried": "từ nơi khác",
   "js.did_you_see": "Bạn đã thấy cái này chưa?",
-  "js.seen_none": "Chưa có liên hệ: hãy kết nối với ai đó trước."
+  "js.seen_none": "Chưa có liên hệ: hãy kết nối với ai đó trước.",
+  "js.go_together": "Mình đi cùng nhau nhé?",
+  "js.together_yes": "Được, đi thôi!",
+  "js.together_no": "Mình không đi được"
 }

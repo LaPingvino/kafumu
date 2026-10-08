@@ -632,5 +632,8 @@
   "js.carry_home": "Tampilkan juga di daerahku",
   "js.carried": "dari tempat lain",
   "js.did_you_see": "Sudah lihat ini?",
-  "js.seen_none": "Belum ada kontak: terhubunglah dulu dengan seseorang."
+  "js.seen_none": "Belum ada kontak: terhubunglah dulu dengan seseorang.",
+  "js.go_together": "Mau pergi bareng?",
+  "js.together_yes": "Ya, ayo!",
+  "js.together_no": "Tidak bisa"
 }
