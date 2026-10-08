@@ -642,5 +642,7 @@
   "privacy.row_bluesky": "A connected Bluesky (ATproto) account, yours or a business's (only if you connect one): its id, handle and sign-in session",
   "privacy.row_bluesky_why": "To save the meetups and posts you make here in that account",
   "privacy.row_bluesky_kept": "Until you disconnect it; an unused session ends after 90 days",
-  "js.tour_bell": "🔔 Activity: what came back to you from any area — replies and reactions to your posts, answers, messages from your contacts. The number is what's new."
+  "js.tour_bell": "🔔 Activity: what came back to you from any area — replies and reactions to your posts, answers, messages from your contacts. The number is what's new.",
+  "common.close": "Close",
+  "js.close": "Close"
 }

@@ -30,12 +30,14 @@
   </div>
   {{if and .ATproto .User}}{{if .BskyHandle}}
   <form id="composer" method="post" action="/post" class="card" style="padding:4px 16px 12px" hidden>
+    <button type="button" class="close-x" data-close aria-label="{{ts .Lang "common.close"}}" title="{{ts .Lang "common.close"}}">✕</button>
     <input type="hidden" name="cell">
     <label>{{t .Lang "post.label"}} <span class="dim">@{{.BskyHandle}}</span>
       <textarea name="text" rows="3" maxlength="300" placeholder="{{ts .Lang "post.placeholder"}}"></textarea></label>
     <div class="actions"><button type="submit" class="pill">{{t .Lang "post.send"}}</button></div>
   </form>{{end}}{{end}}
   <div id="coffee-card" class="card" style="padding:4px 16px 12px" hidden>
+    <button type="button" class="close-x" data-close aria-label="{{ts .Lang "common.close"}}" title="{{ts .Lang "common.close"}}">✕</button>
     <h2>☕ {{t .Lang "coffee.button"}}</h2>
     <p>{{t .Lang "coffee.explain1"}}</p>
     <p class="dim">{{t .Lang "coffee.explain2"}}</p>
@@ -43,6 +45,7 @@
     <p class="dim small" id="coffee-status" role="status"></p>
   </div>
   <div id="learn-card" class="card" style="padding:4px 16px 12px" hidden>
+    <button type="button" class="close-x" data-close aria-label="{{ts .Lang "common.close"}}" title="{{ts .Lang "common.close"}}">✕</button>
     <h2 id="learn-title"></h2>
     <p id="learn-explain"></p>
     <div class="actions">
@@ -53,6 +56,7 @@
     <p class="dim small" id="learn-status" role="status"></p>
   </div>
   <form id="oln-form" class="card" style="padding:4px 16px 12px" hidden>
+    <button type="button" class="close-x" data-close aria-label="{{ts .Lang "common.close"}}" title="{{ts .Lang "common.close"}}">✕</button>
     <p id="oln-mode" class="why"></p>
     <label>{{t .Lang "oln.label"}}<textarea name="text" rows="3" maxlength="500" placeholder="{{ts .Lang "oln.placeholder"}}" data-say="{{ts .Lang "oln.placeholder"}}"></textarea></label>
     <div class="grid view-filters">
@@ -78,6 +82,7 @@
     <p class="dim small">{{t .Lang "oln.explain"}} <a id="compose" target="_blank" rel="noopener">{{t .Lang "oln.bluesky"}}</a></p>
   </form>
   <div id="picker" class="card" style="padding:4px 16px 12px" hidden>
+    <button type="button" class="close-x" data-close aria-label="{{ts .Lang "common.close"}}" title="{{ts .Lang "common.close"}}">✕</button>
     <h2>{{t .Lang "view.title"}}</h2>
     <div class="inline-row">
       <input id="place-q" type="search" autocomplete="off" placeholder="{{ts .Lang "area.search"}}" aria-label="{{ts .Lang "area.search"}}">

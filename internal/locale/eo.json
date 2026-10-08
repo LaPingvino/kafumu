@@ -642,5 +642,7 @@
   "privacy.row_bluesky": "Konektita Bluesky-konto (ATproto), via aŭ de komerco (nur se vi konektas ĝin): ĝia identigilo, nomo kaj ensaluta seanco",
   "privacy.row_bluesky_why": "Por konservi en tiu konto la renkontiĝojn kaj afiŝojn, kiujn vi faras ĉi tie",
   "privacy.row_bluesky_kept": "Ĝis vi malkonektas ĝin; neuzata seanco finiĝas post 90 tagoj",
-  "js.tour_bell": "🔔 Aktivado: kio revenis al vi el ajna regiono — respondoj kaj reagoj al viaj afiŝoj, privataj respondoj, mesaĝoj de viaj kontaktoj. La nombro estas la novaĵoj."
+  "js.tour_bell": "🔔 Aktivado: kio revenis al vi el ajna regiono — respondoj kaj reagoj al viaj afiŝoj, privataj respondoj, mesaĝoj de viaj kontaktoj. La nombro estas la novaĵoj.",
+  "common.close": "Fermi",
+  "js.close": "Fermi"
 }

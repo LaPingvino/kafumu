@@ -966,10 +966,28 @@
           };
           pick.appendChild(chip);
         });
+        pick.appendChild(closeChip(function () { pick.remove(); }));
         row.parentNode.insertBefore(pick, row.nextSibling);
       });
     };
     return b;
+  }
+  // ✕ on a panel that opens in place closes it (Joop: closing shouldn't mean
+  // finding the button that opened it). The composer forgets what it was answering.
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest && e.target.closest("[data-close]");
+    if (!b) return;
+    e.preventDefault();
+    b.parentElement.hidden = true;
+    if (b.parentElement.id === "oln-form") composeMode = {};
+  });
+  // closeChip: a ✕ chip ending a row of choices; onClose runs on a tap.
+  function closeChip(onClose) {
+    var x = document.createElement("button");
+    x.type = "button"; x.className = "chip"; x.textContent = "✕";
+    x.setAttribute("aria-label", tr("close")); x.title = tr("close");
+    x.onclick = function (e) { e.preventDefault(); e.stopPropagation(); onClose(); };
+    return x;
   }
   // foldRow: the row's buttons behind one "😊 React"; a tap pops them open,
   // one after another (CSS: .react-more).
@@ -985,6 +1003,8 @@
       ev.preventDefault(); ev.stopPropagation();
       more.hidden = !more.hidden;
       open.setAttribute("aria-expanded", String(!more.hidden));
+      open.textContent = more.hidden ? "😊 " + tr("react") : "✕"; // open: the same button closes
+      open.setAttribute("aria-label", more.hidden ? tr("react") : tr("close"));
     };
     row.appendChild(open);
     row.appendChild(more);
@@ -1086,6 +1106,7 @@
         };
         row.appendChild(c);
       });
+      row.appendChild(closeChip(function () { row.replaceWith(b); }));
       b.replaceWith(row);
     };
     return b;

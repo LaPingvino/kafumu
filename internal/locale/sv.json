@@ -642,5 +642,7 @@
   "privacy.row_bluesky": "Ett kopplat Bluesky-konto (ATproto), ditt eller ett företags (bara om du kopplar ett): dess id, namn och inloggningssession",
   "privacy.row_bluesky_why": "För att spara träffarna och inläggen du gör här i det kontot",
   "privacy.row_bluesky_kept": "Tills du kopplar bort det; en oanvänd session upphör efter 90 dagar",
-  "js.tour_bell": "🔔 Aktivitet: det som kommit tillbaka till dig från vilket område som helst — svar och reaktioner på dina inlägg, privata svar, meddelanden från kontakter. Siffran är det nya."
+  "js.tour_bell": "🔔 Aktivitet: det som kommit tillbaka till dig från vilket område som helst — svar och reaktioner på dina inlägg, privata svar, meddelanden från kontakter. Siffran är det nya.",
+  "common.close": "Stäng",
+  "js.close": "Stäng"
 }

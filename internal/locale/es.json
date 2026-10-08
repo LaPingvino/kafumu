@@ -642,5 +642,7 @@
   "privacy.row_bluesky": "Una cuenta de Bluesky (ATproto) conectada, tuya o de un negocio (solo si conectas una): su id, nombre y sesión",
   "privacy.row_bluesky_why": "Para guardar en esa cuenta los encuentros y publicaciones que haces aquí",
   "privacy.row_bluesky_kept": "Hasta que la desconectes; una sesión sin uso termina a los 90 días",
-  "js.tour_bell": "🔔 Actividad: lo que te ha llegado de cualquier zona — respuestas y reacciones a tus publicaciones, respuestas privadas, mensajes de tus contactos. El número es lo nuevo."
+  "js.tour_bell": "🔔 Actividad: lo que te ha llegado de cualquier zona — respuestas y reacciones a tus publicaciones, respuestas privadas, mensajes de tus contactos. El número es lo nuevo.",
+  "common.close": "Cerrar",
+  "js.close": "Cerrar"
 }

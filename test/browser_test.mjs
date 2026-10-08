@@ -284,6 +284,13 @@ try {
   await A.waitFor("!!document.querySelector('.bell.tour-focus') && /Activity/.test(document.getElementById('tour').textContent)", "the tour ends at the 🔔");
   await A.evaluate("document.getElementById('tour-done').click(); true");
   await A.waitFor("document.getElementById('tour').hidden && !document.querySelector('.tour-focus')", "tour done");
+  // Panels opened in place close with their own ✕ (not only their opener).
+  await A.evaluate("document.getElementById('say').click(); true");
+  await A.waitFor("!document.getElementById('oln-form').hidden", "composer open");
+  await A.evaluate("document.querySelector('#oln-form > .close-x').click(); true");
+  await A.waitFor("document.getElementById('oln-form').hidden", "composer closed with ✕");
+  await A.evaluate("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')); li.querySelector('button.report').click(); [...li.querySelectorAll('.report-reasons .chip')].pop().click(); return true; })()");
+  await A.waitFor("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')); return li && !li.querySelector('.report-reasons') && !!li.querySelector('button.report'); })()", "report cancelled with ✕, ⚑ back");
   // Report: ⚑ on the card, a reason, a stamped report; the card goes away here.
   await A.evaluate("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')); li.querySelector('button.report').click(); li.querySelector('.report-reasons .chip').click(); return true; })()");
   await A.waitFor("document.getElementById('feed').textContent.includes('Reported')", "report sent");

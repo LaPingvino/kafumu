@@ -343,6 +343,10 @@
         sendLine(text).then(function () { input.value = ""; }).then(drawThread, function () { input.placeholder = T.network_retry || "Try again"; })
           .then(function () { sendBtn.disabled = false; input.focus(); });
       };
+      var closeChat = el("button", "pill-sm close-chat", "✕"); // the open chat says how to close it
+      closeChat.type = "button"; closeChat.setAttribute("aria-label", T.close || "Close"); closeChat.title = T.close || "Close";
+      closeChat.onclick = function () { thread.hidden = true; };
+      thread.insertBefore(closeChat, thread.firstChild);
       chatBtn.onclick = function () {
         thread.hidden = !thread.hidden;
         if (thread.hidden) return;
