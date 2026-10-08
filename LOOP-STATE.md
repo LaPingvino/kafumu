@@ -957,7 +957,8 @@ the thing through the 77b index, wherever the thing is.
       the cards and replies on screen (not asked in the last minute), merged with the bundle's; your own show at
       once. Server: RepliesTo takes a list — one Datastore "in" query for all uncached ids of a request (was one
       per id). Activity links a placeless reply to the post's area. Browser test: A sees B's answer and its 👍
-      on A's own Around, fetched by id.
+      on A's own Around, fetched by id. Datastore "in" wants []interface{} (a []string 503'd in production for
+      ~10 min after the first deploy); checked live with a two-id lookup; the emulator test skips (no "in" there).
 - [ ] 78a-3. "General" notes: needed for "general" reactions and for links with only subject tags.
       Decided (Joop, 2026-10-08): the one-cell rule is Kafumu's API, not the OLN message format. A general line
       simply has no #geo (`…;#esperanto #re…`); the API files it under the internal cell "000000" (all zero =

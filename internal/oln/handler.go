@@ -139,6 +139,7 @@ func (s *Service) HandleRe(w http.ResponseWriter, r *http.Request) {
 	}
 	ns, err := s.Replies(r.Context(), ids)
 	if err != nil {
+		log.Printf("oln: replies: %v", err)
 		http.Error(w, "unavailable", http.StatusServiceUnavailable)
 		return
 	}

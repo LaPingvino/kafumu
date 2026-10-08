@@ -205,7 +205,11 @@ func (s *MemoryStore) ByPair(_ context.Context, tag string, now time.Time) ([]*N
 
 func (s *DatastoreStore) RepliesTo(ctx context.Context, res []string, now time.Time) ([]*Note, error) {
 	var ns []*Note
-	keys, err := s.DB.GetAll(ctx, datastore.NewQuery(noteKind).FilterField("re", "in", res).Limit(300), &ns)
+	in := make([]interface{}, len(res)) // "in" wants []interface{}, not []string
+	for i, re := range res {
+		in[i] = re
+	}
+	keys, err := s.DB.GetAll(ctx, datastore.NewQuery(noteKind).FilterField("re", "in", in).Limit(300), &ns)
 	if err != nil {
 		if _, ok := err.(*datastore.ErrFieldMismatch); !ok {
 			return nil, err
