@@ -337,3 +337,16 @@ fieldset.personal-only { opacity: .5; border: 0; padding: 0; margin: 0; }
 .inline-row > * { min-width: 0; max-width: 100%; }
 select, input, textarea { max-width: 100%; }
 .link-line { display: block; margin: .25rem 0; overflow-wrap: anywhere; }
+
+/* Short, light motion: reactions pop open, a tapped emoji bounces, your
+   reaction's count bumps. None for people who asked for less motion. */
+@keyframes kf-pop { from { transform: scale(.6); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes kf-bump { 0% { transform: scale(1); } 40% { transform: scale(1.25); } 100% { transform: scale(1); } }
+.react-more { display: contents; }
+.react-more[hidden] { display: none; }
+.react-more > * { animation: kf-pop .18s ease-out both; animation-delay: calc(var(--i, 0) * 30ms); }
+button.react.sent { animation: kf-bump .3s ease-out; }
+.reactions.bump { animation: kf-bump .35s ease-out; transform-origin: left center; }
+@media (prefers-reduced-motion: reduce) {
+  .react-more > *, button.react.sent, .reactions.bump { animation: none; }
+}

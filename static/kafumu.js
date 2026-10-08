@@ -888,6 +888,7 @@
     n.mine = true;
     (fetchedRe[rid] = fetchedRe[rid] || []).push(n);
     reattach();
+    Array.prototype.forEach.call(document.querySelectorAll('li[data-reid="' + rid + '"] > .reactions'), function (r) { r.classList.add("bump"); });
   }
   function reID(kind, id) {
     if (kind === "note") return String(id).slice(0, 10);
@@ -970,6 +971,24 @@
     };
     return b;
   }
+  // foldRow: the row's buttons behind one "😊 React"; a tap pops them open,
+  // one after another (CSS: .react-more).
+  function foldRow(row) {
+    var more = document.createElement("span");
+    more.className = "react-more";
+    more.hidden = true;
+    Array.prototype.slice.call(row.children).forEach(function (b, i) { b.style.setProperty("--i", i); more.appendChild(b); });
+    var open = document.createElement("button");
+    open.type = "button"; open.className = "pill-sm"; open.textContent = "😊 " + tr("react");
+    open.setAttribute("aria-expanded", "false");
+    open.onclick = function (ev) {
+      ev.preventDefault(); ev.stopPropagation();
+      more.hidden = !more.hidden;
+      open.setAttribute("aria-expanded", String(!more.hidden));
+    };
+    row.appendChild(open);
+    row.appendChild(more);
+  }
   // firstLine: what a reply says; further lines are context (78c).
   function firstLine(t) { return String(t || "").split("\n")[0]; }
   // carryText: a reaction carried home says what it's about, on the lines
@@ -999,7 +1018,7 @@
         if (!currentCell || !window.kafumuOLN) return;
         b.disabled = true;
         window.kafumuOLN.post(carry ? carryText(e, carry.about, carry.link) : e, (carry ? "#geo" + carry.cell + " " : "") + "#re" + rid, requiredBits, function () {}) // "#re" alone: no place needed (78a)
-          .then(function (n) { b.textContent = e + " ✓"; showOwnReaction(rid, n); }, function () { b.disabled = false; });
+          .then(function (n) { b.textContent = e + " ✓"; b.classList.add("sent"); showOwnReaction(rid, n); }, function () { b.disabled = false; });
       };
       row.appendChild(b);
     });
@@ -1009,6 +1028,10 @@
     t.type = "button"; t.className = "pill-sm"; t.textContent = "💬 " + tr("react");
     t.onclick = function (ev) { ev.preventDefault(); ev.stopPropagation(); openComposer({ re: rid, about: about, carry: carry }); };
     row.appendChild(t);
+    if (ctx && ctx.compact) { // a long list (online events): one button, opened on a tap
+      t.textContent = "💬"; t.setAttribute("aria-label", tr("react")); // "React" is on the opener already
+      foldRow(row);
+    }
     return rid;
   }
   // attachReplies puts a card's reactions under it: emoji counts, then texts.
@@ -1179,7 +1202,7 @@
           li.appendChild(a); li.appendChild(when);
           var row = document.createElement("div"); // reactions: "#re" of the event's link, from anywhere (78b)
           row.className = "actions";
-          li.dataset.reid = reactRow("event", e.link, e.title, row, { link: e.link });
+          li.dataset.reid = reactRow("event", e.link, e.title, row, { link: e.link, compact: true });
           li.appendChild(row);
           attachReplies(li);
           ul.appendChild(li);
