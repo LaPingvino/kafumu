@@ -939,10 +939,11 @@ on a contact's card; strangers' reactions show only under the post in its own ce
       ones not in the cell's bundle.
 
 ## 78. Reactions everywhere, and carrying them home (Joop, 2026-10-08)
-- [ ] 78a. Subject-only notes (no #geo): needed for "general" reactions and for links with only subject tags.
-      OLN Parse wants exactly one cell today; allow none when there's ≥1 subject tag, priced by a global rate,
-      indexed like `asks` (subjects), read via the subject fetch Around already does when you filter. RED FLAG
-      (rule 5: a new kind of note) — Joop asked for it; keep it the same Note, only the place is optional.
+- [ ] 78a. "General" notes: needed for "general" reactions and for links with only subject tags.
+      Decided (Joop, 2026-10-08): the one-cell rule is Kafumu's API, not the OLN message format; general lines go
+      under the cell `#geo000000` (padded-plustag style: all zero = everywhere). So no new kind of note: Parse
+      and geo.Valid accept "000000" as the global cell (needs ≥1 subject tag), with its own price like any cell,
+      subjects indexed like `asks`, read through the subject fetch Around does when you filter.
 - [ ] 78b. Online events (Esperanto online list, and any event without a place) get the react row, with a choice:
       "here" (#geo your cell) or "everyone into #esperanto" (78a). Verify local Eventa Servo meetups' reactions in
       production while at it.
