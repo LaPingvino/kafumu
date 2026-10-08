@@ -297,6 +297,15 @@ func isSubject(t string) bool {
 		!pairTag.MatchString(t) && !strings.HasPrefix(t, "rka") && !strings.HasPrefix(t, "rkb")
 }
 
+// Fresh is how long lists and lookups (an area's lines, replies by id,
+// questions and general lines by subject) are kept per instance, and how
+// long browsers may keep them. A minute; the test servers set a shorter one
+// (KAFUMU_FRESH) so they don't wait it out.
+var Fresh = time.Minute
+
+// MaxAge is Fresh as a Cache-Control header value.
+func MaxAge() string { return fmt.Sprintf("public, max-age=%d", int(Fresh.Seconds())) }
+
 // Everywhere is the cell lines without a #geo are filed under (all zero, as
 // a padded plustag: no place in particular). Not a valid area cell, so no
 // bundle ever asks for it.
@@ -335,7 +344,7 @@ func (s *Service) Replies(ctx context.Context, ids []string) ([]*Note, error) {
 	var stale []string
 	s.mu.Lock()
 	for _, id := range ids {
-		if e, ok := s.res[id]; !ok || now.Sub(e.at) > time.Minute {
+		if e, ok := s.res[id]; !ok || now.Sub(e.at) > Fresh {
 			stale = append(stale, id)
 		}
 	}
@@ -390,7 +399,7 @@ func (s *Service) Asks(ctx context.Context, tags []string) ([]*Note, error) {
 		s.mu.Lock()
 		e, ok := s.asks[t]
 		s.mu.Unlock()
-		if !ok || now.Sub(e.at) > time.Minute {
+		if !ok || now.Sub(e.at) > Fresh {
 			ns, err := s.Store.AskedAbout(ctx, t, now)
 			if err != nil {
 				return nil, err
@@ -510,7 +519,7 @@ func (s *Service) General(ctx context.Context, tags []string) ([]*Note, error) {
 	var stale []string
 	s.mu.Lock()
 	for _, t := range tags {
-		if e, ok := s.subj[t]; !ok || now.Sub(e.at) > time.Minute {
+		if e, ok := s.subj[t]; !ok || now.Sub(e.at) > Fresh {
 			stale = append(stale, t)
 		}
 	}
@@ -634,7 +643,7 @@ func (s *Service) InCells(ctx context.Context, cells []string) ([]*Note, error) 
 	var out []*Note
 	s.mu.Lock()
 	for _, c := range cells {
-		if e, ok := s.cells[c]; ok && now.Sub(e.at) < time.Minute {
+		if e, ok := s.cells[c]; ok && now.Sub(e.at) < Fresh {
 			out = append(out, e.ns...)
 		} else {
 			missing = append(missing, c)

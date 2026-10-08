@@ -19,6 +19,7 @@ import (
 	"github.com/LaPingvino/kafumu/internal/importer"
 	"github.com/LaPingvino/kafumu/internal/locale"
 	"github.com/LaPingvino/kafumu/internal/meetup"
+	"github.com/LaPingvino/kafumu/internal/oln"
 )
 
 // Meetups handles hosting and joining meetups. Hosting is free, always.
@@ -292,7 +293,7 @@ func (h *Meetups) ByIDs(w http.ResponseWriter, r *http.Request) {
 		h.mu.Lock()
 		e, ok := h.byID[id]
 		h.mu.Unlock()
-		if !ok || now.Sub(e.at) > time.Minute {
+		if !ok || now.Sub(e.at) > oln.Fresh {
 			m, err := h.Svc.Get(r.Context(), id)
 			if err != nil && !errors.Is(err, meetup.ErrNotFound) {
 				http.Error(w, "unavailable", http.StatusServiceUnavailable)
@@ -313,6 +314,6 @@ func (h *Meetups) ByIDs(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Cache-Control", "public, max-age=60")
+	w.Header().Set("Cache-Control", oln.MaxAge())
 	json.NewEncoder(w).Encode(out)
 }

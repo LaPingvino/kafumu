@@ -59,6 +59,10 @@ func main() {
 	kv := cache.New()
 	home.Cache = kv
 	feeds.Locate = home.Gaz.LocateArea
+	// KAFUMU_FRESH: how long lists and lookups are kept (tests: "2s").
+	if d, err := time.ParseDuration(os.Getenv("KAFUMU_FRESH")); err == nil && d > 0 {
+		oln.Fresh, meetup.Fresh = d, d
+	}
 	home.Meetups = meetup.NewService(meetupStore)
 	notes := oln.NewService(olnStore(db))
 	notes.AuthorFor = func(r *http.Request) string {

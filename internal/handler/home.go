@@ -548,7 +548,11 @@ func (h *Home) Bundle(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Cache-Control", "public, max-age=30") // people and meetups change; posts are cached server-side anyway
+	maxAge := "public, max-age=30" // people and meetups change; posts are cached server-side anyway
+	if oln.Fresh < time.Minute {
+		maxAge = oln.MaxAge() // the test servers' short freshness
+	}
+	w.Header().Set("Cache-Control", maxAge)
 	json.NewEncoder(w).Encode(b)
 }
 

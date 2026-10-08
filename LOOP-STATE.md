@@ -1020,3 +1020,7 @@ Per the OLN json-spec, a link is an index key like a tag (index["link"] → mess
       buttons go. Suite ~465 s of 590.
 - [ ] Polish: "business card never synced" browser-test flake (sync() keeps answering "off" for 20 s; 3× on
       2026-10-08). The test now reports actingSync and the vault's answer when it fails: read that next time.
+- [x] Test time: 465 s → 250 s. The browser test spent most of its 396 s waiting out one-minute caches in reload
+      loops. oln.Fresh / meetup.Fresh (default a minute) set the per-instance caches and Cache-Control; the test
+      server runs with KAFUMU_FRESH=2s. A 👍 check that only passed while a carried ☕ was still cached now looks for
+      "👍 1" among the reactions.

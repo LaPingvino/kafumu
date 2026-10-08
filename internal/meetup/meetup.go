@@ -139,8 +139,12 @@ type cellEntry struct {
 	at time.Time
 }
 
+// Fresh is how long a cell's meetups are kept per instance (oln.Fresh's
+// twin; set together from KAFUMU_FRESH).
+var Fresh = time.Minute
+
 func NewService(s Store) *Service {
-	return &Service{Store: s, TTL: time.Minute, Now: time.Now, cells: map[string]cellEntry{}}
+	return &Service{Store: s, TTL: Fresh, Now: time.Now, cells: map[string]cellEntry{}}
 }
 
 // Create validates and stores a new meetup by author.

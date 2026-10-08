@@ -253,7 +253,7 @@ try {
   // React to any card: 👍 on A's message shows as a count under it.
   await A.evaluate("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')); li.querySelector('button.react').click(); return true; })()");
   for (let i = 0; ; i++) {
-    try { await A.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('hi from the OLN " + RUN + "') && (li.querySelector('.reactions') || {}).textContent === '👍 1')", "👍 under the message", 15000); break; }
+    try { await A.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('hi from the OLN " + RUN + "') && ((li.querySelector(':scope > .reactions') || {}).textContent || '').includes('👍 1'))", "👍 under the message", 15000); break; }
     catch (e) { if (i >= 4) throw e; await A.goto(base + "/?cell=6fg223&lang=eng"); }
   }
   // A tag filter with little nearby fills up from elsewhere (same tag, anywhere).
