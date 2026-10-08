@@ -31,7 +31,8 @@
     <li><strong>keywords</strong>: space-separated hashtags; one <code>#geo…</code> cell. Kafumu also uses
       <code>#lang&lt;iso639-3&gt;</code>, <code>#ask</code> for questions and <code>#re&lt;10 hex&gt;</code> for answers
       and reactions (the first ten hex of the message id it answers). A reaction needs no place:
-      <code>#re…</code> alone says what it's about.</li>
+      <code>#re…</code> alone says what it's about. A line about a subject for everyone into it, wherever they are,
+      needs none either: <code>#esperanto</code> without a <code>#geo</code>.</li>
   </ul>
   <p>The work is the number of leading zero bits of <code>Argon2id(line)</code> with salt <code>OLN-v2-proofwork</code>,
   1 pass, 4 MiB of memory, 1 lane and a 32-byte output. Kafumu asks 4 bits at the base (16 tries) and a little more
@@ -44,6 +45,8 @@
   <pre><code>curl 'https://kafumu.com/oln.json?cell=8ccgmw'</code></pre>
   <p>Answers and reactions to messages, wherever they were posted (up to 20 ids):</p>
   <pre><code>curl 'https://kafumu.com/api/oln/re?ids=54cecdf267'</code></pre>
+  <p>Lines without a place about subjects (up to 8):</p>
+  <pre><code>curl 'https://kafumu.com/api/oln/general?tags=esperanto'</code></pre>
 
   <h2>Writing: POST /api/oln</h2>
   <p>First ask how much work the cell currently wants, then mine and post the raw line:</p>
@@ -51,8 +54,8 @@
 curl 'https://kafumu.com/api/oln/required?re=54cecdf267'    # a reaction: priced by what it answers
 curl -X POST --data-binary 'v2;nonce;20261004183000;SGVsbG8;#geo8ccgmw' https://kafumu.com/api/oln</code></pre>
   <p>Answers: <code>200</code> with the stored message (and its expiry), <code>402</code> when the work is too low
-  (mine more bits), <code>400</code> for a malformed line, a clock off by more than ten minutes, or no place (neither
-  one <code>#geo</code> cell nor a <code>#re</code>).</p>
+  (mine more bits), <code>400</code> for a malformed line, a clock off by more than ten minutes, or no place and
+  nothing to be about (no <code>#geo</code> cell, no <code>#re</code>, no subject).</p>
   <p>Mining in JavaScript with <a href="https://www.npmjs.com/package/hash-wasm">hash-wasm</a>'s Argon2id:</p>
   <pre><code>// Argon2id → leading zero bits; try nonces until there are enough.
 const salt = new TextEncoder().encode("OLN-v2-proofwork");
