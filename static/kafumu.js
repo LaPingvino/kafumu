@@ -770,7 +770,8 @@
     var hide = document.createElement("button");
     hide.type = "button"; hide.className = "pill-sm"; hide.textContent = tr("oln_hide");
     hide.onclick = hideIt;
-    if (!opts.question && !opts.reply) li.dataset.reid = reactRow("note", n.id, n.text, row);
+    // Replies can be reacted to as well (77g), one level deep: a reaction to a reply shows under it.
+    if (!opts.question && !opts.nested) li.dataset.reid = reactRow("note", n.id, n.text, row);
     else if (opts.question) li.dataset.reid = reID("note", n.id);
     row.appendChild(hide);
     row.appendChild(reportButton("note", n.id, n.text, li, hideIt));
@@ -812,7 +813,7 @@
     return rid;
   }
   // attachReplies puts a card's reactions under it: emoji counts, then texts.
-  function attachReplies(li) {
+  function attachReplies(li, nested) {
     var rid = li.dataset.reid;
     if (!rid) return;
     Array.prototype.forEach.call(li.querySelectorAll(":scope > .reactions, :scope > .replies"), function (x) { x.remove(); });
@@ -829,7 +830,11 @@
     if (texts.length) {
       var ul = document.createElement("ul");
       ul.className = "replies";
-      texts.slice().reverse().forEach(function (r) { ul.appendChild(noteItem(r, { reply: true })); });
+      texts.slice().reverse().forEach(function (r) {
+        var item = noteItem(r, { reply: true, nested: !!nested });
+        if (!nested) attachReplies(item, true); // its own reactions, one level down
+        ul.appendChild(item);
+      });
       li.appendChild(ul);
     }
   }

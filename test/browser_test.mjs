@@ -116,6 +116,9 @@ try {
   }
   await B.evaluate("(() => { [...[...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('pastel de nata')).querySelectorAll('button')].find(b => b.textContent.startsWith('💬')).click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test answer: Manteigaria " + RUN + "'; f.requestSubmit(); return true; })()");
   await B.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('pastel de nata') && li.querySelector('.replies') && li.querySelector('.replies').textContent.includes('Manteigaria'))", "answer threaded under the question", 30000);
+  // Reactions to reactions (77g): B reacts 👍 to that answer; it shows under the answer.
+  await B.evaluate("(() => { const r = [...document.querySelectorAll('#feed .replies > li')].find(li => li.textContent.includes('Manteigaria')); [...r.querySelectorAll('button.react')].find(b => b.textContent.startsWith('👍')).click(); return true; })()");
+  await B.waitFor("[...document.querySelectorAll('#feed .replies > li')].some(li => li.textContent.includes('Manteigaria') && li.querySelector(':scope > .reactions') && li.querySelector(':scope > .reactions').textContent.includes('👍 1'))", "👍 under the answer", 30000);
   // Tags that make sense here: B saw the #food question, so B's composer
   // suggests #food; a tap adds it.
   await B.evaluate("document.getElementById('oln-form').hidden = true; document.getElementById('say').click(); document.getElementById('oln-form').tags.value = ''; document.getElementById('oln-form').tags.dispatchEvent(new Event('input')); true");
@@ -128,8 +131,12 @@ try {
   // counts it, Activity lists it as new, and after that it's seen.
   await A.goto(base + "/?cell=6fg222");
   await A.waitFor("(() => { const b = document.querySelector('.bell-n'); return b && !b.hidden && +b.textContent >= 1; })()", "the bell counts the answer", 15000);
-  await A.goto(base + "/activity");
-  await A.waitFor("[...document.querySelectorAll('#activity li.unread')].some(li => li.textContent.includes('Manteigaria') && li.textContent.includes('pastel de nata') && li.querySelector('a[href=\"/?cell=6fg223\"]'))", "Activity lists the answer as new, linking to its area", 15000);
+  // Replies by post id are cached a minute (server and browser): reload until the answer is in.
+  for (let i = 0; ; i++) {
+    await A.goto(base + "/activity");
+    try { await A.waitFor("[...document.querySelectorAll('#activity li.unread')].some(li => li.textContent.includes('Manteigaria') && li.textContent.includes('pastel de nata') && li.querySelector('a[href=\"/?cell=6fg223\"]'))", "Activity lists the answer as new, linking to its area", 8000); break; }
+    catch (e) { if (i >= 9) throw e; }
+  }
   await A.waitFor("[...document.querySelectorAll('#activity li')].some(li => li.textContent.includes('🤝') && li.textContent.includes('connected with you') && li.querySelector('a[href=\"/contacts\"]'))", "Activity: B connected through A's code");
   await A.goto(base + "/activity");
   await A.waitFor("[...document.querySelectorAll('#activity li')].some(li => li.textContent.includes('Manteigaria') && !li.classList.contains('unread'))", "and then as seen");
