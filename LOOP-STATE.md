@@ -934,9 +934,13 @@ on a contact's card; strangers' reactions show only under the post in its own ce
       a pair-tag push says "💬 A new message or answer for you" and opens /activity. Contact chat lines didn't push
       before either. Public #re replies: not pushed (watching post ids would tell the server which posts are yours).
       Also: TestPullFromPeer flaked when mining got lucky extra bits (longer life); mineExact fixes it.
-- [ ] 77g. Reactions to reactions (Joop): a reply under a card gets its own react row; its reactions (#re<its id>)
+- [x] 77g. Reactions to reactions (Joop): a reply under a card gets its own react row; its reactions (#re<its id>)
       nest one level under it, and count as replies to your reply in Activity. Uses 77b's `re` index for the
       ones not in the cell's bundle.
+      Done: replies under a card get the react row; their reactions show under them, one level deep. Your own
+      replies are in myPosts (77a), so reactions to them already reach your Activity. Reactions still carry #geo;
+      #re-only lines come with 78a. Browser test: 👍 on an answer shows under it; the Activity check reloads past
+      the 1-minute reply cache (it was a timing flake).
 
 ## 78. Reactions everywhere, and carrying them home (Joop, 2026-10-08)
 Tagging rule (Joop): tag a reaction with the clearest indication of what it reacts to, and #re<id> alone is
