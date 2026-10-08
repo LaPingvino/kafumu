@@ -274,14 +274,18 @@ func (a *Accounts) SetProfile(w http.ResponseWriter, r *http.Request) {
 	hours, _ := strconv.Atoi(r.FormValue("visible_hours"))
 	tags := strings.FieldsFunc(r.FormValue("tags"), func(c rune) bool { return c == ',' })
 	if b := a.Home.ActingAs(r); b != nil && a.Home.Biz != nil { // the business you act as becomes findable (76c)
-		b.Bio, b.Where, b.Langs, b.Tags = account.CleanProfile(r.FormValue("bio"), r.FormValue("where"), ls, tags)
-		b.Cell = strings.ToLower(strings.TrimSpace(r.FormValue("cell")))
+		// ActingAs is a cached copy: change just these fields on the stored one.
+		bio, where, langs, tg := account.CleanProfile(r.FormValue("bio"), r.FormValue("where"), ls, tags)
+		cell := strings.ToLower(strings.TrimSpace(r.FormValue("cell")))
 		visible := min(time.Duration(hours)*time.Hour, account.MaxVisible)
-		b.VisibleUntil = time.Time{}
-		if visible > 0 && b.Username != "" && len(b.Cell) == 6 {
-			b.VisibleUntil = time.Now().Add(visible)
-		}
-		if err := a.Home.Biz.Save(r.Context(), b); err != nil {
+		if _, err := a.Home.Biz.Update(r.Context(), b.ID, func(x *business.Business) error {
+			x.Bio, x.Where, x.Langs, x.Tags, x.Cell = bio, where, langs, tg, cell
+			x.VisibleUntil = time.Time{}
+			if visible > 0 && x.Username != "" && len(x.Cell) == 6 {
+				x.VisibleUntil = time.Now().Add(visible)
+			}
+			return nil
+		}); err != nil {
 			http.Error(w, "could not save", http.StatusInternalServerError)
 			return
 		}
@@ -331,17 +335,22 @@ func (a *Accounts) SetInbox(w http.ResponseWriter, r *http.Request) {
 		if b.InboxBox != "" && b.InboxBox != box && a.Prices != nil {
 			_ = a.Prices.Delete(r.Context(), b.InboxBox)
 		}
-		b.InboxBox, b.InboxPub, b.InboxBits = box, pub, 0
+		price := 0
 		if box != "" {
-			b.InboxBits = max(account.MinInboxBits, min(account.MaxInboxBits, bits))
+			price = max(account.MinInboxBits, min(account.MaxInboxBits, bits))
 			if a.Prices != nil {
-				if err := a.Prices.Set(r.Context(), box, b.InboxBits); err != nil {
+				if err := a.Prices.Set(r.Context(), box, price); err != nil {
 					http.Error(w, "unavailable", http.StatusServiceUnavailable)
 					return
 				}
 			}
 		}
-		if err := a.Home.Biz.Save(r.Context(), b); err != nil {
+		// Only the inbox fields, on the stored copy (ActingAs is cached: saving
+		// it whole put an old sync mode back when this ran right after a change).
+		if _, err := a.Home.Biz.Update(r.Context(), b.ID, func(x *business.Business) error {
+			x.InboxBox, x.InboxPub, x.InboxBits = box, pub, price
+			return nil
+		}); err != nil {
 			http.Error(w, "could not save", http.StatusInternalServerError)
 			return
 		}
@@ -610,10 +619,14 @@ func (a *Accounts) leaveBusinesses(r *http.Request, userID string) {
 	ctx := r.Context()
 	bs, _ := a.Home.Biz.ForUser(ctx, userID)
 	for _, b := range bs {
-		b.Managers = slices.DeleteFunc(b.Managers, func(m string) bool { return m == userID })
+		if nb, err := a.Home.Biz.Update(ctx, b.ID, func(x *business.Business) error {
+			x.Managers = slices.DeleteFunc(x.Managers, func(m string) bool { return m == userID })
+			return nil
+		}); err == nil {
+			b = nb
+		}
 		a.Home.forgetBiz(b.ID)
 		if len(b.Managers) > 0 {
-			_ = a.Home.Biz.Save(ctx, b)
 			continue
 		}
 		if b.Username != "" {

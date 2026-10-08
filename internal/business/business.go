@@ -178,6 +178,46 @@ func (s *Store) Save(ctx context.Context, b *Business) error {
 	return err
 }
 
+// Update changes a business atomically: fn gets the current copy (read in
+// the same transaction, or under the lock), and what it returns is saved
+// unless it returns an error. Two managers' changes can't undo each other
+// the way a Get … Save pair can.
+func (s *Store) Update(ctx context.Context, id string, fn func(*Business) error) (*Business, error) {
+	if s.DB == nil {
+		s.mu.Lock()
+		defer s.mu.Unlock()
+		b, ok := s.mem[id]
+		if !ok {
+			return nil, ErrNotFound
+		}
+		b.ID = id
+		if err := fn(&b); err != nil {
+			return nil, err
+		}
+		s.mem[id] = b
+		kv.Save(kind, id, &b)
+		return &b, nil
+	}
+	var out *Business
+	_, err := s.DB.RunInTransaction(ctx, func(tx *datastore.Transaction) error {
+		var b Business
+		k := datastore.NameKey(kind, id, nil)
+		if err := tx.Get(k, &b); err != nil {
+			return ErrNotFound
+		}
+		b.ID = id
+		if err := fn(&b); err != nil {
+			return err
+		}
+		if _, err := tx.Put(k, &b); err != nil {
+			return err
+		}
+		out = &b
+		return nil
+	})
+	return out, err
+}
+
 func (s *Store) Get(ctx context.Context, id string) (*Business, error) {
 	if s.DB == nil {
 		s.mu.Lock()

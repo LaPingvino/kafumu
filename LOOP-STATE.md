@@ -1022,8 +1022,14 @@ Per the OLN json-spec, a link is an index key like a tag (index["link"] → mess
       as 👀). In their chat that line gets Yes / Can't: either answers in the chat; Yes then opens the meetup page,
       where they tap "I'm going" (the RSVP endpoint toggles, so no blind RSVP). Browser test: Can't answers, the
       buttons go. Suite ~465 s of 590.
-- [ ] Polish: "business card never synced" browser-test flake (sync() keeps answering "off" for 20 s; 3× on
+- [x] Polish: "business card never synced" browser-test flake (sync() keeps answering "off" for 20 s; 3× on
       2026-10-08). The test now reports actingSync and the vault's answer when it fails: read that next time.
+      Found (the report said actingSync unset, vault 404 "not synced"): a lost update, real in production too.
+      Handlers saved a whole business they'd read earlier — the inbox and profile ones even the cached ActingAs
+      copy — so one landing right after a sync-mode change put the old mode back. business.Store.Update (Datastore
+      transaction / lock) now changes only what each handler means to change: sync mode, key requests/grants,
+      managers, @name, findable profile, inbox, Bluesky, leaving on account deletion. Also bizByID won't cache a
+      copy read before a forgetBiz. Test: TestUpdateConcurrent (20 at once, -race). Left: admin edit (rare).
 - [x] Test time: 465 s → 250 s. The browser test spent most of its 396 s waiting out one-minute caches in reload
       loops. oln.Fresh / meetup.Fresh (default a minute) set the per-instance caches and Cache-Control; the test
       server runs with KAFUMU_FRESH=2s. A 👍 check that only passed while a carried ☕ was still cached now looks for

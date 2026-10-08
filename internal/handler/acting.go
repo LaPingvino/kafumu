@@ -19,6 +19,9 @@ const asCookie = "kafumu_as"
 type bizCache struct {
 	mu sync.Mutex
 	m  map[string]bizEntry
+	// gen counts forgetBiz calls per id: a read that started before a
+	// change mustn't put the old business back after it was forgotten.
+	gen map[string]int
 }
 
 type bizEntry struct {
@@ -45,6 +48,7 @@ func (h *Home) bizByID(ctx context.Context, id string) *business.Business {
 	}
 	h.bizc.mu.Lock()
 	e, ok := h.bizc.m[id]
+	gen := h.bizc.gen[id]
 	h.bizc.mu.Unlock()
 	if !ok || time.Since(e.at) > time.Minute {
 		b, err := h.Biz.Get(ctx, id)
@@ -56,7 +60,9 @@ func (h *Home) bizByID(ctx context.Context, id string) *business.Business {
 		if h.bizc.m == nil || len(h.bizc.m) > 1000 {
 			h.bizc.m = map[string]bizEntry{}
 		}
-		h.bizc.m[id] = e
+		if h.bizc.gen[id] == gen { // not changed (and forgotten) while we read it
+			h.bizc.m[id] = e
+		}
 		h.bizc.mu.Unlock()
 	}
 	return e.b
@@ -66,6 +72,10 @@ func (h *Home) bizByID(ctx context.Context, id string) *business.Business {
 func (h *Home) forgetBiz(id string) {
 	h.bizc.mu.Lock()
 	delete(h.bizc.m, id)
+	if h.bizc.gen == nil || len(h.bizc.gen) > 1000 {
+		h.bizc.gen = map[string]int{}
+	}
+	h.bizc.gen[id]++
 	h.bizc.mu.Unlock()
 }
 

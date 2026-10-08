@@ -4,6 +4,7 @@ import (
 	"crypto/rand"
 	"encoding/base64"
 	"encoding/json"
+	"errors"
 	"github.com/LaPingvino/kafumu/internal/account"
 	"log"
 	"net/http"
@@ -84,18 +85,25 @@ func (h *Businesses) Managers(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
+	add := ""
 	if name := strings.ToLower(strings.TrimPrefix(strings.TrimSpace(r.FormValue("add")), "@")); name != "" && !b.Live(time.Now()) {
 		http.Redirect(w, r, "/business?err=paid", http.StatusSeeOther) // more managers: an office tool (45b)
 		return
 	} else if name != "" {
-		if id, err := h.Accounts.Svc.Store.LookupUsername(r.Context(), name); err == nil && id != "" && id != "biz:"+b.ID && !b.Manages(id) && len(b.Managers) < 20 {
-			b.Managers = append(b.Managers, id)
+		if id, err := h.Accounts.Svc.Store.LookupUsername(r.Context(), name); err == nil && id != "" && id != "biz:"+b.ID {
+			add = id
 		}
 	}
-	if rm := r.FormValue("remove"); rm != "" && rm != u.ID {
-		b.Managers = slices.DeleteFunc(b.Managers, func(x string) bool { return x == rm })
-	}
-	_ = h.Store.Save(r.Context(), b)
+	rm := r.FormValue("remove")
+	_, _ = h.Store.Update(r.Context(), b.ID, func(x *business.Business) error {
+		if add != "" && !x.Manages(add) && len(x.Managers) < 20 {
+			x.Managers = append(x.Managers, add)
+		}
+		if rm != "" && rm != u.ID {
+			x.Managers = slices.DeleteFunc(x.Managers, func(m string) bool { return m == rm })
+		}
+		return nil
+	})
 	h.Home.forgetBiz(b.ID)
 	http.Redirect(w, r, "/business", http.StatusSeeOther)
 }
@@ -130,8 +138,7 @@ func (h *Businesses) Name(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	old := b.Username
-	b.Username = name
-	if err := h.Store.Save(r.Context(), b); err != nil {
+	if _, err := h.Store.Update(r.Context(), b.ID, func(x *business.Business) error { x.Username = name; return nil }); err != nil {
 		_ = h.Accounts.Svc.Store.ReleaseUsername(r.Context(), name, "biz:"+b.ID)
 		http.Redirect(w, r, back, http.StatusSeeOther)
 		return
@@ -240,12 +247,13 @@ func (h *Businesses) Sync(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/business?err=paid", http.StatusSeeOther)
 		return
 	}
+	mode, key, keyReqs := b.SyncMode, b.SyncKey, b.KeyReqs
 	switch r.FormValue("mode") {
 	case "off":
-		b.SyncMode, b.SyncKey, b.KeyReqs = "", "", nil
+		mode, key, keyReqs = "", "", nil
 	case business.SyncServer:
 		if b.SyncMode != business.SyncServer || b.SyncKey == "" {
-			key := r.FormValue("key")
+			key = r.FormValue("key")
 			if raw, err := base64.StdEncoding.DecodeString(key); err != nil || len(raw) != 32 {
 				raw = make([]byte, 32)
 				rand.Read(raw)
@@ -254,15 +262,23 @@ func (h *Businesses) Sync(w http.ResponseWriter, r *http.Request) {
 					_ = h.Accounts.Vault.Delete(r.Context(), "biz:"+b.ID) // sealed with a key nobody gave us
 				}
 			}
-			b.SyncMode, b.SyncKey = business.SyncServer, key
+			mode = business.SyncServer
 		}
 	case business.SyncPrivate:
-		b.SyncMode, b.SyncKey = business.SyncPrivate, ""
+		mode, key = business.SyncPrivate, ""
 	default:
 		http.Redirect(w, r, "/business", http.StatusSeeOther)
 		return
 	}
-	if err := h.Store.Save(r.Context(), b); err != nil {
+	// Atomically, so a manager's other device saving the business at the
+	// same moment can't put the old mode back (it did, in the browser test).
+	if _, err := h.Store.Update(r.Context(), b.ID, func(x *business.Business) error {
+		x.SyncMode, x.SyncKey = mode, key
+		if mode == "" {
+			x.KeyReqs = keyReqs
+		}
+		return nil
+	}); err != nil {
 		log.Printf("business: sync mode: %v", err)
 	}
 	h.Home.forgetBiz(b.ID)
@@ -318,43 +334,65 @@ func (h *Businesses) KeyReqAPI(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(list)
 		return
-	case strings.HasSuffix(r.URL.Path, "/keyreq"):
-		pub := r.FormValue("pub")
+	}
+	// POST keyreq / keygrant: applied atomically to the current copy, so two
+	// devices asking or granting at once don't drop each other's change.
+	pub := r.FormValue("pub")
+	isReq := strings.HasSuffix(r.URL.Path, "/keyreq")
+	if isReq {
 		if raw, err := base64.StdEncoding.DecodeString(pub); err != nil || len(raw) != 65 {
 			http.Error(w, "pub: a raw P-256 key", http.StatusBadRequest)
 			return
 		}
-		b.KeyReqs = slices.DeleteFunc(b.KeyReqs, func(k business.KeyReq) bool { return k.Pub == pub && k.UserID == u.ID })
-		if r.FormValue("cancel") == "1" { // this device has the key now: withdraw its request
-			break
-		}
-		if slices.ContainsFunc(b.KeyReqs, func(k business.KeyReq) bool { return k.Pub == pub }) {
-			http.Error(w, "taken", http.StatusConflict)
-			return
-		}
-		mine := 0
-		for _, k := range b.KeyReqs {
-			if k.UserID == u.ID {
-				mine++
-			}
-		}
-		if mine >= 5 {
-			http.Error(w, "too many open requests", http.StatusTooManyRequests)
-			return
-		}
-		b.KeyReqs = append(b.KeyReqs, business.KeyReq{UserID: u.ID, Pub: pub, At: now})
-	default: // keygrant
-		to, wrapped := r.FormValue("pub"), r.FormValue("wrapped")
-		i := slices.IndexFunc(b.KeyReqs, func(k business.KeyReq) bool { return k.Pub == to })
-		if i < 0 || wrapped == "" || len(wrapped) > 1000 {
-			http.Error(w, "no such request", http.StatusNotFound)
-			return
-		}
-		b.KeyReqs[i].Wrapped, b.KeyReqs[i].From = wrapped, u.ID
 	}
-	if err := h.Store.Save(r.Context(), b); err != nil {
+	_, err := h.Store.Update(r.Context(), b.ID, func(x *business.Business) error {
+		x.KeyReqs = slices.DeleteFunc(x.KeyReqs, func(k business.KeyReq) bool {
+			return now.Sub(k.At) > 7*24*time.Hour || !h.Home.managesBiz(r.Context(), x, k.UserID)
+		})
+		if isReq {
+			x.KeyReqs = slices.DeleteFunc(x.KeyReqs, func(k business.KeyReq) bool { return k.Pub == pub && k.UserID == u.ID })
+			if r.FormValue("cancel") == "1" { // this device has the key now: withdraw its request
+				return nil
+			}
+			if slices.ContainsFunc(x.KeyReqs, func(k business.KeyReq) bool { return k.Pub == pub }) {
+				return &refusal{http.StatusConflict, "taken"}
+			}
+			mine := 0
+			for _, k := range x.KeyReqs {
+				if k.UserID == u.ID {
+					mine++
+				}
+			}
+			if mine >= 5 {
+				return &refusal{http.StatusTooManyRequests, "too many open requests"}
+			}
+			x.KeyReqs = append(x.KeyReqs, business.KeyReq{UserID: u.ID, Pub: pub, At: now})
+			return nil
+		}
+		wrapped := r.FormValue("wrapped") // keygrant
+		i := slices.IndexFunc(x.KeyReqs, func(k business.KeyReq) bool { return k.Pub == pub })
+		if i < 0 || wrapped == "" || len(wrapped) > 1000 {
+			return &refusal{http.StatusNotFound, "no such request"}
+		}
+		x.KeyReqs[i].Wrapped, x.KeyReqs[i].From = wrapped, u.ID
+		return nil
+	})
+	var no *refusal
+	switch {
+	case errors.As(err, &no):
+		http.Error(w, no.msg, no.code)
+		return
+	case err != nil:
 		http.Error(w, "unavailable", http.StatusServiceUnavailable)
 		return
 	}
 	w.WriteHeader(http.StatusNoContent)
 }
+
+// refusal: a change an atomic update declined, as the HTTP answer to give.
+type refusal struct {
+	code int
+	msg  string
+}
+
+func (e *refusal) Error() string { return e.msg }

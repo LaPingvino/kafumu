@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"github.com/LaPingvino/kafumu/internal/business"
 	"log"
 	"net/http"
 	"net/url"
@@ -61,8 +62,11 @@ func (h *ATproto) Callback(w http.ResponseWriter, r *http.Request) {
 		if b.DID != "" && b.ATSession != "" && (b.DID != did || b.ATSession != sid) {
 			_ = h.Svc.Disconnect(r.Context(), b.DID, b.ATSession)
 		}
-		b.DID, b.ATSession, b.ATHandle = did, sid, atp.Handle(r.Context(), did)
-		if err := h.Accounts.Home.Biz.Save(r.Context(), b); err != nil {
+		handle := atp.Handle(r.Context(), did)
+		if _, err := h.Accounts.Home.Biz.Update(r.Context(), b.ID, func(x *business.Business) error {
+			x.DID, x.ATSession, x.ATHandle = did, sid, handle
+			return nil
+		}); err != nil {
 			http.Error(w, "could not save", http.StatusInternalServerError)
 			return
 		}
@@ -97,8 +101,10 @@ func (h *ATproto) Disconnect(w http.ResponseWriter, r *http.Request) {
 			if err := h.Svc.Disconnect(r.Context(), b.DID, b.ATSession); err != nil {
 				log.Printf("atproto: disconnect business: %v", err)
 			}
-			b.DID, b.ATSession, b.ATHandle = "", "", ""
-			_ = h.Accounts.Home.Biz.Save(r.Context(), b)
+			_, _ = h.Accounts.Home.Biz.Update(r.Context(), b.ID, func(x *business.Business) error {
+				x.DID, x.ATSession, x.ATHandle = "", "", "" // b is a cached copy: change only these
+				return nil
+			})
 			h.Accounts.Home.forgetBiz(b.ID)
 		}
 		http.Redirect(w, r, "/account#atproto", http.StatusSeeOther)
