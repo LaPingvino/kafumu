@@ -991,11 +991,16 @@ the thing through the 77b index, wherever the thing is.
 
 ## 79. React to any web link (Joop, 2026-10-08)
 Per the OLN json-spec, a link is an index key like a tag (index["link"] → messages).
-- [ ] 79a. "Share a link" in the composer: paste a URL → the note carries it and #re<reID("link", normalised URL)>;
+- [x] 79a. "Share a link" in the composer: paste a URL → the note carries it and #re<reID("link", normalised URL)>;
       cards show it as a link card (host + the poster's text), with the react row; all reactions to that URL from
       anywhere come from the 77b index.
-- [ ] 79b. Post it to your area (#geo) or to a subject community only (78a); subject-only links show when you filter
+      Done, minimal (Joop): a post with a link carries "#re" + reID("link", normalised URL: no #fragment, no utm_/
+      fbclid/gclid) — sharing a link is reacting to it. Such a note shows as a card with a 🔗 line; its react row
+      reacts to the link, so every share and reaction to that URL, from anywhere, gathers under each share (77b
+      index). Your own share's Activity follows the link's id. Browser test: A shares, B sees it cleaned up, 👍.
+- [x] 79b. Post it to your area (#geo) or to a subject community only (78a); subject-only links show when you filter
       for that subject.
+      Done by 78b: type a subject, tick "🌍 Everyone into #tag" → a link line without a place.
 - [ ] 79c. By site: also tag the host (#site<host>, normalised) so a site's discussion can be browsed (the json-spec's
       link index). Later: a browser extension that shows a page's OLN reactions and lets you react from there.
 

@@ -336,3 +336,4 @@ fieldset.personal-only { opacity: .5; border: 0; padding: 0; margin: 0; }
 .inline-row { flex-wrap: wrap; }
 .inline-row > * { min-width: 0; max-width: 100%; }
 select, input, textarea { max-width: 100%; }
+.link-line { display: block; margin: .25rem 0; overflow-wrap: anywhere; }

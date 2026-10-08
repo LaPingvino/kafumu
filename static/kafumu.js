@@ -410,6 +410,8 @@
     var t0 = Date.now(), keywords = olnKeywords(), ready = Promise.resolve();
     // A reply carries "#re" (and its language) only: no place, no other tags (78a).
     if (composeMode.re) keywords = keywords.split(" ").filter(function (k) { return /^#lang/.test(k); }).concat(["#re" + composeMode.re.slice(0, 10)]).join(" ");
+    var shared = !composeMode.re && urlIn(text);
+    if (shared) keywords += " #re" + reID("link", shared); // sharing a link: a reaction to it (79a)
     if (composeMode.re && composeMode.carry) { // carried home (78c): your area too, and what it's about
       keywords = "#geo" + composeMode.carry.cell + " " + keywords;
       text = carryText(text, composeMode.carry.about, composeMode.carry.link);
@@ -649,7 +651,8 @@
     dev.store.get("myPosts").then(function (ps) {
       var now = Date.now();
       ps = (ps || []).filter(function (p) { return p.until > now; });
-      ps.push({ id: n.id || "", uri: n.uri || "", cell: n.cell || "", reid: n.id ? reID("note", n.id) : "",
+      var lk = n.id && n.text ? linkOf(n) : "";
+      ps.push({ id: n.id || "", uri: n.uri || "", cell: n.cell || "", reid: lk ? reID("link", lk) : n.id ? reID("note", n.id) : "",
         kind: kind, text: String(text || "").slice(0, 80), at: now, until: until });
       return dev.store.set("myPosts", ps.slice(-200));
     }).catch(function () {});
@@ -785,7 +788,16 @@
     hide.type = "button"; hide.className = "pill-sm"; hide.textContent = tr("oln_hide");
     hide.onclick = hideIt;
     // Replies can be reacted to as well (77g), one level deep: a reaction to a reply shows under it.
-    if (!opts.question && !opts.nested) li.dataset.reid = reactRow("note", n.id, firstLine(n.text), row, n.cell && n.cell !== "000000" ? { cell: n.cell, link: location.origin + "/?cell=" + n.cell } : null);
+    var link = !opts.reply && linkOf(n);
+    if (link) { // a shared link: its host as a link line; reactions go to the link, from every share
+      var la = document.createElement("a");
+      la.className = "link-line"; la.href = link; la.rel = "noopener nofollow ugc"; la.target = "_blank";
+      la.textContent = "🔗 " + link.replace(/^https?:\/\//, "").slice(0, 60) + " ↗";
+      li.insertBefore(la, row.parentNode === li ? row : null);
+      li.dataset.self = n.id;
+    }
+    if (!opts.question && !opts.nested) li.dataset.reid = link ? reactRow("link", link, firstLine(n.text), row, { link: link })
+      : reactRow("note", n.id, firstLine(n.text), row, n.cell && n.cell !== "000000" ? { cell: n.cell, link: location.origin + "/?cell=" + n.cell } : null);
     else if (opts.question) li.dataset.reid = reID("note", n.id);
     row.appendChild(hide);
     row.appendChild(reportButton("note", n.id, n.text, li, hideIt));
@@ -877,6 +889,29 @@
   }
   var QUICK = ["👍", "❤️", "😂", "☕"];
   function isEmojiOnly(t) { return /^\s*(\p{Extended_Pictographic}\uFE0F?\s*){1,3}$/u.test(t || ""); }
+  // Links (79a): a note sharing a web link carries "#re" of the link, so it
+  // is itself a reaction to the link, found with all others from anywhere.
+  // normURL: the link as one id: no #fragment, no tracking parameters.
+  function normURL(u) {
+    try {
+      var x = new URL(u);
+      if (!/^https?:$/.test(x.protocol)) return "";
+      x.hash = "";
+      Array.from(x.searchParams.keys()).filter(function (k) { return /^(utm_|fbclid$|gclid$|mc_eid$)/.test(k); }).forEach(function (k) { x.searchParams.delete(k); });
+      return x.protocol + "//" + x.host + x.pathname.replace(/\/+$/, "") + x.search;
+    } catch (e) { return ""; }
+  }
+  // urlIn: the first web link in a text that isn't a connect code.
+  function urlIn(text) {
+    var m = String(text || "").match(/https?:\/\/[^\s<>"]+/g) || [];
+    for (var i = 0; i < m.length; i++) if (m[i].indexOf("/c#v1.") < 0) return normURL(m[i].replace(/[.,;:!?)\]]+$/, ""));
+    return "";
+  }
+  // linkOf: the link a note shares (its #re is that link's), or "".
+  function linkOf(n) {
+    var u = urlIn(n.text);
+    return u && (n.tags || []).indexOf("re" + reID("link", u)) >= 0 ? u : "";
+  }
   // firstLine: what a reply says; further lines are context (78c).
   function firstLine(t) { return String(t || "").split("\n")[0]; }
   // carryText: a reaction carried home says what it's about, on the lines
@@ -921,7 +956,7 @@
     var rid = li.dataset.reid;
     if (!rid) return;
     Array.prototype.forEach.call(li.querySelectorAll(":scope > .reactions, :scope > .replies"), function (x) { x.remove(); });
-    var rs = repliesFor(rid);
+    var rs = repliesFor(rid).filter(function (r) { return r.id !== li.dataset.self; }); // a link share isn't its own reaction
     if (!rs.length) return;
     var counts = {}, texts = [];
     rs.forEach(function (r) { var t = firstLine(r.text); if (isEmojiOnly(t)) { var k = t.trim(); counts[k] = (counts[k] || 0) + 1; } else texts.push(r); });
@@ -1014,7 +1049,7 @@
         (n.tags || []).forEach(function (t) { var r = /^re([0-9a-f]{10})$/.exec(t); if (r) (replies[r[1]] = replies[r[1]] || []).push(n); });
       });
       olnReplies = replies;
-      var isReply = function (n) { return (n.tags || []).some(function (t) { return /^re[0-9a-f]{10}$/.test(t); }); };
+      var isReply = function (n) { return !linkOf(n) && (n.tags || []).some(function (t) { return /^re[0-9a-f]{10}$/.test(t); }); };
       var isAsk = function (n) { return (n.tags || []).indexOf("ask") >= 0; };
       var forYou = function (n) { return isAsk(n) && (n.tags || []).some(function (t) { return t !== "ask" && mine[t]; }); };
       var top = notes.filter(function (n) { return !isReply(n); });

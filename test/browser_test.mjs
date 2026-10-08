@@ -169,6 +169,19 @@ try {
     catch (e) { if (i >= 9) throw e; }
   }
 
+  // Share a link (79a): A's note with a link is a reaction to that link;
+  // B sees it as a 🔗 card (tracking and #fragment dropped) and reacts to it.
+  await A.goto(base + "/?cell=6fg222");
+  await A.evaluate("(() => { document.getElementById('oln-form').hidden = true; document.getElementById('say').click(); const f = document.getElementById('oln-form'); f.text.value = 'Worth reading " + RUN + " https://example.org/kafumu-" + RUN + "/?utm_source=x#top'; f.tags.value = ''; f.everywhere.checked = false; f.requestSubmit(); return true; })()");
+  await A.waitFor("/Sent/.test(document.getElementById('status').textContent)", "link shared", 30000);
+  for (let i = 0; ; i++) {
+    await B.goto(base + "/?cell=6fg222");
+    try { await B.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('Worth reading " + RUN + "') && (li.querySelector('a.link-line') || {}).href === 'https://example.org/kafumu-" + RUN + "')", "B sees the shared link as a card, cleaned up", 8000); break; }
+    catch (e) { if (i >= 9) throw e; }
+  }
+  await B.evaluate("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('Worth reading " + RUN + "')); [...li.querySelectorAll('button.react')].find(b => b.textContent === '👍').click(); return true; })()");
+  await B.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('Worth reading " + RUN + "') && (li.querySelector(':scope > .reactions') || {}).textContent === '👍 1')", "👍 on the link", 30000);
+
   // Card themes from local activity: the "food" question tag shows up as a
   // 📍 suggestion in A's card editor.
   // Reactions carry no place (78a): A's Around fetches them by id, B's
