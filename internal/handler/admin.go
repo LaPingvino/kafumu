@@ -5,6 +5,7 @@ import (
 	"crypto/subtle"
 	"database/sql"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/LaPingvino/kafumu/internal/account"
 	"github.com/LaPingvino/kafumu/internal/brand"
@@ -506,27 +507,27 @@ func (a *Admin) Action(w http.ResponseWriter, r *http.Request) {
 			res = "footer saved"
 		}
 	case "biz-status":
-		if b, err := a.Businesses.Get(ctx, id); err != nil {
+		status, note := r.FormValue("status"), strings.TrimSpace(r.FormValue("note"))
+		paid, after := time.Time{}, business.AfterStop
+		if d, err := time.Parse("2006-01-02", r.FormValue("paid_until")); err == nil {
+			paid = d.Add(24 * time.Hour) // through the end of that day (UTC)
+		}
+		if r.FormValue("after") == business.AfterStay {
+			after = business.AfterStay
+		}
+		if !slices.Contains([]string{business.StatusTrial, business.StatusActive, business.StatusPaused, business.StatusEnded}, status) {
+			res = "unknown status"
+		} else if b, err := a.Businesses.Update(ctx, id, func(x *business.Business) error { // only these fields
+			x.Status, x.Note, x.PaidUntil, x.AfterPaid = status, note, paid, after
+			return nil
+		}); errors.Is(err, business.ErrNotFound) {
 			res = "no business " + id
+		} else if err != nil {
+			res = "save failed: " + err.Error()
 		} else {
-			b.Status, b.Note = r.FormValue("status"), strings.TrimSpace(r.FormValue("note"))
-			b.PaidUntil = time.Time{}
-			if d, err := time.Parse("2006-01-02", r.FormValue("paid_until")); err == nil {
-				b.PaidUntil = d.Add(24 * time.Hour) // through the end of that day (UTC)
-			}
-			b.AfterPaid = business.AfterStop
-			if r.FormValue("after") == business.AfterStay {
-				b.AfterPaid = business.AfterStay
-			}
-			if !slices.Contains([]string{business.StatusTrial, business.StatusActive, business.StatusPaused, business.StatusEnded}, b.Status) {
-				res = "unknown status"
-			} else if err := a.Businesses.Save(ctx, b); err != nil {
-				res = "save failed: " + err.Error()
-			} else {
-				res = b.Name + ": " + b.Status
-				if !b.PaidUntil.IsZero() {
-					res += ", paid until " + b.PaidDay().Format("2 Jan 2006") + " (then " + b.AfterPaid + ")"
-				}
+			res = b.Name + ": " + b.Status
+			if !b.PaidUntil.IsZero() {
+				res += ", paid until " + b.PaidDay().Format("2 Jan 2006") + " (then " + b.AfterPaid + ")"
 			}
 		}
 	case "role", "rename", "unname", "keep", "delete-user", "patron":

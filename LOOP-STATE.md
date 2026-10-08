@@ -1029,8 +1029,11 @@ Per the OLN json-spec, a link is an index key like a tag (index["link"] → mess
       copy — so one landing right after a sync-mode change put the old mode back. business.Store.Update (Datastore
       transaction / lock) now changes only what each handler means to change: sync mode, key requests/grants,
       managers, @name, findable profile, inbox, Bluesky, leaving on account deletion. Also bizByID won't cache a
-      copy read before a forgetBiz. Test: TestUpdateConcurrent (20 at once, -race). Left: admin edit (rare).
+      copy read before a forgetBiz. Test: TestUpdateConcurrent (20 at once, -race). Admin edit converted too (next tick).
 - [x] Test time: 465 s → 250 s. The browser test spent most of its 396 s waiting out one-minute caches in reload
       loops. oln.Fresh / meetup.Fresh (default a minute) set the per-instance caches and Cache-Control; the test
       server runs with KAFUMU_FRESH=2s. A 👍 check that only passed while a carried ☕ was still cached now looks for
       "👍 1" among the reactions.
+- [ ] Accounts: the same lost-update audit. Requests load the user once (UserFrom) and many handlers Save it
+      whole (profile, inbox, Bluesky, LastSeen…); two overlapping ones can undo each other. An atomic
+      account Update (like business.Store.Update) for those, field by field.
