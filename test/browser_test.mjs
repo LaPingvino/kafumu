@@ -283,6 +283,7 @@ try {
   await A.evaluate("localStorage.setItem('kafumu.cellCounts', JSON.stringify({ '8ccgmw': 9 })); true");
   await A.goto(base + "/?cell=9f473j");
   await A.waitFor("!document.getElementById('travel').hidden && !!document.querySelector('#travel a[href*=\"findable?cell=9f473j\"]')", "travel offers being findable here", 20000);
+  await A.waitFor("document.getElementById('be-findable').hidden", "and the button above doesn't offer it a second time");
   await A.evaluate("localStorage.removeItem('kafumu.cellCounts'); true");
   await A.goto(base + "/?cell=6fg223&lang=eng");
   await A.waitFor("document.getElementById('feed').textContent.includes('hi from the OLN " + RUN + "')", "back to the message again", 30000);

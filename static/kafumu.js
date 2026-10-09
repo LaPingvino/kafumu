@@ -174,6 +174,7 @@
     var el = $("travel");
     if (!el) return;
     el.hidden = !travel.away;
+    if ($("be-findable")) $("be-findable").hidden = travel.away; // the travel note offers it already, with context
     if (!travel.away) return;
     var parts = [tr("travel", { place: travel.place || $("cell-tag").textContent })];
     // One is its own form ("1 meetup here", not "1 meetups").
