@@ -116,13 +116,13 @@
       r[2].forEach(function (c) { // contacts: new through your code, their last message, their last signal
         var name = (c.card && c.card.name) || tr("inbox_anonymous");
         if (c.role === 0 && c.createdAt && now - new Date(c.createdAt) < 30 * 864e5) // they came to your code (coffee, a question, Connect)
-          items.push({ id: "c:" + c.id, at: c.createdAt, icon: "🤝", who: name, text: tr("act_connected"), about: "", href: "/contacts" });
+          items.push({ id: "c:" + c.id, at: c.createdAt, icon: "🤝", who: name, text: tr("act_connected"), about: "", href: "/contacts#c-" + encodeURIComponent(c.id) });
         var last = (c.messages || []).filter(function (m) { return !m.me; }).slice(-1)[0];
         if (last) items.push({ id: "m:" + c.id + ":" + last.at, at: last.at, icon: "💬", who: name, text: last.text,
-          about: tr("act_message"), href: "/contacts", hot: !!c.unreadMsgs });
+          about: tr("act_message"), href: "/contacts#c-" + encodeURIComponent(c.id), hot: !!c.unreadMsgs });
         var sig = (c.signals || [])[0];
         if (sig) items.push({ id: "s:" + c.id + ":" + sig.at, at: sig.at, icon: "📶", who: name, text: dev.signalText(sig, T),
-          about: "", href: "/contacts", hot: !!sig.unread });
+          about: "", href: "/contacts#c-" + encodeURIComponent(c.id), hot: !!sig.unread });
       });
       (r[3] || []).forEach(function (m) {
         items.push({ id: "i:" + m.id, at: m.at, icon: "📥", who: (m.card && m.card.name) || tr("inbox_anonymous"), text: m.text,

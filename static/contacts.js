@@ -87,9 +87,22 @@
           fresh.dataset.search = li.dataset.search;
           list.replaceChild(fresh, li);
           li = fresh;
-        }).catch(function () {});
+        }).catch(function () {}).then(function () { openLinked(li, c); });
       });
     });
+  }
+
+  // openLinked: opened from Activity ("#c-<id>"): that contact's card is
+  // scrolled to, its chat opened, and it glows briefly.
+  var linkedOpened = false;
+  function openLinked(li, c) {
+    if (linkedOpened || decodeURIComponent(location.hash) !== "#c-" + c.id) return;
+    linkedOpened = true;
+    var chat = Array.prototype.filter.call(li.querySelectorAll("button"), function (b) { return b.textContent.indexOf("💬") === 0; })[0];
+    if (chat && li.querySelector(".chat") && li.querySelector(".chat").hidden) chat.click();
+    li.scrollIntoView({ block: "center", behavior: "smooth" });
+    li.classList.add("flash");
+    setTimeout(function () { li.classList.remove("flash"); }, 2500);
   }
 
   // "Nearest": by distance from your current area to where each contact was

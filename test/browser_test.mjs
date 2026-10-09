@@ -139,7 +139,7 @@ try {
     try { await A.waitFor("[...document.querySelectorAll('#activity li.unread')].some(li => li.textContent.includes('Manteigaria') && li.textContent.includes('pastel de nata') && li.querySelector('a[href^=\"/?cell=6fg223#re-\"]'))", "Activity lists the answer as new, linking to its area", 8000); break; }
     catch (e) { if (i >= 9) throw e; }
   }
-  await A.waitFor("[...document.querySelectorAll('#activity li')].some(li => li.textContent.includes('🤝') && li.textContent.includes('connected with you') && li.querySelector('a[href=\"/contacts\"]'))", "Activity: B connected through A's code");
+  await A.waitFor("[...document.querySelectorAll('#activity li')].some(li => li.textContent.includes('🤝') && li.textContent.includes('connected with you') && li.querySelector('a[href^=\"/contacts#c-\"]'))", "Activity: B connected through A's code");
   await A.goto(base + "/activity");
   await A.waitFor("[...document.querySelectorAll('#activity li')].some(li => li.textContent.includes('Manteigaria') && !li.classList.contains('unread'))", "and then as seen");
   // Tapping it opens the area at the post, which glows briefly.
@@ -203,6 +203,9 @@ try {
     try { await A.waitFor("[...document.querySelectorAll('#activity li')].some(li => li.textContent.includes('👀') && li.textContent.includes('kafumu-" + RUN + "'))", "A has B's 👀 in Activity", 6000); break; }
     catch (e) { if (i >= 5) throw e; }
   }
+  // Tapping it opens that contact's chat, at the message.
+  await A.evaluate("location.href = [...document.querySelectorAll('#activity li')].find(li => li.textContent.includes('👀')).querySelector('a').href; true");
+  await A.waitFor("(() => { const c = document.querySelector('#contacts li.flash .chat'); return c && !c.hidden && c.textContent.includes('kafumu-" + RUN + "'); })()", "Activity opened the contact's chat", 20000);
   // "Shall we go together?" (80b): such a line in A's chat offers Yes / Can't.
   await A.goto(base + "/contacts");
   await A.waitFor("!!document.querySelector('#contacts li.contact')", "contacts listed");
