@@ -147,7 +147,7 @@
   "move.send": "Wyślij wszystko",
   "js.move_waiting": "Zeskanuj to aparatem starego urządzenia…",
   "js.move_received": "Odebrano z twojego drugiego urządzenia — kontakty: {n}, persony: {p}.",
-  "js.move_summary": "Zostaną skopiowane — kontakty: {n}, persony: {p}.",
+  "js.move_summary": "Do skopiowania: kontakty {n}, persony {p}.",
   "js.move_sent": "Wysłano! Potwierdź na nowym urządzeniu.",
   "js.move_too_big": "Za dużo, żeby przenieść kodem. Użyj „Pobierz kopię zapasową” i „Przywróć kopię zapasową”.",
   "account.continue": "Dalej →",
@@ -486,7 +486,7 @@
   "contacts.sort_quiet": "Cisza 90+ dni",
   "contacts.remove_quiet": "Usuń wszystkie",
   "js.quiet_for": "cisza od dni: {n}",
-  "js.quiet_n": "Kontakty w ciszy od 90+ dni: {n}.",
+  "js.quiet_n": "Cisza od ponad 90 dni: {n}.",
   "js.remove_quiet_confirm": "Usunąć te kontakty? Połączenie może być zerwane lub nieużywane.",
   "handle.title": "Twój link",
   "handle.explain": "Link, który zawsze prowadzi do połączenia z tobą: w bio, na slajdzie albo na identyfikatorze. Korzysta z kodu na tym urządzeniu, odnawianego, gdy otwierasz aplikację.",
@@ -645,5 +645,7 @@
   "js.tour_bell": "🔔 Aktywność: co do ciebie wróciło z dowolnej okolicy — odpowiedzi i reakcje na twoje wpisy, prywatne odpowiedzi, wiadomości od kontaktów. Liczba to nowości.",
   "common.close": "Zamknij",
   "js.close": "Zamknij",
-  "js.send_to_contact": "Wyślij do kontaktu"
+  "js.send_to_contact": "Wyślij do kontaktu",
+  "js.travel_meetups_one": "1 spotkanie tutaj.",
+  "js.travel_friends_one": "1 z twoich kontaktów był tu w tym tygodniu."
 }

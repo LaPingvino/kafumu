@@ -147,7 +147,7 @@
   "move.send": "모두 보내기",
   "js.move_waiting": "기존 기기의 카메라로 이 코드를 스캔하세요…",
   "js.move_received": "다른 기기에서 연락처 {n}개와 페르소나 {p}개를 받았어요.",
-  "js.move_summary": "연락처 {n}개와 페르소나 {p}개가 복사돼요.",
+  "js.move_summary": "복사할 것: 연락처 {n}, 페르소나 {p}.",
   "js.move_sent": "보냈어요! 새 기기에서 확인하세요.",
   "js.move_too_big": "코드로 옮기기엔 너무 많아요. 대신 백업 다운로드와 백업 복원을 사용하세요.",
   "account.continue": "계속 →",
@@ -486,7 +486,7 @@
   "contacts.sort_quiet": "90일 이상 조용함",
   "contacts.remove_quiet": "모두 삭제",
   "js.quiet_for": "{n}일째 조용함",
-  "js.quiet_n": "90일 이상 조용한 연락처: {n}개.",
+  "js.quiet_n": "90일 넘게 조용함: {n}",
   "js.remove_quiet_confirm": "이 연락처들을 삭제할까요? 연결이 끊겼거나 사용되지 않을 수 있어요.",
   "handle.title": "내 링크",
   "handle.explain": "언제나 나와 연결되는 링크예요. 소개란, 슬라이드, 명찰에 넣어 보세요. 이 기기에 저장된 코드를 쓰며 앱을 열면 갱신돼요.",
@@ -645,5 +645,7 @@
   "js.tour_bell": "🔔 활동: 어느 지역에서든 나에게 돌아온 것들 — 게시물에 달린 답글과 반응, 비공개 답변, 연락처의 메시지. 숫자는 새 항목이에요.",
   "common.close": "닫기",
   "js.close": "닫기",
-  "js.send_to_contact": "연락처에 보내기"
+  "js.send_to_contact": "연락처에 보내기",
+  "js.travel_meetups_one": "여기 모임 1개.",
+  "js.travel_friends_one": "이번 주에 연락처 중 1명이 근처에 있었어요."
 }

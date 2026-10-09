@@ -147,7 +147,7 @@
   "move.send": "Minden elküldése",
   "js.move_waiting": "Szkenneld be ezt a régi eszközöd kamerájával…",
   "js.move_received": "Megérkezett a másik eszközödről: {n} kapcsolat és {p} persona.",
-  "js.move_summary": "Átmásolásra kerül: {n} kapcsolat és {p} persona.",
+  "js.move_summary": "Másolandó: kapcsolatok {n}, personák {p}.",
   "js.move_sent": "Elküldve! Erősítsd meg az új eszközödön.",
   "js.move_too_big": "Túl sok adat a kódos költözéshez. Használd inkább a Biztonsági mentés letöltése és visszaállítása lehetőséget.",
   "account.continue": "Tovább →",
@@ -486,7 +486,7 @@
   "contacts.sort_quiet": "90+ napja csendes",
   "contacts.remove_quiet": "Mind eltávolítása",
   "js.quiet_for": "csendes napok: {n}",
-  "js.quiet_n": "90+ napja csendes kapcsolatok: {n}.",
+  "js.quiet_n": "90+ napja csendes: {n}.",
   "js.remove_quiet_confirm": "Eltávolítod ezeket a kapcsolatokat? A kapcsolat lehet, hogy megszakadt vagy nem használják.",
   "handle.title": "A linked",
   "handle.explain": "Egy link, ami mindig a veled való kapcsolódáshoz vezet: a bemutatkozásodba, egy diára vagy a kitűződre. Az eszközön tárolt kódot használ, ami az app megnyitásakor megújul.",
@@ -645,5 +645,7 @@
   "js.tour_bell": "🔔 Tevékenység: ami bármelyik környékről visszajött hozzád — válaszok és reakciók a bejegyzéseidre, privát válaszok, üzenetek a kapcsolataidtól. A szám az új dolgokat mutatja.",
   "common.close": "Bezárás",
   "js.close": "Bezárás",
-  "js.send_to_contact": "Küldés egy kapcsolatnak"
+  "js.send_to_contact": "Küldés egy kapcsolatnak",
+  "js.travel_meetups_one": "1 találkozó itt.",
+  "js.travel_friends_one": "1 kapcsolatod járt itt ezen a héten."
 }

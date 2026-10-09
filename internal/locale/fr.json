@@ -147,7 +147,7 @@
   "move.send": "Tout envoyer",
   "js.move_waiting": "Scanne ceci avec l'appareil photo de ton ancien appareil…",
   "js.move_received": "{n} contacts et {p} profils reçus de ton autre appareil.",
-  "js.move_summary": "{n} contacts et {p} profils seront copiés.",
+  "js.move_summary": "À copier : contacts {n}, personas {p}.",
   "js.move_sent": "Envoyé ! Confirme sur ton nouvel appareil.",
   "js.move_too_big": "Trop de données pour un transfert par code. Utilise plutôt Télécharger une sauvegarde et Restaurer une sauvegarde.",
   "account.continue": "Continuer →",
@@ -486,7 +486,7 @@
   "contacts.sort_quiet": "Silencieux depuis 90+ jours",
   "contacts.remove_quiet": "Tous les retirer",
   "js.quiet_for": "silencieux depuis {n} jours",
-  "js.quiet_n": "{n} contacts silencieux depuis 90+ jours.",
+  "js.quiet_n": "Silencieux depuis plus de 90 jours : {n}.",
   "js.remove_quiet_confirm": "Retirer ces contacts ? Le lien est peut-être rompu ou inutilisé.",
   "handle.title": "Ton lien",
   "handle.explain": "Un lien qui mène toujours à se connecter avec toi : dans ta bio, sur une diapo ou sur ton badge. Il utilise un code gardé sur cet appareil, renouvelé quand tu ouvres l'appli.",
@@ -645,5 +645,7 @@
   "js.tour_bell": "🔔 Activité : ce qui t'est revenu de n'importe quelle zone — réponses et réactions à tes messages, réponses privées, messages de tes contacts. Le nombre, c'est ce qui est nouveau.",
   "common.close": "Fermer",
   "js.close": "Fermer",
-  "js.send_to_contact": "Envoyer à un contact"
+  "js.send_to_contact": "Envoyer à un contact",
+  "js.travel_meetups_one": "1 rencontre ici.",
+  "js.travel_friends_one": "1 de tes contacts était dans le coin cette semaine."
 }

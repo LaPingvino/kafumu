@@ -147,7 +147,7 @@
   "move.send": "Trimite tot",
   "js.move_waiting": "Scanează asta cu camera dispozitivului vechi…",
   "js.move_received": "Am primit {n} contacte și {p} persona de pe celălalt dispozitiv.",
-  "js.move_summary": "Se vor copia {n} contacte și {p} persona.",
+  "js.move_summary": "De copiat: contacte {n}, persoane {p}.",
   "js.move_sent": "Trimis! Confirmă pe dispozitivul nou.",
   "js.move_too_big": "Prea mult de mutat prin cod. Folosește Descarcă backup și Restaurează backup.",
   "account.continue": "Continuă →",
@@ -486,7 +486,7 @@
   "contacts.sort_quiet": "Tăcuți de 90+ zile",
   "contacts.remove_quiet": "Elimină-i pe toți",
   "js.quiet_for": "tăcut de {n} zile",
-  "js.quiet_n": "Contacte tăcute de 90+ zile: {n}.",
+  "js.quiet_n": "Tăcuți de peste 90 de zile: {n}.",
   "js.remove_quiet_confirm": "Elimini aceste contacte? Legătura poate fi ruptă sau nefolosită.",
   "handle.title": "Linkul tău",
   "handle.explain": "Un link care duce mereu la conectarea cu tine: în bio, pe un slide sau pe ecusonul tău. Folosește un cod păstrat pe acest dispozitiv, reînnoit când deschizi aplicația.",
@@ -645,5 +645,7 @@
   "js.tour_bell": "🔔 Activitate: ce ți-a venit din orice zonă — răspunsuri și reacții la postările tale, răspunsuri private, mesaje de la contacte. Numărul arată noutățile.",
   "common.close": "Închide",
   "js.close": "Închide",
-  "js.send_to_contact": "Trimite unui contact"
+  "js.send_to_contact": "Trimite unui contact",
+  "js.travel_meetups_one": "1 întâlnire aici.",
+  "js.travel_friends_one": "1 dintre contactele tale a fost pe aici săptămâna asta."
 }

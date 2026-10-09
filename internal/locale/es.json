@@ -147,7 +147,7 @@
   "move.send": "Enviar todo",
   "js.move_waiting": "Escanea esto con la cámara de tu dispositivo antiguo…",
   "js.move_received": "Recibidos {n} contactos y {p} perfiles de tu otro dispositivo.",
-  "js.move_summary": "Se copiarán {n} contactos y {p} perfiles.",
+  "js.move_summary": "Para copiar: contactos {n}, personas {p}.",
   "js.move_sent": "¡Enviado! Confirma en tu dispositivo nuevo.",
   "js.move_too_big": "Hay demasiado para pasarlo por código. Usa Descargar copia de seguridad y Restaurar copia de seguridad.",
   "account.continue": "Continuar →",
@@ -486,7 +486,7 @@
   "contacts.sort_quiet": "En silencio 90+ días",
   "contacts.remove_quiet": "Quitarlos todos",
   "js.quiet_for": "en silencio desde hace {n} días",
-  "js.quiet_n": "{n} contactos en silencio desde hace 90+ días.",
+  "js.quiet_n": "En silencio desde hace 90+ días: {n}.",
   "js.remove_quiet_confirm": "¿Quitar estos contactos? Su conexión puede estar rota o sin uso.",
   "handle.title": "Tu enlace",
   "handle.explain": "Un enlace que siempre lleva a conectar contigo: en tu bio, en una diapositiva o en tu acreditación. Usa un código guardado en este dispositivo, que se renueva al abrir la app.",
@@ -645,5 +645,7 @@
   "js.tour_bell": "🔔 Actividad: lo que te ha llegado de cualquier zona — respuestas y reacciones a tus publicaciones, respuestas privadas, mensajes de tus contactos. El número es lo nuevo.",
   "common.close": "Cerrar",
   "js.close": "Cerrar",
-  "js.send_to_contact": "Enviar a un contacto"
+  "js.send_to_contact": "Enviar a un contacto",
+  "js.travel_meetups_one": "1 encuentro aquí.",
+  "js.travel_friends_one": "1 de tus contactos estuvo por aquí esta semana."
 }

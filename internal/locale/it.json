@@ -147,7 +147,7 @@
   "move.send": "Invia tutto",
   "js.move_waiting": "Scansiona questo con la fotocamera del vecchio dispositivo…",
   "js.move_received": "Ricevuti {n} contatti e {p} identità dall'altro tuo dispositivo.",
-  "js.move_summary": "Verranno copiati {n} contatti e {p} identità.",
+  "js.move_summary": "Da copiare: contatti {n}, persona {p}.",
   "js.move_sent": "Inviato! Conferma sul nuovo dispositivo.",
   "js.move_too_big": "Troppi dati da spostare con un codice. Usa invece Scarica backup e Ripristina backup.",
   "account.continue": "Continua →",
@@ -486,7 +486,7 @@
   "contacts.sort_quiet": "In silenzio da 90+ giorni",
   "contacts.remove_quiet": "Rimuovili tutti",
   "js.quiet_for": "in silenzio da {n} giorni",
-  "js.quiet_n": "{n} contatti in silenzio da 90+ giorni.",
+  "js.quiet_n": "In silenzio da oltre 90 giorni: {n}.",
   "js.remove_quiet_confirm": "Rimuovere questi contatti? Il collegamento potrebbe essere interrotto o inutilizzato.",
   "handle.title": "Il tuo link",
   "handle.explain": "Un link che porta sempre a collegarsi con te: nella bio, su una slide o sul badge. Usa un codice tenuto su questo dispositivo, rinnovato quando apri l'app.",
@@ -645,5 +645,7 @@
   "js.tour_bell": "🔔 Attività: ciò che ti è arrivato da qualsiasi zona — risposte e reazioni ai tuoi post, risposte private, messaggi dei tuoi contatti. Il numero indica le novità.",
   "common.close": "Chiudi",
   "js.close": "Chiudi",
-  "js.send_to_contact": "Invia a un contatto"
+  "js.send_to_contact": "Invia a un contatto",
+  "js.travel_meetups_one": "1 incontro qui.",
+  "js.travel_friends_one": "1 dei tuoi contatti è stato qui questa settimana."
 }

@@ -147,7 +147,7 @@
   "move.send": "Kirim semuanya",
   "js.move_waiting": "Pindai ini dengan kamera perangkat lamamu…",
   "js.move_received": "Menerima {n} kontak dan {p} persona dari perangkatmu yang lain.",
-  "js.move_summary": "{n} kontak dan {p} persona akan disalin.",
+  "js.move_summary": "Akan disalin: kontak {n}, persona {p}.",
   "js.move_sent": "Terkirim! Konfirmasi di perangkat barumu.",
   "js.move_too_big": "Terlalu banyak untuk dipindahkan lewat kode. Gunakan Unduh cadangan dan Pulihkan cadangan.",
   "account.continue": "Lanjut →",
@@ -486,7 +486,7 @@
   "contacts.sort_quiet": "Diam 90+ hari",
   "contacts.remove_quiet": "Hapus semua",
   "js.quiet_for": "diam {n} hari",
-  "js.quiet_n": "{n} kontak diam selama 90+ hari.",
+  "js.quiet_n": "Diam lebih dari 90 hari: {n}.",
   "js.remove_quiet_confirm": "Hapus kontak ini? Koneksinya mungkin rusak atau tidak dipakai.",
   "handle.title": "Tautanmu",
   "handle.explain": "Tautan yang selalu mengarah untuk terhubung denganmu: di bio, di slide, atau di tanda pengenalmu. Memakai kode di perangkat ini, diperbarui saat kamu membuka aplikasi.",
@@ -645,5 +645,7 @@
   "js.tour_bell": "🔔 Aktivitas: apa yang kembali kepadamu dari area mana pun — balasan dan reaksi untuk postinganmu, jawaban pribadi, pesan dari kontakmu. Angkanya menunjukkan yang baru.",
   "common.close": "Tutup",
   "js.close": "Tutup",
-  "js.send_to_contact": "Kirim ke kontak"
+  "js.send_to_contact": "Kirim ke kontak",
+  "js.travel_meetups_one": "1 pertemuan di sini.",
+  "js.travel_friends_one": "1 kontakmu ada di sekitar sini minggu ini."
 }

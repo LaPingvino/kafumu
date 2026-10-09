@@ -147,7 +147,7 @@
   "move.send": "Skicka allt",
   "js.move_waiting": "Skanna det här med din gamla enhets kamera…",
   "js.move_received": "Tog emot {n} kontakter och {p} personor från din andra enhet.",
-  "js.move_summary": "{n} kontakter och {p} personor kommer att kopieras.",
+  "js.move_summary": "Att kopiera: kontakter {n}, personor {p}.",
   "js.move_sent": "Skickat! Bekräfta på din nya enhet.",
   "js.move_too_big": "För mycket för att flytta med kod. Använd Ladda ner säkerhetskopia och Återställ säkerhetskopia i stället.",
   "account.continue": "Fortsätt →",
@@ -486,7 +486,7 @@
   "contacts.sort_quiet": "Tysta 90+ dagar",
   "contacts.remove_quiet": "Ta bort alla",
   "js.quiet_for": "tyst i {n} dagar",
-  "js.quiet_n": "{n} kontakter har varit tysta i 90+ dagar.",
+  "js.quiet_n": "Tysta i 90+ dagar: {n}.",
   "js.remove_quiet_confirm": "Ta bort de här kontakterna? Kopplingen kan vara bruten eller oanvänd.",
   "handle.title": "Din länk",
   "handle.explain": "En länk som alltid leder till att koppla ihop med dig: i din bio, på en bild eller på din namnbricka. Den använder en kod på den här enheten som förnyas när du öppnar appen.",
@@ -645,5 +645,7 @@
   "js.tour_bell": "🔔 Aktivitet: det som kommit tillbaka till dig från vilket område som helst — svar och reaktioner på dina inlägg, privata svar, meddelanden från kontakter. Siffran är det nya.",
   "common.close": "Stäng",
   "js.close": "Stäng",
-  "js.send_to_contact": "Skicka till en kontakt"
+  "js.send_to_contact": "Skicka till en kontakt",
+  "js.travel_meetups_one": "1 träff här.",
+  "js.travel_friends_one": "1 av dina kontakter var här den här veckan."
 }

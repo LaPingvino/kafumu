@@ -147,7 +147,7 @@
   "move.send": "全部傳送",
   "js.move_waiting": "用舊裝置的相機掃描這個 QR code……",
   "js.move_received": "已從另一台裝置收到 {n} 位聯絡人和 {p} 個身分。",
-  "js.move_summary": "將複製 {n} 位聯絡人和 {p} 個身分。",
+  "js.move_summary": "將複製：聯絡人 {n}，身分 {p}。",
   "js.move_sent": "已送出！請在新裝置上確認。",
   "js.move_too_big": "內容太多，無法透過 QR code 搬移。請改用「下載備份」和「還原備份」。",
   "account.continue": "繼續 →",
@@ -486,7 +486,7 @@
   "contacts.sort_quiet": "90 天以上沒動靜",
   "contacts.remove_quiet": "全部移除",
   "js.quiet_for": "已 {n} 天沒動靜",
-  "js.quiet_n": "90 天以上沒動靜的聯絡人：{n} 位。",
+  "js.quiet_n": "90 天以上沒有動靜：{n}",
   "js.remove_quiet_confirm": "要移除這些聯絡人嗎？他們的連結可能已中斷或不再使用。",
   "handle.title": "你的連結",
   "handle.explain": "一個總能讓別人和你聯繫的連結：放在簡介、投影片或名牌上。它使用存在這台裝置上的代碼，開啟 App 時會自動續期。",
@@ -645,5 +645,7 @@
   "js.tour_bell": "🔔 動態：來自任何區域、回到你這裡的內容——對你貼文的回覆和反應、私下回答、聯絡人的訊息。數字表示新內容。",
   "common.close": "關閉",
   "js.close": "關閉",
-  "js.send_to_contact": "傳給聯絡人"
+  "js.send_to_contact": "傳給聯絡人",
+  "js.travel_meetups_one": "這裡有 1 個聚會。",
+  "js.travel_friends_one": "本週你的 1 位聯絡人到過附近。"
 }

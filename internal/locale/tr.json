@@ -147,7 +147,7 @@
   "move.send": "Her şeyi gönder",
   "js.move_waiting": "Bunu eski cihazının kamerasıyla tara…",
   "js.move_received": "Diğer cihazından {n} kişi ve {p} persona alındı.",
-  "js.move_summary": "{n} kişi ve {p} persona kopyalanacak.",
+  "js.move_summary": "Kopyalanacak: kişiler {n}, personalar {p}.",
   "js.move_sent": "Gönderildi! Yeni cihazında onayla.",
   "js.move_too_big": "Kodla taşımak için çok fazla veri var. Bunun yerine Yedeği indir ve Yedeği geri yükle'yi kullan.",
   "account.continue": "Devam →",
@@ -486,7 +486,7 @@
   "contacts.sort_quiet": "90+ gündür sessiz",
   "contacts.remove_quiet": "Hepsini kaldır",
   "js.quiet_for": "{n} gündür sessiz",
-  "js.quiet_n": "90+ gündür sessiz kişi: {n}.",
+  "js.quiet_n": "90+ gündür sessiz: {n}.",
   "js.remove_quiet_confirm": "Bu kişiler kaldırılsın mı? Bağlantı kopmuş ya da kullanılmıyor olabilir.",
   "handle.title": "Bağlantın",
   "handle.explain": "Her zaman seninle bağlantı kurmaya götüren bir bağlantı: biyografinde, bir slaytta ya da yaka kartında. Bu cihazda tutulan, uygulamayı açtığında yenilenen bir kod kullanır.",
@@ -645,5 +645,7 @@
   "js.tour_bell": "🔔 Etkinlik: herhangi bir bölgeden sana dönenler — paylaşımlarına yanıtlar ve tepkiler, özel yanıtlar, kişilerinden mesajlar. Sayı yeni olanları gösterir.",
   "common.close": "Kapat",
   "js.close": "Kapat",
-  "js.send_to_contact": "Bir kişiye gönder"
+  "js.send_to_contact": "Bir kişiye gönder",
+  "js.travel_meetups_one": "Burada 1 buluşma var.",
+  "js.travel_friends_one": "Kişilerinden 1'i bu hafta buralardaydı."
 }

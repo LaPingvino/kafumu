@@ -176,8 +176,9 @@
     el.hidden = !travel.away;
     if (!travel.away) return;
     var parts = [tr("travel", { place: travel.place || $("cell-tag").textContent })];
-    if (travel.friends) parts.push(tr("travel_friends", { n: travel.friends }));
-    if (travel.meetups) parts.push(tr("travel_meetups", { n: travel.meetups }));
+    // One is its own form ("1 meetup here", not "1 meetups").
+    if (travel.friends) parts.push(tr(travel.friends === 1 ? "travel_friends_one" : "travel_friends", { n: travel.friends }));
+    if (travel.meetups) parts.push(tr(travel.meetups === 1 ? "travel_meetups_one" : "travel_meetups", { n: travel.meetups }));
     el.textContent = parts.join(" ");
     // Travelling: offer to be findable here for a while, and a look at your card.
     var p = document.createElement("p");

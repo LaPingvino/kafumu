@@ -147,7 +147,7 @@
   "move.send": "すべて送る",
   "js.move_waiting": "古い端末のカメラでこれをスキャンしてください…",
   "js.move_received": "別の端末から連絡先{n}件とペルソナ{p}件を受け取りました。",
-  "js.move_summary": "連絡先{n}件とペルソナ{p}件がコピーされます。",
+  "js.move_summary": "コピーするもの：連絡先 {n}、ペルソナ {p}。",
   "js.move_sent": "送信しました！新しい端末で確認してください。",
   "js.move_too_big": "コードで移すにはデータが多すぎます。代わりに「バックアップをダウンロード」と「バックアップを復元」を使ってください。",
   "account.continue": "次へ →",
@@ -486,7 +486,7 @@
   "contacts.sort_quiet": "90日以上反応なし",
   "contacts.remove_quiet": "すべて削除",
   "js.quiet_for": "{n}日間反応なし",
-  "js.quiet_n": "90日以上反応のない連絡先：{n}件。",
+  "js.quiet_n": "90日以上音沙汰なし：{n}",
   "js.remove_quiet_confirm": "これらの連絡先を削除しますか？つながりが切れているか、使われていないかもしれません。",
   "handle.title": "あなたのリンク",
   "handle.explain": "いつでもあなたとつながれるリンクです。プロフィール、スライド、名札に。この端末に保存されたコードを使い、アプリを開くと更新されます。",
@@ -645,5 +645,7 @@
   "js.tour_bell": "🔔 アクティビティ：どのエリアからでも、あなたに届いたもの。投稿への返信やリアクション、非公開の回答、連絡先からのメッセージ。数字は新着の数です。",
   "common.close": "閉じる",
   "js.close": "閉じる",
-  "js.send_to_contact": "連絡先に送る"
+  "js.send_to_contact": "連絡先に送る",
+  "js.travel_meetups_one": "ここで1件のミートアップ。",
+  "js.travel_friends_one": "今週、連絡先のうち1人が近くにいました。"
 }

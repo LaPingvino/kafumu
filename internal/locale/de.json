@@ -147,7 +147,7 @@
   "move.send": "Alles senden",
   "js.move_waiting": "Scanne das mit der Kamera deines alten Geräts …",
   "js.move_received": "{n} Kontakte und {p} Personas von deinem anderen Gerät empfangen.",
-  "js.move_summary": "{n} Kontakte und {p} Personas werden kopiert.",
+  "js.move_summary": "Zu kopieren: Kontakte {n}, Personas {p}.",
   "js.move_sent": "Gesendet! Bestätige auf deinem neuen Gerät.",
   "js.move_too_big": "Zu viel für einen Umzug per Code. Nutze stattdessen „Backup herunterladen“ und „Backup wiederherstellen“.",
   "account.continue": "Weiter →",
@@ -486,7 +486,7 @@
   "contacts.sort_quiet": "90+ Tage still",
   "contacts.remove_quiet": "Alle entfernen",
   "js.quiet_for": "seit {n} Tagen still",
-  "js.quiet_n": "{n} Kontakte sind seit 90+ Tagen still.",
+  "js.quiet_n": "Seit über 90 Tagen still: {n}.",
   "js.remove_quiet_confirm": "Diese Kontakte entfernen? Die Verbindung ist vielleicht kaputt oder ungenutzt.",
   "handle.title": "Dein Link",
   "handle.explain": "Ein Link, der immer zum Verbinden mit dir führt: in deiner Bio, auf einer Folie oder auf deinem Badge. Er nutzt einen Code auf diesem Gerät, der beim Öffnen der App erneuert wird.",
@@ -645,5 +645,7 @@
   "js.tour_bell": "🔔 Aktivität: was aus jeder Gegend bei dir ankam — Antworten und Reaktionen auf deine Beiträge, private Antworten, Nachrichten deiner Kontakte. Die Zahl ist das Neue.",
   "common.close": "Schließen",
   "js.close": "Schließen",
-  "js.send_to_contact": "An einen Kontakt senden"
+  "js.send_to_contact": "An einen Kontakt senden",
+  "js.travel_meetups_one": "1 Treffen hier.",
+  "js.travel_friends_one": "1 deiner Kontakte war diese Woche in der Nähe."
 }

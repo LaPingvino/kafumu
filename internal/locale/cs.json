@@ -147,7 +147,7 @@
   "move.send": "Poslat všechno",
   "js.move_waiting": "Naskenuj to fotoaparátem starého zařízení…",
   "js.move_received": "Přijato z druhého zařízení — kontakty: {n}, persony: {p}.",
-  "js.move_summary": "Zkopíruje se — kontakty: {n}, persony: {p}.",
+  "js.move_summary": "Ke zkopírování: kontakty {n}, persony {p}.",
   "js.move_sent": "Odesláno! Potvrď to na novém zařízení.",
   "js.move_too_big": "Na přesun kódem je toho moc. Použij místo toho Stáhnout zálohu a Obnovit zálohu.",
   "account.continue": "Pokračovat →",
@@ -486,7 +486,7 @@
   "contacts.sort_quiet": "Ticho 90+ dní",
   "contacts.remove_quiet": "Odebrat všechny",
   "js.quiet_for": "ticho dní: {n}",
-  "js.quiet_n": "Kontaktů tichých 90+ dní: {n}.",
+  "js.quiet_n": "Ticho přes 90 dní: {n}.",
   "js.remove_quiet_confirm": "Odebrat tyto kontakty? Spojení je možná přerušené nebo nepoužívané.",
   "handle.title": "Tvůj odkaz",
   "handle.explain": "Odkaz, který vždy vede ke spojení s tebou: do bia, na slide nebo na jmenovku. Používá kód uložený v tomto zařízení, obnovovaný při otevření aplikace.",
@@ -645,5 +645,7 @@
   "js.tour_bell": "🔔 Aktivita: co se ti vrátilo z jakékoli oblasti — odpovědi a reakce na tvé příspěvky, soukromé odpovědi, zprávy od kontaktů. Číslo ukazuje novinky.",
   "common.close": "Zavřít",
   "js.close": "Zavřít",
-  "js.send_to_contact": "Poslat kontaktu"
+  "js.send_to_contact": "Poslat kontaktu",
+  "js.travel_meetups_one": "1 setkání tady.",
+  "js.travel_friends_one": "1 z tvých kontaktů tu tento týden byl."
 }

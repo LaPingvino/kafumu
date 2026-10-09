@@ -147,7 +147,7 @@
   "move.send": "全部发送",
   "js.move_waiting": "用旧设备的相机扫这个码……",
   "js.move_received": "已从另一台设备收到 {n} 个联系人和 {p} 个身份。",
-  "js.move_summary": "将复制 {n} 个联系人和 {p} 个身份。",
+  "js.move_summary": "将复制：联系人 {n}，身份 {p}。",
   "js.move_sent": "已发送！请在新设备上确认。",
   "js.move_too_big": "内容太多，无法通过扫码迁移。请改用“下载备份”和“恢复备份”。",
   "account.continue": "继续 →",
@@ -486,7 +486,7 @@
   "contacts.sort_quiet": "90 天以上无动静",
   "contacts.remove_quiet": "全部移除",
   "js.quiet_for": "已 {n} 天无动静",
-  "js.quiet_n": "90 天以上无动静的联系人：{n} 个。",
+  "js.quiet_n": "90 天以上没有动静：{n}",
   "js.remove_quiet_confirm": "移除这些联系人吗？连接可能已断开或不再使用。",
   "handle.title": "你的链接",
   "handle.explain": "一个总能让别人和你建立联系的链接：放在简介里、幻灯片上或胸牌上。它使用保存在这台设备上的代码，打开应用时会自动续期。",
@@ -645,5 +645,7 @@
   "js.tour_bell": "🔔 动态：来自任何区域、回到你这里的内容——对你帖子的回复和反应、私下回答、联系人的消息。数字表示新内容。",
   "common.close": "关闭",
   "js.close": "关闭",
-  "js.send_to_contact": "发给联系人"
+  "js.send_to_contact": "发给联系人",
+  "js.travel_meetups_one": "这里有 1 个聚会。",
+  "js.travel_friends_one": "本周你的 1 位联系人到过附近。"
 }

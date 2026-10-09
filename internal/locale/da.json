@@ -147,7 +147,7 @@
   "move.send": "Send alt",
   "js.move_waiting": "Scan dette med din gamle enheds kamera…",
   "js.move_received": "Modtog {n} kontakter og {p} personaer fra din anden enhed.",
-  "js.move_summary": "{n} kontakter og {p} personaer bliver kopieret.",
+  "js.move_summary": "Kopieres: kontakter {n}, personaer {p}.",
   "js.move_sent": "Sendt! Bekræft på din nye enhed.",
   "js.move_too_big": "For meget til at flytte med kode. Brug Download backup og Gendan backup i stedet.",
   "account.continue": "Fortsæt →",
@@ -486,7 +486,7 @@
   "contacts.sort_quiet": "Stille 90+ dage",
   "contacts.remove_quiet": "Fjern dem alle",
   "js.quiet_for": "stille i {n} dage",
-  "js.quiet_n": "{n} kontakter har været stille i 90+ dage.",
+  "js.quiet_n": "Stille i 90+ dage: {n}.",
   "js.remove_quiet_confirm": "Fjern disse kontakter? Forbindelsen kan være brudt eller ubrugt.",
   "handle.title": "Dit link",
   "handle.explain": "Et link, der altid fører til at forbinde med dig: i din bio, på et slide eller på dit navneskilt. Det bruger en kode på denne enhed, som fornyes, når du åbner appen.",
@@ -645,5 +645,7 @@
   "js.tour_bell": "🔔 Aktivitet: det, der er kommet tilbage til dig fra ethvert område — svar og reaktioner på dine opslag, private svar, beskeder fra kontakter. Tallet er det nye.",
   "common.close": "Luk",
   "js.close": "Luk",
-  "js.send_to_contact": "Send til en kontakt"
+  "js.send_to_contact": "Send til en kontakt",
+  "js.travel_meetups_one": "1 møde her.",
+  "js.travel_friends_one": "1 af dine kontakter var her i denne uge."
 }

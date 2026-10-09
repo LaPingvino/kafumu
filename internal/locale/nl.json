@@ -147,7 +147,7 @@
   "move.send": "Alles versturen",
   "js.move_waiting": "Scan dit met de camera van je oude apparaat…",
   "js.move_received": "{n} contacten en {p} persona's ontvangen van je andere apparaat.",
-  "js.move_summary": "{n} contacten en {p} persona's worden gekopieerd.",
+  "js.move_summary": "Te kopiëren: contacten {n}, persona's {p}.",
   "js.move_sent": "Verstuurd! Bevestig op je nieuwe apparaat.",
   "js.move_too_big": "Te veel om met een code over te zetten. Gebruik Back-up downloaden en Back-up terugzetten.",
   "account.continue": "Verder →",
@@ -486,7 +486,7 @@
   "contacts.sort_quiet": "90+ dagen stil",
   "contacts.remove_quiet": "Allemaal verwijderen",
   "js.quiet_for": "{n} dagen stil",
-  "js.quiet_n": "{n} contacten zijn 90+ dagen stil.",
+  "js.quiet_n": "Al 90+ dagen stil: {n}.",
   "js.remove_quiet_confirm": "Deze contacten verwijderen? De verbinding is misschien kapot of ongebruikt.",
   "handle.title": "Jouw link",
   "handle.explain": "Een link die altijd leidt tot verbinden met jou: in je bio, op een slide of op je badge. Hij gebruikt een code op dit apparaat, vernieuwd als je de app opent.",
@@ -645,5 +645,7 @@
   "js.tour_bell": "🔔 Activiteit: wat er bij je terugkwam uit elk gebied — reacties op je berichten, antwoorden, berichten van je contacten. Het getal is wat nieuw is.",
   "common.close": "Sluiten",
   "js.close": "Sluiten",
-  "js.send_to_contact": "Naar een contact sturen"
+  "js.send_to_contact": "Naar een contact sturen",
+  "js.travel_meetups_one": "1 meetup hier.",
+  "js.travel_friends_one": "1 van je contacten was hier deze week."
 }
