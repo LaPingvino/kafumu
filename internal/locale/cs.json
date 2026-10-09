@@ -647,5 +647,6 @@
   "js.close": "Zavřít",
   "js.send_to_contact": "Poslat kontaktu",
   "js.travel_meetups_one": "1 setkání tady.",
-  "js.travel_friends_one": "1 z tvých kontaktů tu tento týden byl."
+  "js.travel_friends_one": "1 z tvých kontaktů tu tento týden byl.",
+  "js.preview_no_name": "Sem přijde tvé jméno"
 }

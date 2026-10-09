@@ -647,5 +647,6 @@
   "js.close": "Đóng",
   "js.send_to_contact": "Gửi cho một liên hệ",
   "js.travel_meetups_one": "1 buổi gặp ở đây.",
-  "js.travel_friends_one": "1 người trong danh bạ đã ở quanh đây tuần này."
+  "js.travel_friends_one": "1 người trong danh bạ đã ở quanh đây tuần này.",
+  "js.preview_no_name": "Tên bạn ở đây"
 }

@@ -647,5 +647,6 @@
   "js.close": "Zamknij",
   "js.send_to_contact": "Wyślij do kontaktu",
   "js.travel_meetups_one": "1 spotkanie tutaj.",
-  "js.travel_friends_one": "1 z twoich kontaktów był tu w tym tygodniu."
+  "js.travel_friends_one": "1 z twoich kontaktów był tu w tym tygodniu.",
+  "js.preview_no_name": "Tu będzie twoje imię"
 }

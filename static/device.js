@@ -206,7 +206,8 @@
     var li = el("li", "contact"), card = c.card || {};
     var head = el("div", "contact-head");
     if (card.name) head.appendChild(el("strong", null, card.name));
-    else if (opts.preview || !c.card && !c.alias) head.appendChild(el("strong", null, c.alias || T.waiting_card || "…"));
+    else if (opts.preview) head.appendChild(el("strong", "dim", T.preview_no_name || "Your name goes here")); // your own card, still empty
+    else if (!c.card && !c.alias) head.appendChild(el("strong", null, c.alias || T.waiting_card || "…"));
     else {
       // No card from them (yet, or ever): give them a name yourself.
       var alias = el("input", "alias");
