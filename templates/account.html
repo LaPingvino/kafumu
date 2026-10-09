@@ -3,12 +3,13 @@
   <h1>{{if .Findable}}{{t .Lang "profile.title"}}{{else}}{{t .Lang "account.title"}}{{end}}</h1>
   {{if .Error}}<p role="alert" class="error">{{.Error}}</p>{{end}}
   {{if not .User}}
+    {{if .Findable}}<p>{{t .Lang "profile.explain"}}</p>{{end}}
     <p>{{t .Lang "account.why"}}</p>
     {{if .ATproto}}<form method="post" action="/oauth/login" class="inline"><input name="handle" placeholder="you.bsky.social" autocomplete="username" aria-label="Handle">
       <button type="submit" class="pill">{{t .Lang "atproto.signin"}}</button></form>{{end}}
     <p>{{t .Lang "account.what_we_keep"}}</p>
-    <p class="dim small"><a href="https://neal.fun/password-game/" target="_blank" rel="noopener">{{t .Lang "account.want_password"}}</a></p>
     <form method="post" action="/account/start"><input type="hidden" name="next" value="{{.Next}}"><button type="submit" class="pill">{{t .Lang "account.start"}}</button></form>
+    <p class="dim small"><a href="https://neal.fun/password-game/" target="_blank" rel="noopener">{{t .Lang "account.want_password"}}</a></p>
     {{if .Passkeys}}<p><button type="button" id="passkey-login" class="pill" hidden>🔑 {{t .Lang "passkey.signin"}}</button></p>
     <p id="passkey-status" class="dim small" role="status"></p>{{end}}
   {{else}}{{if not .Findable}}
