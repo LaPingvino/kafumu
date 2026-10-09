@@ -136,12 +136,15 @@ try {
   // Replies by post id are cached a minute (server and browser): reload until the answer is in.
   for (let i = 0; ; i++) {
     await A.goto(base + "/activity");
-    try { await A.waitFor("[...document.querySelectorAll('#activity li.unread')].some(li => li.textContent.includes('Manteigaria') && li.textContent.includes('pastel de nata') && li.querySelector('a[href=\"/?cell=6fg223\"]'))", "Activity lists the answer as new, linking to its area", 8000); break; }
+    try { await A.waitFor("[...document.querySelectorAll('#activity li.unread')].some(li => li.textContent.includes('Manteigaria') && li.textContent.includes('pastel de nata') && li.querySelector('a[href^=\"/?cell=6fg223#re-\"]'))", "Activity lists the answer as new, linking to its area", 8000); break; }
     catch (e) { if (i >= 9) throw e; }
   }
   await A.waitFor("[...document.querySelectorAll('#activity li')].some(li => li.textContent.includes('🤝') && li.textContent.includes('connected with you') && li.querySelector('a[href=\"/contacts\"]'))", "Activity: B connected through A's code");
   await A.goto(base + "/activity");
   await A.waitFor("[...document.querySelectorAll('#activity li')].some(li => li.textContent.includes('Manteigaria') && !li.classList.contains('unread'))", "and then as seen");
+  // Tapping it opens the area at the post, which glows briefly.
+  await A.evaluate("location.href = [...document.querySelectorAll('#activity li')].find(li => li.textContent.includes('Manteigaria')).querySelector('a').href; true");
+  await A.waitFor("!!document.querySelector('#feed li.flash') && document.querySelector('#feed li.flash').textContent.includes('pastel de nata')", "opened at the post, highlighted", 20000);
 
   // A line without a place about a subject (78a): B sees it from anywhere,
   // marked 🌍, when filtering on that subject.

@@ -355,3 +355,8 @@ button.react.sent { animation: kf-bump .3s ease-out; }
 .close-x { position: absolute; top: 8px; right: 8px; padding: 2px 10px; border-radius: 999px; line-height: 1.6; }
 .card:has(> .close-x) { position: relative; padding-top: 40px !important; } /* the ✕ gets its own line, never covers text */
 .chat .close-chat { display: block; margin: 0 0 8px auto; } /* its own line, away from Send */
+
+/* Opened from Activity: the card it's about glows once. */
+@keyframes kf-flash { from { box-shadow: 0 0 0 3px var(--accent); } to { box-shadow: 0 0 0 3px transparent; } }
+li.flash { animation: kf-flash 2.2s ease-out; border-radius: var(--radius); }
+@media (prefers-reduced-motion: reduce) { li.flash { animation: none; outline: 3px solid var(--accent); } }

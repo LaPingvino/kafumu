@@ -103,6 +103,7 @@
     ul.textContent = "";
     items.forEach(function (li) { attachReplies(li); ul.appendChild(li); });
     carriedCards(ul, items);
+    showLinked();
     pullReactions();
   }
 
@@ -881,6 +882,19 @@
       li.appendChild(why); li.appendChild(a); li.appendChild(what);
       ul.appendChild(li);
     });
+  }
+  // showLinked: opened from Activity ("#re-<id>"), the card it's about is
+  // scrolled to and glows briefly, once it's drawn (cards arrive in waves).
+  var linkedDone = false;
+  function showLinked() {
+    var m = /^#re-([0-9a-f]{10})$/.exec(location.hash);
+    if (!m || linkedDone) return;
+    var li = document.querySelector('#feed li[data-reid="' + m[1] + '"]');
+    if (!li) return;
+    linkedDone = true;
+    li.scrollIntoView({ block: "center", behavior: "smooth" });
+    li.classList.add("flash");
+    setTimeout(function () { li.classList.remove("flash"); }, 2500);
   }
   // showOwnReaction: what you just posted, under its card, right away.
   function showOwnReaction(rid, n) {
