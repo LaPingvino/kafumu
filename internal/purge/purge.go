@@ -117,9 +117,21 @@ func leaveBusinesses(ctx context.Context, db *datastore.Client, userID string) {
 	}
 	for i, k := range keys {
 		b := bs[i]
-		b.Managers = slices.DeleteFunc(b.Managers, func(m string) bool { return m == userID })
+		// Re-read and write in one transaction: a manager may be changing the
+		// business right now, and a plain Put of the copy read above would
+		// undo that (the lost update fixed in the handlers on 2026-10-08).
+		_, _ = db.RunInTransaction(ctx, func(tx *datastore.Transaction) error {
+			if err := tx.Get(k, &b); err != nil {
+				return err
+			}
+			b.Managers = slices.DeleteFunc(b.Managers, func(m string) bool { return m == userID })
+			if len(b.Managers) == 0 {
+				return nil // closed below
+			}
+			_, err := tx.Put(k, &b)
+			return err
+		})
 		if len(b.Managers) > 0 {
-			db.Put(ctx, k, &b)
 			continue
 		}
 		gone := []*datastore.Key{k, datastore.NameKey("Vault", "biz:"+k.Name, nil)}
