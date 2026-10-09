@@ -145,6 +145,11 @@ try {
   // Tapping it opens the area at the post, which glows briefly.
   await A.evaluate("location.href = [...document.querySelectorAll('#activity li')].find(li => li.textContent.includes('Manteigaria')).querySelector('a').href; true");
   await A.waitFor("!!document.querySelector('#feed li.flash') && document.querySelector('#feed li.flash').textContent.includes('pastel de nata')", "opened at the post, highlighted", 20000);
+  // A private answer opens at its thread, ready to answer.
+  await A.goto(base + "/activity");
+  await A.waitFor("[...document.querySelectorAll('#activity li')].some(li => li.textContent.includes('🔒'))", "the private answer in Activity", 15000);
+  await A.evaluate("location.href = [...document.querySelectorAll('#activity li')].find(li => li.textContent.includes('🔒')).querySelector('a').href; true");
+  await A.waitFor("!!document.querySelector('#answers-list li.flash') && document.querySelector('#answers-list li.flash').textContent.includes('Private hello back')", "opened at the answer thread", 20000);
 
   // A line without a place about a subject (78a): B sees it from anywhere,
   // marked 🌍, when filtering on that subject.

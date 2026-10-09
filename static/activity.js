@@ -111,7 +111,7 @@
       (r[1] || []).forEach(function (t) { // private answers, both ways
         var last = (t.messages || []).filter(function (m) { return !m.me; }).slice(-1)[0];
         if (last) items.push({ id: "a:" + t.id + ":" + (t.messages || []).length, at: last.at, icon: "🔒", who: "",
-          text: last.text, about: tr("act_answer_to", { post: short(t.post && t.post.text, 40) }), href: "/#answers", hot: !!t.unreadMsgs });
+          text: last.text, about: tr("act_answer_to", { post: short(t.post && t.post.text, 40) }), href: "/#answer-" + encodeURIComponent(t.id), hot: !!t.unreadMsgs });
       });
       r[2].forEach(function (c) { // contacts: new through your code, their last message, their last signal
         var name = (c.card && c.card.name) || tr("inbox_anonymous");

@@ -672,6 +672,7 @@
     }
     return aPair;
   }
+  var answerLinked = false;
   function drawAnswers() {
     if (!answersPair()) return Promise.resolve();
     return aPair.threads().then(function (ts) {
@@ -685,6 +686,7 @@
         return (lb.at || "").localeCompare(la.at || "");
       }).slice(0, 20).forEach(function (t) {
         var li = document.createElement("li");
+        li.dataset.thread = t.id;
         var about = document.createElement("div"); about.className = "dim small";
         about.textContent = tr("answers_on", { text: (t.post && t.post.text || "").slice(0, 80) });
         if (t.unreadMsgs) { // new since you last looked: a small count badge
@@ -711,6 +713,15 @@
         };
         ul.appendChild(li);
         if (t.unreadMsgs) { t.unreadMsgs = 0; aPair.putThread(t); }
+        // Opened from Activity ("#answer-<id>"): this thread, ready to answer.
+        if (!answerLinked && decodeURIComponent(location.hash) === "#answer-" + t.id) {
+          answerLinked = true;
+          setTimeout(function () {
+            li.scrollIntoView({ block: "center", behavior: "smooth" });
+            li.classList.add("flash"); inp.focus({ preventScroll: true });
+            setTimeout(function () { li.classList.remove("flash"); }, 2500);
+          }, 0);
+        }
       });
     });
   }
