@@ -15,11 +15,19 @@ and what people around here are saying — without tracking. Live at **<https://
   enough to see.
 - **Local messages (OLN)** — no account needed, paid in a little proof of work (Argon2id) instead;
   anonymous posts can be answered privately, and contacts chat end-to-end encrypted over the same
-  format. Nodes can link and pull each other's messages.
+  format. Nodes can link and pull each other's messages. React to anything (a message, a meetup, an
+  online event, a person, a post, any web link) with a line that carries only `#re<id>`: it's found
+  from the thing, wherever you are. A message can also go to everyone into a subject, with no place
+  at all, and a reaction can be carried home to your own area.
+- **Activity (🔔)** — what came back to you from any area: replies and reactions to your posts
+  (strangers' too), private answers, chat lines and signals from contacts, your inbox, new
+  connections, people going to your meetups, changes to ones you go to, and likes and replies on
+  your Bluesky posts. Assembled on your device; chat lines and answers can wake your phone.
 - **Connect** — show a QR (or print it on your badge); whoever scans it swaps cards with you,
   end-to-end encrypted. Personas let you choose what to hand over each time.
 - **Contacts** — kept on your device only; notes, tags, one-tap signals (☕ / 📍 / 👋), push
-  notifications, vCard/backup export, and moving everything to a new device by scanning.
+  notifications, vCard/backup export, and moving everything to a new device by scanning. Send a
+  contact anything you see with 👀 "Did you see this?", or 🤝 "Shall we go together?" for a meetup.
 - **Accounts** without email or phone: magic link, passkeys, and optionally your Bluesky/ATproto
   account so meetups, RSVPs and posts are written to your own repo. Your contacts and cards sync
   between your devices, encrypted.
