@@ -644,5 +644,6 @@
   "privacy.row_bluesky_kept": "直到你中斷連結；未使用的工作階段 90 天後結束",
   "js.tour_bell": "🔔 動態：來自任何區域、回到你這裡的內容——對你貼文的回覆和反應、私下回答、聯絡人的訊息。數字表示新內容。",
   "common.close": "關閉",
-  "js.close": "關閉"
+  "js.close": "關閉",
+  "js.send_to_contact": "傳給聯絡人"
 }

@@ -644,5 +644,6 @@
   "privacy.row_bluesky_kept": "Cho đến khi bạn ngắt kết nối; phiên không dùng kết thúc sau 90 ngày",
   "js.tour_bell": "🔔 Hoạt động: những gì gửi lại cho bạn từ bất kỳ khu vực nào — phản hồi và bày tỏ cảm xúc với bài đăng, câu trả lời riêng, tin nhắn từ danh bạ. Con số là những gì mới.",
   "common.close": "Đóng",
-  "js.close": "Đóng"
+  "js.close": "Đóng",
+  "js.send_to_contact": "Gửi cho một liên hệ"
 }

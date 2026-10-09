@@ -644,5 +644,6 @@
   "privacy.row_bluesky_kept": "Tot je het ontkoppelt; een ongebruikte sessie stopt na 90 dagen",
   "js.tour_bell": "🔔 Activiteit: wat er bij je terugkwam uit elk gebied — reacties op je berichten, antwoorden, berichten van je contacten. Het getal is wat nieuw is.",
   "common.close": "Sluiten",
-  "js.close": "Sluiten"
+  "js.close": "Sluiten",
+  "js.send_to_contact": "Naar een contact sturen"
 }

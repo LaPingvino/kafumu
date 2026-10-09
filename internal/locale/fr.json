@@ -644,5 +644,6 @@
   "privacy.row_bluesky_kept": "Jusqu'à ce que tu le déconnectes ; une session inutilisée prend fin après 90 jours",
   "js.tour_bell": "🔔 Activité : ce qui t'est revenu de n'importe quelle zone — réponses et réactions à tes messages, réponses privées, messages de tes contacts. Le nombre, c'est ce qui est nouveau.",
   "common.close": "Fermer",
-  "js.close": "Fermer"
+  "js.close": "Fermer",
+  "js.send_to_contact": "Envoyer à un contact"
 }

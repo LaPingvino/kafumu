@@ -1040,11 +1040,11 @@
   // after it: the thing's title and link (78c).
   function carryText(text, about, link) { return text + "\n" + String(about || "").replace(/\s+/g, " ").slice(0, 80) + "\n" + link; }
   function reactRow(kind, id, about, row, ctx) {
-    var rid = reID(kind, id), home = currentCell && homeCell(currentCell, false), carry = null;
+    var rid = reID(kind, id), home = currentCell && homeCell(currentCell, false), carry = null, pin = null;
     // 📍: also show the reaction in your home area, so friends there see
     // what you found elsewhere (78c). Offered for things away from home.
     if (home && ctx && ctx.link && (!ctx.cell || kmBetween(home, ctx.cell) > 20)) {
-      var pin = document.createElement("button");
+      pin = document.createElement("button");
       pin.type = "button"; pin.className = "pill-sm"; pin.textContent = "📍"; pin.title = tr("carry_home");
       pin.setAttribute("aria-label", tr("carry_home")); pin.setAttribute("aria-pressed", "false");
       pin.onclick = function (ev) {
@@ -1053,7 +1053,6 @@
         pin.setAttribute("aria-pressed", carry ? "true" : "false");
         pin.classList.toggle("suggested", !!carry);
       };
-      row.appendChild(pin);
     }
     QUICK.forEach(function (e) {
       var b = document.createElement("button");
@@ -1067,12 +1066,31 @@
       };
       row.appendChild(b);
     });
-    if (ctx && ctx.link) row.appendChild(seenButton(about, ctx.link, row, "👀", "did_you_see"));
-    if (kind === "meetup" && ctx && ctx.link) row.appendChild(seenButton(about, ctx.link, row, "🤝", "go_together")); // 80b
+    if (pin) row.appendChild(pin); // right after the reactions it changes
     var t = document.createElement("button");
     t.type = "button"; t.className = "pill-sm"; t.textContent = "💬 " + tr("react");
     t.onclick = function (ev) { ev.preventDefault(); ev.stopPropagation(); openComposer({ re: rid, about: about, carry: carry }); };
     row.appendChild(t);
+    // 👀 / 🤝 to a contact: behind one 📤, so the reactions stay one row.
+    if (ctx && ctx.link) {
+      var sends = [seenButton(about, ctx.link, row, "👀", "did_you_see")];
+      if (kind === "meetup") sends.push(seenButton(about, ctx.link, row, "🤝", "go_together")); // 80b
+      var more = document.createElement("span");
+      more.className = "react-more"; more.hidden = true;
+      sends.forEach(function (b, i) { b.style.setProperty("--i", i); more.appendChild(b); });
+      var send = document.createElement("button");
+      send.type = "button"; send.className = "pill-sm"; send.textContent = "📤";
+      send.title = tr("send_to_contact"); send.setAttribute("aria-label", tr("send_to_contact")); send.setAttribute("aria-expanded", "false");
+      send.onclick = function (ev) {
+        ev.preventDefault(); ev.stopPropagation();
+        more.hidden = !more.hidden;
+        send.textContent = more.hidden ? "📤" : "✕";
+        send.setAttribute("aria-expanded", String(!more.hidden));
+        send.setAttribute("aria-label", more.hidden ? tr("send_to_contact") : tr("close"));
+        if (more.hidden) { var p = row.parentNode && row.parentNode.querySelector(":scope > .seen-pick"); if (p) p.remove(); }
+      };
+      row.appendChild(send); row.appendChild(more);
+    }
     if (ctx && ctx.compact) { // a long list (online events): one button, opened on a tap
       t.textContent = "💬"; t.setAttribute("aria-label", tr("react")); // "React" is on the opener already
       foldRow(row);

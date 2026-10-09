@@ -644,5 +644,6 @@
   "privacy.row_bluesky_kept": "Bis du es trennst; eine ungenutzte Sitzung endet nach 90 Tagen",
   "js.tour_bell": "🔔 Aktivität: was aus jeder Gegend bei dir ankam — Antworten und Reaktionen auf deine Beiträge, private Antworten, Nachrichten deiner Kontakte. Die Zahl ist das Neue.",
   "common.close": "Schließen",
-  "js.close": "Schließen"
+  "js.close": "Schließen",
+  "js.send_to_contact": "An einen Kontakt senden"
 }

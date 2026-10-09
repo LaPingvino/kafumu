@@ -198,7 +198,7 @@ try {
   await B.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('Worth reading " + RUN + "'))", "back to the area", 20000);
   // "Did you see this?" (80a): B sends that link to A over their chat; A
   // gets it as a message (Contacts reads it, Activity lists it).
-  await B.evaluate("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('Worth reading " + RUN + "')); [...li.querySelectorAll(':scope > .actions button')].find(b => b.textContent === '👀').click(); return true; })()");
+  await B.evaluate("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('Worth reading " + RUN + "')); const bs = [...li.querySelectorAll(':scope > .actions button')]; bs.find(b => b.textContent === '📤').click(); bs.find(b => b.textContent === '👀').click(); return true; })()");
   await B.waitFor("!!document.querySelector('#feed .seen-pick .chip')", "contacts to send it to");
   await B.evaluate("document.querySelector('#feed .seen-pick .chip').click(); true");
   await B.waitFor("document.querySelector('#feed .seen-pick .chip').textContent.startsWith('✓')", "sent to a contact", 30000);

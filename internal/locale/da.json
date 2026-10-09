@@ -644,5 +644,6 @@
   "privacy.row_bluesky_kept": "Indtil du afbryder den; en ubrugt session ophører efter 90 dage",
   "js.tour_bell": "🔔 Aktivitet: det, der er kommet tilbage til dig fra ethvert område — svar og reaktioner på dine opslag, private svar, beskeder fra kontakter. Tallet er det nye.",
   "common.close": "Luk",
-  "js.close": "Luk"
+  "js.close": "Luk",
+  "js.send_to_contact": "Send til en kontakt"
 }
