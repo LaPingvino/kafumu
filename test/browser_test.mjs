@@ -459,7 +459,11 @@ try {
       await A3.evaluate("[...document.querySelectorAll('form.use-as button')].find(b => b.textContent.includes('Café Teste " + RUN + "')).click(); true");
       await A3.waitFor("!!document.querySelector('nav a.acting')", "third device acting");
       await A3.goto(base + "/business");
-      await A3.waitFor("!!document.querySelector('#bizkey .bizkey-need')", "third device asks for the key, with a code", 20000);
+      try { await A3.waitFor("!!document.querySelector('#bizkey .bizkey-need')", "third device asks for the key, with a code", 20000); }
+      catch (e) { // say why: the page's acting state, the key panel, and what the key-request API answers
+        const why = await A3.evaluate("(() => { const d = document.body.dataset, k = document.getElementById('bizkey'); return fetch('/api/business/' + d.actingId + '/keyreq', { credentials: 'same-origin' }).then(r => r.text().then(t => 'actingSync=' + d.actingSync + ' bizkey=' + (k ? JSON.stringify(k.innerText.slice(0, 120)) + (k.hidden ? ' (hidden)' : '') : 'none') + ' GET keyreq → ' + r.status + ' ' + t.slice(0, 160))); })()");
+        throw new Error(e.message.split(';')[0] + " | " + why);
+      }
       const code = await A3.evaluate("document.querySelector('#bizkey .bizkey-need').textContent.match(/\\d{3} \\d{3}/)[0]");
       await A.goto(base + "/business");
       await A.waitFor("[...document.querySelectorAll('#bizkey p')].some(p => p.textContent.includes('" + code + "') && p.querySelector('button'))", "the key-holding device sees the same code", 30000);
