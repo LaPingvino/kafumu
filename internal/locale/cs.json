@@ -54,7 +54,7 @@
   "account.link_title": "Tvůj přihlašovací odkaz",
   "account.link_explain": "Otevři tenhle odkaz na libovolném zařízení a přihlásíš se. Drž ho v tajnosti jako heslo. Ulož si ho do správce hesel nebo si ho pošli.",
   "account.copy": "Kopírovat",
-  "account.name_title": "Tvoje jméno",
+  "account.name_title": "Tvé @jméno",
   "account.name_placeholder": "3–30 písmen, číslic, - nebo _",
   "account.save": "Uložit",
   "account.leave_title": "Odejít",
@@ -651,5 +651,6 @@
   "js.preview_no_name": "Sem přijde tvé jméno",
   "js.connect_plain": "Spojit se",
   "js.name_after_connect": "Ještě nevědí, kdo jsi: přidej své jméno a pošle se jim.",
-  "biz.start_another": "Založit další firemní účet"
+  "biz.start_another": "Založit další firemní účet",
+  "account.name_hint": "Takhle tě lidé najdou a zmíní, jako kafumu.com/@jméno. Jméno na tvé kartě je zvlášť:"
 }

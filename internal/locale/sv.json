@@ -54,7 +54,7 @@
   "account.link_title": "Din inloggningslänk",
   "account.link_explain": "Öppna den här länken på valfri enhet för att logga in. Håll den hemlig, som ett lösenord. Spara den i din lösenordshanterare eller skicka den till dig själv.",
   "account.copy": "Kopiera",
-  "account.name_title": "Ditt namn",
+  "account.name_title": "Ditt @namn",
   "account.name_placeholder": "3–30 bokstäver, siffror, - eller _",
   "account.save": "Spara",
   "account.leave_title": "Lämna",
@@ -651,5 +651,6 @@
   "js.preview_no_name": "Här står ditt namn",
   "js.connect_plain": "Koppla ihop",
   "js.name_after_connect": "De vet inte vem du är än: lägg till ditt namn så skickas det till dem.",
-  "biz.start_another": "Starta ett till företagskonto"
+  "biz.start_another": "Starta ett till företagskonto",
+  "account.name_hint": "Så hittar och nämner folk dig, som kafumu.com/@namn. Namnet på ditt kort är separat:"
 }

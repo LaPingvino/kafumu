@@ -54,7 +54,7 @@
   "account.link_title": "Via ensalutligilo",
   "account.link_explain": "Malfermu ĉi tiun ligilon en ajna aparato por ensaluti. Tenu ĝin privata, kiel pasvorton. Konservu ĝin en via pasvortadministrilo aŭ sendu ĝin al vi mem.",
   "account.copy": "Kopii",
-  "account.name_title": "Via nomo",
+  "account.name_title": "Via @nomo",
   "account.name_placeholder": "3–30 literoj, ciferoj, - aŭ _",
   "account.save": "Konservi",
   "account.leave_title": "Foriri",
@@ -651,5 +651,6 @@
   "js.preview_no_name": "Ĉi tie venas via nomo",
   "js.connect_plain": "Konektiĝi",
   "js.name_after_connect": "Ili ankoraŭ ne scias, kiu vi estas: aldonu vian nomon, kaj ĝi estos sendita al ili.",
-  "biz.start_another": "Krei alian komercan konton"
+  "biz.start_another": "Krei alian komercan konton",
+  "account.name_hint": "Tiel oni trovas kaj mencias vin, kiel kafumu.com/@nomo. La nomo sur via karto estas aparta:"
 }

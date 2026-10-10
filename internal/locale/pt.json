@@ -54,7 +54,7 @@
   "account.link_title": "A sua ligação de entrada",
   "account.link_explain": "Abra esta ligação em qualquer dispositivo para entrar. Mantenha-a privada, como uma palavra-passe. Guarde-a no seu gestor de palavras-passe ou envie-a a si próprio.",
   "account.copy": "Copiar",
-  "account.name_title": "O seu nome",
+  "account.name_title": "O teu @nome",
   "account.name_placeholder": "3–30 letras, algarismos, - ou _",
   "account.save": "Guardar",
   "account.leave_title": "Sair",
@@ -651,5 +651,6 @@
   "js.preview_no_name": "Aqui vai o teu nome",
   "js.connect_plain": "Ligar",
   "js.name_after_connect": "Ainda não sabem quem és: acrescenta o teu nome e é-lhes enviado.",
-  "biz.start_another": "Criar outra conta de empresa"
+  "biz.start_another": "Criar outra conta de empresa",
+  "account.name_hint": "É como te encontram e mencionam, em kafumu.com/@nome. O nome do teu cartão é à parte:"
 }

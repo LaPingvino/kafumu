@@ -54,7 +54,7 @@
   "account.link_title": "你的登录链接",
   "account.link_explain": "在任何设备上打开此链接即可登录。请像密码一样妥善保管。可以存进密码管理器，或发给自己。",
   "account.copy": "复制",
-  "account.name_title": "你的名字",
+  "account.name_title": "你的 @用户名",
   "account.name_placeholder": "3–30 个字母、数字、- 或 _",
   "account.save": "保存",
   "account.leave_title": "离开",
@@ -651,5 +651,6 @@
   "js.preview_no_name": "这里显示你的名字",
   "js.connect_plain": "建立联系",
   "js.name_after_connect": "对方还不知道你是谁：填上你的名字，就会发给对方。",
-  "biz.start_another": "再创建一个商家账户"
+  "biz.start_another": "再创建一个商家账户",
+  "account.name_hint": "别人通过 kafumu.com/@用户名 找到并提到你。名片上的名字是另外设置的："
 }

@@ -54,7 +54,7 @@
   "account.link_title": "Your sign-in link",
   "account.link_explain": "Open this link on any device to sign in. Keep it private, like a password. Save it in your password manager or send it to yourself.",
   "account.copy": "Copy",
-  "account.name_title": "Your name",
+  "account.name_title": "Your @name",
   "account.name_placeholder": "3–30 letters, digits, - or _",
   "account.save": "Save",
   "account.leave_title": "Leave",
@@ -651,5 +651,6 @@
   "js.preview_no_name": "Your name goes here",
   "js.connect_plain": "Connect",
   "js.name_after_connect": "They don't know who you are yet: add your name and it's sent to them.",
-  "biz.start_another": "Start another business account"
+  "biz.start_another": "Start another business account",
+  "account.name_hint": "How people find and mention you, as kafumu.com/@name. The name on your card is separate:"
 }

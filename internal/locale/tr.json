@@ -54,7 +54,7 @@
   "account.link_title": "Giriş bağlantın",
   "account.link_explain": "Giriş yapmak için bu bağlantıyı herhangi bir cihazda aç. Bir şifre gibi gizli tut. Şifre yöneticine kaydet ya da kendine gönder.",
   "account.copy": "Kopyala",
-  "account.name_title": "Adın",
+  "account.name_title": "@kullanıcı adın",
   "account.name_placeholder": "3–30 harf, rakam, - veya _",
   "account.save": "Kaydet",
   "account.leave_title": "Ayrıl",
@@ -651,5 +651,6 @@
   "js.preview_no_name": "Adın buraya gelecek",
   "js.connect_plain": "Bağlan",
   "js.name_after_connect": "Henüz kim olduğunu bilmiyorlar: adını ekle, onlara gönderilsin.",
-  "biz.start_another": "Başka bir işletme hesabı aç"
+  "biz.start_another": "Başka bir işletme hesabı aç",
+  "account.name_hint": "İnsanlar seni böyle bulur ve anar: kafumu.com/@ad. Kartındaki ad ayrıdır:"
 }

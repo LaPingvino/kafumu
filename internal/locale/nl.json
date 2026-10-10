@@ -54,7 +54,7 @@
   "account.link_title": "Je inloglink",
   "account.link_explain": "Open deze link op elk apparaat om in te loggen. Houd hem privé, net als een wachtwoord. Bewaar hem in je wachtwoordmanager of stuur hem naar jezelf.",
   "account.copy": "Kopiëren",
-  "account.name_title": "Je naam",
+  "account.name_title": "Je @naam",
   "account.name_placeholder": "3–30 letters, cijfers, - of _",
   "account.save": "Opslaan",
   "account.leave_title": "Vertrekken",
@@ -651,5 +651,6 @@
   "js.preview_no_name": "Hier komt je naam",
   "js.connect_plain": "Verbinden",
   "js.name_after_connect": "Ze weten nog niet wie je bent: vul je naam in en die wordt naar ze gestuurd.",
-  "biz.start_another": "Nog een bedrijfsaccount starten"
+  "biz.start_another": "Nog een bedrijfsaccount starten",
+  "account.name_hint": "Zo vinden en noemen mensen je, als kafumu.com/@naam. De naam op je kaart staat los daarvan:"
 }

@@ -54,7 +54,7 @@
   "account.link_title": "Ton lien de connexion",
   "account.link_explain": "Ouvre ce lien sur n'importe quel appareil pour te connecter. Garde-le secret, comme un mot de passe. Enregistre-le dans ton gestionnaire de mots de passe ou envoie-le-toi.",
   "account.copy": "Copier",
-  "account.name_title": "Ton nom",
+  "account.name_title": "Ton @nom",
   "account.name_placeholder": "3 à 30 lettres, chiffres, - ou _",
   "account.save": "Enregistrer",
   "account.leave_title": "Partir",
@@ -651,5 +651,6 @@
   "js.preview_no_name": "Ton nom ici",
   "js.connect_plain": "Se connecter",
   "js.name_after_connect": "On ne sait pas encore qui tu es : ajoute ton nom et il lui sera envoyé.",
-  "biz.start_another": "Créer un autre compte d'entreprise"
+  "biz.start_another": "Créer un autre compte d'entreprise",
+  "account.name_hint": "C'est ainsi qu'on te trouve et te mentionne, en kafumu.com/@nom. Le nom sur ta carte est à part :"
 }

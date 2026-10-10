@@ -54,7 +54,7 @@
   "account.link_title": "ログイン用リンク",
   "account.link_explain": "このリンクをどの端末で開いてもログインできます。パスワードのように秘密にしてください。パスワードマネージャーに保存するか、自分宛てに送っておきましょう。",
   "account.copy": "コピー",
-  "account.name_title": "あなたの名前",
+  "account.name_title": "あなたの @ネーム",
   "account.name_placeholder": "3～30文字の英字、数字、- または _",
   "account.save": "保存",
   "account.leave_title": "退出",
@@ -651,5 +651,6 @@
   "js.preview_no_name": "ここにあなたの名前",
   "js.connect_plain": "つながる",
   "js.name_after_connect": "相手はまだあなたが誰か知りません。名前を入れると相手に送られます。",
-  "biz.start_another": "別のビジネスアカウントを作る"
+  "biz.start_another": "別のビジネスアカウントを作る",
+  "account.name_hint": "みんなが kafumu.com/@ネーム であなたを見つけ、言及します。カードの名前は別です："
 }

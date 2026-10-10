@@ -54,7 +54,7 @@
   "account.link_title": "Tu enlace de acceso",
   "account.link_explain": "Abre este enlace en cualquier dispositivo para iniciar sesión. Mantenlo en privado, como una contraseña. Guárdalo en tu gestor de contraseñas o envíatelo a ti mismo.",
   "account.copy": "Copiar",
-  "account.name_title": "Tu nombre",
+  "account.name_title": "Tu @nombre",
   "account.name_placeholder": "3–30 letras, dígitos, - o _",
   "account.save": "Guardar",
   "account.leave_title": "Salir",
@@ -651,5 +651,6 @@
   "js.preview_no_name": "Aquí va tu nombre",
   "js.connect_plain": "Conectar",
   "js.name_after_connect": "Aún no saben quién eres: añade tu nombre y se les enviará.",
-  "biz.start_another": "Crear otra cuenta de negocio"
+  "biz.start_another": "Crear otra cuenta de negocio",
+  "account.name_hint": "Así te encuentran y te mencionan, como kafumu.com/@nombre. El nombre de tu tarjeta va aparte:"
 }

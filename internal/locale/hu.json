@@ -54,7 +54,7 @@
   "account.link_title": "A belépési linked",
   "account.link_explain": "Nyisd meg ezt a linket bármelyik eszközön a belépéshez. Tartsd titokban, mint egy jelszót. Mentsd el a jelszókezelődbe, vagy küldd el magadnak.",
   "account.copy": "Másolás",
-  "account.name_title": "A neved",
+  "account.name_title": "A @neved",
   "account.name_placeholder": "3–30 betű, számjegy, - vagy _",
   "account.save": "Mentés",
   "account.leave_title": "Kilépés",
@@ -651,5 +651,6 @@
   "js.preview_no_name": "Ide kerül a neved",
   "js.connect_plain": "Kapcsolódás",
   "js.name_after_connect": "Még nem tudják, ki vagy: add meg a neved, és elküldjük nekik.",
-  "biz.start_another": "Újabb vállalkozói fiók indítása"
+  "biz.start_another": "Újabb vállalkozói fiók indítása",
+  "account.name_hint": "Így találnak meg és említenek mások: kafumu.com/@név. A kártyádon lévő név külön van:"
 }

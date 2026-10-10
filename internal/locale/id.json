@@ -54,7 +54,7 @@
   "account.link_title": "Tautan masukmu",
   "account.link_explain": "Buka tautan ini di perangkat mana pun untuk masuk. Rahasiakan, seperti kata sandi. Simpan di pengelola kata sandimu atau kirim ke dirimu sendiri.",
   "account.copy": "Salin",
-  "account.name_title": "Namamu",
+  "account.name_title": "@Nama kamu",
   "account.name_placeholder": "3–30 huruf, angka, - atau _",
   "account.save": "Simpan",
   "account.leave_title": "Keluar",
@@ -651,5 +651,6 @@
   "js.preview_no_name": "Namamu di sini",
   "js.connect_plain": "Hubungkan",
   "js.name_after_connect": "Mereka belum tahu siapa kamu: tambahkan namamu dan akan dikirim ke mereka.",
-  "biz.start_another": "Buat akun bisnis lain"
+  "biz.start_another": "Buat akun bisnis lain",
+  "account.name_hint": "Begitulah orang menemukan dan menyebutmu, sebagai kafumu.com/@nama. Nama di kartumu terpisah:"
 }

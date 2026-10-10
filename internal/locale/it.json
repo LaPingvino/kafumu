@@ -54,7 +54,7 @@
   "account.link_title": "Il tuo link di accesso",
   "account.link_explain": "Apri questo link su qualsiasi dispositivo per accedere. Tienilo privato, come una password. Salvalo nel tuo gestore di password o mandalo a te stesso.",
   "account.copy": "Copia",
-  "account.name_title": "Il tuo nome",
+  "account.name_title": "Il tuo @nome",
   "account.name_placeholder": "3–30 lettere, cifre, - o _",
   "account.save": "Salva",
   "account.leave_title": "Esci",
@@ -651,5 +651,6 @@
   "js.preview_no_name": "Qui va il tuo nome",
   "js.connect_plain": "Connetti",
   "js.name_after_connect": "Non sanno ancora chi sei: aggiungi il tuo nome e glielo invieremo.",
-  "biz.start_another": "Crea un altro account aziendale"
+  "biz.start_another": "Crea un altro account aziendale",
+  "account.name_hint": "È come ti trovano e ti menzionano, come kafumu.com/@nome. Il nome sul tuo biglietto è a parte:"
 }

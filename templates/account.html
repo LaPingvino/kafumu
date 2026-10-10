@@ -50,6 +50,7 @@
       <input name="username" value="{{.User.Username}}" placeholder="{{ts .Lang "account.name_placeholder"}}" pattern="[A-Za-z0-9_\-]{3,30}" aria-label="{{ts .Lang "account.name_title"}}">
       <button type="submit">{{t .Lang "account.save"}}</button>
     </form>
+    <p class="dim small">{{t .Lang "account.name_hint"}} <a href="/card">{{t .Lang "nav.card"}} →</a></p>
 
     {{if .ATproto}}<h2{{if not .Acting}} id="atproto"{{end}}>{{t .Lang "atproto.title"}}</h2>
     {{if .User.DID}}

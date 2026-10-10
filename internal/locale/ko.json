@@ -54,7 +54,7 @@
   "account.link_title": "내 로그인 링크",
   "account.link_explain": "어느 기기에서든 이 링크를 열면 로그인돼요. 비밀번호처럼 비공개로 지켜 주세요. 비밀번호 관리자에 저장하거나 나에게 보내 두세요.",
   "account.copy": "복사",
-  "account.name_title": "내 이름",
+  "account.name_title": "내 @이름",
   "account.name_placeholder": "3–30자의 글자, 숫자, - 또는 _",
   "account.save": "저장",
   "account.leave_title": "나가기",
@@ -651,5 +651,6 @@
   "js.preview_no_name": "여기에 이름이 들어가요",
   "js.connect_plain": "연결하기",
   "js.name_after_connect": "상대는 아직 당신이 누군지 몰라요: 이름을 넣으면 상대에게 보내져요.",
-  "biz.start_another": "비즈니스 계정 하나 더 만들기"
+  "biz.start_another": "비즈니스 계정 하나 더 만들기",
+  "account.name_hint": "사람들이 kafumu.com/@이름 으로 나를 찾고 언급해요. 카드의 이름은 따로예요:"
 }
