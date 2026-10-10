@@ -649,5 +649,6 @@
   "js.travel_meetups_one": "1 találkozó itt.",
   "js.travel_friends_one": "1 kapcsolatod járt itt ezen a héten.",
   "js.preview_no_name": "Ide kerül a neved",
-  "js.connect_plain": "Kapcsolódás"
+  "js.connect_plain": "Kapcsolódás",
+  "js.name_after_connect": "Még nem tudják, ki vagy: add meg a neved, és elküldjük nekik."
 }

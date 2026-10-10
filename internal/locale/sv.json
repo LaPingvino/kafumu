@@ -649,5 +649,6 @@
   "js.travel_meetups_one": "1 träff här.",
   "js.travel_friends_one": "1 av dina kontakter var här den här veckan.",
   "js.preview_no_name": "Här står ditt namn",
-  "js.connect_plain": "Koppla ihop"
+  "js.connect_plain": "Koppla ihop",
+  "js.name_after_connect": "De vet inte vem du är än: lägg till ditt namn så skickas det till dem."
 }

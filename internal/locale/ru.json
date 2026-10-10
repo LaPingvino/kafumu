@@ -649,5 +649,6 @@
   "js.travel_meetups_one": "1 встреча здесь.",
   "js.travel_friends_one": "1 из ваших контактов был здесь на этой неделе.",
   "js.preview_no_name": "Здесь будет ваше имя",
-  "js.connect_plain": "Связаться"
+  "js.connect_plain": "Связаться",
+  "js.name_after_connect": "Вас пока не знают: добавьте своё имя, и оно будет отправлено."
 }

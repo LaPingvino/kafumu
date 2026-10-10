@@ -649,5 +649,6 @@
   "js.travel_meetups_one": "1 συνάντηση εδώ.",
   "js.travel_friends_one": "1 από τις επαφές σου ήταν εδώ αυτή την εβδομάδα.",
   "js.preview_no_name": "Εδώ μπαίνει το όνομά σου",
-  "js.connect_plain": "Σύνδεση"
+  "js.connect_plain": "Σύνδεση",
+  "js.name_after_connect": "Δεν ξέρουν ακόμα ποιος είσαι: πρόσθεσε το όνομά σου και θα τους σταλεί."
 }

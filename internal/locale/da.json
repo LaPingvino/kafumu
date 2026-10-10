@@ -649,5 +649,6 @@
   "js.travel_meetups_one": "1 møde her.",
   "js.travel_friends_one": "1 af dine kontakter var her i denne uge.",
   "js.preview_no_name": "Her står dit navn",
-  "js.connect_plain": "Forbind"
+  "js.connect_plain": "Forbind",
+  "js.name_after_connect": "De ved ikke, hvem du er endnu: tilføj dit navn, så sendes det til dem."
 }

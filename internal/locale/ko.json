@@ -649,5 +649,6 @@
   "js.travel_meetups_one": "여기 모임 1개.",
   "js.travel_friends_one": "이번 주에 연락처 중 1명이 근처에 있었어요.",
   "js.preview_no_name": "여기에 이름이 들어가요",
-  "js.connect_plain": "연결하기"
+  "js.connect_plain": "연결하기",
+  "js.name_after_connect": "상대는 아직 당신이 누군지 몰라요: 이름을 넣으면 상대에게 보내져요."
 }

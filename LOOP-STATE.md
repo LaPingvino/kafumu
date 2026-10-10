@@ -1042,3 +1042,5 @@ Per the OLN json-spec, a link is an index key like a tag (index["link"] → mess
       inbox, profile, Bluesky connect/disconnect, admin role/keep/patron. The touch was the dangerous one: from an
       instance's cached copy it could drop a session another instance had just added (a new device signed out).
       Test TestTouchKeepsOtherInstancesSession fails on the old code, passes now.
+- [ ] Polish: flaky browser step "third device asks for the key, with a code" (business private mode), 1× on
+      2026-10-10 (passed on rerun). Make its failure report what the key-request API answered, like the sync one.

@@ -649,5 +649,6 @@
   "js.travel_meetups_one": "1 meetup hier.",
   "js.travel_friends_one": "1 van je contacten was hier deze week.",
   "js.preview_no_name": "Hier komt je naam",
-  "js.connect_plain": "Verbinden"
+  "js.connect_plain": "Verbinden",
+  "js.name_after_connect": "Ze weten nog niet wie je bent: vul je naam in en die wordt naar ze gestuurd."
 }

@@ -649,5 +649,6 @@
   "js.travel_meetups_one": "1 renkontiĝo ĉi tie.",
   "js.travel_friends_one": "1 el viaj kontaktoj estis ĉi tie ĉi-semajne.",
   "js.preview_no_name": "Ĉi tie venas via nomo",
-  "js.connect_plain": "Konektiĝi"
+  "js.connect_plain": "Konektiĝi",
+  "js.name_after_connect": "Ili ankoraŭ ne scias, kiu vi estas: aldonu vian nomon, kaj ĝi estos sendita al ili."
 }

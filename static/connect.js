@@ -179,6 +179,9 @@
             made = c;
             history.replaceState(null, "", "/c"); // the code has done its job
             $("accept-area").hidden = true;
+            // Connected: the name form now sends your card to them (no more "connect without it").
+            var hint = $("name-form").querySelector("p.dim");
+            if (hint && !$("name-form").hidden) hint.textContent = tr("name_after_connect");
             status.textContent = c.pending ? tr("queued_offline") : tr("waiting_their_card");
             var item = contactItem(c);
             list.appendChild(item);
