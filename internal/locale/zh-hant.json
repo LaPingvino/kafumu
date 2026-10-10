@@ -652,5 +652,5 @@
   "js.connect_plain": "建立聯繫",
   "js.name_after_connect": "對方還不知道你是誰：填上你的名字，就會傳給對方。",
   "biz.start_another": "再建立一個商家帳戶",
-  "account.name_hint": "別人透過 kafumu.com/@使用者名稱 找到並提到你。名片上的名字是另外設定的："
+  "account.name_hint": "別人透過 {host}/@使用者名稱 找到並提到你。名片上的名字是另外設定的："
 }

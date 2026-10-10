@@ -652,5 +652,5 @@
   "js.connect_plain": "Koppla ihop",
   "js.name_after_connect": "De vet inte vem du är än: lägg till ditt namn så skickas det till dem.",
   "biz.start_another": "Starta ett till företagskonto",
-  "account.name_hint": "Så hittar och nämner folk dig, som kafumu.com/@namn. Namnet på ditt kort är separat:"
+  "account.name_hint": "Så hittar och nämner folk dig, som {host}/@namn. Namnet på ditt kort är separat:"
 }

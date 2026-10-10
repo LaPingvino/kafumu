@@ -652,5 +652,5 @@
   "js.connect_plain": "Konektiĝi",
   "js.name_after_connect": "Ili ankoraŭ ne scias, kiu vi estas: aldonu vian nomon, kaj ĝi estos sendita al ili.",
   "biz.start_another": "Krei alian komercan konton",
-  "account.name_hint": "Tiel oni trovas kaj mencias vin, kiel kafumu.com/@nomo. La nomo sur via karto estas aparta:"
+  "account.name_hint": "Tiel oni trovas kaj mencias vin, kiel {host}/@nomo. La nomo sur via karto estas aparta:"
 }

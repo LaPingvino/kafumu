@@ -652,5 +652,5 @@
   "js.connect_plain": "Forbind",
   "js.name_after_connect": "De ved ikke, hvem du er endnu: tilføj dit navn, så sendes det til dem.",
   "biz.start_another": "Opret endnu en virksomhedskonto",
-  "account.name_hint": "Sådan finder og nævner folk dig, som kafumu.com/@navn. Navnet på dit kort er separat:"
+  "account.name_hint": "Sådan finder og nævner folk dig, som {host}/@navn. Navnet på dit kort er separat:"
 }

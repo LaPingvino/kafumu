@@ -652,5 +652,5 @@
   "js.connect_plain": "Connetti",
   "js.name_after_connect": "Non sanno ancora chi sei: aggiungi il tuo nome e glielo invieremo.",
   "biz.start_another": "Crea un altro account aziendale",
-  "account.name_hint": "È come ti trovano e ti menzionano, come kafumu.com/@nome. Il nome sul tuo biglietto è a parte:"
+  "account.name_hint": "È come ti trovano e ti menzionano, come {host}/@nome. Il nome sul tuo biglietto è a parte:"
 }

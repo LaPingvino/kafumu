@@ -652,5 +652,5 @@
   "js.connect_plain": "Hubungkan",
   "js.name_after_connect": "Mereka belum tahu siapa kamu: tambahkan namamu dan akan dikirim ke mereka.",
   "biz.start_another": "Buat akun bisnis lain",
-  "account.name_hint": "Begitulah orang menemukan dan menyebutmu, sebagai kafumu.com/@nama. Nama di kartumu terpisah:"
+  "account.name_hint": "Begitulah orang menemukan dan menyebutmu, sebagai {host}/@nama. Nama di kartumu terpisah:"
 }

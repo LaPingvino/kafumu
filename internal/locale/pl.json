@@ -652,5 +652,5 @@
   "js.connect_plain": "Połącz",
   "js.name_after_connect": "Jeszcze nie wiedzą, kim jesteś: dodaj swoje imię, a zostanie im wysłane.",
   "biz.start_another": "Załóż kolejne konto firmowe",
-  "account.name_hint": "Tak cię znajdują i oznaczają, jako kafumu.com/@nazwa. Imię na twojej wizytówce ustawiasz osobno:"
+  "account.name_hint": "Tak cię znajdują i oznaczają, jako {host}/@nazwa. Imię na twojej wizytówce ustawiasz osobno:"
 }

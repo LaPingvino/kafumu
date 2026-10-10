@@ -652,5 +652,5 @@
   "js.connect_plain": "Conectează-te",
   "js.name_after_connect": "Încă nu știu cine ești: adaugă-ți numele și li se trimite.",
   "biz.start_another": "Creează încă un cont de firmă",
-  "account.name_hint": "Așa te găsesc și te menționează oamenii, ca kafumu.com/@nume. Numele de pe cartea ta e separat:"
+  "account.name_hint": "Așa te găsesc și te menționează oamenii, ca {host}/@nume. Numele de pe cartea ta e separat:"
 }

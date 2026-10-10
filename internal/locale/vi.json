@@ -652,5 +652,5 @@
   "js.connect_plain": "Kết nối",
   "js.name_after_connect": "Họ chưa biết bạn là ai: thêm tên của bạn và nó sẽ được gửi cho họ.",
   "biz.start_another": "Tạo thêm tài khoản doanh nghiệp",
-  "account.name_hint": "Đây là cách mọi người tìm và nhắc đến bạn, như kafumu.com/@tên. Tên trên thẻ của bạn là riêng:"
+  "account.name_hint": "Đây là cách mọi người tìm và nhắc đến bạn, như {host}/@tên. Tên trên thẻ của bạn là riêng:"
 }

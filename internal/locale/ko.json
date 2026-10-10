@@ -652,5 +652,5 @@
   "js.connect_plain": "연결하기",
   "js.name_after_connect": "상대는 아직 당신이 누군지 몰라요: 이름을 넣으면 상대에게 보내져요.",
   "biz.start_another": "비즈니스 계정 하나 더 만들기",
-  "account.name_hint": "사람들이 kafumu.com/@이름 으로 나를 찾고 언급해요. 카드의 이름은 따로예요:"
+  "account.name_hint": "사람들이 {host}/@이름 으로 나를 찾고 언급해요. 카드의 이름은 따로예요:"
 }

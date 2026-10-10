@@ -652,5 +652,5 @@
   "js.connect_plain": "Kapcsolódás",
   "js.name_after_connect": "Még nem tudják, ki vagy: add meg a neved, és elküldjük nekik.",
   "biz.start_another": "Újabb vállalkozói fiók indítása",
-  "account.name_hint": "Így találnak meg és említenek mások: kafumu.com/@név. A kártyádon lévő név külön van:"
+  "account.name_hint": "Így találnak meg és említenek mások: {host}/@név. A kártyádon lévő név külön van:"
 }

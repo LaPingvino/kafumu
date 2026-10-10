@@ -79,6 +79,9 @@ type Home struct {
 // page is the data every full page gets.
 type page struct {
 	Brand string
+	// Host is this site's domain as people type it (kafumu.com, a brand's
+	// own host, or a self-hosted origin), for "host/@name" texts.
+	Host string
 	// BrandInfo: the brand of this host (its colour, tagline, main button,
 	// default tags), nil on plain Kafumu.
 	BrandInfo *brand.Brand
@@ -140,7 +143,7 @@ func (h *Home) newPage(r *http.Request, title string) page {
 		name = bi.Name
 	}
 	brandAdmin := h.isBrandAdmin(r.Context(), bi, UserFrom(r.Context()))
-	return page{Acting: acting, BskyHandle: bsky, Now: time.Now(), Brand: name, BrandInfo: bi, BrandAdmin: brandAdmin, Title: title, Lang: lang, V: h.Cfg.Version, Langs: locale.Langs(), MovedTo: moved,
+	return page{Acting: acting, BskyHandle: bsky, Now: time.Now(), Brand: name, Host: hostOf(h.Origin(r), r.Host), BrandInfo: bi, BrandAdmin: brandAdmin, Title: title, Lang: lang, V: h.Cfg.Version, Langs: locale.Langs(), MovedTo: moved,
 		Passkeys: h.Cfg.Passkeys && moved == "", ATproto: h.ATproto != nil && moved == "",
 		User: UserFrom(r.Context()), JS: locale.Prefix(lang, "js."), Maker: maker, Contact: contact, ContactText: contactText}
 }
@@ -354,6 +357,8 @@ func (h *Home) CanonicalHost(next http.Handler) http.Handler {
 var Funcs = template.FuncMap{
 	"t":     func(lang, key string) template.HTML { return template.HTML(locale.T(lang, key)) },
 	"ts":    locale.T,
+	// withHost fills a translation's {host} with this site's domain.
+	"withHost": func(s, host string) template.HTML { return template.HTML(strings.ReplaceAll(s, "{host}", template.HTMLEscapeString(host))) },
 	"venue": meetup.CleanVenue,
 	// tagLabel shows a tag to people: "lang:epo" as "🗣 Esperanto" (an
 	// internal language tag), anything else as "#tag".
@@ -656,6 +661,15 @@ func (h *Home) foundEvents(b *bundle, now time.Time) []gazetteer.EventTag {
 		out = out[:3]
 	}
 	return out
+}
+
+// hostOf is an origin without its scheme; with no origin configured
+// (local runs), the request's host.
+func hostOf(origin, reqHost string) string {
+	if _, h, ok := strings.Cut(origin, "://"); ok && h != "" {
+		return h
+	}
+	return reqHost
 }
 
 // Origin is where this request is served from, for absolute links: the

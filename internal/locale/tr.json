@@ -652,5 +652,5 @@
   "js.connect_plain": "Bağlan",
   "js.name_after_connect": "Henüz kim olduğunu bilmiyorlar: adını ekle, onlara gönderilsin.",
   "biz.start_another": "Başka bir işletme hesabı aç",
-  "account.name_hint": "İnsanlar seni böyle bulur ve anar: kafumu.com/@ad. Kartındaki ad ayrıdır:"
+  "account.name_hint": "İnsanlar seni böyle bulur ve anar: {host}/@ad. Kartındaki ad ayrıdır:"
 }

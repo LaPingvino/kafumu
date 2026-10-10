@@ -19,7 +19,7 @@
     <form method="post" action="/business/{{.ID}}/name" class="inline-row"><label>{{t $.Lang "biz.username"}}
       <input name="username" value="{{.Username}}" placeholder="cafe-x" maxlength="31" pattern="@?[A-Za-z0-9_-]{3,30}"></label>
       <button type="submit" class="pill-sm">{{t $.Lang "account.save"}}</button></form>
-    <p class="dim small">{{if .Username}}<a href="/@{{.Username}}">kafumu.com/@{{.Username}}</a> · {{end}}{{t $.Lang "biz.username_note"}}</p>
+    <p class="dim small">{{if .Username}}<a href="/@{{.Username}}">{{$.Host}}/@{{.Username}}</a> · {{end}}{{t $.Lang "biz.username_note"}}</p>
     <form method="post" action="/business/{{.ID}}/sync" class="biz-sync"><label><strong>{{t $.Lang "biz.sync_title"}}</strong>
       <select name="mode" onchange="this.form.requestSubmit()"><option value="off"{{if not .SyncMode}} selected{{end}}>{{t $.Lang "biz.sync_off"}}</option>
         <option value="server"{{if eq .SyncMode "server"}} selected{{end}}>{{t $.Lang "biz.sync_server"}}</option>

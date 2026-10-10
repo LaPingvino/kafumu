@@ -105,6 +105,8 @@ func TestAccountFlow(t *testing.T) {
 	do(h, "POST", "/account/name", url.Values{"username": {"Joop"}}, cred)
 	if w = do(h, "GET", "/account", nil, cred); !strings.Contains(w.Body.String(), "@joop") {
 		t.Error("username not shown")
+	} else if b := w.Body.String(); !strings.Contains(b, "kafumu.test/@") || strings.Contains(b, "{host}") {
+		t.Error("the @name hint should show this site's own domain")
 	}
 
 	do(h, "POST", "/account/delete", url.Values{"confirm": {"yes"}}, cred)

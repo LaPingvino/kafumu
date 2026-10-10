@@ -652,5 +652,5 @@
   "js.connect_plain": "Conectar",
   "js.name_after_connect": "Aún no saben quién eres: añade tu nombre y se les enviará.",
   "biz.start_another": "Crear otra cuenta de negocio",
-  "account.name_hint": "Así te encuentran y te mencionan, como kafumu.com/@nombre. El nombre de tu tarjeta va aparte:"
+  "account.name_hint": "Así te encuentran y te mencionan, como {host}/@nombre. El nombre de tu tarjeta va aparte:"
 }

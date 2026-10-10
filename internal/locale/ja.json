@@ -652,5 +652,5 @@
   "js.connect_plain": "つながる",
   "js.name_after_connect": "相手はまだあなたが誰か知りません。名前を入れると相手に送られます。",
   "biz.start_another": "別のビジネスアカウントを作る",
-  "account.name_hint": "みんなが kafumu.com/@ネーム であなたを見つけ、言及します。カードの名前は別です："
+  "account.name_hint": "みんなが {host}/@ネーム であなたを見つけ、言及します。カードの名前は別です："
 }
