@@ -650,5 +650,6 @@
   "js.travel_friends_one": "Kişilerinden 1'i bu hafta buralardaydı.",
   "js.preview_no_name": "Adın buraya gelecek",
   "js.connect_plain": "Bağlan",
-  "js.name_after_connect": "Henüz kim olduğunu bilmiyorlar: adını ekle, onlara gönderilsin."
+  "js.name_after_connect": "Henüz kim olduğunu bilmiyorlar: adını ekle, onlara gönderilsin.",
+  "biz.start_another": "Başka bir işletme hesabı aç"
 }

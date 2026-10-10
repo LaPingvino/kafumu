@@ -650,5 +650,6 @@
   "js.travel_friends_one": "1 z tvých kontaktů tu tento týden byl.",
   "js.preview_no_name": "Sem přijde tvé jméno",
   "js.connect_plain": "Spojit se",
-  "js.name_after_connect": "Ještě nevědí, kdo jsi: přidej své jméno a pošle se jim."
+  "js.name_after_connect": "Ještě nevědí, kdo jsi: přidej své jméno a pošle se jim.",
+  "biz.start_another": "Založit další firemní účet"
 }

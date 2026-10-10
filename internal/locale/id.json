@@ -650,5 +650,6 @@
   "js.travel_friends_one": "1 kontakmu ada di sekitar sini minggu ini.",
   "js.preview_no_name": "Namamu di sini",
   "js.connect_plain": "Hubungkan",
-  "js.name_after_connect": "Mereka belum tahu siapa kamu: tambahkan namamu dan akan dikirim ke mereka."
+  "js.name_after_connect": "Mereka belum tahu siapa kamu: tambahkan namamu dan akan dikirim ke mereka.",
+  "biz.start_another": "Buat akun bisnis lain"
 }

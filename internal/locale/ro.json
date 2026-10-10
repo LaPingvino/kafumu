@@ -650,5 +650,6 @@
   "js.travel_friends_one": "1 dintre contactele tale a fost pe aici săptămâna asta.",
   "js.preview_no_name": "Aici apare numele tău",
   "js.connect_plain": "Conectează-te",
-  "js.name_after_connect": "Încă nu știu cine ești: adaugă-ți numele și li se trimite."
+  "js.name_after_connect": "Încă nu știu cine ești: adaugă-ți numele și li se trimite.",
+  "biz.start_another": "Creează încă un cont de firmă"
 }

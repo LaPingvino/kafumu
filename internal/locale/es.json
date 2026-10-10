@@ -650,5 +650,6 @@
   "js.travel_friends_one": "1 de tus contactos estuvo por aquí esta semana.",
   "js.preview_no_name": "Aquí va tu nombre",
   "js.connect_plain": "Conectar",
-  "js.name_after_connect": "Aún no saben quién eres: añade tu nombre y se les enviará."
+  "js.name_after_connect": "Aún no saben quién eres: añade tu nombre y se les enviará.",
+  "biz.start_another": "Crear otra cuenta de negocio"
 }

@@ -650,5 +650,6 @@
   "js.travel_friends_one": "1 kapcsolatod járt itt ezen a héten.",
   "js.preview_no_name": "Ide kerül a neved",
   "js.connect_plain": "Kapcsolódás",
-  "js.name_after_connect": "Még nem tudják, ki vagy: add meg a neved, és elküldjük nekik."
+  "js.name_after_connect": "Még nem tudják, ki vagy: add meg a neved, és elküldjük nekik.",
+  "biz.start_another": "Újabb vállalkozói fiók indítása"
 }

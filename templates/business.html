@@ -33,15 +33,16 @@
     <form method="post" action="/business/{{.ID}}/managers" class="inline-row"><input name="add" placeholder="@username" maxlength="31"><button type="submit" class="pill-sm">{{t $.Lang "biz.add_manager"}}</button></form>
     <p><a href="/meetups/new">＋ {{t $.Lang "meetup.new_title"}} →</a></p>
   </div>{{end}}
+  {{if .Mine}}<details class="card" style="padding:4px 16px 12px"><summary>+ {{t .Lang "biz.start_another"}}</summary>{{else}}
   <div class="card" style="padding:4px 16px 12px">
-    <h2>{{t .Lang "biz.start"}}</h2>
+    <h2>{{t .Lang "biz.start"}}</h2>{{end}}
     <form method="post" action="/business">
       <label>{{t .Lang "biz.name"}}<input name="name" maxlength="80" required></label>
       <label>{{t .Lang "biz.kind"}}<select name="kind">{{range .Kinds}}<option value="{{.}}">{{t $.Lang (print "biz.kind_" .)}}</option>{{end}}</select></label>
       <label>{{t .Lang "biz.contact"}}<input name="contact" maxlength="200" placeholder="email / phone / website"></label>
       <button type="submit" class="pill suggested">{{t .Lang "biz.start_btn"}}</button>
     </form>
-  </div>{{end}}
+  {{if .Mine}}</details>{{else}}</div>{{end}}{{end}}
   <p class="dim small">🖥️ {{t .Lang "biz.selfhost"}} <a href="https://github.com/LaPingvino/kafumu/blob/main/SELFHOSTING.md" rel="noopener">{{t .Lang "biz.selfhost_link"}} ↗</a></p>
 <script src="/static/device.js?v={{.V}}"></script>
 <script>

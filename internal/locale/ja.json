@@ -650,5 +650,6 @@
   "js.travel_friends_one": "今週、連絡先のうち1人が近くにいました。",
   "js.preview_no_name": "ここにあなたの名前",
   "js.connect_plain": "つながる",
-  "js.name_after_connect": "相手はまだあなたが誰か知りません。名前を入れると相手に送られます。"
+  "js.name_after_connect": "相手はまだあなたが誰か知りません。名前を入れると相手に送られます。",
+  "biz.start_another": "別のビジネスアカウントを作る"
 }
