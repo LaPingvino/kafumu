@@ -648,5 +648,6 @@
   "js.send_to_contact": "Send to a contact",
   "js.travel_meetups_one": "1 meetup here.",
   "js.travel_friends_one": "1 of your contacts was around this week.",
-  "js.preview_no_name": "Your name goes here"
+  "js.preview_no_name": "Your name goes here",
+  "js.connect_plain": "Connect"
 }

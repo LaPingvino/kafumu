@@ -159,7 +159,14 @@
     if (!/^v1\./.test(payload)) { status.textContent = tr("bad_code"); return; }
     var made = null;
     ensureName($("name-form"), function (card) {
-      function label() { myCard().then(function (c) { card = c; $("send-as").textContent = c.name ? tr("send_as", { name: c.name }) : tr("send_no_card"); }); }
+      function label() {
+        myCard().then(function (c) {
+          card = c;
+          $("send-as").textContent = c.name ? tr("send_as", { name: c.name }) : tr("send_no_card");
+          // No card yet: the button says just "Connect" (not "…and share my card").
+          $("do-connect").textContent = c.name ? $("do-connect").dataset.share : tr("connect_plain");
+        });
+      }
       label();
       drawPicker($("share-picker"), label);
       $("accept-area").hidden = false;

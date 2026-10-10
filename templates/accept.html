@@ -2,10 +2,10 @@
 <h1>{{t .Lang "accept.title"}}</h1>
 <p id="accept-from" class="lead" hidden></p>
 <p class="dim">{{t .Lang "accept.explain"}}</p>
-<div id="accept-area" class="card" hidden>
+<div id="accept-area" class="card" hidden style="padding:12px 16px">
   <p id="send-as"></p>
   <div id="share-picker"></div>
-  <div class="actions"><button type="button" id="do-connect" class="pill suggested">{{t .Lang "accept.connect"}}</button></div>
+  <div class="actions"><button type="button" id="do-connect" class="pill suggested" data-share="{{ts .Lang "accept.connect"}}">{{t .Lang "accept.connect"}}</button></div>
   <p class="dim"><small>{{t .Lang "connect.privacy"}}</small></p>
 </div>
 <p id="accept-status" class="dim" role="status"></p>

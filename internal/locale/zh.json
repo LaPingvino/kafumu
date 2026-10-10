@@ -648,5 +648,6 @@
   "js.send_to_contact": "发给联系人",
   "js.travel_meetups_one": "这里有 1 个聚会。",
   "js.travel_friends_one": "本周你的 1 位联系人到过附近。",
-  "js.preview_no_name": "这里显示你的名字"
+  "js.preview_no_name": "这里显示你的名字",
+  "js.connect_plain": "建立联系"
 }

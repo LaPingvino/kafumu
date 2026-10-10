@@ -648,5 +648,6 @@
   "js.send_to_contact": "Küldés egy kapcsolatnak",
   "js.travel_meetups_one": "1 találkozó itt.",
   "js.travel_friends_one": "1 kapcsolatod járt itt ezen a héten.",
-  "js.preview_no_name": "Ide kerül a neved"
+  "js.preview_no_name": "Ide kerül a neved",
+  "js.connect_plain": "Kapcsolódás"
 }
