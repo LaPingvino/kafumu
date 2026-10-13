@@ -394,8 +394,13 @@ body.chat-open { overflow: hidden; }
 @keyframes kf-up { from { transform: translateY(16px); opacity: 0; } to { transform: none; opacity: 1; } }
 .chat-note { align-self: center; text-align: center; padding: 2px 8px; }
 /* A chat as its own page (88a): a phone's chat, or a desktop window popped out. */
-.chat-window.chat-page { position: static; inset: auto; width: auto; height: calc(100dvh - 190px); min-height: 280px; z-index: auto;
-  border: 0; box-shadow: none; padding: 0; background: none; animation: none; }
+.chat-window.chat-page { position: fixed; left: 0; right: 0; top: 56px; bottom: auto; width: auto; height: calc(100dvh - 130px); z-index: 15;
+  border: 0; box-shadow: none; padding: 0 12px 8px; background: var(--window-bg); animation: none; max-width: 860px; margin: 0 auto; }
+/* The chat page doesn't scroll: no footer or bars under it, the tab bar away while typing. */
+body.chat-fullpage { overflow: hidden; overscroll-behavior: none; }
+body.chat-fullpage footer, body.chat-fullpage .install-bar, body.chat-fullpage #sync-bar { display: none !important; }
+body.chat-fullpage.keyboard-open .switcher.bottom { display: none; }
+body.chat-fullpage .chat-window.chat-page .chat-log { overscroll-behavior: contain; }
 .chat-window .win-back { text-decoration: none; }
 /* A source (81j): a compact head of its news. */
 #feed > li.source-line { padding-top: 6px; padding-bottom: 6px; border-left: 3px solid #4a7bb7; }

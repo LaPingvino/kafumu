@@ -1224,6 +1224,10 @@ Findable, Account, Business, meetups…), and with a "👀 Show me" button that 
       lower (Joop: Rostos also carries EU pages). The News chip counts news, not the sources' heads. (The touch
       screen's corner QR was dimmed after all: checked.)
 
+- [x] Polish (Joop: the phone chat scrolled and wasn't stable): the chat page is a fixed screen: header on top, the
+      input at the bottom, only the messages scroll; with the keyboard open (visualViewport) the input sits right above
+      it and the tab bar steps aside; no footer or bars under it. Checked at 390 px.
+
 ## 85. Every conversation as a chat (Joop 2026-10-13)
 One list of chats, like a messenger, merging the mailbox and Contacts (filter: "only contacts"). Every thing that
 talks to you is a thread: a contact, a private answer, your post (its replies and reactions), your meetup (RSVPs,

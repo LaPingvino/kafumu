@@ -101,14 +101,25 @@
       chat.thread.querySelectorAll(".close-chat").forEach(function (x) { x.hidden = true; }); // ← closes the window
       if (asPage) {
         w.classList.add("chat-page"); page.appendChild(w); chat.open();
-        // Fill what's left of the screen (banners above, the tab bar below), typing at the bottom.
+        // A fixed screen, like any chat app: the header on top, the input at
+        // the bottom, only the messages scroll. With the keyboard open the
+        // input sits right above it (visualViewport), the tab bar out of the way.
+        document.body.classList.add("chat-fullpage");
+        var log = w.querySelector(".chat-log");
         var fit = function () {
-          var nav = document.querySelector(".switcher.bottom"), below = nav && getComputedStyle(nav).display !== "none" ? nav.offsetHeight : 0;
-          w.style.height = Math.max(280, window.innerHeight - w.getBoundingClientRect().top - window.scrollY - below - 12) + "px";
+          var head = document.querySelector(".headerbar"), nav = document.querySelector(".switcher.bottom");
+          var vv = window.visualViewport, vh = vv ? vv.height : window.innerHeight, off = vv ? vv.offsetTop : 0;
+          var keyboard = window.innerHeight - vh > 120;
+          var top = head ? Math.max(0, head.getBoundingClientRect().bottom) : 0;
+          var below = !keyboard && nav && getComputedStyle(nav).display !== "none" ? nav.offsetHeight : 0;
+          w.style.top = (top + off) + "px";
+          w.style.height = Math.max(160, vh - top - below) + "px";
+          document.body.classList.toggle("keyboard-open", keyboard);
+          if (log) log.scrollTop = log.scrollHeight; // the newest stays in view
         };
-        fit(); window.addEventListener("resize", fit);
-        if (window.ResizeObserver) new ResizeObserver(function () { fit(); }).observe(document.querySelector("header") ? document.body : w); // bars that show up later push it down
-        document.querySelectorAll(".install-bar .no").forEach(function (b) { b.addEventListener("click", function () { setTimeout(fit, 0); }); });
+        fit();
+        window.addEventListener("resize", fit);
+        if (window.visualViewport) { window.visualViewport.addEventListener("resize", fit); window.visualViewport.addEventListener("scroll", fit); }
         return w;
       }
       w.addEventListener("keydown", function (e) { if (e.key === "Escape") close(key); });
