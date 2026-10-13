@@ -1129,6 +1129,10 @@ only for areas people actually look at. Each slice passes one test: does the are
       a link out, its summary, link reactions (79a: reacting ties to the site), ⚑ reports the source line; ranked by
       the source line's bits under what locals say, fresher first. Checked by hand with injected news (390 px) — no
       browser test: adding a source needs a passkey, and the server rightly won't fetch a local test feed.
+- [x] 81c3. Sources also from named accounts with any role (host, moderator, admin), not only with a passkey (Joop).
+- [ ] 81g. Keep what people react to (Joop): reacting to a Bluesky post or a news item puts the item itself into OLN
+      (a line in that area with its title/first line + link, tagged #site_<host>), so it outlives the cache and
+      reaches other nodes; reactions then hang on that line.
 - [ ] 81f. Discover: for seen cells, count the sites the area's Bluesky posts link to most; for the top few,
       look for RSS autodiscovery (<link rel=alternate type=rss/atom>) through the safe client, bounded per run;
       on top of the area page: "People here often share example.nl — add its news to this area?" (one tap for a

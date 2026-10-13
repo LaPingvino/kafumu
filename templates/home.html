@@ -42,7 +42,7 @@
   <form id="source-form" class="card" style="padding:4px 16px 12px" hidden>
     <button type="button" class="close-x" data-close aria-label="{{ts .Lang "common.close"}}" title="{{ts .Lang "common.close"}}">✕</button>
     <p><strong>📰 {{t .Lang "source.title"}}</strong></p>
-    {{if and .User .User.Username .User.Passkeys}}
+    {{if and .User .User.Username (or .User.Passkeys .User.Role)}}
     <label>{{t .Lang "source.url"}}<input name="url" type="url" required placeholder="https://…/rss" maxlength="300"></label>
     <label>{{t .Lang "source.name"}}<input name="name" maxlength="80" placeholder="{{ts .Lang "source.name_ph"}}"></label>
     <p class="dim small">{{t .Lang "source.note"}}</p>
