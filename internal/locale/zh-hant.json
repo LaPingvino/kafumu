@@ -642,7 +642,7 @@
   "privacy.row_bluesky": "已連結的 Bluesky（ATproto）帳戶，你的或商家的（僅在你連結時）：其識別碼、帳號名稱和登入工作階段",
   "privacy.row_bluesky_why": "把你在這裡建立的聚會和貼文保存到那個帳戶",
   "privacy.row_bluesky_kept": "直到你中斷連結；未使用的工作階段 90 天後結束",
-  "js.tour_bell": "🔔 動態：來自任何區域、回到你這裡的內容——對你貼文的回覆和反應、私下回答、聯絡人的訊息。數字表示新內容。",
+  "js.tour_bell": "聊天：每段對話，以及從任何地區回到你這裡的一切。數字是新訊息。",
   "common.close": "關閉",
   "js.close": "關閉",
   "js.send_to_contact": "傳給聯絡人",
@@ -761,5 +761,6 @@
   "js.source_add_home": "也加到我的地區",
   "js.source_add_other": "其他地區…",
   "js.source_where": "哪個地區？#geo 代碼、Plus Code 或緯度,經度",
-  "js.source_there": "已經有了"
+  "js.source_there": "已經有了",
+  "nav.chats": "聊天"
 }

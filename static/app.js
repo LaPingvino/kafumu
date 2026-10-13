@@ -48,7 +48,8 @@
   if (steps && document.getElementById("tour-start")) {
     var box, at = -1;
     var tourText = function (k) { return T[k] || k; };
-    var shown = function () { return steps.filter(function (s) { var e = document.querySelector(s[0]); return e && !e.hidden && e.getClientRects().length > 0; }); /* offsetParent is null for fixed elements (the tab bar) */ };
+    var vis = function (sel) { return Array.prototype.filter.call(document.querySelectorAll(sel), function (e) { return !e.hidden && e.getClientRects().length > 0; })[0] || null; };
+    var shown = function () { return steps.filter(function (s) { return !!vis(s[0]); }); };
     var go = function (i) {
       var old = document.querySelector(".tour-focus");
       if (old) old.classList.remove("tour-focus");
@@ -63,7 +64,7 @@
         document.body.appendChild(box);
       }
       at = i;
-      var el = document.querySelector(ss[i][0]);
+      var el = vis(ss[i][0]);
       el.classList.add("tour-focus");
       el.scrollIntoView({ block: "start", behavior: "smooth" }); // near the top: the box fits below it
       var put = function () { var r = el.getBoundingClientRect(); box.classList.toggle("at-top", r.top + r.height / 2 > window.innerHeight / 2); }; // out of the way

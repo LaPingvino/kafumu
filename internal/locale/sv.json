@@ -642,7 +642,7 @@
   "privacy.row_bluesky": "Ett kopplat Bluesky-konto (ATproto), ditt eller ett företags (bara om du kopplar ett): dess id, namn och inloggningssession",
   "privacy.row_bluesky_why": "För att spara träffarna och inläggen du gör här i det kontot",
   "privacy.row_bluesky_kept": "Tills du kopplar bort det; en oanvänd session upphör efter 90 dagar",
-  "js.tour_bell": "🔔 Aktivitet: det som kommit tillbaka till dig från vilket område som helst — svar och reaktioner på dina inlägg, privata svar, meddelanden från kontakter. Siffran är det nya.",
+  "js.tour_bell": "Chattar: varje samtal och det som kom tillbaka till dig från alla områden. Siffran är det nya.",
   "common.close": "Stäng",
   "js.close": "Stäng",
   "js.send_to_contact": "Skicka till en kontakt",
@@ -761,5 +761,6 @@
   "js.source_add_home": "Även i mitt område",
   "js.source_add_other": "Ett annat område…",
   "js.source_where": "Vilket område? En #geo-kod, plus code eller lat,lon",
-  "js.source_there": "Redan där"
+  "js.source_there": "Redan där",
+  "nav.chats": "Chattar"
 }

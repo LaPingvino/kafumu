@@ -642,7 +642,7 @@
   "privacy.row_bluesky": "Un cont Bluesky (ATproto) conectat, al tău sau al unei firme (doar dacă conectezi unul): id-ul, numele și sesiunea",
   "privacy.row_bluesky_why": "Ca să salvăm în acel cont întâlnirile și postările pe care le faci aici",
   "privacy.row_bluesky_kept": "Până îl deconectezi; o sesiune nefolosită expiră după 90 de zile",
-  "js.tour_bell": "🔔 Activitate: ce ți-a venit din orice zonă — răspunsuri și reacții la postările tale, răspunsuri private, mesaje de la contacte. Numărul arată noutățile.",
+  "js.tour_bell": "Conversații: fiecare discuție și ce ți-a venit înapoi din orice zonă. Numărul arată ce e nou.",
   "common.close": "Închide",
   "js.close": "Închide",
   "js.send_to_contact": "Trimite unui contact",
@@ -761,5 +761,6 @@
   "js.source_add_home": "Și în zona mea",
   "js.source_add_other": "Altă zonă…",
   "js.source_where": "Ce zonă? Un cod #geo, plus code sau lat,lon",
-  "js.source_there": "Deja acolo"
+  "js.source_there": "Deja acolo",
+  "nav.chats": "Conversații"
 }

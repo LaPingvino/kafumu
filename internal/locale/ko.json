@@ -642,7 +642,7 @@
   "privacy.row_bluesky": "연결한 Bluesky(ATproto) 계정, 내 것 또는 비즈니스의 것(연결한 경우에만): ID, 핸들, 로그인 세션",
   "privacy.row_bluesky_why": "여기서 만든 모임과 게시물을 그 계정에 저장하기 위해",
   "privacy.row_bluesky_kept": "연결을 끊을 때까지; 쓰지 않는 세션은 90일 후 끝나요",
-  "js.tour_bell": "🔔 활동: 어느 지역에서든 나에게 돌아온 것들 — 게시물에 달린 답글과 반응, 비공개 답변, 연락처의 메시지. 숫자는 새 항목이에요.",
+  "js.tour_bell": "채팅: 모든 대화와 어느 지역에서든 나에게 돌아온 것. 숫자는 새 소식이에요.",
   "common.close": "닫기",
   "js.close": "닫기",
   "js.send_to_contact": "연락처에 보내기",
@@ -761,5 +761,6 @@
   "js.source_add_home": "내 지역에도",
   "js.source_add_other": "다른 지역…",
   "js.source_where": "어느 지역인가요? #geo 코드, 플러스 코드 또는 위도,경도",
-  "js.source_there": "이미 있어요"
+  "js.source_there": "이미 있어요",
+  "nav.chats": "채팅"
 }

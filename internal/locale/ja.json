@@ -642,7 +642,7 @@
   "privacy.row_bluesky": "連携したBluesky（ATproto）アカウント（あなたかビジネスのもの、連携した場合のみ）：ID、ハンドル、ログインセッション",
   "privacy.row_bluesky_why": "ここで作ったミートアップや投稿をそのアカウントに保存するため",
   "privacy.row_bluesky_kept": "連携を解除するまで。使われないセッションは90日で終了",
-  "js.tour_bell": "🔔 アクティビティ：どのエリアからでも、あなたに届いたもの。投稿への返信やリアクション、非公開の回答、連絡先からのメッセージ。数字は新着の数です。",
+  "js.tour_bell": "チャット：すべての会話と、どの地域からでもあなたに返ってきたもの。数字は新着です。",
   "common.close": "閉じる",
   "js.close": "閉じる",
   "js.send_to_contact": "連絡先に送る",
@@ -761,5 +761,6 @@
   "js.source_add_home": "自分の地域にも",
   "js.source_add_other": "ほかの地域…",
   "js.source_where": "どの地域？#geoコード、プラスコード、緯度,経度",
-  "js.source_there": "すでにあります"
+  "js.source_there": "すでにあります",
+  "nav.chats": "チャット"
 }

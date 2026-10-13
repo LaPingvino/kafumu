@@ -1246,7 +1246,10 @@ Findable, Account, Business, meetups…), and with a "👀 Show me" button that 
 
 ## 89. Four tabs instead of six (Joop 2026-10-14: "tab proposal sounds good")
 Around · Chats (mailbox + Contacts, 🔔 folded in) · Connect (your code + My card) · Me (Account + Findable).
-- [ ] 89a. Chats: /contacts and /activity become one page (the chat list with a Contacts filter, contact cards
+- [x] 89a. Done (first step): the Contacts tab is now "Chats" (→ the mailbox, highlighted on /contacts too) with the
+      unread count on the tab; the header 🔔 is gone; the Chats page links "👥 Contacts →" (cards, backup, sync stay
+      there for now); tours find the first visible match (tabs are in the page twice). 24 languages.
+      Was: Chats: /contacts and /activity become one page (the chat list with a Contacts filter, contact cards
       reachable from it, backup/sync tools on it); the 🔔 in the header goes, its count moves to the Chats tab.
 - [ ] 89b. Connect: your code and your card on one page (card editor under the code, the share picker between).
 - [ ] 89c. Me: Account and Findable as sections of one page; the tab shows your @name / business as now.

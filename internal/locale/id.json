@@ -642,7 +642,7 @@
   "privacy.row_bluesky": "Akun Bluesky (ATproto) yang terhubung, milikmu atau bisnis (hanya jika kamu menghubungkannya): id, nama, dan sesi masuknya",
   "privacy.row_bluesky_why": "Untuk menyimpan pertemuan dan postingan yang kamu buat di sini ke akun itu",
   "privacy.row_bluesky_kept": "Sampai kamu memutuskannya; sesi yang tak terpakai berakhir setelah 90 hari",
-  "js.tour_bell": "🔔 Aktivitas: apa yang kembali kepadamu dari area mana pun — balasan dan reaksi untuk postinganmu, jawaban pribadi, pesan dari kontakmu. Angkanya menunjukkan yang baru.",
+  "js.tour_bell": "Obrolan: setiap percakapan dan yang kembali kepadamu dari area mana pun. Angkanya adalah yang baru.",
   "common.close": "Tutup",
   "js.close": "Tutup",
   "js.send_to_contact": "Kirim ke kontak",
@@ -761,5 +761,6 @@
   "js.source_add_home": "Juga di areaku",
   "js.source_add_other": "Area lain…",
   "js.source_where": "Area mana? Kode #geo, plus code, atau lat,lon",
-  "js.source_there": "Sudah ada"
+  "js.source_there": "Sudah ada",
+  "nav.chats": "Obrolan"
 }

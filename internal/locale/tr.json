@@ -642,7 +642,7 @@
   "privacy.row_bluesky": "Bağlı bir Bluesky (ATproto) hesabı, senin ya da bir işletmenin (yalnızca bağlarsan): kimliği, adı ve oturumu",
   "privacy.row_bluesky_why": "Burada yaptığın buluşmaları ve paylaşımları o hesaba kaydetmek için",
   "privacy.row_bluesky_kept": "Bağlantıyı kesene dek; kullanılmayan oturum 90 gün sonra biter",
-  "js.tour_bell": "🔔 Etkinlik: herhangi bir bölgeden sana dönenler — paylaşımlarına yanıtlar ve tepkiler, özel yanıtlar, kişilerinden mesajlar. Sayı yeni olanları gösterir.",
+  "js.tour_bell": "Sohbetler: her konuşma ve herhangi bir bölgeden sana dönen her şey. Sayı yenileri gösterir.",
   "common.close": "Kapat",
   "js.close": "Kapat",
   "js.send_to_contact": "Bir kişiye gönder",
@@ -761,5 +761,6 @@
   "js.source_add_home": "Benim bölgeme de",
   "js.source_add_other": "Başka bölge…",
   "js.source_where": "Hangi bölge? #geo kodu, plus code veya enlem,boylam",
-  "js.source_there": "Zaten orada"
+  "js.source_there": "Zaten orada",
+  "nav.chats": "Sohbetler"
 }

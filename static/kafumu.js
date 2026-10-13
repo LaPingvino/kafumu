@@ -659,8 +659,11 @@
 
   // ---- "I'm confused": a short tour of the page, one thing at a time ----
   var TOUR = [[".cell-tag", "tour_area"], ["#coffee", "tour_coffee"], ["#say", "tour_say"], ["#ask", "tour_ask"],
-    ["#filter-chips", "tour_chips"], ["#feed-kinds", "tour_feed"], ["#change-area", "tour_change"], [".switcher.bottom", "tour_tabs"], [".bell", "tour_bell"]];
+    ["#filter-chips", "tour_chips"], ["#feed-kinds", "tour_feed"], ["#change-area", "tour_change"], [".switcher.bottom", "tour_tabs"], ["a.bell", "tour_bell"]];
   var tourAt = -1;
+  // visible: the first match that's on screen (the tabs are twice in the page:
+  // top bar on wide screens, bottom on phones); fixed ones count too.
+  function visible(sel) { return Array.prototype.filter.call(document.querySelectorAll(sel), function (e) { return !e.hidden && e.getClientRects().length > 0; })[0] || null; }
   // placeTour: the box goes where it doesn't cover what it points at.
   function placeTour(box, el) {
     var put = function () { var r = el.getBoundingClientRect(); box.classList.toggle("at-top", r.top + r.height / 2 > window.innerHeight / 2); };
@@ -669,10 +672,10 @@
   function tourShow(i) {
     var old = document.querySelector(".tour-focus");
     if (old) old.classList.remove("tour-focus");
-    var steps = TOUR.filter(function (s) { var e = document.querySelector(s[0]); return e && !e.hidden && e.getClientRects().length > 0; }); /* offsetParent is null for fixed elements (the tab bar) */
+    var steps = TOUR.filter(function (s) { return !!visible(s[0]); });
     if (i < 0 || i >= steps.length) { $("tour").hidden = true; tourAt = -1; pref("kafumu.tourSeen", "1"); return; }
     tourAt = i;
-    var el = document.querySelector(steps[i][0]);
+    var el = visible(steps[i][0]);
     el.classList.add("tour-focus");
     el.scrollIntoView({ block: "start", behavior: "smooth" }); // near the top: the box fits below it
     placeTour($("tour"), el);

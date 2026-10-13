@@ -642,7 +642,7 @@
   "privacy.row_bluesky": "Uma conta Bluesky (ATproto) ligada, tua ou de uma empresa (só se ligares uma): o seu id, nome e sessão",
   "privacy.row_bluesky_why": "Para guardar nessa conta os encontros e publicações que fazes aqui",
   "privacy.row_bluesky_kept": "Até a desligares; uma sessão sem uso termina após 90 dias",
-  "js.tour_bell": "🔔 Atividade: o que te chegou de qualquer zona — respostas e reações às tuas publicações, respostas privadas, mensagens dos teus contactos. O número é o que é novo.",
+  "js.tour_bell": "Conversas: cada conversa e o que te chegou de qualquer área. O número é o que é novo.",
   "common.close": "Fechar",
   "js.close": "Fechar",
   "js.send_to_contact": "Enviar a um contacto",
@@ -761,5 +761,6 @@
   "js.source_add_home": "Também na minha área",
   "js.source_add_other": "Outra área…",
   "js.source_where": "Que área? Um código #geo, plus code ou lat,lon",
-  "js.source_there": "Já lá está"
+  "js.source_there": "Já lá está",
+  "nav.chats": "Conversas"
 }

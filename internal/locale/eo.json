@@ -642,7 +642,7 @@
   "privacy.row_bluesky": "Konektita Bluesky-konto (ATproto), via aŭ de komerco (nur se vi konektas ĝin): ĝia identigilo, nomo kaj ensaluta seanco",
   "privacy.row_bluesky_why": "Por konservi en tiu konto la renkontiĝojn kaj afiŝojn, kiujn vi faras ĉi tie",
   "privacy.row_bluesky_kept": "Ĝis vi malkonektas ĝin; neuzata seanco finiĝas post 90 tagoj",
-  "js.tour_bell": "🔔 Aktivado: kio revenis al vi el ajna regiono — respondoj kaj reagoj al viaj afiŝoj, privataj respondoj, mesaĝoj de viaj kontaktoj. La nombro estas la novaĵoj.",
+  "js.tour_bell": "Babiloj: ĉiu konversacio, kaj kio revenis al vi el ajna loko. La nombro estas la nova.",
   "common.close": "Fermi",
   "js.close": "Fermi",
   "js.send_to_contact": "Sendi al kontakto",
@@ -761,5 +761,6 @@
   "js.source_add_home": "Ankaŭ en mia loko",
   "js.source_add_other": "Alia loko…",
   "js.source_where": "Kiu loko? #geo-kodo, plus-kodo aŭ lat,lon",
-  "js.source_there": "Jam tie"
+  "js.source_there": "Jam tie",
+  "nav.chats": "Babiloj"
 }

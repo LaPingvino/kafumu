@@ -642,7 +642,7 @@
   "privacy.row_bluesky": "Tài khoản Bluesky (ATproto) đã kết nối, của bạn hoặc của doanh nghiệp (chỉ khi bạn kết nối): mã, tên và phiên đăng nhập",
   "privacy.row_bluesky_why": "Để lưu các buổi gặp và bài đăng bạn tạo ở đây vào tài khoản đó",
   "privacy.row_bluesky_kept": "Cho đến khi bạn ngắt kết nối; phiên không dùng kết thúc sau 90 ngày",
-  "js.tour_bell": "🔔 Hoạt động: những gì gửi lại cho bạn từ bất kỳ khu vực nào — phản hồi và bày tỏ cảm xúc với bài đăng, câu trả lời riêng, tin nhắn từ danh bạ. Con số là những gì mới.",
+  "js.tour_bell": "Trò chuyện: mọi cuộc trò chuyện và những gì quay lại với bạn từ bất kỳ khu vực nào. Con số là cái mới.",
   "common.close": "Đóng",
   "js.close": "Đóng",
   "js.send_to_contact": "Gửi cho một liên hệ",
@@ -761,5 +761,6 @@
   "js.source_add_home": "Cả ở khu vực của tôi",
   "js.source_add_other": "Khu vực khác…",
   "js.source_where": "Khu vực nào? Mã #geo, plus code hoặc vĩ độ,kinh độ",
-  "js.source_there": "Đã có"
+  "js.source_there": "Đã có",
+  "nav.chats": "Trò chuyện"
 }

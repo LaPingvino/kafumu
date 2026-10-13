@@ -642,7 +642,7 @@
   "privacy.row_bluesky": "Propojený účet Bluesky (ATproto), tvůj nebo firmy (jen když nějaký propojíš): jeho id, jméno a přihlašovací relace",
   "privacy.row_bluesky_why": "Aby se setkání a příspěvky, které tu vytvoříš, ukládaly do toho účtu",
   "privacy.row_bluesky_kept": "Dokud ho neodpojíš; nepoužívaná relace skončí po 90 dnech",
-  "js.tour_bell": "🔔 Aktivita: co se ti vrátilo z jakékoli oblasti — odpovědi a reakce na tvé příspěvky, soukromé odpovědi, zprávy od kontaktů. Číslo ukazuje novinky.",
+  "js.tour_bell": "Chaty: každý rozhovor a vše, co se ti vrátilo z jakékoli oblasti. Číslo ukazuje novinky.",
   "common.close": "Zavřít",
   "js.close": "Zavřít",
   "js.send_to_contact": "Poslat kontaktu",
@@ -761,5 +761,6 @@
   "js.source_add_home": "Také v mé oblasti",
   "js.source_add_other": "Jiná oblast…",
   "js.source_where": "Která oblast? Kód #geo, plus kód nebo lat,lon",
-  "js.source_there": "Už tam je"
+  "js.source_there": "Už tam je",
+  "nav.chats": "Chaty"
 }
