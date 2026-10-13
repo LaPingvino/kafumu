@@ -226,6 +226,10 @@ try {
   // And it answers from there, like on the contact card.
   await A.evaluate("(() => { const f = document.querySelector('#threads li.flash .chat-form'); f.querySelector('input').value = 'From the mailbox " + RUN + "'; f.requestSubmit(); return true; })()");
   await A.waitFor("[...document.querySelectorAll('#threads .bubble.me')].some(b => b.textContent === 'From the mailbox " + RUN + "')", "answered from the mailbox", 30000);
+  // It's a chat window (85c): fixed on screen, ← closes it.
+  await A.waitFor("(() => { const w = document.querySelector('#threads li.flash .chat-window') || [...document.querySelectorAll('#threads .chat-window')].find(w => !w.hidden); return w && getComputedStyle(w).position === 'fixed'; })()", "the chat is a window");
+  await A.evaluate("[...document.querySelectorAll('#threads .chat-window')].find(w => !w.hidden).querySelector('.win-back').click(); true");
+  await A.waitFor("![...document.querySelectorAll('#threads .chat-window')].some(w => !w.hidden) && !document.body.classList.contains('chat-open')", "← closes it");
   // What a notification would say (83d): composed on the device, per box: who, and where it opens.
   await A.waitFor("window.kafumuPair.create({ fetch: window.fetch.bind(window), store: window.kafumuDevice.store, origin: location.origin }).labelled().then(ls => ls.some(l => /^💬 .*Bea/.test(l.body) && l.url.startsWith('/activity#chat-')) && ls.some(l => l.body.startsWith('🔒') && l.url.startsWith('/activity#answer')))", "notification labels: 💬 from Bea, 🔒 an answer", 10000);
   // "Shall we go together?" (80b): such a line in A's chat offers Yes / Can't.

@@ -1165,7 +1165,10 @@ desktop: chat windows docked at the bottom.
       All / Contacts / Unread; a row opens in place: contacts and private answers as the same two-way chat
       (device.chatPanel, now with opts.save), posts/meetups/Bluesky as one-way bubbles + "Open ↗"; #chat-/#answer-/
       #answers deep links open and focus. Old answers.js and the separate lists are gone. Was: The list page (mailbox + contacts merged; "Contacts" filter; the contact card reachable from a thread).
-- [ ] 85c. Mobile full-screen chat window with back; desktop docked windows at the bottom.
+- [x] 85c. Done: an open thread is a .chat-window: full screen with ← on a phone (body scroll locked, only the
+      newest open), docked at the bottom on ≥800 px (340 px wide, side by side from the right, oldest closes when
+      they don't fit); title + 🪪 Card in its head, typing at the bottom, Esc closes; checked at 390 and 1280 px.
+      Was: Mobile full-screen chat window with back; desktop docked windows at the bottom.
 - [ ] 85d. Shares and every other activity as bubbles in their thread; the contact card loses its chat.
 
 ## 86. Permalinks for everything (Joop 2026-10-13)

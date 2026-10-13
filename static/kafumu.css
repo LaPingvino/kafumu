@@ -373,3 +373,22 @@ li.flash { animation: kf-flash 2.2s ease-out; border-radius: var(--radius); }
 .thread-prev { grid-column: 1 / -1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .threads > li.unread .thread-head strong { font-weight: 700; }
 .thread-body { padding: 0 4px 12px; }
+
+/* Chat windows (85c): full screen on a phone, docked at the bottom on a desktop. */
+.chat-window { position: fixed; inset: 0; z-index: 60; background: var(--window-bg); display: flex; flex-direction: column; padding: 0 12px calc(12px + env(safe-area-inset-bottom)); }
+.chat-window[hidden] { display: none; }
+.chat-window .win-head { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
+.chat-window .win-head strong { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chat-window .win-back { background: var(--button-bg); color: var(--fg); border: 0; border-radius: 999px; padding: 2px 12px; margin: 0; width: auto; }
+.chat-window .chat { flex: 1; display: flex; flex-direction: column; min-height: 0; margin: 0; }
+.chat-window .chat[hidden] { display: none; }
+.chat-window .chat-log { flex: 1; overflow-y: auto; max-height: none; order: 1; }
+.chat-window .chat-log ~ *, .chat-window .chat-form { order: 2; } /* type at the bottom, like any chat */
+.chat-window .chat-form { margin: 8px 0 0; }
+body.chat-open { overflow: hidden; }
+@media (min-width: 800px) {
+  .chat-window { inset: auto; bottom: 0; width: 340px; height: min(480px, 70vh); border: 1px solid var(--border); border-bottom: 0;
+    border-radius: var(--radius) var(--radius) 0 0; box-shadow: 0 -4px 18px var(--shade); background: var(--view-bg); }
+}
+@media (prefers-reduced-motion: no-preference) { .chat-window:not([hidden]) { animation: kf-up .18s ease-out; } }
+@keyframes kf-up { from { transform: translateY(16px); opacity: 0; } to { transform: none; opacity: 1; } }
