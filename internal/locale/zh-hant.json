@@ -675,5 +675,6 @@
   "activity.all": "全部",
   "activity.unread": "未讀",
   "js.act_open": "開啟",
-  "js.contact_card": "名片"
+  "js.contact_card": "名片",
+  "js.copy_link": "連結"
 }

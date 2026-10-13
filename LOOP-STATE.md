@@ -1177,6 +1177,11 @@ desktop: chat windows docked at the bottom.
 Everything shown on the site has a shareable permalink, and a shared thing carries it: a line, a reaction, a
 question, a meetup, an answer. Opening it shows the thing in its area, highlighted, with its reactions and answer
 buttons (so a "👀 Did you see this?" to a contact arrives with where it was and how to react).
-- [ ] 86a. Inventory: what has a link now (meetups /meetups/id, areas /?cell=, #re-<id>) and what doesn't.
-- [ ] 86b. A line's permalink (`/n/<id>` → its area, highlighted) + "🔗 Link" in every item's share row; shares
+- [x] 86a. Inventory (2026-10-13): had links: areas (/?cell=), meetups (/meetups/id), online/Luma events and link
+      lines (their own URL), named people and businesses (/@name), #re-<id> scrolling to a line in its area. Lacked:
+      local lines (shared as just the area), Bluesky posts and people in the feed (no 📤 at all), reactions/replies
+      and questions (no share; replies are under their line, so its link covers them). Was: Inventory: what has a link now (meetups /meetups/id, areas /?cell=, #re-<id>) and what doesn't.
+- [x] 86b. Done: a line's link is its area at the line (/?cell=…#re-<id>: scrolls there and glows, with its reactions);
+      Bluesky posts (their bsky.app URL) and named people (/@name) get 📤 too; "🔗 Link" in every 📤 group (share sheet,
+      else copied). /n/<id> skipped: a line lives ≤ 7 days and its area link already says where. Was: A line's permalink (`/n/<id>` → its area, highlighted) + "🔗 Link" in every item's share row; shares
       carry it.

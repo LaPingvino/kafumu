@@ -675,5 +675,6 @@
   "activity.all": "Ĉio",
   "activity.unread": "Nelegitaj",
   "js.act_open": "Malfermi",
-  "js.contact_card": "Karto"
+  "js.contact_card": "Karto",
+  "js.copy_link": "Ligilo"
 }

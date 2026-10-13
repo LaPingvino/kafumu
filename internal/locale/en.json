@@ -675,5 +675,6 @@
   "activity.all": "All",
   "activity.unread": "Unread",
   "js.act_open": "Open",
-  "js.contact_card": "Card"
+  "js.contact_card": "Card",
+  "js.copy_link": "Link"
 }

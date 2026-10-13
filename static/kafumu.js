@@ -778,7 +778,7 @@
       li.dataset.self = n.id;
     }
     if (!opts.question && !opts.nested) li.dataset.reid = link ? reactRow("link", link, firstLine(n.text), row, { link: link })
-      : reactRow("note", n.id, firstLine(n.text), row, n.cell && n.cell !== "000000" ? { cell: n.cell, link: location.origin + "/?cell=" + n.cell } : null);
+      : reactRow("note", n.id, firstLine(n.text), row, n.cell && n.cell !== "000000" ? { cell: n.cell, link: location.origin + "/?cell=" + n.cell + "#re-" + reID("note", n.id) } : null); // its permalink: the area, at this line (86b)
     else if (opts.question) li.dataset.reid = reID("note", n.id);
     row.appendChild(hide);
     row.appendChild(reportButton("note", n.id, n.text, li, hideIt));
@@ -1037,6 +1037,15 @@
     if (ctx && ctx.link) {
       var sends = [seenButton(about, ctx.link, row, "👀", "did_you_see")];
       if (kind === "meetup") sends.push(seenButton(about, ctx.link, row, "🤝", "go_together")); // 80b
+      // 🔗 its permalink, for anywhere else (86b): the share sheet, or copied.
+      var cp = document.createElement("button");
+      cp.type = "button"; cp.className = "pill-sm copy-link"; cp.textContent = "🔗 " + tr("copy_link");
+      cp.onclick = function (ev) {
+        ev.preventDefault(); ev.stopPropagation();
+        if (navigator.share) navigator.share({ text: String(about || "").slice(0, 120), url: ctx.link }).catch(function () {});
+        else if (navigator.clipboard) navigator.clipboard.writeText(ctx.link).then(function () { cp.textContent = "✓ " + tr("link_copied"); }, function () {});
+      };
+      sends.push(cp);
       var more = document.createElement("span");
       more.className = "react-more"; more.hidden = true;
       sends.forEach(function (b, i) { b.style.setProperty("--i", i); more.appendChild(b); });
@@ -1450,7 +1459,7 @@
       if (p.inbox && window.kafumuPair && window.kafumuOLN) li.appendChild(writeBox(p));
       var prow = document.createElement("div");
       prow.className = "actions";
-      li.dataset.reid = reactRow("person", p.name, "@" + p.name + (p.bio ? ": " + p.bio : ""), prow);
+      li.dataset.reid = reactRow("person", p.name, "@" + p.name + (p.bio ? ": " + p.bio : ""), prow, /^[a-z0-9_-]{3,30}$/.test(p.name || "") ? { link: location.origin + "/@" + p.name } : null);
       prow.appendChild(reportButton("person", p.name, "@" + p.name + (p.bio ? ": " + p.bio : ""), li));
       li.appendChild(prow);
       list.appendChild(li);
@@ -1669,7 +1678,7 @@
     hide.type = "button"; hide.className = "pill-sm"; hide.textContent = tr("oln_hide");
     hide.onclick = hideIt;
     row.appendChild(hide);
-    li.dataset.reid = reactRow("post", p.uri, (p.handle ? "@" + p.handle + ": " : "") + p.text, row);
+    li.dataset.reid = reactRow("post", p.uri, (p.handle ? "@" + p.handle + ": " : "") + p.text, row, p.url ? { link: p.url } : null);
     row.appendChild(reportButton("post", p.uri, (p.handle ? "@" + p.handle + ": " : "") + p.text, li, hideIt));
     li.appendChild(row);
     swipeAway(li, hideIt);

@@ -675,5 +675,6 @@
   "activity.all": "Vše",
   "activity.unread": "Nepřečtené",
   "js.act_open": "Otevřít",
-  "js.contact_card": "Vizitka"
+  "js.contact_card": "Vizitka",
+  "js.copy_link": "Odkaz"
 }

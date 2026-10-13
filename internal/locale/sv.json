@@ -675,5 +675,6 @@
   "activity.all": "Alla",
   "activity.unread": "Olästa",
   "js.act_open": "Öppna",
-  "js.contact_card": "Kort"
+  "js.contact_card": "Kort",
+  "js.copy_link": "Länk"
 }

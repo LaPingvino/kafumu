@@ -675,5 +675,6 @@
   "activity.all": "すべて",
   "activity.unread": "未読",
   "js.act_open": "開く",
-  "js.contact_card": "名刺"
+  "js.contact_card": "名刺",
+  "js.copy_link": "リンク"
 }

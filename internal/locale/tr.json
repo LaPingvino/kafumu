@@ -675,5 +675,6 @@
   "activity.all": "Tümü",
   "activity.unread": "Okunmamış",
   "js.act_open": "Aç",
-  "js.contact_card": "Kart"
+  "js.contact_card": "Kart",
+  "js.copy_link": "Bağlantı"
 }

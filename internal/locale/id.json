@@ -675,5 +675,6 @@
   "activity.all": "Semua",
   "activity.unread": "Belum dibaca",
   "js.act_open": "Buka",
-  "js.contact_card": "Kartu"
+  "js.contact_card": "Kartu",
+  "js.copy_link": "Tautan"
 }

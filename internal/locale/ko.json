@@ -675,5 +675,6 @@
   "activity.all": "전체",
   "activity.unread": "읽지 않음",
   "js.act_open": "열기",
-  "js.contact_card": "명함"
+  "js.contact_card": "명함",
+  "js.copy_link": "링크"
 }

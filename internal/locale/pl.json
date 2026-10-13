@@ -675,5 +675,6 @@
   "activity.all": "Wszystko",
   "activity.unread": "Nieprzeczytane",
   "js.act_open": "Otwórz",
-  "js.contact_card": "Wizytówka"
+  "js.contact_card": "Wizytówka",
+  "js.copy_link": "Link"
 }

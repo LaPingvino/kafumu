@@ -675,5 +675,6 @@
   "activity.all": "Todo",
   "activity.unread": "Sin leer",
   "js.act_open": "Abrir",
-  "js.contact_card": "Tarjeta"
+  "js.contact_card": "Tarjeta",
+  "js.copy_link": "Enlace"
 }

@@ -675,5 +675,6 @@
   "activity.all": "Toate",
   "activity.unread": "Necitite",
   "js.act_open": "Deschide",
-  "js.contact_card": "Cartea"
+  "js.contact_card": "Cartea",
+  "js.copy_link": "Link"
 }

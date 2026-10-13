@@ -675,5 +675,6 @@
   "activity.all": "Tutto",
   "activity.unread": "Da leggere",
   "js.act_open": "Apri",
-  "js.contact_card": "Biglietto"
+  "js.contact_card": "Biglietto",
+  "js.copy_link": "Link"
 }

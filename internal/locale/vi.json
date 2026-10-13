@@ -675,5 +675,6 @@
   "activity.all": "Tất cả",
   "activity.unread": "Chưa đọc",
   "js.act_open": "Mở",
-  "js.contact_card": "Danh thiếp"
+  "js.contact_card": "Danh thiếp",
+  "js.copy_link": "Liên kết"
 }

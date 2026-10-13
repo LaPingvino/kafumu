@@ -675,5 +675,6 @@
   "activity.all": "Alles",
   "activity.unread": "Ongelezen",
   "js.act_open": "Openen",
-  "js.contact_card": "Kaartje"
+  "js.contact_card": "Kaartje",
+  "js.copy_link": "Link"
 }

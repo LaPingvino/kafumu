@@ -675,5 +675,6 @@
   "activity.all": "Mind",
   "activity.unread": "Olvasatlan",
   "js.act_open": "Megnyitás",
-  "js.contact_card": "Kártya"
+  "js.contact_card": "Kártya",
+  "js.copy_link": "Link"
 }

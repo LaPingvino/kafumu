@@ -675,5 +675,6 @@
   "activity.all": "Усі",
   "activity.unread": "Непрочитані",
   "js.act_open": "Відкрити",
-  "js.contact_card": "Картка"
+  "js.contact_card": "Картка",
+  "js.copy_link": "Посилання"
 }

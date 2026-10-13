@@ -675,5 +675,6 @@
   "activity.all": "Όλα",
   "activity.unread": "Αδιάβαστα",
   "js.act_open": "Άνοιγμα",
-  "js.contact_card": "Κάρτα"
+  "js.contact_card": "Κάρτα",
+  "js.copy_link": "Σύνδεσμος"
 }
