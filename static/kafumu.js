@@ -543,7 +543,23 @@
     return li;
   }
 
-  function showNews(items) {
+  // placeNames: the names of this area's places (its own and those around),
+  // folded for matching: news that mentions one is local news.
+  function fold(t) { return String(t || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); }
+  function placeNames(b) {
+    var out = {};
+    (b.places || []).forEach(function (pt) { if (pt.place && !pt.ambiguous) out[fold(pt.place)] = pt.place; });
+    if (b.near && b.near.name) out[fold(b.near.name)] = b.near.name;
+    Object.keys(out).forEach(function (k) { if (k.length < 4) delete out[k]; });
+    return out;
+  }
+  function localTo(names, text) {
+    var t = " " + fold(text).replace(/[^a-z0-9]+/g, " ") + " ";
+    for (var k in names) if (t.indexOf(" " + k.replace(/[^a-z0-9]+/g, " ") + " ") >= 0) return names[k];
+    return "";
+  }
+  function showNews(items, names) {
+    names = names || {};
     var list = sinks.news;
     list.textContent = "";
     var seen = {};
@@ -554,9 +570,11 @@
       li.className = "news";
       li.dataset.src = it.src || ""; li.dataset.host = it.host || "";
       var ageD = (Date.now() - new Date(it.at).getTime()) / 864e5;
-      li.dataset.score = BASE.news + Math.min(it.bits || 0, 24) / 12 - ageD * 0.4;
+      // Local first (Joop: the area's own news, not the EU pages of a local paper).
+      var here = localTo(names, it.title + " " + (it.text || ""));
+      li.dataset.score = BASE.news + Math.min(it.bits || 0, 24) / 12 - ageD * 0.4 + (here ? 3 : -1);
       var meta = document.createElement("div"); meta.className = "meta";
-      meta.textContent = "📰 " + it.host + (it.by ? " · " + tr("news_by", { name: "@" + it.by }) : "") + " · " + ago(it.at);
+      meta.textContent = (here ? "📍 " + here + " · " : "") + "📰 " + it.host + (it.by ? " · " + tr("news_by", { name: "@" + it.by }) : "") + " · " + ago(it.at);
       var a = document.createElement("a"); a.href = it.link; a.target = "_blank"; a.rel = "noopener"; a.className = "news-title";
       a.textContent = it.title + " ↗";
       var p = document.createElement("p"); p.className = "text";
@@ -1481,7 +1499,7 @@
         liveEvents = (b.events || []).filter(function (e) { return e.live; }).map(function (e) { return e.tag; });
         liveEventNames = (b.events || []).filter(function (e) { return e.live; }).map(function (e) { return e.name; });
         showNotes(b.notes || []);
-        showNews(b.news || []);
+        showNews(b.news || [], placeNames(b));
         showSuggest(b.suggest || []);
         showMeetups(b.meetups || [], b.events || []);
         travel.meetups = (b.meetups || []).length;
