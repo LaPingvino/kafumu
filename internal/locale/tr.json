@@ -655,5 +655,7 @@
   "account.name_hint": "İnsanlar seni böyle bulur ve anar: {host}/@ad. Kartındaki ad ayrıdır:",
   "area.calendar": "Takvim",
   "area.calendar_title": "Bu bölgenin buluşmaları takviminde",
-  "area.rss_title": "Bu bölgeyi bir akış okuyucuda veya sitende takip et"
+  "area.rss_title": "Bu bölgeyi bir akış okuyucuda veya sitende takip et",
+  "activity.chats": "Sohbetler",
+  "activity.recent": "Son"
 }

@@ -655,5 +655,7 @@
   "account.name_hint": "Takhle tě lidé najdou a zmíní, jako {host}/@jméno. Jméno na tvé kartě je zvlášť:",
   "area.calendar": "Kalendář",
   "area.calendar_title": "Setkání v této oblasti ve tvém kalendáři",
-  "area.rss_title": "Sleduj tuto oblast ve čtečce kanálů nebo na svém webu"
+  "area.rss_title": "Sleduj tuto oblast ve čtečce kanálů nebo na svém webu",
+  "activity.chats": "Chaty",
+  "activity.recent": "Nedávno"
 }

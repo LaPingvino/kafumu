@@ -2,6 +2,8 @@
 <h1>{{t .Lang "activity.title"}}</h1>
 <p class="dim">{{t .Lang "activity.explain"}}</p>
 <section id="answers" hidden><h2>🔒 {{t .Lang "js.answers_title"}}</h2><ul id="answers-list" class="boxed-list"></ul></section>
+<section id="chats" hidden><h2>💬 {{t .Lang "activity.chats"}}</h2><ul id="chats-list" class="boxed-list"></ul></section>
+<h2 id="recent-title" hidden>🔔 {{t .Lang "activity.recent"}}</h2>
 <p id="activity-empty" class="dim" hidden>{{t .Lang "activity.empty"}}</p>
 <ul id="activity" class="activity"></ul>
 <script>window.KAFUMU_T = {{.JS}};</script>

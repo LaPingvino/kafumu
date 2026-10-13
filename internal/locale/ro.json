@@ -655,5 +655,7 @@
   "account.name_hint": "Așa te găsesc și te menționează oamenii, ca {host}/@nume. Numele de pe cartea ta e separat:",
   "area.calendar": "Calendar",
   "area.calendar_title": "Întâlnirile din zonă în calendarul tău",
-  "area.rss_title": "Urmărește zona într-un cititor de fluxuri sau pe site-ul tău"
+  "area.rss_title": "Urmărește zona într-un cititor de fluxuri sau pe site-ul tău",
+  "activity.chats": "Conversații",
+  "activity.recent": "Recent"
 }

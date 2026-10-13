@@ -218,7 +218,10 @@ try {
   }
   // Tapping it opens that contact's chat, at the message.
   await A.evaluate("location.href = [...document.querySelectorAll('#activity li')].find(li => li.textContent.includes('👀')).querySelector('a').href; true");
-  await A.waitFor("(() => { const c = document.querySelector('#contacts li.flash .chat'); return c && !c.hidden && c.textContent.includes('kafumu-" + RUN + "'); })()", "Activity opened the contact's chat", 20000);
+  await A.waitFor("(() => { const c = document.querySelector('#chats-list li.flash .chat'); return c && !c.hidden && c.textContent.includes('kafumu-" + RUN + "'); })()", "the mailbox opened that chat, in place (83c)", 20000);
+  // And it answers from there, like on the contact card.
+  await A.evaluate("(() => { const f = document.querySelector('#chats-list li.flash .chat-form'); f.querySelector('input').value = 'From the mailbox " + RUN + "'; f.requestSubmit(); return true; })()");
+  await A.waitFor("[...document.querySelectorAll('#chats-list .bubble.me')].some(b => b.textContent === 'From the mailbox " + RUN + "')", "answered from the mailbox", 30000);
   // "Shall we go together?" (80b): such a line in A's chat offers Yes / Can't.
   await A.goto(base + "/contacts");
   await A.waitFor("!!document.querySelector('#contacts li.contact')", "contacts listed");

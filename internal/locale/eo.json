@@ -655,5 +655,7 @@
   "account.name_hint": "Tiel oni trovas kaj mencias vin, kiel {host}/@nomo. La nomo sur via karto estas aparta:",
   "area.calendar": "Kalendaro",
   "area.calendar_title": "La renkontiĝoj de ĉi tiu loko en via kalendaro",
-  "area.rss_title": "Sekvu ĉi tiun lokon en flulegilo aŭ en via retejo"
+  "area.rss_title": "Sekvu ĉi tiun lokon en flulegilo aŭ en via retejo",
+  "activity.chats": "Babiloj",
+  "activity.recent": "Lastatempe"
 }

@@ -655,5 +655,7 @@
   "account.name_hint": "Tak cię znajdują i oznaczają, jako {host}/@nazwa. Imię na twojej wizytówce ustawiasz osobno:",
   "area.calendar": "Kalendarz",
   "area.calendar_title": "Spotkania z tej okolicy w twoim kalendarzu",
-  "area.rss_title": "Śledź tę okolicę w czytniku kanałów lub na swojej stronie"
+  "area.rss_title": "Śledź tę okolicę w czytniku kanałów lub na swojej stronie",
+  "activity.chats": "Czaty",
+  "activity.recent": "Ostatnio"
 }

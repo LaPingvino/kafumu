@@ -655,5 +655,7 @@
   "account.name_hint": "Đây là cách mọi người tìm và nhắc đến bạn, như {host}/@tên. Tên trên thẻ của bạn là riêng:",
   "area.calendar": "Lịch",
   "area.calendar_title": "Các buổi gặp ở khu vực này trong lịch của bạn",
-  "area.rss_title": "Theo dõi khu vực này bằng trình đọc tin hoặc trên trang web của bạn"
+  "area.rss_title": "Theo dõi khu vực này bằng trình đọc tin hoặc trên trang web của bạn",
+  "activity.chats": "Trò chuyện",
+  "activity.recent": "Gần đây"
 }

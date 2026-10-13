@@ -655,5 +655,7 @@
   "account.name_hint": "Så hittar och nämner folk dig, som {host}/@namn. Namnet på ditt kort är separat:",
   "area.calendar": "Kalender",
   "area.calendar_title": "Områdets träffar i din kalender",
-  "area.rss_title": "Följ området i en flödesläsare eller på din webbplats"
+  "area.rss_title": "Följ området i en flödesläsare eller på din webbplats",
+  "activity.chats": "Chattar",
+  "activity.recent": "Senaste"
 }

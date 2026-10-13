@@ -655,5 +655,7 @@
   "account.name_hint": "Így találnak meg és említenek mások: {host}/@név. A kártyádon lévő név külön van:",
   "area.calendar": "Naptár",
   "area.calendar_title": "A környék találkozói a naptáradban",
-  "area.rss_title": "Kövesd a környéket hírolvasóban vagy a weboldaladon"
+  "area.rss_title": "Kövesd a környéket hírolvasóban vagy a weboldaladon",
+  "activity.chats": "Csevegések",
+  "activity.recent": "Legutóbb"
 }

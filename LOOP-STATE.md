@@ -1067,7 +1067,9 @@ your posts and meetups (Activity, 77) in one mailbox, and notifications that alw
 - [x] 83b. Done: private-answer threads (read + reply) moved to /activity (static/answers.js, polled every minute,
       #answer-<id> scrolls and focuses); the area keeps a "🔒 Private answers →" link with the new count. Was: The mailbox (grow /activity into it): threads by channel and person, newest first, unread marked;
       private answers move off the home page into it (a small "🔒 n new" link stays on the area).
-- [ ] 83c. Chats: each contact's messages as a mailbox thread (still opening the chat on the contact).
+- [x] 83c. Done: "💬 Chats" in the mailbox: contacts you've written with, newest first, last line, the same chat
+      (device.chatPanel, now shared with the contact card) to read and answer in place; the 10 newest are read on
+      open; Activity's message items open #chat-<id> there. "🔔 Recent" heads the rest. Was: Chats: each contact's messages as a mailbox thread (still opening the chat on the contact).
 - [ ] 83d. Notifications: every push names the sender/area and a line of context, and opens that thread.
 
 ## 82. Answer a newcomer's questions up front (Joop 2026-10-13, a friend's questions: "a local paper, then?",

@@ -655,5 +655,7 @@
   "account.name_hint": "So finden und erwähnen dich andere, als {host}/@name. Der Name auf deiner Karte ist davon getrennt:",
   "area.calendar": "Kalender",
   "area.calendar_title": "Die Treffen dieser Gegend in deinem Kalender",
-  "area.rss_title": "Folge dieser Gegend in einem Feedreader oder auf deiner Website"
+  "area.rss_title": "Folge dieser Gegend in einem Feedreader oder auf deiner Website",
+  "activity.chats": "Chats",
+  "activity.recent": "Neu"
 }

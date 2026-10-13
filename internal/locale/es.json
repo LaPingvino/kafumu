@@ -655,5 +655,7 @@
   "account.name_hint": "Así te encuentran y te mencionan, como {host}/@nombre. El nombre de tu tarjeta va aparte:",
   "area.calendar": "Calendario",
   "area.calendar_title": "Los encuentros de esta zona en tu calendario",
-  "area.rss_title": "Sigue esta zona en un lector de feeds o en tu web"
+  "area.rss_title": "Sigue esta zona en un lector de feeds o en tu web",
+  "activity.chats": "Chats",
+  "activity.recent": "Reciente"
 }

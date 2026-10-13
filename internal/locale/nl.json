@@ -655,5 +655,7 @@
   "account.name_hint": "Zo vinden en noemen mensen je, als {host}/@naam. De naam op je kaart staat los daarvan:",
   "area.calendar": "Agenda",
   "area.calendar_title": "De meetups van dit gebied in je agenda",
-  "area.rss_title": "Volg dit gebied in een feedlezer of op je website"
+  "area.rss_title": "Volg dit gebied in een feedlezer of op je website",
+  "activity.chats": "Chats",
+  "activity.recent": "Recent"
 }

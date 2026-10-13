@@ -655,5 +655,7 @@
   "account.name_hint": "C'est ainsi qu'on te trouve et te mentionne, en {host}/@nom. Le nom sur ta carte est à part :",
   "area.calendar": "Agenda",
   "area.calendar_title": "Les rencontres de ce coin dans ton agenda",
-  "area.rss_title": "Suis ce coin dans un lecteur de flux ou sur ton site"
+  "area.rss_title": "Suis ce coin dans un lecteur de flux ou sur ton site",
+  "activity.chats": "Discussions",
+  "activity.recent": "Récent"
 }

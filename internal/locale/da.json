@@ -655,5 +655,7 @@
   "account.name_hint": "Sådan finder og nævner folk dig, som {host}/@navn. Navnet på dit kort er separat:",
   "area.calendar": "Kalender",
   "area.calendar_title": "Områdets meetups i din kalender",
-  "area.rss_title": "Følg området i en feedlæser eller på din hjemmeside"
+  "area.rss_title": "Følg området i en feedlæser eller på din hjemmeside",
+  "activity.chats": "Chats",
+  "activity.recent": "Seneste"
 }

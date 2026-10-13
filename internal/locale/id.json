@@ -655,5 +655,7 @@
   "account.name_hint": "Begitulah orang menemukan dan menyebutmu, sebagai {host}/@nama. Nama di kartumu terpisah:",
   "area.calendar": "Kalender",
   "area.calendar_title": "Pertemuan di area ini di kalendermu",
-  "area.rss_title": "Ikuti area ini di pembaca feed atau di situsmu"
+  "area.rss_title": "Ikuti area ini di pembaca feed atau di situsmu",
+  "activity.chats": "Obrolan",
+  "activity.recent": "Terbaru"
 }

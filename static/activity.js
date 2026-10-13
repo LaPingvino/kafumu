@@ -119,7 +119,7 @@
           items.push({ id: "c:" + c.id, at: c.createdAt, icon: "🤝", who: name, text: tr("act_connected"), about: "", href: "/contacts#c-" + encodeURIComponent(c.id) });
         var last = (c.messages || []).filter(function (m) { return !m.me; }).slice(-1)[0];
         if (last) items.push({ id: "m:" + c.id + ":" + last.at, at: last.at, icon: "💬", who: name, text: last.text,
-          about: tr("act_message"), href: "/contacts#c-" + encodeURIComponent(c.id), hot: !!c.unreadMsgs });
+          about: tr("act_message"), href: "/activity#chat-" + encodeURIComponent(c.id), hot: !!c.unreadMsgs });
         var sig = (c.signals || [])[0];
         if (sig) items.push({ id: "s:" + c.id + ":" + sig.at, at: sig.at, icon: "📶", who: name, text: dev.signalText(sig, T),
           about: "", href: "/contacts#c-" + encodeURIComponent(c.id), hot: !!sig.unread });
@@ -187,6 +187,52 @@
     });
   }
 
+  // chats (83c): every contact you've written with, newest first, each
+  // with its chat (the same one as on the contact card) to read and answer.
+  function chats(sec, pair) {
+    var ul = sec.querySelector("ul"), linked = false;
+    function send(c, msg) {
+      if (msg.t === "msg" && window.kafumuOLN) return pair.sendChat(c, msg.text, function (text, kw, bits) { return window.kafumuOLN.post(text, kw, bits, function () {}); });
+      return pair.send(c, msg);
+    }
+    function check(c) { return pair.checkContact(c).then(function (got) { return pair.readChat(c).then(function (n) { return n ? got.concat([{ t: "msg" }]) : got; }); }); }
+    function draw() {
+      return dev.store.contacts().then(function (cs) {
+        cs = cs.filter(function (c) { return (c.messages || []).length; });
+        function lastAt(c) { return (c.messages.slice(-1)[0] || {}).at || ""; }
+        cs.sort(function (a, b) { return lastAt(b).localeCompare(lastAt(a)); });
+        sec.hidden = !cs.length;
+        ul.textContent = "";
+        cs.slice(0, 30).forEach(function (c) {
+          var li = document.createElement("li"); li.id = "chat-" + c.id;
+          var head = document.createElement("div");
+          var who = document.createElement("a"); who.href = "/contacts#c-" + encodeURIComponent(c.id);
+          who.textContent = (c.card && c.card.name) || c.alias || tr("inbox_anonymous");
+          var last = c.messages.slice(-1)[0], when = document.createElement("span"); when.className = "dim small";
+          when.textContent = " · " + new Date(last.at).toLocaleString(window.KAFUMU_LOCALE, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+          head.appendChild(who); head.appendChild(when);
+          var prev = document.createElement("p"); prev.className = "dim small";
+          prev.textContent = (last.me ? "→ " : "← ") + short(String(last.text).split("\n").filter(function (l) { return !/^https?:\/\/\S+$/.test(l.trim()); }).join(" · "), 120);
+          var chat = dev.chatPanel(c, T, { send: send, check: check });
+          chat.button.addEventListener("click", function () { prev.hidden = !chat.thread.hidden; });
+          li.appendChild(head); li.appendChild(prev); li.appendChild(chat.button); li.appendChild(chat.thread);
+          ul.appendChild(li);
+          if (!linked && decodeURIComponent(location.hash) === "#chat-" + c.id) {
+            linked = true;
+            setTimeout(function () { chat.open(); li.scrollIntoView({ block: "center", behavior: "smooth" }); li.classList.add("flash"); setTimeout(function () { li.classList.remove("flash"); }, 2500); }, 0);
+          }
+        });
+      });
+    }
+    window.addEventListener("hashchange", function () { linked = false; draw(); });
+    // Show what's stored at once, then read new lines of the ten most recent
+    // chats (one anonymous fetch each) and redraw if any came in.
+    return draw().then(function () { return dev.store.contacts(); }).then(function (cs) {
+      cs = cs.filter(function (c) { return (c.messages || []).length; }).sort(function (a, b) { return ((b.messages.slice(-1)[0] || {}).at || "").localeCompare((a.messages.slice(-1)[0] || {}).at || ""); }).slice(0, 10);
+      return Promise.all(cs.map(function (c) { return pair.readChat(c).catch(function () { return 0; }); }));
+    }).then(function (ns) { if (ns.some(Boolean) && !ul.querySelector(".chat:not([hidden])")) return draw(); });
+  }
+
   window.kafumuActivity = { gather: gather, count: count, badge: badge };
 
   var ul = document.getElementById("activity");
@@ -197,8 +243,10 @@
     if (aPair && window.kafumuAnswers && document.getElementById("answers"))
       fresh.then(function () { window.kafumuAnswers.mount(document.getElementById("answers"), aPair, function (t, kw, b) { return window.kafumuOLN.post(t, kw, b, function () {}); }); });
     if (aPair) aPair.pushSubscribe(false).catch(function () {}); // keep what wakes you up to date
+    if (aPair && dev.chatPanel && document.getElementById("chats")) fresh.then(function () { return chats(document.getElementById("chats"), aPair); }).catch(function () {});
     fresh.then(count).then(function (items) {
       render(ul, items);
+      document.getElementById("recent-title").hidden = !items.length;
       document.getElementById("activity-empty").hidden = items.length > 0;
       return markSeen(items).then(function () { badge(items.filter(function (i) { return i.hot; }).length); });
     }).catch(function () { document.getElementById("activity-empty").hidden = false; });

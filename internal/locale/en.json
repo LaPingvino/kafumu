@@ -655,5 +655,7 @@
   "account.name_hint": "How people find and mention you, as {host}/@name. The name on your card is separate:",
   "area.calendar": "Calendar",
   "area.calendar_title": "This area's meetups in your calendar",
-  "area.rss_title": "Follow this area in a feed reader or on your website"
+  "area.rss_title": "Follow this area in a feed reader or on your website",
+  "activity.chats": "Chats",
+  "activity.recent": "Recent"
 }

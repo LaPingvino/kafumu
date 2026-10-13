@@ -199,6 +199,95 @@
   // connected, if nothing ever did).
   function quietDays(c) { return Math.floor((Date.now() - new Date(c.lastHeard || c.createdAt || Date.now())) / 864e5); }
 
+  // chatPanel: a contact's chat, end-to-end encrypted over the pair's
+  // mailbox and stored in the contact (synced to your own devices). Shown on
+  // the contact card and in the mailbox (83c): {button, thread, open}.
+  function chatPanel(c, T, opts) {
+    var unread = c.unreadMsgs || 0;
+    var chatBtn = el("button", "pill-sm" + (unread ? " suggested" : ""), "💬 " + (T.chat || "Chat") + (unread ? " (" + unread + ")" : ""));
+    chatBtn.type = "button";
+    var thread = el("div", "chat");
+    thread.hidden = true;
+    // "🤝 Shall we go together?" with a meetup link (80b): answer in one tap.
+    function togetherRow(m) {
+      var link = !m.me && !m.answered && /^🤝/.test(m.text) && (String(m.text).match(/https?:\/\/\S+\/meetups\/\S+/) || [])[0];
+      if (!link) return null;
+      var row = el("div", "actions");
+      var yes = el("button", "pill-sm suggested", T.together_yes || "Yes, let's go!"), no = el("button", "pill-sm", T.together_no || "Can't make it");
+      yes.type = no.type = "button";
+      function answer(text, then) {
+        yes.disabled = no.disabled = true;
+        sendLine(text).then(function () { m.answered = true; return store.putContact(c); }).then(function () { drawThread(); if (then) then(); }, function () { yes.disabled = no.disabled = false; });
+      }
+      yes.onclick = function () { answer("✅ " + yes.textContent, function () { location.href = link; }); }; // they say "I'm going" there
+      no.onclick = function () { answer("🙁 " + no.textContent); };
+      row.appendChild(yes); row.appendChild(no);
+      return row;
+    }
+    function drawThread() {
+      var log = thread.querySelector(".chat-log") || thread.appendChild(el("div", "chat-log"));
+      log.textContent = "";
+      (c.messages || []).forEach(function (m) {
+        var b = el("div", "bubble" + (m.me ? " me" : ""), "");
+        // Links in a line open (a "👀 Did you see this?" carries one).
+        String(m.text).split(/(https?:\/\/[^\s<>"]+)/).forEach(function (part, i) {
+          if (i % 2) { // shown short: "kafumu.com/meetups/abc ↗"
+            var a = el("a", "", part.replace(/^https?:\/\//, "").replace(/\/$/, "").slice(0, 40) + " ↗");
+            a.href = part; a.rel = "noopener nofollow"; a.target = "_blank"; b.appendChild(a);
+          }
+          else if (part) b.appendChild(document.createTextNode(part));
+        });
+        b.title = new Date(m.at).toLocaleString(window.KAFUMU_LOCALE);
+        log.appendChild(b);
+        var tg = togetherRow(m);
+        if (tg) log.appendChild(tg);
+      });
+      if (!(c.messages || []).length) log.appendChild(el("p", "dim small", T.chat_empty || "No messages yet."));
+      log.scrollTop = log.scrollHeight;
+    }
+    var form = el("form", "chat-form");
+    var input = el("input");
+    input.placeholder = T.chat_placeholder || "Message";
+    input.maxLength = 500;
+    var sendBtn = el("button", "pill-sm suggested", T.chat_send || "Send");
+    sendBtn.type = "submit";
+    form.appendChild(input); form.appendChild(sendBtn);
+    function sendLine(text) {
+      var msg = { t: "msg", text: text, at: new Date().toISOString() };
+      return opts.send(c, msg).then(function () {
+        c.messages = (c.messages || []).concat([{ me: true, text: text, at: msg.at }]).slice(-200);
+        return store.putContact(c);
+      });
+    }
+    form.onsubmit = function (e) {
+      e.preventDefault();
+      var text = input.value.trim();
+      if (!text) return;
+      sendBtn.disabled = true;
+      sendLine(text).then(function () { input.value = ""; }).then(drawThread, function () { input.placeholder = T.network_retry || "Try again"; })
+        .then(function () { sendBtn.disabled = false; input.focus(); });
+    };
+    var closeChat = el("button", "pill-sm close-chat", "✕"); // the open chat says how to close it
+    closeChat.type = "button"; closeChat.setAttribute("aria-label", T.close || "Close"); closeChat.title = T.close || "Close";
+    closeChat.onclick = function () { thread.hidden = true; };
+    thread.insertBefore(closeChat, thread.firstChild);
+    chatBtn.onclick = function () {
+      thread.hidden = !thread.hidden;
+      if (thread.hidden) return;
+      if (!thread.contains(form)) thread.appendChild(form);
+      drawThread();
+      if (c.unreadMsgs) { c.unreadMsgs = 0; store.putContact(c); chatBtn.textContent = "💬 " + (T.chat || "Chat"); chatBtn.classList.remove("suggested"); }
+      input.focus();
+      // While open, look for replies every few seconds.
+      (function poll() {
+        if (thread.hidden || !document.body.contains(thread) || !opts.check) return;
+        opts.check(c).then(function (got) { if (got && got.length) { c.unreadMsgs = 0; store.putContact(c); drawThread(); } })
+          .catch(function () {}).then(function () { setTimeout(poll, 4000); });
+      })();
+    };
+    return { button: chatBtn, thread: thread, open: function () { if (thread.hidden) chatBtn.click(); } };
+  }
+
   // renderContact draws one contact: name, one-liner, one-tap links and a
   // private note saved on change. opts.onDelete adds a remove button.
   function renderContact(c, T, opts) {
@@ -280,93 +369,10 @@
       };
       li.appendChild(give);
     }
-    // Chat: end-to-end encrypted over the pair's mailbox, stored in the
-    // contact (synced to your own devices).
     if (opts.send && !opts.preview) {
-      var unread = c.unreadMsgs || 0;
-      var chatBtn = el("button", "pill-sm" + (unread ? " suggested" : ""), "💬 " + (T.chat || "Chat") + (unread ? " (" + unread + ")" : ""));
-      chatBtn.type = "button";
-      var thread = el("div", "chat");
-      thread.hidden = true;
-      // "🤝 Shall we go together?" with a meetup link (80b): answer in one tap.
-      function togetherRow(m) {
-        var link = !m.me && !m.answered && /^🤝/.test(m.text) && (String(m.text).match(/https?:\/\/\S+\/meetups\/\S+/) || [])[0];
-        if (!link) return null;
-        var row = el("div", "actions");
-        var yes = el("button", "pill-sm suggested", T.together_yes || "Yes, let's go!"), no = el("button", "pill-sm", T.together_no || "Can't make it");
-        yes.type = no.type = "button";
-        function answer(text, then) {
-          yes.disabled = no.disabled = true;
-          sendLine(text).then(function () { m.answered = true; return store.putContact(c); }).then(function () { drawThread(); if (then) then(); }, function () { yes.disabled = no.disabled = false; });
-        }
-        yes.onclick = function () { answer("✅ " + yes.textContent, function () { location.href = link; }); }; // they say "I'm going" there
-        no.onclick = function () { answer("🙁 " + no.textContent); };
-        row.appendChild(yes); row.appendChild(no);
-        return row;
-      }
-      function drawThread() {
-        var log = thread.querySelector(".chat-log") || thread.appendChild(el("div", "chat-log"));
-        log.textContent = "";
-        (c.messages || []).forEach(function (m) {
-          var b = el("div", "bubble" + (m.me ? " me" : ""), "");
-          // Links in a line open (a "👀 Did you see this?" carries one).
-          String(m.text).split(/(https?:\/\/[^\s<>"]+)/).forEach(function (part, i) {
-            if (i % 2) { // shown short: "kafumu.com/meetups/abc ↗"
-              var a = el("a", "", part.replace(/^https?:\/\//, "").replace(/\/$/, "").slice(0, 40) + " ↗");
-              a.href = part; a.rel = "noopener nofollow"; a.target = "_blank"; b.appendChild(a);
-            }
-            else if (part) b.appendChild(document.createTextNode(part));
-          });
-          b.title = new Date(m.at).toLocaleString(window.KAFUMU_LOCALE);
-          log.appendChild(b);
-          var tg = togetherRow(m);
-          if (tg) log.appendChild(tg);
-        });
-        if (!(c.messages || []).length) log.appendChild(el("p", "dim small", T.chat_empty || "No messages yet."));
-        log.scrollTop = log.scrollHeight;
-      }
-      var form = el("form", "chat-form");
-      var input = el("input");
-      input.placeholder = T.chat_placeholder || "Message";
-      input.maxLength = 500;
-      var sendBtn = el("button", "pill-sm suggested", T.chat_send || "Send");
-      sendBtn.type = "submit";
-      form.appendChild(input); form.appendChild(sendBtn);
-      function sendLine(text) {
-        var msg = { t: "msg", text: text, at: new Date().toISOString() };
-        return opts.send(c, msg).then(function () {
-          c.messages = (c.messages || []).concat([{ me: true, text: text, at: msg.at }]).slice(-200);
-          return store.putContact(c);
-        });
-      }
-      form.onsubmit = function (e) {
-        e.preventDefault();
-        var text = input.value.trim();
-        if (!text) return;
-        sendBtn.disabled = true;
-        sendLine(text).then(function () { input.value = ""; }).then(drawThread, function () { input.placeholder = T.network_retry || "Try again"; })
-          .then(function () { sendBtn.disabled = false; input.focus(); });
-      };
-      var closeChat = el("button", "pill-sm close-chat", "✕"); // the open chat says how to close it
-      closeChat.type = "button"; closeChat.setAttribute("aria-label", T.close || "Close"); closeChat.title = T.close || "Close";
-      closeChat.onclick = function () { thread.hidden = true; };
-      thread.insertBefore(closeChat, thread.firstChild);
-      chatBtn.onclick = function () {
-        thread.hidden = !thread.hidden;
-        if (thread.hidden) return;
-        if (!thread.contains(form)) thread.appendChild(form);
-        drawThread();
-        if (c.unreadMsgs) { c.unreadMsgs = 0; store.putContact(c); chatBtn.textContent = "💬 " + (T.chat || "Chat"); chatBtn.classList.remove("suggested"); }
-        input.focus();
-        // While open, look for replies every few seconds.
-        (function poll() {
-          if (thread.hidden || !document.body.contains(thread) || !opts.check) return;
-          opts.check(c).then(function (got) { if (got && got.length) { c.unreadMsgs = 0; store.putContact(c); drawThread(); } })
-            .catch(function () {}).then(function () { setTimeout(poll, 4000); });
-        })();
-      };
-      li.appendChild(chatBtn);
-      li.appendChild(thread);
+      var chat = chatPanel(c, T, opts);
+      li.appendChild(chat.button);
+      li.appendChild(chat.thread);
     }
     if (opts.duplicateOf) {
       var dup = el("p", "dim small", (T.dup_hint || "Same person as another contact?") + " ");
@@ -757,7 +763,7 @@
   if (typeof document !== "undefined") setTimeout(suggestAccount, 1500);
   else if (typeof document !== "undefined") document.addEventListener("DOMContentLoaded", function () { if (signedIn()) sync(); });
 
-  window.kafumuDevice = { bizKey: bizKey, actingSync: actingSync,  signalText: signalText, store: store, FIELDS: FIELDS, links: links, renderContact: renderContact, personas: personas,
+  window.kafumuDevice = { bizKey: bizKey, actingSync: actingSync,  signalText: signalText, store: store, FIELDS: FIELDS, links: links, renderContact: renderContact, chatPanel: chatPanel, personas: personas,
     vcards: vcards, backup: backup, restore: restore, download: download, sync: sync, quietDays: quietDays,
     // chips: your filter-chip row ({pinned: [...], hidden: [...], at}); a
     // localStorage mirror lets Around draw it without waiting.
