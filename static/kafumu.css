@@ -413,3 +413,5 @@ body.chat-fullpage .chat-window.chat-page .chat-log { overscroll-behavior: conta
 .switcher a.bell { position: relative; line-height: normal; }
 .switcher a.bell .bell-n { position: absolute; top: 0; left: calc(50% + 4px); background: #c01c28; color: #fff; border-radius: 999px; font-size: .62rem; padding: 0 5px; line-height: 1.5; }
 .switcher.top a.bell .bell-n { left: auto; right: 2px; top: -2px; }
+.subnav { margin: 4px 0 8px; }
+.subnav a.chip { text-decoration: none; }

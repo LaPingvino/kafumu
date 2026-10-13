@@ -1251,8 +1251,10 @@ Around · Chats (mailbox + Contacts, 🔔 folded in) · Connect (your code + My 
       there for now); tours find the first visible match (tabs are in the page twice). 24 languages.
       Was: Chats: /contacts and /activity become one page (the chat list with a Contacts filter, contact cards
       reachable from it, backup/sync tools on it); the 🔔 in the header goes, its count moves to the Chats tab.
-- [ ] 89b. Connect: your code and your card on one page (card editor under the code, the share picker between).
-- [ ] 89c. Me: Account and Findable as sections of one page; the tab shows your @name / business as now.
+- [x] 89b. Done (as one tab): My card's tab merged into Connect; a "📷 My code · 🪪 My card" switch on both pages.
+      Was: Connect: your code and your card on one page (card editor under the code, the share picker between).
+- [x] 89c. Done (as one tab): Findable's tab merged into Me (your @name / Sign in); "👤 Account · 👁 Findable" switch.
+      Tabs now: Around · Chats · Connect · Me. Tour text about the tabs rewritten, 24 languages. Was: Me: Account and Findable as sections of one page; the tab shows your @name / business as now.
 - [ ] 89d. Old addresses keep working (redirects), tours and help bars follow, 390 px check, 24 languages.
 
 ## 85. Every conversation as a chat (Joop 2026-10-13)

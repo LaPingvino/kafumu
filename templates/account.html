@@ -1,4 +1,5 @@
 {{template "head" .}}
+{{template "subnav" .}}
 <article>
   <h1>{{if .Findable}}{{t .Lang "profile.title"}}{{else}}{{t .Lang "account.title"}}{{end}}</h1>
   {{if .Error}}<p role="alert" class="error">{{.Error}}</p>{{end}}

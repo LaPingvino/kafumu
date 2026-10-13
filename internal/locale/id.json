@@ -503,7 +503,7 @@
   "js.tour_chips": "Persempit yang kamu lihat: acara, bahasa, topik. Ketuk + untuk menambahkan milikmu; ✎ untuk merapikan barisnya.",
   "js.tour_feed": "Semua yang ada di sekitar dalam satu daftar, terdekat dulu: kontakmu, pesan lokal, pertemuan, orang, dan postingan. Di tempat yang sepi, jangkauannya lebih jauh. Ketuk satu jenis untuk melihat itu saja.",
   "js.tour_change": "Melihat tempat lain, atau sedang bepergian? Ganti area di sini.",
-  "js.tour_tabs": "Terhubung: tunjukkan kodemu atau pindai kode orang lain. Kontak: semua orang yang kamu temui, disimpan di ponselmu. Kartuku: yang kamu bagikan. Terlihat: biarkan orang di dekatmu menemukanmu.",
+  "js.tour_tabs": "Hubungkan: tunjukkan kodemu atau pindai milik orang, dan kartumu: yang kamu berikan. Obrolan: setiap percakapan. Aku: akunmu, dan apakah orang dekat bisa menemukanmu.",
   "js.event_found": "sedang berlangsung di sekitar sini ({n} pertemuan dan pesan).",
   "js.say_with": "Katakan sesuatu dengan {tag}",
   "js.also_bsky": "Juga di Bluesky",
@@ -762,5 +762,6 @@
   "js.source_add_other": "Area lain…",
   "js.source_where": "Area mana? Kode #geo, plus code, atau lat,lon",
   "js.source_there": "Sudah ada",
-  "nav.chats": "Obrolan"
+  "nav.chats": "Obrolan",
+  "nav.my_code": "Kodeku"
 }

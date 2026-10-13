@@ -503,7 +503,7 @@
   "js.tour_chips": "Gördüklerini daralt: bir etkinlik, bir dil, bir konu. Kendininkini eklemek için +'ya, satırı düzenlemek için ✎'ye dokun.",
   "js.tour_feed": "Yakındaki her şey tek bir listede, en yakını önce: kişilerin, yerel mesajlar, buluşmalar, insanlar ve gönderiler. Sakin yerlerde daha uzağa uzanır. Yalnızca birini görmek için bir türe dokun.",
   "js.tour_change": "Başka bir yere mi bakıyorsun, yoksa seyahatte misin? Bölgeyi buradan değiştir.",
-  "js.tour_tabs": "Bağlan: kodunu göster ya da birininkini tara. Kişiler: tanıştığın herkes, telefonunda saklanır. Kartım: paylaştıkların. Görünür: yakındakilerin seni bulmasına izin ver.",
+  "js.tour_tabs": "Bağlan: kodunu göster ya da birininkini tara, ve kartın: verdiklerin. Sohbetler: her konuşma. Ben: hesabın ve yakındakilerin seni bulup bulamayacağı.",
   "js.event_found": "burada oluyor (buluşma ve mesaj: {n}).",
   "js.say_with": "{tag} ile bir şey söyle",
   "js.also_bsky": "Bluesky'da da",
@@ -762,5 +762,6 @@
   "js.source_add_other": "Başka bölge…",
   "js.source_where": "Hangi bölge? #geo kodu, plus code veya enlem,boylam",
   "js.source_there": "Zaten orada",
-  "nav.chats": "Sohbetler"
+  "nav.chats": "Sohbetler",
+  "nav.my_code": "Kodum"
 }

@@ -503,7 +503,7 @@
   "js.tour_chips": "Filtra lo que ves: un evento, un idioma, un tema. Toca + para añadir el tuyo; ✎ para ordenar la fila.",
   "js.tour_feed": "Todo lo que hay cerca en una sola lista, de lo más cercano a lo más lejano: tus contactos, mensajes locales, encuentros, personas y publicaciones. Donde hay poco movimiento, llega más lejos. Toca un tipo para ver solo ese.",
   "js.tour_change": "¿Miras otro sitio o estás de viaje? Cambia la zona aquí.",
-  "js.tour_tabs": "Conectar: muestra tu código o escanea el de alguien. Contactos: todas las personas que conociste, guardadas en tu móvil. Mi tarjeta: lo que compartes. Visible: deja que la gente cerca te encuentre.",
+  "js.tour_tabs": "Conectar: enseña tu código o escanea otro, y tu tarjeta: lo que entregas. Chats: cada conversación. Yo: tu cuenta, y si la gente cercana puede encontrarte.",
   "js.event_found": "está pasando por aquí ({n} encuentros y mensajes).",
   "js.say_with": "Decir algo con {tag}",
   "js.also_bsky": "También en Bluesky",
@@ -762,5 +762,6 @@
   "js.source_add_other": "Otra zona…",
   "js.source_where": "¿Qué zona? Un código #geo, plus code o lat,lon",
   "js.source_there": "Ya está",
-  "nav.chats": "Chats"
+  "nav.chats": "Chats",
+  "nav.my_code": "Mi código"
 }

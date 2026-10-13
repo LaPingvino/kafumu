@@ -503,7 +503,7 @@
   "js.tour_chips": "Malvastigu tion, kion vi vidas: evento, lingvo, temo. Tuŝetu + por aldoni vian propran; ✎ por ordigi la vicon.",
   "js.tour_feed": "Ĉio ĉi-ĉirkaŭe en unu listo, plej proksima unue: viaj kontaktoj, lokaj mesaĝoj, renkontiĝoj, homoj kaj afiŝoj. Kie estas trankvile, ĝi atingas pli malproksimen. Tuŝu specon por vidi nur tiun.",
   "js.tour_change": "Ĉu vi rigardas alian lokon, aŭ vojaĝas? Ŝanĝu la areon ĉi tie.",
-  "js.tour_tabs": "Konektiĝi: montru vian kodon aŭ skanu ies alian. Kontaktoj: ĉiuj, kiujn vi renkontis, konservitaj en via telefono. Mia karto: tio, kion vi kundividas. Trovebla: lasu homojn ĉirkaŭe trovi vin.",
+  "js.tour_tabs": "Konekti: montru vian kodon aŭ skanu alies, kaj vian karton: kion vi donas. Babiloj: ĉiu konversacio. Mi: via konto, kaj ĉu proksimaj homoj povas trovi vin.",
   "js.event_found": "okazas ĉi-ĉirkaŭe ({n} renkontiĝoj kaj mesaĝoj).",
   "js.say_with": "Diri ion kun {tag}",
   "js.also_bsky": "Ankaŭ ĉe Bluesky",
@@ -762,5 +762,6 @@
   "js.source_add_other": "Alia loko…",
   "js.source_where": "Kiu loko? #geo-kodo, plus-kodo aŭ lat,lon",
   "js.source_there": "Jam tie",
-  "nav.chats": "Babiloj"
+  "nav.chats": "Babiloj",
+  "nav.my_code": "Mia kodo"
 }

@@ -1,4 +1,5 @@
 {{template "head" .}}
+{{template "subnav" .}}
 <article>
   <h1>{{t .Lang "card.title"}}</h1>
   {{if .User}}<p id="sync-on" class="dim small" hidden>🔄 {{if not .Acting}}{{t .Lang "sync.on"}} {{end}}<button type="button" id="sync-now" class="pill-sm">{{t .Lang "sync.now"}}</button></p>{{end}}

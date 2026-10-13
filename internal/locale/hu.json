@@ -503,7 +503,7 @@
   "js.tour_chips": "Szűkítsd, amit látsz: esemény, nyelv, téma. Koppints a + jelre a sajátod hozzáadásához; a ✎ jellel rendezheted a sort.",
   "js.tour_feed": "Minden a közelben egy listában, a legközelebbi elöl: a kapcsolataid, helyi üzenetek, találkozók, emberek és posztok. Ahol csend van, messzebbre nyúlik. Koppints egy fajtára, hogy csak azt lásd.",
   "js.tour_change": "Máshová nézel, vagy utazol? Itt módosíthatod a területet.",
-  "js.tour_tabs": "Kapcsolódás: mutasd meg a kódodat, vagy olvasd be valaki másét. Kapcsolatok: mindenki, akivel találkoztál, a telefonodon tárolva. Névjegyem: amit megosztasz. Látható: hadd találjanak meg a közelben lévők.",
+  "js.tour_tabs": "Kapcsolódás: mutasd a kódod vagy olvass be egyet, és a kártyád: amit átadsz. Csevegések: minden beszélgetés. Én: a fiókod, és hogy megtalálhatnak-e a közelben.",
   "js.event_found": "zajlik a környéken (találkozók és üzenetek: {n}).",
   "js.say_with": "Mondj valamit ezzel: {tag}",
   "js.also_bsky": "Bluesky-on is",
@@ -762,5 +762,6 @@
   "js.source_add_other": "Másik környék…",
   "js.source_where": "Melyik környék? #geo kód, plus code vagy lat,lon",
   "js.source_there": "Már ott van",
-  "nav.chats": "Csevegések"
+  "nav.chats": "Csevegések",
+  "nav.my_code": "Kódom"
 }

@@ -57,12 +57,19 @@
 
 {{define "tabs"}}
       <a href="/"{{if eq .Tab "around"}} aria-current="page"{{end}}><svg><use href="#i-around"/></svg><span>{{t .Lang "nav.around"}}</span></a>
-      <a href="/connect"{{if eq .Tab "connect"}} aria-current="page"{{end}}><svg><use href="#i-connect"/></svg><span>{{t .Lang "nav.connect"}}</span></a>
       <a href="/activity" class="bell"{{if or (eq .Tab "activity") (eq .Tab "contacts")}} aria-current="page"{{end}}><svg><use href="#i-chats"/></svg><span>{{t .Lang "nav.chats"}}</span><b class="bell-n" hidden></b></a>
-      <a href="/card"{{if eq .Tab "card"}} aria-current="page"{{end}}><svg><use href="#i-card"/></svg><span>{{t .Lang "nav.card"}}</span></a>
-      <a href="/findable"{{if eq .Tab "findable"}} aria-current="page"{{end}}><svg><use href="#i-findable"/></svg><span>{{t .Lang "nav.findable"}}</span></a>
-      <a href="/account"{{if eq .Tab "account"}} aria-current="page"{{end}}{{if .Acting}} class="acting"{{end}}><svg><use href="#i-user"/></svg><span>{{if .Acting}}<svg class="wings{{if not (.Acting.Live .Now)}} off{{end}}"><use href="#i-wings"/></svg> {{.Acting.Name}}{{else if .User}}{{if .User.Username}}{{if .User.Patron .Now}}<svg class="wings"><use href="#i-wings"/></svg> {{end}}@{{.User.Username}}{{else}}{{t .Lang "nav.account"}}{{end}}{{else}}{{t .Lang "nav.signin"}}{{end}}</span></a>
+      <a href="/connect"{{if or (eq .Tab "connect") (eq .Tab "card")}} aria-current="page"{{end}}><svg><use href="#i-connect"/></svg><span>{{t .Lang "nav.connect"}}</span></a>
+      <a href="/account"{{if or (eq .Tab "account") (eq .Tab "findable")}} aria-current="page"{{end}}{{if .Acting}} class="acting"{{end}}><svg><use href="#i-user"/></svg><span>{{if .Acting}}<svg class="wings{{if not (.Acting.Live .Now)}} off{{end}}"><use href="#i-wings"/></svg> {{.Acting.Name}}{{else if .User}}{{if .User.Username}}{{if .User.Patron .Now}}<svg class="wings"><use href="#i-wings"/></svg> {{end}}@{{.User.Username}}{{else}}{{t .Lang "nav.account"}}{{end}}{{else}}{{t .Lang "nav.signin"}}{{end}}</span></a>
 {{end}}
+
+{{/* Two pages under one tab (89b, 89c): a small switch between them. */}}
+{{define "subnav"}}{{if or (eq .Tab "connect") (eq .Tab "card")}}<nav class="chips subnav" aria-label="{{ts .Lang "nav.connect"}}">
+  <a href="/connect" class="chip{{if eq .Tab "connect"}} on{{end}}"{{if eq .Tab "connect"}} aria-current="page"{{end}}>📷 {{t .Lang "nav.my_code"}}</a>
+  <a href="/card" class="chip{{if eq .Tab "card"}} on{{end}}"{{if eq .Tab "card"}} aria-current="page"{{end}}>🪪 {{t .Lang "nav.card"}}</a></nav>
+{{else if or (eq .Tab "account") (eq .Tab "findable")}}<nav class="chips subnav" aria-label="{{ts .Lang "nav.account"}}">
+  <a href="/account" class="chip{{if eq .Tab "account"}} on{{end}}"{{if eq .Tab "account"}} aria-current="page"{{end}}>👤 {{t .Lang "nav.account"}}</a>
+  <a href="/findable" class="chip{{if eq .Tab "findable"}} on{{end}}"{{if eq .Tab "findable"}} aria-current="page"{{end}}>👁 {{t .Lang "nav.findable"}}</a></nav>
+{{end}}{{end}}
 
 {{define "foot"}}
   </main>
