@@ -48,7 +48,7 @@
   if (steps && document.getElementById("tour-start")) {
     var box, at = -1;
     var tourText = function (k) { return T[k] || k; };
-    var shown = function () { return steps.filter(function (s) { var e = document.querySelector(s[0]); return e && !e.hidden && e.offsetParent !== null; }); };
+    var shown = function () { return steps.filter(function (s) { var e = document.querySelector(s[0]); return e && !e.hidden && e.getClientRects().length > 0; }); /* offsetParent is null for fixed elements (the tab bar) */ };
     var go = function (i) {
       var old = document.querySelector(".tour-focus");
       if (old) old.classList.remove("tour-focus");

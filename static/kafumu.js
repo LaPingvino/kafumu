@@ -622,7 +622,7 @@
   function tourShow(i) {
     var old = document.querySelector(".tour-focus");
     if (old) old.classList.remove("tour-focus");
-    var steps = TOUR.filter(function (s) { var e = document.querySelector(s[0]); return e && !e.hidden && e.offsetParent !== null; });
+    var steps = TOUR.filter(function (s) { var e = document.querySelector(s[0]); return e && !e.hidden && e.getClientRects().length > 0; }); /* offsetParent is null for fixed elements (the tab bar) */
     if (i < 0 || i >= steps.length) { $("tour").hidden = true; tourAt = -1; pref("kafumu.tourSeen", "1"); return; }
     tourAt = i;
     var el = document.querySelector(steps[i][0]);
