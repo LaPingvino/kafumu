@@ -34,6 +34,9 @@ func (s *Service) HandlePost(w http.ResponseWriter, r *http.Request) {
 			out["need"] = ne.Need
 		}
 		json.NewEncoder(w).Encode(out)
+	case errors.Is(err, ErrSource), errors.Is(err, ErrSourceCap):
+		w.WriteHeader(http.StatusForbidden)
+		json.NewEncoder(w).Encode(map[string]any{"error": err.Error()})
 	case errors.Is(err, ErrRepeat):
 		w.WriteHeader(http.StatusConflict)
 		json.NewEncoder(w).Encode(map[string]any{"error": err.Error()})

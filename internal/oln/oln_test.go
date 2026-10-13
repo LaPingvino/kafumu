@@ -470,3 +470,45 @@ func TestGeneral(t *testing.T) {
 		t.Fatalf("handler: %d %s", w.Code, w.Body)
 	}
 }
+
+// A source (81c) is a line with a link and #feed: only a named account with
+// a passkey (SourceOK) adds one, always in an area, at most MaxSources live.
+func TestSources(t *testing.T) {
+	s := NewService(NewMemoryStore())
+	now := time.Now().UTC()
+	ok := true
+	s.SourceOK = func(*http.Request) bool { return ok }
+	ctx := withReq(httptest.NewRequest("POST", "/api/oln", nil))
+	src := func(i int, kw string) string {
+		return mine(s.RequiredFor(ctx, "8ccgmw"), now, fmt.Sprintf("📰 Stadskrant https://krant.example/rss/%d", i), kw) // the area gets busier
+	}
+	if _, err := s.PostAs(ctx, src(0, "#geo8ccgmw #feed"), ""); err != ErrSource {
+		t.Fatalf("anonymous source: %v", err)
+	}
+	if _, err := s.PostAs(ctx, mine(BaseBits, now, "📰 no link here", "#geo8ccgmw #feed"), "joop"); err != ErrSource {
+		t.Fatalf("source without a link: %v", err)
+	}
+	if _, err := s.PostAs(ctx, src(1, "#feed #lokaj"), "joop"); err != ErrSource && err != ErrPlace {
+		t.Fatalf("source without an area: %v", err)
+	}
+	ok = false
+	if _, err := s.PostAs(ctx, src(2, "#geo8ccgmw #feed"), "joop"); err != ErrSource {
+		t.Fatalf("source without a passkey: %v", err)
+	}
+	ok = true
+	n, err := s.PostAs(ctx, src(3, "#geo8ccgmw #feed"), "joop")
+	if err != nil || n.Src != "joop" || !IsSource(n) {
+		t.Fatalf("source = %+v, %v", n, err)
+	}
+	for i := 4; i < 3+MaxSources; i++ {
+		if _, err := s.PostAs(ctx, src(i, "#geo8ccgmw #feed"), "joop"); err != nil {
+			t.Fatalf("source %d: %v", i, err)
+		}
+	}
+	if _, err := s.PostAs(ctx, src(99, "#geo8ccgmw #feed"), "joop"); err != ErrSourceCap {
+		t.Fatalf("source over the cap: %v", err)
+	}
+	if plain, err := s.PostAs(ctx, mine(s.RequiredFor(ctx, "8ccgmw"), now, "just a line https://x.example", "#geo8ccgmw"), "joop"); err != nil || plain.Src != "" {
+		t.Fatalf("a line with a link but no #feed is no source: %+v %v", plain, err)
+	}
+}

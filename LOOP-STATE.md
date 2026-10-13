@@ -1098,10 +1098,17 @@ only for areas people actually look at. Each slice passes one test: does the are
       check after DNS, redirects ≤ 4, http(s) only, 12 s, 3 MB); added carrier-grade NAT 100.64/10. Was: In, parsing: importer.ParseFeed (RSS 2.0 + Atom: title, link, date, guid), tests. Fetching
       user-supplied URLs needs an SSRF-safe client (http/https only, no loopback/private/link-local/metadata
       addresses after DNS, also on redirects; timeout, body cap) — importer.Get has none of that yet.
-- [ ] 81c. A source is an OLN line in the area with the URL and `#feed` (no new entity, rule 5): the server
+- [x] 81c. Server half done: a line tagged #feed with a link is a source; PostAs refuses it (403, ErrSource) unless
+      posted under a name by a named account with a passkey (Service.SourceOK) in an area (never 000000); Note.Src
+      (indexed) names the adder; ≤ MaxSources (20) live per account (ErrSourceCap). All three stores (Datastore,
+      memory, SQLite via json). Test: TestSources. Was: A source is an OLN line in the area with the URL and `#feed` (no new entity, rule 5): the server
       accepts `#feed` only from a signed-in named account with a passkey, a loose cap per account (20 live; a
       degree of spam is wanted, Joop: the value sorts it, not the gate), cell required (never 000000). "📰 Add a source for this area" in the composer; listed on the area page with
       who added it. oln.html: a source lives as long as its line (renewable), nothing permanent. 24 languages.
+- [ ] 81c-ui. "📰 Add a source for this area" (only offered to named accounts with a passkey; others see why and how):
+      link + a few words → the #feed line, posted under your name; sources show on the area as "📰 <title> · via
+      <host> · added by @name"; your own sources listed on Account with remove; oln.html: a source lives as long as
+      its line. 24 languages.
 - [ ] 81c2. Report a source (Joop 2026-10-13): ⚑ on a source and on its items goes into the existing report
       queue (kind "source"). On /admin a source report offers: remove the source (hide its line + its items),
       stop sources from that account (an account flag, NoSources; it can still post normally), and stop sources

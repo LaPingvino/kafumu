@@ -24,10 +24,11 @@ type noteRow struct {
 	Re   string    `json:"re,omitempty"`
 	Subj []string  `json:"subj,omitempty"`
 	Recv time.Time `json:"recv,omitempty"`
+	Src  string    `json:"src,omitempty"`
 }
 
 func (s *Notes) Put(ctx context.Context, n *oln.Note) error {
-	b, err := json.Marshal(noteRow{Note: *n, Asks: n.Asks, Pair: n.Pair, Re: n.Re, Subj: n.Subj, Recv: n.Recv})
+	b, err := json.Marshal(noteRow{Note: *n, Asks: n.Asks, Pair: n.Pair, Re: n.Re, Subj: n.Subj, Recv: n.Recv, Src: n.Src})
 	if err != nil {
 		return err
 	}
@@ -53,7 +54,7 @@ func scanNotes(rows *sql.Rows) ([]*oln.Note, error) {
 			return nil, err
 		}
 		n := r.Note
-		n.Asks, n.Pair, n.Re, n.Subj, n.Recv = r.Asks, r.Pair, r.Re, r.Subj, r.Recv
+		n.Asks, n.Pair, n.Re, n.Subj, n.Recv, n.Src = r.Asks, r.Pair, r.Re, r.Subj, r.Recv, r.Src
 		out = append(out, &n)
 	}
 	return out, rows.Err()
@@ -165,6 +166,15 @@ func (s *Notes) About(ctx context.Context, subj []string, now time.Time) ([]*oln
 	}
 	rows, err := s.DB.QueryContext(ctx, `SELECT data FROM notes WHERE expires_at > ? AND cell = '000000' AND EXISTS
 		(SELECT 1 FROM json_each(data, '$.subj') WHERE value IN (?`+strings.Repeat(", ?", len(subj)-1)+`)) LIMIT 300`, args...)
+	if err != nil {
+		return nil, err
+	}
+	return scanNotes(rows)
+}
+
+// SourcesBy reads the src out of each row's JSON (no column, no migration).
+func (s *Notes) SourcesBy(ctx context.Context, src string, now time.Time) ([]*oln.Note, error) {
+	rows, err := s.DB.QueryContext(ctx, `SELECT data FROM notes WHERE expires_at > ? AND json_extract(data, '$.src') = ? LIMIT 200`, now.Unix(), src)
 	if err != nil {
 		return nil, err
 	}

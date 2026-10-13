@@ -81,6 +81,11 @@ func main() {
 		u := handler.UserFrom(r.Context())
 		return u != nil && u.Patron(time.Now())
 	}
+	// Sources (81c): named accounts with a passkey only.
+	notes.SourceOK = func(r *http.Request) bool {
+		u := handler.UserFrom(r.Context())
+		return u != nil && u.Username != "" && len(u.WebAuthnCredentials()) > 0
+	}
 	home.Notes = notes
 	businesses := business.New(db)
 	home.Brands = brand.New(db)

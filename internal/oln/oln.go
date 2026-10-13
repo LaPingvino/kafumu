@@ -56,6 +56,10 @@ var (
 	ErrPlace  = errors.New("oln: needs exactly one #geo cell in the keywords")
 	ErrWork   = errors.New("oln: not enough proof of work")
 	ErrRepeat = errors.New("oln: this message is already here")
+	// ErrSource: a source (#feed) needs a named account with a passkey, a
+	// place and a link; ErrSourceCap: that account has MaxSources live.
+	ErrSource    = errors.New("oln: a source needs a named account with a passkey, an area and a link")
+	ErrSourceCap = errors.New("oln: too many live sources for this account")
 )
 
 // Note is one stored message.
@@ -98,6 +102,9 @@ type Note struct {
 	// as of posting.
 	Patron  bool `datastore:"patron,noindex" json:"patron,omitempty"`
 	BizLive bool `datastore:"biz_live,noindex" json:"biz_live,omitempty"`
+	// Src: a source line (#feed, 81c): the account that added it (indexed,
+	// for its cap and for reports); empty on every other line.
+	Src string `datastore:"src" json:"-"`
 }
 
 // Proof of work, v2 (memory-hard, so a GPU gains little over a phone):
@@ -286,7 +293,18 @@ type Store interface {
 	RepliesTo(ctx context.Context, res []string, now time.Time) ([]*Note, error)
 	// ByPair returns live private messages under a pair tag.
 	ByPair(ctx context.Context, tag string, now time.Time) ([]*Note, error)
+	// SourcesBy returns the live source lines (#feed) an account added.
+	SourcesBy(ctx context.Context, src string, now time.Time) ([]*Note, error)
 }
+
+// MaxSources: live sources per account. Loose on purpose (Joop: a degree of
+// spam is fine; the value a line carries sorts it, not this gate).
+const MaxSources = 20
+
+var srcURL = regexp.MustCompile(`https?://[^\s<>"]+`)
+
+// IsSource: a line that adds a news or calendar source to its area.
+func IsSource(n *Note) bool { return slices.Contains(n.Tags, "feed") }
 
 var reTag = regexp.MustCompile(`^re[0-9a-f]{10}$`)
 
@@ -450,6 +468,9 @@ type Service struct {
 	BizFor func(r *http.Request) (string, bool)
 	// PatronFor: whether the request's user is a patron (wings on named posts).
 	PatronFor func(r *http.Request) bool
+	// SourceOK: whether the request's user may add sources (named, with a
+	// passkey, not stopped from it); nil refuses every source.
+	SourceOK func(r *http.Request) bool
 }
 
 type cellEntry struct {
@@ -605,6 +626,17 @@ func (s *Service) PostAs(ctx context.Context, raw, author string) (*Note, error)
 	}
 	if n.Bits < req {
 		return nil, &NeedError{Need: req}
+	}
+	if IsSource(n) {
+		if author == "" || n.Cell == Everywhere || !srcURL.MatchString(n.Text) || s.SourceOK == nil || ctxReq(ctx) == nil || !s.SourceOK(ctxReq(ctx)) {
+			return nil, ErrSource
+		}
+		if mine, err := s.Store.SourcesBy(ctx, author, now); err != nil {
+			return nil, err
+		} else if len(mine) >= MaxSources {
+			return nil, ErrSourceCap
+		}
+		n.Src = author
 	}
 	n.Author = author
 	if author != "" && s.BizFor != nil && ctxReq(ctx) != nil {
