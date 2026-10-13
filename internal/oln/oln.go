@@ -766,6 +766,18 @@ func (s *Service) keepAlive(ctx context.Context, r *Note) {
 	if err != nil {
 		return
 	}
+	// A reaction to a link (79a) points at the link, not at a line: the line
+	// that carries that link in an area (same #re, a link in its text) is
+	// what it keeps alive (81g).
+	if !srcURL.MatchString(r.Text) {
+		if same, err := s.Store.RepliesTo(ctx, []string{r.Re}, s.Now()); err == nil {
+			for _, t := range same {
+				if srcURL.MatchString(t.Text) && t.Cell != Everywhere {
+					ns = append(ns, t)
+				}
+			}
+		}
+	}
 	for _, t := range ns {
 		if t.Pair != "" || t.ID == r.ID || !t.ExpiresAt.Before(r.ExpiresAt) {
 			continue

@@ -628,3 +628,22 @@ func TestStopSources(t *testing.T) {
 		t.Fatalf("a stopped account still posts lines: %v", err)
 	}
 }
+
+// A reaction to a link keeps the line that carries that link alive (81g).
+func TestKeepAliveLink(t *testing.T) {
+	store := NewMemoryStore()
+	s := NewService(store)
+	ctx, now := context.Background(), time.Now().UTC()
+	re := "0123456789" // the link's id
+	line, err := s.Post(ctx, mine(BaseBits, now, "📰 Kermis\nhttps://krant.example/kermis", "#geo8ccgmw #re"+re))
+	if err != nil {
+		t.Fatal(err)
+	}
+	r, err := s.Post(ctx, mine(s.requiredForRe(ctx, re)+6, now, "👍", "#re"+re))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got, _ := store.Get(ctx, line.ID); !got.ExpiresAt.Equal(r.ExpiresAt) {
+		t.Fatalf("the link line lives until %v, the reaction until %v", got.ExpiresAt, r.ExpiresAt)
+	}
+}
