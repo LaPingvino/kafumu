@@ -10,6 +10,8 @@
     <div class="dim small"><code>{{.Item}}</code>{{if eq .Kind "meetup"}} · <a href="/meetups/{{.Item}}">open</a>{{end}}{{if eq .Kind "post"}} · <a href="{{bskyURL .Item}}" rel="noopener" target="_blank">on Bluesky</a>{{end}}</div>
     <div class="actions">
       <form method="post" action="/admin/action"><input type="hidden" name="do" value="report-hide"><input type="hidden" name="kind" value="{{.Kind}}"><input type="hidden" name="id" value="{{.Item}}"><button type="submit" class="pill-sm contrast">{{if eq .Kind "meetup"}}Delete meetup{{else}}Hide{{end}}</button></form>
+      {{if .Src}}<form method="post" action="/admin/action"><input type="hidden" name="do" value="source-stop-account"><input type="hidden" name="id" value="{{.Item}}"><button type="submit" class="pill-sm contrast">📰 Stop @{{.Src}} adding sources</button></form>
+      {{if .SrcNet}}<form method="post" action="/admin/action"><input type="hidden" name="do" value="source-stop-net"><input type="hidden" name="id" value="{{.Item}}"><button type="submit" class="pill-sm contrast">📰 Stop that network (90 days)</button></form>{{end}}{{end}}
       <form method="post" action="/admin/action"><input type="hidden" name="do" value="report-dismiss"><input type="hidden" name="kind" value="{{.Kind}}"><input type="hidden" name="id" value="{{.Item}}"><button type="submit" class="pill-sm">Dismiss</button></form>
     </div>
   </li>{{end}}</ul>{{else}}<p class="dim">Nothing reported.</p>{{end}}

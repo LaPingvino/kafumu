@@ -56,6 +56,10 @@ type Item struct {
 	Reasons                   map[string]int
 	Count                     int
 	Last                      time.Time
+	// Src: a reported source line's adder (filled in by the admin page);
+	// SrcNet: its network is known, so it can be stopped too.
+	Src    string
+	SrcNet bool
 }
 
 type Service struct {

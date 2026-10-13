@@ -1114,12 +1114,11 @@ only for areas people actually look at. Each slice passes one test: does the are
       link + a few words → the #feed line, posted under your name; sources show on the area as "📰 <title> · via
       <host> · added by @name"; your own sources listed on Account with remove; oln.html: a source lives as long as
       its line. 24 languages.
-- [ ] 81c2. Report a source (Joop 2026-10-13): ⚑ on a source and on its items goes into the existing report
-      queue (kind "source"). On /admin a source report offers: remove the source (hide its line + its items),
-      stop sources from that account (an account flag, NoSources; it can still post normally), and stop sources
-      from that network: the source line keeps a keyed hash of the adder's IPv4 address or IPv6 /64 (never the
-      address itself; it expires with the line), and a block puts that hash on an expiring list (90 days)
-      checked when a source is added. Brand admins get the same on their host. 24 languages.
+- [x] 81c2. Done: sources are reported with the ⚑ every line has; on /admin a reported source shows "Stop @name
+      adding sources" and "Stop that network (90 days)", each also taking the source down. Note.SrcNet = HMAC of the
+      IPv4 address or IPv6 /64 under a node key (never the address); stops live in the hidden set ("nosrc:",
+      "net:<hash>:<until>", "netkey:"), which the OLN purge now leaves alone. Test: TestStopSources. Brand admins:
+      not yet (their queue is the admin's for now).
 - [ ] 81d. Pull: a bot-safe "seen cells" record (like seen-countries); the 6-hourly feeds job pulls sources of
       cells seen in the last 3 days (bounded per run): calendar feeds → meetups (existing path), RSS/Atom items
       → expiring notes in that cell, Author = who added it, #site_host, value from the source line (below what

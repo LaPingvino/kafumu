@@ -185,6 +185,14 @@ func (a *Admin) Show(w http.ResponseWriter, r *http.Request) {
 	if a.Reports != nil {
 		if q, err := a.Reports.Queue(ctx, time.Now()); err == nil {
 			p.Queue = q
+			// A reported source (81c2) offers stopping who added it.
+			for i := range p.Queue {
+				if p.Queue[i].Kind == "note" && a.Notes != nil {
+					if n, err := a.Notes.Store.Get(ctx, p.Queue[i].Item); err == nil && oln.IsSource(n) {
+						p.Queue[i].Src, p.Queue[i].SrcNet = n.Src, n.SrcNet != ""
+					}
+				}
+			}
 		}
 	}
 	if !p.Full {
@@ -340,7 +348,7 @@ func (a *Admin) Action(w http.ResponseWriter, r *http.Request) {
 	}
 	ctx, id, res := r.Context(), strings.TrimSpace(r.FormValue("id")), ""
 	do := r.FormValue("do")
-	if UserFrom(ctx).Role != "admin" && do != "hide-note" && do != "delete-meetup" && do != "report-hide" && do != "report-dismiss" {
+	if UserFrom(ctx).Role != "admin" && do != "hide-note" && do != "delete-meetup" && do != "report-hide" && do != "report-dismiss" && do != "source-stop-account" && do != "source-stop-net" {
 		http.NotFound(w, r)
 		return
 	}
@@ -372,6 +380,30 @@ func (a *Admin) Action(w http.ResponseWriter, r *http.Request) {
 			res = "hide failed: " + err.Error()
 		} else {
 			res = "hid " + r.FormValue("kind") + " " + id
+		}
+	case "source-stop-account", "source-stop-net":
+		// A reported source (81c2): take it down and stop its account, or its
+		// network for 90 days, from adding sources.
+		n, err := a.Notes.Store.Get(ctx, id)
+		switch {
+		case err != nil || !oln.IsSource(n):
+			res = "not a source: " + id
+		case do == "source-stop-account":
+			err = a.Notes.StopSources(ctx, n.Src)
+			res = "stopped @" + n.Src + " adding sources"
+		case n.SrcNet == "":
+			res = "no network known for this source"
+		default:
+			err = a.Notes.StopNet(ctx, n.SrcNet, time.Now().AddDate(0, 0, 90))
+			res = "stopped that network adding sources for 90 days"
+		}
+		if err == nil && n != nil {
+			if err = a.Notes.Hide(ctx, id); err == nil && a.Reports != nil {
+				err = a.Reports.Dismiss(ctx, "note", id)
+			}
+		}
+		if err != nil {
+			res += " (" + err.Error() + ")"
 		}
 	case "hide-note":
 		if err := a.Notes.Hide(ctx, id); err != nil {
@@ -787,8 +819,18 @@ func (a *Admin) olnPurge(ctx context.Context, now time.Time) (expired, hid int, 
 			hid++
 		}
 	}
-	// Every hidden message goes, so every hidden marker is left over.
+	// Every hidden message goes, so every hidden marker is left over, except
+	// the source stops and their key (81c2), which aren't messages; a
+	// network stop goes once its day has passed.
 	for id := range hidden {
+		if strings.HasPrefix(id, "nosrc:") || strings.HasPrefix(id, "netkey:") {
+			continue
+		}
+		if rest, ok := strings.CutPrefix(id, "net:"); ok {
+			if i := strings.LastIndex(rest, ":"); i >= 0 && rest[i+1:] >= now.UTC().Format("20060102") {
+				continue
+			}
+		}
 		marks = append(marks, datastore.NameKey("HiddenNote", id, nil))
 	}
 	for _, ks := range [][]*datastore.Key{del, marks} {

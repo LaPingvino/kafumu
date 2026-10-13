@@ -588,3 +588,43 @@ func TestWithdraw(t *testing.T) {
 		t.Fatal("withdrawn line still shows")
 	}
 }
+
+// Stopping sources (81c2): an account, or a network by its keyed hash (the
+// address itself is never kept); either way they can still post lines.
+func TestStopSources(t *testing.T) {
+	s := NewService(NewMemoryStore())
+	now := time.Now().UTC()
+	s.SourceOK = func(*http.Request) bool { return true }
+	from := func(ip string) context.Context {
+		r := httptest.NewRequest("POST", "/api/oln", nil)
+		r.Header.Set("X-Appengine-User-Ip", ip)
+		return withReq(r)
+	}
+	src := func(ctx context.Context, i int) string {
+		return mine(s.RequiredFor(ctx, "8ccgmw"), now, fmt.Sprintf("📰 Krant https://krant.example/%d", i), "#geo8ccgmw #feed")
+	}
+	n, err := s.PostAs(from("2001:db8:1:2::5"), src(from("2001:db8:1:2::5"), 1), "ana")
+	if err != nil || len(n.SrcNet) != 16 || strings.Contains(n.SrcNet, "2001") {
+		t.Fatalf("source = %+v, %v", n, err)
+	}
+	same := from("2001:db8:1:2:ffff::9") // the same /64
+	if err := s.StopNet(context.Background(), n.SrcNet, now.AddDate(0, 0, 90)); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := s.PostAs(same, src(same, 2), "bea"); err != ErrSource {
+		t.Fatalf("a stopped network: %v", err)
+	}
+	other := from("198.51.100.7")
+	if _, err := s.PostAs(other, src(other, 3), "bea"); err != nil {
+		t.Fatalf("another network: %v", err)
+	}
+	if err := s.StopSources(context.Background(), "bea"); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := s.PostAs(other, src(other, 4), "bea"); err != ErrSource {
+		t.Fatalf("a stopped account: %v", err)
+	}
+	if _, err := s.PostAs(other, mine(s.RequiredFor(other, "8ccgmw"), now, "still talking", "#geo8ccgmw"), "bea"); err != nil {
+		t.Fatalf("a stopped account still posts lines: %v", err)
+	}
+}

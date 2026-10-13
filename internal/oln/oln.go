@@ -13,6 +13,8 @@ package oln
 
 import (
 	"context"
+	"crypto/hmac"
+	"crypto/rand"
 	"crypto/sha1"
 	"crypto/sha256"
 	"encoding/base64"
@@ -22,6 +24,7 @@ import (
 	"golang.org/x/crypto/argon2"
 	"math"
 	"math/bits"
+	"net"
 	"net/http"
 	"regexp"
 	"slices"
@@ -106,6 +109,9 @@ type Note struct {
 	// Src: a source line (#feed, 81c): the account that added it (indexed,
 	// for its cap and for reports); empty on every other line.
 	Src string `datastore:"src" json:"-"`
+	// SrcNet: a keyed hash of the adder's IPv4 address or IPv6 /64 (never the
+	// address), so a report can stop that network from adding sources (81c2).
+	SrcNet string `datastore:"src_net,noindex" json:"-"`
 }
 
 // Proof of work, v2 (memory-hard, so a GPU gains little over a phone):
@@ -662,6 +668,11 @@ func (s *Service) PostAs(ctx context.Context, raw, author string) (*Note, error)
 		if author == "" || n.Cell == Everywhere || !srcURL.MatchString(n.Text) || s.SourceOK == nil || ctxReq(ctx) == nil || !s.SourceOK(ctxReq(ctx)) {
 			return nil, ErrSource
 		}
+		net := s.netHash(ctx, ctxReq(ctx))
+		if s.SourcesStopped(ctx, author, net, now) {
+			return nil, ErrSource
+		}
+		n.SrcNet = net
 		if mine, err := s.Store.SourcesBy(ctx, author, now); err != nil {
 			return nil, err
 		} else if len(mine) >= MaxSources {
@@ -766,6 +777,73 @@ func (s *Service) keepAlive(ctx context.Context, r *Note) {
 			s.mu.Unlock()
 		}
 	}
+}
+
+// Source stops (81c2) live in the hidden set, so they need no store of
+// their own: "nosrc:<name>" stops an account, "net:<hash>:<YYYYMMDD>" a
+// network until that day, "netkey:<hex>" is the key for those hashes.
+func (s *Service) SourcesStopped(ctx context.Context, author, net string, now time.Time) bool {
+	h := s.hiddenSet(ctx)
+	if h["nosrc:"+author] {
+		return true
+	}
+	if net == "" {
+		return false
+	}
+	for k := range h {
+		if rest, ok := strings.CutPrefix(k, "net:"+net+":"); ok && rest >= now.UTC().Format("20060102") {
+			return true
+		}
+	}
+	return false
+}
+
+// StopSources stops an account from adding sources (it can still post).
+func (s *Service) StopSources(ctx context.Context, author string) error {
+	return s.Hide(ctx, "nosrc:"+author)
+}
+
+// StopNet stops a network (by its hash) from adding sources until then.
+func (s *Service) StopNet(ctx context.Context, net string, until time.Time) error {
+	return s.Hide(ctx, "net:"+net+":"+until.UTC().Format("20060102"))
+}
+
+// netHash: HMAC of the request's IPv4 address or IPv6 /64 under this
+// node's own key (made once, kept with the hidden set); "" without one.
+func (s *Service) netHash(ctx context.Context, r *http.Request) string {
+	if r == nil {
+		return ""
+	}
+	ip := r.Header.Get("X-Appengine-User-Ip")
+	if ip == "" {
+		ip, _, _ = net.SplitHostPort(r.RemoteAddr)
+	}
+	addr := net.ParseIP(ip)
+	if addr == nil {
+		return ""
+	}
+	prefix := addr.String()
+	if addr.To4() == nil {
+		prefix = addr.Mask(net.CIDRMask(64, 128)).String()
+	}
+	key := ""
+	for k := range s.hiddenSet(ctx) {
+		if v, ok := strings.CutPrefix(k, "netkey:"); ok {
+			key = v
+			break
+		}
+	}
+	if key == "" {
+		b := make([]byte, 32)
+		rand.Read(b)
+		key = hex.EncodeToString(b)
+		if s.Hide(ctx, "netkey:"+key) != nil {
+			return ""
+		}
+	}
+	m := hmac.New(sha256.New, []byte(key))
+	m.Write([]byte(prefix))
+	return hex.EncodeToString(m.Sum(nil))[:16]
 }
 
 // IsHidden: a moderator took this line down.
