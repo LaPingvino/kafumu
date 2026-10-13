@@ -757,5 +757,9 @@
   "js.tour_card_tags": "標籤說明你的興趣，讓附近志趣相投的人找到你。",
   "js.tour_card_link": "你的專屬連結（/@名字）：打開的人不用先見面就能和你連上。",
   "js.tour_act_filter": "全部、僅聯絡人或僅未讀。",
-  "js.tour_act_row": "每一行都是一段對話：點開閱讀和回覆，或看看你的貼文或聚會有什麼動靜。"
+  "js.tour_act_row": "每一行都是一段對話：點開閱讀和回覆，或看看你的貼文或聚會有什麼動靜。",
+  "js.source_add_home": "也加到我的地區",
+  "js.source_add_other": "其他地區…",
+  "js.source_where": "哪個地區？#geo 代碼、Plus Code 或緯度,經度",
+  "js.source_there": "已經有了"
 }

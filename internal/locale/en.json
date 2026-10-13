@@ -757,5 +757,9 @@
   "js.tour_card_tags": "Tags say what you're into, so people nearby with the same interests can find you.",
   "js.tour_card_link": "Your own link (/@name): people who open it can connect with you, without meeting first.",
   "js.tour_act_filter": "Everything, only your contacts, or only what's unread.",
-  "js.tour_act_row": "Each row is a conversation: tap it to read and answer, or to see what happened to your post or meetup."
+  "js.tour_act_row": "Each row is a conversation: tap it to read and answer, or to see what happened to your post or meetup.",
+  "js.source_add_home": "Also in my area",
+  "js.source_add_other": "Another area…",
+  "js.source_where": "Which area? A #geo code, plus code or lat,lon",
+  "js.source_there": "Already there"
 }

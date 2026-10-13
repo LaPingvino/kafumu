@@ -1240,6 +1240,10 @@ Findable, Account, Business, meetups…), and with a "👀 Show me" button that 
       run had read it yet. Now an area whose source has none of its news in the bundle asks the node to read it (anyone
       may, not bots; once per 10 min per source); the source's head links to the site, not the feed file.
 
+- [x] Sources reach further (Joop): a source's head offers "📍 Also in my area" (your home area, when it's another)
+      and "🗺 Another area…" (a #geo code, plus code or lat,lon): the same source line posted there under your name,
+      mined for a week, read at once; only for those who may add sources (body data-sources). 24 languages.
+
 ## 89. Four tabs instead of six (Joop 2026-10-14: "tab proposal sounds good")
 Around · Chats (mailbox + Contacts, 🔔 folded in) · Connect (your code + My card) · Me (Account + Findable).
 - [ ] 89a. Chats: /contacts and /activity become one page (the chat list with a Contacts filter, contact cards

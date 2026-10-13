@@ -757,5 +757,9 @@
   "js.tour_card_tags": "태그는 내 관심사를 알려 줘서, 같은 관심을 가진 근처 사람이 나를 찾을 수 있어요.",
   "js.tour_card_link": "내 링크(/@이름): 여는 사람은 만나기 전에도 나와 연결할 수 있어요.",
   "js.tour_act_filter": "전체, 연락처만, 또는 읽지 않은 것만.",
-  "js.tour_act_row": "각 줄은 대화예요. 눌러서 읽고 답하거나, 내 글이나 모임에 무슨 일이 있었는지 보세요."
+  "js.tour_act_row": "각 줄은 대화예요. 눌러서 읽고 답하거나, 내 글이나 모임에 무슨 일이 있었는지 보세요.",
+  "js.source_add_home": "내 지역에도",
+  "js.source_add_other": "다른 지역…",
+  "js.source_where": "어느 지역인가요? #geo 코드, 플러스 코드 또는 위도,경도",
+  "js.source_there": "이미 있어요"
 }

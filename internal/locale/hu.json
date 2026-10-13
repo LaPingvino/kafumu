@@ -757,5 +757,9 @@
   "js.tour_card_tags": "A címkék mondják el, mi érdekel, hogy a közelben élő hasonló érdeklődésűek megtaláljanak.",
   "js.tour_card_link": "Saját linked (/@név): aki megnyitja, kapcsolódhat veled találkozás nélkül.",
   "js.tour_act_filter": "Minden, csak a névjegyeid vagy csak az olvasatlanok.",
-  "js.tour_act_row": "Minden sor egy beszélgetés: koppints rá olvasáshoz és válaszhoz, vagy hogy lásd, mi lett a bejegyzéseddel vagy találkozóddal."
+  "js.tour_act_row": "Minden sor egy beszélgetés: koppints rá olvasáshoz és válaszhoz, vagy hogy lásd, mi lett a bejegyzéseddel vagy találkozóddal.",
+  "js.source_add_home": "Az én környékemen is",
+  "js.source_add_other": "Másik környék…",
+  "js.source_where": "Melyik környék? #geo kód, plus code vagy lat,lon",
+  "js.source_there": "Már ott van"
 }

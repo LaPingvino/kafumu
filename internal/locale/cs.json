@@ -757,5 +757,9 @@
   "js.tour_card_tags": "Štítky říkají, co tě zajímá, aby tě lidé poblíž se stejnými zájmy našli.",
   "js.tour_card_link": "Tvůj vlastní odkaz (/@jméno): kdo ho otevře, může se s tebou spojit, aniž byste se potkali.",
   "js.tour_act_filter": "Vše, jen kontakty, nebo jen nepřečtené.",
-  "js.tour_act_row": "Každý řádek je rozhovor: klepni pro čtení a odpověď, nebo co se stalo s tvým příspěvkem či setkáním."
+  "js.tour_act_row": "Každý řádek je rozhovor: klepni pro čtení a odpověď, nebo co se stalo s tvým příspěvkem či setkáním.",
+  "js.source_add_home": "Také v mé oblasti",
+  "js.source_add_other": "Jiná oblast…",
+  "js.source_where": "Která oblast? Kód #geo, plus kód nebo lat,lon",
+  "js.source_there": "Už tam je"
 }

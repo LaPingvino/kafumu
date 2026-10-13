@@ -757,5 +757,9 @@
   "js.tour_card_tags": "Taggar säger vad du gillar, så att folk i närheten med samma intressen hittar dig.",
   "js.tour_card_link": "Din egen länk (/@namn): den som öppnar den kan koppla ihop sig med dig utan att ni träffats.",
   "js.tour_act_filter": "Allt, bara dina kontakter eller bara olästa.",
-  "js.tour_act_row": "Varje rad är ett samtal: tryck för att läsa och svara, eller se vad som hänt med ditt inlägg eller din träff."
+  "js.tour_act_row": "Varje rad är ett samtal: tryck för att läsa och svara, eller se vad som hänt med ditt inlägg eller din träff.",
+  "js.source_add_home": "Även i mitt område",
+  "js.source_add_other": "Ett annat område…",
+  "js.source_where": "Vilket område? En #geo-kod, plus code eller lat,lon",
+  "js.source_there": "Redan där"
 }

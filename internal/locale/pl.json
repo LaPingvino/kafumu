@@ -757,5 +757,9 @@
   "js.tour_card_tags": "Tagi mówią, co cię interesuje, by ludzie w pobliżu o tych samych zainteresowaniach mogli cię znaleźć.",
   "js.tour_card_link": "Twój własny link (/@nazwa): kto go otworzy, może się z tobą połączyć bez wcześniejszego spotkania.",
   "js.tour_act_filter": "Wszystko, tylko kontakty albo tylko nieprzeczytane.",
-  "js.tour_act_row": "Każdy wiersz to rozmowa: dotknij, by czytać i odpowiadać, albo zobaczyć, co stało się z twoim wpisem czy spotkaniem."
+  "js.tour_act_row": "Każdy wiersz to rozmowa: dotknij, by czytać i odpowiadać, albo zobaczyć, co stało się z twoim wpisem czy spotkaniem.",
+  "js.source_add_home": "Także w mojej okolicy",
+  "js.source_add_other": "Inna okolica…",
+  "js.source_where": "Która okolica? Kod #geo, plus code lub lat,lon",
+  "js.source_there": "Już tam jest"
 }

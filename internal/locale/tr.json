@@ -757,5 +757,9 @@
   "js.tour_card_tags": "Etiketler ilgi alanlarını söyler; yakındaki aynı ilgiye sahip insanlar seni bulur.",
   "js.tour_card_link": "Kendi bağlantın (/@ad): onu açan, önce tanışmadan seninle bağlanabilir.",
   "js.tour_act_filter": "Hepsi, yalnızca kişilerin ya da yalnızca okunmamışlar.",
-  "js.tour_act_row": "Her satır bir sohbet: okuyup yanıtlamak ya da gönderine veya buluşmana ne olduğunu görmek için dokun."
+  "js.tour_act_row": "Her satır bir sohbet: okuyup yanıtlamak ya da gönderine veya buluşmana ne olduğunu görmek için dokun.",
+  "js.source_add_home": "Benim bölgeme de",
+  "js.source_add_other": "Başka bölge…",
+  "js.source_where": "Hangi bölge? #geo kodu, plus code veya enlem,boylam",
+  "js.source_there": "Zaten orada"
 }

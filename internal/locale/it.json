@@ -757,5 +757,9 @@
   "js.tour_card_tags": "I tag dicono cosa ti interessa, così chi è vicino con gli stessi interessi ti trova.",
   "js.tour_card_link": "Il tuo link (/@nome): chi lo apre può collegarsi a te senza incontrarti prima.",
   "js.tour_act_filter": "Tutto, solo i tuoi contatti o solo i non letti.",
-  "js.tour_act_row": "Ogni riga è una conversazione: toccala per leggere e rispondere, o vedere cosa è successo al tuo messaggio o incontro."
+  "js.tour_act_row": "Ogni riga è una conversazione: toccala per leggere e rispondere, o vedere cosa è successo al tuo messaggio o incontro.",
+  "js.source_add_home": "Anche nella mia zona",
+  "js.source_add_other": "Un'altra zona…",
+  "js.source_where": "Quale zona? Un codice #geo, plus code o lat,lon",
+  "js.source_there": "Già presente"
 }

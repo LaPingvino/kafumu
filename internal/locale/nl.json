@@ -757,5 +757,9 @@
   "js.tour_card_tags": "Tags zeggen waar je van houdt, zodat mensen in de buurt met dezelfde interesses je vinden.",
   "js.tour_card_link": "Je eigen link (/@naam): wie hem opent, kan met je verbinden zonder je eerst te ontmoeten.",
   "js.tour_act_filter": "Alles, alleen je contacten, of alleen wat ongelezen is.",
-  "js.tour_act_row": "Elke rij is een gesprek: tik om te lezen en te antwoorden, of om te zien wat er met je bericht of meetup gebeurde."
+  "js.tour_act_row": "Elke rij is een gesprek: tik om te lezen en te antwoorden, of om te zien wat er met je bericht of meetup gebeurde.",
+  "js.source_add_home": "Ook in mijn gebied",
+  "js.source_add_other": "Ander gebied…",
+  "js.source_where": "Welk gebied? Een #geo-code, pluscode of lat,lon",
+  "js.source_there": "Staat er al"
 }

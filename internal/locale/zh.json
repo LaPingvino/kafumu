@@ -757,5 +757,9 @@
   "js.tour_card_tags": "标签说明你的兴趣，让附近志趣相投的人找到你。",
   "js.tour_card_link": "你的专属链接（/@名字）：打开的人不用先见面就能和你连上。",
   "js.tour_act_filter": "全部、仅联系人或仅未读。",
-  "js.tour_act_row": "每一行都是一段对话：点开阅读和回复，或看看你的帖子或聚会有什么动静。"
+  "js.tour_act_row": "每一行都是一段对话：点开阅读和回复，或看看你的帖子或聚会有什么动静。",
+  "js.source_add_home": "也加到我的地区",
+  "js.source_add_other": "其他地区…",
+  "js.source_where": "哪个地区？#geo 代码、Plus Code 或纬度,经度",
+  "js.source_there": "已经有了"
 }

@@ -757,5 +757,9 @@
   "js.tour_card_tags": "Tags sagen, was dich interessiert, damit Leute in der Nähe mit denselben Interessen dich finden.",
   "js.tour_card_link": "Dein eigener Link (/@name): Wer ihn öffnet, kann sich mit dir verbinden, ohne dich vorher zu treffen.",
   "js.tour_act_filter": "Alles, nur deine Kontakte oder nur Ungelesenes.",
-  "js.tour_act_row": "Jede Zeile ist ein Gespräch: tippe, um zu lesen und zu antworten oder zu sehen, was mit deinem Beitrag oder Treffen geschah."
+  "js.tour_act_row": "Jede Zeile ist ein Gespräch: tippe, um zu lesen und zu antworten oder zu sehen, was mit deinem Beitrag oder Treffen geschah.",
+  "js.source_add_home": "Auch in meiner Gegend",
+  "js.source_add_other": "Andere Gegend…",
+  "js.source_where": "Welche Gegend? Ein #geo-Code, Plus Code oder Breite,Länge",
+  "js.source_there": "Schon da"
 }

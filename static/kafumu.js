@@ -540,6 +540,34 @@
     foldRow(row);
     row.appendChild(reportButton("note", n.id, "📰 " + name + " " + link, li));
     li.appendChild(meta); li.appendChild(title); li.appendChild(row);
+    // Also in my area / another one (Joop): a source can cover a bigger
+    // region when people there opt in, each area by someone of that area.
+    if (document.body.dataset.sources) {
+      var also = document.createElement("div"); also.className = "actions";
+      var home = homeCell(currentCell, false);
+      var addTo = function (cell, btn) {
+        btn.disabled = true;
+        fetch("/api/oln/required?cell=" + cell).then(function (r) { return r.json(); }).then(function (j) {
+          return window.kafumuOLN.post(n.text, "#geo" + cell + " #feed", (j.bits || 4) + 8, function (t) { btn.textContent = tr("oln_working", { n: t }); }, 0, true);
+        }).then(function (m) {
+          btn.textContent = "✓ #geo" + cell;
+          if (m && m.id) fetch("/api/oln/source/pull?id=" + m.id, { method: "POST", credentials: "omit" }).catch(function () {});
+        }, function (err) { btn.disabled = false; btn.textContent = /already here/.test(err.message) ? tr("source_there") : tr("network_retry"); });
+      };
+      if (home && home !== n.cell) {
+        var mine = document.createElement("button"); mine.type = "button"; mine.className = "pill-sm"; mine.textContent = "📍 " + tr("source_add_home");
+        mine.onclick = function () { addTo(home, mine); };
+        also.appendChild(mine);
+      }
+      var other = document.createElement("button"); other.type = "button"; other.className = "pill-sm"; other.textContent = "🗺 " + tr("source_add_other");
+      other.onclick = function () {
+        var where = prompt(tr("source_where"));
+        var c = where && window.kafumuGeo && window.kafumuGeo.parsePlace(where);
+        if (c && window.kafumuGeo.validCell(c) && c !== n.cell) addTo(c, other);
+      };
+      also.appendChild(other);
+      li.appendChild(also);
+    }
     li.dataset.reid = reID("note", n.id);
     return li;
   }

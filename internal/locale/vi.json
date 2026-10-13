@@ -757,5 +757,9 @@
   "js.tour_card_tags": "Thẻ cho biết bạn quan tâm gì, để người gần đó cùng sở thích tìm thấy bạn.",
   "js.tour_card_link": "Liên kết của riêng bạn (/@tên): ai mở nó có thể kết nối với bạn mà chưa cần gặp.",
   "js.tour_act_filter": "Tất cả, chỉ liên hệ, hoặc chỉ chưa đọc.",
-  "js.tour_act_row": "Mỗi dòng là một cuộc trò chuyện: chạm để đọc và trả lời, hoặc xem điều gì đã xảy ra với bài đăng hay buổi gặp của bạn."
+  "js.tour_act_row": "Mỗi dòng là một cuộc trò chuyện: chạm để đọc và trả lời, hoặc xem điều gì đã xảy ra với bài đăng hay buổi gặp của bạn.",
+  "js.source_add_home": "Cả ở khu vực của tôi",
+  "js.source_add_other": "Khu vực khác…",
+  "js.source_where": "Khu vực nào? Mã #geo, plus code hoặc vĩ độ,kinh độ",
+  "js.source_there": "Đã có"
 }

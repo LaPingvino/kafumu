@@ -757,5 +757,9 @@
   "js.tour_card_tags": "Tags siger, hvad du interesserer dig for, så folk i nærheden med samme interesser kan finde dig.",
   "js.tour_card_link": "Dit eget link (/@navn): den, der åbner det, kan forbinde sig med dig uden at mødes først.",
   "js.tour_act_filter": "Alt, kun dine kontakter eller kun ulæste.",
-  "js.tour_act_row": "Hver række er en samtale: tryk for at læse og svare, eller se hvad der skete med dit opslag eller meetup."
+  "js.tour_act_row": "Hver række er en samtale: tryk for at læse og svare, eller se hvad der skete med dit opslag eller meetup.",
+  "js.source_add_home": "Også i mit område",
+  "js.source_add_other": "Et andet område…",
+  "js.source_where": "Hvilket område? En #geo-kode, plus code eller lat,lon",
+  "js.source_there": "Allerede der"
 }

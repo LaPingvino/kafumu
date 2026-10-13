@@ -757,5 +757,9 @@
   "js.tour_card_tags": "Las etiquetas dicen lo que te interesa, para que la gente cercana con tus mismos intereses te encuentre.",
   "js.tour_card_link": "Tu propio enlace (/@nombre): quien lo abra puede conectar contigo sin conocerte antes.",
   "js.tour_act_filter": "Todo, solo tus contactos o solo lo no leído.",
-  "js.tour_act_row": "Cada fila es una conversación: tócala para leer y responder, o ver qué pasó con tu mensaje o encuentro."
+  "js.tour_act_row": "Cada fila es una conversación: tócala para leer y responder, o ver qué pasó con tu mensaje o encuentro.",
+  "js.source_add_home": "También en mi zona",
+  "js.source_add_other": "Otra zona…",
+  "js.source_where": "¿Qué zona? Un código #geo, plus code o lat,lon",
+  "js.source_there": "Ya está"
 }

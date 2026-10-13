@@ -757,5 +757,9 @@
   "js.tour_card_tags": "Etikedoj diras, kio interesas vin, por ke proksimaj homoj kun samaj interesoj trovu vin.",
   "js.tour_card_link": "Via propra ligilo (/@nomo): kiu malfermas ĝin, povas konektiĝi kun vi sen antaŭa renkonto.",
   "js.tour_act_filter": "Ĉio, nur viaj kontaktoj aŭ nur nelegitaĵoj.",
-  "js.tour_act_row": "Ĉiu vico estas konversacio: tuŝu por legi kaj respondi, aŭ por vidi, kio okazis al via afiŝo aŭ renkontiĝo."
+  "js.tour_act_row": "Ĉiu vico estas konversacio: tuŝu por legi kaj respondi, aŭ por vidi, kio okazis al via afiŝo aŭ renkontiĝo.",
+  "js.source_add_home": "Ankaŭ en mia loko",
+  "js.source_add_other": "Alia loko…",
+  "js.source_where": "Kiu loko? #geo-kodo, plus-kodo aŭ lat,lon",
+  "js.source_there": "Jam tie"
 }

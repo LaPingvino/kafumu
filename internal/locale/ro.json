@@ -757,5 +757,9 @@
   "js.tour_card_tags": "Etichetele spun ce te interesează, ca oamenii din apropiere cu aceleași interese să te găsească.",
   "js.tour_card_link": "Linkul tău (/@nume): cine îl deschide se poate conecta cu tine fără să vă fi întâlnit.",
   "js.tour_act_filter": "Tot, doar contactele sau doar necititele.",
-  "js.tour_act_row": "Fiecare rând e o conversație: atinge-l ca să citești și să răspunzi, sau să vezi ce s-a întâmplat cu mesajul ori întâlnirea ta."
+  "js.tour_act_row": "Fiecare rând e o conversație: atinge-l ca să citești și să răspunzi, sau să vezi ce s-a întâmplat cu mesajul ori întâlnirea ta.",
+  "js.source_add_home": "Și în zona mea",
+  "js.source_add_other": "Altă zonă…",
+  "js.source_where": "Ce zonă? Un cod #geo, plus code sau lat,lon",
+  "js.source_there": "Deja acolo"
 }

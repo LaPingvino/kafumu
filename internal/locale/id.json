@@ -757,5 +757,9 @@
   "js.tour_card_tags": "Tag menunjukkan minatmu, supaya orang dekat dengan minat sama bisa menemukanmu.",
   "js.tour_card_link": "Tautanmu sendiri (/@nama): siapa pun yang membukanya bisa terhubung tanpa bertemu dulu.",
   "js.tour_act_filter": "Semua, hanya kontakmu, atau hanya yang belum dibaca.",
-  "js.tour_act_row": "Setiap baris adalah percakapan: ketuk untuk membaca dan membalas, atau melihat apa yang terjadi pada kiriman atau pertemuanmu."
+  "js.tour_act_row": "Setiap baris adalah percakapan: ketuk untuk membaca dan membalas, atau melihat apa yang terjadi pada kiriman atau pertemuanmu.",
+  "js.source_add_home": "Juga di areaku",
+  "js.source_add_other": "Area lain…",
+  "js.source_where": "Area mana? Kode #geo, plus code, atau lat,lon",
+  "js.source_there": "Sudah ada"
 }

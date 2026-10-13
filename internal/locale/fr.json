@@ -757,5 +757,9 @@
   "js.tour_card_tags": "Les tags disent ce qui t'intéresse, pour que les gens du coin aux mêmes intérêts te trouvent.",
   "js.tour_card_link": "Ton propre lien (/@nom) : qui l'ouvre peut se connecter à toi sans te rencontrer d'abord.",
   "js.tour_act_filter": "Tout, seulement tes contacts, ou seulement le non-lu.",
-  "js.tour_act_row": "Chaque ligne est une conversation : touche-la pour lire et répondre, ou voir ce qui est arrivé à ton message ou ta rencontre."
+  "js.tour_act_row": "Chaque ligne est une conversation : touche-la pour lire et répondre, ou voir ce qui est arrivé à ton message ou ta rencontre.",
+  "js.source_add_home": "Aussi dans mon coin",
+  "js.source_add_other": "Un autre coin…",
+  "js.source_where": "Quel coin ? Un code #geo, plus code ou lat,lon",
+  "js.source_there": "Déjà là"
 }
