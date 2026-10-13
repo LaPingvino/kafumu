@@ -1047,7 +1047,7 @@ Per the OLN json-spec, a link is an index key like a tag (index["link"] → mess
       Diagnostics added (actingSync, the key panel, GET keyreq): read them when it next fails.
 
 
-Order (Joop 2026-10-13: mailbox first, reorder freely): 83 → 82 → 81c–f → 84.
+Order (Joop 2026-10-13: mailbox first, reorder freely): 83 → 82 → 85 → 86 → 81c–f → 84.
 ## 83. One mailbox for every conversation (Joop 2026-10-13)
 Private answers (now on the home page), chat messages and their answers (now on contact cards), replies to
 your posts and meetups (Activity, 77) in one mailbox, and notifications that always say who and about what.
@@ -1119,18 +1119,43 @@ only for areas people actually look at. Each slice passes one test: does the are
       on top of the area page: "People here often share example.nl — add its news to this area?" (one tap for a
       named passkey account, which posts the 81c line).
 
-## 84. The area on a screen (Joop 2026-10-13): a local display for a café, library, shop window, town hall
-`/display?cell=…`, two modes: **screen** (no touch: rotates on its own, large type, readable from 3 m) and
-**touch** (people tap through, read, see what's on). Always in a corner: a QR code + short link "Say something to
-#geo… / add what's on", so the screen invites people to post to their own area. Setup stays on the display's
-device (rule 1/3: the server stores nothing for a display): the setup screen writes the config into the display
-URL and the device's storage: cell, mode, which view (everything / what's on / news / talk, or a saved ☆ view),
-rotation speed, extra RSS feeds, pictures (from the device, kept in its IndexedDB, or by link).
-- [ ] 84a. /display in screen mode: the area's lines, meetups (today/this week first) and the QR + link corner,
-      rotating; fullscreen + wake lock; works on a cheap TV browser at 1920×1080 and on a tablet; 24 languages.
-- [ ] 84b. Touch mode: a tappable list with a detail view and back, idle → return to rotating after 60 s.
-- [ ] 84c. Setup (/display/setup, from a "📺 Show on a screen" link on the area page): mode, view, speed, the
-      result as a link + QR to open on the screen device.
-- [ ] 84d. Pictures: added on the display device (IndexedDB) or by https link, shown between items.
-- [ ] 84e. Extra RSS: a display's own feeds go through 81 (added as the area's sources by its named passkey
-      account, so the server fetches only what an area has), and the display can pick which sources it shows.
+## 84. The area on a public screen (Joop 2026-10-13: for displays in public places; "a different view of the
+local page", configurable, but nothing added to the main view)
+A separate page, `/screen?cell=…`, showing the area's own content (the same bundle, filters and ☆ views as the
+area page) laid out for a physical screen. Two versions: **display** (not interactive) and **touch** (an
+interactive public screen). Configurable on the screen page itself, never on the main area page: the config lives
+in the URL (+ the screen device's storage), the server stores nothing for a screen.
+- [ ] 84a. Display: fits everything to the physical screen dynamically: columns and type size from the viewport, as
+      many items as fit without scrolling, the rest paged through in turn; meetups of today/this week up front;
+      fullscreen + wake lock; a corner with QR + short link to the area ("add something here"). 1920×1080 TV,
+      portrait screens, tablets. 24 languages for the few new words.
+- [ ] 84b. Touch: the same layout, tappable: an item opens large with its details; idle 60 s → back to the overview.
+- [ ] 84c. Configure (a ⚙ panel on /screen itself): area, view (filters / a ☆ view), display or touch, paging speed,
+      a list of styles (light, dark, high contrast, large print, brand colours) and custom CSS; the result is a
+      link (+ QR) to open on the screen device.
+- [ ] 84d. Where to find it without touching the main view: a "📺 Public screen" link in the footer and on /about.
+
+- [x] Polish: a contact is called what you call them (alias first, then their card's name, else "someone new",
+      never "?"): dev.nameOf in the share picker, signals, coffee joins, mailbox and notifications. The intro card
+      lost its two buttons (they repeat the ones right below).
+
+## 85. Every conversation as a chat (Joop 2026-10-13)
+One list of chats, like a messenger, merging the mailbox and Contacts (filter: "only contacts"). Every thing that
+talks to you is a thread: a contact, a private answer, your post (its replies and reactions), your meetup (RSVPs,
+changes), a share ("👀 Did you see this?"): one-way when it can't be answered (its notifications collected in
+order), two-way when it can, always in the same bubble format. Contacts are always in the list (also without
+messages), and the chat moves there fully from the contact card. Mobile: a standard full-screen chat window;
+desktop: chat windows docked at the bottom.
+- [ ] 85a. The model: one thread list built on the device from contacts, answers, myPosts, myMeetups, shares;
+      each thread {kind, who, title, twoWay, items[]}, rendered as bubbles. Unit test.
+- [ ] 85b. The list page (mailbox + contacts merged; "Contacts" filter; the contact card reachable from a thread).
+- [ ] 85c. Mobile full-screen chat window with back; desktop docked windows at the bottom.
+- [ ] 85d. Shares and every other activity as bubbles in their thread; the contact card loses its chat.
+
+## 86. Permalinks for everything (Joop 2026-10-13)
+Everything shown on the site has a shareable permalink, and a shared thing carries it: a line, a reaction, a
+question, a meetup, an answer. Opening it shows the thing in its area, highlighted, with its reactions and answer
+buttons (so a "👀 Did you see this?" to a contact arrives with where it was and how to react).
+- [ ] 86a. Inventory: what has a link now (meetups /meetups/id, areas /?cell=, #re-<id>) and what doesn't.
+- [ ] 86b. A line's permalink (`/n/<id>` → its area, highlighted) + "🔗 Link" in every item's share row; shares
+      carry it.

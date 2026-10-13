@@ -482,7 +482,7 @@
       var until = Date.now() + 30 * 60 * 1000;
       (function listen() {
         dev.personas.shareCard().then(function (card) { return pairer.checkInvite(card); }).then(function (added) {
-          if (added.length) statusEl.textContent = tr("coffee_joined", { names: added.map(function (c) { return c.card.name; }).join(", ") });
+          if (added.length) statusEl.textContent = tr("coffee_joined", { names: added.map(function (c) { return dev.nameOf(c, window.KAFUMU_T); }).join(", ") });
         }).catch(function () {}).then(function () { if (Date.now() < until) setTimeout(listen, 10000); });
       })();
     }).catch(function (err) { statusEl.textContent = tr("oln_failed") + " " + err.message; btn.disabled = false; });
@@ -940,7 +940,7 @@
         if (!cs.length) pick.appendChild(Object.assign(document.createElement("span"), { className: "dim small", textContent: tr("seen_none") }));
         cs.sort(function (a, z) { return (z.lastChat || z.createdAt || "").localeCompare(a.lastChat || a.createdAt || ""); }).slice(0, 12).forEach(function (c) {
           var chip = document.createElement("button");
-          chip.type = "button"; chip.className = "chip"; chip.textContent = (c.card && c.card.name) || "?";
+          chip.type = "button"; chip.className = "chip"; chip.textContent = dev.nameOf(c, window.KAFUMU_T);
           chip.onclick = function (e2) {
             e2.preventDefault(); e2.stopPropagation();
             chip.disabled = true;
@@ -1182,7 +1182,6 @@
     // What this is (82a), until you close it.
     var seenIntro = ""; try { seenIntro = localStorage.getItem("kafumu.introSeen") || ""; } catch (e) {}
     $("intro").hidden = !!seenIntro;
-    $("intro-say").onclick = function () { $("say").click(); };
     $("compose").href = "https://bsky.app/intent/compose?text=" + encodeURIComponent("\n\n" + tag);
     $("be-findable").href = "/findable?cell=" + c;
     // Follow the area elsewhere, like Eventa Servo does per country (81a):
@@ -1908,7 +1907,7 @@
           a.href = "/contacts";
           a.className = "meetup-row";
           var who = document.createElement("strong");
-          who.textContent = c.card.name || "?";
+          who.textContent = dev.nameOf(c, window.KAFUMU_T);
           var what = document.createElement("div");
           what.className = "meta";
           what.textContent = dev.signalText(c.signals[0], window.KAFUMU_T || {});

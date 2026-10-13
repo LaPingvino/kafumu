@@ -114,7 +114,7 @@
           text: last.text, about: tr("act_answer_to", { post: short(t.post && t.post.text, 40) }), href: "/activity#answer-" + encodeURIComponent(t.id), hot: !!t.unreadMsgs });
       });
       r[2].forEach(function (c) { // contacts: new through your code, their last message, their last signal
-        var name = (c.card && c.card.name) || tr("inbox_anonymous");
+        var name = dev.nameOf(c, T);
         if (c.role === 0 && c.createdAt && now - new Date(c.createdAt) < 30 * 864e5) // they came to your code (coffee, a question, Connect)
           items.push({ id: "c:" + c.id, at: c.createdAt, icon: "🤝", who: name, text: tr("act_connected"), about: "", href: "/contacts#c-" + encodeURIComponent(c.id) });
         var last = (c.messages || []).filter(function (m) { return !m.me; }).slice(-1)[0];
@@ -207,7 +207,7 @@
           var li = document.createElement("li"); li.id = "chat-" + c.id;
           var head = document.createElement("div");
           var who = document.createElement("a"); who.href = "/contacts#c-" + encodeURIComponent(c.id);
-          who.textContent = (c.card && c.card.name) || c.alias || tr("inbox_anonymous");
+          who.textContent = dev.nameOf(c, T);
           var last = c.messages.slice(-1)[0], when = document.createElement("span"); when.className = "dim small";
           when.textContent = " · " + new Date(last.at).toLocaleString(window.KAFUMU_LOCALE, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
           head.appendChild(who); head.appendChild(when);

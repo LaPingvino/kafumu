@@ -290,6 +290,10 @@
 
   // renderContact draws one contact: name, one-liner, one-tap links and a
   // private note saved on change. opts.onDelete adds a remove button.
+  // nameOf: what you call a contact: your own name for them first, then the
+  // name on their card, else "unnamed" (never a bare "?").
+  function nameOf(c, T) { T = T || {}; return (c.alias || "").trim() || (c.card && (c.card.name || "").trim()) || T.unnamed || T.inbox_anonymous || "…"; }
+
   function renderContact(c, T, opts) {
     T = T || {}; opts = opts || {};
     var li = el("li", "contact"), card = c.card || {};
@@ -763,7 +767,7 @@
   if (typeof document !== "undefined") setTimeout(suggestAccount, 1500);
   else if (typeof document !== "undefined") document.addEventListener("DOMContentLoaded", function () { if (signedIn()) sync(); });
 
-  window.kafumuDevice = { bizKey: bizKey, actingSync: actingSync,  signalText: signalText, store: store, FIELDS: FIELDS, links: links, renderContact: renderContact, chatPanel: chatPanel, personas: personas,
+  window.kafumuDevice = { bizKey: bizKey, actingSync: actingSync,  signalText: signalText, store: store, FIELDS: FIELDS, links: links, renderContact: renderContact, chatPanel: chatPanel, nameOf: nameOf, personas: personas,
     vcards: vcards, backup: backup, restore: restore, download: download, sync: sync, quietDays: quietDays,
     // chips: your filter-chip row ({pinned: [...], hidden: [...], at}); a
     // localStorage mirror lets Around draw it without waiting.

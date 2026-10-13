@@ -1,5 +1,6 @@
 // Checks the contact-link normalisation in static/device.js: node test/device_test.mjs
 import { readFileSync } from "node:fs";
+import assert from "node:assert/strict";
 globalThis.window = globalThis;
 new Function(readFileSync(new URL("../static/device.js", import.meta.url), "utf8"))();
 const { links } = globalThis.kafumuDevice;
@@ -54,4 +55,13 @@ console.log("ok  static/device.js links (+ instagram, facebook, mastodon, tiktok
   if (JSON.stringify(some) !== JSON.stringify({ name: "Ana", email: "a@b.pt" })) bad.push("share some: " + JSON.stringify(some));
   if (bad.length) { console.error(bad.join("\n")); process.exit(1); }
   console.log("ok  static/device.js personas.share");
+}
+
+{
+  const { nameOf } = globalThis.kafumuDevice;
+  const T = { unnamed: "someone new" };
+  assert.equal(nameOf({ alias: "Mum", card: { name: "Maria" } }, T), "Mum", "your name for them wins");
+  assert.equal(nameOf({ card: { name: "Maria" } }, T), "Maria");
+  assert.equal(nameOf({ alias: " ", card: {} }, T), "someone new", "never a bare ?");
+  console.log("ok  static/device.js nameOf");
 }

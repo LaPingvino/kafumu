@@ -786,7 +786,7 @@
         var out = [];
         function add(p, body, url) { out.push(Promise.resolve(p).then(function (id) { return id ? { id: id, body: body, url: url } : null; })); }
         r[0].forEach(function (c) {
-          var name = (c.card && c.card.name) || c.alias || tr("inbox_anonymous", "Someone");
+          var name = (c.alias || "").trim() || (c.card && c.card.name) || tr("inbox_anonymous", "Someone");
           add(boxOf(unb64(c.key), c.role), tr("push_signal", "☕ {name} sent you something", { name: name }), "/contacts#c-" + encodeURIComponent(c.id));
           keysOf(c).forEach(function (k) { add(chatTag(unb64(k.key), k.role), tr("push_chat", "💬 A message from {name}", { name: name }), "/activity#chat-" + encodeURIComponent(c.id)); });
         });
