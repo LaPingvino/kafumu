@@ -662,5 +662,6 @@
   "js.push_chat": "💬 En besked fra {name}",
   "js.push_invite": "🤝 Nogen brugte din kode",
   "js.push_inbox": "📥 En besked i din offentlige indbakke",
-  "js.push_answer": "🔒 Et privat svar på “{post}”"
+  "js.push_answer": "🔒 Et privat svar på “{post}”",
+  "home.intro": "Dit områdes opslagstavle: hvad der sker her (koncerter, markeder, meetups) og hvad folk her siger. Alle kan tilføje noget."
 }

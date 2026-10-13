@@ -662,5 +662,6 @@
   "js.push_chat": "💬 Ett meddelande från {name}",
   "js.push_invite": "🤝 Någon använde din kod",
   "js.push_inbox": "📥 Ett meddelande i din öppna inkorg",
-  "js.push_answer": "🔒 Ett privat svar på ”{post}”"
+  "js.push_answer": "🔒 Ett privat svar på ”{post}”",
+  "home.intro": "Ditt områdes anslagstavla: vad som händer här (konserter, marknader, träffar) och vad folk här säger. Alla kan lägga till."
 }

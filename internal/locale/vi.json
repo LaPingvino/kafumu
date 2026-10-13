@@ -662,5 +662,6 @@
   "js.push_chat": "💬 Tin nhắn từ {name}",
   "js.push_invite": "🤝 Có người đã dùng mã của bạn",
   "js.push_inbox": "📥 Tin nhắn trong hộp thư công khai của bạn",
-  "js.push_answer": "🔒 Trả lời riêng cho “{post}”"
+  "js.push_answer": "🔒 Trả lời riêng cho “{post}”",
+  "home.intro": "Bảng tin khu vực của bạn: có gì quanh đây (hòa nhạc, chợ, gặp gỡ) và mọi người ở đây đang nói gì. Ai cũng có thể thêm vào."
 }

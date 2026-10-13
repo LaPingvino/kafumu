@@ -967,6 +967,7 @@
     e.preventDefault();
     b.parentElement.hidden = true;
     if (b.parentElement.id === "oln-form") composeMode = {};
+    if (b.parentElement.id === "intro") pref("kafumu.introSeen", "1");
   });
   // closeChip: a ✕ chip ending a row of choices; onClose runs on a tap.
   function closeChip(onClose) {
@@ -1178,6 +1179,10 @@
     document.querySelector(".cell-tag").classList.remove("named");
     document.querySelector(".cell-tag").hidden = false;
     $("cell-actions").hidden = false;
+    // What this is (82a), until you close it.
+    var seenIntro = ""; try { seenIntro = localStorage.getItem("kafumu.introSeen") || ""; } catch (e) {}
+    $("intro").hidden = !!seenIntro;
+    $("intro-say").onclick = function () { $("say").click(); };
     $("compose").href = "https://bsky.app/intent/compose?text=" + encodeURIComponent("\n\n" + tag);
     $("be-findable").href = "/findable?cell=" + c;
     // Follow the area elsewhere, like Eventa Servo does per country (81a):

@@ -662,5 +662,6 @@
   "js.push_chat": "💬 Uma mensagem de {name}",
   "js.push_invite": "🤝 Alguém usou o teu código",
   "js.push_inbox": "📥 Uma mensagem na tua caixa pública",
-  "js.push_answer": "🔒 Uma resposta privada a «{post}»"
+  "js.push_answer": "🔒 Uma resposta privada a «{post}»",
+  "home.intro": "O quadro de avisos da tua zona: o que se passa por aqui (concertos, mercados, encontros) e o que as pessoas daqui dizem. Qualquer pessoa pode acrescentar."
 }

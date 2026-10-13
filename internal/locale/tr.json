@@ -662,5 +662,6 @@
   "js.push_chat": "💬 {name} adlı kişiden bir mesaj",
   "js.push_invite": "🤝 Biri kodunu kullandı",
   "js.push_inbox": "📥 Açık gelen kutunda bir mesaj",
-  "js.push_answer": "🔒 “{post}” için özel bir yanıt"
+  "js.push_answer": "🔒 “{post}” için özel bir yanıt",
+  "home.intro": "Bölgenin ilan panosu: burada neler oluyor (konserler, pazarlar, buluşmalar) ve buradaki insanlar ne diyor. Herkes bir şey ekleyebilir."
 }

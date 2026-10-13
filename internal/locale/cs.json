@@ -662,5 +662,6 @@
   "js.push_chat": "💬 Zpráva od {name}",
   "js.push_invite": "🤝 Někdo použil tvůj kód",
   "js.push_inbox": "📥 Zpráva ve tvé veřejné schránce",
-  "js.push_answer": "🔒 Soukromá odpověď na „{post}“"
+  "js.push_answer": "🔒 Soukromá odpověď na „{post}“",
+  "home.intro": "Nástěnka tvého okolí: co se tu děje (koncerty, trhy, setkání) a co tu lidé říkají. Přidat může kdokoli."
 }

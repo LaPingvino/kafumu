@@ -662,5 +662,6 @@
   "js.push_chat": "💬 Mesaĝo de {name}",
   "js.push_invite": "🤝 Iu uzis vian kodon",
   "js.push_inbox": "📥 Mesaĝo en via publika poŝtkesto",
-  "js.push_answer": "🔒 Privata respondo al “{post}”"
+  "js.push_answer": "🔒 Privata respondo al “{post}”",
+  "home.intro": "La afiŝtabulo de via loko: kio okazas ĉi tie (koncertoj, bazaroj, renkontiĝoj) kaj kion diras la homoj ĉi tie. Ĉiu povas aldoni."
 }

@@ -662,5 +662,6 @@
   "js.push_chat": "💬 Wiadomość od {name}",
   "js.push_invite": "🤝 Ktoś użył twojego kodu",
   "js.push_inbox": "📥 Wiadomość w twojej publicznej skrzynce",
-  "js.push_answer": "🔒 Prywatna odpowiedź na „{post}”"
+  "js.push_answer": "🔒 Prywatna odpowiedź na „{post}”",
+  "home.intro": "Tablica ogłoszeń twojej okolicy: co się tu dzieje (koncerty, targi, spotkania) i co mówią tutejsi ludzie. Każdy może coś dodać."
 }

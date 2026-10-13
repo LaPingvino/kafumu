@@ -662,5 +662,6 @@
   "js.push_chat": "💬 Pesan dari {name}",
   "js.push_invite": "🤝 Seseorang memakai kodemu",
   "js.push_inbox": "📥 Pesan di kotak masuk publikmu",
-  "js.push_answer": "🔒 Jawaban pribadi untuk “{post}”"
+  "js.push_answer": "🔒 Jawaban pribadi untuk “{post}”",
+  "home.intro": "Papan pengumuman areamu: apa yang ada di sekitar sini (konser, pasar, pertemuan) dan apa kata orang di sini. Siapa pun bisa menambahkan."
 }

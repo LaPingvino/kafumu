@@ -617,6 +617,11 @@ try {
       await D.waitFor("document.getElementById('guess-q').textContent.includes('Ede')", "guess names Ede");
       await D.evaluate("document.getElementById('guess-yes').click()");
       await D.waitFor("document.getElementById('place-name').textContent === 'Ede'", "Yes shows Ede");
+      // A newcomer reads what this is (82a); ✕ closes it for good.
+      await D.waitFor("!document.getElementById('intro').hidden && document.getElementById('intro').textContent.includes('notice board')", "what this is, for a newcomer");
+      await D.evaluate("document.querySelector('#intro .close-x').click(); true");
+      await D.goto(base + "/");
+      await D.waitFor("document.getElementById('place-name').textContent === 'Ede' && document.getElementById('intro').hidden", "closed intro stays closed");
       await D.send("Network.setExtraHTTPHeaders", { headers: {} });
     }
 

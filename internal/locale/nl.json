@@ -662,5 +662,6 @@
   "js.push_chat": "💬 Een bericht van {name}",
   "js.push_invite": "🤝 Iemand gebruikte je code",
   "js.push_inbox": "📥 Een bericht in je openbare inbox",
-  "js.push_answer": "🔒 Een privéantwoord op “{post}”"
+  "js.push_answer": "🔒 Een privéantwoord op “{post}”",
+  "home.intro": "Het prikbord van je buurt: wat er hier te doen is (concerten, markten, meetups) en wat mensen hier zeggen. Iedereen kan iets toevoegen."
 }

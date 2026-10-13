@@ -662,5 +662,6 @@
   "js.push_chat": "💬 Eine Nachricht von {name}",
   "js.push_invite": "🤝 Jemand hat deinen Code benutzt",
   "js.push_inbox": "📥 Eine Nachricht in deinem öffentlichen Posteingang",
-  "js.push_answer": "🔒 Eine private Antwort auf „{post}“"
+  "js.push_answer": "🔒 Eine private Antwort auf „{post}“",
+  "home.intro": "Das schwarze Brett deiner Gegend: was hier los ist (Konzerte, Märkte, Treffen) und was die Leute hier sagen. Jede und jeder kann etwas beitragen."
 }

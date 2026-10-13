@@ -662,5 +662,6 @@
   "js.push_chat": "💬 Un message de {name}",
   "js.push_invite": "🤝 Quelqu'un a utilisé ton code",
   "js.push_inbox": "📥 Un message dans ta boîte publique",
-  "js.push_answer": "🔒 Une réponse privée à « {post} »"
+  "js.push_answer": "🔒 Une réponse privée à « {post} »",
+  "home.intro": "Le panneau d'affichage de ton coin : ce qui se passe ici (concerts, marchés, rencontres) et ce que les gens d'ici disent. Tout le monde peut y ajouter quelque chose."
 }

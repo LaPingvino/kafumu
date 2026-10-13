@@ -662,5 +662,6 @@
   "js.push_chat": "💬 {name}님의 메시지",
   "js.push_invite": "🤝 누군가 내 코드를 사용했어요",
   "js.push_inbox": "📥 공개 받은편지함에 메시지",
-  "js.push_answer": "🔒 “{post}”에 대한 비공개 답장"
+  "js.push_answer": "🔒 “{post}”에 대한 비공개 답장",
+  "home.intro": "우리 동네 게시판: 이 근처에서 무슨 일이 있는지(공연, 장터, 모임)와 이곳 사람들의 이야기. 누구나 더할 수 있어요."
 }

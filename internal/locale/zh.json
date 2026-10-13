@@ -662,5 +662,6 @@
   "js.push_chat": "💬 来自 {name} 的消息",
   "js.push_invite": "🤝 有人用了你的代码",
   "js.push_inbox": "📥 你的公开收件箱有一条消息",
-  "js.push_answer": "🔒 对“{post}”的私下回复"
+  "js.push_answer": "🔒 对“{post}”的私下回复",
+  "home.intro": "你所在地区的布告栏：附近有什么活动（音乐会、集市、聚会），以及这里的人在说什么。任何人都可以添加。"
 }

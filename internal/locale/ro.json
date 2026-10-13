@@ -662,5 +662,6 @@
   "js.push_chat": "💬 Un mesaj de la {name}",
   "js.push_invite": "🤝 Cineva a folosit codul tău",
   "js.push_inbox": "📥 Un mesaj în căsuța ta publică",
-  "js.push_answer": "🔒 Un răspuns privat la „{post}”"
+  "js.push_answer": "🔒 Un răspuns privat la „{post}”",
+  "home.intro": "Avizierul zonei tale: ce se întâmplă pe aici (concerte, târguri, întâlniri) și ce spun oamenii de aici. Oricine poate adăuga."
 }

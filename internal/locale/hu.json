@@ -662,5 +662,6 @@
   "js.push_chat": "💬 Üzenet tőle: {name}",
   "js.push_invite": "🤝 Valaki használta a kódodat",
   "js.push_inbox": "📥 Üzenet a nyilvános postaládádban",
-  "js.push_answer": "🔒 Privát válasz erre: „{post}”"
+  "js.push_answer": "🔒 Privát válasz erre: „{post}”",
+  "home.intro": "A környéked hirdetőtáblája: mi történik itt (koncertek, vásárok, találkozók), és mit mondanak az itteniek. Bárki hozzáadhat."
 }

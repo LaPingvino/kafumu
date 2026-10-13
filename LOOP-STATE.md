@@ -1078,7 +1078,9 @@ your posts and meetups (Activity, 77) in one mailbox, and notifications that alw
 
 ## 82. Answer a newcomer's questions up front (Joop 2026-10-13, a friend's questions: "a local paper, then?",
 "can concerts, fairs, festivals go in?")
-- [ ] 82a. The area page says what it is in one line before anything else (the digital town crier: what's on
+- [x] 82a. Done: a closable card under the area name: "Your area's notice board: what's on around here (concerts,
+      markets, meetups) and what people here are saying. Anyone can add to it." + 💬 Say something / ＋ Host a meetup;
+      ✕ remembers (kafumu.introSeen). Sources get a mention once 81 exists. Was: The area page says what it is in one line before anything else (the digital town crier: what's on
       and what people say around here, events included) and where to add an event / a source, without a tour.
       Look at it as that friend would at 390 px; 24 languages.
 
