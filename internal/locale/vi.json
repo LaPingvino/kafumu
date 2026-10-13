@@ -716,5 +716,10 @@
   "js.storage_error": "Trình duyệt này không cho Kafumu đọc dữ liệu ở đây ({why}). Dữ liệu trên các thiết bị khác của bạn không bị ảnh hưởng.",
   "js.store_info": "Trên thiết bị này: {n} liên hệ · {where}",
   "js.suggest_source": "Mọi người ở đây hay chia sẻ {host}. Thêm tin của nó vào khu vực này?",
-  "js.suggest_add": "Thêm tin"
+  "js.suggest_add": "Thêm tin",
+  "screen.title": "Quanh đây",
+  "screen.scan": "Thêm gì đó ở đây",
+  "js.screen_today": "Hôm nay",
+  "js.screen_week": "Tuần này",
+  "js.screen_empty": "Chưa có gì ở đây. Hãy là người đầu tiên: quét mã."
 }

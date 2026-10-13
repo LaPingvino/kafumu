@@ -716,5 +716,10 @@
   "js.storage_error": "Denne browser lader ikke Kafumu læse sine data her ({why}). Det på dine andre enheder er ikke berørt.",
   "js.store_info": "På denne enhed: {n} kontakter · {where}",
   "js.suggest_source": "Folk her deler ofte {host}. Tilføj dens nyheder til området?",
-  "js.suggest_add": "Tilføj nyheder"
+  "js.suggest_add": "Tilføj nyheder",
+  "screen.title": "Her omkring",
+  "screen.scan": "Tilføj noget her",
+  "js.screen_today": "I dag",
+  "js.screen_week": "Denne uge",
+  "js.screen_empty": "Intet her endnu. Vær den første: scan koden."
 }

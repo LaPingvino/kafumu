@@ -716,5 +716,10 @@
   "js.storage_error": "Bu tarayıcı Kafumu'nun buradaki verilerini okumasına izin vermiyor ({why}). Diğer cihazlarındakiler etkilenmez.",
   "js.store_info": "Bu cihazda: {n} kişi · {where}",
   "js.suggest_source": "Buradakiler sık sık {host} paylaşıyor. Haberlerini bu bölgeye ekleyelim mi?",
-  "js.suggest_add": "Haberleri ekle"
+  "js.suggest_add": "Haberleri ekle",
+  "screen.title": "Buralarda",
+  "screen.scan": "Buraya bir şey ekle",
+  "js.screen_today": "Bugün",
+  "js.screen_week": "Bu hafta",
+  "js.screen_empty": "Henüz bir şey yok. İlk sen ol: kodu tara."
 }

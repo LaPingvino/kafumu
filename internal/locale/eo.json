@@ -716,5 +716,10 @@
   "js.storage_error": "Ĉi tiu retumilo ne lasas Kafumu legi siajn datumojn ĉi tie ({why}). Tio, kio estas en viaj aliaj aparatoj, ne estas tuŝita.",
   "js.store_info": "En ĉi tiu aparato: {n} kontaktoj · {where}",
   "js.suggest_source": "Homoj ĉi tie ofte dividas {host}. Ĉu aldoni ĝiajn novaĵojn al ĉi tiu loko?",
-  "js.suggest_add": "Aldoni novaĵojn"
+  "js.suggest_add": "Aldoni novaĵojn",
+  "screen.title": "Ĉi-ĉirkaŭe",
+  "screen.scan": "Aldonu ion ĉi tie",
+  "js.screen_today": "Hodiaŭ",
+  "js.screen_week": "Ĉi-semajne",
+  "js.screen_empty": "Ankoraŭ nenio ĉi tie. Estu la unua: skanu la kodon."
 }

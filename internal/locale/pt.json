@@ -716,5 +716,10 @@
   "js.storage_error": "Este navegador não deixa o Kafumu ler os seus dados aqui ({why}). O que está nos teus outros dispositivos não é afetado.",
   "js.store_info": "Neste dispositivo: {n} contactos · {where}",
   "js.suggest_source": "As pessoas daqui partilham muitas vezes {host}. Adicionar as notícias à área?",
-  "js.suggest_add": "Adicionar notícias"
+  "js.suggest_add": "Adicionar notícias",
+  "screen.title": "Por aqui",
+  "screen.scan": "Acrescenta algo aqui",
+  "js.screen_today": "Hoje",
+  "js.screen_week": "Esta semana",
+  "js.screen_empty": "Ainda nada aqui. Sê o primeiro: lê o código."
 }

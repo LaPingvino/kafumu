@@ -1158,10 +1158,11 @@ A separate page, `/screen?cell=…`, showing the area's own content (the same bu
 area page) laid out for a physical screen. Two versions: **display** (not interactive) and **touch** (an
 interactive public screen). Configurable on the screen page itself, never on the main area page: the config lives
 in the URL (+ the screen device's storage), the server stores nothing for a screen.
-- [ ] 84a. Display: fits everything to the physical screen dynamically: columns and type size from the viewport, as
-      many items as fit without scrolling, the rest paged through in turn; meetups of today/this week up front;
-      fullscreen + wake lock; a corner with QR + short link to the area ("add something here"). 1920×1080 TV,
-      portrait screens, tablets. 24 languages for the few new words.
+- [x] 84a. Done: /screen?cell=…[&speed=s]: a standalone page (no navigation) reading the area's bundle (cell + ring):
+      meetups of today/this week first, then local lines, news, a few Bluesky posts; cards fill the screen (columns
+      from its width, as many as fit without scrolling) and page every 12 s; place name, clock, and a corner with a QR
+      code + link to the area ("Add something here"); refreshes every 10 min; wake lock, fullscreen on first tap.
+      Checked at 1920×1080 and a portrait tablet; browser step.
 - [ ] 84b. Touch: the same layout, tappable: an item opens large with its details; idle 60 s → back to the overview.
 - [ ] 84c. Configure (a ⚙ panel on /screen itself): area, view (filters / a ☆ view), display or touch, paging speed,
       a list of styles (light, dark, high contrast, large print, brand colours) and custom CSS; the result is a

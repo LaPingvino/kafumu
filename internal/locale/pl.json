@@ -716,5 +716,10 @@
   "js.storage_error": "Ta przeglądarka nie pozwala Kafumu czytać tu danych ({why}). To, co jest na innych twoich urządzeniach, jest bezpieczne.",
   "js.store_info": "Na tym urządzeniu: {n} kontaktów · {where}",
   "js.suggest_source": "Ludzie tutaj często udostępniają {host}. Dodać jego wiadomości do okolicy?",
-  "js.suggest_add": "Dodaj wiadomości"
+  "js.suggest_add": "Dodaj wiadomości",
+  "screen.title": "Tu w okolicy",
+  "screen.scan": "Dodaj coś tutaj",
+  "js.screen_today": "Dziś",
+  "js.screen_week": "W tym tygodniu",
+  "js.screen_empty": "Jeszcze nic tu nie ma. Bądź pierwszy: zeskanuj kod."
 }

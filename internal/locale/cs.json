@@ -716,5 +716,10 @@
   "js.storage_error": "Tento prohlížeč Kafumu nedovolí číst tady jeho data ({why}). Tvých ostatních zařízení se to netýká.",
   "js.store_info": "Na tomto zařízení: {n} kontaktů · {where}",
   "js.suggest_source": "Lidé tady často sdílejí {host}. Přidat jeho zprávy k této oblasti?",
-  "js.suggest_add": "Přidat zprávy"
+  "js.suggest_add": "Přidat zprávy",
+  "screen.title": "Tady v okolí",
+  "screen.scan": "Přidej sem něco",
+  "js.screen_today": "Dnes",
+  "js.screen_week": "Tento týden",
+  "js.screen_empty": "Zatím tu nic není. Buď první: naskenuj kód."
 }

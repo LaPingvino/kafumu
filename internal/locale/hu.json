@@ -716,5 +716,10 @@
   "js.storage_error": "Ez a böngésző nem engedi, hogy a Kafumu itt olvassa az adatait ({why}). A többi eszközödön lévőket ez nem érinti.",
   "js.store_info": "Ezen az eszközön: {n} névjegy · {where}",
   "js.suggest_source": "Az itteniek gyakran megosztják: {host}. Hozzáadod a híreit a környékhez?",
-  "js.suggest_add": "Hírek hozzáadása"
+  "js.suggest_add": "Hírek hozzáadása",
+  "screen.title": "Itt a környéken",
+  "screen.scan": "Írj ide valamit",
+  "js.screen_today": "Ma",
+  "js.screen_week": "Ezen a héten",
+  "js.screen_empty": "Még semmi sincs itt. Légy az első: olvasd be a kódot."
 }

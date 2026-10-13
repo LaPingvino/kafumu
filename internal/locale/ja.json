@@ -716,5 +716,10 @@
   "js.storage_error": "このブラウザはここでKafumuのデータを読ませてくれません（{why}）。ほかの端末のデータには影響しません。",
   "js.store_info": "この端末：連絡先 {n} 件 · {where}",
   "js.suggest_source": "この地域ではよく {host} が共有されています。ニュースをこの地域に追加しますか？",
-  "js.suggest_add": "ニュースを追加"
+  "js.suggest_add": "ニュースを追加",
+  "screen.title": "このあたり",
+  "screen.scan": "ここに投稿しよう",
+  "js.screen_today": "今日",
+  "js.screen_week": "今週",
+  "js.screen_empty": "まだ何もありません。最初の一人に：コードを読み取って。"
 }

@@ -92,6 +92,9 @@ try {
   // 🔁 keeps a line here (86d): a reaction, counted under it.
   await A.evaluate("[...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')).querySelector('.keep-alive').click(); true");
   await A.waitFor("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')); return li && li.querySelector('.keep-alive').textContent.includes('✓') && li.textContent.includes('🔁 1'); })()", "🔁 sent and counted", 30000);
+  // The area on a public screen (84a): its own content, a QR code to add to it, no navigation.
+  await B.goto(base + "/screen?cell=6fg223");
+  await B.waitFor("!!document.querySelector('#screen-qr-code svg') && !document.querySelector('.switcher') && document.querySelectorAll('.screen-card').length > 0", "the public screen shows the area's lines", 20000);
   // Take a line back (88b): only the device that sent it has the ✕, and it disappears for everyone.
   await A.evaluate("(() => { document.getElementById('oln-form').hidden = true; document.getElementById('say').click(); const f = document.getElementById('oln-form'); f.text.value = 'Oops, wrong area " + RUN + "'; f.requestSubmit(); return true; })()");
   await A.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('Oops, wrong area " + RUN + "') && li.querySelector('.take-back'))", "own line with ✕ Take back", 30000);

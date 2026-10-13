@@ -716,5 +716,10 @@
   "js.storage_error": "Deze browser laat Kafumu hier zijn gegevens niet lezen ({why}). Wat op je andere apparaten staat, blijft gewoon.",
   "js.store_info": "Op dit apparaat: {n} contacten · {where}",
   "js.suggest_source": "Mensen hier delen vaak {host}. Het nieuws ervan toevoegen aan dit gebied?",
-  "js.suggest_add": "Nieuws toevoegen"
+  "js.suggest_add": "Nieuws toevoegen",
+  "screen.title": "Hier in de buurt",
+  "screen.scan": "Zet hier iets neer",
+  "js.screen_today": "Vandaag",
+  "js.screen_week": "Deze week",
+  "js.screen_empty": "Nog niets hier. Wees de eerste: scan de code."
 }

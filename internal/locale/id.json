@@ -716,5 +716,10 @@
   "js.storage_error": "Peramban ini tidak mengizinkan Kafumu membaca datanya di sini ({why}). Data di perangkatmu yang lain tidak terpengaruh.",
   "js.store_info": "Di perangkat ini: {n} kontak · {where}",
   "js.suggest_source": "Orang di sini sering membagikan {host}. Tambahkan beritanya ke area ini?",
-  "js.suggest_add": "Tambah berita"
+  "js.suggest_add": "Tambah berita",
+  "screen.title": "Di sekitar sini",
+  "screen.scan": "Tambahkan sesuatu di sini",
+  "js.screen_today": "Hari ini",
+  "js.screen_week": "Minggu ini",
+  "js.screen_empty": "Belum ada apa-apa. Jadilah yang pertama: pindai kodenya."
 }

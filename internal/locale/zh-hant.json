@@ -716,5 +716,10 @@
   "js.storage_error": "這個瀏覽器不讓 Kafumu 在這裡讀取資料（{why}）。你其他裝置上的資料不受影響。",
   "js.store_info": "本裝置：{n} 位聯絡人 · {where}",
   "js.suggest_source": "這裡的人常分享 {host}。把它的新聞加到這個地區？",
-  "js.suggest_add": "新增新聞"
+  "js.suggest_add": "新增新聞",
+  "screen.title": "附近",
+  "screen.scan": "在這裡留言",
+  "js.screen_today": "今天",
+  "js.screen_week": "本週",
+  "js.screen_empty": "這裡還什麼都沒有。來做第一個：掃描二維碼。"
 }

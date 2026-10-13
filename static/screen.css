@@ -1,0 +1,25 @@
+/* The area on a public screen (84): everything sized from the viewport, so
+   a TV across the room and a tablet on a counter both read. */
+body.screen { margin: 0; padding: 0; height: 100vh; overflow: hidden; background: var(--window-bg); color: var(--fg);
+  font-size: clamp(16px, 1.5vw + .5vh, 34px); display: grid; grid-template-rows: auto 1fr auto; }
+.screen-head { display: flex; align-items: baseline; justify-content: space-between; padding: 1.2vh 2vw .4vh; }
+.screen-head h1 { margin: 0; font-size: 2.1em; }
+#screen-clock { font-size: 1.3em; color: var(--dim); font-variant-numeric: tabular-nums; }
+.screen-grid { display: grid; grid-template-columns: repeat(var(--cols, 2), 1fr); grid-auto-rows: min-content; gap: 1.2vw;
+  padding: 1vh 2vw; overflow: hidden; align-content: start; padding-right: calc(2vw + var(--qr, 18vw)); }
+.screen-card { background: var(--card-bg); border-radius: var(--radius); padding: .7em .9em; box-shadow: 0 1px 4px var(--shade);
+  border-left: .3em solid var(--border); overflow: hidden; }
+.screen-card.meetup { border-left-color: var(--accent-bg); }
+.screen-card.news { border-left-color: #4a7bb7; }
+.screen-card .k { font-size: .7em; text-transform: uppercase; letter-spacing: .05em; color: var(--dim); }
+.screen-card h2 { font-size: 1.15em; margin: .15em 0 .2em; line-height: 1.25; }
+.screen-card p { margin: 0; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.screen-card .m { font-size: .75em; color: var(--dim); margin-top: .35em; }
+.screen-qr { position: fixed; right: 2vw; bottom: 3vh; width: var(--qr, 18vw); text-align: center; background: var(--card-bg);
+  border-radius: var(--radius); padding: 1vw; box-shadow: 0 2px 10px var(--shade); }
+.screen-qr svg { width: 100%; height: auto; display: block; }
+.screen-qr p { margin: .5em 0 0; font-size: .8em; word-break: break-all; }
+.screen-page { position: fixed; left: 2vw; bottom: 1vh; margin: 0; color: var(--dim); font-size: .7em; }
+@media (orientation: portrait) { .screen-grid { padding-right: 2vw; padding-bottom: calc(var(--qr, 30vw) + 4vh); } .screen-qr { --qr: 30vw; width: 30vw; } }
+@media (prefers-reduced-motion: no-preference) { .screen-card { animation: kf-up .4s ease-out both; } }
+@keyframes kf-up { from { transform: translateY(12px); opacity: 0; } to { transform: none; opacity: 1; } }

@@ -716,5 +716,10 @@
   "js.storage_error": "Acest browser nu-l lasă pe Kafumu să-și citească datele aici ({why}). Ce e pe celelalte dispozitive nu e afectat.",
   "js.store_info": "Pe acest dispozitiv: {n} contacte · {where}",
   "js.suggest_source": "Oamenii de aici distribuie des {host}. Adaugi știrile lui la zonă?",
-  "js.suggest_add": "Adaugă știrile"
+  "js.suggest_add": "Adaugă știrile",
+  "screen.title": "Pe aici",
+  "screen.scan": "Adaugă ceva aici",
+  "js.screen_today": "Azi",
+  "js.screen_week": "Săptămâna asta",
+  "js.screen_empty": "Încă nimic aici. Fii primul: scanează codul."
 }

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="{{.Lang}}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{.Title}} · {{.Brand}}</title>
+  <link rel="icon" href="/static/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/kafumu.css?v={{.V}}">
+  <link rel="stylesheet" href="/static/screen.css?v={{.V}}">
+  {{with .BrandInfo}}{{if .Accent}}<style>:root { --accent: {{.Accent}}; --accent-bg: {{.Accent}}; }</style>{{end}}{{end}}
+  <script>window.KAFUMU_V = {{.V}}; window.KAFUMU_T = {{.JS}};
+    window.KAFUMU_LOCALE = ({ en: "en-GB", pt: "pt-PT", nl: "nl-NL", eo: "eo", zh: "zh-Hans", "zh-hant": "zh-Hant-TW" })[document.documentElement.lang] || document.documentElement.lang;</script>
+</head>
+<!-- The area on a public screen (84): no navigation, sized to the display. -->
+<body class="screen">
+  <header class="screen-head"><h1 id="screen-place">{{.Brand}}</h1><span id="screen-clock"></span></header>
+  <main id="screen-grid" class="screen-grid" aria-live="polite"></main>
+  <aside class="screen-qr"><div id="screen-qr-code"></div><p><strong>{{t .Lang "screen.scan"}}</strong><br><span id="screen-link"></span></p></aside>
+  <p id="screen-page" class="screen-page"></p>
+  <script src="/static/geo.js?v={{.V}}"></script>
+  <script src="/static/vendor/qrcode-1.4.4.js?v={{.V}}"></script>
+  <script src="/static/screen.js?v={{.V}}"></script>
+</body>
+</html>

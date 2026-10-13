@@ -312,6 +312,15 @@ func (h *Home) ShowActivity(w http.ResponseWriter, r *http.Request) {
 	h.render(w, "activity.html", p)
 }
 
+// ShowScreen renders /screen?cell=…: the area on a public screen (84), a
+// different view of the same content, sized to the physical display. It
+// reads the same bundle as the area page; nothing is stored for a screen.
+func (h *Home) ShowScreen(w http.ResponseWriter, r *http.Request) {
+	p := h.newPage(r, "")
+	p.Title = locale.T(p.Lang, "screen.title")
+	h.render(w, "screen.html", p)
+}
+
 // ShowChat renders /chat?k=…: one chat as its own page (88a): how a phone
 // opens a chat, and where a desktop window pops out to. The chat itself is
 // on the device; chatdock.js builds it here.
