@@ -1051,7 +1051,19 @@ Order (Joop 2026-10-13: mailbox first, reorder freely): 83 → 82 → 81c–f �
 ## 83. One mailbox for every conversation (Joop 2026-10-13)
 Private answers (now on the home page), chat messages and their answers (now on contact cards), replies to
 your posts and meetups (Activity, 77) in one mailbox, and notifications that always say who and about what.
-- [ ] 83a. Map every channel and every push payload: what each notification says now, and where it opens.
+- [x] 83a. Map (2026-10-13). Channels → where they show → push:
+      · signals (☕, mailbox box) → contact card → "☕ Someone you've connected with sent you a signal", /contacts
+      · chat lines (pair tag p…) → contact card chat → "💬 A new message or answer for you", /activity
+      · private answers to your lines, both ways (pair tags from replyKeys/"answers" threads) → home "🔒 Private
+        answers" above the feed → same "💬 …" text, /activity
+      · public replies/reactions (#re), meetup RSVPs/comments, Bluesky replies → Activity (77), no push
+      · invite/badge/public-inbox boxes (someone connected, a paid inbox message) → contacts → signal text
+      Why notifications lack context: the server can't know who or what (rule 1), and the payload doesn't even
+      say which box, so every push reads the same and chat pushes open Activity, where chats don't show.
+      Fix (83d) without the server learning anything: the payload names the box (the push service already
+      knows it; the payload is encrypted to the device); the device keeps box → {icon, who, about, url} in its
+      IndexedDB when it subscribes (watched()), and the service worker reads that to say "💬 Anna" /
+      "🔒 An answer to “Coffee at …”" and open that thread.
 - [ ] 83b. The mailbox (grow /activity into it): threads by channel and person, newest first, unread marked;
       private answers move off the home page into it (a small "🔒 n new" link stays on the area).
 - [ ] 83c. Chats: each contact's messages as a mailbox thread (still opening the chat on the contact).
