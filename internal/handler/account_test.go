@@ -38,6 +38,7 @@ func newServerWithMeetups(t *testing.T) (http.Handler, *Home, *account.Service) 
 	mux.HandleFunc("POST /meetups", m.Create)
 	mux.HandleFunc("GET /meetups/{id}", m.Show)
 	mux.HandleFunc("POST /meetups/{id}/rsvp", m.RSVP)
+	mux.HandleFunc("GET /rss/{cell}", m.RSS)
 	return a.Middleware(mux), home, svc
 }
 

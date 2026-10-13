@@ -652,5 +652,8 @@
   "js.connect_plain": "Połącz",
   "js.name_after_connect": "Jeszcze nie wiedzą, kim jesteś: dodaj swoje imię, a zostanie im wysłane.",
   "biz.start_another": "Załóż kolejne konto firmowe",
-  "account.name_hint": "Tak cię znajdują i oznaczają, jako {host}/@nazwa. Imię na twojej wizytówce ustawiasz osobno:"
+  "account.name_hint": "Tak cię znajdują i oznaczają, jako {host}/@nazwa. Imię na twojej wizytówce ustawiasz osobno:",
+  "area.calendar": "Kalendarz",
+  "area.calendar_title": "Spotkania z tej okolicy w twoim kalendarzu",
+  "area.rss_title": "Śledź tę okolicę w czytniku kanałów lub na swojej stronie"
 }

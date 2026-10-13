@@ -203,6 +203,7 @@ func main() {
 	mux.HandleFunc("GET /meetups/{id}/ics", meetups.ICS)
 	mux.HandleFunc("GET /api/meetups", meetups.ByIDs)
 	mux.HandleFunc("GET /cal/{cell}", meetups.ICS)
+	mux.HandleFunc("GET /rss/{cell}", meetups.RSS)
 	mux.HandleFunc("GET /cron/feeds", meetups.SyncFeeds)
 	mux.HandleFunc("GET /api/esperanto/online", meetups.EsperantoOnline)
 	runPurge := func(ctx context.Context) string {

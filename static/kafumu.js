@@ -1220,6 +1220,13 @@
     $("cell-actions").hidden = false;
     $("compose").href = "https://bsky.app/intent/compose?text=" + encodeURIComponent("\n\n" + tag);
     $("be-findable").href = "/findable?cell=" + c;
+    // Follow the area elsewhere, like Eventa Servo does per country (81a):
+    // its meetups as a calendar subscription, everything as RSS.
+    $("cal-link").href = "webcal://" + location.host + "/cal/" + c + ".ics";
+    $("rss-link").href = "/rss/" + c;
+    var alt = document.querySelector('link[rel=alternate][type="application/rss+xml"]');
+    if (!alt) { alt = document.createElement("link"); alt.rel = "alternate"; alt.type = "application/rss+xml"; document.head.appendChild(alt); }
+    alt.href = "/rss/" + c; alt.title = tag;
     // Connected to ATproto: Bluesky posts from here, into your own account.
     var comp = $("composer");
     if (comp) {

@@ -652,5 +652,8 @@
   "js.connect_plain": "Kết nối",
   "js.name_after_connect": "Họ chưa biết bạn là ai: thêm tên của bạn và nó sẽ được gửi cho họ.",
   "biz.start_another": "Tạo thêm tài khoản doanh nghiệp",
-  "account.name_hint": "Đây là cách mọi người tìm và nhắc đến bạn, như {host}/@tên. Tên trên thẻ của bạn là riêng:"
+  "account.name_hint": "Đây là cách mọi người tìm và nhắc đến bạn, như {host}/@tên. Tên trên thẻ của bạn là riêng:",
+  "area.calendar": "Lịch",
+  "area.calendar_title": "Các buổi gặp ở khu vực này trong lịch của bạn",
+  "area.rss_title": "Theo dõi khu vực này bằng trình đọc tin hoặc trên trang web của bạn"
 }

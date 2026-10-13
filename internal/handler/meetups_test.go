@@ -29,6 +29,14 @@ func TestMeetupFlow(t *testing.T) {
 	if w = do(h, "GET", loc, nil, ""); w.Code != 200 || !strings.Contains(w.Body.String(), "Kafo") {
 		t.Errorf("show: %d", w.Code)
 	}
+	// The area's feed (81a) has it, linked to its page.
+	if w = do(h, "GET", "/rss/8ccgqw", nil, ""); w.Code != 200 || !strings.Contains(w.Body.String(), "<title>📅 Kafo</title>") ||
+		!strings.Contains(w.Body.String(), "https://kafumu.test"+loc) || !strings.HasPrefix(w.Header().Get("Content-Type"), "application/rss+xml") {
+		t.Errorf("rss: %d %s", w.Code, w.Body.String())
+	}
+	if w = do(h, "GET", "/rss/nope!", nil, ""); w.Code != 404 {
+		t.Errorf("rss of a bad cell: %d", w.Code)
+	}
 	// Without an account, RSVP sends you to make one.
 	if w = do(h, "POST", loc+"/rsvp", url.Values{}, ""); !strings.Contains(w.Header().Get("Location"), "/account?next=") {
 		t.Errorf("anonymous rsvp redirect = %q", w.Header().Get("Location"))

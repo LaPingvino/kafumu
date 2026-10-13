@@ -1050,15 +1050,17 @@ Per the OLN json-spec, a link is an index key like a tag (index["link"] → mess
 Kafumu can't know what an area cares about; its people can. Sources are added by named accounts with a
 passkey, always bound to an area, carry an OLN value (mined, sorted by it), capped per account, and are pulled
 only for areas people actually look at. Each slice passes one test: does the area feel more alive to a local?
-- [ ] 81a. Out: an RSS feed per area (`/rss/{cell}`: its local lines and meetups, from the cached bundles),
+- [x] 81a. Done: /rss/{cell} (the cell's public lines without reactions/private, meetups within a ring, newest
+      first, ≤ 50, 10 min cache, bots 404) + 📅 Calendar (webcal:// /cal/{cell}.ics) and 📰 RSS buttons, and a
+      <link rel=alternate> on the area page. Tests: TestMeetupFlow, browser step. Was: Out: an RSS feed per area (`/rss/{cell}`: its local lines and meetups, from the cached bundles),
       and two buttons on each area like Eventa Servo's per country: 📅 Calendar (the existing /cal/{cell}) and
       📰 RSS. 24 languages.
 - [ ] 81b. In, parsing: importer.ParseFeed (RSS 2.0 + Atom: title, link, date, guid), tests. Fetching
       user-supplied URLs needs an SSRF-safe client (http/https only, no loopback/private/link-local/metadata
       addresses after DNS, also on redirects; timeout, body cap) — importer.Get has none of that yet.
 - [ ] 81c. A source is an OLN line in the area with the URL and `#feed` (no new entity, rule 5): the server
-      accepts `#feed` only from a signed-in named account with a passkey, at most 5 live per account, cell
-      required (never 000000). "📰 Add a source for this area" in the composer; listed on the area page with
+      accepts `#feed` only from a signed-in named account with a passkey, a loose cap per account (20 live; a
+      degree of spam is wanted, Joop: the value sorts it, not the gate), cell required (never 000000). "📰 Add a source for this area" in the composer; listed on the area page with
       who added it. oln.html: a source lives as long as its line (renewable), nothing permanent. 24 languages.
 - [ ] 81d. Pull: a bot-safe "seen cells" record (like seen-countries); the 6-hourly feeds job pulls sources of
       cells seen in the last 3 days (bounded per run): calendar feeds → meetups (existing path), RSS/Atom items
@@ -1070,3 +1072,18 @@ only for areas people actually look at. Each slice passes one test: does the are
       look for RSS autodiscovery (<link rel=alternate type=rss/atom>) through the safe client, bounded per run;
       on top of the area page: "People here often share example.nl — add its news to this area?" (one tap for a
       named passkey account, which posts the 81c line).
+
+## 82. Answer a newcomer's questions up front (Joop 2026-10-13, a friend's questions: "a local paper, then?",
+"can concerts, fairs, festivals go in?")
+- [ ] 82a. The area page says what it is in one line before anything else (the digital town crier: what's on
+      and what people say around here, events included) and where to add an event / a source, without a tour.
+      Look at it as that friend would at 390 px; 24 languages.
+
+## 83. One mailbox for every conversation (Joop 2026-10-13)
+Private answers (now on the home page), chat messages and their answers (now on contact cards), replies to
+your posts and meetups (Activity, 77) in one mailbox, and notifications that always say who and about what.
+- [ ] 83a. Map every channel and every push payload: what each notification says now, and where it opens.
+- [ ] 83b. The mailbox (grow /activity into it): threads by channel and person, newest first, unread marked;
+      private answers move off the home page into it (a small "🔒 n new" link stays on the area).
+- [ ] 83c. Chats: each contact's messages as a mailbox thread (still opening the chat on the contact).
+- [ ] 83d. Notifications: every push names the sender/area and a line of context, and opens that thread.

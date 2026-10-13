@@ -652,5 +652,8 @@
   "js.connect_plain": "Spojit se",
   "js.name_after_connect": "Ještě nevědí, kdo jsi: přidej své jméno a pošle se jim.",
   "biz.start_another": "Založit další firemní účet",
-  "account.name_hint": "Takhle tě lidé najdou a zmíní, jako {host}/@jméno. Jméno na tvé kartě je zvlášť:"
+  "account.name_hint": "Takhle tě lidé najdou a zmíní, jako {host}/@jméno. Jméno na tvé kartě je zvlášť:",
+  "area.calendar": "Kalendář",
+  "area.calendar_title": "Setkání v této oblasti ve tvém kalendáři",
+  "area.rss_title": "Sleduj tuto oblast ve čtečce kanálů nebo na svém webu"
 }

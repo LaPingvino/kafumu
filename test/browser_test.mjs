@@ -78,6 +78,9 @@ try {
   await A.waitFor("document.getElementById('feed').textContent.includes('hi from the OLN " + RUN + "')", "A's message in Here now", 30000);
   // Its language tag reads as the language, never as a raw "#langeng".
   await A.waitFor("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')); return li && !/#lang/.test(li.textContent) && li.textContent.includes('🗣'); })()", "language shown as 🗣, not #lang…");
+  // The area as RSS and as a calendar (81a): the buttons point at this cell, the feed has the line.
+  await A.waitFor("/^\\/rss\\/[0-9a-z]{6}$/.test(new URL(document.getElementById('rss-link').href).pathname) && document.getElementById('cal-link').href.startsWith('webcal://')", "📰 RSS and 📅 Calendar for this area");
+  await A.waitFor("fetch(document.getElementById('rss-link').href, { cache: 'no-store' }).then(r => r.text()).then(x => x.includes('<rss') && x.includes('hi from the OLN " + RUN + "'))", "the area's RSS has the message", 20000);
   // The device remembers it as one of your posts (77a), for Activity.
   await A.waitFor("window.kafumuDevice.store.get('myPosts').then(ps => (ps || []).some(p => p.kind === 'note' && p.text.includes('hi from the OLN " + RUN + "') && p.id && p.cell && p.reid))", "own post remembered on the device");
   // Joop saw messages twice: two loads in a row must still show each once.

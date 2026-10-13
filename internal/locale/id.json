@@ -652,5 +652,8 @@
   "js.connect_plain": "Hubungkan",
   "js.name_after_connect": "Mereka belum tahu siapa kamu: tambahkan namamu dan akan dikirim ke mereka.",
   "biz.start_another": "Buat akun bisnis lain",
-  "account.name_hint": "Begitulah orang menemukan dan menyebutmu, sebagai {host}/@nama. Nama di kartumu terpisah:"
+  "account.name_hint": "Begitulah orang menemukan dan menyebutmu, sebagai {host}/@nama. Nama di kartumu terpisah:",
+  "area.calendar": "Kalender",
+  "area.calendar_title": "Pertemuan di area ini di kalendermu",
+  "area.rss_title": "Ikuti area ini di pembaca feed atau di situsmu"
 }

@@ -652,5 +652,8 @@
   "js.connect_plain": "Ligar",
   "js.name_after_connect": "Ainda não sabem quem és: acrescenta o teu nome e é-lhes enviado.",
   "biz.start_another": "Criar outra conta de empresa",
-  "account.name_hint": "É como te encontram e mencionam, em {host}/@nome. O nome do teu cartão é à parte:"
+  "account.name_hint": "É como te encontram e mencionam, em {host}/@nome. O nome do teu cartão é à parte:",
+  "area.calendar": "Agenda",
+  "area.calendar_title": "Os encontros desta área na tua agenda",
+  "area.rss_title": "Segue esta área num leitor de feeds ou no teu site"
 }
