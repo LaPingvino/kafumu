@@ -11,3 +11,5 @@
 service-account*.json
 .env
 WEB-INF/
+.idle-loop-on
+.idle-loop-status
