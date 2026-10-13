@@ -65,7 +65,9 @@
       at = i;
       var el = document.querySelector(ss[i][0]);
       el.classList.add("tour-focus");
-      el.scrollIntoView({ block: "center", behavior: "smooth" });
+      el.scrollIntoView({ block: "start", behavior: "smooth" }); // near the top: the box fits below it
+      var put = function () { var r = el.getBoundingClientRect(); box.classList.toggle("at-top", r.top + r.height / 2 > window.innerHeight / 2); }; // out of the way
+      put(); setTimeout(put, 400);
       box.querySelector(".t").textContent = tourText(ss[i][1]);
       box.querySelector(".n").textContent = (i + 1) + " / " + ss.length;
       box.querySelector(".b").disabled = i === 0;

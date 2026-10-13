@@ -1232,6 +1232,10 @@ Findable, Account, Business, meetups…), and with a "👀 Show me" button that 
       width (no sideways scroll), long names end in …; checked at 360 px. IPTV: dropped unless it needs no server of
       Joop's (it does: ffmpeg/Chromium aren't on App Engine) — not planned.
 
+- [x] Polish (Joop: the tour box was see-through on a phone and blocked the view): opaque in its own right, smaller;
+      the thing it points at scrolls near the top, and the box sits at the bottom, or at the top when that thing is
+      in the lower half (the tab bar); its step shows again. Checked at 390 px.
+
 ## 85. Every conversation as a chat (Joop 2026-10-13)
 One list of chats, like a messenger, merging the mailbox and Contacts (filter: "only contacts"). Every thing that
 talks to you is a thread: a contact, a private answer, your post (its replies and reactions), your meetup (RSVPs,

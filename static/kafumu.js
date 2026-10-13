@@ -619,6 +619,11 @@
   var TOUR = [[".cell-tag", "tour_area"], ["#coffee", "tour_coffee"], ["#say", "tour_say"], ["#ask", "tour_ask"],
     ["#filter-chips", "tour_chips"], ["#feed-kinds", "tour_feed"], ["#change-area", "tour_change"], [".switcher.bottom", "tour_tabs"], [".bell", "tour_bell"]];
   var tourAt = -1;
+  // placeTour: the box goes where it doesn't cover what it points at.
+  function placeTour(box, el) {
+    var put = function () { var r = el.getBoundingClientRect(); box.classList.toggle("at-top", r.top + r.height / 2 > window.innerHeight / 2); };
+    put(); setTimeout(put, 400); // again once the smooth scroll has settled
+  }
   function tourShow(i) {
     var old = document.querySelector(".tour-focus");
     if (old) old.classList.remove("tour-focus");
@@ -627,7 +632,8 @@
     tourAt = i;
     var el = document.querySelector(steps[i][0]);
     el.classList.add("tour-focus");
-    el.scrollIntoView({ block: "center", behavior: "smooth" });
+    el.scrollIntoView({ block: "start", behavior: "smooth" }); // near the top: the box fits below it
+    placeTour($("tour"), el);
     $("tour-text").textContent = tr(steps[i][1]);
     $("tour-step").textContent = (i + 1) + " / " + steps.length;
     $("tour-back").disabled = i === 0;
