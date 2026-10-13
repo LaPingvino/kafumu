@@ -1055,7 +1055,9 @@ only for areas people actually look at. Each slice passes one test: does the are
       <link rel=alternate> on the area page. Tests: TestMeetupFlow, browser step. Was: Out: an RSS feed per area (`/rss/{cell}`: its local lines and meetups, from the cached bundles),
       and two buttons on each area like Eventa Servo's per country: 📅 Calendar (the existing /cal/{cell}) and
       📰 RSS. 24 languages.
-- [ ] 81b. In, parsing: importer.ParseFeed (RSS 2.0 + Atom: title, link, date, guid), tests. Fetching
+- [x] 81b. Done: importer.ParseFeed/FetchFeed (RSS 2.0, RSS 1.0, Atom; HTML stripped, ≤ 30 items, GUID or link
+      for dedupe), checked on NOS, Guardian and GitHub Atom feeds. The SSRF guard already existed (dial-time
+      check after DNS, redirects ≤ 4, http(s) only, 12 s, 3 MB); added carrier-grade NAT 100.64/10. Was: In, parsing: importer.ParseFeed (RSS 2.0 + Atom: title, link, date, guid), tests. Fetching
       user-supplied URLs needs an SSRF-safe client (http/https only, no loopback/private/link-local/metadata
       addresses after DNS, also on redirects; timeout, body cap) — importer.Get has none of that yet.
 - [ ] 81c. A source is an OLN line in the area with the URL and `#feed` (no new entity, rule 5): the server

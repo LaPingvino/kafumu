@@ -76,8 +76,12 @@ func New() *Importer {
 	}
 }
 
+// sharedSpace is carrier-grade NAT (RFC 6598): not reachable from the
+// internet, so nothing a user-supplied link should reach either.
+var sharedSpace = &net.IPNet{IP: net.IPv4(100, 64, 0, 0), Mask: net.CIDRMask(10, 32)}
+
 func public(ip net.IP) bool {
-	return !(ip.IsLoopback() || ip.IsPrivate() || ip.IsLinkLocalUnicast() || ip.IsLinkLocalMulticast() ||
+	return !(sharedSpace.Contains(ip) || ip.IsLoopback() || ip.IsPrivate() || ip.IsLinkLocalUnicast() || ip.IsLinkLocalMulticast() ||
 		ip.IsMulticast() || ip.IsUnspecified() || ip.IsInterfaceLocalMulticast())
 }
 
