@@ -46,7 +46,13 @@
     <label>{{t .Lang "source.url"}}<input name="url" type="url" required placeholder="https://…/rss" maxlength="300"></label>
     <label>{{t .Lang "source.name"}}<input name="name" maxlength="80" placeholder="{{ts .Lang "source.name_ph"}}"></label>
     <p class="dim small">{{t .Lang "source.note"}}</p>
-    <div class="actions"><button type="submit" class="pill">{{t .Lang "source.send"}}</button></div>
+    <div class="inline-row">
+      <select name="extra" aria-label="{{ts .Lang "oln.lasts"}}">
+        <option value="4">{{t .Lang "oln.day"}}</option>
+        <option value="8" selected>{{t .Lang "oln.week"}}</option>
+      </select>
+      <button type="submit" class="pill">{{t .Lang "source.send"}}</button>
+    </div>
     <p class="dim small" id="source-status" role="status"></p>
     {{else}}<p class="dim">{{t .Lang "source.need"}} <a href="/account">{{t .Lang "nav.account"}} →</a></p>{{end}}
   </form>

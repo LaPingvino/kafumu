@@ -687,5 +687,12 @@
   "source.need": "Menambah sumber perlu @nama dan passkey.",
   "js.source_added": "Ditambahkan ke area ini.",
   "js.source_refused": "Tidak ditambahkan: sumber perlu @nama dan passkey, area, dan tautan.",
-  "js.source_label": "sumber"
+  "js.source_label": "sumber",
+  "source.mine": "Sumbermu",
+  "source.mine_note": "Disimpan di perangkat ini. Perbarui sebelum memudar; menghapus mengeluarkannya dari areanya.",
+  "js.source_until": "sampai {when}",
+  "js.source_faded": "memudar",
+  "js.source_renew": "Perbarui",
+  "js.source_remove_confirm": "Keluarkan sumber ini dari areanya?",
+  "js.source_still": "Masih ada: perbarui setelah lebih dari sehari."
 }

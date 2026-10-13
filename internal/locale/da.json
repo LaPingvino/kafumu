@@ -687,5 +687,12 @@
   "source.need": "Kilder kræver et @navn og en adgangsnøgle.",
   "js.source_added": "Tilføjet til området.",
   "js.source_refused": "Ikke tilføjet: en kilde kræver @navn og adgangsnøgle, et område og et link.",
-  "js.source_label": "kilde"
+  "js.source_label": "kilde",
+  "source.mine": "Dine kilder",
+  "source.mine_note": "Gemt på denne enhed. Forny en kilde, før den falmer; fjern tager den ud af området.",
+  "js.source_until": "til {when}",
+  "js.source_faded": "falmet",
+  "js.source_renew": "Forny",
+  "js.source_remove_confirm": "Tage denne kilde ud af området?",
+  "js.source_still": "Stadig der: forny den, når den er over en dag gammel."
 }

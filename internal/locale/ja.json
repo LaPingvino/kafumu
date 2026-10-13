@@ -687,5 +687,12 @@
   "source.need": "ソースの追加には@名前とパスキーが必要です。",
   "js.source_added": "この地域に追加しました。",
   "js.source_refused": "追加できません：@名前とパスキー、地域、リンクが必要です。",
-  "js.source_label": "ソース"
+  "js.source_label": "ソース",
+  "source.mine": "あなたのソース",
+  "source.mine_note": "この端末に保存されています。消える前に更新を。削除すると地域から外れます。",
+  "js.source_until": "{when}まで",
+  "js.source_faded": "消えました",
+  "js.source_renew": "更新",
+  "js.source_remove_confirm": "このソースを地域から外しますか？",
+  "js.source_still": "まだ表示されています。1日以上たったら更新してください。"
 }

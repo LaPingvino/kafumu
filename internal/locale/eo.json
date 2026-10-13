@@ -687,5 +687,12 @@
   "source.need": "Por aldoni fontojn necesas @nomo kaj pasŝlosilo.",
   "js.source_added": "Aldonita al ĉi tiu loko.",
   "js.source_refused": "Ne aldonita: fonto bezonas @nomon kaj pasŝlosilon, lokon kaj ligilon.",
-  "js.source_label": "fonto"
+  "js.source_label": "fonto",
+  "source.mine": "Viaj fontoj",
+  "source.mine_note": "Konservitaj en ĉi tiu aparato. Renovigu fonton antaŭ ol ĝi forvelkas; forigo forprenas ĝin de ĝia loko.",
+  "js.source_until": "ĝis {when}",
+  "js.source_faded": "forvelkinta",
+  "js.source_renew": "Renovigi",
+  "js.source_remove_confirm": "Ĉu forpreni ĉi tiun fonton de ĝia loko?",
+  "js.source_still": "Ankoraŭ tie: renovigu ĝin kiam ĝi estas pli ol tagon aĝa."
 }

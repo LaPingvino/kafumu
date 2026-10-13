@@ -687,5 +687,12 @@
   "source.need": "För att lägga till källor behövs ett @namn och en nyckel.",
   "js.source_added": "Tillagd i området.",
   "js.source_refused": "Inte tillagd: en källa kräver @namn och nyckel, ett område och en länk.",
-  "js.source_label": "källa"
+  "js.source_label": "källa",
+  "source.mine": "Dina källor",
+  "source.mine_note": "Sparade på den här enheten. Förnya en källa innan den bleknar; ta bort tar den från området.",
+  "js.source_until": "till {when}",
+  "js.source_faded": "bleknad",
+  "js.source_renew": "Förnya",
+  "js.source_remove_confirm": "Ta bort källan från området?",
+  "js.source_still": "Finns kvar: förnya den när den är äldre än en dag."
 }

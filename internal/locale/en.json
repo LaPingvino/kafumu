@@ -687,5 +687,12 @@
   "source.need": "Adding sources needs an @name and a passkey.",
   "js.source_added": "Added to this area.",
   "js.source_refused": "Not added: sources need an @name and a passkey, an area and a link.",
-  "js.source_label": "source"
+  "js.source_label": "source",
+  "source.mine": "Your sources",
+  "source.mine_note": "Kept on this device. Renew one before it fades; remove takes it off its area.",
+  "js.source_until": "until {when}",
+  "js.source_faded": "faded",
+  "js.source_renew": "Renew",
+  "js.source_remove_confirm": "Take this source off its area?",
+  "js.source_still": "Still there: renew it once it's older than a day."
 }

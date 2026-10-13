@@ -687,5 +687,12 @@
   "source.need": "新增來源需要 @名字 和通行金鑰。",
   "js.source_added": "已新增到這個地區。",
   "js.source_refused": "未新增：來源需要 @名字 和通行金鑰、地區和連結。",
-  "js.source_label": "來源"
+  "js.source_label": "來源",
+  "source.mine": "你的來源",
+  "source.mine_note": "保存在這台裝置上。在消失前續期；移除會把它從地區撤下。",
+  "js.source_until": "至 {when}",
+  "js.source_faded": "已消失",
+  "js.source_renew": "續期",
+  "js.source_remove_confirm": "把這個來源從地區撤下？",
+  "js.source_still": "還在：超過一天後再續期。"
 }

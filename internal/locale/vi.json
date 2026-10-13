@@ -687,5 +687,12 @@
   "source.need": "Thêm nguồn cần @tên và khóa truy cập.",
   "js.source_added": "Đã thêm vào khu vực này.",
   "js.source_refused": "Chưa thêm: nguồn cần @tên và khóa truy cập, khu vực và liên kết.",
-  "js.source_label": "nguồn"
+  "js.source_label": "nguồn",
+  "source.mine": "Nguồn của bạn",
+  "source.mine_note": "Lưu trên thiết bị này. Làm mới trước khi nó mờ đi; xóa sẽ gỡ nó khỏi khu vực.",
+  "js.source_until": "đến {when}",
+  "js.source_faded": "đã mờ",
+  "js.source_renew": "Làm mới",
+  "js.source_remove_confirm": "Gỡ nguồn này khỏi khu vực?",
+  "js.source_still": "Vẫn còn: làm mới khi nó đã hơn một ngày."
 }

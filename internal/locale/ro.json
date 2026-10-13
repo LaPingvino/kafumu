@@ -687,5 +687,12 @@
   "source.need": "Pentru surse ai nevoie de un @nume și o cheie de acces.",
   "js.source_added": "Adăugată la această zonă.",
   "js.source_refused": "Neadăugată: o sursă cere @nume și cheie de acces, o zonă și un link.",
-  "js.source_label": "sursă"
+  "js.source_label": "sursă",
+  "source.mine": "Sursele tale",
+  "source.mine_note": "Păstrate pe acest dispozitiv. Reînnoiește o sursă înainte să se stingă; eliminarea o scoate din zonă.",
+  "js.source_until": "până la {when}",
+  "js.source_faded": "stinsă",
+  "js.source_renew": "Reînnoiește",
+  "js.source_remove_confirm": "Scoți această sursă din zona ei?",
+  "js.source_still": "Încă e acolo: reînnoiește-o după ce are mai mult de o zi."
 }

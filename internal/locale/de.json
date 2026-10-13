@@ -687,5 +687,12 @@
   "source.need": "Quellen hinzufügen geht mit einem @Namen und einem Passkey.",
   "js.source_added": "Zu dieser Gegend hinzugefügt.",
   "js.source_refused": "Nicht hinzugefügt: Quellen brauchen @Namen und Passkey, eine Gegend und einen Link.",
-  "js.source_label": "Quelle"
+  "js.source_label": "Quelle",
+  "source.mine": "Deine Quellen",
+  "source.mine_note": "Auf diesem Gerät gespeichert. Erneuere eine Quelle, bevor sie verblasst; Entfernen nimmt sie aus ihrer Gegend.",
+  "js.source_until": "bis {when}",
+  "js.source_faded": "verblasst",
+  "js.source_renew": "Erneuern",
+  "js.source_remove_confirm": "Diese Quelle aus ihrer Gegend nehmen?",
+  "js.source_still": "Noch da: erneuere sie, wenn sie älter als einen Tag ist."
 }

@@ -687,5 +687,12 @@
   "source.need": "Per aggiungere fonti servono un @nome e una passkey.",
   "js.source_added": "Aggiunta a questa zona.",
   "js.source_refused": "Non aggiunta: una fonte richiede @nome e passkey, una zona e un link.",
-  "js.source_label": "fonte"
+  "js.source_label": "fonte",
+  "source.mine": "Le tue fonti",
+  "source.mine_note": "Salvate su questo dispositivo. Rinnova una fonte prima che svanisca; rimuoverla la toglie dalla sua zona.",
+  "js.source_until": "fino al {when}",
+  "js.source_faded": "svanita",
+  "js.source_renew": "Rinnova",
+  "js.source_remove_confirm": "Togliere questa fonte dalla sua zona?",
+  "js.source_still": "Ancora lì: rinnovala quando ha più di un giorno."
 }

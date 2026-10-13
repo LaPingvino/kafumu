@@ -180,3 +180,22 @@ func (s *Service) HandleGeneral(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Cache-Control", MaxAge())
 	json.NewEncoder(w).Encode(ns)
 }
+
+// HandleRemoveSource is POST /api/oln/source/remove?id=…: the account that
+// added a source (81c) takes it down again; nobody else can.
+func (s *Service) HandleRemoveSource(w http.ResponseWriter, r *http.Request) {
+	author := ""
+	if s.AuthorFor != nil {
+		author = s.AuthorFor(r)
+	}
+	n, err := s.Store.Get(r.Context(), r.URL.Query().Get("id"))
+	if err != nil || author == "" || !IsSource(n) || n.Src != author {
+		http.Error(w, "not yours", http.StatusForbidden)
+		return
+	}
+	if err := s.Hide(r.Context(), n.ID); err != nil {
+		http.Error(w, "unavailable", http.StatusServiceUnavailable)
+		return
+	}
+	w.WriteHeader(http.StatusNoContent)
+}

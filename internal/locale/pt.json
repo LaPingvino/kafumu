@@ -687,5 +687,12 @@
   "source.need": "Para adicionar fontes precisas de um @nome e de uma chave de acesso.",
   "js.source_added": "Adicionada a esta área.",
   "js.source_refused": "Não adicionada: uma fonte precisa de @nome e chave de acesso, uma área e um link.",
-  "js.source_label": "fonte"
+  "js.source_label": "fonte",
+  "source.mine": "As tuas fontes",
+  "source.mine_note": "Guardadas neste dispositivo. Renova uma antes que desapareça; remover tira-a da sua área.",
+  "js.source_until": "até {when}",
+  "js.source_faded": "desaparecida",
+  "js.source_renew": "Renovar",
+  "js.source_remove_confirm": "Tirar esta fonte da sua área?",
+  "js.source_still": "Ainda lá: renova-a quando tiver mais de um dia."
 }

@@ -687,5 +687,12 @@
   "source.need": "Ajouter des sources demande un @nom et une clé d'accès.",
   "js.source_added": "Ajoutée à ce coin.",
   "js.source_refused": "Non ajoutée : une source demande un @nom et une clé d'accès, un coin et un lien.",
-  "js.source_label": "source"
+  "js.source_label": "source",
+  "source.mine": "Tes sources",
+  "source.mine_note": "Gardées sur cet appareil. Renouvelle une source avant qu'elle s'efface ; la retirer l'enlève de son coin.",
+  "js.source_until": "jusqu'au {when}",
+  "js.source_faded": "effacée",
+  "js.source_renew": "Renouveler",
+  "js.source_remove_confirm": "Retirer cette source de son coin ?",
+  "js.source_still": "Toujours là : renouvelle-la quand elle a plus d'un jour."
 }

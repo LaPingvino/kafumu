@@ -508,6 +508,24 @@ func TestSources(t *testing.T) {
 	if _, err := s.PostAs(ctx, src(99, "#geo8ccgmw #feed"), "joop"); err != ErrSourceCap {
 		t.Fatalf("source over the cap: %v", err)
 	}
+	// Only who added it takes it down.
+	s.AuthorFor = func(r *http.Request) string { return r.Header.Get("X-Test-User") }
+	rm := func(user string) int {
+		req := httptest.NewRequest("POST", "/api/oln/source/remove?id="+n.ID, nil)
+		req.Header.Set("X-Test-User", user)
+		w := httptest.NewRecorder()
+		s.HandleRemoveSource(w, req)
+		return w.Code
+	}
+	if c := rm("someone"); c != http.StatusForbidden {
+		t.Fatalf("someone else removing: %d", c)
+	}
+	if c := rm("joop"); c != http.StatusNoContent {
+		t.Fatalf("removing your own: %d", c)
+	}
+	if got, _ := s.InCells(ctx, []string{"8ccgmw"}); slices.ContainsFunc(got, func(x *Note) bool { return x.ID == n.ID }) {
+		t.Fatal("a removed source still shows")
+	}
 	if plain, err := s.PostAs(ctx, mine(s.RequiredFor(ctx, "8ccgmw"), now, "just a line https://x.example", "#geo8ccgmw"), "joop"); err != nil || plain.Src != "" {
 		t.Fatalf("a line with a link but no #feed is no source: %+v %v", plain, err)
 	}

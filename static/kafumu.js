@@ -519,8 +519,16 @@
     var f = this, url = f.url.value.trim(), name = f.name.value.trim().replace(/\s+/g, " "), st = $("source-status"), go = f.querySelector("button[type=submit]");
     if (!/^https?:\/\/\S+$/.test(url) || !currentCell || !window.kafumuOLN) return;
     go.disabled = true;
-    window.kafumuOLN.post("📰 " + (name ? name + " " : "") + url, "#geo" + currentCell + " #feed", requiredBits, function (tries) { st.textContent = tr("oln_working", { n: tries }); }, 0, true).then(function (n) {
+    var text = "📰 " + (name ? name + " " : "") + url, kw = "#geo" + currentCell + " #feed", extra = parseInt(f.extra.value, 10) || 0;
+    window.kafumuOLN.post(text, kw, requiredBits + extra, function (tries) { st.textContent = tr("oln_working", { n: tries }); }, 0, true).then(function (n) {
       rememberPost(n, "note", "📰");
+      // Kept on the device for Account's "Your sources" (renew, remove).
+      var dev = window.kafumuDevice;
+      if (dev && n && n.id) dev.store.get("mySources").then(function (ms) {
+        ms = (ms || []).filter(function (m) { return new Date(m.expires) > Date.now() - 30 * 864e5; });
+        ms.push({ id: n.id, cell: currentCell, text: text, kw: kw, extra: extra, expires: n.expires });
+        return dev.store.set("mySources", ms.slice(-40));
+      }).catch(function () {});
       st.textContent = tr("source_added"); f.url.value = ""; f.name.value = ""; go.disabled = false;
       load(currentCell, true);
     }, function (err) { st.textContent = /source/.test(err.message) ? tr("source_refused") : tr("network_retry"); go.disabled = false; });

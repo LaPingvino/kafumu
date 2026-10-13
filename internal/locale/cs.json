@@ -687,5 +687,12 @@
   "source.need": "K přidávání zdrojů potřebuješ @jméno a passkey.",
   "js.source_added": "Přidáno k této oblasti.",
   "js.source_refused": "Nepřidáno: zdroj potřebuje @jméno a passkey, oblast a odkaz.",
-  "js.source_label": "zdroj"
+  "js.source_label": "zdroj",
+  "source.mine": "Tvoje zdroje",
+  "source.mine_note": "Uloženy v tomto zařízení. Obnov zdroj, než vybledne; odebrání ho stáhne z oblasti.",
+  "js.source_until": "do {when}",
+  "js.source_faded": "vybledlý",
+  "js.source_renew": "Obnovit",
+  "js.source_remove_confirm": "Stáhnout tento zdroj z jeho oblasti?",
+  "js.source_still": "Pořád tam je: obnov ho, až bude starší než den."
 }

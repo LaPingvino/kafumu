@@ -1108,8 +1108,9 @@ only for areas people actually look at. Each slice passes one test: does the are
 - [x] 81c-ui. Done: "📰 Add a source" among the area's minor buttons opens a card: link + what it is → "📰 <name>
       <url>" #geo… #feed, posted under your name (named passkey accounts; others see what it takes + Account link);
       source lines are marked "📰 source" in the feed. Browser test covers the refusal path only (no passkey there).
-- [ ] 81c-ui2. Your sources on Account (from myPosts), with remove (hide your own line); oln.html: sources; and a
-      way to renew a source before it fades (re-post from the device). Was: "📰 Add a source for this area" (only offered to named accounts with a passkey; others see why and how):
+- [x] 81c-ui2. Done: sources mined for a day or a week (default week: +8 bits); Account → "📰 Your sources" (kept on
+      the device): area, until when, ↻ Renew (mined again; refused within a day of the last one), Remove (POST
+      /api/oln/source/remove, only the account that added it: TestSources); oln.html documents #feed.
       link + a few words → the #feed line, posted under your name; sources show on the area as "📰 <title> · via
       <host> · added by @name"; your own sources listed on Account with remove; oln.html: a source lives as long as
       its line. 24 languages.
@@ -1192,6 +1193,13 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       lines (their own URL), named people and businesses (/@name), #re-<id> scrolling to a line in its area. Lacked:
       local lines (shared as just the area), Bluesky posts and people in the feed (no 📤 at all), reactions/replies
       and questions (no share; replies are under their line, so its link covers them). Was: Inventory: what has a link now (meetups /meetups/id, areas /?cell=, #re-<id>) and what doesn't.
+- [ ] 86c. /n/<id> (Joop): a line's own address. Live → its area at the line. Expired but still stored (Datastore's
+      TTL deletes late) or in a cache → shown as "expired" with its text. Gone → a friendly "this message has expired"
+      page explaining how OLN works (lines fade; the network keeps nothing forever) with a link to /oln.
+- [ ] 86d. "↻ Send again" on a line (yours or anyone's): a new line that refers to it (#re<id> + its text as context),
+      so it lives on; policy: a line stays retrievable (/n/<id>, replies) while a live line refers to it, so a
+      chain is kept alive by its newest link (purge skips referenced lines; Datastore TTL: extend expires_at of the
+      referred line when a reference arrives).
 - [x] 86b. Done: a line's link is its area at the line (/?cell=…#re-<id>: scrolls there and glows, with its reactions);
       Bluesky posts (their bsky.app URL) and named people (/@name) get 📤 too; "🔗 Link" in every 📤 group (share sheet,
       else copied). /n/<id> skipped: a line lives ≤ 7 days and its area link already says where. Was: A line's permalink (`/n/<id>` → its area, highlighted) + "🔗 Link" in every item's share row; shares

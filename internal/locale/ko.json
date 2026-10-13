@@ -687,5 +687,12 @@
   "source.need": "소스를 추가하려면 @이름과 패스키가 필요해요.",
   "js.source_added": "이 지역에 추가했어요.",
   "js.source_refused": "추가하지 못했어요: @이름과 패스키, 지역, 링크가 필요해요.",
-  "js.source_label": "소스"
+  "js.source_label": "소스",
+  "source.mine": "내 소스",
+  "source.mine_note": "이 기기에 저장돼요. 사라지기 전에 갱신하세요. 삭제하면 지역에서 빠져요.",
+  "js.source_until": "{when}까지",
+  "js.source_faded": "사라짐",
+  "js.source_renew": "갱신",
+  "js.source_remove_confirm": "이 소스를 지역에서 뺄까요?",
+  "js.source_still": "아직 있어요: 하루가 지나면 갱신하세요."
 }

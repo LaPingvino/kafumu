@@ -687,5 +687,12 @@
   "source.need": "Dodawanie źródeł wymaga @nazwy i klucza dostępu.",
   "js.source_added": "Dodano do tej okolicy.",
   "js.source_refused": "Nie dodano: źródło wymaga @nazwy i klucza dostępu, okolicy i linku.",
-  "js.source_label": "źródło"
+  "js.source_label": "źródło",
+  "source.mine": "Twoje źródła",
+  "source.mine_note": "Zapisane na tym urządzeniu. Odnów źródło, zanim zniknie; usunięcie zdejmuje je z okolicy.",
+  "js.source_until": "do {when}",
+  "js.source_faded": "zniknęło",
+  "js.source_renew": "Odnów",
+  "js.source_remove_confirm": "Zdjąć to źródło z okolicy?",
+  "js.source_still": "Wciąż jest: odnów je, gdy będzie starsze niż dzień."
 }

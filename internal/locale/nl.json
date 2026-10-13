@@ -687,5 +687,12 @@
   "source.need": "Bronnen toevoegen kan met een @naam en een passkey.",
   "js.source_added": "Toegevoegd aan dit gebied.",
   "js.source_refused": "Niet toegevoegd: bronnen vragen een @naam en passkey, een gebied en een link.",
-  "js.source_label": "bron"
+  "js.source_label": "bron",
+  "source.mine": "Je bronnen",
+  "source.mine_note": "Bewaard op dit apparaat. Vernieuw een bron voor hij verdwijnt; verwijderen haalt hem uit zijn gebied.",
+  "js.source_until": "tot {when}",
+  "js.source_faded": "verdwenen",
+  "js.source_renew": "Vernieuwen",
+  "js.source_remove_confirm": "Deze bron uit zijn gebied halen?",
+  "js.source_still": "Staat er nog: vernieuw hem als hij ouder is dan een dag."
 }

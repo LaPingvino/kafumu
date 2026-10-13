@@ -687,5 +687,12 @@
   "source.need": "Forrás hozzáadásához @név és hozzáférési kulcs kell.",
   "js.source_added": "Hozzáadva a környékhez.",
   "js.source_refused": "Nincs hozzáadva: egy forráshoz @név és kulcs, környék és link kell.",
-  "js.source_label": "forrás"
+  "js.source_label": "forrás",
+  "source.mine": "A forrásaid",
+  "source.mine_note": "Ezen az eszközön tárolva. Újítsd meg, mielőtt elhalványul; az eltávolítás leveszi a környékről.",
+  "js.source_until": "eddig: {when}",
+  "js.source_faded": "elhalványult",
+  "js.source_renew": "Megújítás",
+  "js.source_remove_confirm": "Leveszed ezt a forrást a környékről?",
+  "js.source_still": "Még ott van: újítsd meg, ha már egy napnál régebbi."
 }

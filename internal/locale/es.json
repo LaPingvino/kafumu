@@ -687,5 +687,12 @@
   "source.need": "Para añadir fuentes hace falta un @nombre y una llave de acceso.",
   "js.source_added": "Añadida a esta zona.",
   "js.source_refused": "No añadida: una fuente necesita @nombre y llave de acceso, una zona y un enlace.",
-  "js.source_label": "fuente"
+  "js.source_label": "fuente",
+  "source.mine": "Tus fuentes",
+  "source.mine_note": "Guardadas en este dispositivo. Renueva una antes de que se apague; quitarla la saca de su zona.",
+  "js.source_until": "hasta {when}",
+  "js.source_faded": "apagada",
+  "js.source_renew": "Renovar",
+  "js.source_remove_confirm": "¿Quitar esta fuente de su zona?",
+  "js.source_still": "Sigue ahí: renuévala cuando tenga más de un día."
 }

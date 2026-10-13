@@ -51,6 +51,8 @@
       <button type="submit">{{t .Lang "account.save"}}</button>
     </form>
     <p class="dim small">{{withHost (ts .Lang "account.name_hint") .Host}} <a href="/card">{{t .Lang "nav.card"}} →</a></p>
+    <section id="my-sources" hidden><h2>📰 {{t .Lang "source.mine"}}</h2>
+      <p class="dim small">{{t .Lang "source.mine_note"}}</p><ul class="boxed-list"></ul></section>
 
     {{if .ATproto}}<h2{{if not .Acting}} id="atproto"{{end}}>{{t .Lang "atproto.title"}}</h2>
     {{if .User.DID}}
@@ -167,6 +169,8 @@
 <script src="/static/device.js?v={{.V}}"></script>
 <script src="/static/sha1.js?v={{.V}}"></script>
 <script src="/static/pair.js?v={{.V}}"></script>
+<script src="/static/oln.js?v={{.V}}"></script>
+<script src="/static/sources.js?v={{.V}}"></script>
 <script>
 (function () {
   var T = window.KAFUMU_T || {}, on = document.getElementById("inbox-on"), bits = document.getElementById("inbox-bits");

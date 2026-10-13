@@ -687,5 +687,12 @@
   "source.need": "Kaynak eklemek için @ad ve geçiş anahtarı gerekir.",
   "js.source_added": "Bu bölgeye eklendi.",
   "js.source_refused": "Eklenmedi: kaynak için @ad ve geçiş anahtarı, bölge ve bağlantı gerekir.",
-  "js.source_label": "kaynak"
+  "js.source_label": "kaynak",
+  "source.mine": "Kaynakların",
+  "source.mine_note": "Bu cihazda saklanır. Solmadan önce yenile; kaldırmak onu bölgesinden çıkarır.",
+  "js.source_until": "{when} tarihine kadar",
+  "js.source_faded": "soldu",
+  "js.source_renew": "Yenile",
+  "js.source_remove_confirm": "Bu kaynak bölgesinden kaldırılsın mı?",
+  "js.source_still": "Hâlâ orada: bir günden eski olunca yenile."
 }
