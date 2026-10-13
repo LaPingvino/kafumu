@@ -9,7 +9,13 @@
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
   var cell = (q.get("cell") || "").toLowerCase(), speed = Math.max(5, Math.min(120, parseInt(q.get("speed"), 10) || 12)) * 1000;
   var grid = document.getElementById("screen-grid");
-  if (!G || !G.validCell(cell)) { grid.appendChild(el("p", "", "?cell=…")); return; }
+  // Style and kinds from the link (84c): ?style=dark|light|contrast|large
+  // &show=meetups,notes,news,posts &css=<your own CSS>.
+  var style = q.get("style") || "", show = (q.get("show") || "meetups,notes,news,posts").split(",");
+  if (style) document.body.dataset.style = style;
+  if (q.get("css")) { var cs = el("style"); cs.textContent = q.get("css").slice(0, 4000); document.head.appendChild(cs); }
+  settings();
+  if (!G || !G.validCell(cell)) { openSettings(); return; }
 
   // The corner: a QR code and the link, so people here add to their area.
   var link = location.origin + "/?cell=" + cell;
@@ -41,7 +47,7 @@
     (b.news || []).forEach(function (it) { out.push({ kind: "news", k: "📰 " + it.host, title: it.title, text: it.text || "", meta: when(it.at), full: it.text || "", link: it.link }); });
     (b.posts || []).filter(function (p) { return !p.bot && !(p.labels || []).length; }).slice(0, 12)
       .forEach(function (p) { out.push({ kind: "post", k: "🦋 @" + p.handle, title: "", text: p.text, meta: when(p.createdAt), full: p.text, link: p.url }); });
-    return out.filter(function (c) { return c.title || c.text; });
+    return out.filter(function (c) { return (c.title || c.text) && show.indexOf(c.kind === "note" ? "notes" : c.kind === "meetup" ? "meetups" : c.kind === "post" ? "posts" : c.kind) >= 0; });
   }
   function card(c) {
     var d = el("article", "screen-card " + c.kind);
@@ -144,4 +150,61 @@
   function wake() { if (navigator.wakeLock) navigator.wakeLock.request("screen").catch(function () {}); }
   wake(); document.addEventListener("visibilitychange", function () { if (!document.hidden) wake(); });
   document.addEventListener("click", function () { if (!document.fullscreenElement && document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function () {}); }, { once: true });
+
+  // ---- Settings (84c): set up a screen on the screen page itself ----
+  // The result is a link (and its QR code) to open on the screen device;
+  // nothing about a screen is stored on the server.
+  function settings() {
+    var b = el("button", "screen-gear", "⚙"); b.type = "button";
+    b.setAttribute("aria-label", tr("screen_setup")); b.title = tr("screen_setup");
+    b.onclick = openSettings;
+    document.body.appendChild(b);
+  }
+  function openSettings() {
+    if (document.querySelector(".screen-settings")) return;
+    var last = ""; try { last = localStorage.getItem("kafumu.lastCell") || ""; } catch (e) {}
+    var f = el("form", "screen-settings card");
+    f.innerHTML = '<h2></h2>' +
+      '<label><span data-t="screen_area"></span><input name="cell" required></label>' +
+      '<fieldset><legend data-t="screen_mode"></legend><label><input type="radio" name="mode" value=""> <span data-t="screen_display"></span></label>' +
+      '<label><input type="radio" name="mode" value="touch"> <span data-t="screen_touch"></span></label></fieldset>' +
+      '<fieldset><legend data-t="screen_show"></legend>' + ["meetups", "notes", "news", "posts"].map(function (k) { return '<label><input type="checkbox" name="show" value="' + k + '"> <span data-t="screen_k_' + k + '"></span></label>'; }).join("") + '</fieldset>' +
+      '<label><span data-t="screen_speed"></span><input name="speed" type="number" min="5" max="120"></label>' +
+      '<label><span data-t="screen_style"></span><select name="look"><option value=""></option><option value="light"></option><option value="dark"></option><option value="contrast"></option><option value="large"></option></select></label>' +
+      '<label><span data-t="screen_css"></span><textarea name="css" rows="3" maxlength="4000" placeholder=".screen-card { border-radius: 0 }"></textarea></label>' +
+      '<div class="actions"><button type="submit" class="pill suggested"></button><button type="button" class="pill screen-cancel"></button></div>' +
+      '<div class="screen-result" hidden><p class="m"></p><div class="screen-result-qr"></div><input readonly></div>';
+    f.querySelector("h2").textContent = "⚙ " + tr("screen_setup");
+    f.querySelectorAll("[data-t]").forEach(function (x) { x.textContent = tr(x.dataset.t); });
+    ["", "light", "dark", "contrast", "large"].forEach(function (v, i) { f.look.options[i].textContent = tr("screen_style_" + (v || "auto")); });
+    f.querySelector("button[type=submit]").textContent = tr("screen_apply");
+    f.querySelector(".screen-cancel").textContent = tr("close");
+    f.cell.value = G && G.validCell(cell) ? cell : last;
+    f.querySelector('input[name=mode][value="' + (touch ? "touch" : "") + '"]').checked = true;
+    f.querySelectorAll("input[name=show]").forEach(function (c) { c.checked = show.indexOf(c.value) >= 0; });
+    f.speed.value = speed / 1000; f.look.value = style; // "look": a form's .style is its CSS f.css.value = q.get("css") || "";
+    f.querySelector(".screen-cancel").onclick = function () { f.remove(); };
+    f.onsubmit = function (e) {
+      e.preventDefault();
+      var c = G ? G.parsePlace(f.cell.value) : "";
+      if (!c || !G.validCell(c)) { f.cell.setCustomValidity("#geo…"); f.cell.reportValidity(); return; }
+      var p = new URLSearchParams({ cell: c });
+      var m = f.querySelector("input[name=mode]:checked").value; if (m) p.set("mode", m);
+      var sh = Array.prototype.filter.call(f.querySelectorAll("input[name=show]"), function (x) { return x.checked; }).map(function (x) { return x.value; });
+      if (sh.length && sh.length < 4) p.set("show", sh.join(","));
+      if (f.speed.value && +f.speed.value !== 12) p.set("speed", f.speed.value);
+      if (f.look.value) p.set("style", f.look.value);
+      if (f.css.value.trim()) p.set("css", f.css.value.trim());
+      var url = location.origin + "/screen?" + p.toString();
+      var r = f.querySelector(".screen-result"); r.hidden = false;
+      r.querySelector("p").textContent = tr("screen_open_on");
+      var qq = qrcode(0, "L"); qq.addData(url); qq.make();
+      r.querySelector(".screen-result-qr").innerHTML = qq.createSvgTag({ cellSize: 3, margin: 1, scalable: true });
+      r.querySelector("input").value = url;
+      var go = el("a", "pill", tr("screen_here") + " →"); go.href = url; go.setAttribute("role", "button");
+      if (!r.querySelector("a")) r.appendChild(go); else r.querySelector("a").href = url;
+    };
+    document.body.appendChild(f);
+    f.cell.focus();
+  }
 })();

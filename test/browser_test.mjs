@@ -102,6 +102,11 @@ try {
   await B.waitFor("!!document.querySelector('.screen-detail .screen-card.big .take svg')", "the card opened large, with a code");
   await B.evaluate("document.querySelector('.screen-close').click(); true");
   await B.waitFor("!document.querySelector('.screen-detail')", "✕ closes it");
+  // Set up (84c): ⚙ on the screen itself makes the link for the screen device.
+  await B.evaluate("document.querySelector('.screen-gear').click(); true");
+  await B.waitFor("!!document.querySelector('.screen-settings') && document.querySelector('.screen-settings').cell.value === '6fg223'", "settings on the screen");
+  await B.evaluate("(() => { const f = document.querySelector('.screen-settings'); f.querySelector('input[name=mode][value=\"\"]').checked = true; f.look.value = 'dark'; f.querySelector('input[name=show][value=posts]').checked = false; f.requestSubmit(); return true; })()");
+  await B.waitFor("(() => { const v = document.querySelector('.screen-result input').value; return /\\/screen\\?cell=6fg223/.test(v) && v.includes('style=dark') && v.includes('show=meetups%2Cnotes%2Cnews') && !v.includes('mode=') && !!document.querySelector('.screen-result-qr svg'); })()", "the screen's link, with its QR code");
   // Take a line back (88b): only the device that sent it has the ✕, and it disappears for everyone.
   await A.evaluate("(() => { document.getElementById('oln-form').hidden = true; document.getElementById('say').click(); const f = document.getElementById('oln-form'); f.text.value = 'Oops, wrong area " + RUN + "'; f.requestSubmit(); return true; })()");
   await A.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('Oops, wrong area " + RUN + "') && li.querySelector('.take-back'))", "own line with ✕ Take back", 30000);

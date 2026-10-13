@@ -1347,6 +1347,7 @@
     // its meetups as a calendar subscription, everything as RSS.
     $("cal-link").href = "webcal://" + location.host + "/cal/" + c + ".ics";
     $("rss-link").href = "/rss/" + c;
+    if ($("screen-link")) $("screen-link").href = "/screen?cell=" + c; // this area on a public screen (84d)
     var alt = document.querySelector('link[rel=alternate][type="application/rss+xml"]');
     if (!alt) { alt = document.createElement("link"); alt.rel = "alternate"; alt.type = "application/rss+xml"; document.head.appendChild(alt); }
     alt.href = "/rss/" + c; alt.title = tag;

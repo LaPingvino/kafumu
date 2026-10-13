@@ -33,3 +33,17 @@ body.touch .screen-card { cursor: pointer; }
 .screen-close { position: absolute; top: .5em; right: .5em; }
 .screen-nav { position: fixed; left: 50%; bottom: 1.5vh; transform: translateX(-50%); display: flex; gap: 1em; }
 .screen-nav button { font-size: 1.3em; min-width: 3em; }
+/* Settings (84c) and styles. */
+.screen-gear { position: fixed; top: .6vh; right: .6vw; opacity: .25; background: none; border: 0; color: var(--fg); font-size: 1.1em; z-index: 20; width: auto; }
+.screen-gear:hover, .screen-gear:focus { opacity: 1; }
+.screen-settings { position: fixed; top: 4vh; left: 50%; transform: translateX(-50%); width: min(92vw, 34rem); max-height: 92vh; overflow: auto;
+  z-index: 40; padding: 1em 1.4em; font-size: 16px; background: var(--card-bg); box-shadow: 0 8px 40px rgba(0,0,0,.35); }
+.screen-settings fieldset { border: 0; padding: 0; margin: .5em 0; }
+.screen-settings fieldset label { display: inline-flex; gap: .3em; margin-right: 1em; }
+.screen-result-qr { width: 10em; margin: .5em 0; }
+.screen-result-qr svg { width: 100%; height: auto; }
+body.screen[data-style="dark"] { --window-bg: #1e1e1e; --card-bg: #2b2b2b; --fg: rgba(255,255,255,.9); --dim: rgba(255,255,255,.6); --shade: rgba(0,0,0,.4); --border: rgba(255,255,255,.12); }
+body.screen[data-style="light"] { --window-bg: #fafafa; --card-bg: #fff; --fg: rgba(0,0,0,.85); --dim: rgba(0,0,0,.55); }
+body.screen[data-style="contrast"] { --window-bg: #000; --card-bg: #000; --fg: #fff; --dim: #ffeb3b; --border: #fff; --shade: transparent; }
+body.screen[data-style="contrast"] .screen-card { border: 2px solid #fff; }
+body.screen[data-style="large"] { font-size: clamp(22px, 2.2vw + .6vh, 48px); }

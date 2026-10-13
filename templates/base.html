@@ -70,7 +70,7 @@
   <footer class="clamp dim">
     <small>{{t .Lang "footer.lens"}}
     <a href="https://github.com/LaPingvino/kafumu">{{t .Lang "footer.source"}}</a> ·
-    <a href="/privacy">{{t .Lang "privacy.title"}}</a> · <a href="/patrons">{{t .Lang "patrons.title"}}</a> · <a href="/built">{{t .Lang "built.title"}}</a>
+    <a href="/privacy">{{t .Lang "privacy.title"}}</a> · <a href="/screen{{if .Cell}}?cell={{.Cell}}{{end}}" id="screen-link">📺 {{t .Lang "footer.screen"}}</a> · <a href="/patrons">{{t .Lang "patrons.title"}}</a> · <a href="/built">{{t .Lang "built.title"}}</a>
     {{if or .Maker .Contact}}<br>{{t .Lang "footer.contact"}}{{if .Maker}} <a href="/@{{.Maker}}">@{{.Maker}} {{t .Lang "footer.on_kafumu"}}</a>{{end}}{{if and .Maker .Contact}} ·{{end}}{{if .Contact}} <a href="{{.Contact}}" rel="noopener">{{if .ContactText}}{{.ContactText}}{{else}}{{t .Lang "footer.issues"}}{{end}}</a>{{end}}{{end}}</small>
   </footer>
   <nav class="switcher bottom" aria-label="{{.Brand}}">{{template "tabs" .}}</nav>

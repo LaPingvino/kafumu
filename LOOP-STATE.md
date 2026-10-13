@@ -1145,6 +1145,9 @@ only for areas people actually look at. Each slice passes one test: does the are
       line with that link is there; the news card then gives way to the line. Checked by hand with injected news; the
       browser step runs when the test area has Bluesky posts. Reactions to the link now keep that line alive too
       (keepAlive follows lines with the same #re that carry a link; TestKeepAliveLink).
+- [ ] 81h. Sources people vote for stay (Joop): a source fades like any line unless renewed; once a week the node
+      renews the 10 sources per area with the most reactions (👍 etc. on the source line) that week, so a source the
+      area likes keeps going without its adder renewing it. Show the count on the source line ("👍 5 this week").
 - [x] 81f. Done: Bluesky posts carry their links (facets); building a bundle counts the sites its posts link to (≤ once
       an hour per cell per instance, platforms and shorteners never count); the feeds job looks on the most shared
       ones (≥ 3 posts) for a feed via <link rel=alternate> (≤ 10 new probes per run through the guarded client, cached
@@ -1166,10 +1169,14 @@ in the URL (+ the screen device's storage), the server stores nothing for a scre
 - [x] 84b. Done: ?mode=touch: cards are tappable (and keyboard-reachable) and open large with the full text and a QR
       code to take it along (meetup, /n/<id>, news or Bluesky link); ‹ › page by hand; paging pauses under an open
       card and runs at half speed; a minute without a touch closes it and goes back to the first page. Browser step.
-- [ ] 84c. Configure (a ⚙ panel on /screen itself): area, view (filters / a ☆ view), display or touch, paging speed,
+- [x] 84c. Done: ⚙ on /screen (faint corner; opens by itself without a cell): area (#geo, plus code or lat,lon;
+      default your last area), display/touch, which kinds, seconds per page, style (auto/light/dark/high contrast/large
+      print), your own CSS; → the link + its QR code to open on the screen device (nothing stored). Browser step.
+      Was: Configure (a ⚙ panel on /screen itself): area, view (filters / a ☆ view), display or touch, paging speed,
       a list of styles (light, dark, high contrast, large print, brand colours) and custom CSS; the result is a
       link (+ QR) to open on the screen device.
-- [ ] 84d. Where to find it without touching the main view: a "📺 Public screen" link in the footer and on /about.
+- [x] 84d. Done: "📺 Public screen" in the footer (to the current area's screen); nothing added to the area page.
+      Was: Where to find it without touching the main view: a "📺 Public screen" link in the footer and on /about.
 
 - [x] Polish: a contact is called what you call them (alias first, then their card's name, else "someone new",
       never "?"): dev.nameOf in the share picker, signals, coffee joins, mailbox and notifications. The intro card
