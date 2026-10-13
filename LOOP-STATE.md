@@ -1236,6 +1236,18 @@ Findable, Account, Business, meetups…), and with a "👀 Show me" button that 
       the thing it points at scrolls near the top, and the box sits at the bottom, or at the top when that thing is
       in the lower half (the tab bar); its step shows again. Checked at 390 px.
 
+- [x] Joop: Rostos showed only its feed link. It had been added before sources were read on the spot, and no feeds
+      run had read it yet. Now an area whose source has none of its news in the bundle asks the node to read it (anyone
+      may, not bots; once per 10 min per source); the source's head links to the site, not the feed file.
+
+## 89. Four tabs instead of six (Joop 2026-10-14: "tab proposal sounds good")
+Around · Chats (mailbox + Contacts, 🔔 folded in) · Connect (your code + My card) · Me (Account + Findable).
+- [ ] 89a. Chats: /contacts and /activity become one page (the chat list with a Contacts filter, contact cards
+      reachable from it, backup/sync tools on it); the 🔔 in the header goes, its count moves to the Chats tab.
+- [ ] 89b. Connect: your code and your card on one page (card editor under the code, the share picker between).
+- [ ] 89c. Me: Account and Findable as sections of one page; the tab shows your @name / business as now.
+- [ ] 89d. Old addresses keep working (redirects), tours and help bars follow, 390 px check, 24 languages.
+
 ## 85. Every conversation as a chat (Joop 2026-10-13)
 One list of chats, like a messenger, merging the mailbox and Contacts (filter: "only contacts"). Every thing that
 talks to you is a thread: a contact, a private answer, your post (its replies and reactions), your meetup (RSVPs,

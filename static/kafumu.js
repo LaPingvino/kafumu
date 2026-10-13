@@ -532,7 +532,8 @@
     var meta = document.createElement("div"); meta.className = "meta";
     meta.textContent = "📰 " + tr("source_label") + " · " + host + (n.author ? " · " + tr("news_by", { name: "@" + n.author }) : "");
     var title = document.createElement("p"); title.className = "text";
-    var a = document.createElement("a"); a.href = link; a.target = "_blank"; a.rel = "noopener"; a.textContent = name + " ↗";
+    var site = link; try { site = new URL(link).origin + "/"; } catch (e) {}
+    var a = document.createElement("a"); a.href = site; a.target = "_blank"; a.rel = "noopener"; a.textContent = name + " ↗"; // the site, not its feed file
     title.appendChild(a);
     var row = document.createElement("div"); row.className = "actions";
     reactRow("note", n.id, name, row, null);
@@ -558,6 +559,19 @@
     for (var k in names) if (t.indexOf(" " + k.replace(/[^a-z0-9]+/g, " ") + " ") >= 0) return names[k];
     return "";
   }
+  // pullMissing: a source here whose news isn't in yet (added before sources
+  // were read on the spot, or the cache let it go) is read now, once.
+  var pullAsked = {};
+  function pullMissing(b) {
+    var have = {};
+    (b.news || []).forEach(function (it) { have[it.src] = true; });
+    var todo = (b.notes || []).filter(function (n) { return (n.tags || []).indexOf("feed") >= 0 && !have[n.id] && !pullAsked[n.id]; }).slice(0, 3);
+    if (!todo.length) return;
+    todo.forEach(function (n) { pullAsked[n.id] = true; });
+    Promise.all(todo.map(function (n) { return fetch("/api/oln/source/pull?id=" + n.id, { method: "POST", credentials: "omit" }).then(function (r) { return r.ok && r.status !== 204 ? r.json() : null; }, function () { return null; }); }))
+      .then(function (rs) { if (rs.some(function (r) { return r && (r.news || r.calendar); })) load(currentCell, true); });
+  }
+
   function showNews(items, names) {
     names = names || {};
     var list = sinks.news;
@@ -1506,6 +1520,7 @@
         liveEventNames = (b.events || []).filter(function (e) { return e.live; }).map(function (e) { return e.name; });
         showNotes(b.notes || []);
         showNews(b.news || [], placeNames(b));
+        pullMissing(b);
         showSuggest(b.suggest || []);
         showMeetups(b.meetups || [], b.events || []);
         travel.meetups = (b.meetups || []).length;

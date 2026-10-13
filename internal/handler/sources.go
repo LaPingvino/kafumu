@@ -404,10 +404,14 @@ func (h *Meetups) readSource(ctx context.Context, s *oln.Note, cell string, now 
 
 // PullSource handles POST /api/oln/source/pull?id=…: read a source right
 // after it was added (81i), so its news shows at once rather than after the
-// next feeds run. Same people as adding one; once per 10 minutes per source.
+// next feeds run, or when its area has none of its news; once per 10
+// minutes per source.
 func (h *Meetups) PullSource(w http.ResponseWriter, r *http.Request) {
 	notes := h.Home.Notes
-	if notes == nil || notes.SourceOK == nil || !notes.SourceOK(r) || h.Importer == nil || h.Home.Cache == nil {
+	// Anyone may ask (not bots): it only reads a source the area already has,
+	// at most once per 10 minutes, so a source added before this existed,
+	// or whose news the cache dropped, shows up when someone looks.
+	if notes == nil || IsBot(r) || h.Importer == nil || h.Home.Cache == nil {
 		http.Error(w, "not allowed", http.StatusForbidden)
 		return
 	}

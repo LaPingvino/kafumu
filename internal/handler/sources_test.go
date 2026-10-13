@@ -94,13 +94,10 @@ func TestPullSourceNow(t *testing.T) {
 	m := &Meetups{Home: home, Svc: meetup.NewService(meetup.NewMemoryStore()), Importer: &importer.Importer{Client: srv.Client()}}
 	pull := func() int {
 		w := httptest.NewRecorder()
-		m.PullSource(w, httptest.NewRequest("POST", "/api/oln/source/pull?id="+id, nil))
+		m.PullSource(w, browser(httptest.NewRequest("POST", "/api/oln/source/pull?id="+id, nil)))
 		return w.Code
 	}
-	if c := pull(); c != http.StatusForbidden {
-		t.Fatalf("not allowed: %d", c)
-	}
-	allowed = true
+	_ = allowed
 	if c := pull(); c != 200 {
 		t.Fatalf("pull: %d", c)
 	}
