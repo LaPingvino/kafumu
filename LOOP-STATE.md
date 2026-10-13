@@ -1064,7 +1064,8 @@ your posts and meetups (Activity, 77) in one mailbox, and notifications that alw
       knows it; the payload is encrypted to the device); the device keeps box → {icon, who, about, url} in its
       IndexedDB when it subscribes (watched()), and the service worker reads that to say "💬 Anna" /
       "🔒 An answer to “Coffee at …”" and open that thread.
-- [ ] 83b. The mailbox (grow /activity into it): threads by channel and person, newest first, unread marked;
+- [x] 83b. Done: private-answer threads (read + reply) moved to /activity (static/answers.js, polled every minute,
+      #answer-<id> scrolls and focuses); the area keeps a "🔒 Private answers →" link with the new count. Was: The mailbox (grow /activity into it): threads by channel and person, newest first, unread marked;
       private answers move off the home page into it (a small "🔒 n new" link stays on the area).
 - [ ] 83c. Chats: each contact's messages as a mailbox thread (still opening the chat on the contact).
 - [ ] 83d. Notifications: every push names the sender/area and a line of context, and opens that thread.

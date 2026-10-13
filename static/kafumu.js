@@ -674,57 +674,17 @@
     }
     return aPair;
   }
-  var answerLinked = false;
+  // The conversations themselves live in the mailbox (/activity, 83b); the
+  // area only says they're there, and how many are new.
   function drawAnswers() {
     if (!answersPair()) return Promise.resolve();
     return aPair.threads().then(function (ts) {
-      var sec = $("answers"), ul = $("answers-list");
-      if (!sec) return;
-      sec.hidden = !ts.length;
-      $("answers-title").textContent = "🔒 " + tr("answers_title");
-      ul.textContent = "";
-      ts.slice().sort(function (a, b) {
-        var la = (a.messages || []).slice(-1)[0] || {}, lb = (b.messages || []).slice(-1)[0] || {};
-        return (lb.at || "").localeCompare(la.at || "");
-      }).slice(0, 20).forEach(function (t) {
-        var li = document.createElement("li");
-        li.dataset.thread = t.id;
-        var about = document.createElement("div"); about.className = "dim small";
-        about.textContent = tr("answers_on", { text: (t.post && t.post.text || "").slice(0, 80) });
-        if (t.unreadMsgs) { // new since you last looked: a small count badge
-          var nb = document.createElement("span"); nb.className = "badge new-count"; nb.textContent = String(t.unreadMsgs);
-          about.appendChild(document.createTextNode(" ")); about.appendChild(nb);
-        }
-        li.appendChild(about);
-        (t.messages || []).slice(-6).forEach(function (m) {
-          var p = document.createElement("p"); p.className = m.me ? "chat-me" : "chat-them";
-          p.textContent = (m.me ? "→ " : "← ") + m.text;
-          li.appendChild(p);
-        });
-        var form = document.createElement("form"); form.className = "inline-row answer-form-row";
-        var inp = document.createElement("input"); inp.maxLength = 500; inp.placeholder = tr("answer_reply"); inp.required = true;
-        var go = document.createElement("button"); go.type = "submit"; go.className = "pill-sm"; go.textContent = tr("answer_send");
-        form.appendChild(inp); form.appendChild(go); li.appendChild(form);
-        form.onsubmit = function (e) {
-          e.preventDefault(); go.disabled = true;
-          var text = inp.value;
-          aPair.sendChat(t, text, answerMine).then(function (at) {
-            t.messages = (t.messages || []).concat([{ me: true, text: text, at: at }]).slice(-200);
-            return aPair.putThread(t);
-          }).then(drawAnswers, function () { go.disabled = false; });
-        };
-        ul.appendChild(li);
-        if (t.unreadMsgs) { t.unreadMsgs = 0; aPair.putThread(t); }
-        // Opened from Activity ("#answer-<id>"): this thread, ready to answer.
-        if (!answerLinked && decodeURIComponent(location.hash) === "#answer-" + t.id) {
-          answerLinked = true;
-          setTimeout(function () {
-            li.scrollIntoView({ block: "center", behavior: "smooth" });
-            li.classList.add("flash"); inp.focus({ preventScroll: true });
-            setTimeout(function () { li.classList.remove("flash"); }, 2500);
-          }, 0);
-        }
-      });
+      var box = $("answers-link");
+      if (!box) return;
+      box.hidden = !ts.length;
+      var n = ts.reduce(function (s, t) { return s + (t.unreadMsgs || 0); }, 0), a = box.querySelector("a");
+      a.textContent = "🔒 " + tr("answers_title") + " →";
+      if (n) { var nb = document.createElement("span"); nb.className = "badge new-count"; nb.textContent = String(n); a.appendChild(document.createTextNode(" ")); a.appendChild(nb); }
     });
   }
   function pollAnswers() {

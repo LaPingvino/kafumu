@@ -1,10 +1,14 @@
 {{template "head" .}}
 <h1>{{t .Lang "activity.title"}}</h1>
 <p class="dim">{{t .Lang "activity.explain"}}</p>
+<section id="answers" hidden><h2>🔒 {{t .Lang "js.answers_title"}}</h2><ul id="answers-list" class="boxed-list"></ul></section>
 <p id="activity-empty" class="dim" hidden>{{t .Lang "activity.empty"}}</p>
 <ul id="activity" class="activity"></ul>
 <script>window.KAFUMU_T = {{.JS}};</script>
 <script src="/static/device.js?v={{.V}}"></script>
+<script src="/static/sha1.js?v={{.V}}"></script>
 <script src="/static/pair.js?v={{.V}}"></script>
+<script src="/static/oln.js?v={{.V}}"></script>
+<script src="/static/answers.js?v={{.V}}"></script>
 <script src="/static/activity.js?v={{.V}}"></script>
 {{template "foot" .}}

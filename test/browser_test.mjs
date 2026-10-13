@@ -102,12 +102,17 @@ try {
   await B.evaluate("(() => { const f = document.querySelector('.answer-form'); f.text.value = 'Private hello back " + RUN + "'; f.requestSubmit(); return true; })()");
   await B.waitFor("document.getElementById('feed').textContent.includes('🔒')  && !document.querySelector('.answer-form')", "private answer sent", 30000);
   await A.goto(base + "/?cell=6fg223");
+  // The area only links to the conversation; it lives in the mailbox (83b).
+  await A.waitFor("!document.getElementById('answers-link').hidden && document.querySelector('#answers-link a').getAttribute('href') === '/activity#answers'", "🔒 Private answers link on the area", 30000);
+  await A.goto(base + "/activity");
   await A.waitFor("!document.getElementById('answers').hidden && document.getElementById('answers-list').textContent.includes('Private hello back " + RUN + "')", "A gets the private answer", 30000);
   await A.evaluate("(() => { const f = document.querySelector('#answers-list form'); f.querySelector('input').value = 'Thanks, see you " + RUN + "'; f.requestSubmit(); return true; })()");
   await A.waitFor("document.getElementById('answers-list').textContent.includes('→ Thanks, see you " + RUN + "')", "A's reply shown", 30000);
-  await B.goto(base + "/?cell=6fg223");
+  await B.goto(base + "/activity");
   await B.waitFor("document.getElementById('answers-list').textContent.includes('← Thanks, see you " + RUN + "')", "B gets A's reply", 30000);
   // A's own post offers no private answer to itself.
+  await A.goto(base + "/?cell=6fg223");
+  await A.waitFor("document.getElementById('feed').textContent.includes('hi from the OLN " + RUN + "')", "A back on the area", 30000);
   const selfAnswer = await A.evaluate("!![...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "'))?.textContent.includes('🔒')");
   if (selfAnswer) throw new Error("own post offers a private answer");
   // Questions: A asks; B gets it (with a private-answer button) and answers

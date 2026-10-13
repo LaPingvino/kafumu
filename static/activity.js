@@ -111,7 +111,7 @@
       (r[1] || []).forEach(function (t) { // private answers, both ways
         var last = (t.messages || []).filter(function (m) { return !m.me; }).slice(-1)[0];
         if (last) items.push({ id: "a:" + t.id + ":" + (t.messages || []).length, at: last.at, icon: "🔒", who: "",
-          text: last.text, about: tr("act_answer_to", { post: short(t.post && t.post.text, 40) }), href: "/#answer-" + encodeURIComponent(t.id), hot: !!t.unreadMsgs });
+          text: last.text, about: tr("act_answer_to", { post: short(t.post && t.post.text, 40) }), href: "/activity#answer-" + encodeURIComponent(t.id), hot: !!t.unreadMsgs });
       });
       r[2].forEach(function (c) { // contacts: new through your code, their last message, their last signal
         var name = (c.card && c.card.name) || tr("inbox_anonymous");
@@ -191,8 +191,11 @@
 
   var ul = document.getElementById("activity");
   if (ul) { // the Activity page: read new private answers first, then show, then count it all as seen
-    var aPair = window.kafumuPair && window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin });
+    var aPair = window.kafumuPair && window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin, mine: function (t, kw, b) { return window.kafumuOLN.post(t, kw, b, function () {}); } });
     var fresh = aPair ? aPair.readAnswers().catch(function () {}) : Promise.resolve();
+    // The private conversations, with their reply forms, above the list (83b).
+    if (aPair && window.kafumuAnswers && document.getElementById("answers"))
+      fresh.then(function () { window.kafumuAnswers.mount(document.getElementById("answers"), aPair, function (t, kw, b) { return window.kafumuOLN.post(t, kw, b, function () {}); }); });
     if (aPair) aPair.pushSubscribe(false).catch(function () {}); // keep what wakes you up to date
     fresh.then(count).then(function (items) {
       render(ul, items);
