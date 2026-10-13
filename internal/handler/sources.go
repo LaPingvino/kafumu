@@ -137,7 +137,7 @@ func (h *Meetups) pullSources(ctx context.Context, now time.Time) ([]feeds.Feed,
 		return nil, ""
 	}
 	var cals []feeds.Feed
-	read, items := 0, 0
+	read, items, renewed := 0, 0, 0
 	// A seen cell and the ring around it: an area shows its neighbours too.
 	var todo []string
 	done := map[string]bool{}
@@ -157,6 +157,7 @@ func (h *Meetups) pullSources(ctx context.Context, now time.Time) ([]feeds.Feed,
 		if err != nil {
 			continue
 		}
+		renewed += home.Notes.RenewVoted(ctx, cell, now) // sources people react to stay (81h)
 		var news []NewsItem
 		n := 0
 		for _, s := range ns {
@@ -213,7 +214,7 @@ func (h *Meetups) pullSources(ctx context.Context, now time.Time) ([]feeds.Feed,
 		}
 		items += len(news)
 	}
-	return cals, "sources: " + itoa(read) + " read, " + itoa(items) + " news items, " + itoa(len(cals)) + " calendars"
+	return cals, "sources: " + itoa(read) + " read, " + itoa(items) + " news items, " + itoa(len(cals)) + " calendars, " + itoa(renewed) + " kept by votes"
 }
 
 // ---- Suggested sources (81f) ----

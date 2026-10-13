@@ -180,7 +180,8 @@ try {
   await B.evaluate("(() => { [...[...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('pastel de nata')).querySelectorAll('button')].find(b => b.textContent.startsWith('💬')).click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test answer: Manteigaria " + RUN + "'; f.requestSubmit(); return true; })()");
   await B.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('pastel de nata') && li.querySelector('.replies') && li.querySelector('.replies').textContent.includes('Manteigaria'))", "answer threaded under the question", 30000);
   // Reactions to reactions (77g): B reacts 👍 to that answer; it shows under the answer.
-  await B.evaluate("(() => { const r = [...document.querySelectorAll('#feed .replies > li')].find(li => li.textContent.includes('Manteigaria')); [...r.querySelectorAll('button.react')].find(b => b.textContent.startsWith('👍')).click(); return true; })()");
+  // Found and clicked in one go: the feed may redraw between a check and a click.
+  await B.waitFor("(() => { const r = [...document.querySelectorAll('#feed .replies > li')].find(li => li.textContent.includes('Manteigaria')); const b = r && [...r.querySelectorAll('button.react')].find(b => b.textContent.startsWith('👍')); if (!b) return false; b.click(); return true; })()", "👍 on the answer", 20000);
   await B.waitFor("[...document.querySelectorAll('#feed .replies > li')].some(li => li.textContent.includes('Manteigaria') && li.querySelector(':scope > .reactions') && li.querySelector(':scope > .reactions').textContent.includes('👍 1'))", "👍 under the answer", 30000);
   // Tags that make sense here: B saw the #food question, so B's composer
   // suggests #food; a tap adds it.

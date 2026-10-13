@@ -647,3 +647,27 @@ func TestKeepAliveLink(t *testing.T) {
 		t.Fatalf("the link line lives until %v, the reaction until %v", got.ExpiresAt, r.ExpiresAt)
 	}
 }
+
+// Sources people react to stay (81h): the most reacted-to in the last week
+// live another week; one nobody reacted to fades as usual.
+func TestRenewVoted(t *testing.T) {
+	store := NewMemoryStore()
+	s := NewService(store)
+	ctx, now := context.Background(), time.Now().UTC()
+	put := func(id string) {
+		store.Put(ctx, &Note{ID: id, Raw: "v2;" + id, Text: "📰 Krant https://krant.example/" + id[:2], Cell: "8ccgmw", Tags: []string{"geo8ccgmw", "feed"}, Src: "joop", At: now, ExpiresAt: now.Add(2 * time.Hour)})
+	}
+	liked, plain := strings.Repeat("a", 40), strings.Repeat("b", 40)
+	put(liked)
+	put(plain)
+	store.Put(ctx, &Note{ID: strings.Repeat("c", 40), Raw: "v2;c", Text: "👍", Cell: Everywhere, Re: liked[:10], Tags: []string{"re" + liked[:10]}, At: now, ExpiresAt: now.Add(time.Hour)})
+	if n := s.RenewVoted(ctx, "8ccgmw", now); n != 1 {
+		t.Fatalf("renewed %d, want 1", n)
+	}
+	if got, _ := store.Get(ctx, liked); got.ExpiresAt.Before(now.Add(6 * 24 * time.Hour)) {
+		t.Fatalf("the liked source lives until %v", got.ExpiresAt)
+	}
+	if got, _ := store.Get(ctx, plain); got.ExpiresAt.After(now.Add(3 * time.Hour)) {
+		t.Fatalf("a source nobody reacted to was kept: %v", got.ExpiresAt)
+	}
+}

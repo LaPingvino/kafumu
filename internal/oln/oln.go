@@ -810,6 +810,61 @@ func (s *Service) SourcesStopped(ctx context.Context, author, net string, now ti
 	return false
 }
 
+// MaxVotedSources: per area, the sources with the most reactions in the
+// last week that stay without being renewed (81h, Joop).
+const MaxVotedSources = 10
+
+// RenewVoted keeps the sources of cell that people react to: the
+// MaxVotedSources with the most reactions in the last week live at least
+// another week. Returns how many were renewed.
+func (s *Service) RenewVoted(ctx context.Context, cell string, now time.Time) int {
+	ns, err := s.InCells(ctx, []string{cell})
+	if err != nil {
+		return 0
+	}
+	var srcs []*Note
+	var res []string
+	for _, n := range ns {
+		if IsSource(n) && len(res) < 30 {
+			srcs = append(srcs, n)
+			res = append(res, n.ID[:10])
+		}
+	}
+	if len(srcs) == 0 {
+		return 0
+	}
+	replies, err := s.Store.RepliesTo(ctx, res, now)
+	if err != nil {
+		return 0
+	}
+	votes := map[string]int{}
+	for _, r := range replies {
+		if now.Sub(r.At) < 7*24*time.Hour {
+			votes[r.Re]++
+		}
+	}
+	sort.SliceStable(srcs, func(i, j int) bool { return votes[srcs[i].ID[:10]] > votes[srcs[j].ID[:10]] })
+	renewed := 0
+	for i, n := range srcs {
+		if i >= MaxVotedSources || votes[n.ID[:10]] == 0 {
+			break
+		}
+		if until := now.Add(7 * 24 * time.Hour); n.ExpiresAt.Before(until) {
+			c := *n
+			c.ExpiresAt = until
+			if s.Store.Put(ctx, &c) == nil {
+				renewed++
+			}
+		}
+	}
+	if renewed > 0 {
+		s.mu.Lock()
+		delete(s.cells, cell)
+		s.mu.Unlock()
+	}
+	return renewed
+}
+
 // StopSources stops an account from adding sources (it can still post).
 func (s *Service) StopSources(ctx context.Context, author string) error {
 	return s.Hide(ctx, "nosrc:"+author)

@@ -1148,9 +1148,9 @@ only for areas people actually look at. Each slice passes one test: does the are
       line with that link is there; the news card then gives way to the line. Checked by hand with injected news; the
       browser step runs when the test area has Bluesky posts. Reactions to the link now keep that line alive too
       (keepAlive follows lines with the same #re that carry a link; TestKeepAliveLink).
-- [ ] 81h. Sources people vote for stay (Joop): a source fades like any line unless renewed; once a week the node
-      renews the 10 sources per area with the most reactions (👍 etc. on the source line) that week, so a source the
-      area likes keeps going without its adder renewing it. Show the count on the source line ("👍 5 this week").
+- [x] 81h. Done: Service.RenewVoted, run per area by the feeds job (every 6 h): of an area's sources, the 10 with the
+      most reactions (#re to the source line) in the last week live at least another week; unreacted ones fade as
+      before. Reaction counts already show under the line. oln.html says so. Test: TestRenewVoted.
 - [x] 81f. Done: Bluesky posts carry their links (facets); building a bundle counts the sites its posts link to (≤ once
       an hour per cell per instance, platforms and shorteners never count); the feeds job looks on the most shared
       ones (≥ 3 posts) for a feed via <link rel=alternate> (≤ 10 new probes per run through the guarded client, cached
