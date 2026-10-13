@@ -708,5 +708,7 @@
   "js.pop_out": "Åbn som side",
   "js.take_back": "Tag tilbage",
   "js.taken_back": "Taget tilbage.",
-  "js.take_back_confirm": "Tag det tilbage? Det forsvinder her for alle."
+  "js.take_back_confirm": "Tag det tilbage? Det forsvinder her for alle.",
+  "js.kind_news": "Nyheder",
+  "js.news_by": "tilføjet af {name}"
 }

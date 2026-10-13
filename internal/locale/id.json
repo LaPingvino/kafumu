@@ -708,5 +708,7 @@
   "js.pop_out": "Buka sebagai halaman",
   "js.take_back": "Tarik kembali",
   "js.taken_back": "Ditarik.",
-  "js.take_back_confirm": "Tarik kembali? Hilang di sini untuk semua."
+  "js.take_back_confirm": "Tarik kembali? Hilang di sini untuk semua.",
+  "js.kind_news": "Berita",
+  "js.news_by": "ditambahkan oleh {name}"
 }

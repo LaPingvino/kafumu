@@ -708,5 +708,7 @@
   "js.pop_out": "Open as a page",
   "js.take_back": "Take back",
   "js.taken_back": "Taken back.",
-  "js.take_back_confirm": "Take this back? It disappears here for everyone."
+  "js.take_back_confirm": "Take this back? It disappears here for everyone.",
+  "js.kind_news": "News",
+  "js.news_by": "added by {name}"
 }

@@ -708,5 +708,7 @@
   "js.pop_out": "Openen als pagina",
   "js.take_back": "Terugnemen",
   "js.taken_back": "Teruggenomen.",
-  "js.take_back_confirm": "Dit terugnemen? Het verdwijnt hier voor iedereen."
+  "js.take_back_confirm": "Dit terugnemen? Het verdwijnt hier voor iedereen.",
+  "js.kind_news": "Nieuws",
+  "js.news_by": "toegevoegd door {name}"
 }

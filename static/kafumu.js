@@ -31,10 +31,10 @@
   // appendChild adds a card); drawFeed merges the sinks by score. A card's
   // score is li.dataset.score if the renderer set one, else its kind's base
   // minus a step per position (keeping that kind's own order).
-  var KINDS = ["contacts", "here", "meetups", "people", "posts"];
+  var KINDS = ["contacts", "here", "meetups", "news", "people", "posts"];
   // Sinks by source; friends around and signals both count as "contacts".
-  var KIND_OF = { friends: "contacts", signals: "contacts", here: "here", meetups: "meetups", people: "people", posts: "posts", elsewhere: "posts" };
-  var BASE = { contacts: 1000, here: 10, meetups: 7, people: 4, posts: 3 }, STEP = { contacts: 1, here: 0.5, meetups: 0.6, people: 0.8, posts: 0.15 };
+  var KIND_OF = { friends: "contacts", signals: "contacts", here: "here", meetups: "meetups", people: "people", posts: "posts", elsewhere: "posts", news: "news" };
+  var BASE = { contacts: 1000, here: 10, meetups: 7, news: 4, people: 4, posts: 3 }, STEP = { contacts: 1, here: 0.5, meetups: 0.6, news: 0.2, people: 0.8, posts: 0.15 };
   var feed = {}, drawTimer = null;
   Object.keys(KIND_OF).forEach(function (k) { feed[k] = []; });
   function feedKinds() {
@@ -498,6 +498,37 @@
         }).catch(function () {}).then(function () { if (Date.now() < until) setTimeout(listen, 10000); });
       })();
     }).catch(function (err) { statusEl.textContent = tr("oln_failed") + " " + err.message; btn.disabled = false; });
+  }
+
+  // ---- News from the area's sources (81e) ----
+  // Items the feeds job read from sources people here added; each carries
+  // the value of the line that added its source, which ranks it (below what
+  // locals say), with fresher first. ⚑ reports the source itself.
+  function showNews(items) {
+    var list = sinks.news;
+    list.textContent = "";
+    var seen = {};
+    items.forEach(function (it) {
+      if (!it.link || seen[it.link]) return;
+      seen[it.link] = true;
+      var li = document.createElement("li");
+      li.className = "news";
+      var ageD = (Date.now() - new Date(it.at).getTime()) / 864e5;
+      li.dataset.score = BASE.news + Math.min(it.bits || 0, 24) / 12 - ageD * 0.4;
+      var meta = document.createElement("div"); meta.className = "meta";
+      meta.textContent = "📰 " + it.host + (it.by ? " · " + tr("news_by", { name: "@" + it.by }) : "") + " · " + ago(it.at);
+      var a = document.createElement("a"); a.href = it.link; a.target = "_blank"; a.rel = "noopener"; a.className = "news-title";
+      a.textContent = it.title + " ↗";
+      var p = document.createElement("p"); p.className = "text";
+      p.appendChild(a);
+      li.appendChild(meta); li.appendChild(p);
+      if (it.text) li.appendChild(Object.assign(document.createElement("p"), { className: "dim small", textContent: it.text }));
+      var row = document.createElement("div"); row.className = "actions";
+      li.dataset.reid = reactRow("link", it.link, it.title, row, { link: it.link, cell: it.cell });
+      row.appendChild(reportButton("note", it.src, "📰 " + it.host + ": " + it.title, li));
+      li.appendChild(row);
+      list.appendChild(li);
+    });
   }
 
   // ---- "I'm confused": a short tour of the page, one thing at a time ----
@@ -1363,6 +1394,7 @@
         liveEvents = (b.events || []).filter(function (e) { return e.live; }).map(function (e) { return e.tag; });
         liveEventNames = (b.events || []).filter(function (e) { return e.live; }).map(function (e) { return e.name; });
         showNotes(b.notes || []);
+        showNews(b.news || []);
         showMeetups(b.meetups || [], b.events || []);
         travel.meetups = (b.meetups || []).length;
         travel.place = ((b.places || [])[0] || {}).place || "";

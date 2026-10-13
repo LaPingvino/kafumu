@@ -708,5 +708,7 @@
   "js.pop_out": "Otwórz jako stronę",
   "js.take_back": "Cofnij",
   "js.taken_back": "Cofnięto.",
-  "js.take_back_confirm": "Cofnąć? Zniknie tu dla wszystkich."
+  "js.take_back_confirm": "Cofnąć? Zniknie tu dla wszystkich.",
+  "js.kind_news": "Wiadomości",
+  "js.news_by": "dodane przez {name}"
 }

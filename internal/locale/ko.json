@@ -708,5 +708,7 @@
   "js.pop_out": "페이지로 열기",
   "js.take_back": "취소하기",
   "js.taken_back": "취소했어요.",
-  "js.take_back_confirm": "취소할까요? 여기서 모두에게 사라져요."
+  "js.take_back_confirm": "취소할까요? 여기서 모두에게 사라져요.",
+  "js.kind_news": "소식",
+  "js.news_by": "{name} 님이 추가"
 }

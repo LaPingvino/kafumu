@@ -708,5 +708,7 @@
   "js.pop_out": "Otevřít jako stránku",
   "js.take_back": "Vzít zpět",
   "js.taken_back": "Vzato zpět.",
-  "js.take_back_confirm": "Vzít zpět? Zmizí tu pro všechny."
+  "js.take_back_confirm": "Vzít zpět? Zmizí tu pro všechny.",
+  "js.kind_news": "Zprávy",
+  "js.news_by": "přidal(a) {name}"
 }

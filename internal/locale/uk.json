@@ -708,5 +708,7 @@
   "js.pop_out": "Відкрити сторінкою",
   "js.take_back": "Відкликати",
   "js.taken_back": "Відкликано.",
-  "js.take_back_confirm": "Відкликати? Зникне тут для всіх."
+  "js.take_back_confirm": "Відкликати? Зникне тут для всіх.",
+  "js.kind_news": "Новини",
+  "js.news_by": "додав(ла) {name}"
 }

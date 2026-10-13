@@ -708,5 +708,7 @@
   "js.pop_out": "Als Seite öffnen",
   "js.take_back": "Zurücknehmen",
   "js.taken_back": "Zurückgenommen.",
-  "js.take_back_confirm": "Zurücknehmen? Es verschwindet hier für alle."
+  "js.take_back_confirm": "Zurücknehmen? Es verschwindet hier für alle.",
+  "js.kind_news": "Neuigkeiten",
+  "js.news_by": "hinzugefügt von {name}"
 }

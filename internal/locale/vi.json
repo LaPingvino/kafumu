@@ -708,5 +708,7 @@
   "js.pop_out": "Mở thành trang",
   "js.take_back": "Rút lại",
   "js.taken_back": "Đã rút lại.",
-  "js.take_back_confirm": "Rút lại? Nó sẽ biến mất ở đây với mọi người."
+  "js.take_back_confirm": "Rút lại? Nó sẽ biến mất ở đây với mọi người.",
+  "js.kind_news": "Tin tức",
+  "js.news_by": "do {name} thêm"
 }

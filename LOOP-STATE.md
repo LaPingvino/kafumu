@@ -1125,8 +1125,10 @@ only for areas people actually look at. Each slice passes one test: does the are
       cached per cell for 12 h and sent with the bundle as "news" (title, link, host, who added it, the source line's
       bits); a calendar (ICS or JSON-LD) goes through the usual feed sync into meetups. News items are cache-only:
       not OLN lines, nothing stored. Test: TestPullSources.
-- [ ] 81e. Show: "via 🌐 host · added by @name" items in the area feed, reactions work as on any line; browser
-      test step + 390 px.
+- [x] 81e. Done: a "News" kind in the one feed (and its filter chip): "📰 host · added by @name · when", the title as
+      a link out, its summary, link reactions (79a: reacting ties to the site), ⚑ reports the source line; ranked by
+      the source line's bits under what locals say, fresher first. Checked by hand with injected news (390 px) — no
+      browser test: adding a source needs a passkey, and the server rightly won't fetch a local test feed.
 - [ ] 81f. Discover: for seen cells, count the sites the area's Bluesky posts link to most; for the top few,
       look for RSS autodiscovery (<link rel=alternate type=rss/atom>) through the safe client, bounded per run;
       on top of the area page: "People here often share example.nl — add its news to this area?" (one tap for a

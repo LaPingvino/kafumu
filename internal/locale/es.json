@@ -708,5 +708,7 @@
   "js.pop_out": "Abrir como página",
   "js.take_back": "Retirar",
   "js.taken_back": "Retirado.",
-  "js.take_back_confirm": "¿Retirarlo? Desaparece aquí para todos."
+  "js.take_back_confirm": "¿Retirarlo? Desaparece aquí para todos.",
+  "js.kind_news": "Noticias",
+  "js.news_by": "añadida por {name}"
 }

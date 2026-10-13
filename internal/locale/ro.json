@@ -708,5 +708,7 @@
   "js.pop_out": "Deschide ca pagină",
   "js.take_back": "Retrage",
   "js.taken_back": "Retras.",
-  "js.take_back_confirm": "Retragi? Dispare aici pentru toți."
+  "js.take_back_confirm": "Retragi? Dispare aici pentru toți.",
+  "js.kind_news": "Știri",
+  "js.news_by": "adăugată de {name}"
 }

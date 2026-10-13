@@ -708,5 +708,7 @@
   "js.pop_out": "Megnyitás oldalként",
   "js.take_back": "Visszavonás",
   "js.taken_back": "Visszavonva.",
-  "js.take_back_confirm": "Visszavonod? Itt mindenkinél eltűnik."
+  "js.take_back_confirm": "Visszavonod? Itt mindenkinél eltűnik.",
+  "js.kind_news": "Hírek",
+  "js.news_by": "hozzáadta: {name}"
 }

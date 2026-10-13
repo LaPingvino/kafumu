@@ -708,5 +708,7 @@
   "js.pop_out": "以頁面開啟",
   "js.take_back": "撤回",
   "js.taken_back": "已撤回。",
-  "js.take_back_confirm": "撤回？這裡的所有人都將看不到它。"
+  "js.take_back_confirm": "撤回？這裡的所有人都將看不到它。",
+  "js.kind_news": "新聞",
+  "js.news_by": "由 {name} 新增"
 }

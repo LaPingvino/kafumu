@@ -708,5 +708,7 @@
   "js.pop_out": "Öppna som sida",
   "js.take_back": "Ta tillbaka",
   "js.taken_back": "Tillbakataget.",
-  "js.take_back_confirm": "Ta tillbaka? Det försvinner här för alla."
+  "js.take_back_confirm": "Ta tillbaka? Det försvinner här för alla.",
+  "js.kind_news": "Nyheter",
+  "js.news_by": "tillagd av {name}"
 }

@@ -708,5 +708,7 @@
   "js.pop_out": "Открыть страницей",
   "js.take_back": "Отозвать",
   "js.taken_back": "Отозвано.",
-  "js.take_back_confirm": "Отозвать? Исчезнет здесь для всех."
+  "js.take_back_confirm": "Отозвать? Исчезнет здесь для всех.",
+  "js.kind_news": "Новости",
+  "js.news_by": "добавил(а) {name}"
 }

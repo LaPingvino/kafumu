@@ -708,5 +708,7 @@
   "js.pop_out": "Malfermi kiel paĝon",
   "js.take_back": "Repreni",
   "js.taken_back": "Reprenita.",
-  "js.take_back_confirm": "Ĉu repreni ĝin? Ĝi malaperas ĉi tie por ĉiuj."
+  "js.take_back_confirm": "Ĉu repreni ĝin? Ĝi malaperas ĉi tie por ĉiuj.",
+  "js.kind_news": "Novaĵoj",
+  "js.news_by": "aldonita de {name}"
 }

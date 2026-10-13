@@ -708,5 +708,7 @@
   "js.pop_out": "Sayfa olarak aç",
   "js.take_back": "Geri al",
   "js.taken_back": "Geri alındı.",
-  "js.take_back_confirm": "Geri alınsın mı? Burada herkes için kaybolur."
+  "js.take_back_confirm": "Geri alınsın mı? Burada herkes için kaybolur.",
+  "js.kind_news": "Haberler",
+  "js.news_by": "{name} ekledi"
 }
