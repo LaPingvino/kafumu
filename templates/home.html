@@ -12,11 +12,6 @@
   <p class="muted" id="status"></p>
   <h1 class="cell-tag" hidden><span id="place-name"></span><span id="cell-tag"></span></h1>
   <p id="place-also" class="place-also" hidden></p>
-  <!-- What this is, for someone who just arrived (82a); closed for good with ✕. -->
-  <div id="intro" class="card intro" hidden>
-    <button type="button" class="close-x" data-close aria-label="{{ts .Lang "common.close"}}" title="{{ts .Lang "common.close"}}">✕</button>
-    <p>{{t .Lang "home.intro"}}</p>
-  </div>
   <div id="cell-actions" hidden>
     <p class="actions">
       <button type="button" id="coffee" class="suggested pill">{{if and .BrandInfo .BrandInfo.Button}}{{.BrandInfo.Button}}{{else}}☕ {{t .Lang "coffee.button"}}{{end}}</button>
