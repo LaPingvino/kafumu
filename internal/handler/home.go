@@ -54,10 +54,12 @@ type Home struct {
 	// like the countries looked at (countries.go).
 	Cache cache.Cache
 	seen  countryLog
-	Cfg   *config.Config
-	Tmpl  *template.Template
-	Bsky  *bsky.Client
-	Gaz   *gazetteer.Gazetteer
+	// seenCells: the cells people looked at (81d), for the sources job.
+	seenCells cellLog
+	Cfg       *config.Config
+	Tmpl      *template.Template
+	Bsky      *bsky.Client
+	Gaz       *gazetteer.Gazetteer
 	// Notes, if set, are the OLN local messages included in bundles.
 	Notes *oln.Service
 	// FollowHandle, if set, serves kafumu.com/@name links.
@@ -260,6 +262,8 @@ type bundle struct {
 	// Meetups hosted on Kafumu in these cells, soonest first.
 	Meetups []*meetup.Meetup `json:"meetups"`
 	Posts   []bsky.Post      `json:"posts"`
+	// News: items from the area's sources (81d), read by the feeds job.
+	News []NewsItem `json:"news"`
 }
 
 // ShowCard renders the "my card" editor; the card itself lives on the device.
@@ -460,8 +464,10 @@ func (h *Home) Bundle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	h.noteCountry(r.Context(), cells[0])
+	h.noteCell(r.Context(), cells[0])
 
 	b := bundle{Cells: cells, Places: []gazetteer.PlaceTag{}, Events: []gazetteer.EventTag{}, Meetups: []*meetup.Meetup{}, People: []account.Person{}, Notes: []*oln.Note{}, Posts: []bsky.Post{}}
+	b.News = h.News(r.Context(), cells)
 	if h.Notes != nil {
 		if ns, err := h.Notes.InCells(r.Context(), cells); err != nil {
 			log.Printf("bundle: notes: %v", err)

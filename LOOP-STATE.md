@@ -1119,10 +1119,12 @@ only for areas people actually look at. Each slice passes one test: does the are
       IPv4 address or IPv6 /64 under a node key (never the address); stops live in the hidden set ("nosrc:",
       "net:<hash>:<until>", "netkey:"), which the OLN purge now leaves alone. Test: TestStopSources. Brand admins:
       not yet (their queue is the admin's for now).
-- [ ] 81d. Pull: a bot-safe "seen cells" record (like seen-countries); the 6-hourly feeds job pulls sources of
-      cells seen in the last 3 days (bounded per run): calendar feeds → meetups (existing path), RSS/Atom items
-      → expiring notes in that cell, Author = who added it, #site_host, value from the source line (below what
-      locals mined: check score/drawFeed).
+- [x] 81d. Done: the bundle notes its cell in the shared cache ("seen-cells", ≤ once an hour per cell per instance,
+      3 days; bots never get a bundle). The feeds job reads the sources (#feed lines) of seen cells and their first
+      ring (≤ 200 cells, ≤ 40 sources, ≤ 5 per cell per run): RSS/Atom → up to 10 items per source, 7 days back,
+      cached per cell for 12 h and sent with the bundle as "news" (title, link, host, who added it, the source line's
+      bits); a calendar (ICS or JSON-LD) goes through the usual feed sync into meetups. News items are cache-only:
+      not OLN lines, nothing stored. Test: TestPullSources.
 - [ ] 81e. Show: "via 🌐 host · added by @name" items in the area feed, reactions work as on any line; browser
       test step + 390 px.
 - [ ] 81f. Discover: for seen cells, count the sites the area's Bluesky posts link to most; for the top few,

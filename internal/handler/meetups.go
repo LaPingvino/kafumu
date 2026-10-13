@@ -251,9 +251,15 @@ func (h *Meetups) RunFeeds(ctx context.Context) string {
 	for _, cc := range h.Home.SeenCountries(ctx, time.Now()) {
 		fs = append(fs, feeds.EventaServo(cc))
 	}
+	// Local sources (81d): of the areas people looked at, never others.
+	cals, srcs := h.pullSources(ctx, time.Now())
+	fs = append(fs, cals...)
 	res := feeds.Sync(ctx, fs, h.Importer, h.Svc.Store, time.Now())
 	h.Svc.ForgetAll()
-	log.Printf("feeds: %s", res)
+	log.Printf("feeds: %s; %s", res, srcs)
+	if srcs != "" {
+		return res.String() + "; " + srcs
+	}
 	return res.String()
 }
 
