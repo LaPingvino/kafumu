@@ -68,6 +68,7 @@
     dev.store.contacts().then(function (cs) {
       cs.sort(function (a, b) { return (b.createdAt || "").localeCompare(a.createdAt || ""); });
       if (sortBy() === "near") cs = byDistance(cs);
+      var total = cs.length; // before any view narrows it
       // Quiet for 90+ days: only those, most silent first, with "remove all".
       var quietMode = sortBy() === "quiet";
       if (quietMode) cs = cs.filter(function (c) { return dev.quietDays(c) >= 90; }).sort(function (a, b) { return dev.quietDays(b) - dev.quietDays(a); });
@@ -81,8 +82,11 @@
         };
       }
       list.textContent = "";
-      empty.hidden = cs.length > 0;
-      $("contacts-tools").hidden = cs.length === 0;
+      // "Nobody yet" only when there's nobody: a view that shows none (quiet,
+      // with nobody quiet) keeps its tools, so you can switch back (Joop's
+      // Chromebook: a saved "quiet" view looked like an empty list).
+      empty.hidden = total > 0;
+      $("contacts-tools").hidden = false; // always: how you look at the list is never hidden (Joop)
       // Chat lines go over encrypted OLN (mined in a worker); the rest
       // (cards, signals, alive) over the pair mailbox.
       function send(c, msg) {

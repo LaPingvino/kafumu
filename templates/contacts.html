@@ -1,7 +1,7 @@
 {{template "head" .}}
 <h1>{{t .Lang "contacts.title"}}</h1>
 <p id="contacts-empty" class="dim" hidden>{{t .Lang "contacts.empty"}} <a href="/connect">{{t .Lang "contacts.go_connect"}}</a></p>
-<div id="contacts-tools" hidden>
+<div id="contacts-tools">
   <div class="inline-row">
     <input id="contacts-filter" type="search" placeholder="{{ts .Lang "contacts.filter"}}" aria-label="{{ts .Lang "contacts.filter"}}">
     <select id="contacts-sort" class="flat" aria-label="{{ts .Lang "contacts.sort"}}">

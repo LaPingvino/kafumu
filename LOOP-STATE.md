@@ -1042,7 +1042,10 @@ Per the OLN json-spec, a link is an index key like a tag (index["link"] → mess
       inbox, profile, Bluesky connect/disconnect, admin role/keep/patron. The touch was the dangerous one: from an
       instance's cached copy it could drop a session another instance had just added (a new device signed out).
       Test TestTouchKeepsOtherInstancesSession fails on the old code, passes now.
-- [ ] (diagnostics added: Contacts shows "On this device: n contacts · host · store" + last sync, sync errors and a
+- [x] Found (Joop's Chromebook): a saved "quiet for 90+ days" view with nobody quiet showed "nobody yet" and hid the
+      sort menu, so there was no way back (other devices didn't have that view saved). Now the list's tools always
+      show, "nobody yet" only when there's nobody; browser step.
+- [x] (diagnostics added: Contacts shows "On this device: n contacts · host · store" + last sync, sync errors and a
       key that doesn't open the vault say so, storage that won't open says so, console logs each sync state)
       Joop 2026-10-13: Contacts empty on one Chromebook, sync doesn't bring them back (same machine has storage
       trouble with other apps). Asked: which address (kafumu.com vs the old appspot one: separate storage), acting as

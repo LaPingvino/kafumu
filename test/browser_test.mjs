@@ -78,6 +78,12 @@ try {
   await A.waitFor("[...document.querySelectorAll('#contacts li a')].some(b => b.textContent.includes('Chat (1)'))", "A sees an unread chat", 15000);
   // Contacts says what this device holds and where (never a silent empty list).
   await A.waitFor("/On this device: [1-9]\\d* contacts · localhost/.test(document.getElementById('store-info').textContent) && document.getElementById('storage-error').hidden", "what this device holds");
+  // A saved "quiet" view with nobody quiet: the tools stay, never "nobody yet" (Joop's Chromebook).
+  await A.evaluate("localStorage.setItem('kafumu.contactSort', 'quiet'); true");
+  await A.goto(base + "/contacts");
+  await A.waitFor("!document.getElementById('contacts-tools').hidden && document.getElementById('contacts-empty').hidden && !document.getElementById('quiet-tools').hidden && document.getElementById('contacts-sort').value === 'quiet'", "an empty view, not an empty list");
+  await A.evaluate("(() => { const s = document.getElementById('contacts-sort'); s.value = 'new'; s.dispatchEvent(new Event('change')); return true; })()");
+  await A.waitFor("document.querySelectorAll('#contacts li.contact').length > 0", "back to everyone");
   await A.evaluate("location.href = [...[...document.querySelectorAll('#contacts li')].find(l => l.textContent.includes('Bea')).querySelectorAll('a')].find(b => b.textContent.includes('Chat')).href; true");
   await A.waitFor("[...document.querySelectorAll('.bubble:not(.me)')].some(b => b.textContent === 'hallo " + RUN + "')", "A reads B's message");
   await A.waitFor("[...document.querySelectorAll('.chat-window:not([hidden]) .chat-note')].some(n => n.textContent.startsWith('🤝')) && [...document.querySelectorAll('.chat-window:not([hidden]) .chat-note')].some(n => n.textContent.startsWith('📶'))", "the chat also shows when you connected and B's signal (85d)");
