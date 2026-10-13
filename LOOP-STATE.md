@@ -1146,7 +1146,9 @@ changes), a share ("👀 Did you see this?"): one-way when it can't be answered 
 order), two-way when it can, always in the same bubble format. Contacts are always in the list (also without
 messages), and the chat moves there fully from the contact card. Mobile: a standard full-screen chat window;
 desktop: chat windows docked at the bottom.
-- [ ] 85a. The model: one thread list built on the device from contacts, answers, myPosts, myMeetups, shares;
+- [x] 85a. Done: static/threads.js build() (pure; test/threads_test.mjs): contacts always (quiet ones last), messages +
+      signals + "connected" in one two-way thread, answers two-way, inbox and notices one-way grouped per thing
+      (Activity's replies/meetups/Bluesky items now carry thread/kind/title). Was: The model: one thread list built on the device from contacts, answers, myPosts, myMeetups, shares;
       each thread {kind, who, title, twoWay, items[]}, rendered as bubbles. Unit test.
 - [ ] 85b. The list page (mailbox + contacts merged; "Contacts" filter; the contact card reachable from a thread).
 - [ ] 85c. Mobile full-screen chat window with back; desktop docked windows at the bottom.

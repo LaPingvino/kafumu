@@ -33,7 +33,7 @@
           if (!p || mine[n.id]) return; // your own reply to your own post isn't news
           out.push({ id: "r:" + n.id, at: n.at, icon: /^\s*(\p{Extended_Pictographic}️?\s*){1,3}$/u.test(n.text) ? n.text.trim() : "💬",
             who: n.author ? "@" + n.author : (n.biz || ""), text: String(n.text).split("\n")[0], about: tr("act_reply_to", { post: short(p.text, 40) }),
-            href: areaLink(p.cell, n.cell) + "#re-" + p.reid }); // the post's area, scrolled to the post
+            href: areaLink(p.cell, n.cell) + "#re-" + p.reid, thread: "p:" + p.reid, kind: "post", title: short(p.text, 60) }); // the post's area, scrolled to the post
         });
       });
       return out;
@@ -54,12 +54,12 @@
       mine.forEach(function (was) {
         var m = now[was.id], href = "/meetups/" + was.id, title = short(was.title, 50);
         if (was.role === "host" && m && m.going > was.going)
-          out.push({ id: "g:" + was.id + ":" + m.going, icon: "🙋", who: "", text: tr("act_going", { n: m.going }), about: title, href: href });
+          out.push({ thread: "e:" + was.id, kind: "meetup", title: title, id: "g:" + was.id + ":" + m.going, icon: "🙋", who: "", text: tr("act_going", { n: m.going }), about: title, href: href });
         if (was.role === "going" && m && (new Date(m.start).getTime() !== new Date(was.start).getTime() || (m.venue || "") !== (was.venue || "")))
-          out.push({ id: "u:" + was.id + ":" + m.start + "|" + (m.venue || ""), icon: "✏️", who: "", about: title, href: href,
+          out.push({ thread: "e:" + was.id, kind: "meetup", title: title, id: "u:" + was.id + ":" + m.start + "|" + (m.venue || ""), icon: "✏️", who: "", about: title, href: href,
             text: tr("act_changed", { when: new Date(m.start).toLocaleString(window.KAFUMU_LOCALE, { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) + (m.venue ? " · " + m.venue : "") }) });
         if (was.role === "going" && gone[was.id] && new Date(was.end) > Date.now())
-          out.push({ id: "x:" + was.id, icon: "❌", who: "", text: tr("act_cancelled"), about: title, href: "/" });
+          out.push({ thread: "e:" + was.id, kind: "meetup", title: title, id: "x:" + was.id, icon: "❌", who: "", text: tr("act_cancelled"), about: title, href: "/" });
       });
       return out;
     });
@@ -90,11 +90,11 @@
       var out = [], threads = [];
       (r.posts || []).forEach(function (v) {
         var p = bs.filter(function (x) { return x.uri === v.uri; })[0] || {}, about = tr("act_reply_to", { post: short(p.text || (v.record && v.record.text), 40) }), href = bskyLink(v.uri, v.author.handle);
-        if (v.likeCount) out.push({ id: "bl:" + v.uri + ":" + v.likeCount, icon: "❤️", who: "", text: tr("act_likes", { n: v.likeCount }), about: about, href: href });
-        if (v.repostCount) out.push({ id: "bp:" + v.uri + ":" + v.repostCount, icon: "🔁", who: "", text: tr("act_reposts", { n: v.repostCount }), about: about, href: href });
+        if (v.likeCount) out.push({ thread: "b:" + v.uri, kind: "bsky", title: about, id: "bl:" + v.uri + ":" + v.likeCount, icon: "❤️", who: "", text: tr("act_likes", { n: v.likeCount }), about: about, href: href });
+        if (v.repostCount) out.push({ thread: "b:" + v.uri, kind: "bsky", title: about, id: "bp:" + v.uri + ":" + v.repostCount, icon: "🔁", who: "", text: tr("act_reposts", { n: v.repostCount }), about: about, href: href });
         if (v.replyCount) threads.push(xrpc("app.bsky.feed.getPostThread?depth=1&parentHeight=0&uri=" + encodeURIComponent(v.uri)).then(function (t) {
           return ((t.thread && t.thread.replies) || []).filter(function (x) { return x.post && x.post.author.did !== v.author.did; }).map(function (x) {
-            return { id: "br:" + x.post.uri, at: (x.post.record && x.post.record.createdAt) || x.post.indexedAt, icon: "🦋", who: "@" + x.post.author.handle,
+            return { thread: "b:" + v.uri, kind: "bsky", title: about, id: "br:" + x.post.uri, at: (x.post.record && x.post.record.createdAt) || x.post.indexedAt, icon: "🦋", who: "@" + x.post.author.handle,
               text: (x.post.record && x.post.record.text) || "", about: about, href: bskyLink(x.post.uri, x.post.author.handle) };
           }).sort(function (a, b) { return new Date(b.at) - new Date(a.at); }).slice(0, 20); // a popular post: its newest 20
         }, function () { return []; }));

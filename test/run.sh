@@ -8,6 +8,7 @@ go vet ./...
 go test ./...
 node test/geo_test.mjs
 node test/device_test.mjs
+node test/threads_test.mjs
 bin="${TMPDIR:-/tmp}/kafumu-test"
 go build -o "$bin" .
 PORT=18081 "$bin" >/dev/null 2>&1 &
