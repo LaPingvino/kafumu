@@ -694,5 +694,12 @@
   "js.source_faded": "stinsă",
   "js.source_renew": "Reînnoiește",
   "js.source_remove_confirm": "Scoți această sursă din zona ei?",
-  "js.source_still": "Încă e acolo: reînnoiește-o după ce are mai mult de o zi."
+  "js.source_still": "Încă e acolo: reînnoiește-o după ce are mai mult de o zi.",
+  "note.title": "Mesaj",
+  "note.expired_title": "Acest mesaj a expirat",
+  "note.expired_was": "Nu mai apare în zona lui, dar serverul și-l mai amintește o vreme. Spunea:",
+  "note.gone_title": "Acest mesaj a expirat",
+  "note.fade": "Mesajele pe Kafumu se sting: fiecare trăiește o vreme (mai mult când s-a pus mai multă muncă în trimitere), apoi dispare. Nimic nu rămâne aici pentru totdeauna, intenționat.",
+  "note.area": "Zona lui",
+  "note.learn": "Cum funcționează aici mesajele"
 }

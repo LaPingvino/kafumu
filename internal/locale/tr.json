@@ -694,5 +694,12 @@
   "js.source_faded": "soldu",
   "js.source_renew": "Yenile",
   "js.source_remove_confirm": "Bu kaynak bölgesinden kaldırılsın mı?",
-  "js.source_still": "Hâlâ orada: bir günden eski olunca yenile."
+  "js.source_still": "Hâlâ orada: bir günden eski olunca yenile.",
+  "note.title": "İleti",
+  "note.expired_title": "Bu iletinin süresi doldu",
+  "note.expired_was": "Artık bölgesinde görünmüyor ama bu sunucu onu bir süre daha hatırlıyor. Şöyle diyordu:",
+  "note.gone_title": "Bu iletinin süresi doldu",
+  "note.fade": "Kafumu'da iletiler solar: her biri bir süre yaşar (gönderimine daha çok emek verildiyse daha uzun) ve sonra gider. Burada hiçbir şey sonsuza dek saklanmaz, bilerek.",
+  "note.area": "Bölgesi",
+  "note.learn": "İletiler burada nasıl çalışır"
 }

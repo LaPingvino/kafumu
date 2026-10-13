@@ -1193,7 +1193,10 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       lines (their own URL), named people and businesses (/@name), #re-<id> scrolling to a line in its area. Lacked:
       local lines (shared as just the area), Bluesky posts and people in the feed (no 📤 at all), reactions/replies
       and questions (no share; replies are under their line, so its link covers them). Was: Inventory: what has a link now (meetups /meetups/id, areas /?cell=, #re-<id>) and what doesn't.
-- [ ] 86c. /n/<id> (Joop): a line's own address. Live → its area at the line. Expired but still stored (Datastore's
+- [x] 86c. Done: GET /n/<id> (40 hex; bots 404): live → 302 to /?cell=…#re-<id>; expired but still stored → its
+      text marked expired + why lines fade + /oln; gone, hidden or private → 404 with the same explanation. Shares
+      (👀, 🔗, carried 📍) of a line now carry /n/<id>. The service worker leaves /n/ and /rss/ alone. Tests:
+      TestShowNote, browser step following a carried link. Was: /n/<id> (Joop): a line's own address. Live → its area at the line. Expired but still stored (Datastore's
       TTL deletes late) or in a cache → shown as "expired" with its text. Gone → a friendly "this message has expired"
       page explaining how OLN works (lines fade; the network keeps nothing forever) with a link to /oln.
 - [ ] 86d. "↻ Send again" on a line (yours or anyone's): a new line that refers to it (#re<id> + its text as context),

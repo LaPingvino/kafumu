@@ -694,5 +694,12 @@
   "js.source_faded": "faded",
   "js.source_renew": "Renew",
   "js.source_remove_confirm": "Take this source off its area?",
-  "js.source_still": "Still there: renew it once it's older than a day."
+  "js.source_still": "Still there: renew it once it's older than a day.",
+  "note.title": "Message",
+  "note.expired_title": "This message has expired",
+  "note.expired_was": "It's no longer shown in its area, but this server still remembers it for a little while. It said:",
+  "note.gone_title": "This message has expired",
+  "note.fade": "Messages on Kafumu fade: each lives for a while (longer when more work went into sending it), and then it's gone. Nothing here is kept forever, by design.",
+  "note.area": "Its area",
+  "note.learn": "How messages work here"
 }

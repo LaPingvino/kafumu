@@ -694,5 +694,12 @@
   "js.source_faded": "vybledlý",
   "js.source_renew": "Obnovit",
   "js.source_remove_confirm": "Stáhnout tento zdroj z jeho oblasti?",
-  "js.source_still": "Pořád tam je: obnov ho, až bude starší než den."
+  "js.source_still": "Pořád tam je: obnov ho, až bude starší než den.",
+  "note.title": "Zpráva",
+  "note.expired_title": "Platnost této zprávy vypršela",
+  "note.expired_was": "Už se nezobrazuje ve své oblasti, ale tento server si ji ještě chvíli pamatuje. Stálo v ní:",
+  "note.gone_title": "Platnost této zprávy vypršela",
+  "note.fade": "Zprávy na Kafumu blednou: každá žije nějakou dobu (déle, když odeslání stálo víc práce), a pak zmizí. Nic tu nezůstává navždy, záměrně.",
+  "note.area": "Její oblast",
+  "note.learn": "Jak tu fungují zprávy"
 }

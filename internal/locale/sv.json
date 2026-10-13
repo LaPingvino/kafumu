@@ -694,5 +694,12 @@
   "js.source_faded": "bleknad",
   "js.source_renew": "Förnya",
   "js.source_remove_confirm": "Ta bort källan från området?",
-  "js.source_still": "Finns kvar: förnya den när den är äldre än en dag."
+  "js.source_still": "Finns kvar: förnya den när den är äldre än en dag.",
+  "note.title": "Meddelande",
+  "note.expired_title": "Det här meddelandet har gått ut",
+  "note.expired_was": "Det visas inte längre i sitt område, men servern minns det en liten stund till. Det stod:",
+  "note.gone_title": "Det här meddelandet har gått ut",
+  "note.fade": "Meddelanden på Kafumu bleknar: vart och ett lever ett tag (längre när mer arbete lades på att skicka det) och försvinner sedan. Inget sparas här för alltid, med flit.",
+  "note.area": "Dess område",
+  "note.learn": "Hur meddelanden fungerar här"
 }

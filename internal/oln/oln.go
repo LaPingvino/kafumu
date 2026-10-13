@@ -712,6 +712,9 @@ func (s *Service) InCells(ctx context.Context, cells []string) ([]*Note, error) 
 	return live, nil
 }
 
+// IsHidden: a moderator took this line down.
+func (s *Service) IsHidden(ctx context.Context, id string) bool { return s.hiddenSet(ctx)[id] }
+
 func (s *Service) hiddenSet(ctx context.Context) map[string]bool {
 	s.mu.Lock()
 	if s.hidden != nil && time.Since(s.hidAt) < 5*time.Minute {

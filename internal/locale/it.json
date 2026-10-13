@@ -694,5 +694,12 @@
   "js.source_faded": "svanita",
   "js.source_renew": "Rinnova",
   "js.source_remove_confirm": "Togliere questa fonte dalla sua zona?",
-  "js.source_still": "Ancora lì: rinnovala quando ha più di un giorno."
+  "js.source_still": "Ancora lì: rinnovala quando ha più di un giorno.",
+  "note.title": "Messaggio",
+  "note.expired_title": "Questo messaggio è scaduto",
+  "note.expired_was": "Non compare più nella sua zona, ma questo server lo ricorda ancora per un po'. Diceva:",
+  "note.gone_title": "Questo messaggio è scaduto",
+  "note.fade": "I messaggi su Kafumu svaniscono: ognuno vive per un po' (di più se è costato più lavoro inviarlo), poi sparisce. Qui niente resta per sempre, apposta.",
+  "note.area": "La sua zona",
+  "note.learn": "Come funzionano qui i messaggi"
 }

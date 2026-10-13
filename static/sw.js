@@ -33,7 +33,7 @@ self.addEventListener("activate", function (e) {
 self.addEventListener("fetch", function (e) {
   var req = e.request, url = new URL(req.url);
   if (req.method !== "GET" || url.origin !== location.origin) return;
-  if (/^\/(api|bundle|cron|auth|cal)\b/.test(url.pathname) || url.pathname.endsWith("/ics")) return;
+  if (/^\/(api|bundle|cron|auth|cal|rss|n)\b/.test(url.pathname) || url.pathname.endsWith("/ics")) return;
   if (url.pathname.startsWith("/static/")) {
     e.respondWith(caches.match(req).then(function (hit) {
       return hit || fetch(req).then(function (res) {

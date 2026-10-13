@@ -694,5 +694,12 @@
   "js.source_faded": "falmet",
   "js.source_renew": "Forny",
   "js.source_remove_confirm": "Tage denne kilde ud af området?",
-  "js.source_still": "Stadig der: forny den, når den er over en dag gammel."
+  "js.source_still": "Stadig der: forny den, når den er over en dag gammel.",
+  "note.title": "Besked",
+  "note.expired_title": "Denne besked er udløbet",
+  "note.expired_was": "Den vises ikke længere i sit område, men serveren husker den stadig lidt. Der stod:",
+  "note.gone_title": "Denne besked er udløbet",
+  "note.fade": "Beskeder på Kafumu falmer: hver lever et stykke tid (længere, når der gik mere arbejde i at sende den), og så er den væk. Intet gemmes her for evigt, med vilje.",
+  "note.area": "Dens område",
+  "note.learn": "Sådan virker beskeder her"
 }

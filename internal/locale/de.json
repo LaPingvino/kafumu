@@ -694,5 +694,12 @@
   "js.source_faded": "verblasst",
   "js.source_renew": "Erneuern",
   "js.source_remove_confirm": "Diese Quelle aus ihrer Gegend nehmen?",
-  "js.source_still": "Noch da: erneuere sie, wenn sie älter als einen Tag ist."
+  "js.source_still": "Noch da: erneuere sie, wenn sie älter als einen Tag ist.",
+  "note.title": "Nachricht",
+  "note.expired_title": "Diese Nachricht ist abgelaufen",
+  "note.expired_was": "Sie steht nicht mehr in ihrer Gegend, aber dieser Server erinnert sich noch kurz daran. Sie lautete:",
+  "note.gone_title": "Diese Nachricht ist abgelaufen",
+  "note.fade": "Nachrichten auf Kafumu verblassen: Jede lebt eine Weile (länger, wenn mehr Arbeit ins Senden ging), dann ist sie weg. Nichts bleibt hier für immer, mit Absicht.",
+  "note.area": "Ihre Gegend",
+  "note.learn": "Wie Nachrichten hier funktionieren"
 }

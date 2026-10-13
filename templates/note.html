@@ -1,0 +1,17 @@
+{{template "head" .}}
+<article class="doc">
+{{if .N}}
+  {{if .Live}}<h1>{{t .Lang "note.title"}}</h1>{{else}}<h1>{{t .Lang "note.expired_title"}}</h1>
+  <p class="dim">{{t .Lang "note.expired_was"}}</p>{{end}}
+  <blockquote class="card" style="padding:12px 16px">
+    <p style="white-space:pre-line">{{.N.Text}}</p>
+    <p class="dim small">{{if .N.Author}}@{{.N.Author}} · {{end}}{{.N.At.Format "2006-01-02 15:04"}} UTC{{range .N.Tags}} · {{tagLabel .}}{{end}}</p>
+  </blockquote>
+{{else}}
+  <h1>{{t .Lang "note.gone_title"}}</h1>
+{{end}}
+  <p>{{t .Lang "note.fade"}}</p>
+  <p class="actions">{{if .Area}}<a href="/?cell={{.Area}}" role="button" class="pill-sm">📍 {{t .Lang "note.area"}}</a>{{end}}
+    <a href="/oln" role="button" class="pill-sm">{{t .Lang "note.learn"}} →</a></p>
+</article>
+{{template "foot" .}}

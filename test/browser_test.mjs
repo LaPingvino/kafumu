@@ -198,9 +198,12 @@ try {
   await A.evaluate("localStorage.removeItem('kafumu.cellCounts'); true");
   for (let i = 0; ; i++) {
     await B.goto(base + "/?cell=9c2v2v");
-    try { await B.waitFor("[...document.querySelectorAll('#feed > li.carried')].some(li => li.textContent.includes('hi from the OLN " + RUN + "') && li.textContent.includes('☕ 1') && li.querySelector('a[href*=\"/?cell=6fg223\"]'))", "the carried ☕ shows at A's home, linking to it", 8000); break; }
+    try { await B.waitFor("[...document.querySelectorAll('#feed > li.carried')].some(li => li.textContent.includes('hi from the OLN " + RUN + "') && li.textContent.includes('☕ 1') && li.querySelector('a[href*=\"/n/\"]'))", "the carried ☕ shows at A's home, linking to it", 8000); break; }
     catch (e) { if (i >= 9) throw e; }
   }
+  // Its /n/<id> link (86c) opens the line in its own area, highlighted.
+  await B.evaluate("location.href = [...document.querySelectorAll('#feed > li.carried')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')).querySelector('a[href*=\"/n/\"]').href; true");
+  await B.waitFor("location.search.includes('cell=6fg223') && !!document.querySelector('#feed li.flash') && document.querySelector('#feed li.flash').textContent.includes('hi from the OLN " + RUN + "')", "/n/<id> lands on the line in its area", 20000);
 
   // Share a link (79a): A's note with a link is a reaction to that link;
   // B sees it as a 🔗 card (tracking and #fragment dropped) and reacts to it.

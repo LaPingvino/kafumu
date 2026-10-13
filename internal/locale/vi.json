@@ -694,5 +694,12 @@
   "js.source_faded": "đã mờ",
   "js.source_renew": "Làm mới",
   "js.source_remove_confirm": "Gỡ nguồn này khỏi khu vực?",
-  "js.source_still": "Vẫn còn: làm mới khi nó đã hơn một ngày."
+  "js.source_still": "Vẫn còn: làm mới khi nó đã hơn một ngày.",
+  "note.title": "Tin nhắn",
+  "note.expired_title": "Tin nhắn này đã hết hạn",
+  "note.expired_was": "Nó không còn hiển thị ở khu vực của nó, nhưng máy chủ vẫn nhớ thêm một lúc. Nội dung:",
+  "note.gone_title": "Tin nhắn này đã hết hạn",
+  "note.fade": "Tin nhắn trên Kafumu mờ dần: mỗi tin sống một thời gian (lâu hơn nếu tốn nhiều công gửi hơn), rồi biến mất. Không gì ở đây được giữ mãi mãi, có chủ đích.",
+  "note.area": "Khu vực của nó",
+  "note.learn": "Tin nhắn ở đây hoạt động thế nào"
 }

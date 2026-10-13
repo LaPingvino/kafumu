@@ -694,5 +694,12 @@
   "js.source_faded": "memudar",
   "js.source_renew": "Perbarui",
   "js.source_remove_confirm": "Keluarkan sumber ini dari areanya?",
-  "js.source_still": "Masih ada: perbarui setelah lebih dari sehari."
+  "js.source_still": "Masih ada: perbarui setelah lebih dari sehari.",
+  "note.title": "Pesan",
+  "note.expired_title": "Pesan ini sudah kedaluwarsa",
+  "note.expired_was": "Pesan ini tak lagi tampil di areanya, tapi server masih mengingatnya sebentar. Isinya:",
+  "note.gone_title": "Pesan ini sudah kedaluwarsa",
+  "note.fade": "Pesan di Kafumu memudar: masing-masing hidup sebentar (lebih lama bila lebih banyak kerja dipakai untuk mengirimnya), lalu hilang. Tak ada yang disimpan selamanya di sini, memang disengaja.",
+  "note.area": "Areanya",
+  "note.learn": "Cara kerja pesan di sini"
 }

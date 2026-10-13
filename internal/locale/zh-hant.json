@@ -694,5 +694,12 @@
   "js.source_faded": "已消失",
   "js.source_renew": "續期",
   "js.source_remove_confirm": "把這個來源從地區撤下？",
-  "js.source_still": "還在：超過一天後再續期。"
+  "js.source_still": "還在：超過一天後再續期。",
+  "note.title": "訊息",
+  "note.expired_title": "這則訊息已過期",
+  "note.expired_was": "它已不在所在地區顯示，但伺服器還會記得一小段時間。內容是：",
+  "note.gone_title": "這則訊息已過期",
+  "note.fade": "Kafumu 上的訊息會淡去：每則存在一段時間（傳送時付出的運算越多，存在越久），然後消失。這裡刻意不永久保存任何東西。",
+  "note.area": "所在地區",
+  "note.learn": "這裡的訊息如何運作"
 }

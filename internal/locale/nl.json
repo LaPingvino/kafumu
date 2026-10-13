@@ -694,5 +694,12 @@
   "js.source_faded": "verdwenen",
   "js.source_renew": "Vernieuwen",
   "js.source_remove_confirm": "Deze bron uit zijn gebied halen?",
-  "js.source_still": "Staat er nog: vernieuw hem als hij ouder is dan een dag."
+  "js.source_still": "Staat er nog: vernieuw hem als hij ouder is dan een dag.",
+  "note.title": "Bericht",
+  "note.expired_title": "Dit bericht is verlopen",
+  "note.expired_was": "Het staat niet meer in zijn gebied, maar deze server herinnert het zich nog even. Er stond:",
+  "note.gone_title": "Dit bericht is verlopen",
+  "note.fade": "Berichten op Kafumu vervagen: elk leeft een tijdje (langer als er meer werk in het versturen zat) en is dan weg. Niets blijft hier voor altijd, met opzet.",
+  "note.area": "Zijn gebied",
+  "note.learn": "Hoe berichten hier werken"
 }

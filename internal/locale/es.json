@@ -694,5 +694,12 @@
   "js.source_faded": "apagada",
   "js.source_renew": "Renovar",
   "js.source_remove_confirm": "¿Quitar esta fuente de su zona?",
-  "js.source_still": "Sigue ahí: renuévala cuando tenga más de un día."
+  "js.source_still": "Sigue ahí: renuévala cuando tenga más de un día.",
+  "note.title": "Mensaje",
+  "note.expired_title": "Este mensaje ha caducado",
+  "note.expired_was": "Ya no aparece en su zona, pero este servidor aún lo recuerda un rato. Decía:",
+  "note.gone_title": "Este mensaje ha caducado",
+  "note.fade": "Los mensajes en Kafumu se apagan: cada uno vive un tiempo (más si se puso más trabajo en enviarlo) y luego desaparece. Nada se guarda para siempre aquí, a propósito.",
+  "note.area": "Su zona",
+  "note.learn": "Cómo funcionan aquí los mensajes"
 }

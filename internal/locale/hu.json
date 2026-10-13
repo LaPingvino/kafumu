@@ -694,5 +694,12 @@
   "js.source_faded": "elhalványult",
   "js.source_renew": "Megújítás",
   "js.source_remove_confirm": "Leveszed ezt a forrást a környékről?",
-  "js.source_still": "Még ott van: újítsd meg, ha már egy napnál régebbi."
+  "js.source_still": "Még ott van: újítsd meg, ha már egy napnál régebbi.",
+  "note.title": "Üzenet",
+  "note.expired_title": "Ez az üzenet lejárt",
+  "note.expired_was": "Már nem látszik a környékén, de ez a szerver még egy ideig emlékszik rá. Ez állt benne:",
+  "note.gone_title": "Ez az üzenet lejárt",
+  "note.fade": "A Kafumu üzenetei elhalványulnak: mindegyik él egy ideig (tovább, ha több munka ment a küldésébe), aztán eltűnik. Itt semmi sem marad örökre, szándékosan.",
+  "note.area": "A környéke",
+  "note.learn": "Hogyan működnek itt az üzenetek"
 }

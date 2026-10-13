@@ -804,7 +804,7 @@
       li.dataset.self = n.id;
     }
     if (!opts.question && !opts.nested) li.dataset.reid = link ? reactRow("link", link, firstLine(n.text), row, { link: link })
-      : reactRow("note", n.id, firstLine(n.text), row, n.cell && n.cell !== "000000" ? { cell: n.cell, link: location.origin + "/?cell=" + n.cell + "#re-" + reID("note", n.id) } : null); // its permalink: the area, at this line (86b)
+      : reactRow("note", n.id, firstLine(n.text), row, n.id ? { cell: n.cell && n.cell !== "000000" ? n.cell : "", link: location.origin + "/n/" + n.id } : null); // its permalink (86c): /n/<id> opens it in its area, or says it faded
     else if (opts.question) li.dataset.reid = reID("note", n.id);
     row.appendChild(hide);
     row.appendChild(reportButton("note", n.id, n.text, li, hideIt));

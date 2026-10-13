@@ -694,5 +694,12 @@
   "js.source_faded": "zniknęło",
   "js.source_renew": "Odnów",
   "js.source_remove_confirm": "Zdjąć to źródło z okolicy?",
-  "js.source_still": "Wciąż jest: odnów je, gdy będzie starsze niż dzień."
+  "js.source_still": "Wciąż jest: odnów je, gdy będzie starsze niż dzień.",
+  "note.title": "Wiadomość",
+  "note.expired_title": "Ta wiadomość wygasła",
+  "note.expired_was": "Nie ma jej już w okolicy, ale ten serwer jeszcze przez chwilę ją pamięta. Brzmiała:",
+  "note.gone_title": "Ta wiadomość wygasła",
+  "note.fade": "Wiadomości na Kafumu blakną: każda żyje przez jakiś czas (dłużej, gdy w wysłanie włożono więcej pracy), a potem znika. Nic nie zostaje tu na zawsze, celowo.",
+  "note.area": "Jej okolica",
+  "note.learn": "Jak tu działają wiadomości"
 }
