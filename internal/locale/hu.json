@@ -676,5 +676,16 @@
   "activity.unread": "Olvasatlan",
   "js.act_open": "Megnyitás",
   "js.contact_card": "Kártya",
-  "js.copy_link": "Link"
+  "js.copy_link": "Link",
+  "source.add": "Forrás hozzáadása",
+  "source.title": "Hír- vagy eseményfolyam ehhez a környékhez",
+  "source.url": "Link egy RSS-, Atom- vagy naptárfolyamhoz",
+  "source.name": "Mi ez?",
+  "source.name_ph": "pl. helyi újság, koncertterem",
+  "source.note": "A @neveddel jelenik meg itt, és mint minden bejegyzés, egy idő után elhalványul.",
+  "source.send": "Hozzáadás a környékhez",
+  "source.need": "Forrás hozzáadásához @név és hozzáférési kulcs kell.",
+  "js.source_added": "Hozzáadva a környékhez.",
+  "js.source_refused": "Nincs hozzáadva: egy forráshoz @név és kulcs, környék és link kell.",
+  "js.source_label": "forrás"
 }

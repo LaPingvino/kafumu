@@ -88,6 +88,10 @@ try {
   // The area as RSS and as a calendar (81a): the buttons point at this cell, the feed has the line.
   await A.waitFor("/^\\/rss\\/[0-9a-z]{6}$/.test(new URL(document.getElementById('rss-link').href).pathname) && document.getElementById('cal-link').href.startsWith('webcal://')", "📰 RSS and 📅 Calendar for this area");
   await A.waitFor("fetch(document.getElementById('rss-link').href, { cache: 'no-store' }).then(r => r.text()).then(x => x.includes('<rss') && x.includes('hi from the OLN " + RUN + "'))", "the area's RSS has the message", 20000);
+  // 📰 Add a source (81c): without an @name and passkey, the form says what it takes.
+  await A.evaluate("document.getElementById('source-open').click(); true");
+  await A.waitFor("!document.getElementById('source-form').hidden && document.getElementById('source-form').textContent.includes('passkey') && !!document.querySelector('#source-form a[href=\"/account\"]')", "a source needs an @name and passkey");
+  await A.evaluate("document.querySelector('#source-form .close-x').click(); true");
   // The device remembers it as one of your posts (77a), for Activity.
   await A.waitFor("window.kafumuDevice.store.get('myPosts').then(ps => (ps || []).some(p => p.kind === 'note' && p.text.includes('hi from the OLN " + RUN + "') && p.id && p.cell && p.reid))", "own post remembered on the device");
   // Joop saw messages twice: two loads in a row must still show each once.

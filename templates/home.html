@@ -26,6 +26,7 @@
       <a id="cal-link" href="/cal/" role="button" class="pill-sm" title="{{ts .Lang "area.calendar_title"}}">📅 {{t .Lang "area.calendar"}}</a>
       <a id="rss-link" href="/rss/" role="button" class="pill-sm" title="{{ts .Lang "area.rss_title"}}" type="application/rss+xml">📰 RSS</a>
       <a href="/meetups/new" role="button" class="pill-sm">＋ {{t .Lang "meetup.new_title"}}</a>
+      <button type="button" id="source-open" class="pill-sm">📰 {{t .Lang "source.add"}}</button>
       <a id="be-findable" href="/findable" role="button" class="pill-sm">👁 {{t .Lang "home.be_findable"}}</a>
     </p>
   </div>
@@ -37,6 +38,18 @@
       <textarea name="text" rows="3" maxlength="300" placeholder="{{ts .Lang "post.placeholder"}}"></textarea></label>
     <div class="actions"><button type="submit" class="pill">{{t .Lang "post.send"}}</button></div>
   </form>{{end}}{{end}}
+  <!-- A source for this area (81c): a news or events feed, added under your name. -->
+  <form id="source-form" class="card" style="padding:4px 16px 12px" hidden>
+    <button type="button" class="close-x" data-close aria-label="{{ts .Lang "common.close"}}" title="{{ts .Lang "common.close"}}">✕</button>
+    <p><strong>📰 {{t .Lang "source.title"}}</strong></p>
+    {{if and .User .User.Username .User.Passkeys}}
+    <label>{{t .Lang "source.url"}}<input name="url" type="url" required placeholder="https://…/rss" maxlength="300"></label>
+    <label>{{t .Lang "source.name"}}<input name="name" maxlength="80" placeholder="{{ts .Lang "source.name_ph"}}"></label>
+    <p class="dim small">{{t .Lang "source.note"}}</p>
+    <div class="actions"><button type="submit" class="pill">{{t .Lang "source.send"}}</button></div>
+    <p class="dim small" id="source-status" role="status"></p>
+    {{else}}<p class="dim">{{t .Lang "source.need"}} <a href="/account">{{t .Lang "nav.account"}} →</a></p>{{end}}
+  </form>
   <div id="coffee-card" class="card" style="padding:4px 16px 12px" hidden>
     <button type="button" class="close-x" data-close aria-label="{{ts .Lang "common.close"}}" title="{{ts .Lang "common.close"}}">✕</button>
     <h2>☕ {{t .Lang "coffee.button"}}</h2>

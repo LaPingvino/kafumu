@@ -508,6 +508,23 @@
     $("tour").hidden = false;
   }
   $("tour-start").onclick = function () { tourShow(0); };
+  // Add a source to this area (81c): a #feed line with the link, posted
+  // under your name (the server only takes it from a named passkey account).
+  if ($("source-open")) $("source-open").onclick = function () {
+    var f = $("source-form"); f.hidden = !f.hidden;
+    if (!f.hidden && f.url) f.url.focus();
+  };
+  if ($("source-form") && $("source-form").url) $("source-form").onsubmit = function (e) {
+    e.preventDefault();
+    var f = this, url = f.url.value.trim(), name = f.name.value.trim().replace(/\s+/g, " "), st = $("source-status"), go = f.querySelector("button[type=submit]");
+    if (!/^https?:\/\/\S+$/.test(url) || !currentCell || !window.kafumuOLN) return;
+    go.disabled = true;
+    window.kafumuOLN.post("📰 " + (name ? name + " " : "") + url, "#geo" + currentCell + " #feed", requiredBits, function (tries) { st.textContent = tr("oln_working", { n: tries }); }, 0, true).then(function (n) {
+      rememberPost(n, "note", "📰");
+      st.textContent = tr("source_added"); f.url.value = ""; f.name.value = ""; go.disabled = false;
+      load(currentCell, true);
+    }, function (err) { st.textContent = /source/.test(err.message) ? tr("source_refused") : tr("network_retry"); go.disabled = false; });
+  };
   $("tour-next").onclick = function () { tourShow(tourAt + 1); };
   $("tour-back").onclick = function () { tourShow(tourAt - 1); };
   $("tour-done").onclick = function () { tourShow(-1); };
@@ -713,6 +730,7 @@
       var pw = document.createElement("span"); pw.innerHTML = '<svg class="wings"><use href="#i-wings"/></svg> ';
       meta.appendChild(pw);
     }
+    if ((n.tags || []).indexOf("feed") >= 0) meta.appendChild(document.createTextNode("📰 " + tr("source_label") + " · ")); // a source (81c)
     meta.appendChild(document.createTextNode((n.author ? "@" + n.author + " ✓ · " : "") + (opts.forYou ? "★ " + tr("ask_for_you") + " · " : "") + ago(n.at) + " · ⚡" + n.bits + " · " +
       tr("oln_left", { h: left < 1 ? "<1" : Math.round(left) }) + (n.via ? " · ↪ " + n.via.replace(/^https?:\/\//, "") : "") +
       (n.tags || []).filter(function (t) { return !/^(geo|re[0-9a-f]{10}$|ask$|rk[ab][0-9a-f]{33}$)/.test(t); }).map(function (t) { return " " + tagText(t); }).join("")));

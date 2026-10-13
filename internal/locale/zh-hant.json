@@ -676,5 +676,16 @@
   "activity.unread": "未讀",
   "js.act_open": "開啟",
   "js.contact_card": "名片",
-  "js.copy_link": "連結"
+  "js.copy_link": "連結",
+  "source.add": "新增來源",
+  "source.title": "這個地區的新聞或活動訂閱",
+  "source.url": "RSS、Atom 或日曆訂閱連結",
+  "source.name": "這是什麼？",
+  "source.name_ph": "例如：社區簡報、音樂廳",
+  "source.note": "它會以你的 @名字 發布在這裡，和其他訊息一樣，過一段時間會消失。",
+  "source.send": "新增到這個地區",
+  "source.need": "新增來源需要 @名字 和通行金鑰。",
+  "js.source_added": "已新增到這個地區。",
+  "js.source_refused": "未新增：來源需要 @名字 和通行金鑰、地區和連結。",
+  "js.source_label": "來源"
 }

@@ -676,5 +676,16 @@
   "activity.unread": "未读",
   "js.act_open": "打开",
   "js.contact_card": "名片",
-  "js.copy_link": "链接"
+  "js.copy_link": "链接",
+  "source.add": "添加来源",
+  "source.title": "这个地区的新闻或活动订阅",
+  "source.url": "RSS、Atom 或日历订阅链接",
+  "source.name": "这是什么？",
+  "source.name_ph": "例如：社区简报、音乐厅",
+  "source.note": "它会以你的 @名字 发布在这里，和其他消息一样，过一段时间会消失。",
+  "source.send": "添加到这个地区",
+  "source.need": "添加来源需要 @名字 和通行密钥。",
+  "js.source_added": "已添加到这个地区。",
+  "js.source_refused": "未添加：来源需要 @名字 和通行密钥、地区和链接。",
+  "js.source_label": "来源"
 }

@@ -676,5 +676,16 @@
   "activity.unread": "Chưa đọc",
   "js.act_open": "Mở",
   "js.contact_card": "Danh thiếp",
-  "js.copy_link": "Liên kết"
+  "js.copy_link": "Liên kết",
+  "source.add": "Thêm nguồn",
+  "source.title": "Nguồn tin hoặc sự kiện cho khu vực này",
+  "source.url": "Liên kết tới nguồn RSS, Atom hoặc lịch",
+  "source.name": "Đây là gì?",
+  "source.name_ph": "vd: báo địa phương, nhà hát",
+  "source.note": "Được đăng ở đây dưới @tên của bạn và, như mọi tin ở đây, mờ dần sau một thời gian.",
+  "source.send": "Thêm vào khu vực này",
+  "source.need": "Thêm nguồn cần @tên và khóa truy cập.",
+  "js.source_added": "Đã thêm vào khu vực này.",
+  "js.source_refused": "Chưa thêm: nguồn cần @tên và khóa truy cập, khu vực và liên kết.",
+  "js.source_label": "nguồn"
 }

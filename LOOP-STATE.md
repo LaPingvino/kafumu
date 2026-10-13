@@ -1105,7 +1105,11 @@ only for areas people actually look at. Each slice passes one test: does the are
       accepts `#feed` only from a signed-in named account with a passkey, a loose cap per account (20 live; a
       degree of spam is wanted, Joop: the value sorts it, not the gate), cell required (never 000000). "📰 Add a source for this area" in the composer; listed on the area page with
       who added it. oln.html: a source lives as long as its line (renewable), nothing permanent. 24 languages.
-- [ ] 81c-ui. "📰 Add a source for this area" (only offered to named accounts with a passkey; others see why and how):
+- [x] 81c-ui. Done: "📰 Add a source" among the area's minor buttons opens a card: link + what it is → "📰 <name>
+      <url>" #geo… #feed, posted under your name (named passkey accounts; others see what it takes + Account link);
+      source lines are marked "📰 source" in the feed. Browser test covers the refusal path only (no passkey there).
+- [ ] 81c-ui2. Your sources on Account (from myPosts), with remove (hide your own line); oln.html: sources; and a
+      way to renew a source before it fades (re-post from the device). Was: "📰 Add a source for this area" (only offered to named accounts with a passkey; others see why and how):
       link + a few words → the #feed line, posted under your name; sources show on the area as "📰 <title> · via
       <host> · added by @name"; your own sources listed on Account with remove; oln.html: a source lives as long as
       its line. 24 languages.

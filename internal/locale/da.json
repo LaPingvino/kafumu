@@ -676,5 +676,16 @@
   "activity.unread": "Ulæste",
   "js.act_open": "Åbn",
   "js.contact_card": "Kort",
-  "js.copy_link": "Link"
+  "js.copy_link": "Link",
+  "source.add": "Tilføj en kilde",
+  "source.title": "Et nyheds- eller begivenhedsfeed for området",
+  "source.url": "Link til et RSS-, Atom- eller kalenderfeed",
+  "source.name": "Hvad er det?",
+  "source.name_ph": "fx lokalavis, koncertsal",
+  "source.note": "Den vises her under dit @navn og falmer, som ethvert opslag her, efter et stykke tid.",
+  "source.send": "Tilføj til området",
+  "source.need": "Kilder kræver et @navn og en adgangsnøgle.",
+  "js.source_added": "Tilføjet til området.",
+  "js.source_refused": "Ikke tilføjet: en kilde kræver @navn og adgangsnøgle, et område og et link.",
+  "js.source_label": "kilde"
 }

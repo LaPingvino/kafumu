@@ -676,5 +676,16 @@
   "activity.unread": "Por ler",
   "js.act_open": "Abrir",
   "js.contact_card": "Cartão",
-  "js.copy_link": "Link"
+  "js.copy_link": "Link",
+  "source.add": "Adicionar uma fonte",
+  "source.title": "Um feed de notícias ou eventos para esta área",
+  "source.url": "Link para um feed RSS, Atom ou de calendário",
+  "source.name": "O que é?",
+  "source.name_ph": "p. ex. jornal local, sala de concertos",
+  "source.note": "Fica aqui com o teu @nome e, como qualquer mensagem, desaparece ao fim de algum tempo.",
+  "source.send": "Adicionar a esta área",
+  "source.need": "Para adicionar fontes precisas de um @nome e de uma chave de acesso.",
+  "js.source_added": "Adicionada a esta área.",
+  "js.source_refused": "Não adicionada: uma fonte precisa de @nome e chave de acesso, uma área e um link.",
+  "js.source_label": "fonte"
 }

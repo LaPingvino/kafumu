@@ -676,5 +676,16 @@
   "activity.unread": "Unread",
   "js.act_open": "Open",
   "js.contact_card": "Card",
-  "js.copy_link": "Link"
+  "js.copy_link": "Link",
+  "source.add": "Add a source",
+  "source.title": "A news or events feed for this area",
+  "source.url": "Link to an RSS, Atom or calendar feed",
+  "source.name": "What is it?",
+  "source.name_ph": "e.g. Town newsletter, concert hall",
+  "source.note": "It's posted here under your @name and, like any line here, fades after a while.",
+  "source.send": "Add to this area",
+  "source.need": "Adding sources needs an @name and a passkey.",
+  "js.source_added": "Added to this area.",
+  "js.source_refused": "Not added: sources need an @name and a passkey, an area and a link.",
+  "js.source_label": "source"
 }

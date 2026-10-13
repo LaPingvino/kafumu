@@ -676,5 +676,16 @@
   "activity.unread": "Belum dibaca",
   "js.act_open": "Buka",
   "js.contact_card": "Kartu",
-  "js.copy_link": "Tautan"
+  "js.copy_link": "Tautan",
+  "source.add": "Tambah sumber",
+  "source.title": "Feed berita atau acara untuk area ini",
+  "source.url": "Tautan ke feed RSS, Atom, atau kalender",
+  "source.name": "Apa ini?",
+  "source.name_ph": "mis. koran lokal, gedung konser",
+  "source.note": "Diposting di sini dengan @namamu dan, seperti pesan lain, memudar setelah beberapa waktu.",
+  "source.send": "Tambahkan ke area ini",
+  "source.need": "Menambah sumber perlu @nama dan passkey.",
+  "js.source_added": "Ditambahkan ke area ini.",
+  "js.source_refused": "Tidak ditambahkan: sumber perlu @nama dan passkey, area, dan tautan.",
+  "js.source_label": "sumber"
 }

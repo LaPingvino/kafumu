@@ -676,5 +676,16 @@
   "activity.unread": "Olästa",
   "js.act_open": "Öppna",
   "js.contact_card": "Kort",
-  "js.copy_link": "Länk"
+  "js.copy_link": "Länk",
+  "source.add": "Lägg till en källa",
+  "source.title": "Ett nyhets- eller evenemangsflöde för området",
+  "source.url": "Länk till ett RSS-, Atom- eller kalenderflöde",
+  "source.name": "Vad är det?",
+  "source.name_ph": "t.ex. lokaltidning, konserthus",
+  "source.note": "Den läggs upp här under ditt @namn och bleknar, som alla inlägg här, efter ett tag.",
+  "source.send": "Lägg till i området",
+  "source.need": "För att lägga till källor behövs ett @namn och en nyckel.",
+  "js.source_added": "Tillagd i området.",
+  "js.source_refused": "Inte tillagd: en källa kräver @namn och nyckel, ett område och en länk.",
+  "js.source_label": "källa"
 }

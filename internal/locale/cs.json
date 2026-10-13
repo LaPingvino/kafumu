@@ -676,5 +676,16 @@
   "activity.unread": "Nepřečtené",
   "js.act_open": "Otevřít",
   "js.contact_card": "Vizitka",
-  "js.copy_link": "Odkaz"
+  "js.copy_link": "Odkaz",
+  "source.add": "Přidat zdroj",
+  "source.title": "Zpravodajský nebo kalendářní kanál pro tuto oblast",
+  "source.url": "Odkaz na RSS, Atom nebo kalendářní kanál",
+  "source.name": "Co to je?",
+  "source.name_ph": "např. místní zpravodaj, koncertní sál",
+  "source.note": "Objeví se tu pod tvým @jménem a jako každý příspěvek po čase vybledne.",
+  "source.send": "Přidat k této oblasti",
+  "source.need": "K přidávání zdrojů potřebuješ @jméno a passkey.",
+  "js.source_added": "Přidáno k této oblasti.",
+  "js.source_refused": "Nepřidáno: zdroj potřebuje @jméno a passkey, oblast a odkaz.",
+  "js.source_label": "zdroj"
 }

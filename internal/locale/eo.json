@@ -676,5 +676,16 @@
   "activity.unread": "Nelegitaj",
   "js.act_open": "Malfermi",
   "js.contact_card": "Karto",
-  "js.copy_link": "Ligilo"
+  "js.copy_link": "Ligilo",
+  "source.add": "Aldoni fonton",
+  "source.title": "Novaĵa aŭ eventa fluo por ĉi tiu loko",
+  "source.url": "Ligilo al RSS-, Atom- aŭ kalendara fluo",
+  "source.name": "Kio ĝi estas?",
+  "source.name_ph": "ekz. loka gazeto, koncertejo",
+  "source.note": "Ĝi aperas ĉi tie sub via @nomo kaj, kiel ĉiu afiŝo ĉi tie, forvelkas post iom da tempo.",
+  "source.send": "Aldoni al ĉi tiu loko",
+  "source.need": "Por aldoni fontojn necesas @nomo kaj pasŝlosilo.",
+  "js.source_added": "Aldonita al ĉi tiu loko.",
+  "js.source_refused": "Ne aldonita: fonto bezonas @nomon kaj pasŝlosilon, lokon kaj ligilon.",
+  "js.source_label": "fonto"
 }

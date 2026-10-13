@@ -676,5 +676,16 @@
   "activity.unread": "Okunmamış",
   "js.act_open": "Aç",
   "js.contact_card": "Kart",
-  "js.copy_link": "Bağlantı"
+  "js.copy_link": "Bağlantı",
+  "source.add": "Kaynak ekle",
+  "source.title": "Bu bölge için bir haber ya da etkinlik akışı",
+  "source.url": "RSS, Atom ya da takvim akışı bağlantısı",
+  "source.name": "Bu ne?",
+  "source.name_ph": "örn. yerel gazete, konser salonu",
+  "source.note": "Burada @adınla yayımlanır ve buradaki her ileti gibi bir süre sonra solar.",
+  "source.send": "Bu bölgeye ekle",
+  "source.need": "Kaynak eklemek için @ad ve geçiş anahtarı gerekir.",
+  "js.source_added": "Bu bölgeye eklendi.",
+  "js.source_refused": "Eklenmedi: kaynak için @ad ve geçiş anahtarı, bölge ve bağlantı gerekir.",
+  "js.source_label": "kaynak"
 }

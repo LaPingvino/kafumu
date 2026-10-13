@@ -676,5 +676,16 @@
   "activity.unread": "未読",
   "js.act_open": "開く",
   "js.contact_card": "名刺",
-  "js.copy_link": "リンク"
+  "js.copy_link": "リンク",
+  "source.add": "ソースを追加",
+  "source.title": "この地域のニュースやイベントのフィード",
+  "source.url": "RSS・Atom・カレンダーのフィードのリンク",
+  "source.name": "何のフィード？",
+  "source.name_ph": "例：地域の広報、コンサートホール",
+  "source.note": "あなたの@名前でここに投稿され、ほかの投稿と同じくしばらくすると消えていきます。",
+  "source.send": "この地域に追加",
+  "source.need": "ソースの追加には@名前とパスキーが必要です。",
+  "js.source_added": "この地域に追加しました。",
+  "js.source_refused": "追加できません：@名前とパスキー、地域、リンクが必要です。",
+  "js.source_label": "ソース"
 }

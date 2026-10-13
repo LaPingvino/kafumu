@@ -676,5 +676,16 @@
   "activity.unread": "Ungelesen",
   "js.act_open": "Öffnen",
   "js.contact_card": "Karte",
-  "js.copy_link": "Link"
+  "js.copy_link": "Link",
+  "source.add": "Quelle hinzufügen",
+  "source.title": "Ein Nachrichten- oder Terminfeed für diese Gegend",
+  "source.url": "Link zu einem RSS-, Atom- oder Kalenderfeed",
+  "source.name": "Was ist es?",
+  "source.name_ph": "z. B. Ortsblatt, Konzerthaus",
+  "source.note": "Es steht hier unter deinem @Namen und verblasst wie jeder Beitrag hier nach einer Weile.",
+  "source.send": "Zu dieser Gegend hinzufügen",
+  "source.need": "Quellen hinzufügen geht mit einem @Namen und einem Passkey.",
+  "js.source_added": "Zu dieser Gegend hinzugefügt.",
+  "js.source_refused": "Nicht hinzugefügt: Quellen brauchen @Namen und Passkey, eine Gegend und einen Link.",
+  "js.source_label": "Quelle"
 }

@@ -676,5 +676,16 @@
   "activity.unread": "Non lus",
   "js.act_open": "Ouvrir",
   "js.contact_card": "Carte",
-  "js.copy_link": "Lien"
+  "js.copy_link": "Lien",
+  "source.add": "Ajouter une source",
+  "source.title": "Un flux d'actualités ou d'agenda pour ce coin",
+  "source.url": "Lien vers un flux RSS, Atom ou agenda",
+  "source.name": "Qu'est-ce que c'est ?",
+  "source.name_ph": "p. ex. journal local, salle de concert",
+  "source.note": "Elle est publiée ici sous ton @nom et, comme tout message ici, s'efface au bout d'un moment.",
+  "source.send": "Ajouter à ce coin",
+  "source.need": "Ajouter des sources demande un @nom et une clé d'accès.",
+  "js.source_added": "Ajoutée à ce coin.",
+  "js.source_refused": "Non ajoutée : une source demande un @nom et une clé d'accès, un coin et un lien.",
+  "js.source_label": "source"
 }

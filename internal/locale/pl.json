@@ -676,5 +676,16 @@
   "activity.unread": "Nieprzeczytane",
   "js.act_open": "Otwórz",
   "js.contact_card": "Wizytówka",
-  "js.copy_link": "Link"
+  "js.copy_link": "Link",
+  "source.add": "Dodaj źródło",
+  "source.title": "Kanał wiadomości lub wydarzeń dla tej okolicy",
+  "source.url": "Link do kanału RSS, Atom lub kalendarza",
+  "source.name": "Co to jest?",
+  "source.name_ph": "np. gazeta lokalna, sala koncertowa",
+  "source.note": "Pojawi się tu pod twoją @nazwą i jak każdy wpis po pewnym czasie zniknie.",
+  "source.send": "Dodaj do tej okolicy",
+  "source.need": "Dodawanie źródeł wymaga @nazwy i klucza dostępu.",
+  "js.source_added": "Dodano do tej okolicy.",
+  "js.source_refused": "Nie dodano: źródło wymaga @nazwy i klucza dostępu, okolicy i linku.",
+  "js.source_label": "źródło"
 }

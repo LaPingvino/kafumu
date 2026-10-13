@@ -676,5 +676,16 @@
   "activity.unread": "Ongelezen",
   "js.act_open": "Openen",
   "js.contact_card": "Kaartje",
-  "js.copy_link": "Link"
+  "js.copy_link": "Link",
+  "source.add": "Bron toevoegen",
+  "source.title": "Een nieuws- of agendafeed voor dit gebied",
+  "source.url": "Link naar een RSS-, Atom- of agendafeed",
+  "source.name": "Wat is het?",
+  "source.name_ph": "bijv. dorpskrant, concertzaal",
+  "source.note": "Het komt hier te staan onder je @naam en verdwijnt, zoals elk bericht hier, na een tijdje.",
+  "source.send": "Toevoegen aan dit gebied",
+  "source.need": "Bronnen toevoegen kan met een @naam en een passkey.",
+  "js.source_added": "Toegevoegd aan dit gebied.",
+  "js.source_refused": "Niet toegevoegd: bronnen vragen een @naam en passkey, een gebied en een link.",
+  "js.source_label": "bron"
 }

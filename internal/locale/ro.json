@@ -676,5 +676,16 @@
   "activity.unread": "Necitite",
   "js.act_open": "Deschide",
   "js.contact_card": "Cartea",
-  "js.copy_link": "Link"
+  "js.copy_link": "Link",
+  "source.add": "Adaugă o sursă",
+  "source.title": "Un flux de știri sau evenimente pentru zonă",
+  "source.url": "Link către un flux RSS, Atom sau calendar",
+  "source.name": "Ce este?",
+  "source.name_ph": "de ex. ziar local, sală de concerte",
+  "source.note": "Apare aici sub @numele tău și, ca orice mesaj, se stinge după o vreme.",
+  "source.send": "Adaugă la această zonă",
+  "source.need": "Pentru surse ai nevoie de un @nume și o cheie de acces.",
+  "js.source_added": "Adăugată la această zonă.",
+  "js.source_refused": "Neadăugată: o sursă cere @nume și cheie de acces, o zonă și un link.",
+  "js.source_label": "sursă"
 }
