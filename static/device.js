@@ -229,7 +229,17 @@
     function drawThread() {
       var log = thread.querySelector(".chat-log") || thread.appendChild(el("div", "chat-log"));
       log.textContent = "";
-      (c.messages || []).forEach(function (m) {
+      // Everything between you two in one line of time (85d): messages, and
+      // as small notes the signals they sent and when you connected.
+      var lines = (c.messages || []).map(function (m) { return { m: m, at: m.at }; });
+      if (opts.events) {
+        (c.signals || []).forEach(function (sg) { lines.push({ note: "📶 " + signalText(sg, T), at: sg.at }); });
+        if (c.createdAt) lines.push({ note: "🤝 " + (T.act_connected || "Connected"), at: c.createdAt });
+        lines.sort(function (a, z) { return new Date(a.at) - new Date(z.at); });
+      }
+      lines.forEach(function (ln) {
+        if (ln.note) { var n = el("div", "chat-note dim small", ln.note); n.title = new Date(ln.at).toLocaleString(window.KAFUMU_LOCALE); log.appendChild(n); return; }
+        var m = ln.m;
         var b = el("div", "bubble" + (m.me ? " me" : ""), "");
         // Links in a line open (a "👀 Did you see this?" carries one).
         String(m.text).split(/(https?:\/\/[^\s<>"]+)/).forEach(function (part, i) {
@@ -278,6 +288,7 @@
       if (thread.hidden) return;
       if (!thread.contains(form)) thread.appendChild(form);
       drawThread();
+      if (opts.events && (c.signals || []).some(function (sg) { return sg.unread; })) { c.signals.forEach(function (sg) { sg.unread = false; }); save(c); }
       if (c.unreadMsgs) { c.unreadMsgs = 0; save(c); chatBtn.textContent = "💬 " + (T.chat || "Chat"); chatBtn.classList.remove("suggested"); }
       input.focus();
       // While open, look for replies every few seconds.
@@ -375,10 +386,12 @@
       };
       li.appendChild(give);
     }
+    // The chat itself lives in the mailbox (85d); the card links there.
     if (opts.send && !opts.preview) {
-      var chat = chatPanel(c, T, opts);
-      li.appendChild(chat.button);
-      li.appendChild(chat.thread);
+      var unreadN = c.unreadMsgs || 0;
+      var chatLink = el("a", "pill-sm" + (unreadN ? " suggested" : ""), "💬 " + (T.chat || "Chat") + (unreadN ? " (" + unreadN + ")" : ""));
+      chatLink.href = "/activity#chat-" + encodeURIComponent(c.id); chatLink.setAttribute("role", "button");
+      li.appendChild(chatLink);
     }
     if (opts.duplicateOf) {
       var dup = el("p", "dim small", (T.dup_hint || "Same person as another contact?") + " ");

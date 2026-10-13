@@ -64,14 +64,19 @@ try {
   await A.goto(base + "/?cell=6fg222");
   await A.waitFor("document.getElementById('feed').textContent.includes('Bea')", "B's signal in A's Around");
   // Chat: B writes to Ana; A opens the chat with Bea and reads it.
+  // Chats live in the mailbox (85d): the contact card's 💬 links there.
   await B.goto(base + "/contacts");
-  await B.waitFor("[...document.querySelectorAll('#contacts li button')].some(b => b.textContent.includes('Chat'))", "B's chat button");
-  await B.evaluate("(() => { const li = [...document.querySelectorAll('#contacts li')].find(l => l.textContent.includes('Ana')); [...li.querySelectorAll('button')].find(b => b.textContent.includes('Chat')).click(); const f = li.querySelector('.chat-form'); f.querySelector('input').value = 'hallo " + RUN + "'; f.requestSubmit(); return true; })()");
+  await B.waitFor("[...document.querySelectorAll('#contacts li a')].some(b => b.textContent.includes('Chat') && b.getAttribute('href').startsWith('/activity#chat-'))", "B's chat link");
+  await B.evaluate("location.href = [...[...document.querySelectorAll('#contacts li')].find(l => l.textContent.includes('Ana')).querySelectorAll('a')].find(b => b.textContent.includes('Chat')).href; true");
+  const openWin = "[...document.querySelectorAll('#threads .chat-window')].find(w => !w.hidden)";
+  await B.waitFor("!!(" + openWin + ")?.querySelector('.chat-form')", "B's chat with Ana open in the mailbox");
+  await B.evaluate("(() => { const f = " + openWin + ".querySelector('.chat-form'); f.querySelector('input').value = 'hallo " + RUN + "'; f.requestSubmit(); return true; })()");
   await B.waitFor("[...document.querySelectorAll('.bubble.me')].some(b => b.textContent === 'hallo " + RUN + "')", "B's message in the thread");
   await A.goto(base + "/contacts");
-  await A.waitFor("[...document.querySelectorAll('#contacts li button')].some(b => b.textContent.includes('Chat (1)'))", "A sees an unread chat", 15000);
-  await A.evaluate("(() => { const li = [...document.querySelectorAll('#contacts li')].find(l => l.textContent.includes('Bea')); [...li.querySelectorAll('button')].find(b => b.textContent.includes('Chat')).click(); return true; })()");
+  await A.waitFor("[...document.querySelectorAll('#contacts li a')].some(b => b.textContent.includes('Chat (1)'))", "A sees an unread chat", 15000);
+  await A.evaluate("location.href = [...[...document.querySelectorAll('#contacts li')].find(l => l.textContent.includes('Bea')).querySelectorAll('a')].find(b => b.textContent.includes('Chat')).href; true");
   await A.waitFor("[...document.querySelectorAll('.bubble:not(.me)')].some(b => b.textContent === 'hallo " + RUN + "')", "A reads B's message");
+  await A.waitFor("[...document.querySelectorAll('.chat-window:not([hidden]) .chat-note')].some(n => n.textContent.startsWith('🤝')) && [...document.querySelectorAll('.chat-window:not([hidden]) .chat-note')].some(n => n.textContent.startsWith('📶'))", "the chat also shows when you connected and B's signal (85d)");
   // Local messages (OLN): A says something, mined in a worker; B sees it.
   await A.goto(base + "/?cell=6fg223");
   await A.evaluate("(() => { document.getElementById('say').click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test: hi from the OLN " + RUN + "'; f.requestSubmit(); return true; })()");
@@ -236,9 +241,9 @@ try {
   await A.goto(base + "/contacts");
   await A.waitFor("!!document.querySelector('#contacts li.contact')", "contacts listed");
   await A.evaluate("window.kafumuDevice.store.contacts().then(cs => Promise.all(cs.map(c => { c.messages = (c.messages || []).concat([{ me: false, text: '🤝 Shall we go together?\\nKafo " + RUN + "\\n' + location.origin + '/meetups/x" + RUN + "', at: new Date().toISOString() }]); return window.kafumuDevice.store.putContact(c); })))");
-  await A.goto(base + "/contacts");
-  await A.waitFor("!!document.querySelector('#contacts li.contact')", "contacts listed again");
-  await A.evaluate("[...document.querySelectorAll('#contacts li.contact button')].find(b => b.textContent.startsWith('💬')).click(); true");
+  await A.goto(base + "/activity");
+  await A.waitFor("!!document.querySelector('#threads > li[id^=\"chat-\"]')", "chats listed again");
+  await A.evaluate("document.querySelector('#threads > li[id^=\"chat-\"] .thread-head').click(); true");
   await A.waitFor("[...document.querySelectorAll('.chat-log .actions button')].some(b => b.textContent === \"Can't make it\")", "Yes / Can't under the 🤝 line");
   await A.evaluate("[...document.querySelectorAll('.chat-log .actions button')].find(b => b.textContent === \"Can't make it\").click(); true");
   await A.waitFor("[...document.querySelectorAll('.chat-log .bubble.me')].some(b => b.textContent.includes(\"🙁 Can't make it\")) && !document.querySelector('.chat-log .actions')", "answered, buttons gone", 30000);

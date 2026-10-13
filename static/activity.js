@@ -244,7 +244,7 @@
               }
               body.appendChild(wh);
               if (t.kind === "contact") {
-                var chat = dev.chatPanel(src, T, { send: sendContact, check: checkContact });
+                var chat = dev.chatPanel(src, T, { send: sendContact, check: checkContact, events: true });
                 body.appendChild(chat.thread); li.appendChild(body); chat.open();
               } else if (t.kind === "answer") {
                 var ac = dev.chatPanel(src, T, { send: function (x, msg) { return pair.sendChat(x, msg.text, post); }, save: pair.putThread,

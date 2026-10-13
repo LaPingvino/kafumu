@@ -98,8 +98,6 @@
   function openLinked(li, c) {
     if (linkedOpened || decodeURIComponent(location.hash) !== "#c-" + c.id) return;
     linkedOpened = true;
-    var chat = Array.prototype.filter.call(li.querySelectorAll("button"), function (b) { return b.textContent.indexOf("💬") === 0; })[0];
-    if (chat && li.querySelector(".chat") && li.querySelector(".chat").hidden) chat.click();
     li.scrollIntoView({ block: "center", behavior: "smooth" });
     li.classList.add("flash");
     setTimeout(function () { li.classList.remove("flash"); }, 2500);

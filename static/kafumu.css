@@ -392,3 +392,4 @@ body.chat-open { overflow: hidden; }
 }
 @media (prefers-reduced-motion: no-preference) { .chat-window:not([hidden]) { animation: kf-up .18s ease-out; } }
 @keyframes kf-up { from { transform: translateY(16px); opacity: 0; } to { transform: none; opacity: 1; } }
+.chat-note { align-self: center; text-align: center; padding: 2px 8px; }

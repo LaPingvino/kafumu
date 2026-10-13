@@ -1169,7 +1169,9 @@ desktop: chat windows docked at the bottom.
       newest open), docked at the bottom on ≥800 px (340 px wide, side by side from the right, oldest closes when
       they don't fit); title + 🪪 Card in its head, typing at the bottom, Esc closes; checked at 390 and 1280 px.
       Was: Mobile full-screen chat window with back; desktop docked windows at the bottom.
-- [ ] 85d. Shares and every other activity as bubbles in their thread; the contact card loses its chat.
+- [x] 85d. Done: a contact's chat shows signals (📶) and when you connected (🤝) as small notes in time order among
+      the messages (shares were already messages, with their link); opening it clears unread signals too; the
+      contact card's 💬 is now a link to /activity#chat-<id> (with the unread count). Was: Shares and every other activity as bubbles in their thread; the contact card loses its chat.
 
 ## 86. Permalinks for everything (Joop 2026-10-13)
 Everything shown on the site has a shareable permalink, and a shared thing carries it: a line, a reaction, a
