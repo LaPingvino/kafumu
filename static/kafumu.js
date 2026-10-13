@@ -84,7 +84,7 @@
     chip(tr("kind_all"), all, function () { setFeedKinds(KINDS.slice()); });
     var bySrc = on.length === 1 && /^src:/.test(on[0]) ? on[0].slice(4) : "";
     KINDS.forEach(function (k) {
-      var n = cardsOf(k).filter(function (li) { return !li.classList.contains("muted"); }).length;
+      var n = cardsOf(k).filter(function (li) { return !li.classList.contains("muted") && !li.classList.contains("source-line"); }).length; // a source's head isn't news
       if (!n) return;
       var pressed = !all && on.indexOf(k) >= 0;
       chip(tr("kind_" + k) + " " + n, pressed, function () {

@@ -1221,7 +1221,8 @@ Findable, Account, Business, meetups…), and with a "👀 Show me" button that 
 
 - [x] Polish: an area's news puts local stories first: items mentioning one of the area's places (its place tags
       and nearest name, accents folded, unambiguous, ≥ 4 letters) rank higher and say "📍 Barreiro"; the rest a little
-      lower (Joop: Rostos also carries EU pages).
+      lower (Joop: Rostos also carries EU pages). The News chip counts news, not the sources' heads. (The touch
+      screen's corner QR was dimmed after all: checked.)
 
 ## 85. Every conversation as a chat (Joop 2026-10-13)
 One list of chats, like a messenger, merging the mailbox and Contacts (filter: "only contacts"). Every thing that
