@@ -663,5 +663,13 @@
   "js.push_invite": "🤝 Iemand gebruikte je code",
   "js.push_inbox": "📥 Een bericht in je openbare inbox",
   "js.push_answer": "🔒 Een privéantwoord op “{post}”",
-  "home.intro": "Het prikbord van je buurt: wat er hier te doen is (concerten, markten, meetups) en wat mensen hier zeggen. Iedereen kan iets toevoegen."
+  "home.intro": "Het prikbord van je buurt: wat er hier te doen is (concerten, markten, meetups) en wat mensen hier zeggen. Iedereen kan iets toevoegen.",
+  "help.connect": "Laat je code zien aan iemand naast je, of stuur de link: jullie wisselen kaartjes en kunnen elkaar schrijven. Niets gaat via een server die je moet vertrouwen.",
+  "help.contacts": "Iedereen met wie je verbonden bent, bewaard op dit apparaat. Schrijf ze, stuur een seintje, maak een notitie die alleen jij ziet.",
+  "help.card": "Het kaartje dat mensen krijgen als jullie verbinden: alleen wat jij invult, en per persoon kies je wat je deelt.",
+  "help.activity": "Alles wat bij je terugkwam: chats, privéantwoorden en reacties op je berichten en meetups.",
+  "help.account": "Een account is alleen nodig voor sommige dingen (meetups organiseren, een @naam, Bluesky). Je contacten en kaartje blijven op je apparaat.",
+  "help.findable": "Laat mensen in de buurt je vinden op je interesses, alleen wanneer en waar jij wilt. Staat standaard uit.",
+  "help.show": "Laat zien",
+  "help.again": "Wat is deze pagina?"
 }

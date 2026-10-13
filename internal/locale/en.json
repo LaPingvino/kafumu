@@ -663,5 +663,13 @@
   "js.push_invite": "🤝 Someone used your code",
   "js.push_inbox": "📥 A message in your public inbox",
   "js.push_answer": "🔒 A private answer to “{post}”",
-  "home.intro": "Your area's notice board: what's on around here (concerts, markets, meetups) and what people here are saying. Anyone can add to it."
+  "home.intro": "Your area's notice board: what's on around here (concerts, markets, meetups) and what people here are saying. Anyone can add to it.",
+  "help.connect": "Show your code to someone next to you, or send the link: you swap cards and can write to each other. Nothing goes through a server you'd have to trust.",
+  "help.contacts": "Everyone you've connected with, kept on this device. Write to them, send a signal, add a note only you see.",
+  "help.card": "The card people get when you connect: only what you fill in, and you choose per person what to share.",
+  "help.activity": "Everything that came back to you: chats, private answers, and replies to your posts and meetups.",
+  "help.account": "Your account is only needed for some things (hosting meetups, an @name, Bluesky). Your contacts and card stay on your device.",
+  "help.findable": "Let people nearby find you by your interests, only when and where you choose. Off by default.",
+  "help.show": "Show me",
+  "help.again": "What is this page?"
 }

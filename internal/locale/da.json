@@ -663,5 +663,13 @@
   "js.push_invite": "🤝 Nogen brugte din kode",
   "js.push_inbox": "📥 En besked i din offentlige indbakke",
   "js.push_answer": "🔒 Et privat svar på “{post}”",
-  "home.intro": "Dit områdes opslagstavle: hvad der sker her (koncerter, markeder, meetups) og hvad folk her siger. Alle kan tilføje noget."
+  "home.intro": "Dit områdes opslagstavle: hvad der sker her (koncerter, markeder, meetups) og hvad folk her siger. Alle kan tilføje noget.",
+  "help.connect": "Vis din kode til en ved siden af dig, eller send linket: I bytter kort og kan skrive sammen. Intet går gennem en server, du skal stole på.",
+  "help.contacts": "Alle du har forbundet dig med, gemt på denne enhed. Skriv til dem, send et signal, tilføj en note kun du ser.",
+  "help.card": "Det kort folk får, når I forbinder jer: kun det du udfylder, og du vælger pr. person, hvad du deler.",
+  "help.activity": "Alt der kom tilbage til dig: chats, private svar og reaktioner på dine opslag og meetups.",
+  "help.account": "En konto skal kun bruges til nogle ting (holde meetups, et @navn, Bluesky). Dine kontakter og dit kort bliver på din enhed.",
+  "help.findable": "Lad folk i nærheden finde dig på dine interesser, kun når og hvor du vil. Slået fra som standard.",
+  "help.show": "Vis mig det",
+  "help.again": "Hvad er denne side?"
 }

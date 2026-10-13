@@ -663,5 +663,13 @@
   "js.push_invite": "🤝 Někdo použil tvůj kód",
   "js.push_inbox": "📥 Zpráva ve tvé veřejné schránce",
   "js.push_answer": "🔒 Soukromá odpověď na „{post}“",
-  "home.intro": "Nástěnka tvého okolí: co se tu děje (koncerty, trhy, setkání) a co tu lidé říkají. Přidat může kdokoli."
+  "home.intro": "Nástěnka tvého okolí: co se tu děje (koncerty, trhy, setkání) a co tu lidé říkají. Přidat může kdokoli.",
+  "help.connect": "Ukaž svůj kód někomu vedle sebe nebo pošli odkaz: vyměníte si vizitky a můžete si psát. Nic nejde přes server, kterému bys musel(a) věřit.",
+  "help.contacts": "Všichni, se kterými jsi ve spojení, uložení v tomto zařízení. Napiš jim, pošli signál, přidej poznámku jen pro sebe.",
+  "help.card": "Vizitka, kterou lidé dostanou při spojení: jen co vyplníš, a u každého volíš, co sdílíš.",
+  "help.activity": "Vše, co se ti vrátilo: chaty, soukromé odpovědi a reakce na tvé příspěvky a setkání.",
+  "help.account": "Účet je potřeba jen na něco (pořádání setkání, @jméno, Bluesky). Kontakty a vizitka zůstávají ve tvém zařízení.",
+  "help.findable": "Nech lidi poblíž, ať tě najdou podle zájmů, jen kdy a kde chceš. Ve výchozím stavu vypnuto.",
+  "help.show": "Ukaž mi to",
+  "help.again": "Co je tahle stránka?"
 }

@@ -90,9 +90,9 @@ func (a *Accounts) ShowFindable(w http.ResponseWriter, r *http.Request) { a.show
 
 func (a *Accounts) show(w http.ResponseWriter, r *http.Request, findable bool) {
 	p := accountPage{page: a.Home.newPage(r, ""), Findable: findable}
-	p.Title, p.Tab = locale.T(p.Lang, "account.title"), "account"
+	p.Title, p.Tab, p.Help = locale.T(p.Lang, "account.title"), "account", "account"
 	if findable {
-		p.Title, p.Tab = locale.T(p.Lang, "profile.title"), "findable"
+		p.Title, p.Tab, p.Help = locale.T(p.Lang, "profile.title"), "findable", "findable"
 	}
 	if u := p.User; u != nil {
 		p.MagicURL = a.Home.Origin(r) + "/auth/link?k=" + template.URLQueryEscaper(mustCookie(r))

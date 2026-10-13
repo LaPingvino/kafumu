@@ -663,5 +663,13 @@
   "js.push_invite": "🤝 Quelqu'un a utilisé ton code",
   "js.push_inbox": "📥 Un message dans ta boîte publique",
   "js.push_answer": "🔒 Une réponse privée à « {post} »",
-  "home.intro": "Le panneau d'affichage de ton coin : ce qui se passe ici (concerts, marchés, rencontres) et ce que les gens d'ici disent. Tout le monde peut y ajouter quelque chose."
+  "home.intro": "Le panneau d'affichage de ton coin : ce qui se passe ici (concerts, marchés, rencontres) et ce que les gens d'ici disent. Tout le monde peut y ajouter quelque chose.",
+  "help.connect": "Montre ton code à quelqu'un à côté de toi, ou envoie le lien : vous échangez vos cartes et pouvez vous écrire. Rien ne passe par un serveur auquel il faudrait faire confiance.",
+  "help.contacts": "Toutes les personnes avec qui tu es connecté·e, gardées sur cet appareil. Écris-leur, envoie un signal, ajoute une note que toi seul·e vois.",
+  "help.card": "La carte que les gens reçoivent quand vous vous connectez : seulement ce que tu remplis, et tu choisis par personne ce que tu partages.",
+  "help.activity": "Tout ce qui t'est revenu : discussions, réponses privées et réactions à tes messages et rencontres.",
+  "help.account": "Un compte n'est utile que pour certaines choses (organiser des rencontres, un @nom, Bluesky). Tes contacts et ta carte restent sur ton appareil.",
+  "help.findable": "Laisse les gens proches te trouver par tes centres d'intérêt, seulement quand et où tu veux. Désactivé par défaut.",
+  "help.show": "Montre-moi",
+  "help.again": "C'est quoi, cette page ?"
 }

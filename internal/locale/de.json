@@ -663,5 +663,13 @@
   "js.push_invite": "🤝 Jemand hat deinen Code benutzt",
   "js.push_inbox": "📥 Eine Nachricht in deinem öffentlichen Posteingang",
   "js.push_answer": "🔒 Eine private Antwort auf „{post}“",
-  "home.intro": "Das schwarze Brett deiner Gegend: was hier los ist (Konzerte, Märkte, Treffen) und was die Leute hier sagen. Jede und jeder kann etwas beitragen."
+  "home.intro": "Das schwarze Brett deiner Gegend: was hier los ist (Konzerte, Märkte, Treffen) und was die Leute hier sagen. Jede und jeder kann etwas beitragen.",
+  "help.connect": "Zeig jemandem neben dir deinen Code oder schick den Link: ihr tauscht Karten und könnt euch schreiben. Nichts läuft über einen Server, dem du vertrauen müsstest.",
+  "help.contacts": "Alle, mit denen du verbunden bist, auf diesem Gerät gespeichert. Schreib ihnen, schick ein Signal, mach eine Notiz nur für dich.",
+  "help.card": "Die Karte, die andere beim Verbinden bekommen: nur was du ausfüllst, und pro Person wählst du, was du teilst.",
+  "help.activity": "Alles, was zu dir zurückkam: Chats, private Antworten und Reaktionen auf deine Beiträge und Treffen.",
+  "help.account": "Ein Konto brauchst du nur für manches (Treffen anbieten, ein @Name, Bluesky). Kontakte und Karte bleiben auf deinem Gerät.",
+  "help.findable": "Lass Leute in der Nähe dich über deine Interessen finden, nur wann und wo du willst. Standardmäßig aus.",
+  "help.show": "Zeig's mir",
+  "help.again": "Was ist diese Seite?"
 }

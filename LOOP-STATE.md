@@ -1144,7 +1144,9 @@ The newcomer bar (82a) on every page, each with its own one line (Around, Connec
 Findable, Account, Business, meetups…), and with a "👀 Show me" button that starts the tour for that page (the
 😕 I'm confused button moves there, off the area's button rows). × closes a page's bar (remembered per page); a
 "?" in the top bar brings it back.
-- [ ] 87a. The bar in base.html for every tab with a line (home's text stays), × per page, "?" in the header
+- [x] 87a. Done: page.Help + the bar in base.html for Around, Connect, Contacts, My card, Activity, Account, Findable
+      (help.* in 24 languages); × per page (kafumu.helpSeen.<page>), ? in the header brings it back; "👀 Show me" (the
+      old 😕 tour button) sits on Around's bar. Was: The bar in base.html for every tab with a line (home's text stays), × per page, "?" in the header
       reopens it; "👀 Show me" starts the existing tour where there is one; 😕 leaves the area's rows. 24 languages.
 - [ ] 87b. Tours for the pages that don't have one yet (only where a tour adds something to the line).
 

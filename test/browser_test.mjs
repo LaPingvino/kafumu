@@ -619,9 +619,16 @@ try {
       await D.waitFor("document.getElementById('place-name').textContent === 'Ede'", "Yes shows Ede");
       // A newcomer reads what this is (82a); ✕ closes it for good.
       await D.waitFor("!document.getElementById('intro').hidden && document.getElementById('intro').textContent.includes('notice board')", "what this is, for a newcomer");
-      await D.evaluate("document.querySelector('#intro button').click(); true");
+      await D.evaluate("document.querySelector('#intro .no').click(); true");
       await D.goto(base + "/");
-      await D.waitFor("document.getElementById('place-name').textContent === 'Ede' && document.getElementById('intro').hidden", "closed intro stays closed");
+      await D.waitFor("document.getElementById('place-name').textContent === 'Ede' && document.getElementById('intro').hidden && !document.getElementById('help-again').hidden", "closed intro stays closed, ? offers it again");
+      // Every page explains itself (87a): Contacts has its own line, closed apart from Around's.
+      await D.goto(base + "/contacts");
+      await D.waitFor("!document.getElementById('intro').hidden && document.getElementById('intro').dataset.help === 'contacts' && document.getElementById('intro').textContent.includes('connected with')", "Contacts explains itself");
+      await D.goto(base + "/");
+      await D.waitFor("document.getElementById('intro').hidden", "Around still closed");
+      await D.evaluate("document.getElementById('help-again').click(); true");
+      await D.waitFor("!document.getElementById('intro').hidden && !!document.getElementById('tour-start')", "? brings it back, with 👀 Show me");
       await D.send("Network.setExtraHTTPHeaders", { headers: {} });
     }
 

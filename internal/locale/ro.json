@@ -663,5 +663,13 @@
   "js.push_invite": "🤝 Cineva a folosit codul tău",
   "js.push_inbox": "📥 Un mesaj în căsuța ta publică",
   "js.push_answer": "🔒 Un răspuns privat la „{post}”",
-  "home.intro": "Avizierul zonei tale: ce se întâmplă pe aici (concerte, târguri, întâlniri) și ce spun oamenii de aici. Oricine poate adăuga."
+  "home.intro": "Avizierul zonei tale: ce se întâmplă pe aici (concerte, târguri, întâlniri) și ce spun oamenii de aici. Oricine poate adăuga.",
+  "help.connect": "Arată-ți codul cuiva de lângă tine sau trimite linkul: faceți schimb de cărți de vizită și vă puteți scrie. Nimic nu trece printr-un server în care ar trebui să ai încredere.",
+  "help.contacts": "Toți cei cu care te-ai conectat, păstrați pe acest dispozitiv. Scrie-le, trimite un semnal, adaugă o notă doar pentru tine.",
+  "help.card": "Cartea pe care o primesc oamenii când vă conectați: doar ce completezi, și alegi pentru fiecare ce împarți.",
+  "help.activity": "Tot ce ți-a venit înapoi: conversații, răspunsuri private și reacții la mesajele și întâlnirile tale.",
+  "help.account": "Contul e necesar doar pentru unele lucruri (organizat întâlniri, un @nume, Bluesky). Contactele și cartea rămân pe dispozitivul tău.",
+  "help.findable": "Lasă oamenii din apropiere să te găsească după interese, doar când și unde vrei. Oprit implicit.",
+  "help.show": "Arată-mi",
+  "help.again": "Ce e pagina asta?"
 }

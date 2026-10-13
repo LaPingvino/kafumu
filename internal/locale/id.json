@@ -663,5 +663,13 @@
   "js.push_invite": "🤝 Seseorang memakai kodemu",
   "js.push_inbox": "📥 Pesan di kotak masuk publikmu",
   "js.push_answer": "🔒 Jawaban pribadi untuk “{post}”",
-  "home.intro": "Papan pengumuman areamu: apa yang ada di sekitar sini (konser, pasar, pertemuan) dan apa kata orang di sini. Siapa pun bisa menambahkan."
+  "home.intro": "Papan pengumuman areamu: apa yang ada di sekitar sini (konser, pasar, pertemuan) dan apa kata orang di sini. Siapa pun bisa menambahkan.",
+  "help.connect": "Tunjukkan kodemu ke orang di sebelahmu atau kirim tautannya: kalian bertukar kartu dan bisa saling menulis. Tidak ada yang lewat server yang harus kamu percayai.",
+  "help.contacts": "Semua orang yang terhubung denganmu, disimpan di perangkat ini. Tulis ke mereka, kirim sinyal, tambah catatan yang hanya kamu lihat.",
+  "help.card": "Kartu yang diterima orang saat kalian terhubung: hanya yang kamu isi, dan kamu pilih per orang apa yang dibagikan.",
+  "help.activity": "Semua yang kembali kepadamu: obrolan, jawaban pribadi, dan tanggapan atas kiriman dan pertemuanmu.",
+  "help.account": "Akun hanya perlu untuk beberapa hal (mengadakan pertemuan, @nama, Bluesky). Kontak dan kartumu tetap di perangkatmu.",
+  "help.findable": "Biarkan orang di dekatmu menemukanmu lewat minatmu, hanya kapan dan di mana kamu mau. Mati secara bawaan.",
+  "help.show": "Tunjukkan",
+  "help.again": "Halaman apa ini?"
 }

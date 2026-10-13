@@ -663,5 +663,13 @@
   "js.push_invite": "🤝 Qualcuno ha usato il tuo codice",
   "js.push_inbox": "📥 Un messaggio nella tua casella pubblica",
   "js.push_answer": "🔒 Una risposta privata a «{post}»",
-  "home.intro": "La bacheca della tua zona: cosa succede qui (concerti, mercati, incontri) e cosa dice la gente di qui. Chiunque può aggiungere qualcosa."
+  "home.intro": "La bacheca della tua zona: cosa succede qui (concerti, mercati, incontri) e cosa dice la gente di qui. Chiunque può aggiungere qualcosa.",
+  "help.connect": "Mostra il tuo codice a chi ti sta accanto o manda il link: vi scambiate i biglietti e potete scrivervi. Niente passa da un server di cui dovresti fidarti.",
+  "help.contacts": "Tutte le persone con cui sei in contatto, salvate su questo dispositivo. Scrivi loro, manda un segnale, aggiungi una nota che vedi solo tu.",
+  "help.card": "Il biglietto che le persone ricevono quando vi collegate: solo ciò che compili, e scegli per ogni persona cosa condividere.",
+  "help.activity": "Tutto ciò che ti è tornato: chat, risposte private e reazioni ai tuoi messaggi e incontri.",
+  "help.account": "L'account serve solo per alcune cose (organizzare incontri, un @nome, Bluesky). Contatti e biglietto restano sul tuo dispositivo.",
+  "help.findable": "Fatti trovare da chi è vicino in base ai tuoi interessi, solo quando e dove vuoi. Spento di default.",
+  "help.show": "Mostrami",
+  "help.again": "Cos'è questa pagina?"
 }

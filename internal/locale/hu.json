@@ -663,5 +663,13 @@
   "js.push_invite": "🤝 Valaki használta a kódodat",
   "js.push_inbox": "📥 Üzenet a nyilvános postaládádban",
   "js.push_answer": "🔒 Privát válasz erre: „{post}”",
-  "home.intro": "A környéked hirdetőtáblája: mi történik itt (koncertek, vásárok, találkozók), és mit mondanak az itteniek. Bárki hozzáadhat."
+  "home.intro": "A környéked hirdetőtáblája: mi történik itt (koncertek, vásárok, találkozók), és mit mondanak az itteniek. Bárki hozzáadhat.",
+  "help.connect": "Mutasd meg a kódodat valakinek melletted, vagy küldd el a linket: kártyát cseréltek és írhattok egymásnak. Semmi sem megy át olyan szerveren, amiben bíznod kellene.",
+  "help.contacts": "Mindenki, akivel kapcsolatban vagy, ezen az eszközön tárolva. Írj nekik, küldj jelzést, adj hozzá csak általad látható jegyzetet.",
+  "help.card": "A kártya, amit mások kapnak kapcsolódáskor: csak amit kitöltesz, és személyenként választod, mit osztasz meg.",
+  "help.activity": "Minden, ami visszajött hozzád: csevegések, privát válaszok és reakciók a bejegyzéseidre és találkozóidra.",
+  "help.account": "Fiók csak néhány dologhoz kell (találkozók szervezése, @név, Bluesky). A névjegyeid és a kártyád az eszközödön maradnak.",
+  "help.findable": "Hadd találjanak meg a közelben lévők az érdeklődési köreid alapján, csak amikor és ahol te akarod. Alapból ki van kapcsolva.",
+  "help.show": "Mutasd",
+  "help.again": "Mi ez az oldal?"
 }

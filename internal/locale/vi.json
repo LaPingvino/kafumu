@@ -663,5 +663,13 @@
   "js.push_invite": "🤝 Có người đã dùng mã của bạn",
   "js.push_inbox": "📥 Tin nhắn trong hộp thư công khai của bạn",
   "js.push_answer": "🔒 Trả lời riêng cho “{post}”",
-  "home.intro": "Bảng tin khu vực của bạn: có gì quanh đây (hòa nhạc, chợ, gặp gỡ) và mọi người ở đây đang nói gì. Ai cũng có thể thêm vào."
+  "home.intro": "Bảng tin khu vực của bạn: có gì quanh đây (hòa nhạc, chợ, gặp gỡ) và mọi người ở đây đang nói gì. Ai cũng có thể thêm vào.",
+  "help.connect": "Cho người bên cạnh xem mã của bạn hoặc gửi liên kết: hai bạn trao đổi danh thiếp và có thể nhắn cho nhau. Không gì đi qua máy chủ mà bạn phải tin tưởng.",
+  "help.contacts": "Mọi người bạn đã kết nối, lưu trên thiết bị này. Nhắn cho họ, gửi tín hiệu, thêm ghi chú chỉ bạn thấy.",
+  "help.card": "Danh thiếp người khác nhận khi kết nối: chỉ những gì bạn điền, và bạn chọn chia sẻ gì với từng người.",
+  "help.activity": "Mọi thứ quay lại với bạn: trò chuyện, trả lời riêng và phản hồi cho bài đăng, buổi gặp của bạn.",
+  "help.account": "Tài khoản chỉ cần cho vài việc (tổ chức buổi gặp, @tên, Bluesky). Danh bạ và danh thiếp vẫn ở trên thiết bị của bạn.",
+  "help.findable": "Để người gần đó tìm thấy bạn qua sở thích, chỉ khi và nơi bạn muốn. Mặc định tắt.",
+  "help.show": "Cho tôi xem",
+  "help.again": "Trang này là gì?"
 }

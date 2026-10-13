@@ -663,5 +663,13 @@
   "js.push_invite": "🤝 Iu uzis vian kodon",
   "js.push_inbox": "📥 Mesaĝo en via publika poŝtkesto",
   "js.push_answer": "🔒 Privata respondo al “{post}”",
-  "home.intro": "La afiŝtabulo de via loko: kio okazas ĉi tie (koncertoj, bazaroj, renkontiĝoj) kaj kion diras la homoj ĉi tie. Ĉiu povas aldoni."
+  "home.intro": "La afiŝtabulo de via loko: kio okazas ĉi tie (koncertoj, bazaroj, renkontiĝoj) kaj kion diras la homoj ĉi tie. Ĉiu povas aldoni.",
+  "help.connect": "Montru vian kodon al iu apud vi, aŭ sendu la ligilon: vi interŝanĝas kartojn kaj povas skribi unu al la alia. Nenio pasas tra servilo, al kiu vi devus fidi.",
+  "help.contacts": "Ĉiuj, kun kiuj vi konektiĝis, konservitaj en ĉi tiu aparato. Skribu al ili, sendu signalon, aldonu noton nur por vi.",
+  "help.card": "La karto, kiun homoj ricevas kiam vi konektiĝas: nur kion vi plenigas, kaj por ĉiu persono vi elektas kion dividi.",
+  "help.activity": "Ĉio, kio revenis al vi: babiloj, privataj respondoj kaj reagoj al viaj afiŝoj kaj renkontiĝoj.",
+  "help.account": "Konto necesas nur por kelkaj aferoj (aranĝi renkontiĝojn, @nomo, Bluesky). Viaj kontaktoj kaj karto restas en via aparato.",
+  "help.findable": "Lasu homojn proksime trovi vin laŭ viaj interesoj, nur kiam kaj kie vi volas. Malŝaltita defaŭlte.",
+  "help.show": "Montru al mi",
+  "help.again": "Kio estas ĉi tiu paĝo?"
 }

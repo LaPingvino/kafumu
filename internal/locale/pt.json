@@ -663,5 +663,13 @@
   "js.push_invite": "🤝 Alguém usou o teu código",
   "js.push_inbox": "📥 Uma mensagem na tua caixa pública",
   "js.push_answer": "🔒 Uma resposta privada a «{post}»",
-  "home.intro": "O quadro de avisos da tua zona: o que se passa por aqui (concertos, mercados, encontros) e o que as pessoas daqui dizem. Qualquer pessoa pode acrescentar."
+  "home.intro": "O quadro de avisos da tua zona: o que se passa por aqui (concertos, mercados, encontros) e o que as pessoas daqui dizem. Qualquer pessoa pode acrescentar.",
+  "help.connect": "Mostra o teu código a alguém ao teu lado ou envia o link: trocam cartões e podem escrever-se. Nada passa por um servidor em que tenhas de confiar.",
+  "help.contacts": "Todas as pessoas com quem te ligaste, guardadas neste dispositivo. Escreve-lhes, envia um sinal, junta uma nota que só tu vês.",
+  "help.card": "O cartão que as pessoas recebem quando se ligam: só o que preencheres, e escolhes por pessoa o que partilhas.",
+  "help.activity": "Tudo o que te chegou: conversas, respostas privadas e reações às tuas mensagens e encontros.",
+  "help.account": "A conta só é precisa para algumas coisas (organizar encontros, um @nome, Bluesky). Os teus contactos e cartão ficam no teu dispositivo.",
+  "help.findable": "Deixa que pessoas perto te encontrem pelos teus interesses, só quando e onde quiseres. Desligado por defeito.",
+  "help.show": "Mostra-me",
+  "help.again": "O que é esta página?"
 }

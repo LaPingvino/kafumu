@@ -663,5 +663,13 @@
   "js.push_invite": "🤝 Biri kodunu kullandı",
   "js.push_inbox": "📥 Açık gelen kutunda bir mesaj",
   "js.push_answer": "🔒 “{post}” için özel bir yanıt",
-  "home.intro": "Bölgenin ilan panosu: burada neler oluyor (konserler, pazarlar, buluşmalar) ve buradaki insanlar ne diyor. Herkes bir şey ekleyebilir."
+  "home.intro": "Bölgenin ilan panosu: burada neler oluyor (konserler, pazarlar, buluşmalar) ve buradaki insanlar ne diyor. Herkes bir şey ekleyebilir.",
+  "help.connect": "Kodunu yanındaki birine göster ya da bağlantıyı gönder: kart değişirsiniz ve birbirinize yazabilirsiniz. Hiçbir şey güvenmen gereken bir sunucudan geçmez.",
+  "help.contacts": "Bağlantı kurduğun herkes, bu cihazda saklanır. Onlara yaz, sinyal gönder, sadece senin göreceğin bir not ekle.",
+  "help.card": "Bağlandığınızda insanların aldığı kart: sadece doldurduğun kadarı, ve kiminle neyi paylaşacağını kişi kişi seçersin.",
+  "help.activity": "Sana geri dönen her şey: sohbetler, özel yanıtlar ve gönderilerine ve buluşmalarına gelen tepkiler.",
+  "help.account": "Hesap yalnızca bazı şeyler için gerekir (buluşma düzenlemek, @ad, Bluesky). Kişilerin ve kartın cihazında kalır.",
+  "help.findable": "Yakındaki insanlar seni ilgi alanlarından bulsun, sadece istediğin zaman ve yerde. Varsayılan olarak kapalı.",
+  "help.show": "Göster",
+  "help.again": "Bu sayfa ne?"
 }

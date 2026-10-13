@@ -89,6 +89,9 @@ type page struct {
 	BrandAdmin bool
 	Title      string
 	Tab        string // active view-switcher tab
+	// Help names this page's one-line explanation bar (87a): "around" uses
+	// home.intro, anything else help.<Help>; empty: no bar.
+	Help string
 	Cell       string
 	Lang       string
 	V          string // asset version, so a deploy never mixes old and new JS
@@ -164,7 +167,7 @@ func (h *Home) ShowHome(w http.ResponseWriter, r *http.Request) {
 		cell = ""
 	}
 	p := homePage{page: h.newPage(r, ""), LangNames: langs.Names, LangTags: langs.Tags, From1: langs.From1}
-	p.Tab, p.Cell = "around", cell
+	p.Tab, p.Cell, p.Help = "around", cell, "around"
 	if u := p.User; u != nil {
 		p.MyLangs, p.MyTags = u.Langs, u.Tags
 	}
@@ -262,14 +265,14 @@ type bundle struct {
 // ShowCard renders the "my card" editor; the card itself lives on the device.
 func (h *Home) ShowCard(w http.ResponseWriter, r *http.Request) {
 	p := h.newPage(r, "")
-	p.Title, p.Tab = locale.T(p.Lang, "card.title"), "card"
+	p.Title, p.Tab, p.Help = locale.T(p.Lang, "card.title"), "card", "card"
 	h.render(w, "card.html", p)
 }
 
 // ShowConnect renders "show my code"; the code is made on the device.
 func (h *Home) ShowConnect(w http.ResponseWriter, r *http.Request) {
 	p := h.newPage(r, "")
-	p.Title, p.Tab = locale.T(p.Lang, "connect.title"), "connect"
+	p.Title, p.Tab, p.Help = locale.T(p.Lang, "connect.title"), "connect", "connect"
 	h.render(w, "connect.html", p)
 }
 
@@ -292,14 +295,14 @@ func (h *Home) ShowAccept(w http.ResponseWriter, r *http.Request) {
 // ShowContacts renders the contacts list; contacts live on the device.
 func (h *Home) ShowContacts(w http.ResponseWriter, r *http.Request) {
 	p := h.newPage(r, "")
-	p.Title, p.Tab = locale.T(p.Lang, "contacts.title"), "contacts"
+	p.Title, p.Tab, p.Help = locale.T(p.Lang, "contacts.title"), "contacts", "contacts"
 	h.render(w, "contacts.html", p)
 }
 
 // ShowActivity renders /activity; the list itself is gathered on the device (77c).
 func (h *Home) ShowActivity(w http.ResponseWriter, r *http.Request) {
 	p := h.newPage(r, "")
-	p.Title, p.Tab = locale.T(p.Lang, "activity.title"), "activity"
+	p.Title, p.Tab, p.Help = locale.T(p.Lang, "activity.title"), "activity", "activity"
 	h.render(w, "activity.html", p)
 }
 
@@ -357,6 +360,13 @@ func (h *Home) CanonicalHost(next http.Handler) http.Handler {
 var Funcs = template.FuncMap{
 	"t":     func(lang, key string) template.HTML { return template.HTML(locale.T(lang, key)) },
 	"ts":    locale.T,
+	// help is a page's one-line explanation (87a).
+	"help": func(lang, name string) string {
+		if name == "around" {
+			return locale.T(lang, "home.intro")
+		}
+		return locale.T(lang, "help."+name)
+	},
 	// withHost fills a translation's {host} with this site's domain.
 	"withHost": func(s, host string) template.HTML { return template.HTML(strings.ReplaceAll(s, "{host}", template.HTMLEscapeString(host))) },
 	"venue": meetup.CleanVenue,

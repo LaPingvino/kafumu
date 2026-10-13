@@ -663,5 +663,13 @@
   "js.push_invite": "🤝 Någon använde din kod",
   "js.push_inbox": "📥 Ett meddelande i din öppna inkorg",
   "js.push_answer": "🔒 Ett privat svar på ”{post}”",
-  "home.intro": "Ditt områdes anslagstavla: vad som händer här (konserter, marknader, träffar) och vad folk här säger. Alla kan lägga till."
+  "home.intro": "Ditt områdes anslagstavla: vad som händer här (konserter, marknader, träffar) och vad folk här säger. Alla kan lägga till.",
+  "help.connect": "Visa din kod för någon bredvid dig eller skicka länken: ni byter kort och kan skriva till varandra. Inget går via en server du måste lita på.",
+  "help.contacts": "Alla du har kopplat ihop dig med, sparade på den här enheten. Skriv till dem, skicka en signal, lägg till en anteckning bara du ser.",
+  "help.card": "Kortet folk får när ni kopplar ihop er: bara det du fyller i, och du väljer per person vad du delar.",
+  "help.activity": "Allt som kom tillbaka till dig: chattar, privata svar och reaktioner på dina inlägg och träffar.",
+  "help.account": "Ett konto behövs bara för vissa saker (ordna träffar, ett @namn, Bluesky). Dina kontakter och ditt kort stannar på din enhet.",
+  "help.findable": "Låt folk i närheten hitta dig via dina intressen, bara när och var du vill. Avstängt som standard.",
+  "help.show": "Visa mig",
+  "help.again": "Vad är den här sidan?"
 }

@@ -24,6 +24,18 @@
   });
   if (/iphone|ipad|ipod/i.test(navigator.userAgent) && !standalone) offer(T.install_ios || "Share → Add to Home Screen");
 
+  // What this page is (82a, 87a): a bar until you close it (per page);
+  // the ? in the header brings it back.
+  var intro = document.getElementById("intro"), again = document.getElementById("help-again");
+  if (intro) {
+    var key = "kafumu.helpSeen." + intro.dataset.help, seen = false;
+    try { seen = localStorage.getItem(key) === "1" || (intro.dataset.help === "around" && localStorage.getItem("kafumu.introSeen") === "1"); } catch (e) {}
+    var showIntro = function (on) { intro.hidden = !on; if (again) again.hidden = on; };
+    showIntro(!seen);
+    intro.querySelector(".no").onclick = function () { showIntro(false); try { localStorage.setItem(key, "1"); } catch (e) {} };
+    if (again) again.onclick = function () { showIntro(true); try { localStorage.removeItem(key); localStorage.removeItem("kafumu.introSeen"); } catch (e) {} };
+  }
+
   // Badge hellos: one mailbox read, only if a badge code exists, on pages
   // that load the device store (Around, Connect, Contacts…).
   if (window.kafumuDevice && window.kafumuPair) {

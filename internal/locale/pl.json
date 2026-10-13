@@ -663,5 +663,13 @@
   "js.push_invite": "🤝 Ktoś użył twojego kodu",
   "js.push_inbox": "📥 Wiadomość w twojej publicznej skrzynce",
   "js.push_answer": "🔒 Prywatna odpowiedź na „{post}”",
-  "home.intro": "Tablica ogłoszeń twojej okolicy: co się tu dzieje (koncerty, targi, spotkania) i co mówią tutejsi ludzie. Każdy może coś dodać."
+  "home.intro": "Tablica ogłoszeń twojej okolicy: co się tu dzieje (koncerty, targi, spotkania) i co mówią tutejsi ludzie. Każdy może coś dodać.",
+  "help.connect": "Pokaż swój kod komuś obok albo wyślij link: wymienicie się wizytówkami i możecie do siebie pisać. Nic nie przechodzi przez serwer, któremu musisz ufać.",
+  "help.contacts": "Wszyscy, z którymi się połączyłeś, zapisani na tym urządzeniu. Napisz do nich, wyślij sygnał, dodaj notatkę widoczną tylko dla ciebie.",
+  "help.card": "Wizytówka, którą ludzie dostają przy połączeniu: tylko to, co wypełnisz, i dla każdego wybierasz, co udostępnić.",
+  "help.activity": "Wszystko, co do ciebie wróciło: czaty, prywatne odpowiedzi i reakcje na twoje wpisy i spotkania.",
+  "help.account": "Konto jest potrzebne tylko do niektórych rzeczy (organizowanie spotkań, @nazwa, Bluesky). Kontakty i wizytówka zostają na twoim urządzeniu.",
+  "help.findable": "Pozwól ludziom w pobliżu znaleźć cię po zainteresowaniach, tylko kiedy i gdzie chcesz. Domyślnie wyłączone.",
+  "help.show": "Pokaż mi",
+  "help.again": "Co to za strona?"
 }
