@@ -21,7 +21,13 @@
         if (!d.objectStoreNames.contains("contacts")) d.createObjectStore("contacts", { keyPath: "id" });
       };
       req.onsuccess = function () { db = req.result; resolve(db); };
-      req.onerror = function () { reject(req.error); };
+      // Never silent: a browser that won't open our storage looks like "no
+      // contacts" otherwise (Joop's Chromebook). Pages show this.
+      req.onerror = function () {
+        window.kafumuStorageError = String((req.error && (req.error.name + ": " + req.error.message)) || "unknown");
+        window.dispatchEvent(new CustomEvent("kafumu:storage-error", { detail: window.kafumuStorageError }));
+        reject(req.error);
+      };
     });
   }
 
@@ -568,7 +574,9 @@
   // must not land in your personal account; business sync is LOOP-STATE 75c).
   function signedIn() { return typeof document !== "undefined" && !!(document.body && document.body.dataset.signedIn) && (!actingID || !!actingSync); }
   function syncSoon() { if (!signedIn()) return; clearTimeout(syncTimer); syncTimer = setTimeout(function () { sync(); }, 1500); }
-  function setSync(state) { window.kafumuSync = state; window.dispatchEvent(new CustomEvent("kafumu:sync", { detail: state })); }
+  function setSync(state) {
+    try { console.info("kafumu sync:", state, syncInfo.error || "", "store " + DB + " on " + location.host); } catch (e) {}
+    window.kafumuSync = state; window.dispatchEvent(new CustomEvent("kafumu:sync", { detail: state })); }
   function b64e(u8) { var s = ""; for (var i = 0; i < u8.length; i++) s += String.fromCharCode(u8[i]); return btoa(s); }
   function b64d(s) { return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }); }
   var AAD = new TextEncoder().encode("kafumu-vault-v1");
@@ -648,6 +656,7 @@
     if (m.chips) { steps.push(store.set("chips", m.chips)); try { localStorage.setItem("kafumu.chips", JSON.stringify(m.chips)); } catch (e) {} }
     return Promise.all(steps);
   }
+  var syncInfo = { at: "", error: "" };
   function sync(retry) {
     if (!signedIn()) return Promise.resolve("off");
     if (syncing && !retry) return syncing;
@@ -666,13 +675,20 @@
           var toLocal = canon(m) !== canon(local), toRemote = canon(m) !== canon(merge(remote, remote));
           return (toLocal ? writeLocal(local, m).then(function () { window.dispatchEvent(new CustomEvent("kafumu:synced")); }) : Promise.resolve())
             .then(function () { return toRemote ? push(key, m, v.version) : "on"; });
-        }, function () { return "needs-key"; });
+        }, function () { return key ? "bad-key" : "needs-key"; }); // a key that doesn't open the vault is not "no key"
       });
     }).then(function (state) {
       if (state === "conflict" && !retry) return sync(true);
+      syncInfo.error = "";
+      if (state === "on" || state === "conflict") syncInfo.at = new Date().toISOString();
       setSync(state === "conflict" ? "on" : state);
       return state;
-    }).catch(function () { setSync("off"); return "off"; });
+    }).catch(function (err) {
+      // Say so: a failed sync used to look like sync being off.
+      syncInfo.error = String((err && err.message) || err || "error");
+      setSync(syncInfo.error === "off" ? "off" : "error");
+      return "error";
+    });
     if (!retry) { syncing = run; run.then(function () { syncing = null; }); }
     return run;
   }
@@ -840,7 +856,7 @@
   if (typeof document !== "undefined") setTimeout(suggestAccount, 1500);
   else if (typeof document !== "undefined") document.addEventListener("DOMContentLoaded", function () { if (signedIn()) sync(); });
 
-  window.kafumuDevice = { bizKey: bizKey, actingSync: actingSync,  signalText: signalText, store: store, FIELDS: FIELDS, links: links, renderContact: renderContact, chatPanel: chatPanel, nameOf: nameOf, mergeContact: mergeContact, personas: personas,
+  window.kafumuDevice = { bizKey: bizKey, actingSync: actingSync,  signalText: signalText, store: store, FIELDS: FIELDS, links: links, syncInfo: function () { return { at: syncInfo.at, error: syncInfo.error, state: window.kafumuSync || "", db: DB }; }, renderContact: renderContact, chatPanel: chatPanel, nameOf: nameOf, mergeContact: mergeContact, personas: personas,
     vcards: vcards, backup: backup, restore: restore, download: download, sync: sync, quietDays: quietDays,
     // chips: your filter-chip row ({pinned: [...], hidden: [...], at}); a
     // localStorage mirror lets Around draw it without waiting.

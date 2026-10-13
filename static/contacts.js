@@ -13,7 +13,35 @@
   function syncState(s) {
     $("sync-on").hidden = s !== "on";
     $("sync-needs-key").hidden = s !== "needs-key";
+    // Failures say what happened (they used to look like "off").
+    var info = dev.syncInfo ? dev.syncInfo() : {}, err = $("sync-error");
+    if (err) {
+      err.hidden = s !== "error" && s !== "bad-key";
+      err.querySelector("span").textContent = s === "bad-key" ? "⚠️ " + (T.sync_bad_key || "This device's sync key doesn't open your vault.")
+        : "⚠️ " + (T.sync_failed || "Sync failed: {why}").replace("{why}", info.error || "?");
+    }
+    storeInfo();
   }
+  // What this device holds, and where: the first thing to know when a list
+  // looks empty (another address or a business keeps its own).
+  function storeInfo() {
+    var el = $("store-info");
+    if (!el) return;
+    dev.store.contacts().then(function (cs) {
+      var info = dev.syncInfo ? dev.syncInfo() : {};
+      el.textContent = (T.store_info || "On this device: {n} contacts · {where}").replace("{n}", cs.length).replace("{where}", location.host + (info.db && info.db !== "kafumu" ? " · " + info.db : ""))
+        + (info.at ? " · 🔄 " + new Date(info.at).toLocaleString(window.KAFUMU_LOCALE, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "");
+    }, function () {});
+  }
+  function storageError(why) {
+    var el = $("storage-error");
+    if (!el) return;
+    el.hidden = false;
+    el.textContent = "⚠️ " + (T.storage_error || "This browser won't let Kafumu read its data here ({why}).").replace("{why}", why || "?");
+  }
+  window.addEventListener("kafumu:storage-error", function (e) { storageError(e.detail); });
+  if (window.kafumuStorageError) storageError(window.kafumuStorageError);
+  if ($("sync-retry")) $("sync-retry").onclick = function () { dev.sync().then(function (st) { syncState(st); show(); }); };
   window.addEventListener("kafumu:sync", function (e) { syncState(e.detail); });
   window.addEventListener("kafumu:synced", function () { show(); });
   if (window.kafumuSync) syncState(window.kafumuSync);
@@ -36,6 +64,7 @@
   }
 
   function show() {
+    storeInfo();
     dev.store.contacts().then(function (cs) {
       cs.sort(function (a, b) { return (b.createdAt || "").localeCompare(a.createdAt || ""); });
       if (sortBy() === "near") cs = byDistance(cs);
@@ -89,7 +118,7 @@
           li = fresh;
         }).catch(function () {}).then(function () { openLinked(li, c); });
       });
-    });
+    }).catch(function (e) { storageError(window.kafumuStorageError || String((e && e.message) || e)); }); // never a silent empty list
   }
 
   // openLinked: opened from Activity ("#c-<id>"): that contact's card is

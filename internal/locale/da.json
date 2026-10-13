@@ -710,5 +710,9 @@
   "js.taken_back": "Taget tilbage.",
   "js.take_back_confirm": "Tag det tilbage? Det forsvinder her for alle.",
   "js.kind_news": "Nyheder",
-  "js.news_by": "tilføjet af {name}"
+  "js.news_by": "tilføjet af {name}",
+  "js.sync_failed": "Synkronisering mislykkedes: {why}",
+  "js.sync_bad_key": "Synkroniseringsnøglen på denne enhed åbner ikke din boks. Hent nøglen igen fra en anden af dine enheder.",
+  "js.storage_error": "Denne browser lader ikke Kafumu læse sine data her ({why}). Det på dine andre enheder er ikke berørt.",
+  "js.store_info": "På denne enhed: {n} kontakter · {where}"
 }

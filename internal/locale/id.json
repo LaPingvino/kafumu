@@ -710,5 +710,9 @@
   "js.taken_back": "Ditarik.",
   "js.take_back_confirm": "Tarik kembali? Hilang di sini untuk semua.",
   "js.kind_news": "Berita",
-  "js.news_by": "ditambahkan oleh {name}"
+  "js.news_by": "ditambahkan oleh {name}",
+  "js.sync_failed": "Sinkronisasi gagal: {why}",
+  "js.sync_bad_key": "Kunci sinkron di perangkat ini tidak membuka brankasmu. Ambil kuncinya lagi dari perangkatmu yang lain.",
+  "js.storage_error": "Peramban ini tidak mengizinkan Kafumu membaca datanya di sini ({why}). Data di perangkatmu yang lain tidak terpengaruh.",
+  "js.store_info": "Di perangkat ini: {n} kontak · {where}"
 }

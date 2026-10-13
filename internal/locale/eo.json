@@ -710,5 +710,9 @@
   "js.taken_back": "Reprenita.",
   "js.take_back_confirm": "Ĉu repreni ĝin? Ĝi malaperas ĉi tie por ĉiuj.",
   "js.kind_news": "Novaĵoj",
-  "js.news_by": "aldonita de {name}"
+  "js.news_by": "aldonita de {name}",
+  "js.sync_failed": "Sinkronigo malsukcesis: {why}",
+  "js.sync_bad_key": "La sinkroniga ŝlosilo en ĉi tiu aparato ne malfermas vian trezorejon. Prenu la ŝlosilon denove de alia via aparato.",
+  "js.storage_error": "Ĉi tiu retumilo ne lasas Kafumu legi siajn datumojn ĉi tie ({why}). Tio, kio estas en viaj aliaj aparatoj, ne estas tuŝita.",
+  "js.store_info": "En ĉi tiu aparato: {n} kontaktoj · {where}"
 }

@@ -710,5 +710,9 @@
   "js.taken_back": "Visszavonva.",
   "js.take_back_confirm": "Visszavonod? Itt mindenkinél eltűnik.",
   "js.kind_news": "Hírek",
-  "js.news_by": "hozzáadta: {name}"
+  "js.news_by": "hozzáadta: {name}",
+  "js.sync_failed": "A szinkronizálás nem sikerült: {why}",
+  "js.sync_bad_key": "Az eszköz szinkronkulcsa nem nyitja a széfedet. Kérd le újra a kulcsot egy másik eszközödről.",
+  "js.storage_error": "Ez a böngésző nem engedi, hogy a Kafumu itt olvassa az adatait ({why}). A többi eszközödön lévőket ez nem érinti.",
+  "js.store_info": "Ezen az eszközön: {n} névjegy · {where}"
 }

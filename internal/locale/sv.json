@@ -710,5 +710,9 @@
   "js.taken_back": "Tillbakataget.",
   "js.take_back_confirm": "Ta tillbaka? Det försvinner här för alla.",
   "js.kind_news": "Nyheter",
-  "js.news_by": "tillagd av {name}"
+  "js.news_by": "tillagd av {name}",
+  "js.sync_failed": "Synkningen misslyckades: {why}",
+  "js.sync_bad_key": "Synknyckeln på den här enheten öppnar inte ditt valv. Hämta nyckeln igen från en annan av dina enheter.",
+  "js.storage_error": "Den här webbläsaren låter inte Kafumu läsa sina data här ({why}). Det som finns på dina andra enheter påverkas inte.",
+  "js.store_info": "På den här enheten: {n} kontakter · {where}"
 }

@@ -710,5 +710,9 @@
   "js.taken_back": "Vzato zpět.",
   "js.take_back_confirm": "Vzít zpět? Zmizí tu pro všechny.",
   "js.kind_news": "Zprávy",
-  "js.news_by": "přidal(a) {name}"
+  "js.news_by": "přidal(a) {name}",
+  "js.sync_failed": "Synchronizace selhala: {why}",
+  "js.sync_bad_key": "Synchronizační klíč na tomto zařízení neotevře tvůj trezor. Získej klíč znovu z jiného svého zařízení.",
+  "js.storage_error": "Tento prohlížeč Kafumu nedovolí číst tady jeho data ({why}). Tvých ostatních zařízení se to netýká.",
+  "js.store_info": "Na tomto zařízení: {n} kontaktů · {where}"
 }

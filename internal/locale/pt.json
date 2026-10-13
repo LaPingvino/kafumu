@@ -710,5 +710,9 @@
   "js.taken_back": "Retirado.",
   "js.take_back_confirm": "Retirar isto? Desaparece aqui para todos.",
   "js.kind_news": "Notícias",
-  "js.news_by": "adicionada por {name}"
+  "js.news_by": "adicionada por {name}",
+  "js.sync_failed": "A sincronização falhou: {why}",
+  "js.sync_bad_key": "A chave de sincronização deste dispositivo não abre o teu cofre. Vai buscá-la de novo a outro dispositivo teu.",
+  "js.storage_error": "Este navegador não deixa o Kafumu ler os seus dados aqui ({why}). O que está nos teus outros dispositivos não é afetado.",
+  "js.store_info": "Neste dispositivo: {n} contactos · {where}"
 }

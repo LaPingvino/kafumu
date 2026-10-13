@@ -710,5 +710,9 @@
   "js.taken_back": "取り消しました。",
   "js.take_back_confirm": "取り消しますか？ここでは全員から見えなくなります。",
   "js.kind_news": "ニュース",
-  "js.news_by": "{name}が追加"
+  "js.news_by": "{name}が追加",
+  "js.sync_failed": "同期に失敗しました：{why}",
+  "js.sync_bad_key": "この端末の同期キーではあなたの保管庫を開けません。ほかの端末からキーをもう一度受け取ってください。",
+  "js.storage_error": "このブラウザはここでKafumuのデータを読ませてくれません（{why}）。ほかの端末のデータには影響しません。",
+  "js.store_info": "この端末：連絡先 {n} 件 · {where}"
 }

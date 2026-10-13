@@ -710,5 +710,9 @@
   "js.taken_back": "Taken back.",
   "js.take_back_confirm": "Take this back? It disappears here for everyone.",
   "js.kind_news": "News",
-  "js.news_by": "added by {name}"
+  "js.news_by": "added by {name}",
+  "js.sync_failed": "Sync failed: {why}",
+  "js.sync_bad_key": "This device's sync key doesn't open your vault. Get the key again from another device of yours.",
+  "js.storage_error": "This browser won't let Kafumu read its data here ({why}). What's on your other devices is not affected.",
+  "js.store_info": "On this device: {n} contacts · {where}"
 }

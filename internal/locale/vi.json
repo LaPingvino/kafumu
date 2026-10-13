@@ -710,5 +710,9 @@
   "js.taken_back": "Đã rút lại.",
   "js.take_back_confirm": "Rút lại? Nó sẽ biến mất ở đây với mọi người.",
   "js.kind_news": "Tin tức",
-  "js.news_by": "do {name} thêm"
+  "js.news_by": "do {name} thêm",
+  "js.sync_failed": "Đồng bộ thất bại: {why}",
+  "js.sync_bad_key": "Khóa đồng bộ trên thiết bị này không mở được kho của bạn. Hãy lấy lại khóa từ một thiết bị khác của bạn.",
+  "js.storage_error": "Trình duyệt này không cho Kafumu đọc dữ liệu ở đây ({why}). Dữ liệu trên các thiết bị khác của bạn không bị ảnh hưởng.",
+  "js.store_info": "Trên thiết bị này: {n} liên hệ · {where}"
 }

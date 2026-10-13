@@ -710,5 +710,9 @@
   "js.taken_back": "Cofnięto.",
   "js.take_back_confirm": "Cofnąć? Zniknie tu dla wszystkich.",
   "js.kind_news": "Wiadomości",
-  "js.news_by": "dodane przez {name}"
+  "js.news_by": "dodane przez {name}",
+  "js.sync_failed": "Synchronizacja nie powiodła się: {why}",
+  "js.sync_bad_key": "Klucz synchronizacji na tym urządzeniu nie otwiera twojego sejfu. Pobierz klucz ponownie z innego swojego urządzenia.",
+  "js.storage_error": "Ta przeglądarka nie pozwala Kafumu czytać tu danych ({why}). To, co jest na innych twoich urządzeniach, jest bezpieczne.",
+  "js.store_info": "Na tym urządzeniu: {n} kontaktów · {where}"
 }

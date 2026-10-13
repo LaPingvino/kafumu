@@ -710,5 +710,9 @@
   "js.taken_back": "Geri alındı.",
   "js.take_back_confirm": "Geri alınsın mı? Burada herkes için kaybolur.",
   "js.kind_news": "Haberler",
-  "js.news_by": "{name} ekledi"
+  "js.news_by": "{name} ekledi",
+  "js.sync_failed": "Eşitleme başarısız: {why}",
+  "js.sync_bad_key": "Bu cihazdaki eşitleme anahtarı kasanı açmıyor. Anahtarı başka bir cihazından yeniden al.",
+  "js.storage_error": "Bu tarayıcı Kafumu'nun buradaki verilerini okumasına izin vermiyor ({why}). Diğer cihazlarındakiler etkilenmez.",
+  "js.store_info": "Bu cihazda: {n} kişi · {where}"
 }
