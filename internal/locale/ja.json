@@ -657,5 +657,10 @@
   "area.calendar_title": "この地域のミートアップをカレンダーに",
   "area.rss_title": "この地域をフィードリーダーやあなたのサイトでフォロー",
   "activity.chats": "チャット",
-  "activity.recent": "最近"
+  "activity.recent": "最近",
+  "js.push_signal": "☕ {name}さんから届きました",
+  "js.push_chat": "💬 {name}さんからのメッセージ",
+  "js.push_invite": "🤝 誰かがあなたのコードを使いました",
+  "js.push_inbox": "📥 公開受信箱にメッセージ",
+  "js.push_answer": "🔒 「{post}」への非公開の返信"
 }

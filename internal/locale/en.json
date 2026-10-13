@@ -657,5 +657,10 @@
   "area.calendar_title": "This area's meetups in your calendar",
   "area.rss_title": "Follow this area in a feed reader or on your website",
   "activity.chats": "Chats",
-  "activity.recent": "Recent"
+  "activity.recent": "Recent",
+  "js.push_signal": "☕ {name} sent you something",
+  "js.push_chat": "💬 A message from {name}",
+  "js.push_invite": "🤝 Someone used your code",
+  "js.push_inbox": "📥 A message in your public inbox",
+  "js.push_answer": "🔒 A private answer to “{post}”"
 }

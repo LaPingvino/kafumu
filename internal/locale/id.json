@@ -657,5 +657,10 @@
   "area.calendar_title": "Pertemuan di area ini di kalendermu",
   "area.rss_title": "Ikuti area ini di pembaca feed atau di situsmu",
   "activity.chats": "Obrolan",
-  "activity.recent": "Terbaru"
+  "activity.recent": "Terbaru",
+  "js.push_signal": "☕ {name} mengirimimu sesuatu",
+  "js.push_chat": "💬 Pesan dari {name}",
+  "js.push_invite": "🤝 Seseorang memakai kodemu",
+  "js.push_inbox": "📥 Pesan di kotak masuk publikmu",
+  "js.push_answer": "🔒 Jawaban pribadi untuk “{post}”"
 }

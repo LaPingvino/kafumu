@@ -774,15 +774,57 @@
     // public inbox) and the private tags where chat lines and answers to
     // our posts arrive (77f). All random ids: the server learns endpoint ↔
     // ids, never who or what.
-    function watched() {
+    // labelled: every box and tag this device watches, each with what its
+    // notification should say and open (83d). The words are composed here,
+    // in your language, from what only this device knows (names, your post);
+    // the server's push only says which box woke up.
+    function labelled() {
+      var T = (typeof window !== "undefined" && window.KAFUMU_T) || {};
+      function tr(k, d, v) { var x = T[k] || d; for (var n in v || {}) x = x.split("{" + n + "}").join(v[n]); return x; }
+      function short(x) { x = String(x || "").replace(/\s+/g, " ").trim(); return x.length > 60 ? x.slice(0, 59) + "…" : x; }
       return Promise.all([store.contacts(), store.get("invite"), store.get("invite:badge"), store.get("publicInbox"), store.get("replyKeys"), threads()]).then(function (r) {
-        var boxes = r[0].map(function (c) { return boxOf(unb64(c.key), c.role); });
-        [r[1], r[2], r[3]].forEach(function (x) { if (x && x.box) boxes.push(Promise.resolve(x.box)); });
-        var now = Date.now(), tags = (r[4] || []).filter(function (k) { return k.until > now; }).map(function (k) { return Promise.resolve(k.tag); });
-        r[0].concat(r[5]).forEach(function (c) { keysOf(c).forEach(function (k) { tags.push(chatTag(unb64(k.key), k.role)); }); });
-        return Promise.all([Promise.all(boxes), Promise.all(tags)]).then(function (got) {
-          return got[0].filter(Boolean).concat(got[1].filter(Boolean)).slice(0, 300);
+        var out = [];
+        function add(p, body, url) { out.push(Promise.resolve(p).then(function (id) { return id ? { id: id, body: body, url: url } : null; })); }
+        r[0].forEach(function (c) {
+          var name = (c.card && c.card.name) || c.alias || tr("inbox_anonymous", "Someone");
+          add(boxOf(unb64(c.key), c.role), tr("push_signal", "☕ {name} sent you something", { name: name }), "/contacts#c-" + encodeURIComponent(c.id));
+          keysOf(c).forEach(function (k) { add(chatTag(unb64(k.key), k.role), tr("push_chat", "💬 A message from {name}", { name: name }), "/activity#chat-" + encodeURIComponent(c.id)); });
         });
+        [r[1], r[2]].forEach(function (x) { if (x && x.box) add(x.box, tr("push_invite", "🤝 Someone used your code"), "/contacts"); });
+        if (r[3] && r[3].box) add(r[3].box, tr("push_inbox", "📥 A message in your public inbox"), "/contacts#inbox-section");
+        var now = Date.now();
+        (r[4] || []).filter(function (k) { return k.until > now; }).forEach(function (k) {
+          add(k.tag, tr("push_answer", "🔒 A private answer to “{post}”", { post: short(k.text) }), "/activity#answers");
+        });
+        r[5].forEach(function (t) {
+          keysOf(t).forEach(function (k) {
+            add(chatTag(unb64(k.key), k.role), tr("push_answer", "🔒 A private answer to “{post}”", { post: short(t.post && t.post.text) }), "/activity#answer-" + encodeURIComponent(t.id));
+          });
+        });
+        return Promise.all(out).then(function (ls) { return ls.filter(Boolean).slice(0, 300); });
+      });
+    }
+    function watched() { return labelled().then(function (ls) { return ls.map(function (l) { return l.id; }); }); }
+    // saveLabels keeps box → {body, url} where the service worker reads it:
+    // the main device database's "kv" store, key "pushLabels".
+    function saveLabels(ls) {
+      if (typeof indexedDB === "undefined") return Promise.resolve();
+      return new Promise(function (resolve) {
+        var req = indexedDB.open("kafumu");
+    req.onupgradeneeded = function () { req.transaction.abort(); }; // never create it here: device.js owns its shape
+        req.onerror = function () { resolve(); };
+        req.onsuccess = function () {
+          var d = req.result;
+          if (!d.objectStoreNames.contains("kv")) { d.close(); resolve(); return; }
+          var tx = d.transaction("kv", "readwrite"), kv = tx.objectStore("kv"), get = kv.get("pushLabels");
+          get.onsuccess = function () {
+            var m = get.result || {}, now = Date.now();
+            ls.forEach(function (l) { m[l.id] = { body: l.body, url: l.url, at: now }; });
+            Object.keys(m).forEach(function (k) { if (now - (m[k].at || 0) > 60 * 864e5) delete m[k]; }); // forget after two months unseen
+            kv.put(m, "pushLabels");
+          };
+          tx.oncomplete = tx.onerror = function () { d.close(); resolve(); };
+        };
       });
     }
     function b64ToBytes(s) { s = s.replace(/-/g, "+").replace(/_/g, "/"); while (s.length % 4) s += "="; return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }); }
@@ -800,13 +842,15 @@
         });
       }).then(function (sub) {
         if (!sub) return false;
-        return watched().then(function (ids) {
-          return fetchFn(base + "/api/push/subscribe", { method: "POST", credentials: "omit", headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ subscription: sub.toJSON(), boxes: ids, lang: document.documentElement.lang }) });
+        return labelled().then(function (ls) {
+          return saveLabels(ls).then(function () {
+            return fetchFn(base + "/api/push/subscribe", { method: "POST", credentials: "omit", headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ subscription: sub.toJSON(), boxes: ls.map(function (l) { return l.id; }), lang: document.documentElement.lang }) });
+          });
         }).then(function () { return true; });
       });
     }
-    return { pushSubscribe: pushSubscribe, watched: watched, replyKey: replyKey, replyKeyOf: replyKeyOf, answer: answer, readAnswers: readAnswers, threads: threads, putThread: putThread,
+    return { pushSubscribe: pushSubscribe, watched: watched, labelled: labelled, replyKey: replyKey, replyKeyOf: replyKeyOf, answer: answer, readAnswers: readAnswers, threads: threads, putThread: putThread,
       flush: flush, outboxSize: outboxSize, sendChat: sendChat, readChat: readChat, report: report, namedLink: namedLink, shortLink: shortLink, inbox: inbox, writeTo: writeTo, readInbox: readInbox, connectBack: connectBack, checkIn: checkIn, around: around, invite: invite, accept: accept, moveSend: moveSend, moveReceive: moveReceive, checkInvite: checkInvite, checkContact: checkContact, send: send,
       _open: open, _boxOf: boxOf, _inviteBox: inviteBox, _unb64: unb64 };
   }

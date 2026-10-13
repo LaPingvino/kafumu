@@ -657,5 +657,10 @@
   "area.calendar_title": "把這個地區的聚會加到你的日曆",
   "area.rss_title": "在閱讀器或你的網站上關注這個地區",
   "activity.chats": "聊天",
-  "activity.recent": "最近"
+  "activity.recent": "最近",
+  "js.push_signal": "☕ {name} 傳了東西給你",
+  "js.push_chat": "💬 來自 {name} 的訊息",
+  "js.push_invite": "🤝 有人用了你的代碼",
+  "js.push_inbox": "📥 你的公開收件匣有一則訊息",
+  "js.push_answer": "🔒 對「{post}」的私下回覆"
 }

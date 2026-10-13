@@ -190,6 +190,8 @@ func (s *Service) Notify(ctx context.Context, box string) {
 		log.Printf("push: keys: %v", err)
 		return
 	}
+	// The payload (encrypted to the device) names the box, so the device can
+	// say who and what from its own labels (83d); the text is the fallback.
 	for _, sub := range subs {
 		text, url := "☕", "/contacts"
 		if s.Text != nil {
@@ -201,7 +203,7 @@ func (s *Service) Notify(ctx context.Context, box string) {
 				text = s.MsgText(sub.Lang)
 			}
 		}
-		payload, _ := json.Marshal(map[string]string{"t": "signal", "text": text, "url": url})
+		payload, _ := json.Marshal(map[string]string{"t": "signal", "text": text, "url": url, "box": box})
 		resp, err := webpush.SendNotificationWithContext(ctx, payload,
 			&webpush.Subscription{Endpoint: sub.Endpoint, Keys: webpush.Keys{Auth: sub.Auth, P256dh: sub.P256dh}},
 			&webpush.Options{HTTPClient: s.Client, Subscriber: s.Contact, VAPIDPublicKey: pub, VAPIDPrivateKey: priv,

@@ -657,5 +657,10 @@
   "area.calendar_title": "Bu bölgenin buluşmaları takviminde",
   "area.rss_title": "Bu bölgeyi bir akış okuyucuda veya sitende takip et",
   "activity.chats": "Sohbetler",
-  "activity.recent": "Son"
+  "activity.recent": "Son",
+  "js.push_signal": "☕ {name} sana bir şey gönderdi",
+  "js.push_chat": "💬 {name} adlı kişiden bir mesaj",
+  "js.push_invite": "🤝 Biri kodunu kullandı",
+  "js.push_inbox": "📥 Açık gelen kutunda bir mesaj",
+  "js.push_answer": "🔒 “{post}” için özel bir yanıt"
 }

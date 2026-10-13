@@ -657,5 +657,10 @@
   "area.calendar_title": "A környék találkozói a naptáradban",
   "area.rss_title": "Kövesd a környéket hírolvasóban vagy a weboldaladon",
   "activity.chats": "Csevegések",
-  "activity.recent": "Legutóbb"
+  "activity.recent": "Legutóbb",
+  "js.push_signal": "☕ {name} küldött neked valamit",
+  "js.push_chat": "💬 Üzenet tőle: {name}",
+  "js.push_invite": "🤝 Valaki használta a kódodat",
+  "js.push_inbox": "📥 Üzenet a nyilvános postaládádban",
+  "js.push_answer": "🔒 Privát válasz erre: „{post}”"
 }

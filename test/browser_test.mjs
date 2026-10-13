@@ -222,6 +222,8 @@ try {
   // And it answers from there, like on the contact card.
   await A.evaluate("(() => { const f = document.querySelector('#chats-list li.flash .chat-form'); f.querySelector('input').value = 'From the mailbox " + RUN + "'; f.requestSubmit(); return true; })()");
   await A.waitFor("[...document.querySelectorAll('#chats-list .bubble.me')].some(b => b.textContent === 'From the mailbox " + RUN + "')", "answered from the mailbox", 30000);
+  // What a notification would say (83d): composed on the device, per box: who, and where it opens.
+  await A.waitFor("window.kafumuPair.create({ fetch: window.fetch.bind(window), store: window.kafumuDevice.store, origin: location.origin }).labelled().then(ls => ls.some(l => /^💬 .*Bea/.test(l.body) && l.url.startsWith('/activity#chat-')) && ls.some(l => l.body.startsWith('🔒') && l.url.startsWith('/activity#answer')))", "notification labels: 💬 from Bea, 🔒 an answer", 10000);
   // "Shall we go together?" (80b): such a line in A's chat offers Yes / Can't.
   await A.goto(base + "/contacts");
   await A.waitFor("!!document.querySelector('#contacts li.contact')", "contacts listed");
@@ -393,7 +395,8 @@ try {
     // gets the same card.
     await A.goto(base + "/business");
     await A.evaluate("(() => { const f = document.querySelector('form.biz-sync'); f.mode.value = 'server'; f.requestSubmit(); return true; })()");
-    await A.waitFor("document.querySelector('form.biz-sync') && document.querySelector('form.biz-sync').mode.value === 'server'", "business sync on (server key)");
+    // Wait for the saved page, not the form we just filled in (it says 'server' before the POST lands).
+    await A.waitFor("document.body.dataset.actingSync === 'server' && document.querySelector('form.biz-sync') && document.querySelector('form.biz-sync').mode.value === 'server'", "business sync on (server key)", 15000);
     await A.goto(base + "/card");
     await A.waitFor("!!document.querySelector('.biz-banner') && !!document.getElementById('card-form')", "business card page, synced");
     await A.evaluate("(() => { const f = document.getElementById('card-form'); f.name.value = 'Café card " + RUN + "'; f.requestSubmit(); return true; })()");

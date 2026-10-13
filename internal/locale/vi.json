@@ -657,5 +657,10 @@
   "area.calendar_title": "Các buổi gặp ở khu vực này trong lịch của bạn",
   "area.rss_title": "Theo dõi khu vực này bằng trình đọc tin hoặc trên trang web của bạn",
   "activity.chats": "Trò chuyện",
-  "activity.recent": "Gần đây"
+  "activity.recent": "Gần đây",
+  "js.push_signal": "☕ {name} đã gửi cho bạn",
+  "js.push_chat": "💬 Tin nhắn từ {name}",
+  "js.push_invite": "🤝 Có người đã dùng mã của bạn",
+  "js.push_inbox": "📥 Tin nhắn trong hộp thư công khai của bạn",
+  "js.push_answer": "🔒 Trả lời riêng cho “{post}”"
 }

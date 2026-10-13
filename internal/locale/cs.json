@@ -657,5 +657,10 @@
   "area.calendar_title": "Setkání v této oblasti ve tvém kalendáři",
   "area.rss_title": "Sleduj tuto oblast ve čtečce kanálů nebo na svém webu",
   "activity.chats": "Chaty",
-  "activity.recent": "Nedávno"
+  "activity.recent": "Nedávno",
+  "js.push_signal": "☕ {name} ti něco poslal(a)",
+  "js.push_chat": "💬 Zpráva od {name}",
+  "js.push_invite": "🤝 Někdo použil tvůj kód",
+  "js.push_inbox": "📥 Zpráva ve tvé veřejné schránce",
+  "js.push_answer": "🔒 Soukromá odpověď na „{post}“"
 }

@@ -1070,7 +1070,11 @@ your posts and meetups (Activity, 77) in one mailbox, and notifications that alw
 - [x] 83c. Done: "💬 Chats" in the mailbox: contacts you've written with, newest first, last line, the same chat
       (device.chatPanel, now shared with the contact card) to read and answer in place; the 10 newest are read on
       open; Activity's message items open #chat-<id> there. "🔔 Recent" heads the rest. Was: Chats: each contact's messages as a mailbox thread (still opening the chat on the contact).
-- [ ] 83d. Notifications: every push names the sender/area and a line of context, and opens that thread.
+- [x] 83d. Done: the push payload names its box; pair.labelled() composes each box's line on the device ("💬 A
+      message from Anna", "☕ Anna sent you something", "🔒 A private answer to “…”", invite, inbox; 24 languages) and
+      where it opens (#chat-, #answer-, #c-); saveLabels keeps them in IndexedDB for sw.js; one notification per
+      conversation; a tap reuses an open window. Also fixed a test race (business sync wait passed before the POST).
+      Was: Notifications: every push names the sender/area and a line of context, and opens that thread.
 
 ## 82. Answer a newcomer's questions up front (Joop 2026-10-13, a friend's questions: "a local paper, then?",
 "can concerts, fairs, festivals go in?")

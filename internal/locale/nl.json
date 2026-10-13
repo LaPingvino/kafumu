@@ -657,5 +657,10 @@
   "area.calendar_title": "De meetups van dit gebied in je agenda",
   "area.rss_title": "Volg dit gebied in een feedlezer of op je website",
   "activity.chats": "Chats",
-  "activity.recent": "Recent"
+  "activity.recent": "Recent",
+  "js.push_signal": "☕ {name} stuurde je iets",
+  "js.push_chat": "💬 Een bericht van {name}",
+  "js.push_invite": "🤝 Iemand gebruikte je code",
+  "js.push_inbox": "📥 Een bericht in je openbare inbox",
+  "js.push_answer": "🔒 Een privéantwoord op “{post}”"
 }

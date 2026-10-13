@@ -657,5 +657,10 @@
   "area.calendar_title": "把这个地区的聚会加到你的日历",
   "area.rss_title": "在阅读器或你的网站上关注这个地区",
   "activity.chats": "聊天",
-  "activity.recent": "最近"
+  "activity.recent": "最近",
+  "js.push_signal": "☕ {name} 给你发了消息",
+  "js.push_chat": "💬 来自 {name} 的消息",
+  "js.push_invite": "🤝 有人用了你的代码",
+  "js.push_inbox": "📥 你的公开收件箱有一条消息",
+  "js.push_answer": "🔒 对“{post}”的私下回复"
 }

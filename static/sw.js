@@ -55,11 +55,32 @@ self.addEventListener("fetch", function (e) {
 
 // Push: a contact sent a signal. The message carries no content; opening
 // Contacts reads and decrypts it on the device.
+// The push names only the box that woke up; what to say about it (who,
+// which post) and where to open was written by the app on this device when
+// it subscribed (pair.js saveLabels), so the server never knows (83d).
+function labelFor(box) {
+  return new Promise(function (resolve) {
+    if (!box) return resolve(null);
+    var req = indexedDB.open("kafumu");
+    req.onupgradeneeded = function () { req.transaction.abort(); }; // never create it here: device.js owns its shape
+    req.onerror = function () { resolve(null); };
+    req.onsuccess = function () {
+      var d = req.result;
+      if (!d.objectStoreNames.contains("kv")) { d.close(); return resolve(null); }
+      var get = d.transaction("kv").objectStore("kv").get("pushLabels");
+      get.onsuccess = function () { d.close(); resolve((get.result || {})[box] || null); };
+      get.onerror = function () { d.close(); resolve(null); };
+    };
+  });
+}
 self.addEventListener("push", function (e) {
   var d = {};
   try { d = e.data ? e.data.json() : {}; } catch (err) {}
-  e.waitUntil(self.registration.showNotification("Kafumu", {
-    body: d.text || "☕", tag: d.url === "/activity" ? "kafumu-activity" : "kafumu-signal", renotify: true, icon: "/static/icon.svg", data: { url: d.url || "/contacts" }
+  e.waitUntil(labelFor(d.box).catch(function () { return null; }).then(function (l) {
+    var url = (l && l.url) || d.url || "/contacts";
+    return self.registration.showNotification("Kafumu", {
+      body: (l && l.body) || d.text || "☕", tag: "kafumu-" + (d.box || url), renotify: true, icon: "/static/icon.svg", data: { url: url }
+    });
   }));
 });
 self.addEventListener("notificationclick", function (e) {
@@ -67,6 +88,8 @@ self.addEventListener("notificationclick", function (e) {
   var url = (e.notification.data && e.notification.data.url) || "/";
   e.waitUntil(self.clients.matchAll({ type: "window" }).then(function (ws) {
     for (var i = 0; i < ws.length; i++) if (ws[i].url.indexOf(url) >= 0 && "focus" in ws[i]) return ws[i].focus();
+    // An open Kafumu window goes to that conversation rather than a new one.
+    for (var j = 0; j < ws.length; j++) if ("navigate" in ws[j] && "focus" in ws[j]) return ws[j].navigate(url).then(function (w) { return w && w.focus(); });
     return self.clients.openWindow(url);
   }));
 });

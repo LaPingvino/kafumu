@@ -657,5 +657,10 @@
   "area.calendar_title": "Områdets meetups i din kalender",
   "area.rss_title": "Følg området i en feedlæser eller på din hjemmeside",
   "activity.chats": "Chats",
-  "activity.recent": "Seneste"
+  "activity.recent": "Seneste",
+  "js.push_signal": "☕ {name} sendte dig noget",
+  "js.push_chat": "💬 En besked fra {name}",
+  "js.push_invite": "🤝 Nogen brugte din kode",
+  "js.push_inbox": "📥 En besked i din offentlige indbakke",
+  "js.push_answer": "🔒 Et privat svar på “{post}”"
 }

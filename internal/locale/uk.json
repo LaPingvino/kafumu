@@ -657,5 +657,10 @@
   "area.calendar_title": "Зустрічі цього району у вашому календарі",
   "area.rss_title": "Стежте за районом у RSS-читачі або на своєму сайті",
   "activity.chats": "Чати",
-  "activity.recent": "Нещодавнє"
+  "activity.recent": "Нещодавнє",
+  "js.push_signal": "☕ {name} дещо вам надіслав(ла)",
+  "js.push_chat": "💬 Повідомлення від {name}",
+  "js.push_invite": "🤝 Хтось скористався вашим кодом",
+  "js.push_inbox": "📥 Повідомлення у вашій відкритій скриньці",
+  "js.push_answer": "🔒 Особиста відповідь на «{post}»"
 }

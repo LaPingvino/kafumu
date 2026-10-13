@@ -657,5 +657,10 @@
   "area.calendar_title": "Die Treffen dieser Gegend in deinem Kalender",
   "area.rss_title": "Folge dieser Gegend in einem Feedreader oder auf deiner Website",
   "activity.chats": "Chats",
-  "activity.recent": "Neu"
+  "activity.recent": "Neu",
+  "js.push_signal": "☕ {name} hat dir etwas geschickt",
+  "js.push_chat": "💬 Eine Nachricht von {name}",
+  "js.push_invite": "🤝 Jemand hat deinen Code benutzt",
+  "js.push_inbox": "📥 Eine Nachricht in deinem öffentlichen Posteingang",
+  "js.push_answer": "🔒 Eine private Antwort auf „{post}“"
 }

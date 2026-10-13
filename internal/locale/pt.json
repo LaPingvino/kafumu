@@ -657,5 +657,10 @@
   "area.calendar_title": "Os encontros desta área na tua agenda",
   "area.rss_title": "Segue esta área num leitor de feeds ou no teu site",
   "activity.chats": "Conversas",
-  "activity.recent": "Recente"
+  "activity.recent": "Recente",
+  "js.push_signal": "☕ {name} enviou-te algo",
+  "js.push_chat": "💬 Uma mensagem de {name}",
+  "js.push_invite": "🤝 Alguém usou o teu código",
+  "js.push_inbox": "📥 Uma mensagem na tua caixa pública",
+  "js.push_answer": "🔒 Uma resposta privada a «{post}»"
 }

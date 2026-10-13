@@ -657,5 +657,10 @@
   "area.calendar_title": "Områdets träffar i din kalender",
   "area.rss_title": "Följ området i en flödesläsare eller på din webbplats",
   "activity.chats": "Chattar",
-  "activity.recent": "Senaste"
+  "activity.recent": "Senaste",
+  "js.push_signal": "☕ {name} skickade något till dig",
+  "js.push_chat": "💬 Ett meddelande från {name}",
+  "js.push_invite": "🤝 Någon använde din kod",
+  "js.push_inbox": "📥 Ett meddelande i din öppna inkorg",
+  "js.push_answer": "🔒 Ett privat svar på ”{post}”"
 }

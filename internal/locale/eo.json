@@ -657,5 +657,10 @@
   "area.calendar_title": "La renkontiĝoj de ĉi tiu loko en via kalendaro",
   "area.rss_title": "Sekvu ĉi tiun lokon en flulegilo aŭ en via retejo",
   "activity.chats": "Babiloj",
-  "activity.recent": "Lastatempe"
+  "activity.recent": "Lastatempe",
+  "js.push_signal": "☕ {name} sendis ion al vi",
+  "js.push_chat": "💬 Mesaĝo de {name}",
+  "js.push_invite": "🤝 Iu uzis vian kodon",
+  "js.push_inbox": "📥 Mesaĝo en via publika poŝtkesto",
+  "js.push_answer": "🔒 Privata respondo al “{post}”"
 }

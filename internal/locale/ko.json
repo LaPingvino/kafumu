@@ -657,5 +657,10 @@
   "area.calendar_title": "이 지역의 모임을 내 캘린더에",
   "area.rss_title": "이 지역을 피드 리더나 내 웹사이트에서 팔로우",
   "activity.chats": "채팅",
-  "activity.recent": "최근"
+  "activity.recent": "최근",
+  "js.push_signal": "☕ {name}님이 보낸 것이 있어요",
+  "js.push_chat": "💬 {name}님의 메시지",
+  "js.push_invite": "🤝 누군가 내 코드를 사용했어요",
+  "js.push_inbox": "📥 공개 받은편지함에 메시지",
+  "js.push_answer": "🔒 “{post}”에 대한 비공개 답장"
 }

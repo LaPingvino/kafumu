@@ -657,5 +657,10 @@
   "area.calendar_title": "Întâlnirile din zonă în calendarul tău",
   "area.rss_title": "Urmărește zona într-un cititor de fluxuri sau pe site-ul tău",
   "activity.chats": "Conversații",
-  "activity.recent": "Recent"
+  "activity.recent": "Recent",
+  "js.push_signal": "☕ {name} ți-a trimis ceva",
+  "js.push_chat": "💬 Un mesaj de la {name}",
+  "js.push_invite": "🤝 Cineva a folosit codul tău",
+  "js.push_inbox": "📥 Un mesaj în căsuța ta publică",
+  "js.push_answer": "🔒 Un răspuns privat la „{post}”"
 }
