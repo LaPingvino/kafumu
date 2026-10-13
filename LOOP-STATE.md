@@ -1045,3 +1045,28 @@ Per the OLN json-spec, a link is an index key like a tag (index["link"] → mess
 - [ ] Polish: flaky browser step "third device asks for the key, with a code" (business private mode), 1× on
       2026-10-10 (passed on rerun). Make its failure report what the key-request API answered, like the sync one.
       Diagnostics added (actingSync, the key panel, GET keyreq): read them when it next fails.
+
+## 81. Local sources per area (Joop 2026-10-13: "I want people to be able to care about their local area")
+Kafumu can't know what an area cares about; its people can. Sources are added by named accounts with a
+passkey, always bound to an area, carry an OLN value (mined, sorted by it), capped per account, and are pulled
+only for areas people actually look at. Each slice passes one test: does the area feel more alive to a local?
+- [ ] 81a. Out: an RSS feed per area (`/rss/{cell}`: its local lines and meetups, from the cached bundles),
+      and two buttons on each area like Eventa Servo's per country: 📅 Calendar (the existing /cal/{cell}) and
+      📰 RSS. 24 languages.
+- [ ] 81b. In, parsing: importer.ParseFeed (RSS 2.0 + Atom: title, link, date, guid), tests. Fetching
+      user-supplied URLs needs an SSRF-safe client (http/https only, no loopback/private/link-local/metadata
+      addresses after DNS, also on redirects; timeout, body cap) — importer.Get has none of that yet.
+- [ ] 81c. A source is an OLN line in the area with the URL and `#feed` (no new entity, rule 5): the server
+      accepts `#feed` only from a signed-in named account with a passkey, at most 5 live per account, cell
+      required (never 000000). "📰 Add a source for this area" in the composer; listed on the area page with
+      who added it. oln.html: a source lives as long as its line (renewable), nothing permanent. 24 languages.
+- [ ] 81d. Pull: a bot-safe "seen cells" record (like seen-countries); the 6-hourly feeds job pulls sources of
+      cells seen in the last 3 days (bounded per run): calendar feeds → meetups (existing path), RSS/Atom items
+      → expiring notes in that cell, Author = who added it, #site_host, value from the source line (below what
+      locals mined: check score/drawFeed).
+- [ ] 81e. Show: "via 🌐 host · added by @name" items in the area feed, reactions work as on any line; browser
+      test step + 390 px.
+- [ ] 81f. Discover: for seen cells, count the sites the area's Bluesky posts link to most; for the top few,
+      look for RSS autodiscovery (<link rel=alternate type=rss/atom>) through the safe client, bounded per run;
+      on top of the area page: "People here often share example.nl — add its news to this area?" (one tap for a
+      named passkey account, which posts the 81c line).
