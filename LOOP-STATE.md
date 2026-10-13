@@ -1042,6 +1042,10 @@ Per the OLN json-spec, a link is an index key like a tag (index["link"] → mess
       inbox, profile, Bluesky connect/disconnect, admin role/keep/patron. The touch was the dangerous one: from an
       instance's cached copy it could drop a session another instance had just added (a new device signed out).
       Test TestTouchKeepsOtherInstancesSession fails on the old code, passes now.
+- [ ] Joop 2026-10-13: Contacts empty on one Chromebook, sync doesn't bring them back (same machine has storage
+      trouble with other apps). Asked: which address (kafumu.com vs the old appspot one: separate storage), acting as
+      a business (separate store), DevTools → Application → IndexedDB → kafumu → contacts. Also the browser step "A's
+      own name for D kept" failed once (passed on rerun): look for a lost alias write.
 - [ ] Polish: flaky browser step "third device asks for the key, with a code" (business private mode), 1× on
       2026-10-10 (passed on rerun). Make its failure report what the key-request API answered, like the sync one.
       Diagnostics added (actingSync, the key panel, GET keyreq): read them when it next fails.
