@@ -671,5 +671,9 @@
   "help.account": "A conta só é precisa para algumas coisas (organizar encontros, um @nome, Bluesky). Os teus contactos e cartão ficam no teu dispositivo.",
   "help.findable": "Deixa que pessoas perto te encontrem pelos teus interesses, só quando e onde quiseres. Desligado por defeito.",
   "help.show": "Mostra-me",
-  "help.again": "O que é esta página?"
+  "help.again": "O que é esta página?",
+  "activity.all": "Tudo",
+  "activity.unread": "Por ler",
+  "js.act_open": "Abrir",
+  "js.contact_card": "Cartão"
 }

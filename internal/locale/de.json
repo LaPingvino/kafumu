@@ -671,5 +671,9 @@
   "help.account": "Ein Konto brauchst du nur für manches (Treffen anbieten, ein @Name, Bluesky). Kontakte und Karte bleiben auf deinem Gerät.",
   "help.findable": "Lass Leute in der Nähe dich über deine Interessen finden, nur wann und wo du willst. Standardmäßig aus.",
   "help.show": "Zeig's mir",
-  "help.again": "Was ist diese Seite?"
+  "help.again": "Was ist diese Seite?",
+  "activity.all": "Alle",
+  "activity.unread": "Ungelesen",
+  "js.act_open": "Öffnen",
+  "js.contact_card": "Karte"
 }

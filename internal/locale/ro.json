@@ -671,5 +671,9 @@
   "help.account": "Contul e necesar doar pentru unele lucruri (organizat întâlniri, un @nume, Bluesky). Contactele și cartea rămân pe dispozitivul tău.",
   "help.findable": "Lasă oamenii din apropiere să te găsească după interese, doar când și unde vrei. Oprit implicit.",
   "help.show": "Arată-mi",
-  "help.again": "Ce e pagina asta?"
+  "help.again": "Ce e pagina asta?",
+  "activity.all": "Toate",
+  "activity.unread": "Necitite",
+  "js.act_open": "Deschide",
+  "js.contact_card": "Cartea"
 }

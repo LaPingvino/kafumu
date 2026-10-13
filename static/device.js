@@ -203,6 +203,8 @@
   // mailbox and stored in the contact (synced to your own devices). Shown on
   // the contact card and in the mailbox (83c): {button, thread, open}.
   function chatPanel(c, T, opts) {
+    // save: where the thread lives (a contact, or a private-answer thread).
+    var save = opts.save || function (x) { return store.putContact(x); };
     var unread = c.unreadMsgs || 0;
     var chatBtn = el("button", "pill-sm" + (unread ? " suggested" : ""), "💬 " + (T.chat || "Chat") + (unread ? " (" + unread + ")" : ""));
     chatBtn.type = "button";
@@ -217,7 +219,7 @@
       yes.type = no.type = "button";
       function answer(text, then) {
         yes.disabled = no.disabled = true;
-        sendLine(text).then(function () { m.answered = true; return store.putContact(c); }).then(function () { drawThread(); if (then) then(); }, function () { yes.disabled = no.disabled = false; });
+        sendLine(text).then(function () { m.answered = true; return save(c); }).then(function () { drawThread(); if (then) then(); }, function () { yes.disabled = no.disabled = false; });
       }
       yes.onclick = function () { answer("✅ " + yes.textContent, function () { location.href = link; }); }; // they say "I'm going" there
       no.onclick = function () { answer("🙁 " + no.textContent); };
@@ -256,7 +258,7 @@
       var msg = { t: "msg", text: text, at: new Date().toISOString() };
       return opts.send(c, msg).then(function () {
         c.messages = (c.messages || []).concat([{ me: true, text: text, at: msg.at }]).slice(-200);
-        return store.putContact(c);
+        return save(c);
       });
     }
     form.onsubmit = function (e) {
@@ -276,12 +278,12 @@
       if (thread.hidden) return;
       if (!thread.contains(form)) thread.appendChild(form);
       drawThread();
-      if (c.unreadMsgs) { c.unreadMsgs = 0; store.putContact(c); chatBtn.textContent = "💬 " + (T.chat || "Chat"); chatBtn.classList.remove("suggested"); }
+      if (c.unreadMsgs) { c.unreadMsgs = 0; save(c); chatBtn.textContent = "💬 " + (T.chat || "Chat"); chatBtn.classList.remove("suggested"); }
       input.focus();
       // While open, look for replies every few seconds.
       (function poll() {
         if (thread.hidden || !document.body.contains(thread) || !opts.check) return;
-        opts.check(c).then(function (got) { if (got && got.length) { c.unreadMsgs = 0; store.putContact(c); drawThread(); } })
+        opts.check(c).then(function (got) { if (got && got.length) { c.unreadMsgs = 0; save(c); drawThread(); } })
           .catch(function () {}).then(function () { setTimeout(poll, 4000); });
       })();
     };

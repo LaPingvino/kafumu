@@ -671,5 +671,9 @@
   "help.account": "Tài khoản chỉ cần cho vài việc (tổ chức buổi gặp, @tên, Bluesky). Danh bạ và danh thiếp vẫn ở trên thiết bị của bạn.",
   "help.findable": "Để người gần đó tìm thấy bạn qua sở thích, chỉ khi và nơi bạn muốn. Mặc định tắt.",
   "help.show": "Cho tôi xem",
-  "help.again": "Trang này là gì?"
+  "help.again": "Trang này là gì?",
+  "activity.all": "Tất cả",
+  "activity.unread": "Chưa đọc",
+  "js.act_open": "Mở",
+  "js.contact_card": "Danh thiếp"
 }

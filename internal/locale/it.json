@@ -671,5 +671,9 @@
   "help.account": "L'account serve solo per alcune cose (organizzare incontri, un @nome, Bluesky). Contatti e biglietto restano sul tuo dispositivo.",
   "help.findable": "Fatti trovare da chi è vicino in base ai tuoi interessi, solo quando e dove vuoi. Spento di default.",
   "help.show": "Mostrami",
-  "help.again": "Cos'è questa pagina?"
+  "help.again": "Cos'è questa pagina?",
+  "activity.all": "Tutto",
+  "activity.unread": "Da leggere",
+  "js.act_open": "Apri",
+  "js.contact_card": "Biglietto"
 }

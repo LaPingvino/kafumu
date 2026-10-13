@@ -671,5 +671,9 @@
   "help.account": "Ett konto behövs bara för vissa saker (ordna träffar, ett @namn, Bluesky). Dina kontakter och ditt kort stannar på din enhet.",
   "help.findable": "Låt folk i närheten hitta dig via dina intressen, bara när och var du vill. Avstängt som standard.",
   "help.show": "Visa mig",
-  "help.again": "Vad är den här sidan?"
+  "help.again": "Vad är den här sidan?",
+  "activity.all": "Alla",
+  "activity.unread": "Olästa",
+  "js.act_open": "Öppna",
+  "js.contact_card": "Kort"
 }

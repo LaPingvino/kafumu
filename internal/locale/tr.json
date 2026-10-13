@@ -671,5 +671,9 @@
   "help.account": "Hesap yalnızca bazı şeyler için gerekir (buluşma düzenlemek, @ad, Bluesky). Kişilerin ve kartın cihazında kalır.",
   "help.findable": "Yakındaki insanlar seni ilgi alanlarından bulsun, sadece istediğin zaman ve yerde. Varsayılan olarak kapalı.",
   "help.show": "Göster",
-  "help.again": "Bu sayfa ne?"
+  "help.again": "Bu sayfa ne?",
+  "activity.all": "Tümü",
+  "activity.unread": "Okunmamış",
+  "js.act_open": "Aç",
+  "js.contact_card": "Kart"
 }

@@ -671,5 +671,9 @@
   "help.account": "账号只在某些功能需要（举办聚会、@名字、Bluesky）。你的联系人和名片留在你的设备上。",
   "help.findable": "让附近的人按兴趣找到你，只在你选择的时间和地点。默认关闭。",
   "help.show": "给我看看",
-  "help.again": "这是什么页面？"
+  "help.again": "这是什么页面？",
+  "activity.all": "全部",
+  "activity.unread": "未读",
+  "js.act_open": "打开",
+  "js.contact_card": "名片"
 }

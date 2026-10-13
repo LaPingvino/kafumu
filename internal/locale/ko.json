@@ -671,5 +671,9 @@
   "help.account": "계정은 일부 기능(모임 주최, @이름, Bluesky)에만 필요해요. 연락처와 명함은 내 기기에 남아요.",
   "help.findable": "근처 사람들이 관심사로 나를 찾을 수 있게 해요. 언제 어디서인지는 내가 정해요. 기본은 꺼짐.",
   "help.show": "보여줘",
-  "help.again": "이 페이지는 뭐예요?"
+  "help.again": "이 페이지는 뭐예요?",
+  "activity.all": "전체",
+  "activity.unread": "읽지 않음",
+  "js.act_open": "열기",
+  "js.contact_card": "명함"
 }

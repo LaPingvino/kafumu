@@ -671,5 +671,9 @@
   "help.account": "Your account is only needed for some things (hosting meetups, an @name, Bluesky). Your contacts and card stay on your device.",
   "help.findable": "Let people nearby find you by your interests, only when and where you choose. Off by default.",
   "help.show": "Show me",
-  "help.again": "What is this page?"
+  "help.again": "What is this page?",
+  "activity.all": "All",
+  "activity.unread": "Unread",
+  "js.act_open": "Open",
+  "js.contact_card": "Card"
 }

@@ -671,5 +671,9 @@
   "help.account": "Fiók csak néhány dologhoz kell (találkozók szervezése, @név, Bluesky). A névjegyeid és a kártyád az eszközödön maradnak.",
   "help.findable": "Hadd találjanak meg a közelben lévők az érdeklődési köreid alapján, csak amikor és ahol te akarod. Alapból ki van kapcsolva.",
   "help.show": "Mutasd",
-  "help.again": "Mi ez az oldal?"
+  "help.again": "Mi ez az oldal?",
+  "activity.all": "Mind",
+  "activity.unread": "Olvasatlan",
+  "js.act_open": "Megnyitás",
+  "js.contact_card": "Kártya"
 }

@@ -671,5 +671,9 @@
   "help.account": "En konto skal kun bruges til nogle ting (holde meetups, et @navn, Bluesky). Dine kontakter og dit kort bliver på din enhed.",
   "help.findable": "Lad folk i nærheden finde dig på dine interesser, kun når og hvor du vil. Slået fra som standard.",
   "help.show": "Vis mig det",
-  "help.again": "Hvad er denne side?"
+  "help.again": "Hvad er denne side?",
+  "activity.all": "Alle",
+  "activity.unread": "Ulæste",
+  "js.act_open": "Åbn",
+  "js.contact_card": "Kort"
 }

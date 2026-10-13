@@ -104,12 +104,14 @@ try {
   await A.goto(base + "/?cell=6fg223");
   // The area only links to the conversation; it lives in the mailbox (83b).
   await A.waitFor("!document.getElementById('answers-link').hidden && document.querySelector('#answers-link a').getAttribute('href') === '/activity#answers'", "🔒 Private answers link on the area", 30000);
-  await A.goto(base + "/activity");
-  await A.waitFor("!document.getElementById('answers').hidden && document.getElementById('answers-list').textContent.includes('Private hello back " + RUN + "')", "A gets the private answer", 30000);
-  await A.evaluate("(() => { const f = document.querySelector('#answers-list form'); f.querySelector('input').value = 'Thanks, see you " + RUN + "'; f.requestSubmit(); return true; })()");
-  await A.waitFor("document.getElementById('answers-list').textContent.includes('→ Thanks, see you " + RUN + "')", "A's reply shown", 30000);
+  // The mailbox (85b): the answer is a chat in the list; its row opens it in place.
+  const openAnswer = "(() => { const li = document.querySelector('#threads li[id^=\"answer-\"]'); if (li && !li.querySelector('.thread-body')) li.querySelector('.thread-head').click(); return !!li; })()";
+  await A.goto(base + "/activity#answers");
+  await A.waitFor(openAnswer + " && [...document.querySelectorAll('#threads li[id^=\"answer-\"] .bubble')].some(b => b.textContent.includes('Private hello back " + RUN + "'))", "A gets the private answer", 30000);
+  await A.evaluate("(() => { const f = document.querySelector('#threads li[id^=\"answer-\"] .chat-form'); f.querySelector('input').value = 'Thanks, see you " + RUN + "'; f.requestSubmit(); return true; })()");
+  await A.waitFor("[...document.querySelectorAll('#threads .bubble.me')].some(b => b.textContent === 'Thanks, see you " + RUN + "')", "A's reply shown", 30000);
   await B.goto(base + "/activity");
-  await B.waitFor("document.getElementById('answers-list').textContent.includes('← Thanks, see you " + RUN + "')", "B gets A's reply", 30000);
+  await B.waitFor(openAnswer + " && [...document.querySelectorAll('#threads li[id^=\"answer-\"] .bubble:not(.me)')].some(b => b.textContent.includes('Thanks, see you " + RUN + "'))", "B gets A's reply", 30000);
   // A's own post offers no private answer to itself.
   await A.goto(base + "/?cell=6fg223");
   await A.waitFor("document.getElementById('feed').textContent.includes('hi from the OLN " + RUN + "')", "A back on the area", 30000);
@@ -144,20 +146,22 @@ try {
   // Replies by post id are cached a minute (server and browser): reload until the answer is in.
   for (let i = 0; ; i++) {
     await A.goto(base + "/activity");
-    try { await A.waitFor("[...document.querySelectorAll('#activity li.unread')].some(li => li.textContent.includes('Manteigaria') && li.textContent.includes('pastel de nata') && li.querySelector('a[href^=\"/?cell=6fg223#re-\"]'))", "Activity lists the answer as new, linking to its area", 8000); break; }
+    try { await A.waitFor("[...document.querySelectorAll('#threads > li.unread')].some(li => li.textContent.includes('Manteigaria') && li.textContent.includes('pastel de nata'))", "the mailbox has the answer as new, in the post's thread", 8000); break; }
     catch (e) { if (i >= 9) throw e; }
   }
-  await A.waitFor("[...document.querySelectorAll('#activity li')].some(li => li.textContent.includes('🤝') && li.textContent.includes('connected with you') && li.querySelector('a[href^=\"/contacts#c-\"]'))", "Activity: B connected through A's code");
+  await A.waitFor("[...document.querySelectorAll('#threads > li[id^=\"chat-\"]')].some(li => li.textContent.includes('Bea'))", "the mailbox lists contacts too");
   await A.goto(base + "/activity");
-  await A.waitFor("[...document.querySelectorAll('#activity li')].some(li => li.textContent.includes('Manteigaria') && !li.classList.contains('unread'))", "and then as seen");
-  // Tapping it opens the area at the post, which glows briefly.
-  await A.evaluate("location.href = [...document.querySelectorAll('#activity li')].find(li => li.textContent.includes('Manteigaria')).querySelector('a').href; true");
+  await A.waitFor("[...document.querySelectorAll('#threads > li')].some(li => li.textContent.includes('Manteigaria') && !li.classList.contains('unread'))", "and then as seen");
+  // Its thread opens in place; "Open ↗" goes to the area at the post, which glows briefly.
+  await A.evaluate("[...document.querySelectorAll('#threads > li')].find(li => li.textContent.includes('Manteigaria')).querySelector('.thread-head').click(); true");
+  await A.waitFor("[...document.querySelectorAll('#threads > li')].some(li => li.textContent.includes('Manteigaria') && li.querySelector('.thread-body a[href^=\"/?cell=6fg223#re-\"]'))", "the post's thread links to its area");
+  await A.evaluate("location.href = [...document.querySelectorAll('#threads > li')].find(li => li.textContent.includes('Manteigaria')).querySelector('.thread-body a').href; true");
   await A.waitFor("!!document.querySelector('#feed li.flash') && document.querySelector('#feed li.flash').textContent.includes('pastel de nata')", "opened at the post, highlighted", 20000);
   // A private answer opens at its thread, ready to answer.
   await A.goto(base + "/activity");
-  await A.waitFor("[...document.querySelectorAll('#activity li')].some(li => li.textContent.includes('🔒'))", "the private answer in Activity", 15000);
-  await A.evaluate("location.href = [...document.querySelectorAll('#activity li')].find(li => li.textContent.includes('🔒')).querySelector('a').href; true");
-  await A.waitFor("!!document.querySelector('#answers-list li.flash') && document.querySelector('#answers-list li.flash').textContent.includes('Private hello back')", "opened at the answer thread", 20000);
+  await A.waitFor("!!document.querySelector('#threads li[id^=\"answer-\"]')", "the private answer in the mailbox", 15000);
+  await A.evaluate("location.href = '/activity#' + document.querySelector('#threads li[id^=\"answer-\"]').id; true");
+  await A.waitFor("!!document.querySelector('#threads li.flash') && [...document.querySelectorAll('#threads li.flash .bubble')].some(b => b.textContent.includes('Private hello back'))", "opened at the answer thread", 20000);
 
   // A line without a place about a subject (78a): B sees it from anywhere,
   // marked 🌍, when filtering on that subject.
@@ -213,15 +217,15 @@ try {
   for (let i = 0; ; i++) {
     await A.goto(base + "/contacts"); await sleep(2500);
     await A.goto(base + "/activity");
-    try { await A.waitFor("[...document.querySelectorAll('#activity li')].some(li => li.textContent.includes('👀') && li.textContent.includes('kafumu-" + RUN + "'))", "A has B's 👀 in Activity", 6000); break; }
+    try { await A.waitFor("[...document.querySelectorAll('#threads > li[id^=\"chat-\"]')].some(li => li.textContent.includes('👀'))", "A has B's 👀 in the mailbox", 6000); break; }
     catch (e) { if (i >= 5) throw e; }
   }
   // Tapping it opens that contact's chat, at the message.
-  await A.evaluate("location.href = [...document.querySelectorAll('#activity li')].find(li => li.textContent.includes('👀')).querySelector('a').href; true");
-  await A.waitFor("(() => { const c = document.querySelector('#chats-list li.flash .chat'); return c && !c.hidden && c.textContent.includes('kafumu-" + RUN + "'); })()", "the mailbox opened that chat, in place (83c)", 20000);
+  await A.evaluate("location.href = '/activity#' + [...document.querySelectorAll('#threads > li[id^=\"chat-\"]')].find(li => li.textContent.includes('👀')).id; true");
+  await A.waitFor("(() => { const c = document.querySelector('#threads li.flash .chat'); return c && !c.hidden && c.textContent.includes('kafumu-" + RUN + "'); })()", "the mailbox opened that chat, in place (83c)", 20000);
   // And it answers from there, like on the contact card.
-  await A.evaluate("(() => { const f = document.querySelector('#chats-list li.flash .chat-form'); f.querySelector('input').value = 'From the mailbox " + RUN + "'; f.requestSubmit(); return true; })()");
-  await A.waitFor("[...document.querySelectorAll('#chats-list .bubble.me')].some(b => b.textContent === 'From the mailbox " + RUN + "')", "answered from the mailbox", 30000);
+  await A.evaluate("(() => { const f = document.querySelector('#threads li.flash .chat-form'); f.querySelector('input').value = 'From the mailbox " + RUN + "'; f.requestSubmit(); return true; })()");
+  await A.waitFor("[...document.querySelectorAll('#threads .bubble.me')].some(b => b.textContent === 'From the mailbox " + RUN + "')", "answered from the mailbox", 30000);
   // What a notification would say (83d): composed on the device, per box: who, and where it opens.
   await A.waitFor("window.kafumuPair.create({ fetch: window.fetch.bind(window), store: window.kafumuDevice.store, origin: location.origin }).labelled().then(ls => ls.some(l => /^💬 .*Bea/.test(l.body) && l.url.startsWith('/activity#chat-')) && ls.some(l => l.body.startsWith('🔒') && l.url.startsWith('/activity#answer')))", "notification labels: 💬 from Bea, 🔒 an answer", 10000);
   // "Shall we go together?" (80b): such a line in A's chat offers Yes / Can't.
@@ -346,7 +350,7 @@ try {
   await A.waitFor("window.kafumuDevice.store.get('myMeetups').then(ms => (ms || []).some(m => m.role === 'host' && m.title === 'Browser test kafo' && m.going === 1))", "hosted meetup remembered on the device");
   await A.evaluate("window.kafumuDevice.store.get('myMeetups').then(ms => window.kafumuDevice.store.set('myMeetups', ms.map(m => m.title === 'Browser test kafo' ? Object.assign(m, { going: 0 }) : m)))");
   await A.goto(base + "/activity");
-  await A.waitFor("[...document.querySelectorAll('#activity li')].some(li => li.textContent.includes('🙋') && li.textContent.includes('1 going now') && li.textContent.includes('Browser test kafo'))", "Activity: someone joined your meetup", 15000);
+  await A.waitFor("[...document.querySelectorAll('#threads > li')].some(li => li.textContent.includes('🙋') && li.textContent.includes('1 going now') && li.textContent.includes('Browser test kafo'))", "mailbox: someone joined your meetup", 15000);
   await A.goto(meetupURL);
   // Other instances cache a cell's meetups for up to a minute: reload until it shows.
   for (let i = 0; ; i++) {

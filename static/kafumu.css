@@ -363,3 +363,13 @@ button.react.sent { animation: kf-bump .3s ease-out; }
 @keyframes kf-flash { from { box-shadow: 0 0 0 3px var(--accent); } to { box-shadow: 0 0 0 3px transparent; } }
 li.flash { animation: kf-flash 2.2s ease-out; border-radius: var(--radius); }
 @media (prefers-reduced-motion: reduce) { li.flash { animation: none; outline: 3px solid var(--accent); } }
+
+/* The mailbox (85b): one chat list; a row opens its chat in place. */
+.threads { list-style: none; padding: 0; margin: 0; }
+.threads > li { list-style: none; border-bottom: 1px solid var(--border); padding: 0; }
+.thread-head { display: grid; grid-template-columns: 1fr auto auto; gap: 2px 8px; width: 100%; text-align: left; background: none; border: 0; color: var(--fg); padding: 10px 4px; margin: 0; font-weight: normal; }
+.thread-head:hover { background: var(--shade); }
+.thread-head strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.thread-prev { grid-column: 1 / -1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.threads > li.unread .thread-head strong { font-weight: 700; }
+.thread-body { padding: 0 4px 12px; }

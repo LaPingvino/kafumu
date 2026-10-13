@@ -1161,7 +1161,10 @@ desktop: chat windows docked at the bottom.
       signals + "connected" in one two-way thread, answers two-way, inbox and notices one-way grouped per thing
       (Activity's replies/meetups/Bluesky items now carry thread/kind/title). Was: The model: one thread list built on the device from contacts, answers, myPosts, myMeetups, shares;
       each thread {kind, who, title, twoWay, items[]}, rendered as bubbles. Unit test.
-- [ ] 85b. The list page (mailbox + contacts merged; "Contacts" filter; the contact card reachable from a thread).
+- [x] 85b. Done: /activity is one chat list (threads.js): rows with title, last line, time, unread count; filters
+      All / Contacts / Unread; a row opens in place: contacts and private answers as the same two-way chat
+      (device.chatPanel, now with opts.save), posts/meetups/Bluesky as one-way bubbles + "Open ↗"; #chat-/#answer-/
+      #answers deep links open and focus. Old answers.js and the separate lists are gone. Was: The list page (mailbox + contacts merged; "Contacts" filter; the contact card reachable from a thread).
 - [ ] 85c. Mobile full-screen chat window with back; desktop docked windows at the bottom.
 - [ ] 85d. Shares and every other activity as bubbles in their thread; the contact card loses its chat.
 

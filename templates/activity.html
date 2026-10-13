@@ -1,16 +1,19 @@
 {{template "head" .}}
 <h1>{{t .Lang "activity.title"}}</h1>
-<p class="dim">{{t .Lang "activity.explain"}}</p>
-<section id="answers" hidden><h2>🔒 {{t .Lang "js.answers_title"}}</h2><ul id="answers-list" class="boxed-list"></ul></section>
-<section id="chats" hidden><h2>💬 {{t .Lang "activity.chats"}}</h2><ul id="chats-list" class="boxed-list"></ul></section>
-<h2 id="recent-title" hidden>🔔 {{t .Lang "activity.recent"}}</h2>
-<p id="activity-empty" class="dim" hidden>{{t .Lang "activity.empty"}}</p>
-<ul id="activity" class="activity"></ul>
+<div id="mailbox">
+  <div id="thread-filter" class="chips" role="group">
+    <button type="button" class="chip on" data-f="all">{{t .Lang "activity.all"}}</button>
+    <button type="button" class="chip" data-f="contacts">{{t .Lang "nav.contacts"}}</button>
+    <button type="button" class="chip" data-f="unread">{{t .Lang "activity.unread"}}</button>
+  </div>
+  <p id="activity-empty" class="dim" hidden>{{t .Lang "activity.empty"}}</p>
+  <ul id="threads" class="threads"></ul>
+</div>
 <script>window.KAFUMU_T = {{.JS}};</script>
 <script src="/static/device.js?v={{.V}}"></script>
 <script src="/static/sha1.js?v={{.V}}"></script>
 <script src="/static/pair.js?v={{.V}}"></script>
 <script src="/static/oln.js?v={{.V}}"></script>
-<script src="/static/answers.js?v={{.V}}"></script>
+<script src="/static/threads.js?v={{.V}}"></script>
 <script src="/static/activity.js?v={{.V}}"></script>
 {{template "foot" .}}

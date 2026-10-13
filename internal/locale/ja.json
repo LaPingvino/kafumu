@@ -671,5 +671,9 @@
   "help.account": "アカウントは一部の機能（ミートアップの開催、@名前、Bluesky）にだけ必要です。連絡先と名刺は端末に残ります。",
   "help.findable": "近くの人が興味からあなたを見つけられるようにします。いつ・どこでかはあなたが決めます。初期設定はオフ。",
   "help.show": "見せて",
-  "help.again": "このページは何？"
+  "help.again": "このページは何？",
+  "activity.all": "すべて",
+  "activity.unread": "未読",
+  "js.act_open": "開く",
+  "js.contact_card": "名刺"
 }

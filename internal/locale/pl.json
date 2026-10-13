@@ -671,5 +671,9 @@
   "help.account": "Konto jest potrzebne tylko do niektórych rzeczy (organizowanie spotkań, @nazwa, Bluesky). Kontakty i wizytówka zostają na twoim urządzeniu.",
   "help.findable": "Pozwól ludziom w pobliżu znaleźć cię po zainteresowaniach, tylko kiedy i gdzie chcesz. Domyślnie wyłączone.",
   "help.show": "Pokaż mi",
-  "help.again": "Co to za strona?"
+  "help.again": "Co to za strona?",
+  "activity.all": "Wszystko",
+  "activity.unread": "Nieprzeczytane",
+  "js.act_open": "Otwórz",
+  "js.contact_card": "Wizytówka"
 }

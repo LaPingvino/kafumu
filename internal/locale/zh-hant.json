@@ -671,5 +671,9 @@
   "help.account": "帳號只在某些功能需要（舉辦聚會、@名字、Bluesky）。你的聯絡人和名片留在你的裝置上。",
   "help.findable": "讓附近的人依興趣找到你，只在你選擇的時間和地點。預設關閉。",
   "help.show": "給我看看",
-  "help.again": "這是什麼頁面？"
+  "help.again": "這是什麼頁面？",
+  "activity.all": "全部",
+  "activity.unread": "未讀",
+  "js.act_open": "開啟",
+  "js.contact_card": "名片"
 }

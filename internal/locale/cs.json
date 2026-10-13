@@ -671,5 +671,9 @@
   "help.account": "Účet je potřeba jen na něco (pořádání setkání, @jméno, Bluesky). Kontakty a vizitka zůstávají ve tvém zařízení.",
   "help.findable": "Nech lidi poblíž, ať tě najdou podle zájmů, jen kdy a kde chceš. Ve výchozím stavu vypnuto.",
   "help.show": "Ukaž mi to",
-  "help.again": "Co je tahle stránka?"
+  "help.again": "Co je tahle stránka?",
+  "activity.all": "Vše",
+  "activity.unread": "Nepřečtené",
+  "js.act_open": "Otevřít",
+  "js.contact_card": "Vizitka"
 }

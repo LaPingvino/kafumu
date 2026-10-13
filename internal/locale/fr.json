@@ -671,5 +671,9 @@
   "help.account": "Un compte n'est utile que pour certaines choses (organiser des rencontres, un @nom, Bluesky). Tes contacts et ta carte restent sur ton appareil.",
   "help.findable": "Laisse les gens proches te trouver par tes centres d'intérêt, seulement quand et où tu veux. Désactivé par défaut.",
   "help.show": "Montre-moi",
-  "help.again": "C'est quoi, cette page ?"
+  "help.again": "C'est quoi, cette page ?",
+  "activity.all": "Tout",
+  "activity.unread": "Non lus",
+  "js.act_open": "Ouvrir",
+  "js.contact_card": "Carte"
 }

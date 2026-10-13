@@ -671,5 +671,9 @@
   "help.account": "Een account is alleen nodig voor sommige dingen (meetups organiseren, een @naam, Bluesky). Je contacten en kaartje blijven op je apparaat.",
   "help.findable": "Laat mensen in de buurt je vinden op je interesses, alleen wanneer en waar jij wilt. Staat standaard uit.",
   "help.show": "Laat zien",
-  "help.again": "Wat is deze pagina?"
+  "help.again": "Wat is deze pagina?",
+  "activity.all": "Alles",
+  "activity.unread": "Ongelezen",
+  "js.act_open": "Openen",
+  "js.contact_card": "Kaartje"
 }

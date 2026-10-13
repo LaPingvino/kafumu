@@ -165,91 +165,106 @@
     });
   }
 
-  function render(ul, items) {
-    ul.textContent = "";
-    items.forEach(function (it) {
-      var li = document.createElement("li");
-      if (it.unread) li.className = "unread";
-      var a = document.createElement("a");
-      a.href = it.href;
-      var icon = document.createElement("span"); icon.className = "act-icon"; icon.textContent = it.icon; icon.setAttribute("aria-hidden", "true");
-      var body = document.createElement("span"); body.className = "act-body";
-      var head = document.createElement("span"); head.className = "dim small";
-      head.textContent = [it.who, it.about, new Date(it.at).toLocaleString(window.KAFUMU_LOCALE, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })].filter(Boolean).join(" · ");
-      // Several lines ("👀 Did you see this?", a title, a link) read as one: "line · line", the bare link left
-      // out (the chat it opens has it, clickable).
-      var lines = String(it.text || "").split("\n").map(function (l) { return l.trim(); }).filter(function (l) { return l && !/^https?:\/\/\S+$/.test(l); });
-      var text = document.createElement("span"); text.className = "act-text"; text.textContent = short(lines.join(" · "), 200);
-      body.appendChild(head); body.appendChild(text);
-      a.appendChild(icon); a.appendChild(body);
-      li.appendChild(a);
-      ul.appendChild(li);
-    });
-  }
-
-  // chats (83c): every contact you've written with, newest first, each
-  // with its chat (the same one as on the contact card) to read and answer.
-  function chats(sec, pair) {
-    var ul = sec.querySelector("ul"), linked = false;
-    function send(c, msg) {
-      if (msg.t === "msg" && window.kafumuOLN) return pair.sendChat(c, msg.text, function (text, kw, bits) { return window.kafumuOLN.post(text, kw, bits, function () {}); });
-      return pair.send(c, msg);
+  // mailbox (85b): every conversation as one chat list (static/threads.js):
+  // contacts (always), private answers, and one thread per post, meetup or
+  // Bluesky post of yours collecting what happened to it. A row opens its
+  // chat in place: two-way ones to answer, one-way ones to read.
+  function mailbox(box, pair, items) {
+    var ul = box.querySelector("#threads"), filter = "all", linked = false, open = {};
+    function post(t, kw, b) { return window.kafumuOLN.post(t, kw, b, function () {}); }
+    function sendContact(c, msg) { return msg.t === "msg" ? pair.sendChat(c, msg.text, post) : pair.send(c, msg); }
+    function checkContact(c) { return pair.checkContact(c).then(function (got) { return pair.readChat(c).then(function (n) { return n ? got.concat([{ t: "msg" }]) : got; }); }); }
+    function when(at) { return at ? new Date(at).toLocaleString(window.KAFUMU_LOCALE, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : ""; }
+    function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+    function oneWay(t) { // what happened to one thing of yours, as bubbles, oldest first
+      var log = el("div", "chat-log");
+      t.items.forEach(function (it) {
+        var b = el("div", "bubble", (it.icon ? it.icon + " " : "") + (it.who ? it.who + ": " : "") + String(it.text || "").split("\n").filter(function (l) { return !/^https?:\/\/\S+$/.test(l.trim()); }).join(" · "));
+        b.title = new Date(it.at).toLocaleString(window.KAFUMU_LOCALE);
+        log.appendChild(b);
+      });
+      var go = el("a", "pill-sm", (T.act_open || "Open") + " ↗"); go.href = t.url; go.setAttribute("role", "button");
+      var wrap = el("div", "chat"); wrap.appendChild(log); wrap.appendChild(go);
+      return wrap;
     }
-    function check(c) { return pair.checkContact(c).then(function (got) { return pair.readChat(c).then(function (n) { return n ? got.concat([{ t: "msg" }]) : got; }); }); }
     function draw() {
-      return dev.store.contacts().then(function (cs) {
-        cs = cs.filter(function (c) { return (c.messages || []).length; });
-        function lastAt(c) { return (c.messages.slice(-1)[0] || {}).at || ""; }
-        cs.sort(function (a, b) { return lastAt(b).localeCompare(lastAt(a)); });
-        sec.hidden = !cs.length;
+      return Promise.all([dev.store.contacts(), pair.threads(), dev.store.get("inboxMsgs")]).then(function (r) {
+        var ts = window.kafumuThreads.build({ contacts: r[0], answers: r[1], inbox: r[2] || [], notices: items.filter(function (i) { return i.thread; }),
+          nameOf: dev.nameOf, signalText: dev.signalText }, T);
+        var byId = {};
+        r[0].forEach(function (c) { byId["c:" + c.id] = c; });
+        r[1].forEach(function (a) { byId["a:" + a.id] = a; });
+        box.querySelectorAll("#thread-filter .chip").forEach(function (b) { b.classList.toggle("on", b.dataset.f === filter); b.setAttribute("aria-pressed", b.dataset.f === filter); });
         ul.textContent = "";
-        cs.slice(0, 30).forEach(function (c) {
-          var li = document.createElement("li"); li.id = "chat-" + c.id;
-          var head = document.createElement("div");
-          var who = document.createElement("a"); who.href = "/contacts#c-" + encodeURIComponent(c.id);
-          who.textContent = dev.nameOf(c, T);
-          var last = c.messages.slice(-1)[0], when = document.createElement("span"); when.className = "dim small";
-          when.textContent = " · " + new Date(last.at).toLocaleString(window.KAFUMU_LOCALE, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
-          head.appendChild(who); head.appendChild(when);
-          var prev = document.createElement("p"); prev.className = "dim small";
-          prev.textContent = (last.me ? "→ " : "← ") + short(String(last.text).split("\n").filter(function (l) { return !/^https?:\/\/\S+$/.test(l.trim()); }).join(" · "), 120);
-          var chat = dev.chatPanel(c, T, { send: send, check: check });
-          chat.button.addEventListener("click", function () { prev.hidden = !chat.thread.hidden; });
-          li.appendChild(head); li.appendChild(prev); li.appendChild(chat.button); li.appendChild(chat.thread);
+        ts.filter(function (t) { return filter === "all" || (filter === "contacts" ? t.kind === "contact" : t.unread > 0); }).forEach(function (t) {
+          var src = byId[t.id], li = el("li", "thread" + (t.unread ? " unread" : ""));
+          li.id = t.kind === "contact" ? "chat-" + src.id : t.kind === "answer" ? "answer-" + src.id : "t-" + t.id;
+          var head = el("button", "thread-head"); head.type = "button";
+          var last = t.items[t.items.length - 1];
+          head.appendChild(el("strong", "", t.title));
+          if (t.unread) head.appendChild(el("span", "badge new-count", String(t.unread)));
+          head.appendChild(el("span", "dim small thread-when", when(t.lastAt)));
+          var prev = last ? (last.me ? "→ " : (last.icon ? last.icon + " " : "")) + String(last.text || "").split("\n")[0] : (T.chat_empty || "");
+          head.appendChild(el("span", "dim small thread-prev", short(prev, 90)));
+          li.appendChild(head);
+          var body;
+          function openIt() {
+            if (!body) {
+              if (t.kind === "contact") {
+                var chat = dev.chatPanel(src, T, { send: sendContact, check: checkContact });
+                body = el("div", "thread-body"); body.appendChild(chat.thread);
+                var card = el("a", "dim small", "🪪 " + (T.contact_card || "Card") + " →"); card.href = "/contacts#c-" + encodeURIComponent(src.id);
+                body.appendChild(card);
+                li.appendChild(body); chat.open();
+              } else if (t.kind === "answer") {
+                var ac = dev.chatPanel(src, T, { send: function (x, msg) { return pair.sendChat(x, msg.text, post); }, save: pair.putThread,
+                  check: function (x) { // new lines land in the stored thread: copy them into this one
+                    return pair.readAnswers().then(function () { return pair.threads(); }).then(function (all) {
+                      var now = all.filter(function (a) { return a.id === x.id; })[0];
+                      if (!now || (now.messages || []).length === (x.messages || []).length) return [];
+                      x.messages = now.messages; return [{ t: "msg" }];
+                    });
+                  } });
+                body = el("div", "thread-body"); body.appendChild(ac.thread); li.appendChild(body); ac.open();
+              } else { body = el("div", "thread-body"); body.appendChild(oneWay(t)); li.appendChild(body); }
+              body.querySelectorAll(".close-chat").forEach(function (x) { x.onclick = function () { body.hidden = true; delete open[t.id]; }; });
+            } else body.hidden = !body.hidden;
+            if (body.hidden) delete open[t.id]; else open[t.id] = true;
+          }
+          head.onclick = openIt;
           ul.appendChild(li);
-          if (!linked && decodeURIComponent(location.hash) === "#chat-" + c.id) {
+          if (open[t.id]) openIt();
+          var hash = decodeURIComponent(location.hash);
+          if (!linked && (hash === "#" + li.id || (hash === "#answers" && t.kind === "answer" && t.unread))) {
             linked = true;
-            setTimeout(function () { chat.open(); li.scrollIntoView({ block: "center", behavior: "smooth" }); li.classList.add("flash"); setTimeout(function () { li.classList.remove("flash"); }, 2500); }, 0);
+            setTimeout(function () { if (!body || body.hidden) openIt(); li.scrollIntoView({ block: "center", behavior: "smooth" }); li.classList.add("flash"); setTimeout(function () { li.classList.remove("flash"); }, 2500); var inp = li.querySelector(".chat-form input"); if (inp) inp.focus({ preventScroll: true }); }, 0);
           }
         });
+        document.getElementById("activity-empty").hidden = ts.length > 0;
       });
     }
+    box.querySelectorAll("#thread-filter .chip").forEach(function (b) { b.onclick = function () { filter = b.dataset.f; open = {}; draw(); }; });
     window.addEventListener("hashchange", function () { linked = false; draw(); });
     // Show what's stored at once, then read new lines of the ten most recent
     // chats (one anonymous fetch each) and redraw if any came in.
     return draw().then(function () { return dev.store.contacts(); }).then(function (cs) {
       cs = cs.filter(function (c) { return (c.messages || []).length; }).sort(function (a, b) { return ((b.messages.slice(-1)[0] || {}).at || "").localeCompare((a.messages.slice(-1)[0] || {}).at || ""); }).slice(0, 10);
       return Promise.all(cs.map(function (c) { return pair.readChat(c).catch(function () { return 0; }); }));
-    }).then(function (ns) { if (ns.some(Boolean) && !ul.querySelector(".chat:not([hidden])")) return draw(); });
+    }).then(function (ns) { if (ns.some(Boolean) && !Object.keys(open).length) return draw(); });
   }
 
   window.kafumuActivity = { gather: gather, count: count, badge: badge };
 
-  var ul = document.getElementById("activity");
-  if (ul) { // the Activity page: read new private answers first, then show, then count it all as seen
+  var mbox = document.getElementById("mailbox");
+  if (mbox) { // the mailbox page: read new private answers first, then show, then count it all as seen
     var aPair = window.kafumuPair && window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin, mine: function (t, kw, b) { return window.kafumuOLN.post(t, kw, b, function () {}); } });
     var fresh = aPair ? aPair.readAnswers().catch(function () {}) : Promise.resolve();
-    // The private conversations, with their reply forms, above the list (83b).
-    if (aPair && window.kafumuAnswers && document.getElementById("answers"))
-      fresh.then(function () { window.kafumuAnswers.mount(document.getElementById("answers"), aPair, function (t, kw, b) { return window.kafumuOLN.post(t, kw, b, function () {}); }); });
     if (aPair) aPair.pushSubscribe(false).catch(function () {}); // keep what wakes you up to date
-    if (aPair && dev.chatPanel && document.getElementById("chats")) fresh.then(function () { return chats(document.getElementById("chats"), aPair); }).catch(function () {});
     fresh.then(count).then(function (items) {
-      render(ul, items);
-      document.getElementById("recent-title").hidden = !items.length;
-      document.getElementById("activity-empty").hidden = items.length > 0;
-      return markSeen(items).then(function () { badge(items.filter(function (i) { return i.hot; }).length); });
-    }).catch(function () { document.getElementById("activity-empty").hidden = false; });
+      return mailbox(mbox, aPair, items).then(function () {
+        return markSeen(items).then(function () { badge(items.filter(function (i) { return i.hot; }).length); });
+      });
+    }).catch(function (e) { document.getElementById("activity-empty").hidden = false; if (window.console) console.error(e); });
   } else { // elsewhere: keep the bell's count fresh
     var tick = function () { if (!document.hidden) count().catch(function () {}); };
     setTimeout(tick, 4000);

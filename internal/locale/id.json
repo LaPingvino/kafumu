@@ -671,5 +671,9 @@
   "help.account": "Akun hanya perlu untuk beberapa hal (mengadakan pertemuan, @nama, Bluesky). Kontak dan kartumu tetap di perangkatmu.",
   "help.findable": "Biarkan orang di dekatmu menemukanmu lewat minatmu, hanya kapan dan di mana kamu mau. Mati secara bawaan.",
   "help.show": "Tunjukkan",
-  "help.again": "Halaman apa ini?"
+  "help.again": "Halaman apa ini?",
+  "activity.all": "Semua",
+  "activity.unread": "Belum dibaca",
+  "js.act_open": "Buka",
+  "js.contact_card": "Kartu"
 }

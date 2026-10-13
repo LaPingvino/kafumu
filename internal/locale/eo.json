@@ -671,5 +671,9 @@
   "help.account": "Konto necesas nur por kelkaj aferoj (aranĝi renkontiĝojn, @nomo, Bluesky). Viaj kontaktoj kaj karto restas en via aparato.",
   "help.findable": "Lasu homojn proksime trovi vin laŭ viaj interesoj, nur kiam kaj kie vi volas. Malŝaltita defaŭlte.",
   "help.show": "Montru al mi",
-  "help.again": "Kio estas ĉi tiu paĝo?"
+  "help.again": "Kio estas ĉi tiu paĝo?",
+  "activity.all": "Ĉio",
+  "activity.unread": "Nelegitaj",
+  "js.act_open": "Malfermi",
+  "js.contact_card": "Karto"
 }
