@@ -111,7 +111,7 @@
       (r[1] || []).forEach(function (t) { // private answers, both ways
         var last = (t.messages || []).filter(function (m) { return !m.me; }).slice(-1)[0];
         if (last) items.push({ id: "a:" + t.id + ":" + (t.messages || []).length, at: last.at, icon: "🔒", who: "",
-          text: last.text, about: tr("act_answer_to", { post: short(t.post && t.post.text, 40) }), href: "/activity#answer-" + encodeURIComponent(t.id), hot: !!t.unreadMsgs });
+          text: last.text, about: tr("act_answer_to", { post: short(t.post && t.post.text, 40) }), href: "/chat?k=a:" + encodeURIComponent(t.id), hot: !!t.unreadMsgs });
       });
       r[2].forEach(function (c) { // contacts: new through your code, their last message, their last signal
         var name = dev.nameOf(c, T);
@@ -119,7 +119,7 @@
           items.push({ id: "c:" + c.id, at: c.createdAt, icon: "🤝", who: name, text: tr("act_connected"), about: "", href: "/contacts#c-" + encodeURIComponent(c.id) });
         var last = (c.messages || []).filter(function (m) { return !m.me; }).slice(-1)[0];
         if (last) items.push({ id: "m:" + c.id + ":" + last.at, at: last.at, icon: "💬", who: name, text: last.text,
-          about: tr("act_message"), href: "/activity#chat-" + encodeURIComponent(c.id), hot: !!c.unreadMsgs });
+          about: tr("act_message"), href: "/chat?k=c:" + encodeURIComponent(c.id), hot: !!c.unreadMsgs });
         var sig = (c.signals || [])[0];
         if (sig) items.push({ id: "s:" + c.id + ":" + sig.at, at: sig.at, icon: "📶", who: name, text: dev.signalText(sig, T),
           about: "", href: "/contacts#c-" + encodeURIComponent(c.id), hot: !!sig.unread });
@@ -187,25 +187,6 @@
       var wrap = el("div", "chat"); wrap.appendChild(log); wrap.appendChild(go);
       return wrap;
     }
-    // dock lays out the open chat windows: on a desktop side by side from the
-    // right (as many as fit; the oldest closes), on a phone only the newest.
-    var order = [];
-    function dock(top) {
-      order = order.filter(function (id) { return open[id]; });
-      if (top && open[top]) { order = order.filter(function (id) { return id !== top; }); order.push(top); }
-      var wins = Array.prototype.slice.call(ul.querySelectorAll(".chat-window"));
-      var fit = Math.max(1, Math.floor((window.innerWidth - 16) / 356)), desktop = window.matchMedia("(min-width: 800px)").matches;
-      while (desktop && order.length > fit) { var gone = order.shift(); delete open[gone]; }
-      if (!desktop) order.slice(0, -1).forEach(function (id) { delete open[id]; });
-      order = order.filter(function (id) { return open[id]; });
-      wins.forEach(function (w) {
-        var k = order.indexOf(w.dataset.thread);
-        w.hidden = k < 0;
-        w.style.right = desktop && k >= 0 ? (16 + (order.length - 1 - k) * 356) + "px" : "";
-      });
-      document.body.classList.toggle("chat-open", order.length > 0 && !desktop);
-    }
-    window.addEventListener("resize", function () { dock(); });
     function draw() {
       return Promise.all([dev.store.contacts(), pair.threads(), dev.store.get("inboxMsgs")]).then(function (r) {
         var ts = window.kafumuThreads.build({ contacts: r[0], answers: r[1], inbox: r[2] || [], notices: items.filter(function (i) { return i.thread; }),
@@ -227,49 +208,26 @@
           head.appendChild(el("span", "dim small thread-prev", short(prev, 90)));
           li.appendChild(head);
           var body;
-          // The open thread is a chat window (85c): full screen with ← on a
-          // phone, docked at the bottom (several side by side) on a desktop.
-          function closeIt() { if (body) body.hidden = true; delete open[t.id]; dock(); }
+          // Two-way threads open as chat windows (chatdock.js, 88a); one-way
+          // ones unfold in the list.
+          var key = t.kind === "contact" ? "c:" + src.id : t.kind === "answer" ? "a:" + src.id : "";
           function openIt() {
-            if (!body) {
-              body = el("div", "thread-body chat-window"); body.dataset.thread = t.id;
-              body.setAttribute("role", "dialog"); body.setAttribute("aria-label", t.title);
-              var wh = el("div", "win-head"), back = el("button", "win-back", "←");
-              back.type = "button"; back.setAttribute("aria-label", T.close || "Close"); back.title = T.close || "Close";
-              back.onclick = closeIt;
-              wh.appendChild(back); wh.appendChild(el("strong", "", t.title));
-              if (t.kind === "contact") {
-                var card = el("a", "dim small", "🪪 " + (T.contact_card || "Card")); card.href = "/contacts#c-" + encodeURIComponent(src.id);
-                wh.appendChild(card);
-              }
-              body.appendChild(wh);
-              if (t.kind === "contact") {
-                var chat = dev.chatPanel(src, T, { send: sendContact, check: checkContact, events: true });
-                body.appendChild(chat.thread); li.appendChild(body); chat.open();
-              } else if (t.kind === "answer") {
-                var ac = dev.chatPanel(src, T, { send: function (x, msg) { return pair.sendChat(x, msg.text, post); }, save: pair.putThread,
-                  check: function (x) { // new lines land in the stored thread: copy them into this one
-                    return pair.readAnswers().then(function () { return pair.threads(); }).then(function (all) {
-                      var now = all.filter(function (a) { return a.id === x.id; })[0];
-                      if (!now || (now.messages || []).length === (x.messages || []).length) return [];
-                      x.messages = now.messages; return [{ t: "msg" }];
-                    });
-                  } });
-                body.appendChild(ac.thread); li.appendChild(body); ac.open();
-              } else { body.appendChild(oneWay(t)); li.appendChild(body); }
-              body.querySelectorAll(".close-chat").forEach(function (x) { x.hidden = true; }); // the window's ← closes it
-              body.addEventListener("keydown", function (e) { if (e.key === "Escape") closeIt(); });
-            } else body.hidden = !body.hidden;
+            if (key) { // chatdock.js loads deferred: wait for it on a fresh page
+              if (window.kafumuChat) window.kafumuChat.open(key);
+              else window.addEventListener("load", function () { if (window.kafumuChat) window.kafumuChat.open(key); });
+              return;
+            }
+            if (!body) { body = el("div", "thread-body"); body.appendChild(oneWay(t)); li.appendChild(body); }
+            else body.hidden = !body.hidden;
             if (body.hidden) delete open[t.id]; else open[t.id] = true;
-            dock(t.id);
           }
           head.onclick = openIt;
           ul.appendChild(li);
-          if (open[t.id]) openIt();
+          if (open[t.id] && !key) openIt();
           var hash = decodeURIComponent(location.hash);
           if (!linked && (hash === "#" + li.id || (hash === "#answers" && t.kind === "answer" && t.unread))) {
             linked = true;
-            setTimeout(function () { if (!body || body.hidden) openIt(); li.scrollIntoView({ block: "center", behavior: "smooth" }); li.classList.add("flash"); setTimeout(function () { li.classList.remove("flash"); }, 2500); var inp = li.querySelector(".chat-form input"); if (inp) inp.focus({ preventScroll: true }); }, 0);
+            setTimeout(function () { if (key || !body || body.hidden) openIt(); li.scrollIntoView({ block: "center", behavior: "smooth" }); li.classList.add("flash"); setTimeout(function () { li.classList.remove("flash"); }, 2500); }, 0);
           }
         });
         document.getElementById("activity-empty").hidden = ts.length > 0;

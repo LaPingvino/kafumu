@@ -703,5 +703,7 @@
   "note.area": "Son coin",
   "note.learn": "Comment marchent les messages ici",
   "js.keep_alive": "Le garder ici",
-  "js.keep_alive_title": "Renvoyer : un 🔁 qui garde ce message ici un jour de plus"
+  "js.keep_alive_title": "Renvoyer : un 🔁 qui garde ce message ici un jour de plus",
+  "js.back_to_mailbox": "Retour à l'activité",
+  "js.pop_out": "Ouvrir en page"
 }

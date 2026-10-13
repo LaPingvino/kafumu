@@ -306,6 +306,15 @@ func (h *Home) ShowActivity(w http.ResponseWriter, r *http.Request) {
 	h.render(w, "activity.html", p)
 }
 
+// ShowChat renders /chat?k=…: one chat as its own page (88a): how a phone
+// opens a chat, and where a desktop window pops out to. The chat itself is
+// on the device; chatdock.js builds it here.
+func (h *Home) ShowChat(w http.ResponseWriter, r *http.Request) {
+	p := h.newPage(r, "")
+	p.Title, p.Tab = locale.T(p.Lang, "js.chat"), "activity"
+	h.render(w, "chat.html", p)
+}
+
 // ShowMove renders the page a scanned move code opens on the old device.
 func (h *Home) ShowMove(w http.ResponseWriter, r *http.Request) {
 	p := h.newPage(r, "")

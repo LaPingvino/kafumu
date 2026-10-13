@@ -703,5 +703,7 @@
   "note.area": "Its area",
   "note.learn": "How messages work here",
   "js.keep_alive": "Keep it here",
-  "js.keep_alive_title": "Send it again: a 🔁 that keeps this line here for another day"
+  "js.keep_alive_title": "Send it again: a 🔁 that keeps this line here for another day",
+  "js.back_to_mailbox": "Back to Activity",
+  "js.pop_out": "Open as a page"
 }

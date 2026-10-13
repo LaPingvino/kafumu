@@ -22,11 +22,11 @@
       (c.messages || []).forEach(function (m) { items.push({ me: !!m.me, icon: "", text: m.text, at: m.at }); });
       (c.signals || []).forEach(function (s) { items.push({ me: false, icon: "📶", text: src.signalText ? src.signalText(s, T) : s.s, at: s.at }); });
       var unread = (c.unreadMsgs || 0) + (c.signals || []).filter(function (s) { return s.unread; }).length;
-      threads.push({ id: "c:" + c.id, kind: "contact", title: nameOf(c, T), twoWay: true, url: "/activity#chat-" + encodeURIComponent(c.id), unread: unread, items: items,
+      threads.push({ id: "c:" + c.id, kind: "contact", title: nameOf(c, T), twoWay: true, url: "/chat?k=c:" + encodeURIComponent(c.id), unread: unread, items: items,
         quiet: !(c.messages || []).length && !(c.signals || []).length });
     });
     (src.answers || []).forEach(function (t) {
-      threads.push({ id: "a:" + t.id, kind: "answer", title: "🔒 " + short(t.post && t.post.text, 60), twoWay: true, url: "/activity#answer-" + encodeURIComponent(t.id),
+      threads.push({ id: "a:" + t.id, kind: "answer", title: "🔒 " + short(t.post && t.post.text, 60), twoWay: true, url: "/chat?k=a:" + encodeURIComponent(t.id),
         unread: t.unreadMsgs || 0, items: (t.messages || []).map(function (m) { return { me: !!m.me, icon: "", text: m.text, at: m.at }; }) });
     });
     if ((src.inbox || []).length) {

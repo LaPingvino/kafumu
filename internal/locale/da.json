@@ -703,5 +703,7 @@
   "note.area": "Dens område",
   "note.learn": "Sådan virker beskeder her",
   "js.keep_alive": "Behold den her",
-  "js.keep_alive_title": "Send igen: en 🔁, der holder beskeden her en dag mere"
+  "js.keep_alive_title": "Send igen: en 🔁, der holder beskeden her en dag mere",
+  "js.back_to_mailbox": "Tilbage til Aktivitet",
+  "js.pop_out": "Åbn som side"
 }

@@ -703,5 +703,7 @@
   "note.area": "Zona lui",
   "note.learn": "Cum funcționează aici mesajele",
   "js.keep_alive": "Păstrează-l aici",
-  "js.keep_alive_title": "Retrimite: un 🔁 care ține mesajul aici încă o zi"
+  "js.keep_alive_title": "Retrimite: un 🔁 care ține mesajul aici încă o zi",
+  "js.back_to_mailbox": "Înapoi la Activitate",
+  "js.pop_out": "Deschide ca pagină"
 }

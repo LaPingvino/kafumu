@@ -703,5 +703,7 @@
   "note.area": "Khu vực của nó",
   "note.learn": "Tin nhắn ở đây hoạt động thế nào",
   "js.keep_alive": "Giữ lại đây",
-  "js.keep_alive_title": "Gửi lại: một 🔁 giữ tin này ở đây thêm một ngày"
+  "js.keep_alive_title": "Gửi lại: một 🔁 giữ tin này ở đây thêm một ngày",
+  "js.back_to_mailbox": "Quay lại Hoạt động",
+  "js.pop_out": "Mở thành trang"
 }

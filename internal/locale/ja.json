@@ -703,5 +703,7 @@
   "note.area": "その地域",
   "note.learn": "メッセージのしくみ",
   "js.keep_alive": "ここに残す",
-  "js.keep_alive_title": "もう一度送る：このメッセージをもう1日残す🔁"
+  "js.keep_alive_title": "もう一度送る：このメッセージをもう1日残す🔁",
+  "js.back_to_mailbox": "アクティビティに戻る",
+  "js.pop_out": "ページで開く"
 }

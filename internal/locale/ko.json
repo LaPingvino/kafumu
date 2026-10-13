@@ -703,5 +703,7 @@
   "note.area": "해당 지역",
   "note.learn": "여기서 메시지가 작동하는 방식",
   "js.keep_alive": "여기 남기기",
-  "js.keep_alive_title": "다시 보내기: 이 메시지를 하루 더 남기는 🔁"
+  "js.keep_alive_title": "다시 보내기: 이 메시지를 하루 더 남기는 🔁",
+  "js.back_to_mailbox": "활동으로 돌아가기",
+  "js.pop_out": "페이지로 열기"
 }

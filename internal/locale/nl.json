@@ -703,5 +703,7 @@
   "note.area": "Zijn gebied",
   "note.learn": "Hoe berichten hier werken",
   "js.keep_alive": "Houd het hier",
-  "js.keep_alive_title": "Opnieuw versturen: een 🔁 die dit bericht nog een dag hier houdt"
+  "js.keep_alive_title": "Opnieuw versturen: een 🔁 die dit bericht nog een dag hier houdt",
+  "js.back_to_mailbox": "Terug naar Activiteit",
+  "js.pop_out": "Openen als pagina"
 }

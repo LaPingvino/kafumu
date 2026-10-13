@@ -393,3 +393,7 @@ body.chat-open { overflow: hidden; }
 @media (prefers-reduced-motion: no-preference) { .chat-window:not([hidden]) { animation: kf-up .18s ease-out; } }
 @keyframes kf-up { from { transform: translateY(16px); opacity: 0; } to { transform: none; opacity: 1; } }
 .chat-note { align-self: center; text-align: center; padding: 2px 8px; }
+/* A chat as its own page (88a): a phone's chat, or a desktop window popped out. */
+.chat-window.chat-page { position: static; inset: auto; width: auto; height: calc(100dvh - 190px); min-height: 280px; z-index: auto;
+  border: 0; box-shadow: none; padding: 0; background: none; animation: none; }
+.chat-window .win-back { text-decoration: none; }

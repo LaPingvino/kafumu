@@ -390,7 +390,7 @@
     if (opts.send && !opts.preview) {
       var unreadN = c.unreadMsgs || 0;
       var chatLink = el("a", "pill-sm" + (unreadN ? " suggested" : ""), "💬 " + (T.chat || "Chat") + (unreadN ? " (" + unreadN + ")" : ""));
-      chatLink.href = "/activity#chat-" + encodeURIComponent(c.id); chatLink.setAttribute("role", "button");
+      chatLink.href = "/chat?k=c:" + encodeURIComponent(c.id); chatLink.setAttribute("role", "button");
       li.appendChild(chatLink);
     }
     if (opts.duplicateOf) {

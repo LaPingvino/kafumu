@@ -788,7 +788,7 @@
         r[0].forEach(function (c) {
           var name = (c.alias || "").trim() || (c.card && c.card.name) || tr("inbox_anonymous", "Someone");
           add(boxOf(unb64(c.key), c.role), tr("push_signal", "☕ {name} sent you something", { name: name }), "/contacts#c-" + encodeURIComponent(c.id));
-          keysOf(c).forEach(function (k) { add(chatTag(unb64(k.key), k.role), tr("push_chat", "💬 A message from {name}", { name: name }), "/activity#chat-" + encodeURIComponent(c.id)); });
+          keysOf(c).forEach(function (k) { add(chatTag(unb64(k.key), k.role), tr("push_chat", "💬 A message from {name}", { name: name }), "/chat?k=c:" + encodeURIComponent(c.id)); });
         });
         [r[1], r[2]].forEach(function (x) { if (x && x.box) add(x.box, tr("push_invite", "🤝 Someone used your code"), "/contacts"); });
         if (r[3] && r[3].box) add(r[3].box, tr("push_inbox", "📥 A message in your public inbox"), "/contacts#inbox-section");
@@ -798,7 +798,7 @@
         });
         r[5].forEach(function (t) {
           keysOf(t).forEach(function (k) {
-            add(chatTag(unb64(k.key), k.role), tr("push_answer", "🔒 A private answer to “{post}”", { post: short(t.post && t.post.text) }), "/activity#answer-" + encodeURIComponent(t.id));
+            add(chatTag(unb64(k.key), k.role), tr("push_answer", "🔒 A private answer to “{post}”", { post: short(t.post && t.post.text) }), "/chat?k=a:" + encodeURIComponent(t.id));
           });
         });
         return Promise.all(out).then(function (ls) { return ls.filter(Boolean).slice(0, 300); });

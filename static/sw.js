@@ -87,9 +87,9 @@ self.addEventListener("notificationclick", function (e) {
   e.notification.close();
   var url = (e.notification.data && e.notification.data.url) || "/";
   e.waitUntil(self.clients.matchAll({ type: "window" }).then(function (ws) {
-    for (var i = 0; i < ws.length; i++) if (ws[i].url.indexOf(url) >= 0 && "focus" in ws[i]) return ws[i].focus();
-    // An open Kafumu window goes to that conversation rather than a new one.
-    for (var j = 0; j < ws.length; j++) if ("navigate" in ws[j] && "focus" in ws[j]) return ws[j].navigate(url).then(function (w) { return w && w.focus(); });
+    // An open Kafumu window opens that conversation in place (88a): it gets
+    // a message and shows the chat window, or goes there for anything else.
+    for (var j = 0; j < ws.length; j++) if ("focus" in ws[j]) { ws[j].postMessage({ open: url }); return ws[j].focus(); }
     return self.clients.openWindow(url);
   }));
 });

@@ -703,5 +703,7 @@
   "note.area": "Areanya",
   "note.learn": "Cara kerja pesan di sini",
   "js.keep_alive": "Pertahankan di sini",
-  "js.keep_alive_title": "Kirim lagi: 🔁 yang menahan pesan ini di sini sehari lagi"
+  "js.keep_alive_title": "Kirim lagi: 🔁 yang menahan pesan ini di sini sehari lagi",
+  "js.back_to_mailbox": "Kembali ke Aktivitas",
+  "js.pop_out": "Buka sebagai halaman"
 }

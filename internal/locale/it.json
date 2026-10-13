@@ -703,5 +703,7 @@
   "note.area": "La sua zona",
   "note.learn": "Come funzionano qui i messaggi",
   "js.keep_alive": "Tienilo qui",
-  "js.keep_alive_title": "Rimanda: un 🔁 che tiene questo messaggio qui un altro giorno"
+  "js.keep_alive_title": "Rimanda: un 🔁 che tiene questo messaggio qui un altro giorno",
+  "js.back_to_mailbox": "Torna ad Attività",
+  "js.pop_out": "Apri come pagina"
 }

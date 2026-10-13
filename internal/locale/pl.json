@@ -703,5 +703,7 @@
   "note.area": "Jej okolica",
   "note.learn": "Jak tu działają wiadomości",
   "js.keep_alive": "Zatrzymaj tutaj",
-  "js.keep_alive_title": "Wyślij ponownie: 🔁, które utrzyma tę wiadomość jeszcze dzień"
+  "js.keep_alive_title": "Wyślij ponownie: 🔁, które utrzyma tę wiadomość jeszcze dzień",
+  "js.back_to_mailbox": "Wróć do Aktywności",
+  "js.pop_out": "Otwórz jako stronę"
 }

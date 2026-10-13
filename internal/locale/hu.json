@@ -703,5 +703,7 @@
   "note.area": "A környéke",
   "note.learn": "Hogyan működnek itt az üzenetek",
   "js.keep_alive": "Maradjon itt",
-  "js.keep_alive_title": "Újraküldés: egy 🔁, ami még egy napig itt tartja az üzenetet"
+  "js.keep_alive_title": "Újraküldés: egy 🔁, ami még egy napig itt tartja az üzenetet",
+  "js.back_to_mailbox": "Vissza a Tevékenységhez",
+  "js.pop_out": "Megnyitás oldalként"
 }

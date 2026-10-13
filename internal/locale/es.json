@@ -703,5 +703,7 @@
   "note.area": "Su zona",
   "note.learn": "Cómo funcionan aquí los mensajes",
   "js.keep_alive": "Mantenerlo aquí",
-  "js.keep_alive_title": "Reenviar: un 🔁 que mantiene este mensaje aquí un día más"
+  "js.keep_alive_title": "Reenviar: un 🔁 que mantiene este mensaje aquí un día más",
+  "js.back_to_mailbox": "Volver a Actividad",
+  "js.pop_out": "Abrir como página"
 }

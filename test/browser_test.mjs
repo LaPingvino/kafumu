@@ -66,9 +66,11 @@ try {
   // Chat: B writes to Ana; A opens the chat with Bea and reads it.
   // Chats live in the mailbox (85d): the contact card's 💬 links there.
   await B.goto(base + "/contacts");
-  await B.waitFor("[...document.querySelectorAll('#contacts li a')].some(b => b.textContent.includes('Chat') && b.getAttribute('href').startsWith('/activity#chat-'))", "B's chat link");
+  await B.waitFor("[...document.querySelectorAll('#contacts li a')].some(b => b.textContent.includes('Chat') && b.getAttribute('href').startsWith('/chat?k=c:'))", "B's chat link");
   await B.evaluate("location.href = [...[...document.querySelectorAll('#contacts li')].find(l => l.textContent.includes('Ana')).querySelectorAll('a')].find(b => b.textContent.includes('Chat')).href; true");
-  const openWin = "[...document.querySelectorAll('#threads .chat-window')].find(w => !w.hidden)";
+  // Chat windows live in a dock on every page (88a); pick one by who it's with.
+  const win = (who) => "[...document.querySelectorAll('.chat-window')].find(w => !w.hidden && w.getAttribute('aria-label').includes('" + who + "'))"; // docked, or a phone's chat page
+  const openWin = win("Ana");
   await B.waitFor("!!(" + openWin + ")?.querySelector('.chat-form')", "B's chat with Ana open in the mailbox");
   await B.evaluate("(() => { const f = " + openWin + ".querySelector('.chat-form'); f.querySelector('input').value = 'hallo " + RUN + "'; f.requestSubmit(); return true; })()");
   await B.waitFor("[...document.querySelectorAll('.bubble.me')].some(b => b.textContent === 'hallo " + RUN + "')", "B's message in the thread");
@@ -119,13 +121,14 @@ try {
   // The area only links to the conversation; it lives in the mailbox (83b).
   await A.waitFor("!document.getElementById('answers-link').hidden && document.querySelector('#answers-link a').getAttribute('href') === '/activity#answers'", "🔒 Private answers link on the area", 30000);
   // The mailbox (85b): the answer is a chat in the list; its row opens it in place.
-  const openAnswer = "(() => { const li = document.querySelector('#threads li[id^=\"answer-\"]'); if (li && !li.querySelector('.thread-body')) li.querySelector('.thread-head').click(); return !!li; })()";
+  const ansWin = "[...document.querySelectorAll('.chat-window')].find(w => !w.hidden && w.dataset.thread.startsWith('a:'))";
+  const openAnswer = "(() => { if (" + ansWin + ") return true; const li = document.querySelector('#threads li[id^=\"answer-\"]'); if (!li) return false; li.querySelector('.thread-head').click(); return true; })()";
   await A.goto(base + "/activity#answers");
-  await A.waitFor(openAnswer + " && [...document.querySelectorAll('#threads li[id^=\"answer-\"] .bubble')].some(b => b.textContent.includes('Private hello back " + RUN + "'))", "A gets the private answer", 30000);
-  await A.evaluate("(() => { const f = document.querySelector('#threads li[id^=\"answer-\"] .chat-form'); f.querySelector('input').value = 'Thanks, see you " + RUN + "'; f.requestSubmit(); return true; })()");
-  await A.waitFor("[...document.querySelectorAll('#threads .bubble.me')].some(b => b.textContent === 'Thanks, see you " + RUN + "')", "A's reply shown", 30000);
+  await A.waitFor(openAnswer + " && !!(" + ansWin + ") && [...(" + ansWin + ").querySelectorAll('.bubble')].some(b => b.textContent.includes('Private hello back " + RUN + "'))", "A gets the private answer", 30000);
+  await A.evaluate("(() => { const f = (" + ansWin + ").querySelector('.chat-form'); f.querySelector('input').value = 'Thanks, see you " + RUN + "'; f.requestSubmit(); return true; })()");
+  await A.waitFor("[...(" + ansWin + ").querySelectorAll('.bubble.me')].some(b => b.textContent === 'Thanks, see you " + RUN + "')", "A's reply shown", 30000);
   await B.goto(base + "/activity");
-  await B.waitFor(openAnswer + " && [...document.querySelectorAll('#threads li[id^=\"answer-\"] .bubble:not(.me)')].some(b => b.textContent.includes('Thanks, see you " + RUN + "'))", "B gets A's reply", 30000);
+  await B.waitFor(openAnswer + " && !!(" + ansWin + ") && [...(" + ansWin + ").querySelectorAll('.bubble:not(.me)')].some(b => b.textContent.includes('Thanks, see you " + RUN + "'))", "B gets A's reply", 30000);
   // A's own post offers no private answer to itself.
   await A.goto(base + "/?cell=6fg223");
   await A.waitFor("document.getElementById('feed').textContent.includes('hi from the OLN " + RUN + "')", "A back on the area", 30000);
@@ -175,7 +178,7 @@ try {
   await A.goto(base + "/activity");
   await A.waitFor("!!document.querySelector('#threads li[id^=\"answer-\"]')", "the private answer in the mailbox", 15000);
   await A.evaluate("location.href = '/activity#' + document.querySelector('#threads li[id^=\"answer-\"]').id; true");
-  await A.waitFor("!!document.querySelector('#threads li.flash') && [...document.querySelectorAll('#threads li.flash .bubble')].some(b => b.textContent.includes('Private hello back'))", "opened at the answer thread", 20000);
+  await A.waitFor("!!(" + ansWin + ") && [...(" + ansWin + ").querySelectorAll('.bubble')].some(b => b.textContent.includes('Private hello back'))", "opened at the answer thread", 20000);
 
   // A line without a place about a subject (78a): B sees it from anywhere,
   // marked 🌍, when filtering on that subject.
@@ -239,16 +242,27 @@ try {
   }
   // Tapping it opens that contact's chat, at the message.
   await A.evaluate("location.href = '/activity#' + [...document.querySelectorAll('#threads > li[id^=\"chat-\"]')].find(li => li.textContent.includes('👀')).id; true");
-  await A.waitFor("(() => { const c = document.querySelector('#threads li.flash .chat'); return c && !c.hidden && c.textContent.includes('kafumu-" + RUN + "'); })()", "the mailbox opened that chat, in place (83c)", 20000);
+  const beaWin = win("Bea");
+  await A.waitFor("(() => { const w = " + beaWin + "; return w && w.textContent.includes('kafumu-" + RUN + "'); })()", "the mailbox opened that chat, in place (83c)", 20000);
   // And it answers from there, like on the contact card.
-  await A.evaluate("(() => { const f = document.querySelector('#threads li.flash .chat-form'); f.querySelector('input').value = 'From the mailbox " + RUN + "'; f.requestSubmit(); return true; })()");
-  await A.waitFor("[...document.querySelectorAll('#threads .bubble.me')].some(b => b.textContent === 'From the mailbox " + RUN + "')", "answered from the mailbox", 30000);
+  await A.evaluate("(() => { const f = (" + beaWin + ").querySelector('.chat-form'); f.querySelector('input').value = 'From the mailbox " + RUN + "'; f.requestSubmit(); return true; })()");
+  await A.waitFor("[...(" + beaWin + ").querySelectorAll('.bubble.me')].some(b => b.textContent === 'From the mailbox " + RUN + "')", "answered from the mailbox", 30000);
   // It's a chat window (85c): fixed on screen, ← closes it.
-  await A.waitFor("(() => { const w = document.querySelector('#threads li.flash .chat-window') || [...document.querySelectorAll('#threads .chat-window')].find(w => !w.hidden); return w && getComputedStyle(w).position === 'fixed'; })()", "the chat is a window");
-  await A.evaluate("[...document.querySelectorAll('#threads .chat-window')].find(w => !w.hidden).querySelector('.win-back').click(); true");
-  await A.waitFor("![...document.querySelectorAll('#threads .chat-window')].some(w => !w.hidden) && !document.body.classList.contains('chat-open')", "← closes it");
+  // On a phone a chat is its own page, with ← back to the mailbox (88a).
+  await A.waitFor("location.pathname === '/chat' || !!document.querySelector('#chat-dock')", "a chat page (phone) or the dock (desktop)");
+  // On a desktop it's a window docked at the bottom that stays open across pages and pops out into its page.
+  await A.send("Emulation.setDeviceMetricsOverride", { width: 1280, height: 800, deviceScaleFactor: 1, mobile: false });
+  await A.goto(base + "/activity");
+  await A.waitFor("!!document.querySelector('#threads > li[id^=\"chat-\"]')", "mailbox on a desktop");
+  await A.evaluate("[...document.querySelectorAll('#threads > li[id^=\"chat-\"]')].find(li => li.textContent.includes('Bea')).querySelector('.thread-head').click(); true");
+  await A.waitFor("(() => { const w = " + beaWin + "; return w && w.closest('#chat-dock') && getComputedStyle(w).position === 'fixed' && !!w.querySelector('a.pop-out[href^=\"/chat?k=c:\"]'); })()", "docked window with ⤢", 15000);
+  await A.goto(base + "/about");
+  await A.waitFor("!!(" + beaWin + ")", "the chat came along to another page", 15000);
+  await A.evaluate("(" + beaWin + ").querySelector('.win-back').click(); true");
+  await A.waitFor("!(" + beaWin + ")", "← closes it");
+  await A.send("Emulation.clearDeviceMetricsOverride");
   // What a notification would say (83d): composed on the device, per box: who, and where it opens.
-  await A.waitFor("window.kafumuPair.create({ fetch: window.fetch.bind(window), store: window.kafumuDevice.store, origin: location.origin }).labelled().then(ls => ls.some(l => /^💬 .*Bea/.test(l.body) && l.url.startsWith('/activity#chat-')) && ls.some(l => l.body.startsWith('🔒') && l.url.startsWith('/activity#answer')))", "notification labels: 💬 from Bea, 🔒 an answer", 10000);
+  await A.waitFor("window.kafumuPair.create({ fetch: window.fetch.bind(window), store: window.kafumuDevice.store, origin: location.origin }).labelled().then(ls => ls.some(l => /^💬 .*Bea/.test(l.body) && l.url.startsWith('/chat?k=c:')) && ls.some(l => l.body.startsWith('🔒') && (l.url.startsWith('/chat?k=a:') || l.url === '/activity#answers')))", "notification labels: 💬 from Bea, 🔒 an answer", 10000);
   // "Shall we go together?" (80b): such a line in A's chat offers Yes / Can't.
   await A.goto(base + "/contacts");
   await A.waitFor("!!document.querySelector('#contacts li.contact')", "contacts listed");

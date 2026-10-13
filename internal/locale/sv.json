@@ -703,5 +703,7 @@
   "note.area": "Dess område",
   "note.learn": "Hur meddelanden fungerar här",
   "js.keep_alive": "Behåll den här",
-  "js.keep_alive_title": "Skicka igen: en 🔁 som håller meddelandet här en dag till"
+  "js.keep_alive_title": "Skicka igen: en 🔁 som håller meddelandet här en dag till",
+  "js.back_to_mailbox": "Tillbaka till Aktivitet",
+  "js.pop_out": "Öppna som sida"
 }

@@ -142,6 +142,7 @@ func main() {
 	mux.HandleFunc("GET /c", home.ShowAccept)
 	mux.HandleFunc("GET /contacts", home.ShowContacts)
 	mux.HandleFunc("GET /activity", home.ShowActivity)
+	mux.HandleFunc("GET /chat", home.ShowChat)
 	mux.HandleFunc("GET /m", home.ShowMove)
 	mux.HandleFunc("GET /import", home.ShowImport)
 	mux.HandleFunc("GET /account/link.json", accounts.LinkJSON)

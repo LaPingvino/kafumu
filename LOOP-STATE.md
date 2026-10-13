@@ -1163,10 +1163,10 @@ Findable, Account, Business, meetups…), and with a "👀 Show me" button that 
 - [ ] 87b. Tours for the pages that don't have one yet (only where a tour adds something to the line).
 
 ## 88. Joop 2026-10-13 (more)
-- [ ] 88a. Desktop chat windows survive across pages: the open, docked chats come back on every page (which ones,
-      kept on the device), and opening a chat from elsewhere (a contact's 💬, a notification, an Activity row)
-      opens the docked window right there instead of going to the mailbox page. Phones keep the full-screen window,
-      also opened in place.
+- [x] 88a. Done (Joop: phones get a chat page, desktops dock and pop out): static/chatdock.js on every page; chat
+      links are /chat?k=c:<id> / a:<id>; on ≥800 px they open as docked windows (kept across pages in localStorage,
+      ⤢ pops one out to its page), on a phone the link opens /chat (← 🔔 back to the mailbox, sized to the screen);
+      a tapped notification with Kafumu open asks the page (postMessage) to open the chat in place. 24 languages.
 - [ ] 88b. Take back your "☕ Who's up for coffee?": after sending, the button becomes "☕ … · ✕ Stop", which stops
       listening and withdraws the line: a #re retraction that proves it's yours (signed with the invite key the
       coffee line's connect code carries, so only its sender can), honoured by every client and by this node

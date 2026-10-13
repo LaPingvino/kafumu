@@ -703,5 +703,7 @@
   "note.area": "Bölgesi",
   "note.learn": "İletiler burada nasıl çalışır",
   "js.keep_alive": "Burada tut",
-  "js.keep_alive_title": "Yeniden gönder: bu iletiyi bir gün daha burada tutan bir 🔁"
+  "js.keep_alive_title": "Yeniden gönder: bu iletiyi bir gün daha burada tutan bir 🔁",
+  "js.back_to_mailbox": "Etkinliğe dön",
+  "js.pop_out": "Sayfa olarak aç"
 }
