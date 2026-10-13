@@ -714,5 +714,7 @@
   "js.sync_failed": "同步失敗：{why}",
   "js.sync_bad_key": "這台裝置上的同步金鑰打不開你的保險庫。請從你的另一台裝置重新取得金鑰。",
   "js.storage_error": "這個瀏覽器不讓 Kafumu 在這裡讀取資料（{why}）。你其他裝置上的資料不受影響。",
-  "js.store_info": "本裝置：{n} 位聯絡人 · {where}"
+  "js.store_info": "本裝置：{n} 位聯絡人 · {where}",
+  "js.suggest_source": "這裡的人常分享 {host}。把它的新聞加到這個地區？",
+  "js.suggest_add": "新增新聞"
 }

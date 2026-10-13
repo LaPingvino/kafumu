@@ -253,6 +253,9 @@ func (h *Meetups) RunFeeds(ctx context.Context) string {
 	}
 	// Local sources (81d): of the areas people looked at, never others.
 	cals, srcs := h.pullSources(ctx, time.Now())
+	if sug := h.suggestSources(ctx, time.Now()); sug != "" {
+		srcs += "; " + sug
+	}
 	fs = append(fs, cals...)
 	res := feeds.Sync(ctx, fs, h.Importer, h.Svc.Store, time.Now())
 	h.Svc.ForgetAll()

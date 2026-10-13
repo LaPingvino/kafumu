@@ -714,5 +714,7 @@
   "js.sync_failed": "동기화 실패: {why}",
   "js.sync_bad_key": "이 기기의 동기화 키로는 보관함을 열 수 없어요. 다른 기기에서 키를 다시 받아 주세요.",
   "js.storage_error": "이 브라우저가 Kafumu의 데이터를 여기서 읽지 못하게 해요({why}). 다른 기기의 데이터는 괜찮아요.",
-  "js.store_info": "이 기기: 연락처 {n}개 · {where}"
+  "js.store_info": "이 기기: 연락처 {n}개 · {where}",
+  "js.suggest_source": "이 근처 사람들이 {host}를 자주 공유해요. 소식을 이 지역에 추가할까요?",
+  "js.suggest_add": "소식 추가"
 }

@@ -714,5 +714,7 @@
   "js.sync_failed": "Synchroniseren mislukt: {why}",
   "js.sync_bad_key": "De synchronisatiesleutel op dit apparaat opent je kluis niet. Haal de sleutel opnieuw op van een ander apparaat van je.",
   "js.storage_error": "Deze browser laat Kafumu hier zijn gegevens niet lezen ({why}). Wat op je andere apparaten staat, blijft gewoon.",
-  "js.store_info": "Op dit apparaat: {n} contacten · {where}"
+  "js.store_info": "Op dit apparaat: {n} contacten · {where}",
+  "js.suggest_source": "Mensen hier delen vaak {host}. Het nieuws ervan toevoegen aan dit gebied?",
+  "js.suggest_add": "Nieuws toevoegen"
 }

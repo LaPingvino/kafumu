@@ -714,5 +714,7 @@
   "js.sync_failed": "Sincronizarea a eșuat: {why}",
   "js.sync_bad_key": "Cheia de sincronizare de pe acest dispozitiv nu-ți deschide seiful. Ia cheia din nou de pe alt dispozitiv al tău.",
   "js.storage_error": "Acest browser nu-l lasă pe Kafumu să-și citească datele aici ({why}). Ce e pe celelalte dispozitive nu e afectat.",
-  "js.store_info": "Pe acest dispozitiv: {n} contacte · {where}"
+  "js.store_info": "Pe acest dispozitiv: {n} contacte · {where}",
+  "js.suggest_source": "Oamenii de aici distribuie des {host}. Adaugi știrile lui la zonă?",
+  "js.suggest_add": "Adaugă știrile"
 }

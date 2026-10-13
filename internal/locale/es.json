@@ -714,5 +714,7 @@
   "js.sync_failed": "Falló la sincronización: {why}",
   "js.sync_bad_key": "La clave de sincronización de este dispositivo no abre tu caja. Vuelve a traerla desde otro de tus dispositivos.",
   "js.storage_error": "Este navegador no deja a Kafumu leer sus datos aquí ({why}). Lo que hay en tus otros dispositivos no se ve afectado.",
-  "js.store_info": "En este dispositivo: {n} contactos · {where}"
+  "js.store_info": "En este dispositivo: {n} contactos · {where}",
+  "js.suggest_source": "La gente de aquí comparte a menudo {host}. ¿Añadir sus noticias a esta zona?",
+  "js.suggest_add": "Añadir sus noticias"
 }

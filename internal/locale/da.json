@@ -714,5 +714,7 @@
   "js.sync_failed": "Synkronisering mislykkedes: {why}",
   "js.sync_bad_key": "Synkroniseringsnøglen på denne enhed åbner ikke din boks. Hent nøglen igen fra en anden af dine enheder.",
   "js.storage_error": "Denne browser lader ikke Kafumu læse sine data her ({why}). Det på dine andre enheder er ikke berørt.",
-  "js.store_info": "På denne enhed: {n} kontakter · {where}"
+  "js.store_info": "På denne enhed: {n} kontakter · {where}",
+  "js.suggest_source": "Folk her deler ofte {host}. Tilføj dens nyheder til området?",
+  "js.suggest_add": "Tilføj nyheder"
 }

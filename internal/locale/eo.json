@@ -714,5 +714,7 @@
   "js.sync_failed": "Sinkronigo malsukcesis: {why}",
   "js.sync_bad_key": "La sinkroniga ŝlosilo en ĉi tiu aparato ne malfermas vian trezorejon. Prenu la ŝlosilon denove de alia via aparato.",
   "js.storage_error": "Ĉi tiu retumilo ne lasas Kafumu legi siajn datumojn ĉi tie ({why}). Tio, kio estas en viaj aliaj aparatoj, ne estas tuŝita.",
-  "js.store_info": "En ĉi tiu aparato: {n} kontaktoj · {where}"
+  "js.store_info": "En ĉi tiu aparato: {n} kontaktoj · {where}",
+  "js.suggest_source": "Homoj ĉi tie ofte dividas {host}. Ĉu aldoni ĝiajn novaĵojn al ĉi tiu loko?",
+  "js.suggest_add": "Aldoni novaĵojn"
 }

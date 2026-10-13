@@ -12,6 +12,12 @@
   <p class="muted" id="status"></p>
   <h1 class="cell-tag" hidden><span id="place-name"></span><span id="cell-tag"></span></h1>
   <p id="place-also" class="place-also" hidden></p>
+  <!-- A site people here share often, with a feed (81f): add its news to this area? -->
+  <div id="suggest-source" class="card events" style="padding:8px 16px" hidden>
+    <p id="suggest-text"></p>
+    <div class="actions"><button type="button" id="suggest-add" class="pill-sm suggested"></button>
+      <button type="button" id="suggest-no" class="pill-sm" aria-label="{{ts .Lang "common.close"}}">✕</button></div>
+  </div>
   <div id="cell-actions" hidden>
     <p class="actions">
       <button type="button" id="coffee" class="suggested pill">{{if and .BrandInfo .BrandInfo.Button}}{{.BrandInfo.Button}}{{else}}☕ {{t .Lang "coffee.button"}}{{end}}</button>

@@ -264,6 +264,8 @@ type bundle struct {
 	Posts   []bsky.Post      `json:"posts"`
 	// News: items from the area's sources (81d), read by the feeds job.
 	News []NewsItem `json:"news"`
+	// Suggest: sites people here share that have a feed (81f).
+	Suggest []Suggestion `json:"suggest"`
 }
 
 // ShowCard renders the "my card" editor; the card itself lives on the device.
@@ -572,6 +574,13 @@ func (h *Home) Bundle(w http.ResponseWriter, r *http.Request) {
 	}
 	wg.Wait()
 	sort.Slice(b.Posts, func(i, j int) bool { return b.Posts[i].CreatedAt.After(b.Posts[j].CreatedAt) })
+	// The sites posts here link to (81f), and what the feeds job made of them.
+	links := make([][]string, 0, len(b.Posts))
+	for _, p := range b.Posts {
+		links = append(links, p.Links)
+	}
+	h.noteHosts(r.Context(), cells[0], links)
+	b.Suggest = h.Suggestions(r.Context(), cells[0])
 	b.Events = append(b.Events, h.foundEvents(&b, time.Now())...)
 	if h.Gaz != nil {
 		for i := range b.Posts {

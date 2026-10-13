@@ -714,5 +714,7 @@
   "js.sync_failed": "Sinkronisasi gagal: {why}",
   "js.sync_bad_key": "Kunci sinkron di perangkat ini tidak membuka brankasmu. Ambil kuncinya lagi dari perangkatmu yang lain.",
   "js.storage_error": "Peramban ini tidak mengizinkan Kafumu membaca datanya di sini ({why}). Data di perangkatmu yang lain tidak terpengaruh.",
-  "js.store_info": "Di perangkat ini: {n} kontak · {where}"
+  "js.store_info": "Di perangkat ini: {n} kontak · {where}",
+  "js.suggest_source": "Orang di sini sering membagikan {host}. Tambahkan beritanya ke area ini?",
+  "js.suggest_add": "Tambah berita"
 }

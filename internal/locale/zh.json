@@ -714,5 +714,7 @@
   "js.sync_failed": "同步失败：{why}",
   "js.sync_bad_key": "这台设备上的同步密钥打不开你的保险库。请从你的另一台设备重新获取密钥。",
   "js.storage_error": "这个浏览器不让 Kafumu 在这里读取数据（{why}）。你其他设备上的数据不受影响。",
-  "js.store_info": "本设备：{n} 位联系人 · {where}"
+  "js.store_info": "本设备：{n} 位联系人 · {where}",
+  "js.suggest_source": "这里的人常分享 {host}。把它的新闻加到这个地区？",
+  "js.suggest_add": "添加新闻"
 }

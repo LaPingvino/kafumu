@@ -714,5 +714,7 @@
   "js.sync_failed": "Synchronizace selhala: {why}",
   "js.sync_bad_key": "Synchronizační klíč na tomto zařízení neotevře tvůj trezor. Získej klíč znovu z jiného svého zařízení.",
   "js.storage_error": "Tento prohlížeč Kafumu nedovolí číst tady jeho data ({why}). Tvých ostatních zařízení se to netýká.",
-  "js.store_info": "Na tomto zařízení: {n} kontaktů · {where}"
+  "js.store_info": "Na tomto zařízení: {n} kontaktů · {where}",
+  "js.suggest_source": "Lidé tady často sdílejí {host}. Přidat jeho zprávy k této oblasti?",
+  "js.suggest_add": "Přidat zprávy"
 }

@@ -1145,10 +1145,12 @@ only for areas people actually look at. Each slice passes one test: does the are
       line with that link is there; the news card then gives way to the line. Checked by hand with injected news; the
       browser step runs when the test area has Bluesky posts. Open: a link line isn't kept alive by reactions (they
       point at the link, not the line's id) — 86d's keepAlive only follows line ids.
-- [ ] 81f. Discover: for seen cells, count the sites the area's Bluesky posts link to most; for the top few,
-      look for RSS autodiscovery (<link rel=alternate type=rss/atom>) through the safe client, bounded per run;
-      on top of the area page: "People here often share example.nl — add its news to this area?" (one tap for a
-      named passkey account, which posts the 81c line).
+- [x] 81f. Done: Bluesky posts carry their links (facets); building a bundle counts the sites its posts link to (≤ once
+      an hour per cell per instance, platforms and shorteners never count); the feeds job looks on the most shared
+      ones (≥ 3 posts) for a feed via <link rel=alternate> (≤ 10 new probes per run through the guarded client, cached
+      a week, "no feed" too) and keeps ≤ 3 suggestions per area for a day; the area shows "📰 People here often share
+      X. Add its news to this area?" → the source form, prefilled (✕ remembers per site). Tests: TestSuggestSources;
+      the card checked by hand.
 
 ## 84. The area on a public screen (Joop 2026-10-13: for displays in public places; "a different view of the
 local page", configurable, but nothing added to the main view)

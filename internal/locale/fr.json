@@ -714,5 +714,7 @@
   "js.sync_failed": "Échec de la synchro : {why}",
   "js.sync_bad_key": "La clé de synchro de cet appareil n'ouvre pas ton coffre. Récupère-la depuis un autre de tes appareils.",
   "js.storage_error": "Ce navigateur ne laisse pas Kafumu lire ses données ici ({why}). Tes autres appareils ne sont pas touchés.",
-  "js.store_info": "Sur cet appareil : {n} contacts · {where}"
+  "js.store_info": "Sur cet appareil : {n} contacts · {where}",
+  "js.suggest_source": "Les gens d'ici partagent souvent {host}. Ajouter ses actualités à ce coin ?",
+  "js.suggest_add": "Ajouter ses actus"
 }

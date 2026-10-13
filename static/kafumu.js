@@ -533,6 +533,31 @@
     });
   }
 
+  // ---- Suggested sources (81f): a site people here share often ----
+  function showSuggest(list) {
+    var box = $("suggest-source");
+    if (!box) return;
+    var no = [];
+    try { no = JSON.parse(localStorage.getItem("kafumu.suggestNo") || "[]"); } catch (e) {}
+    var sg = list.filter(function (x) { return no.indexOf(x.host) < 0; })[0];
+    box.hidden = !sg;
+    if (!sg) return;
+    $("suggest-text").textContent = "📰 " + tr("suggest_source", { host: sg.host });
+    $("suggest-add").textContent = tr("suggest_add");
+    $("suggest-add").onclick = function () {
+      var f = $("source-form");
+      f.hidden = false;
+      if (f.url) { f.url.value = sg.feed; f.name.value = sg.host; }
+      box.hidden = true;
+      f.scrollIntoView({ block: "center", behavior: "smooth" });
+    };
+    $("suggest-no").onclick = function () {
+      no.push(sg.host);
+      try { localStorage.setItem("kafumu.suggestNo", JSON.stringify(no.slice(-100))); } catch (e) {}
+      showSuggest(list);
+    };
+  }
+
   // ---- "I'm confused": a short tour of the page, one thing at a time ----
   var TOUR = [[".cell-tag", "tour_area"], ["#coffee", "tour_coffee"], ["#say", "tour_say"], ["#ask", "tour_ask"],
     ["#filter-chips", "tour_chips"], ["#feed-kinds", "tour_feed"], ["#change-area", "tour_change"], [".switcher.bottom", "tour_tabs"], [".bell", "tour_bell"]];
@@ -1411,6 +1436,7 @@
         liveEventNames = (b.events || []).filter(function (e) { return e.live; }).map(function (e) { return e.name; });
         showNotes(b.notes || []);
         showNews(b.news || []);
+        showSuggest(b.suggest || []);
         showMeetups(b.meetups || [], b.events || []);
         travel.meetups = (b.meetups || []).length;
         travel.place = ((b.places || [])[0] || {}).place || "";

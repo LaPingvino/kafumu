@@ -714,5 +714,7 @@
   "js.sync_failed": "Eşitleme başarısız: {why}",
   "js.sync_bad_key": "Bu cihazdaki eşitleme anahtarı kasanı açmıyor. Anahtarı başka bir cihazından yeniden al.",
   "js.storage_error": "Bu tarayıcı Kafumu'nun buradaki verilerini okumasına izin vermiyor ({why}). Diğer cihazlarındakiler etkilenmez.",
-  "js.store_info": "Bu cihazda: {n} kişi · {where}"
+  "js.store_info": "Bu cihazda: {n} kişi · {where}",
+  "js.suggest_source": "Buradakiler sık sık {host} paylaşıyor. Haberlerini bu bölgeye ekleyelim mi?",
+  "js.suggest_add": "Haberleri ekle"
 }

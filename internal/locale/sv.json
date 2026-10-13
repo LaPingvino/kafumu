@@ -714,5 +714,7 @@
   "js.sync_failed": "Synkningen misslyckades: {why}",
   "js.sync_bad_key": "Synknyckeln på den här enheten öppnar inte ditt valv. Hämta nyckeln igen från en annan av dina enheter.",
   "js.storage_error": "Den här webbläsaren låter inte Kafumu läsa sina data här ({why}). Det som finns på dina andra enheter påverkas inte.",
-  "js.store_info": "På den här enheten: {n} kontakter · {where}"
+  "js.store_info": "På den här enheten: {n} kontakter · {where}",
+  "js.suggest_source": "Folk här delar ofta {host}. Lägg till dess nyheter i området?",
+  "js.suggest_add": "Lägg till nyheter"
 }

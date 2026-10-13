@@ -49,3 +49,29 @@ func TestPullSources(t *testing.T) {
 		t.Fatalf("an area nobody looked at was read: %+v", other)
 	}
 }
+
+// Suggested sources (81f): the sites an area's posts share most, when they
+// have a feed and aren't a source there yet; platforms never count.
+func TestSuggestSources(t *testing.T) {
+	if got := discoverFeed(`<html><head><link rel="stylesheet" href="/s.css"><link rel="alternate" type="application/rss+xml" title="Nieuws" href="/feed/?x=1&amp;y=2"></head>`, "https://krant.example/"); got != "https://krant.example/feed/?x=1&y=2" {
+		t.Fatalf("discoverFeed = %q", got)
+	}
+	if got := discoverFeed(`<link rel="icon" href="/f.ico">`, "https://x.example/"); got != "" {
+		t.Fatalf("no feed: %q", got)
+	}
+	home := &Home{Cache: cache.New()}
+	home.noteCell(t.Context(), "8ccgmw")
+	var links [][]string
+	for i := 0; i < 4; i++ {
+		links = append(links, []string{"https://www.krant.example/a" + fmt.Sprint(i), "https://youtube.com/watch?v=" + fmt.Sprint(i)})
+	}
+	links = append(links, []string{"https://once.example/x"})
+	home.noteHosts(t.Context(), "8ccgmw", links)
+	home.Cache.Set(t.Context(), feedOfKey("krant.example"), []byte("https://krant.example/feed"), time.Hour) // probed before
+	m := &Meetups{Home: home, Importer: &importer.Importer{Client: http.DefaultClient}}
+	m.suggestSources(t.Context(), time.Now())
+	got := home.Suggestions(t.Context(), "8ccgmw")
+	if len(got) != 1 || got[0].Host != "krant.example" || got[0].Feed != "https://krant.example/feed" || got[0].Count != 4 {
+		t.Fatalf("suggestions = %+v", got)
+	}
+}

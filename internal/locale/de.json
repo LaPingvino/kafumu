@@ -714,5 +714,7 @@
   "js.sync_failed": "Synchronisieren fehlgeschlagen: {why}",
   "js.sync_bad_key": "Der Sync-Schlüssel auf diesem Gerät öffnet deinen Tresor nicht. Hol den Schlüssel noch einmal von einem anderen deiner Geräte.",
   "js.storage_error": "Dieser Browser lässt Kafumu hier seine Daten nicht lesen ({why}). Was auf deinen anderen Geräten ist, bleibt unberührt.",
-  "js.store_info": "Auf diesem Gerät: {n} Kontakte · {where}"
+  "js.store_info": "Auf diesem Gerät: {n} Kontakte · {where}",
+  "js.suggest_source": "Leute hier teilen oft {host}. Seine Neuigkeiten zu dieser Gegend hinzufügen?",
+  "js.suggest_add": "Neuigkeiten hinzufügen"
 }

@@ -33,6 +33,9 @@ type Post struct {
 	CreatedAt time.Time `json:"createdAt"`
 	// Via is the tag this post was found under (e.g. "geo9f469w", "amsterdam").
 	Via string `json:"via"`
+	// Links: the web links in its text, for finding the sites an area
+	// shares most (81f).
+	Links []string `json:"links,omitempty"`
 	// For judging reliability on the device: engagement, the author's
 	// account age, and moderation labels on the post or its author.
 	Likes   int        `json:"likes,omitempty"`
@@ -183,6 +186,7 @@ type searchResponse struct {
 				Features []struct {
 					Type string `json:"$type"`
 					Tag  string `json:"tag"`
+					URI  string `json:"uri"`
 				} `json:"features"`
 			} `json:"facets"`
 		} `json:"record"`
@@ -222,6 +226,9 @@ func (r *searchResponse) posts(via string) []Post {
 			for _, ft := range f.Features {
 				if ft.Type == "app.bsky.richtext.facet#tag" {
 					add(ft.Tag)
+				}
+				if ft.Type == "app.bsky.richtext.facet#link" && len(post.Links) < 5 && (strings.HasPrefix(ft.URI, "https://") || strings.HasPrefix(ft.URI, "http://")) {
+					post.Links = append(post.Links, ft.URI)
 				}
 			}
 		}

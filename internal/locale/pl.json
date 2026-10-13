@@ -714,5 +714,7 @@
   "js.sync_failed": "Synchronizacja nie powiodła się: {why}",
   "js.sync_bad_key": "Klucz synchronizacji na tym urządzeniu nie otwiera twojego sejfu. Pobierz klucz ponownie z innego swojego urządzenia.",
   "js.storage_error": "Ta przeglądarka nie pozwala Kafumu czytać tu danych ({why}). To, co jest na innych twoich urządzeniach, jest bezpieczne.",
-  "js.store_info": "Na tym urządzeniu: {n} kontaktów · {where}"
+  "js.store_info": "Na tym urządzeniu: {n} kontaktów · {where}",
+  "js.suggest_source": "Ludzie tutaj często udostępniają {host}. Dodać jego wiadomości do okolicy?",
+  "js.suggest_add": "Dodaj wiadomości"
 }
