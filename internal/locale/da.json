@@ -705,5 +705,8 @@
   "js.keep_alive": "Behold den her",
   "js.keep_alive_title": "Send igen: en 🔁, der holder beskeden her en dag mere",
   "js.back_to_mailbox": "Tilbage til Aktivitet",
-  "js.pop_out": "Åbn som side"
+  "js.pop_out": "Åbn som side",
+  "js.take_back": "Tag tilbage",
+  "js.taken_back": "Taget tilbage.",
+  "js.take_back_confirm": "Tag det tilbage? Det forsvinder her for alle."
 }

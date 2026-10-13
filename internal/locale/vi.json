@@ -705,5 +705,8 @@
   "js.keep_alive": "Giữ lại đây",
   "js.keep_alive_title": "Gửi lại: một 🔁 giữ tin này ở đây thêm một ngày",
   "js.back_to_mailbox": "Quay lại Hoạt động",
-  "js.pop_out": "Mở thành trang"
+  "js.pop_out": "Mở thành trang",
+  "js.take_back": "Rút lại",
+  "js.taken_back": "Đã rút lại.",
+  "js.take_back_confirm": "Rút lại? Nó sẽ biến mất ở đây với mọi người."
 }

@@ -90,6 +90,11 @@ try {
   // 🔁 keeps a line here (86d): a reaction, counted under it.
   await A.evaluate("[...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')).querySelector('.keep-alive').click(); true");
   await A.waitFor("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')); return li && li.querySelector('.keep-alive').textContent.includes('✓') && li.textContent.includes('🔁 1'); })()", "🔁 sent and counted", 30000);
+  // Take a line back (88b): only the device that sent it has the ✕, and it disappears for everyone.
+  await A.evaluate("(() => { document.getElementById('oln-form').hidden = true; document.getElementById('say').click(); const f = document.getElementById('oln-form'); f.text.value = 'Oops, wrong area " + RUN + "'; f.requestSubmit(); return true; })()");
+  await A.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('Oops, wrong area " + RUN + "') && li.querySelector('.take-back'))", "own line with ✕ Take back", 30000);
+  await A.evaluate("window.confirm = () => true; [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('Oops, wrong area " + RUN + "')).querySelector('.take-back').click(); true");
+  await A.waitFor("![...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('Oops, wrong area " + RUN + "'))", "taken back", 30000);
   // The area as RSS and as a calendar (81a): the buttons point at this cell, the feed has the line.
   await A.waitFor("/^\\/rss\\/[0-9a-z]{6}$/.test(new URL(document.getElementById('rss-link').href).pathname) && document.getElementById('cal-link').href.startsWith('webcal://')", "📰 RSS and 📅 Calendar for this area");
   await A.waitFor("fetch(document.getElementById('rss-link').href, { cache: 'no-store' }).then(r => r.text()).then(x => x.includes('<rss') && x.includes('hi from the OLN " + RUN + "'))", "the area's RSS has the message", 20000);

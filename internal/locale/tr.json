@@ -705,5 +705,8 @@
   "js.keep_alive": "Burada tut",
   "js.keep_alive_title": "Yeniden gönder: bu iletiyi bir gün daha burada tutan bir 🔁",
   "js.back_to_mailbox": "Etkinliğe dön",
-  "js.pop_out": "Sayfa olarak aç"
+  "js.pop_out": "Sayfa olarak aç",
+  "js.take_back": "Geri al",
+  "js.taken_back": "Geri alındı.",
+  "js.take_back_confirm": "Geri alınsın mı? Burada herkes için kaybolur."
 }

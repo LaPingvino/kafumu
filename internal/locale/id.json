@@ -705,5 +705,8 @@
   "js.keep_alive": "Pertahankan di sini",
   "js.keep_alive_title": "Kirim lagi: 🔁 yang menahan pesan ini di sini sehari lagi",
   "js.back_to_mailbox": "Kembali ke Aktivitas",
-  "js.pop_out": "Buka sebagai halaman"
+  "js.pop_out": "Buka sebagai halaman",
+  "js.take_back": "Tarik kembali",
+  "js.taken_back": "Ditarik.",
+  "js.take_back_confirm": "Tarik kembali? Hilang di sini untuk semua."
 }

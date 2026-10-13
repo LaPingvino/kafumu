@@ -14,6 +14,7 @@ package oln
 import (
 	"context"
 	"crypto/sha1"
+	"crypto/sha256"
 	"encoding/base64"
 	"encoding/hex"
 	"errors"
@@ -315,8 +316,35 @@ var reTag = regexp.MustCompile(`^re[0-9a-f]{10}$`)
 // language, what it answers or how to reach its author.
 func isSubject(t string) bool {
 	return t != "ask" && !strings.HasPrefix(t, "geo") && !strings.HasPrefix(t, "lang") && !reTag.MatchString(t) &&
-		!pairTag.MatchString(t) && !strings.HasPrefix(t, "rka") && !strings.HasPrefix(t, "rkb")
+		!pairTag.MatchString(t) && !strings.HasPrefix(t, "rka") && !strings.HasPrefix(t, "rkb") && !wdTag.MatchString(t)
 }
+
+// wdTag: a line's withdrawal commitment (88b): "wd" + the first 16 hex of
+// SHA-256(secret), the secret kept on the device that sent it. Showing the
+// secret takes the line down; nobody else has it.
+var wdTag = regexp.MustCompile(`^wd[0-9a-f]{16}$`)
+
+// Withdraw takes down line id if secret matches its #wd tag.
+func (s *Service) Withdraw(ctx context.Context, id, secret string) error {
+	n, err := s.Store.Get(ctx, id)
+	if err != nil {
+		return err
+	}
+	h := sha256.Sum256([]byte(secret))
+	if len(secret) < 16 || !slices.Contains(n.Tags, "wd"+hex.EncodeToString(h[:])[:16]) {
+		return ErrNotYours
+	}
+	if err := s.Hide(ctx, id); err != nil {
+		return err
+	}
+	s.mu.Lock()
+	delete(s.cells, n.Cell)
+	s.mu.Unlock()
+	return nil
+}
+
+// ErrNotYours: a withdrawal without the line's secret.
+var ErrNotYours = errors.New("oln: not the sender of this line")
 
 // Fresh is how long lists and lookups (an area's lines, replies by id,
 // questions and general lines by subject) are kept per instance, and how

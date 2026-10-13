@@ -705,5 +705,8 @@
   "js.keep_alive": "Manter aqui",
   "js.keep_alive_title": "Reenviar: um 🔁 que mantém esta mensagem aqui mais um dia",
   "js.back_to_mailbox": "Voltar à Atividade",
-  "js.pop_out": "Abrir como página"
+  "js.pop_out": "Abrir como página",
+  "js.take_back": "Retirar",
+  "js.taken_back": "Retirado.",
+  "js.take_back_confirm": "Retirar isto? Desaparece aqui para todos."
 }

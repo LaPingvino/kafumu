@@ -705,5 +705,8 @@
   "js.keep_alive": "Teni ĝin ĉi tie",
   "js.keep_alive_title": "Resendi: 🔁, kiu tenas ĉi tiun mesaĝon ĉi tie ankoraŭ unu tagon",
   "js.back_to_mailbox": "Reen al Aktiveco",
-  "js.pop_out": "Malfermi kiel paĝon"
+  "js.pop_out": "Malfermi kiel paĝon",
+  "js.take_back": "Repreni",
+  "js.taken_back": "Reprenita.",
+  "js.take_back_confirm": "Ĉu repreni ĝin? Ĝi malaperas ĉi tie por ĉiuj."
 }

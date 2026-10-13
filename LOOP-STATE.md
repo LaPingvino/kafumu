@@ -1167,10 +1167,10 @@ Findable, Account, Business, meetups…), and with a "👀 Show me" button that 
       links are /chat?k=c:<id> / a:<id>; on ≥800 px they open as docked windows (kept across pages in localStorage,
       ⤢ pops one out to its page), on a phone the link opens /chat (← 🔔 back to the mailbox, sized to the screen);
       a tapped notification with Kafumu open asks the page (postMessage) to open the chat in place. 24 languages.
-- [ ] 88b. Take back your "☕ Who's up for coffee?": after sending, the button becomes "☕ … · ✕ Stop", which stops
-      listening and withdraws the line: a #re retraction that proves it's yours (signed with the invite key the
-      coffee line's connect code carries, so only its sender can), honoured by every client and by this node
-      (hides the line). Same for ❓ questions and other lines you sent from this device.
+- [x] 88b. Done (simpler than a signature): every line sent from this device carries #wd<16 hex> = SHA-256 of a
+      secret kept in myPosts; POST /api/oln/withdraw?id&secret hides it (no account; TestWithdraw); "✕ Take back" on
+      your own lines (says, questions, coffee) and next to "coffee sent", which also stops listening; #wd is never
+      a subject; oln.html documents it. 24 languages.
 
 ## 85. Every conversation as a chat (Joop 2026-10-13)
 One list of chats, like a messenger, merging the mailbox and Contacts (filter: "only contacts"). Every thing that

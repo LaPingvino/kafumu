@@ -705,5 +705,8 @@
   "js.keep_alive": "여기 남기기",
   "js.keep_alive_title": "다시 보내기: 이 메시지를 하루 더 남기는 🔁",
   "js.back_to_mailbox": "활동으로 돌아가기",
-  "js.pop_out": "페이지로 열기"
+  "js.pop_out": "페이지로 열기",
+  "js.take_back": "취소하기",
+  "js.taken_back": "취소했어요.",
+  "js.take_back_confirm": "취소할까요? 여기서 모두에게 사라져요."
 }

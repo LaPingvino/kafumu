@@ -36,7 +36,9 @@
       adds a news or calendar source to its area; this node only takes those posted under a name by an account
       with a passkey, at most 20 live each, and a source lives as long as its line (renewed by posting it again). This node also keeps a line
       while something live refers to it: a <code>#re</code> answer that outlives it extends it, so a chain lives
-      as long as its newest link (🔁 on a line does exactly that).</li>
+      as long as its newest link (🔁 on a line does exactly that). <code>#wd&lt;16 hex&gt;</code> is a way to take a
+      line back: the first 16 hex of SHA-256 of a secret only the sending device keeps; showing that secret
+      (<code>POST /api/oln/withdraw?id=…&amp;secret=…</code>) hides the line here.</li>
   </ul>
   <p>The work is the number of leading zero bits of <code>Argon2id(line)</code> with salt <code>OLN-v2-proofwork</code>,
   1 pass, 4 MiB of memory, 1 lane and a 32-byte output. Kafumu asks 4 bits at the base (16 tries) and a little more

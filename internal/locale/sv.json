@@ -705,5 +705,8 @@
   "js.keep_alive": "Behåll den här",
   "js.keep_alive_title": "Skicka igen: en 🔁 som håller meddelandet här en dag till",
   "js.back_to_mailbox": "Tillbaka till Aktivitet",
-  "js.pop_out": "Öppna som sida"
+  "js.pop_out": "Öppna som sida",
+  "js.take_back": "Ta tillbaka",
+  "js.taken_back": "Tillbakataget.",
+  "js.take_back_confirm": "Ta tillbaka? Det försvinner här för alla."
 }

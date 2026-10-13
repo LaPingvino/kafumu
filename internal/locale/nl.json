@@ -705,5 +705,8 @@
   "js.keep_alive": "Houd het hier",
   "js.keep_alive_title": "Opnieuw versturen: een 🔁 die dit bericht nog een dag hier houdt",
   "js.back_to_mailbox": "Terug naar Activiteit",
-  "js.pop_out": "Openen als pagina"
+  "js.pop_out": "Openen als pagina",
+  "js.take_back": "Terugnemen",
+  "js.taken_back": "Teruggenomen.",
+  "js.take_back_confirm": "Dit terugnemen? Het verdwijnt hier voor iedereen."
 }

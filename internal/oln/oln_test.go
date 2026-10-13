@@ -2,7 +2,9 @@ package oln
 
 import (
 	"context"
+	"crypto/sha256"
 	"encoding/base64"
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -560,5 +562,29 @@ func TestKeepAlive(t *testing.T) {
 	}
 	if got, _ := s.InCells(ctx, []string{"8ccgmw"}); len(got) != 1 || got[0].ID != post.ID || !got[0].ExpiresAt.Equal(r2.ExpiresAt) {
 		t.Fatalf("revived: %+v", got)
+	}
+}
+
+// Taking a line back (88b): only with the secret behind its #wd tag.
+func TestWithdraw(t *testing.T) {
+	s := NewService(NewMemoryStore())
+	ctx, now := context.Background(), time.Now().UTC()
+	secret := "0123456789abcdef0123456789abcdef"
+	h := sha256.Sum256([]byte(secret))
+	n, err := s.Post(ctx, mine(BaseBits, now, "☕ Who's up for coffee?", "#geo8ccgmw #wd"+hex.EncodeToString(h[:])[:16]))
+	if err != nil || len(n.Subj) != 0 {
+		t.Fatalf("post = %+v, %v (a #wd tag is no subject)", n, err)
+	}
+	if err := s.Withdraw(ctx, n.ID, "ffffffffffffffffffffffffffffffff"); err != ErrNotYours {
+		t.Fatalf("wrong secret: %v", err)
+	}
+	if got, _ := s.InCells(ctx, []string{"8ccgmw"}); len(got) != 1 {
+		t.Fatal("a wrong secret took it down")
+	}
+	if err := s.Withdraw(ctx, n.ID, secret); err != nil {
+		t.Fatal(err)
+	}
+	if got, _ := s.InCells(ctx, []string{"8ccgmw"}); len(got) != 0 {
+		t.Fatal("withdrawn line still shows")
 	}
 }

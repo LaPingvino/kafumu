@@ -705,5 +705,8 @@
   "js.keep_alive": "Nech to tu",
   "js.keep_alive_title": "Poslat znovu: 🔁, které tu zprávu udrží ještě den",
   "js.back_to_mailbox": "Zpět na Aktivitu",
-  "js.pop_out": "Otevřít jako stránku"
+  "js.pop_out": "Otevřít jako stránku",
+  "js.take_back": "Vzít zpět",
+  "js.taken_back": "Vzato zpět.",
+  "js.take_back_confirm": "Vzít zpět? Zmizí tu pro všechny."
 }

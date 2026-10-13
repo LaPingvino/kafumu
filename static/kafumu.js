@@ -434,13 +434,15 @@
     });
     var asMe = !!(f.asme && f.asme.checked);
     if (f.asme) pref("kafumu.postAsMe", asMe ? "1" : "0");
+    var wd; // you can take it back later (88b)
+    ready = ready.then(withdrawTag).then(function (w) { wd = w; keywords += " " + w.tag; });
     ready.then(function () { return window.kafumuOLN.post(text, keywords, bits, function (tries, ms) {
       if (ms > 0) pref("kafumu.workRate", String(Math.round(tries / ms * 10000) / 10));
       $("oln-status").textContent = tr("oln_working", { n: tries });
     }, 0, asMe); }).then(function (n) {
       if (n && n.id) (n.cell === "000000" ? ownGeneral : ownNotes).push(n);
       if (composeMode.re) showOwnReaction(composeMode.re.slice(0, 10), n);
-      rememberPost(n, composeMode.re ? "reply" : composeMode.ask ? "ask" : "note", text.split("\n")[0]);
+      rememberPost(n, composeMode.re ? "reply" : composeMode.ask ? "ask" : "note", text.split("\n")[0], wd && wd.secret);
       if (!composeMode.re && aPair) aPair.pushSubscribe(false).catch(function () {}); // its answers can wake you now
       composeMode = {};
       f.text.value = "";
@@ -465,17 +467,27 @@
     if (!dev || !window.kafumuPair || !currentCell) return;
     btn.disabled = true;
     var pair = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin });
+    var wd;
     dev.personas.shareCard().then(function (card) {
-      return pair.invite(false).then(function (inv) {
-        var text = textFor(card).trim() + "\n" + inv.url;
-        return window.kafumuOLN.post(text, keywords(), requiredBits, function (tries) {
+      return Promise.all([pair.invite(false), withdrawTag()]).then(function (r) {
+        var text = textFor(card).trim() + "\n" + r[0].url;
+        wd = r[1];
+        return window.kafumuOLN.post(text, keywords() + " " + wd.tag, requiredBits, function (tries) {
           statusEl.textContent = tr("oln_working", { n: tries });
         });
       });
     }).then(function (n) {
       if (n && n.id) ownNotes.push(n);
-      rememberPost(n, "coffee", "☕");
-      statusEl.textContent = tr("coffee_sent");
+      rememberPost(n, "coffee", "☕", wd.secret);
+      statusEl.textContent = tr("coffee_sent") + " ";
+      // Changed your mind: take it back, and stop listening (88b).
+      var back = document.createElement("button");
+      back.type = "button"; back.className = "pill-sm"; back.textContent = "✕ " + tr("take_back");
+      back.onclick = function () {
+        back.disabled = true;
+        takeBack(n.id).then(function () { until = 0; statusEl.textContent = tr("taken_back"); btn.disabled = false; }, function () { back.disabled = false; });
+      };
+      statusEl.appendChild(back);
       load(currentCell, true);
       // Keep listening for people who join, like the Connect page does.
       var pairer = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin });
@@ -672,16 +684,39 @@
   // rememberPost (77a): the device keeps a list of your own posts, in any
   // area, so Activity can gather what came back to them. Kept until a week
   // after the post expires; ids are public anyway (they're in the cell).
-  function rememberPost(n, kind, text) {
+  // withdrawTag (88b): a fresh secret and the #wd tag that commits to it;
+  // the secret stays on this device, so only it can take the line back.
+  function withdrawTag() {
+    var b = crypto.getRandomValues(new Uint8Array(16)), secret = Array.from(b, function (x) { return ("0" + x.toString(16)).slice(-2); }).join("");
+    return crypto.subtle.digest("SHA-256", new TextEncoder().encode(secret)).then(function (h) {
+      var hx = Array.from(new Uint8Array(h), function (x) { return ("0" + x.toString(16)).slice(-2); }).join("");
+      return { secret: secret, tag: "#wd" + hx.slice(0, 16) };
+    });
+  }
+  var mySecrets = {};
+  if (window.kafumuDevice) window.kafumuDevice.store.get("myPosts").then(function (ps) { (ps || []).forEach(function (p) { if (p.secret && p.id) mySecrets[p.id] = p.secret; }); }).catch(function () {});
+  // takeBack: withdraw one of your lines; the node hides it for everyone.
+  function takeBack(id) {
+    var secret = mySecrets[id];
+    if (!secret) return Promise.reject(new Error("not from this device"));
+    return fetch("/api/oln/withdraw?id=" + encodeURIComponent(id) + "&secret=" + secret, { method: "POST", credentials: "omit" }).then(function (r) {
+      if (!r.ok) throw new Error(r.status);
+      delete mySecrets[id];
+      ownNotes = ownNotes.filter(function (x) { return x.id !== id; });
+      load(currentCell, true);
+    });
+  }
+  function rememberPost(n, kind, text, secret) {
     var dev = window.kafumuDevice;
     if (!dev || !n || !(n.id || n.uri)) return;
+    if (secret && n.id) mySecrets[n.id] = secret;
     var until = (n.expires ? new Date(n.expires).getTime() : Date.now() + 30 * 864e5) + 7 * 864e5;
     dev.store.get("myPosts").then(function (ps) {
       var now = Date.now();
       ps = (ps || []).filter(function (p) { return p.until > now; });
       var lk = n.id && n.text ? linkOf(n) : "";
       ps.push({ id: n.id || "", uri: n.uri || "", cell: n.cell || "", reid: lk ? reID("link", lk) : n.id ? reID("note", n.id) : "",
-        kind: kind, text: String(text || "").slice(0, 80), at: now, until: until });
+        kind: kind, text: String(text || "").slice(0, 80), at: now, until: until, secret: secret || undefined });
       return dev.store.set("myPosts", ps.slice(-200));
     }).catch(function () {});
   }
@@ -741,7 +776,7 @@
     if ((n.tags || []).indexOf("feed") >= 0) meta.appendChild(document.createTextNode("📰 " + tr("source_label") + " · ")); // a source (81c)
     meta.appendChild(document.createTextNode((n.author ? "@" + n.author + " ✓ · " : "") + (opts.forYou ? "★ " + tr("ask_for_you") + " · " : "") + ago(n.at) + " · ⚡" + n.bits + " · " +
       tr("oln_left", { h: left < 1 ? "<1" : Math.round(left) }) + (n.via ? " · ↪ " + n.via.replace(/^https?:\/\//, "") : "") +
-      (n.tags || []).filter(function (t) { return !/^(geo|re[0-9a-f]{10}$|ask$|rk[ab][0-9a-f]{33}$)/.test(t); }).map(function (t) { return " " + tagText(t); }).join("")));
+      (n.tags || []).filter(function (t) { return !/^(geo|re[0-9a-f]{10}$|ask$|rk[ab][0-9a-f]{33}$|wd[0-9a-f]{16}$)/.test(t); }).map(function (t) { return " " + tagText(t); }).join("")));
     var text = document.createElement("p");
     text.className = "text";
     var m = n.text.match(/https?:\/\/[^\s]+\/c#v1\.[A-Za-z0-9_-]+/);
@@ -755,6 +790,12 @@
       join.href = m[0]; join.setAttribute("role", "button"); join.className = "pill-sm suggested";
       join.textContent = opts.question ? "🔒 " + tr("ask_private") : "☕ " + tr("coffee_join");
       row.appendChild(join);
+    }
+    if (mySecrets[n.id]) { // sent from this device: ✕ takes it back (88b)
+      var tb = document.createElement("button");
+      tb.type = "button"; tb.className = "pill-sm take-back"; tb.textContent = "✕ " + tr("take_back");
+      tb.onclick = function () { if (!confirm(tr("take_back_confirm"))) return; tb.disabled = true; takeBack(n.id).catch(function () { tb.disabled = false; }); };
+      row.appendChild(tb);
     }
     var rk = answersPair() && answersPair().replyKeyOf(n.tags);
     if (rk && !opts.reply) {

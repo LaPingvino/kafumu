@@ -705,5 +705,8 @@
   "js.keep_alive": "Keep it here",
   "js.keep_alive_title": "Send it again: a 🔁 that keeps this line here for another day",
   "js.back_to_mailbox": "Back to Activity",
-  "js.pop_out": "Open as a page"
+  "js.pop_out": "Open as a page",
+  "js.take_back": "Take back",
+  "js.taken_back": "Taken back.",
+  "js.take_back_confirm": "Take this back? It disappears here for everyone."
 }

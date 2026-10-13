@@ -705,5 +705,8 @@
   "js.keep_alive": "留在这里",
   "js.keep_alive_title": "再发一次：用 🔁 让这条消息再留一天",
   "js.back_to_mailbox": "返回动态",
-  "js.pop_out": "以页面打开"
+  "js.pop_out": "以页面打开",
+  "js.take_back": "撤回",
+  "js.taken_back": "已撤回。",
+  "js.take_back_confirm": "撤回？这里的所有人都将看不到它。"
 }

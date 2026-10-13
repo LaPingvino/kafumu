@@ -705,5 +705,8 @@
   "js.keep_alive": "Hier behalten",
   "js.keep_alive_title": "Erneut senden: ein 🔁, das diese Nachricht noch einen Tag hier hält",
   "js.back_to_mailbox": "Zurück zu Aktivität",
-  "js.pop_out": "Als Seite öffnen"
+  "js.pop_out": "Als Seite öffnen",
+  "js.take_back": "Zurücknehmen",
+  "js.taken_back": "Zurückgenommen.",
+  "js.take_back_confirm": "Zurücknehmen? Es verschwindet hier für alle."
 }

@@ -705,5 +705,8 @@
   "js.keep_alive": "Păstrează-l aici",
   "js.keep_alive_title": "Retrimite: un 🔁 care ține mesajul aici încă o zi",
   "js.back_to_mailbox": "Înapoi la Activitate",
-  "js.pop_out": "Deschide ca pagină"
+  "js.pop_out": "Deschide ca pagină",
+  "js.take_back": "Retrage",
+  "js.taken_back": "Retras.",
+  "js.take_back_confirm": "Retragi? Dispare aici pentru toți."
 }

@@ -199,3 +199,16 @@ func (s *Service) HandleRemoveSource(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusNoContent)
 }
+
+// HandleWithdraw is POST /api/oln/withdraw?id=…&secret=…: the device that
+// sent a line takes it back (88b). No account: the secret is the proof.
+func (s *Service) HandleWithdraw(w http.ResponseWriter, r *http.Request) {
+	switch err := s.Withdraw(r.Context(), r.URL.Query().Get("id"), r.URL.Query().Get("secret")); {
+	case err == nil:
+		w.WriteHeader(http.StatusNoContent)
+	case errors.Is(err, ErrNotYours):
+		http.Error(w, "not yours", http.StatusForbidden)
+	default:
+		http.Error(w, "not found", http.StatusNotFound)
+	}
+}

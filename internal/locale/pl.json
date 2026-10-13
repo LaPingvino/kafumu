@@ -705,5 +705,8 @@
   "js.keep_alive": "Zatrzymaj tutaj",
   "js.keep_alive_title": "Wyślij ponownie: 🔁, które utrzyma tę wiadomość jeszcze dzień",
   "js.back_to_mailbox": "Wróć do Aktywności",
-  "js.pop_out": "Otwórz jako stronę"
+  "js.pop_out": "Otwórz jako stronę",
+  "js.take_back": "Cofnij",
+  "js.taken_back": "Cofnięto.",
+  "js.take_back_confirm": "Cofnąć? Zniknie tu dla wszystkich."
 }

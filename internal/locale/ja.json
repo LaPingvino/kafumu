@@ -705,5 +705,8 @@
   "js.keep_alive": "ここに残す",
   "js.keep_alive_title": "もう一度送る：このメッセージをもう1日残す🔁",
   "js.back_to_mailbox": "アクティビティに戻る",
-  "js.pop_out": "ページで開く"
+  "js.pop_out": "ページで開く",
+  "js.take_back": "取り消す",
+  "js.taken_back": "取り消しました。",
+  "js.take_back_confirm": "取り消しますか？ここでは全員から見えなくなります。"
 }

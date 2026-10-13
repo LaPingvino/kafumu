@@ -705,5 +705,8 @@
   "js.keep_alive": "留在這裡",
   "js.keep_alive_title": "再傳一次：用 🔁 讓這則訊息再留一天",
   "js.back_to_mailbox": "返回動態",
-  "js.pop_out": "以頁面開啟"
+  "js.pop_out": "以頁面開啟",
+  "js.take_back": "撤回",
+  "js.taken_back": "已撤回。",
+  "js.take_back_confirm": "撤回？這裡的所有人都將看不到它。"
 }
