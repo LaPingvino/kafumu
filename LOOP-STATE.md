@@ -1093,6 +1093,12 @@ only for areas people actually look at. Each slice passes one test: does the are
       accepts `#feed` only from a signed-in named account with a passkey, a loose cap per account (20 live; a
       degree of spam is wanted, Joop: the value sorts it, not the gate), cell required (never 000000). "📰 Add a source for this area" in the composer; listed on the area page with
       who added it. oln.html: a source lives as long as its line (renewable), nothing permanent. 24 languages.
+- [ ] 81c2. Report a source (Joop 2026-10-13): ⚑ on a source and on its items goes into the existing report
+      queue (kind "source"). On /admin a source report offers: remove the source (hide its line + its items),
+      stop sources from that account (an account flag, NoSources; it can still post normally), and stop sources
+      from that network: the source line keeps a keyed hash of the adder's IPv4 address or IPv6 /64 (never the
+      address itself; it expires with the line), and a block puts that hash on an expiring list (90 days)
+      checked when a source is added. Brand admins get the same on their host. 24 languages.
 - [ ] 81d. Pull: a bot-safe "seen cells" record (like seen-countries); the 6-hourly feeds job pulls sources of
       cells seen in the last 3 days (bounded per run): calendar feeds → meetups (existing path), RSS/Atom items
       → expiring notes in that cell, Author = who added it, #site_host, value from the source line (below what
