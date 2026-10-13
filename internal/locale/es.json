@@ -701,5 +701,7 @@
   "note.gone_title": "Este mensaje ha caducado",
   "note.fade": "Los mensajes en Kafumu se apagan: cada uno vive un tiempo (más si se puso más trabajo en enviarlo) y luego desaparece. Nada se guarda para siempre aquí, a propósito.",
   "note.area": "Su zona",
-  "note.learn": "Cómo funcionan aquí los mensajes"
+  "note.learn": "Cómo funcionan aquí los mensajes",
+  "js.keep_alive": "Mantenerlo aquí",
+  "js.keep_alive_title": "Reenviar: un 🔁 que mantiene este mensaje aquí un día más"
 }

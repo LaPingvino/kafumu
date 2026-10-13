@@ -701,5 +701,7 @@
   "note.gone_title": "Diese Nachricht ist abgelaufen",
   "note.fade": "Nachrichten auf Kafumu verblassen: Jede lebt eine Weile (länger, wenn mehr Arbeit ins Senden ging), dann ist sie weg. Nichts bleibt hier für immer, mit Absicht.",
   "note.area": "Ihre Gegend",
-  "note.learn": "Wie Nachrichten hier funktionieren"
+  "note.learn": "Wie Nachrichten hier funktionieren",
+  "js.keep_alive": "Hier behalten",
+  "js.keep_alive_title": "Erneut senden: ein 🔁, das diese Nachricht noch einen Tag hier hält"
 }

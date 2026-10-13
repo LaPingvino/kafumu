@@ -530,3 +530,35 @@ func TestSources(t *testing.T) {
 		t.Fatalf("a line with a link but no #feed is no source: %+v %v", plain, err)
 	}
 }
+
+// A line stays while something live refers to it (86d): a later-expiring
+// reply carries its expiry back to the line it answers, also one that had
+// just expired; a private line is never touched.
+func TestKeepAlive(t *testing.T) {
+	store := NewMemoryStore()
+	s := NewService(store)
+	ctx, now := context.Background(), time.Now().UTC()
+	post, err := s.Post(ctx, mine(BaseBits, now, "Market today, 10:00", "#geo8ccgmw"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	r, err := s.Post(ctx, mine(s.requiredForRe(ctx, post.ID[:10])+6, now, "↻", "#re"+post.ID[:10]))
+	if err != nil || !r.ExpiresAt.After(post.ExpiresAt) {
+		t.Fatalf("reply = %+v, %v", r, err)
+	}
+	if got, _ := store.Get(ctx, post.ID); !got.ExpiresAt.Equal(r.ExpiresAt) {
+		t.Fatalf("the line lives until %v, its reply until %v", got.ExpiresAt, r.ExpiresAt)
+	}
+	// Expired but still stored: a reply brings it back.
+	got, _ := store.Get(ctx, post.ID)
+	got.ExpiresAt = now.Add(-time.Minute)
+	store.Put(ctx, got)
+	s.ForgetAll()
+	r2, err := s.Post(ctx, mine(s.requiredForRe(ctx, post.ID[:10])+2, now, "still on?", "#re"+post.ID[:10]))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got, _ := s.InCells(ctx, []string{"8ccgmw"}); len(got) != 1 || got[0].ID != post.ID || !got[0].ExpiresAt.Equal(r2.ExpiresAt) {
+		t.Fatalf("revived: %+v", got)
+	}
+}

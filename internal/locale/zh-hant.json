@@ -701,5 +701,7 @@
   "note.gone_title": "這則訊息已過期",
   "note.fade": "Kafumu 上的訊息會淡去：每則存在一段時間（傳送時付出的運算越多，存在越久），然後消失。這裡刻意不永久保存任何東西。",
   "note.area": "所在地區",
-  "note.learn": "這裡的訊息如何運作"
+  "note.learn": "這裡的訊息如何運作",
+  "js.keep_alive": "留在這裡",
+  "js.keep_alive_title": "再傳一次：用 🔁 讓這則訊息再留一天"
 }

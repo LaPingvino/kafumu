@@ -92,9 +92,9 @@ type page struct {
 	// Help names this page's one-line explanation bar (87a): "around" uses
 	// home.intro, anything else help.<Help>; empty: no bar.
 	Help string
-	Cell       string
-	Lang       string
-	V          string // asset version, so a deploy never mixes old and new JS
+	Cell string
+	Lang string
+	V    string // asset version, so a deploy never mixes old and new JS
 	// MovedTo is set on a legacy origin: the canonical origin to move to.
 	MovedTo string
 	// Passkeys is true when passkeys work on this host.
@@ -358,8 +358,8 @@ func (h *Home) CanonicalHost(next http.Handler) http.Handler {
 // Funcs are the template functions. Translations come from our own files,
 // so they may contain markup.
 var Funcs = template.FuncMap{
-	"t":     func(lang, key string) template.HTML { return template.HTML(locale.T(lang, key)) },
-	"ts":    locale.T,
+	"t":  func(lang, key string) template.HTML { return template.HTML(locale.T(lang, key)) },
+	"ts": locale.T,
 	// help is a page's one-line explanation (87a).
 	"help": func(lang, name string) string {
 		if name == "around" {
@@ -368,7 +368,9 @@ var Funcs = template.FuncMap{
 		return locale.T(lang, "help."+name)
 	},
 	// withHost fills a translation's {host} with this site's domain.
-	"withHost": func(s, host string) template.HTML { return template.HTML(strings.ReplaceAll(s, "{host}", template.HTMLEscapeString(host))) },
+	"withHost": func(s, host string) template.HTML {
+		return template.HTML(strings.ReplaceAll(s, "{host}", template.HTMLEscapeString(host)))
+	},
 	"venue": meetup.CleanVenue,
 	// tagLabel shows a tag to people: "lang:epo" as "🗣 Esperanto" (an
 	// internal language tag), anything else as "#tag".

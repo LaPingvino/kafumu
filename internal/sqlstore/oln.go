@@ -180,3 +180,12 @@ func (s *Notes) SourcesBy(ctx context.Context, src string, now time.Time) ([]*ol
 	}
 	return scanNotes(rows)
 }
+
+// ByPrefix: the ids are hex, so a prefix is a range.
+func (s *Notes) ByPrefix(ctx context.Context, prefix string) ([]*oln.Note, error) {
+	rows, err := s.DB.QueryContext(ctx, `SELECT data FROM notes WHERE id >= ? AND id < ? LIMIT 3`, prefix, prefix+"g")
+	if err != nil {
+		return nil, err
+	}
+	return scanNotes(rows)
+}

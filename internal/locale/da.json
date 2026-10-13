@@ -701,5 +701,7 @@
   "note.gone_title": "Denne besked er udløbet",
   "note.fade": "Beskeder på Kafumu falmer: hver lever et stykke tid (længere, når der gik mere arbejde i at sende den), og så er den væk. Intet gemmes her for evigt, med vilje.",
   "note.area": "Dens område",
-  "note.learn": "Sådan virker beskeder her"
+  "note.learn": "Sådan virker beskeder her",
+  "js.keep_alive": "Behold den her",
+  "js.keep_alive_title": "Send igen: en 🔁, der holder beskeden her en dag mere"
 }

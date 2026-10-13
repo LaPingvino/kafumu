@@ -293,6 +293,9 @@ type Store interface {
 	RepliesTo(ctx context.Context, res []string, now time.Time) ([]*Note, error)
 	// ByPair returns live private messages under a pair tag.
 	ByPair(ctx context.Context, tag string, now time.Time) ([]*Note, error)
+	// ByPrefix returns the lines (live or not, while stored) whose id starts
+	// with prefix: what a #re tag points at (86d). At most a few.
+	ByPrefix(ctx context.Context, prefix string) ([]*Note, error)
 	// SourcesBy returns the live source lines (#feed) an account added.
 	SourcesBy(ctx context.Context, src string, now time.Time) ([]*Note, error)
 }
@@ -658,6 +661,9 @@ func (s *Service) PostAs(ctx context.Context, raw, author string) (*Note, error)
 		return nil, err
 	}
 	s.rememberRepeat(n, now)
+	if n.Re != "" {
+		s.keepAlive(ctx, n)
+	}
 	s.mu.Lock()
 	delete(s.cells, n.Cell)
 	for _, t := range n.Asks {
@@ -710,6 +716,28 @@ func (s *Service) InCells(ctx context.Context, cells []string) ([]*Note, error) 
 	}
 	sort.Slice(live, func(i, j int) bool { return Priority(live[i], now) > Priority(live[j], now) })
 	return live, nil
+}
+
+// keepAlive: a line stays while something live refers to it (86d, Joop: a
+// chain lives as long as its newest link). The line r answers gets r's
+// expiry if that's later than its own; an expired one still stored comes
+// back. Private lines are never touched.
+func (s *Service) keepAlive(ctx context.Context, r *Note) {
+	ns, err := s.Store.ByPrefix(ctx, r.Re)
+	if err != nil {
+		return
+	}
+	for _, t := range ns {
+		if t.Pair != "" || t.ID == r.ID || !t.ExpiresAt.Before(r.ExpiresAt) {
+			continue
+		}
+		t.ExpiresAt = r.ExpiresAt
+		if s.Store.Put(ctx, t) == nil {
+			s.mu.Lock()
+			delete(s.cells, t.Cell)
+			s.mu.Unlock()
+		}
+	}
 }
 
 // IsHidden: a moderator took this line down.

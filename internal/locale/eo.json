@@ -701,5 +701,7 @@
   "note.gone_title": "Ĉi tiu mesaĝo eksvalidiĝis",
   "note.fade": "Mesaĝoj ĉe Kafumu forvelkas: ĉiu vivas iom da tempo (pli longe, se pli da laboro iris en la sendon), kaj poste malaperas. Nenio restas ĉi tie por ĉiam, intence.",
   "note.area": "Ĝia loko",
-  "note.learn": "Kiel mesaĝoj funkcias ĉi tie"
+  "note.learn": "Kiel mesaĝoj funkcias ĉi tie",
+  "js.keep_alive": "Teni ĝin ĉi tie",
+  "js.keep_alive_title": "Resendi: 🔁, kiu tenas ĉi tiun mesaĝon ĉi tie ankoraŭ unu tagon"
 }

@@ -701,5 +701,7 @@
   "note.gone_title": "Acest mesaj a expirat",
   "note.fade": "Mesajele pe Kafumu se sting: fiecare trăiește o vreme (mai mult când s-a pus mai multă muncă în trimitere), apoi dispare. Nimic nu rămâne aici pentru totdeauna, intenționat.",
   "note.area": "Zona lui",
-  "note.learn": "Cum funcționează aici mesajele"
+  "note.learn": "Cum funcționează aici mesajele",
+  "js.keep_alive": "Păstrează-l aici",
+  "js.keep_alive_title": "Retrimite: un 🔁 care ține mesajul aici încă o zi"
 }

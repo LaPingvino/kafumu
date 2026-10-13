@@ -1047,7 +1047,7 @@ Per the OLN json-spec, a link is an index key like a tag (index["link"] → mess
       Diagnostics added (actingSync, the key panel, GET keyreq): read them when it next fails.
 
 
-Order (Joop 2026-10-13: mailbox first, reorder freely): 83 → 82 → 87a → 85 → 86 → 81c–f → 84.
+Order (Joop 2026-10-13: mailbox first, reorder freely): 83 → 82 → 87a → 85 → 86 → 88 → 81c2–f → 84.
 ## 83. One mailbox for every conversation (Joop 2026-10-13)
 Private answers (now on the home page), chat messages and their answers (now on contact cards), replies to
 your posts and meetups (Activity, 77) in one mailbox, and notifications that always say who and about what.
@@ -1162,6 +1162,16 @@ Findable, Account, Business, meetups…), and with a "👀 Show me" button that 
       reopens it; "👀 Show me" starts the existing tour where there is one; 😕 leaves the area's rows. 24 languages.
 - [ ] 87b. Tours for the pages that don't have one yet (only where a tour adds something to the line).
 
+## 88. Joop 2026-10-13 (more)
+- [ ] 88a. Desktop chat windows survive across pages: the open, docked chats come back on every page (which ones,
+      kept on the device), and opening a chat from elsewhere (a contact's 💬, a notification, an Activity row)
+      opens the docked window right there instead of going to the mailbox page. Phones keep the full-screen window,
+      also opened in place.
+- [ ] 88b. Take back your "☕ Who's up for coffee?": after sending, the button becomes "☕ … · ✕ Stop", which stops
+      listening and withdraws the line: a #re retraction that proves it's yours (signed with the invite key the
+      coffee line's connect code carries, so only its sender can), honoured by every client and by this node
+      (hides the line). Same for ❓ questions and other lines you sent from this device.
+
 ## 85. Every conversation as a chat (Joop 2026-10-13)
 One list of chats, like a messenger, merging the mailbox and Contacts (filter: "only contacts"). Every thing that
 talks to you is a thread: a contact, a private answer, your post (its replies and reactions), your meetup (RSVPs,
@@ -1199,7 +1209,10 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       TestShowNote, browser step following a carried link. Was: /n/<id> (Joop): a line's own address. Live → its area at the line. Expired but still stored (Datastore's
       TTL deletes late) or in a cache → shown as "expired" with its text. Gone → a friendly "this message has expired"
       page explaining how OLN works (lines fade; the network keeps nothing forever) with a link to /oln.
-- [ ] 86d. "↻ Send again" on a line (yours or anyone's): a new line that refers to it (#re<id> + its text as context),
+- [x] 86d. Done: Store.ByPrefix (Datastore key range, memory, SQLite) + Service.keepAlive: a #re line that outlives
+      the line it answers extends it (an expired one still stored comes back; private lines never); 🔁 on every
+      local line sends that, mined for a day, and counts like a reaction; oln.html says so. Tests: TestKeepAlive,
+      browser step. Was: "↻ Send again" on a line (yours or anyone's): a new line that refers to it (#re<id> + its text as context),
       so it lives on; policy: a line stays retrievable (/n/<id>, replies) while a live line refers to it, so a
       chain is kept alive by its newest link (purge skips referenced lines; Datastore TTL: extend expires_at of the
       referred line when a reference arrives).

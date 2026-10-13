@@ -701,5 +701,7 @@
   "note.gone_title": "这条消息已过期",
   "note.fade": "Kafumu 上的消息会淡去：每条存在一段时间（发送时付出的计算越多，存在越久），然后消失。这里刻意不永久保存任何东西。",
   "note.area": "所在地区",
-  "note.learn": "这里的消息如何运作"
+  "note.learn": "这里的消息如何运作",
+  "js.keep_alive": "留在这里",
+  "js.keep_alive_title": "再发一次：用 🔁 让这条消息再留一天"
 }

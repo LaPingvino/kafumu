@@ -701,5 +701,7 @@
   "note.gone_title": "Pesan ini sudah kedaluwarsa",
   "note.fade": "Pesan di Kafumu memudar: masing-masing hidup sebentar (lebih lama bila lebih banyak kerja dipakai untuk mengirimnya), lalu hilang. Tak ada yang disimpan selamanya di sini, memang disengaja.",
   "note.area": "Areanya",
-  "note.learn": "Cara kerja pesan di sini"
+  "note.learn": "Cara kerja pesan di sini",
+  "js.keep_alive": "Pertahankan di sini",
+  "js.keep_alive_title": "Kirim lagi: 🔁 yang menahan pesan ini di sini sehari lagi"
 }

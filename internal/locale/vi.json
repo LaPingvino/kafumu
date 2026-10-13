@@ -701,5 +701,7 @@
   "note.gone_title": "Tin nhắn này đã hết hạn",
   "note.fade": "Tin nhắn trên Kafumu mờ dần: mỗi tin sống một thời gian (lâu hơn nếu tốn nhiều công gửi hơn), rồi biến mất. Không gì ở đây được giữ mãi mãi, có chủ đích.",
   "note.area": "Khu vực của nó",
-  "note.learn": "Tin nhắn ở đây hoạt động thế nào"
+  "note.learn": "Tin nhắn ở đây hoạt động thế nào",
+  "js.keep_alive": "Giữ lại đây",
+  "js.keep_alive_title": "Gửi lại: một 🔁 giữ tin này ở đây thêm một ngày"
 }

@@ -34,7 +34,9 @@
       <code>#re…</code> alone says what it's about. A line about a subject for everyone into it, wherever they are,
       needs none either: <code>#esperanto</code> without a <code>#geo</code>. <code>#feed</code> with a link in the text
       adds a news or calendar source to its area; this node only takes those posted under a name by an account
-      with a passkey, at most 20 live each, and a source lives as long as its line (renewed by posting it again).</li>
+      with a passkey, at most 20 live each, and a source lives as long as its line (renewed by posting it again). This node also keeps a line
+      while something live refers to it: a <code>#re</code> answer that outlives it extends it, so a chain lives
+      as long as its newest link (🔁 on a line does exactly that).</li>
   </ul>
   <p>The work is the number of leading zero bits of <code>Argon2id(line)</code> with salt <code>OLN-v2-proofwork</code>,
   1 pass, 4 MiB of memory, 1 lane and a 32-byte output. Kafumu asks 4 bits at the base (16 tries) and a little more

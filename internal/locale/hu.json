@@ -701,5 +701,7 @@
   "note.gone_title": "Ez az üzenet lejárt",
   "note.fade": "A Kafumu üzenetei elhalványulnak: mindegyik él egy ideig (tovább, ha több munka ment a küldésébe), aztán eltűnik. Itt semmi sem marad örökre, szándékosan.",
   "note.area": "A környéke",
-  "note.learn": "Hogyan működnek itt az üzenetek"
+  "note.learn": "Hogyan működnek itt az üzenetek",
+  "js.keep_alive": "Maradjon itt",
+  "js.keep_alive_title": "Újraküldés: egy 🔁, ami még egy napig itt tartja az üzenetet"
 }

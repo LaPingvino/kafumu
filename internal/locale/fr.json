@@ -701,5 +701,7 @@
   "note.gone_title": "Ce message a expiré",
   "note.fade": "Les messages sur Kafumu s'effacent : chacun vit un moment (plus longtemps quand on a mis plus de travail à l'envoyer), puis disparaît. Rien n'est gardé pour toujours ici, exprès.",
   "note.area": "Son coin",
-  "note.learn": "Comment marchent les messages ici"
+  "note.learn": "Comment marchent les messages ici",
+  "js.keep_alive": "Le garder ici",
+  "js.keep_alive_title": "Renvoyer : un 🔁 qui garde ce message ici un jour de plus"
 }

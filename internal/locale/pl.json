@@ -701,5 +701,7 @@
   "note.gone_title": "Ta wiadomość wygasła",
   "note.fade": "Wiadomości na Kafumu blakną: każda żyje przez jakiś czas (dłużej, gdy w wysłanie włożono więcej pracy), a potem znika. Nic nie zostaje tu na zawsze, celowo.",
   "note.area": "Jej okolica",
-  "note.learn": "Jak tu działają wiadomości"
+  "note.learn": "Jak tu działają wiadomości",
+  "js.keep_alive": "Zatrzymaj tutaj",
+  "js.keep_alive_title": "Wyślij ponownie: 🔁, które utrzyma tę wiadomość jeszcze dzień"
 }

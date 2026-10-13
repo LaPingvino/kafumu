@@ -1055,6 +1055,21 @@
       row.appendChild(b);
     });
     if (pin) row.appendChild(pin); // right after the reactions it changes
+    // 🔁 keep a line here (86d): a reaction mined for a day; the node keeps
+    // a line alive while something live refers to it.
+    if (kind === "note") {
+      var keep = document.createElement("button");
+      keep.type = "button"; keep.className = "pill-sm keep-alive"; keep.textContent = "🔁";
+      keep.title = tr("keep_alive_title"); keep.setAttribute("aria-label", tr("keep_alive"));
+      keep.onclick = function (ev) {
+        ev.preventDefault(); ev.stopPropagation();
+        if (!window.kafumuOLN) return;
+        keep.disabled = true;
+        window.kafumuOLN.post("🔁", "#re" + rid, requiredBits + 4, function () {})
+          .then(function (n) { keep.textContent = "🔁 ✓"; showOwnReaction(rid, n); }, function () { keep.disabled = false; });
+      };
+      row.appendChild(keep);
+    }
     var t = document.createElement("button");
     t.type = "button"; t.className = "pill-sm"; t.textContent = "💬 " + tr("react");
     t.onclick = function (ev) { ev.preventDefault(); ev.stopPropagation(); openComposer({ re: rid, about: about, carry: carry }); };

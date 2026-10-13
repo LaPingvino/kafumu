@@ -85,6 +85,9 @@ try {
   await A.waitFor("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')); return li && !/#lang/.test(li.textContent) && li.textContent.includes('🗣'); })()", "language shown as 🗣, not #lang…");
   // Every line has its permalink (86b): 🔗 among the 📤 sends.
   await A.waitFor("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')); return li && !!li.querySelector('.copy-link'); })()", "🔗 Link on a line");
+  // 🔁 keeps a line here (86d): a reaction, counted under it.
+  await A.evaluate("[...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')).querySelector('.keep-alive').click(); true");
+  await A.waitFor("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')); return li && li.querySelector('.keep-alive').textContent.includes('✓') && li.textContent.includes('🔁 1'); })()", "🔁 sent and counted", 30000);
   // The area as RSS and as a calendar (81a): the buttons point at this cell, the feed has the line.
   await A.waitFor("/^\\/rss\\/[0-9a-z]{6}$/.test(new URL(document.getElementById('rss-link').href).pathname) && document.getElementById('cal-link').href.startsWith('webcal://')", "📰 RSS and 📅 Calendar for this area");
   await A.waitFor("fetch(document.getElementById('rss-link').href, { cache: 'no-store' }).then(r => r.text()).then(x => x.includes('<rss') && x.includes('hi from the OLN " + RUN + "'))", "the area's RSS has the message", 20000);

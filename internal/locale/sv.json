@@ -701,5 +701,7 @@
   "note.gone_title": "Det här meddelandet har gått ut",
   "note.fade": "Meddelanden på Kafumu bleknar: vart och ett lever ett tag (längre när mer arbete lades på att skicka det) och försvinner sedan. Inget sparas här för alltid, med flit.",
   "note.area": "Dess område",
-  "note.learn": "Hur meddelanden fungerar här"
+  "note.learn": "Hur meddelanden fungerar här",
+  "js.keep_alive": "Behåll den här",
+  "js.keep_alive_title": "Skicka igen: en 🔁 som håller meddelandet här en dag till"
 }

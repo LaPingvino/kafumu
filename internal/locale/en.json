@@ -701,5 +701,7 @@
   "note.gone_title": "This message has expired",
   "note.fade": "Messages on Kafumu fade: each lives for a while (longer when more work went into sending it), and then it's gone. Nothing here is kept forever, by design.",
   "note.area": "Its area",
-  "note.learn": "How messages work here"
+  "note.learn": "How messages work here",
+  "js.keep_alive": "Keep it here",
+  "js.keep_alive_title": "Send it again: a 🔁 that keeps this line here for another day"
 }

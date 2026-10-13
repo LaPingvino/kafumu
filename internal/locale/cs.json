@@ -701,5 +701,7 @@
   "note.gone_title": "Platnost této zprávy vypršela",
   "note.fade": "Zprávy na Kafumu blednou: každá žije nějakou dobu (déle, když odeslání stálo víc práce), a pak zmizí. Nic tu nezůstává navždy, záměrně.",
   "note.area": "Její oblast",
-  "note.learn": "Jak tu fungují zprávy"
+  "note.learn": "Jak tu fungují zprávy",
+  "js.keep_alive": "Nech to tu",
+  "js.keep_alive_title": "Poslat znovu: 🔁, které tu zprávu udrží ještě den"
 }

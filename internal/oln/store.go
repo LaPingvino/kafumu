@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"slices"
+	"strings"
 	"sync"
 	"time"
 
@@ -297,6 +298,35 @@ func (s *MemoryStore) SourcesBy(_ context.Context, src string, now time.Time) ([
 	var out []*Note
 	for _, n := range s.notes {
 		if n.Src == src && n.ExpiresAt.After(now) {
+			c := n
+			out = append(out, &c)
+		}
+	}
+	return out, nil
+}
+
+func (s *DatastoreStore) ByPrefix(ctx context.Context, prefix string) ([]*Note, error) {
+	var ns []*Note
+	q := datastore.NewQuery(noteKind).FilterField("__key__", ">=", datastore.NameKey(noteKind, prefix, nil)).
+		FilterField("__key__", "<", datastore.NameKey(noteKind, prefix+"g", nil)).Limit(3)
+	keys, err := s.DB.GetAll(ctx, q, &ns)
+	if err != nil {
+		if _, ok := err.(*datastore.ErrFieldMismatch); !ok {
+			return nil, err
+		}
+	}
+	for i, n := range ns {
+		n.ID = keys[i].Name
+	}
+	return ns, nil
+}
+
+func (s *MemoryStore) ByPrefix(_ context.Context, prefix string) ([]*Note, error) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	var out []*Note
+	for id, n := range s.notes {
+		if strings.HasPrefix(id, prefix) {
 			c := n
 			out = append(out, &c)
 		}
