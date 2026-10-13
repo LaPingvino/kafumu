@@ -1047,7 +1047,7 @@ Per the OLN json-spec, a link is an index key like a tag (index["link"] → mess
       Diagnostics added (actingSync, the key panel, GET keyreq): read them when it next fails.
 
 
-Order (Joop 2026-10-13: mailbox first, reorder freely): 83 → 82 → 85 → 86 → 81c–f → 84.
+Order (Joop 2026-10-13: mailbox first, reorder freely): 83 → 82 → 87a → 85 → 86 → 81c–f → 84.
 ## 83. One mailbox for every conversation (Joop 2026-10-13)
 Private answers (now on the home page), chat messages and their answers (now on contact cards), replies to
 your posts and meetups (Activity, 77) in one mailbox, and notifications that always say who and about what.
@@ -1138,6 +1138,15 @@ in the URL (+ the screen device's storage), the server stores nothing for a scre
 - [x] Polish: a contact is called what you call them (alias first, then their card's name, else "someone new",
       never "?"): dev.nameOf in the share picker, signals, coffee joins, mailbox and notifications. The intro card
       lost its two buttons (they repeat the ones right below).
+
+## 87. Every page explains itself (Joop 2026-10-13)
+The newcomer bar (82a) on every page, each with its own one line (Around, Connect, Contacts/mailbox, My card,
+Findable, Account, Business, meetups…), and with a "👀 Show me" button that starts the tour for that page (the
+😕 I'm confused button moves there, off the area's button rows). × closes a page's bar (remembered per page); a
+"?" in the top bar brings it back.
+- [ ] 87a. The bar in base.html for every tab with a line (home's text stays), × per page, "?" in the header
+      reopens it; "👀 Show me" starts the existing tour where there is one; 😕 leaves the area's rows. 24 languages.
+- [ ] 87b. Tours for the pages that don't have one yet (only where a tour adds something to the line).
 
 ## 85. Every conversation as a chat (Joop 2026-10-13)
 One list of chats, like a messenger, merging the mailbox and Contacts (filter: "only contacts"). Every thing that
