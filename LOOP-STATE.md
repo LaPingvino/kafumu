@@ -1046,6 +1046,23 @@ Per the OLN json-spec, a link is an index key like a tag (index["link"] → mess
       2026-10-10 (passed on rerun). Make its failure report what the key-request API answered, like the sync one.
       Diagnostics added (actingSync, the key panel, GET keyreq): read them when it next fails.
 
+
+Order (Joop 2026-10-13: mailbox first, reorder freely): 83 → 82 → 81c–f → 84.
+## 83. One mailbox for every conversation (Joop 2026-10-13)
+Private answers (now on the home page), chat messages and their answers (now on contact cards), replies to
+your posts and meetups (Activity, 77) in one mailbox, and notifications that always say who and about what.
+- [ ] 83a. Map every channel and every push payload: what each notification says now, and where it opens.
+- [ ] 83b. The mailbox (grow /activity into it): threads by channel and person, newest first, unread marked;
+      private answers move off the home page into it (a small "🔒 n new" link stays on the area).
+- [ ] 83c. Chats: each contact's messages as a mailbox thread (still opening the chat on the contact).
+- [ ] 83d. Notifications: every push names the sender/area and a line of context, and opens that thread.
+
+## 82. Answer a newcomer's questions up front (Joop 2026-10-13, a friend's questions: "a local paper, then?",
+"can concerts, fairs, festivals go in?")
+- [ ] 82a. The area page says what it is in one line before anything else (the digital town crier: what's on
+      and what people say around here, events included) and where to add an event / a source, without a tour.
+      Look at it as that friend would at 390 px; 24 languages.
+
 ## 81. Local sources per area (Joop 2026-10-13: "I want people to be able to care about their local area")
 Kafumu can't know what an area cares about; its people can. Sources are added by named accounts with a
 passkey, always bound to an area, carry an OLN value (mined, sorted by it), capped per account, and are pulled
@@ -1075,17 +1092,18 @@ only for areas people actually look at. Each slice passes one test: does the are
       on top of the area page: "People here often share example.nl — add its news to this area?" (one tap for a
       named passkey account, which posts the 81c line).
 
-## 82. Answer a newcomer's questions up front (Joop 2026-10-13, a friend's questions: "a local paper, then?",
-"can concerts, fairs, festivals go in?")
-- [ ] 82a. The area page says what it is in one line before anything else (the digital town crier: what's on
-      and what people say around here, events included) and where to add an event / a source, without a tour.
-      Look at it as that friend would at 390 px; 24 languages.
-
-## 83. One mailbox for every conversation (Joop 2026-10-13)
-Private answers (now on the home page), chat messages and their answers (now on contact cards), replies to
-your posts and meetups (Activity, 77) in one mailbox, and notifications that always say who and about what.
-- [ ] 83a. Map every channel and every push payload: what each notification says now, and where it opens.
-- [ ] 83b. The mailbox (grow /activity into it): threads by channel and person, newest first, unread marked;
-      private answers move off the home page into it (a small "🔒 n new" link stays on the area).
-- [ ] 83c. Chats: each contact's messages as a mailbox thread (still opening the chat on the contact).
-- [ ] 83d. Notifications: every push names the sender/area and a line of context, and opens that thread.
+## 84. The area on a screen (Joop 2026-10-13): a local display for a café, library, shop window, town hall
+`/display?cell=…`, two modes: **screen** (no touch: rotates on its own, large type, readable from 3 m) and
+**touch** (people tap through, read, see what's on). Always in a corner: a QR code + short link "Say something to
+#geo… / add what's on", so the screen invites people to post to their own area. Setup stays on the display's
+device (rule 1/3: the server stores nothing for a display): the setup screen writes the config into the display
+URL and the device's storage: cell, mode, which view (everything / what's on / news / talk, or a saved ☆ view),
+rotation speed, extra RSS feeds, pictures (from the device, kept in its IndexedDB, or by link).
+- [ ] 84a. /display in screen mode: the area's lines, meetups (today/this week first) and the QR + link corner,
+      rotating; fullscreen + wake lock; works on a cheap TV browser at 1920×1080 and on a tablet; 24 languages.
+- [ ] 84b. Touch mode: a tappable list with a detail view and back, idle → return to rotating after 60 s.
+- [ ] 84c. Setup (/display/setup, from a "📺 Show on a screen" link on the area page): mode, view, speed, the
+      result as a link + QR to open on the screen device.
+- [ ] 84d. Pictures: added on the display device (IndexedDB) or by https link, shown between items.
+- [ ] 84e. Extra RSS: a display's own feeds go through 81 (added as the area's sources by its named passkey
+      account, so the server fetches only what an area has), and the display can pick which sources it shows.
