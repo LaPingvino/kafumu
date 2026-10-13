@@ -1044,8 +1044,12 @@ Per the OLN json-spec, a link is an index key like a tag (index["link"] → mess
       Test TestTouchKeepsOtherInstancesSession fails on the old code, passes now.
 - [ ] Joop 2026-10-13: Contacts empty on one Chromebook, sync doesn't bring them back (same machine has storage
       trouble with other apps). Asked: which address (kafumu.com vs the old appspot one: separate storage), acting as
-      a business (separate store), DevTools → Application → IndexedDB → kafumu → contacts. Also the browser step "A's
-      own name for D kept" failed once (passed on rerun): look for a lost alias write.
+      a business (separate store), DevTools → Application → IndexedDB → kafumu → contacts. Alias flake: fixed below.
+- [x] Device lost updates (the "A's own name for D kept" flake): pages and polls held older copies of a contact and
+      wrote them whole. putContact now merges with what's stored in one IndexedDB transaction (mergeContact): your
+      edits (alias, note, tags) carry times in c.edits and the newest wins; messages and signals are joined (read
+      stays read, answered stays answered); the newer card wins. Sync merges contacts the same way instead of
+      newest-wins. Test: device_test mergeContact.
 - [ ] Polish: flaky browser step "third device asks for the key, with a code" (business private mode), 1× on
       2026-10-10 (passed on rerun). Make its failure report what the key-request API answered, like the sync one.
       Diagnostics added (actingSync, the key panel, GET keyreq): read them when it next fails.

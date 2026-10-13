@@ -41,13 +41,66 @@
     get: function (k) { return tx("kv", "readonly", function (s) { return s.get(k); }); },
     set: function (k, v) { return tx("kv", "readwrite", function (s) { return s.put(v, k); }); },
     contacts: function () { return tx("contacts", "readonly", function (s) { return s.getAll(); }); },
-    putContact: function (c) { return tx("contacts", "readwrite", function (s) { return s.put(c); }); },
+    // putContact merges with what's stored, in one transaction: a page or a
+    // poll holding an older copy must not undo a newer change (your name for
+    // them, a message that just came in). See mergeContact.
+    putContact: function (c) {
+      return open().then(function (d) {
+        return new Promise(function (resolve, reject) {
+          var t = d.transaction("contacts", "readwrite"), s = t.objectStore("contacts"), get = s.get(c.id);
+          get.onsuccess = function () {
+            var m = get.result ? mergeContact(get.result, c) : c;
+            if (m !== c) Object.keys(m).forEach(function (k) { c[k] = m[k]; }); // the caller's copy is current too
+            s.put(c);
+          };
+          t.oncomplete = function () { resolve(); };
+          t.onerror = t.onabort = function () { reject(t.error); };
+        });
+      });
+    },
     deleteContact: function (id) { return tx("contacts", "readwrite", function (s) { return s.delete(id); }); }
   };
 
   // Ask the browser not to evict our data (Safari drops storage of sites
   // not installed to the home screen after 7 idle days).
   if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(function () {});
+
+  // mergeContact: n is the write being made, o what was there (stored, or
+  // another device's copy). Your own edits (alias, note, tags) carry a time
+  // in c.edits and the newest edit wins, whoever wrote last; messages and
+  // signals are joined, never dropped (a signal read anywhere stays read);
+  // the card is the newer one; everything else is n's.
+  function mergeContact(o, n) {
+    var r = {};
+    Object.keys(n).forEach(function (k) { r[k] = n[k]; });
+    var oe = o.edits || {}, ne = n.edits || {}, edits = {};
+    ["alias", "note", "tags"].forEach(function (f) {
+      if ((oe[f] || "") > (ne[f] || "")) { r[f] = o[f]; edits[f] = oe[f]; }
+      else if (ne[f]) edits[f] = ne[f];
+      else if (r[f] === undefined && o[f] !== undefined) r[f] = o[f]; // never set here: keep it
+    });
+    if (Object.keys(edits).length) r.edits = edits;
+    // The write's own message and signal objects are kept (a page may still
+    // hold one, e.g. to mark it answered); only flags come over.
+    var ms = {};
+    (o.messages || []).concat(n.messages || []).forEach(function (m) {
+      var k = (m.me ? "1" : "0") + m.at + "|" + m.text, was = ms[k];
+      if (was && was.answered && !m.answered) m.answered = true;
+      ms[k] = m;
+    });
+    var msgs = Object.keys(ms).map(function (k) { return ms[k]; }).sort(function (a, b) { return String(a.at).localeCompare(String(b.at)); }).slice(-200);
+    if (msgs.length) r.messages = msgs;
+    var ss = {};
+    (o.signals || []).concat(n.signals || []).forEach(function (sg) {
+      var k = sg.s + "|" + sg.at, was = ss[k];
+      if (was && !was.unread) sg.unread = false;
+      ss[k] = sg;
+    });
+    var sigs = Object.keys(ss).map(function (k) { return ss[k]; }).sort(function (a, b) { return String(b.at).localeCompare(String(a.at)); }).slice(0, 10);
+    if (sigs.length) r.signals = sigs;
+    if (o.card && (!n.card || ((o.card.updatedAt || "") > (n.card.updatedAt || "")))) r.card = o.card;
+    return r;
+  }
 
   // Card fields, in display order. The card holds what *you* choose to hand
   // to someone you meet; nothing is required.
@@ -307,6 +360,8 @@
   // name on their card, else "unnamed" (never a bare "?").
   function nameOf(c, T) { T = T || {}; return (c.alias || "").trim() || (c.card && (c.card.name || "").trim()) || T.unnamed || T.inbox_anonymous || "…"; }
 
+  function edited(c, f) { c.edits = c.edits || {}; c.edits[f] = new Date().toISOString(); }
+
   function renderContact(c, T, opts) {
     T = T || {}; opts = opts || {};
     var li = el("li", "contact"), card = c.card || {};
@@ -320,7 +375,7 @@
       alias.value = c.alias || "";
       alias.placeholder = T.alias_placeholder || "Your name for them";
       alias.setAttribute("aria-label", alias.placeholder);
-      alias.addEventListener("change", function () { c.alias = alias.value.trim().slice(0, 80); store.putContact(c); });
+      alias.addEventListener("change", function () { c.alias = alias.value.trim().slice(0, 80); edited(c, "alias"); store.putContact(c); });
       head.appendChild(alias);
     }
     if (c.createdAt) head.appendChild(el("span", "dim", new Date(c.createdAt).toLocaleDateString(window.KAFUMU_LOCALE, { day: "numeric", month: "short", year: "numeric" })));
@@ -347,7 +402,7 @@
         var chip = el("button", "chip", t + " ×");
         chip.type = "button";
         chip.title = T.remove || "Remove";
-        chip.onclick = function () { c.tags.splice(i, 1); store.putContact(c); drawMine(); };
+        chip.onclick = function () { c.tags.splice(i, 1); edited(c, "tags"); store.putContact(c); drawMine(); };
         mine.appendChild(chip);
       });
       var add = el("input", "chip-input");
@@ -359,7 +414,7 @@
         var v = add.value.trim().slice(0, 40);
         if (!v) return;
         c.tags = (c.tags || []).concat([v]);
-        store.putContact(c); drawMine(); mine.querySelector("input").focus();
+        edited(c, "tags"); store.putContact(c); drawMine(); mine.querySelector("input").focus();
       });
       mine.appendChild(add);
     }
@@ -422,7 +477,7 @@
     note.placeholder = T.note_placeholder || "";
     note.value = c.note || "";
     note.setAttribute("aria-label", T.note_placeholder || "note");
-    note.addEventListener("change", function () { c.note = note.value; store.putContact(c); });
+    note.addEventListener("change", function () { c.note = note.value; edited(c, "note"); store.putContact(c); });
     li.appendChild(note);
     if (opts.onDelete) {
       var del = el("button", "contrast pill-sm", T.remove || "Remove");
@@ -544,7 +599,10 @@
   function merge(a, b) {
     var cutoff = new Date(Date.now() - 30 * 864e5).toISOString(), ts = {}, byID = {};
     [a.tombstones, b.tombstones].forEach(function (t) { Object.keys(t || {}).forEach(function (id) { if (t[id] > cutoff && (!ts[id] || t[id] > ts[id])) ts[id] = t[id]; }); });
-    a.contacts.concat(b.contacts).forEach(function (c) { if (!byID[c.id] || stamp(c) > stamp(byID[c.id])) byID[c.id] = c; });
+    a.contacts.concat(b.contacts).forEach(function (c) {
+      var was = byID[c.id];
+      byID[c.id] = !was ? c : stamp(c) > stamp(was) ? mergeContact(was, c) : mergeContact(c, was);
+    });
     var contacts = Object.keys(byID).map(function (id) { return byID[id]; }).filter(function (c) { return !ts[c.id]; });
     // Personas per id, newer wins; ones only one side has are kept (a card
     // made before sync existed has no updatedAt: it still comes across).
@@ -782,7 +840,7 @@
   if (typeof document !== "undefined") setTimeout(suggestAccount, 1500);
   else if (typeof document !== "undefined") document.addEventListener("DOMContentLoaded", function () { if (signedIn()) sync(); });
 
-  window.kafumuDevice = { bizKey: bizKey, actingSync: actingSync,  signalText: signalText, store: store, FIELDS: FIELDS, links: links, renderContact: renderContact, chatPanel: chatPanel, nameOf: nameOf, personas: personas,
+  window.kafumuDevice = { bizKey: bizKey, actingSync: actingSync,  signalText: signalText, store: store, FIELDS: FIELDS, links: links, renderContact: renderContact, chatPanel: chatPanel, nameOf: nameOf, mergeContact: mergeContact, personas: personas,
     vcards: vcards, backup: backup, restore: restore, download: download, sync: sync, quietDays: quietDays,
     // chips: your filter-chip row ({pinned: [...], hidden: [...], at}); a
     // localStorage mirror lets Around draw it without waiting.

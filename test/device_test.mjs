@@ -65,3 +65,22 @@ console.log("ok  static/device.js links (+ instagram, facebook, mastodon, tiktok
   assert.equal(nameOf({ alias: " ", card: {} }, T), "someone new", "never a bare ?");
   console.log("ok  static/device.js nameOf");
 }
+
+{
+  // A stale copy written last must not undo newer changes (the lost alias).
+  const { mergeContact } = globalThis.kafumuDevice;
+  const stored = { id: "d", alias: "Dee from the queue", edits: { alias: "2026-10-13T10:00:01Z" },
+    messages: [{ me: false, text: "hi", at: "2026-10-13T09:00:00Z" }, { me: false, text: "new", at: "2026-10-13T10:00:02Z" }],
+    signals: [{ s: "coffee", at: "2026-10-13T08:00:00Z", unread: false }], card: { name: "Dee", updatedAt: "2026-10-13T09:30:00Z" } };
+  const stale = { id: "d", messages: [{ me: false, text: "hi", at: "2026-10-13T09:00:00Z" }, { me: true, text: "answer", at: "2026-10-13T10:00:03Z" }],
+    signals: [{ s: "coffee", at: "2026-10-13T08:00:00Z", unread: true }], card: { name: "D", updatedAt: "2026-10-13T09:00:00Z" }, cardSent: true };
+  const m = mergeContact(stored, stale);
+  assert.equal(m.alias, "Dee from the queue", "your name for them survives a stale write");
+  assert.deepEqual(m.messages.map((x) => x.text), ["hi", "new", "answer"], "messages joined in time order");
+  assert.equal(m.signals[0].unread, false, "read stays read");
+  assert.equal(m.card.name, "Dee", "the newer card");
+  assert.equal(m.cardSent, true, "the rest is the new write's");
+  const renamed = mergeContact(stored, { id: "d", alias: "Dee", edits: { alias: "2026-10-13T11:00:00Z" } });
+  assert.equal(renamed.alias, "Dee", "a newer edit wins");
+  console.log("ok  static/device.js mergeContact (no lost alias, messages or read marks)");
+}
