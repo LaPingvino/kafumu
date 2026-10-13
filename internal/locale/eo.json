@@ -721,5 +721,6 @@
   "screen.scan": "Aldonu ion ĉi tie",
   "js.screen_today": "Hodiaŭ",
   "js.screen_week": "Ĉi-semajne",
-  "js.screen_empty": "Ankoraŭ nenio ĉi tie. Estu la unua: skanu la kodon."
+  "js.screen_empty": "Ankoraŭ nenio ĉi tie. Estu la unua: skanu la kodon.",
+  "js.screen_take": "Skanu por kunporti"
 }

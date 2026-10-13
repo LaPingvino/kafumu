@@ -721,5 +721,6 @@
   "screen.scan": "Añade algo aquí",
   "js.screen_today": "Hoy",
   "js.screen_week": "Esta semana",
-  "js.screen_empty": "Aún no hay nada. Sé el primero: escanea el código."
+  "js.screen_empty": "Aún no hay nada. Sé el primero: escanea el código.",
+  "js.screen_take": "Escanea para llevártelo"
 }

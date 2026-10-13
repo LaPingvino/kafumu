@@ -721,5 +721,6 @@
   "screen.scan": "ここに投稿しよう",
   "js.screen_today": "今日",
   "js.screen_week": "今週",
-  "js.screen_empty": "まだ何もありません。最初の一人に：コードを読み取って。"
+  "js.screen_empty": "まだ何もありません。最初の一人に：コードを読み取って。",
+  "js.screen_take": "読み取って持ち帰る"
 }

@@ -1163,7 +1163,9 @@ in the URL (+ the screen device's storage), the server stores nothing for a scre
       from its width, as many as fit without scrolling) and page every 12 s; place name, clock, and a corner with a QR
       code + link to the area ("Add something here"); refreshes every 10 min; wake lock, fullscreen on first tap.
       Checked at 1920×1080 and a portrait tablet; browser step.
-- [ ] 84b. Touch: the same layout, tappable: an item opens large with its details; idle 60 s → back to the overview.
+- [x] 84b. Done: ?mode=touch: cards are tappable (and keyboard-reachable) and open large with the full text and a QR
+      code to take it along (meetup, /n/<id>, news or Bluesky link); ‹ › page by hand; paging pauses under an open
+      card and runs at half speed; a minute without a touch closes it and goes back to the first page. Browser step.
 - [ ] 84c. Configure (a ⚙ panel on /screen itself): area, view (filters / a ☆ view), display or touch, paging speed,
       a list of styles (light, dark, high contrast, large print, brand colours) and custom CSS; the result is a
       link (+ QR) to open on the screen device.

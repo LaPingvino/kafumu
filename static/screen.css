@@ -15,7 +15,7 @@ body.screen { margin: 0; padding: 0; height: 100vh; overflow: hidden; background
 .screen-card h2 { font-size: 1.15em; margin: .15em 0 .2em; line-height: 1.25; }
 .screen-card p { margin: 0; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 .screen-card .m { font-size: .75em; color: var(--dim); margin-top: .35em; }
-.screen-qr { position: fixed; right: 2vw; bottom: 3vh; width: var(--qr, 18vw); text-align: center; background: var(--card-bg);
+.screen-qr { z-index: 5; position: fixed; right: 2vw; bottom: 3vh; width: var(--qr, 18vw); text-align: center; background: var(--card-bg);
   border-radius: var(--radius); padding: 1vw; box-shadow: 0 2px 10px var(--shade); }
 .screen-qr svg { width: 100%; height: auto; display: block; }
 .screen-qr p { margin: .5em 0 0; font-size: .8em; word-break: break-all; }
@@ -23,3 +23,13 @@ body.screen { margin: 0; padding: 0; height: 100vh; overflow: hidden; background
 @media (orientation: portrait) { .screen-grid { padding-right: 2vw; padding-bottom: calc(var(--qr, 30vw) + 4vh); } .screen-qr { --qr: 30vw; width: 30vw; } }
 @media (prefers-reduced-motion: no-preference) { .screen-card { animation: kf-up .4s ease-out both; } }
 @keyframes kf-up { from { transform: translateY(12px); opacity: 0; } to { transform: none; opacity: 1; } }
+/* Touch (84b): tappable cards, one opened large, ‹ › to page. */
+body.touch .screen-card { cursor: pointer; }
+.screen-detail { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center; z-index: 30; }
+.screen-card.big { width: min(80vw, 60em); max-height: 85vh; overflow: auto; font-size: 1.15em; position: relative; padding: 1.2em 1.5em; }
+.screen-card.big p.full { -webkit-line-clamp: unset; display: block; white-space: pre-line; }
+.screen-card.big .take { float: right; width: 9em; margin: 0 0 .5em 1em; text-align: center; }
+.screen-card.big .take svg { width: 100%; height: auto; }
+.screen-close { position: absolute; top: .5em; right: .5em; }
+.screen-nav { position: fixed; left: 50%; bottom: 1.5vh; transform: translateX(-50%); display: flex; gap: 1em; }
+.screen-nav button { font-size: 1.3em; min-width: 3em; }

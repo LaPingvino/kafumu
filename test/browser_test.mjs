@@ -95,6 +95,13 @@ try {
   // The area on a public screen (84a): its own content, a QR code to add to it, no navigation.
   await B.goto(base + "/screen?cell=6fg223");
   await B.waitFor("!!document.querySelector('#screen-qr-code svg') && !document.querySelector('.switcher') && document.querySelectorAll('.screen-card').length > 0", "the public screen shows the area's lines", 20000);
+  // Touch (84b): a tap opens a card large, with a code to take it along; ✕ closes it.
+  await B.goto(base + "/screen?cell=6fg223&mode=touch");
+  await B.waitFor("document.querySelectorAll('.screen-card').length > 0 && !!document.querySelector('.screen-nav')", "a touch screen with ‹ ›", 20000);
+  await B.evaluate("document.querySelector('.screen-card').click(); true");
+  await B.waitFor("!!document.querySelector('.screen-detail .screen-card.big .take svg')", "the card opened large, with a code");
+  await B.evaluate("document.querySelector('.screen-close').click(); true");
+  await B.waitFor("!document.querySelector('.screen-detail')", "✕ closes it");
   // Take a line back (88b): only the device that sent it has the ✕, and it disappears for everyone.
   await A.evaluate("(() => { document.getElementById('oln-form').hidden = true; document.getElementById('say').click(); const f = document.getElementById('oln-form'); f.text.value = 'Oops, wrong area " + RUN + "'; f.requestSubmit(); return true; })()");
   await A.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('Oops, wrong area " + RUN + "') && li.querySelector('.take-back'))", "own line with ✕ Take back", 30000);

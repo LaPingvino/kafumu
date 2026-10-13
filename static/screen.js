@@ -33,14 +33,14 @@
     (b.meetups || []).filter(function (m) { return new Date(m.end || m.start) > now && new Date(m.start) < week; })
       .sort(function (x, y) { return new Date(x.start) - new Date(y.start); }).forEach(function (m) {
         var today = new Date(m.start).toDateString() === new Date().toDateString();
-        out.push({ kind: "meetup", k: "📅 " + (today ? tr("screen_today") : tr("screen_week")), title: m.title, text: m.venue || "", meta: when(m.start) });
+        out.push({ kind: "meetup", k: "📅 " + (today ? tr("screen_today") : tr("screen_week")), title: m.title, text: m.venue || "", meta: when(m.start), full: [m.venue, m.text].filter(Boolean).join("\n\n"), link: location.origin + "/meetups/" + m.id });
       });
     (b.notes || []).filter(function (n) { // not reactions (a kept link line is a line), not coffee codes
       return (/https?:\/\//.test(n.text) || !(n.tags || []).some(function (t) { return /^re[0-9a-f]{10}$/.test(t); })) && !/\/c#v1\./.test(n.text); })
-      .forEach(function (n) { out.push({ kind: "note", k: "💬", title: firstLine(noLinks(n.text)), text: noLinks(n.text.split("\n").slice(1).join(" ")), meta: (n.author ? "@" + n.author + " · " : "") + when(n.at) }); });
-    (b.news || []).forEach(function (it) { out.push({ kind: "news", k: "📰 " + it.host, title: it.title, text: it.text || "", meta: when(it.at) }); });
+      .forEach(function (n) { out.push({ kind: "note", k: "💬", title: firstLine(noLinks(n.text)), text: noLinks(n.text.split("\n").slice(1).join(" ")), meta: (n.author ? "@" + n.author + " · " : "") + when(n.at), full: noLinks(n.text), link: location.origin + "/n/" + n.id }); });
+    (b.news || []).forEach(function (it) { out.push({ kind: "news", k: "📰 " + it.host, title: it.title, text: it.text || "", meta: when(it.at), full: it.text || "", link: it.link }); });
     (b.posts || []).filter(function (p) { return !p.bot && !(p.labels || []).length; }).slice(0, 12)
-      .forEach(function (p) { out.push({ kind: "post", k: "🦋 @" + p.handle, title: "", text: p.text, meta: when(p.createdAt) }); });
+      .forEach(function (p) { out.push({ kind: "post", k: "🦋 @" + p.handle, title: "", text: p.text, meta: when(p.createdAt), full: p.text, link: p.url }); });
     return out.filter(function (c) { return c.title || c.text; });
   }
   function card(c) {
@@ -49,7 +49,55 @@
     if (c.title) d.appendChild(el("h2", "", c.title));
     if (c.text) d.appendChild(el("p", "", c.text));
     if (c.meta) d.appendChild(el("div", "m", c.meta));
+    if (touch) { // tappable; no role=button (that styles it as a pill)
+      d.tabIndex = 0; d.onclick = function () { detail(c); };
+      d.onkeydown = function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); detail(c); } };
+    }
     return d;
+  }
+
+  // Touch (84b, ?mode=touch): an interactive public screen. A tap opens a
+  // card large, with a code to take it along on your phone; ‹ › page by
+  // hand; after a minute without a touch it goes back to the overview.
+  var touch = q.get("mode") === "touch", idle, openCard = null;
+  if (touch) document.body.classList.add("touch");
+  function detail(c) {
+    close();
+    openCard = el("div", "screen-detail");
+    openCard.setAttribute("role", "dialog");
+    var box = el("article", "screen-card big " + c.kind);
+    var x = el("button", "pill screen-close", "✕"); x.type = "button"; x.setAttribute("aria-label", tr("close")); x.onclick = close;
+    box.appendChild(x);
+    box.appendChild(el("div", "k", c.k));
+    if (c.title) box.appendChild(el("h2", "", c.title));
+    if (c.full) box.appendChild(el("p", "full", c.full));
+    if (c.meta) box.appendChild(el("div", "m", c.meta));
+    if (c.link) {
+      var qq = qrcode(0, "M"); qq.addData(c.link); qq.make();
+      var take = el("div", "take");
+      take.innerHTML = qq.createSvgTag({ cellSize: 4, margin: 1, scalable: true });
+      take.appendChild(el("p", "m", tr("screen_take")));
+      box.appendChild(take);
+    }
+    openCard.appendChild(box);
+    openCard.onclick = function (e) { if (e.target === openCard) close(); };
+    document.body.appendChild(openCard);
+    clearTimeout(timer); // no paging under an open card
+  }
+  function close() { if (openCard) { openCard.remove(); openCard = null; show(); } }
+  function poke() { // a touch: stay; a minute without one: back to the start
+    clearTimeout(idle);
+    idle = setTimeout(function () { if (openCard) { openCard.remove(); openCard = null; } at = 0; show(); }, 60000);
+  }
+  if (touch) {
+    ["pointerdown", "keydown"].forEach(function (ev) { document.addEventListener(ev, poke); });
+    var nav = el("div", "screen-nav");
+    [["‹", -1], ["›", 1]].forEach(function (b) {
+      var btn = el("button", "pill", b[0]); btn.type = "button";
+      btn.onclick = function () { at = (at + b[1] + pages.length) % Math.max(1, pages.length); show(); };
+      nav.appendChild(btn);
+    });
+    document.body.appendChild(nav);
   }
 
   // pages: fill the grid until it would scroll, then start a new page.
@@ -79,7 +127,7 @@
     for (var i = p[0]; i < p[1]; i++) grid.appendChild(card(all[i]));
     document.getElementById("screen-page").textContent = pages.length > 1 ? (at % pages.length + 1) + " / " + pages.length : "";
     clearTimeout(timer);
-    timer = setTimeout(function () { at++; show(); }, speed);
+    if (!openCard) timer = setTimeout(function () { at++; show(); }, touch ? speed * 2 : speed); // slower when people read along
   }
   function load() {
     var cells = G.rings(cell, 1).map(function (p) { return p[0]; });

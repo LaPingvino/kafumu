@@ -721,5 +721,6 @@
   "screen.scan": "Thêm gì đó ở đây",
   "js.screen_today": "Hôm nay",
   "js.screen_week": "Tuần này",
-  "js.screen_empty": "Chưa có gì ở đây. Hãy là người đầu tiên: quét mã."
+  "js.screen_empty": "Chưa có gì ở đây. Hãy là người đầu tiên: quét mã.",
+  "js.screen_take": "Quét để mang theo"
 }

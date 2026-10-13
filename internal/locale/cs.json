@@ -721,5 +721,6 @@
   "screen.scan": "Přidej sem něco",
   "js.screen_today": "Dnes",
   "js.screen_week": "Tento týden",
-  "js.screen_empty": "Zatím tu nic není. Buď první: naskenuj kód."
+  "js.screen_empty": "Zatím tu nic není. Buď první: naskenuj kód.",
+  "js.screen_take": "Naskenuj a vezmi s sebou"
 }

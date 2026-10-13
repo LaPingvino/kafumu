@@ -721,5 +721,6 @@
   "screen.scan": "在這裡留言",
   "js.screen_today": "今天",
   "js.screen_week": "本週",
-  "js.screen_empty": "這裡還什麼都沒有。來做第一個：掃描二維碼。"
+  "js.screen_empty": "這裡還什麼都沒有。來做第一個：掃描二維碼。",
+  "js.screen_take": "掃碼帶走"
 }

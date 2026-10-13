@@ -721,5 +721,6 @@
   "screen.scan": "Adaugă ceva aici",
   "js.screen_today": "Azi",
   "js.screen_week": "Săptămâna asta",
-  "js.screen_empty": "Încă nimic aici. Fii primul: scanează codul."
+  "js.screen_empty": "Încă nimic aici. Fii primul: scanează codul.",
+  "js.screen_take": "Scanează ca să-l iei cu tine"
 }

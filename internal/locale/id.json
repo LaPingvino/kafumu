@@ -721,5 +721,6 @@
   "screen.scan": "Tambahkan sesuatu di sini",
   "js.screen_today": "Hari ini",
   "js.screen_week": "Minggu ini",
-  "js.screen_empty": "Belum ada apa-apa. Jadilah yang pertama: pindai kodenya."
+  "js.screen_empty": "Belum ada apa-apa. Jadilah yang pertama: pindai kodenya.",
+  "js.screen_take": "Pindai untuk dibawa"
 }

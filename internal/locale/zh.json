@@ -721,5 +721,6 @@
   "screen.scan": "在这里留言",
   "js.screen_today": "今天",
   "js.screen_week": "本周",
-  "js.screen_empty": "这里还什么都没有。来做第一个：扫描二维码。"
+  "js.screen_empty": "这里还什么都没有。来做第一个：扫描二维码。",
+  "js.screen_take": "扫码带走"
 }

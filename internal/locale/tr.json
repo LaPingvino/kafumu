@@ -721,5 +721,6 @@
   "screen.scan": "Buraya bir şey ekle",
   "js.screen_today": "Bugün",
   "js.screen_week": "Bu hafta",
-  "js.screen_empty": "Henüz bir şey yok. İlk sen ol: kodu tara."
+  "js.screen_empty": "Henüz bir şey yok. İlk sen ol: kodu tara.",
+  "js.screen_take": "Yanına almak için tara"
 }

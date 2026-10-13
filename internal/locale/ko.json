@@ -721,5 +721,6 @@
   "screen.scan": "여기에 남겨 보세요",
   "js.screen_today": "오늘",
   "js.screen_week": "이번 주",
-  "js.screen_empty": "아직 아무것도 없어요. 첫 번째가 되어 보세요: 코드를 스캔하세요."
+  "js.screen_empty": "아직 아무것도 없어요. 첫 번째가 되어 보세요: 코드를 스캔하세요.",
+  "js.screen_take": "스캔해서 가져가기"
 }

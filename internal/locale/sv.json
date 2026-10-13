@@ -721,5 +721,6 @@
   "screen.scan": "Lägg till något här",
   "js.screen_today": "I dag",
   "js.screen_week": "Den här veckan",
-  "js.screen_empty": "Inget här än. Bli först: skanna koden."
+  "js.screen_empty": "Inget här än. Bli först: skanna koden.",
+  "js.screen_take": "Skanna för att ta med"
 }

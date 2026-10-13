@@ -721,5 +721,6 @@
   "screen.scan": "Zet hier iets neer",
   "js.screen_today": "Vandaag",
   "js.screen_week": "Deze week",
-  "js.screen_empty": "Nog niets hier. Wees de eerste: scan de code."
+  "js.screen_empty": "Nog niets hier. Wees de eerste: scan de code.",
+  "js.screen_take": "Scan om mee te nemen"
 }
