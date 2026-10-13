@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"html"
 	"log"
+	"net/http"
 	"net/url"
 	"regexp"
 	"sort"
@@ -164,45 +165,15 @@ func (h *Meetups) pullSources(ctx context.Context, now time.Time) ([]feeds.Feed,
 			if !oln.IsSource(s) || n >= maxSourcesPerCell || read >= maxSourcesPerRun {
 				continue
 			}
-			link := firstURL.FindString(s.Text)
-			if link == "" {
+			if firstURL.FindString(s.Text) == "" {
 				continue
 			}
 			n++
 			read++
-			body, err := h.Importer.Get(ctx, link)
-			if err != nil {
-				log.Printf("sources: %s: %v", link, err)
-				continue
-			}
-			host := ""
-			if u, err := url.Parse(link); err == nil {
-				host = strings.TrimPrefix(u.Hostname(), "www.")
-			}
-			if f, ok := importer.ParseFeed(body); ok {
-				for i, it := range f.Items {
-					if i >= maxNewsPerSource || (!it.At.IsZero() && now.Sub(it.At) > newsMaxAge) {
-						continue
-					}
-					at := it.At
-					if at.IsZero() || at.After(now) {
-						at = now
-					}
-					by := s.Author
-					if by == "" {
-						by = s.Src
-					}
-					news = append(news, NewsItem{Title: it.Title, Link: it.Link, Text: it.Text, At: at, Host: host, By: by, Bits: s.Bits, Src: s.ID, Cell: cell})
-				}
-				continue
-			}
-			// Not news: a calendar, read the usual way into meetups.
-			kind := "jsonld"
-			if strings.Contains(body, "BEGIN:VCALENDAR") {
-				kind = "ics"
-			}
-			if kind == "ics" || len(importer.ParseAll(body)) > 0 {
-				cals = append(cals, feeds.Feed{URL: link, Kind: kind, Cell: cell, Note: "source #geo" + cell + " by @" + s.Src})
+			items, cal := h.readSource(ctx, s, cell, now)
+			news = append(news, items...)
+			if cal != nil {
+				cals = append(cals, *cal)
 			}
 		}
 		sort.Slice(news, func(i, j int) bool { return news[i].At.After(news[j].At) })
@@ -388,4 +359,95 @@ func (h *Meetups) suggestSources(ctx context.Context, now time.Time) string {
 		}
 	}
 	return "suggestions: " + itoa(probes) + " sites probed, " + itoa(made) + " areas"
+}
+
+// readSource reads one source: a news feed's recent items, or (not news) the
+// calendar it is, to hand to the feed sync.
+func (h *Meetups) readSource(ctx context.Context, s *oln.Note, cell string, now time.Time) ([]NewsItem, *feeds.Feed) {
+	link := firstURL.FindString(s.Text)
+	body, err := h.Importer.Get(ctx, link)
+	if err != nil {
+		log.Printf("sources: %s: %v", link, err)
+		return nil, nil
+	}
+	host := ""
+	if u, err := url.Parse(link); err == nil {
+		host = strings.TrimPrefix(u.Hostname(), "www.")
+	}
+	if f, ok := importer.ParseFeed(body); ok {
+		var news []NewsItem
+		by := s.Author
+		if by == "" {
+			by = s.Src
+		}
+		for i, it := range f.Items {
+			if i >= maxNewsPerSource || (!it.At.IsZero() && now.Sub(it.At) > newsMaxAge) {
+				continue
+			}
+			at := it.At
+			if at.IsZero() || at.After(now) {
+				at = now
+			}
+			news = append(news, NewsItem{Title: it.Title, Link: it.Link, Text: it.Text, At: at, Host: host, By: by, Bits: s.Bits, Src: s.ID, Cell: cell})
+		}
+		return news, nil
+	}
+	kind := "jsonld"
+	if strings.Contains(body, "BEGIN:VCALENDAR") {
+		kind = "ics"
+	}
+	if kind == "ics" || len(importer.ParseAll(body)) > 0 {
+		return nil, &feeds.Feed{URL: link, Kind: kind, Cell: cell, Note: "source #geo" + cell + " by @" + s.Src}
+	}
+	return nil, nil
+}
+
+// PullSource handles POST /api/oln/source/pull?id=…: read a source right
+// after it was added (81i), so its news shows at once rather than after the
+// next feeds run. Same people as adding one; once per 10 minutes per source.
+func (h *Meetups) PullSource(w http.ResponseWriter, r *http.Request) {
+	notes := h.Home.Notes
+	if notes == nil || notes.SourceOK == nil || !notes.SourceOK(r) || h.Importer == nil || h.Home.Cache == nil {
+		http.Error(w, "not allowed", http.StatusForbidden)
+		return
+	}
+	n, err := notes.Store.Get(r.Context(), r.URL.Query().Get("id"))
+	if err != nil || !oln.IsSource(n) || n.Cell == oln.Everywhere {
+		http.NotFound(w, r)
+		return
+	}
+	ctx, now := r.Context(), time.Now()
+	key := "pulled:" + n.ID
+	if _, ok := h.Home.Cache.Get(ctx, key); ok {
+		w.WriteHeader(http.StatusNoContent)
+		return
+	}
+	h.Home.Cache.Set(ctx, key, []byte("1"), 10*time.Minute)
+	items, cal := h.readSource(ctx, n, n.Cell, now)
+	if cal != nil {
+		feeds.Sync(ctx, []feeds.Feed{*cal}, h.Importer, h.Svc.Store, now)
+		h.Svc.ForgetAll()
+	}
+	if len(items) > 0 { // merged with what the area's other sources brought
+		var all []NewsItem
+		if b, ok := h.Home.Cache.Get(ctx, newsKey(n.Cell)); ok {
+			json.Unmarshal(b, &all)
+		}
+		kept := all[:0]
+		for _, it := range all {
+			if it.Src != n.ID {
+				kept = append(kept, it)
+			}
+		}
+		all = append(kept, items...)
+		sort.Slice(all, func(i, j int) bool { return all[i].At.After(all[j].At) })
+		if len(all) > maxNewsPerCell {
+			all = all[:maxNewsPerCell]
+		}
+		if b, err := json.Marshal(all); err == nil {
+			h.Home.Cache.Set(ctx, newsKey(n.Cell), b, 12*time.Hour)
+		}
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]int{"news": len(items), "calendar": map[bool]int{true: 1}[cal != nil]})
 }

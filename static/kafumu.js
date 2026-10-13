@@ -33,7 +33,7 @@
   // minus a step per position (keeping that kind's own order).
   var KINDS = ["contacts", "here", "meetups", "news", "people", "posts"];
   // Sinks by source; friends around and signals both count as "contacts".
-  var KIND_OF = { friends: "contacts", signals: "contacts", here: "here", meetups: "meetups", people: "people", posts: "posts", elsewhere: "posts", news: "news" };
+  var KIND_OF = { friends: "contacts", signals: "contacts", here: "here", meetups: "meetups", people: "people", posts: "posts", elsewhere: "posts", news: "news", sources: "news" };
   var BASE = { contacts: 1000, here: 10, meetups: 7, news: 4, people: 4, posts: 3 }, STEP = { contacts: 1, here: 0.5, meetups: 0.6, news: 0.2, people: 0.8, posts: 0.15 };
   var feed = {}, drawTimer = null;
   Object.keys(KIND_OF).forEach(function (k) { feed[k] = []; });
@@ -82,6 +82,7 @@
       box.appendChild(b);
     }
     chip(tr("kind_all"), all, function () { setFeedKinds(KINDS.slice()); });
+    var bySrc = on.length === 1 && /^src:/.test(on[0]) ? on[0].slice(4) : "";
     KINDS.forEach(function (k) {
       var n = cardsOf(k).filter(function (li) { return !li.classList.contains("muted"); }).length;
       if (!n) return;
@@ -89,12 +90,25 @@
       chip(tr("kind_" + k) + " " + n, pressed, function () {
         // From All, a kind chip shows just that kind; after that, chips
         // add and remove kinds; none left means All again.
-        if (all) { setFeedKinds([k]); return; }
+        if (all || bySrc) { setFeedKinds([k]); return; }
         var next = pressed ? on.filter(function (x) { return x !== k; }) : on.concat([k]);
         setFeedKinds(next.length ? next : KINDS.slice());
       });
     });
+    // A chip per source (81j), next to the kinds: just what that source brought.
+    var srcs = {};
+    cardsOf("news").forEach(function (li) {
+      var id = li.dataset.src;
+      if (!id) return;
+      var x = srcs[id] = srcs[id] || { name: "", n: 0 };
+      if (li.dataset.srcName) x.name = li.dataset.srcName; else { x.n++; if (!x.name) x.name = li.dataset.host || ""; }
+    });
+    Object.keys(srcs).forEach(function (id) {
+      if (!srcs[id].name) return;
+      chip("📰 " + srcs[id].name + (srcs[id].n ? " " + srcs[id].n : ""), bySrc === id, function () { setFeedKinds(bySrc === id ? KINDS.slice() : ["src:" + id]); });
+    });
     var items = [];
+    if (bySrc) items = cardsOf("news").filter(function (li) { return li.dataset.src === bySrc; });
     KINDS.forEach(function (k) { if (on.indexOf(k) >= 0) items = items.concat(cardsOf(k)); });
     var real = items.filter(function (li) { return !li.classList.contains("muted"); });
     if (real.length) items = real;
@@ -505,6 +519,30 @@
   // Items the feeds job read from sources people here added; each carries
   // the value of the line that added its source, which ranks it (below what
   // locals say), with fresher first. ⚑ reports the source itself.
+  // sourceItem: a source line, compact: its name, site and who added it;
+  // reactions on it are its votes (81h), behind one button.
+  function sourceItem(n) {
+    var li = document.createElement("li");
+    li.className = "source-line";
+    var link = (String(n.text).match(/https?:\/\/\S+/) || [""])[0], host = "";
+    try { host = new URL(link).hostname.replace(/^www\./, ""); } catch (e) {}
+    var name = String(n.text).replace(link, "").replace(/^📰\s*/, "").trim() || host;
+    li.dataset.src = n.id; li.dataset.srcName = name;
+    li.dataset.score = BASE.news + 3;
+    var meta = document.createElement("div"); meta.className = "meta";
+    meta.textContent = "📰 " + tr("source_label") + " · " + host + (n.author ? " · " + tr("news_by", { name: "@" + n.author }) : "");
+    var title = document.createElement("p"); title.className = "text";
+    var a = document.createElement("a"); a.href = link; a.target = "_blank"; a.rel = "noopener"; a.textContent = name + " ↗";
+    title.appendChild(a);
+    var row = document.createElement("div"); row.className = "actions";
+    reactRow("note", n.id, name, row, null);
+    foldRow(row);
+    row.appendChild(reportButton("note", n.id, "📰 " + name + " " + link, li));
+    li.appendChild(meta); li.appendChild(title); li.appendChild(row);
+    li.dataset.reid = reID("note", n.id);
+    return li;
+  }
+
   function showNews(items) {
     var list = sinks.news;
     list.textContent = "";
@@ -514,6 +552,7 @@
       seen[it.link] = true;
       var li = document.createElement("li");
       li.className = "news";
+      li.dataset.src = it.src || ""; li.dataset.host = it.host || "";
       var ageD = (Date.now() - new Date(it.at).getTime()) / 864e5;
       li.dataset.score = BASE.news + Math.min(it.bits || 0, 24) / 12 - ageD * 0.4;
       var meta = document.createElement("div"); meta.className = "meta";
@@ -592,6 +631,8 @@
     var text = "📰 " + (name ? name + " " : "") + url, kw = "#geo" + currentCell + " #feed", extra = parseInt(f.extra.value, 10) || 0;
     window.kafumuOLN.post(text, kw, requiredBits + extra, function (tries) { st.textContent = tr("oln_working", { n: tries }); }, 0, true).then(function (n) {
       rememberPost(n, "note", "📰");
+      // Read it now (81i): its news shows at once, not after the next feeds run.
+      if (n && n.id) fetch("/api/oln/source/pull?id=" + n.id, { method: "POST", credentials: "same-origin" }).then(function () { load(currentCell, true); }, function () {});
       // Kept on the device for Account's "Your sources" (renew, remove).
       var dev = window.kafumuDevice;
       if (dev && n && n.id) dev.store.get("mySources").then(function (ms) {
@@ -1324,7 +1365,11 @@
       var isReply = function (n) { return !linkOf(n) && (n.tags || []).some(function (t) { return /^re[0-9a-f]{10}$/.test(t); }); };
       var isAsk = function (n) { return (n.tags || []).indexOf("ask") >= 0; };
       var forYou = function (n) { return isAsk(n) && (n.tags || []).some(function (t) { return t !== "ask" && mine[t]; }); };
-      var top = notes.filter(function (n) { return !isReply(n); });
+      // Sources (81j) aren't messages: each is a compact head of its own news.
+      var isSrc = function (n) { return (n.tags || []).indexOf("feed") >= 0; };
+      sinks.sources.textContent = "";
+      notes.filter(isSrc).forEach(function (n) { sinks.sources.appendChild(sourceItem(n)); });
+      var top = notes.filter(function (n) { return !isReply(n) && !isSrc(n); });
       top.sort(function (a, z) { return forYou(z) - forYou(a); }); // stable: keeps the ranking otherwise
       top.forEach(function (n) {
         var li = noteItem(n, { question: isAsk(n), forYou: forYou(n) });

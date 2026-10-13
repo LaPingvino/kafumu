@@ -1208,10 +1208,14 @@ Findable, Account, Business, meetups…), and with a "👀 Show me" button that 
       your own lines (says, questions, coffee) and next to "coffee sent", which also stops listening; #wd is never
       a subject; oln.html documents it. 24 languages.
 
-- [ ] 81i. Read a source right away (Joop, adding Rostos): after "Add a source", the device asks the node to read
+- [x] 81i. Done: POST /api/oln/source/pull?id (SourceOK; once per 10 min per source) reads that source now: news merged
+      into its area's cache, a calendar synced into meetups; the device calls it right after adding. TestPullSourceNow.
+      Was: Read a source right away (Joop, adding Rostos): after "Add a source", the device asks the node to read
       that one source now (POST /api/oln/source/pull?id=…, same rules as adding: named + passkey/role), so its
       news shows at once instead of after the next feeds run.
-- [ ] 81j. Sources as filters (Joop): the source line isn't a big message in "Here now" but a compact "📰 Rostos ·
+- [x] 81j. Done: source lines leave "Here now": each is a compact "📰 source · host · added by @name" + its name as a
+      link, reactions (its votes) folded behind 😊, at the head of its news; a chip per source next to the kinds shows
+      just that source's news. Checked by hand at 390 px. Was: Sources as filters (Joop): the source line isn't a big message in "Here now" but a compact "📰 Rostos ·
       rostos.pt · @name" at the head of its news (reactions there are the votes, 81h); a chip per source next to
       Meetups / News / Bluesky shows just its news — for finding local events while travelling.
 

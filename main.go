@@ -277,6 +277,7 @@ func main() {
 	mux.HandleFunc("POST /api/oln", notes.HandlePost)
 	mux.HandleFunc("POST /api/oln/source/remove", notes.HandleRemoveSource)
 	mux.HandleFunc("POST /api/oln/withdraw", notes.HandleWithdraw)
+	mux.HandleFunc("POST /api/oln/source/pull", meetups.PullSource)
 	mux.HandleFunc("GET /api/oln/required", notes.HandleRequired)
 	mux.HandleFunc("GET /api/oln/pair/{tag}", notes.HandlePair)
 	mux.HandleFunc("GET /api/oln/re", notes.HandleRe)

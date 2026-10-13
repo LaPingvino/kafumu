@@ -75,3 +75,36 @@ func TestSuggestSources(t *testing.T) {
 		t.Fatalf("suggestions = %+v", got)
 	}
 }
+
+// Reading a source right after it's added (81i): only for people who may add
+// sources; its news lands in its area at once.
+func TestPullSourceNow(t *testing.T) {
+	now := time.Now().UTC()
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, `<rss version="2.0"><channel><item><title>Feira do Barreiro</title><link>https://rostos.example/feira</link><pubDate>%s</pubDate></item></channel></rss>`, now.Format(time.RFC1123Z))
+	}))
+	defer srv.Close()
+	store := oln.NewMemoryStore()
+	notes := oln.NewService(store)
+	allowed := false
+	notes.SourceOK = func(*http.Request) bool { return allowed }
+	home := &Home{Notes: notes, Cache: cache.New()}
+	id := strings.Repeat("e", 40)
+	store.Put(t.Context(), &oln.Note{ID: id, Raw: "v2;e", Text: "📰 Rostos " + srv.URL + "/rss", Cell: "8ccgmw", Tags: []string{"geo8ccgmw", "feed"}, Src: "lapingvino", At: now, ExpiresAt: now.Add(time.Hour)})
+	m := &Meetups{Home: home, Svc: meetup.NewService(meetup.NewMemoryStore()), Importer: &importer.Importer{Client: srv.Client()}}
+	pull := func() int {
+		w := httptest.NewRecorder()
+		m.PullSource(w, httptest.NewRequest("POST", "/api/oln/source/pull?id="+id, nil))
+		return w.Code
+	}
+	if c := pull(); c != http.StatusForbidden {
+		t.Fatalf("not allowed: %d", c)
+	}
+	allowed = true
+	if c := pull(); c != 200 {
+		t.Fatalf("pull: %d", c)
+	}
+	if news := home.News(t.Context(), []string{"8ccgmw"}); len(news) != 1 || news[0].Title != "Feira do Barreiro" {
+		t.Fatalf("news = %+v", news)
+	}
+}

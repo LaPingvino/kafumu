@@ -397,3 +397,6 @@ body.chat-open { overflow: hidden; }
 .chat-window.chat-page { position: static; inset: auto; width: auto; height: calc(100dvh - 190px); min-height: 280px; z-index: auto;
   border: 0; box-shadow: none; padding: 0; background: none; animation: none; }
 .chat-window .win-back { text-decoration: none; }
+/* A source (81j): a compact head of its news. */
+#feed > li.source-line { padding-top: 6px; padding-bottom: 6px; border-left: 3px solid #4a7bb7; }
+#feed > li.source-line .text { margin: 2px 0; font-weight: 600; }
