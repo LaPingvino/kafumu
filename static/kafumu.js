@@ -442,6 +442,7 @@
     }, 0, asMe); }).then(function (n) {
       if (n && n.id) (n.cell === "000000" ? ownGeneral : ownNotes).push(n);
       if (composeMode.re) showOwnReaction(composeMode.re.slice(0, 10), n);
+      if (composeMode.keep) keepItem(composeMode.keep);
       rememberPost(n, composeMode.re ? "reply" : composeMode.ask ? "ask" : "note", text.split("\n")[0], wd && wd.secret);
       if (!composeMode.re && aPair) aPair.pushSubscribe(false).catch(function () {}); // its answers can wake you now
       composeMode = {};
@@ -509,7 +510,7 @@
     list.textContent = "";
     var seen = {};
     items.forEach(function (it) {
-      if (!it.link || seen[it.link]) return;
+      if (!it.link || seen[it.link] || linkLines[normURL(it.link)]) return; // kept in OLN already (81g): that line shows it
       seen[it.link] = true;
       var li = document.createElement("li");
       li.className = "news";
@@ -524,7 +525,8 @@
       li.appendChild(meta); li.appendChild(p);
       if (it.text) li.appendChild(Object.assign(document.createElement("p"), { className: "dim small", textContent: it.text }));
       var row = document.createElement("div"); row.className = "actions";
-      li.dataset.reid = reactRow("link", it.link, it.title, row, { link: it.link, cell: it.cell });
+      var nl = normURL(it.link) || it.link;
+      li.dataset.reid = reactRow("link", nl, it.title, row, { link: nl, cell: it.cell, keep: "📰 " + it.title });
       row.appendChild(reportButton("note", it.src, "📰 " + it.host + ": " + it.title, li));
       li.appendChild(row);
       list.appendChild(li);
@@ -1014,6 +1016,19 @@
     return /^site_/.test(t) ? "🌐 " + t.slice(5).replace(/_/g, ".") : "#" + t;
   }
   // linkOf: the link a note shares (its #re is that link's), or "".
+  // keepItem (81g): the first reaction to a news item or a Bluesky post also
+  // puts the item itself into OLN, as a link line in its area (title + link,
+  // its site tag), unless one is there already: it then outlives the cache
+  // and travels to other nodes, and its reactions hang on it (same #re).
+  var linkLines = {}, keptLinks = {};
+  function keepItem(ctx) {
+    var link = normURL(ctx.link), cell = ctx.cell || currentCell;
+    if (!link || !cell || !window.kafumuOLN || linkLines[link] || keptLinks[link]) return;
+    keptLinks[link] = true;
+    var site = siteTag(link);
+    window.kafumuOLN.post(String(ctx.keep).slice(0, 300) + "\n" + link, "#geo" + cell + " #re" + reID("link", link) + (site ? " #" + site : ""), requiredBits, function () {})
+      .then(function (n) { if (n && n.id) { ownNotes.push(n); linkLines[link] = true; if (cell === currentCell) load(currentCell, true); } }, function () { delete keptLinks[link]; });
+  }
   function linkOf(n) {
     var u = urlIn(n.text);
     return u && (n.tags || []).indexOf("re" + reID("link", u)) >= 0 ? u : "";
@@ -1122,7 +1137,7 @@
         if (!currentCell || !window.kafumuOLN) return;
         b.disabled = true;
         window.kafumuOLN.post(carry ? carryText(e, carry.about, carry.link) : e, (carry ? "#geo" + carry.cell + " " : "") + "#re" + rid, requiredBits, function () {}) // "#re" alone: no place needed (78a)
-          .then(function (n) { b.textContent = e + " ✓"; b.classList.add("sent"); showOwnReaction(rid, n); }, function () { b.disabled = false; });
+          .then(function (n) { b.textContent = e + " ✓"; b.classList.add("sent"); showOwnReaction(rid, n); if (ctx && ctx.keep) keepItem(ctx); }, function () { b.disabled = false; });
       };
       row.appendChild(b);
     });
@@ -1144,7 +1159,7 @@
     }
     var t = document.createElement("button");
     t.type = "button"; t.className = "pill-sm"; t.textContent = "💬 " + tr("react");
-    t.onclick = function (ev) { ev.preventDefault(); ev.stopPropagation(); openComposer({ re: rid, about: about, carry: carry }); };
+    t.onclick = function (ev) { ev.preventDefault(); ev.stopPropagation(); openComposer({ re: rid, about: about, carry: carry, keep: ctx && ctx.keep ? ctx : null }); };
     row.appendChild(t);
     // 👀 / 🤝 to a contact: behind one 📤, so the reactions stay one row.
     if (ctx && ctx.link) {
@@ -1267,6 +1282,7 @@
     ownNotes = ownNotes.filter(function (n) { return new Date(n.expires) > Date.now() && n.cell && currentCell && rings(currentCell, 3).some(function (p) { return p[0] === n.cell; }); });
     notes = ownNotes.filter(function (n) { return !have[n.id]; }).concat(notes);
     var hidden = hiddenNotes(), list = sinks.here, mySeq = loadSeq;
+    notes.forEach(function (n) { var u = n.text && linkOf(n); if (u) linkLines[u] = true; });
     notes = notes.filter(function (n) { return hidden.indexOf(n.id) < 0; });
     if (!notes.length) list.textContent = "";
     loadMyTags().then(function (mine) {
@@ -1792,7 +1808,11 @@
     hide.type = "button"; hide.className = "pill-sm"; hide.textContent = tr("oln_hide");
     hide.onclick = hideIt;
     row.appendChild(hide);
-    li.dataset.reid = reactRow("post", p.uri, (p.handle ? "@" + p.handle + ": " : "") + p.text, row, p.url ? { link: p.url } : null);
+    // With its address, a post is reacted to like any link (81g): the first
+    // reaction keeps it in OLN, and its reactions hang on that line.
+    var pAbout = (p.handle ? "@" + p.handle + ": " : "") + p.text, pl = p.url && normURL(p.url);
+    li.dataset.reid = pl ? reactRow("link", pl, pAbout, row, { link: pl, cell: currentCell, keep: "🦋 " + firstLine(pAbout) })
+      : reactRow("post", p.uri, pAbout, row, null);
     row.appendChild(reportButton("post", p.uri, (p.handle ? "@" + p.handle + ": " : "") + p.text, li, hideIt));
     li.appendChild(row);
     swipeAway(li, hideIt);

@@ -95,6 +95,12 @@ try {
   await A.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('Oops, wrong area " + RUN + "') && li.querySelector('.take-back'))", "own line with ✕ Take back", 30000);
   await A.evaluate("window.confirm = () => true; [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('Oops, wrong area " + RUN + "')).querySelector('.take-back').click(); true");
   await A.waitFor("![...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('Oops, wrong area " + RUN + "'))", "taken back", 30000);
+  // Reacting to a Bluesky post keeps it in OLN (81g): a 🦋 link line in this area (when Bluesky answers).
+  const bskyPost = "[...document.querySelectorAll('#feed > li')].find(li => li.dataset.kind === 'posts' && li.querySelector('.actions button.react'))";
+  if (await A.evaluate("!!(" + bskyPost + ")")) {
+    await A.evaluate("(" + bskyPost + ").querySelector('.actions button.react').click(); true");
+    await A.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.dataset.kind === 'here' && li.textContent.includes('🦋'))", "the Bluesky post kept as a line here", 60000);
+  } else console.log("note: no Bluesky post here to react to (81g step skipped)");
   // The area as RSS and as a calendar (81a): the buttons point at this cell, the feed has the line.
   await A.waitFor("/^\\/rss\\/[0-9a-z]{6}$/.test(new URL(document.getElementById('rss-link').href).pathname) && document.getElementById('cal-link').href.startsWith('webcal://')", "📰 RSS and 📅 Calendar for this area");
   await A.waitFor("fetch(document.getElementById('rss-link').href, { cache: 'no-store' }).then(r => r.text()).then(x => x.includes('<rss') && x.includes('hi from the OLN " + RUN + "'))", "the area's RSS has the message", 20000);
