@@ -744,5 +744,18 @@
   "js.screen_apply": "Utwórz link",
   "js.screen_open_on": "Otwórz ten link na ekranie:",
   "js.screen_here": "Użyj tutaj",
-  "footer.screen": "Ekran publiczny"
+  "footer.screen": "Ekran publiczny",
+  "js.tour_connect_qr": "Ktoś obok skanuje to aparatem: jesteście połączeni i wymieniacie się wizytówkami.",
+  "js.tour_connect_pick": "Wybierz, co ta osoba dostanie z twojej wizytówki: dotknij pola, by je pominąć.",
+  "js.tour_connect_share": "Nie jesteście obok siebie? Wyślij link, dowolną aplikacją.",
+  "js.tour_connect_short": "Krótki kod łatwiej powiedzieć lub wpisać: działa godzinę.",
+  "js.tour_contacts_tools": "Szukaj w kontaktach lub je sortuj: najnowsze, najbliższe albo te, które ucichły.",
+  "js.tour_contacts_card": "Każdy kontakt: jego wizytówka, twoja własna nazwa i notatka, czat i szybkie sygnały.",
+  "js.tour_contacts_backup": "Kontakty są na twoich urządzeniach. Zachowaj kopię: w książce adresowej lub jako plik kopii.",
+  "js.tour_card_personas": "Więcej niż jedna wizytówka? Każda to twarz, którą pokazujesz: praca, hobby, sąsiedztwo.",
+  "js.tour_card_form": "Wypełnij tylko to, co chcesz przekazać. Nic nie jest wymagane.",
+  "js.tour_card_tags": "Tagi mówią, co cię interesuje, by ludzie w pobliżu o tych samych zainteresowaniach mogli cię znaleźć.",
+  "js.tour_card_link": "Twój własny link (/@nazwa): kto go otworzy, może się z tobą połączyć bez wcześniejszego spotkania.",
+  "js.tour_act_filter": "Wszystko, tylko kontakty albo tylko nieprzeczytane.",
+  "js.tour_act_row": "Każdy wiersz to rozmowa: dotknij, by czytać i odpowiadać, albo zobaczyć, co stało się z twoim wpisem czy spotkaniem."
 }

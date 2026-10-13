@@ -744,5 +744,18 @@
   "js.screen_apply": "링크 만들기",
   "js.screen_open_on": "이 링크를 화면에서 여세요:",
   "js.screen_here": "여기서 사용",
-  "footer.screen": "공공 화면"
+  "footer.screen": "공공 화면",
+  "js.tour_connect_qr": "옆 사람이 카메라로 이걸 스캔하면 연결되고 명함을 주고받아요.",
+  "js.tour_connect_pick": "이 사람이 내 명함에서 무엇을 받을지 골라요. 항목을 누르면 빠져요.",
+  "js.tour_connect_share": "가까이 있지 않나요? 대신 링크를 아무 앱으로나 보내세요.",
+  "js.tour_connect_short": "짧은 코드는 말하거나 입력하기 쉬워요. 한 시간 동안 유효해요.",
+  "js.tour_contacts_tools": "연락처를 검색하거나 정렬하세요: 최신, 가까운 순, 연락이 끊긴 사람.",
+  "js.tour_contacts_card": "각 연락처: 상대의 명함, 내가 붙인 이름과 메모, 채팅, 빠른 신호.",
+  "js.tour_contacts_backup": "연락처는 내 기기에 있어요. 주소록이나 백업 파일로 사본을 남겨 두세요.",
+  "js.tour_card_personas": "명함이 여러 개인가요? 각각 내가 보여 주는 얼굴이에요: 일, 취미, 동네.",
+  "js.tour_card_form": "주고 싶은 것만 채우세요. 필수 항목은 없어요.",
+  "js.tour_card_tags": "태그는 내 관심사를 알려 줘서, 같은 관심을 가진 근처 사람이 나를 찾을 수 있어요.",
+  "js.tour_card_link": "내 링크(/@이름): 여는 사람은 만나기 전에도 나와 연결할 수 있어요.",
+  "js.tour_act_filter": "전체, 연락처만, 또는 읽지 않은 것만.",
+  "js.tour_act_row": "각 줄은 대화예요. 눌러서 읽고 답하거나, 내 글이나 모임에 무슨 일이 있었는지 보세요."
 }

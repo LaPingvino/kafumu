@@ -744,5 +744,18 @@
   "js.screen_apply": "Maak de link",
   "js.screen_open_on": "Open deze link op het scherm:",
   "js.screen_here": "Hier gebruiken",
-  "footer.screen": "Openbaar scherm"
+  "footer.screen": "Openbaar scherm",
+  "js.tour_connect_qr": "Iemand naast je scant dit met de camera: jullie zijn verbonden en wisselen kaartjes uit.",
+  "js.tour_connect_pick": "Kies wat deze persoon van je kaartje krijgt: tik op een veld om het weg te laten.",
+  "js.tour_connect_share": "Niet naast elkaar? Stuur dan de link, via welke app ook.",
+  "js.tour_connect_short": "Een korte code is makkelijker te zeggen of te typen: hij werkt een uur.",
+  "js.tour_contacts_tools": "Zoek in je contacten of sorteer ze: nieuwste, dichtstbij, of wie stil is geworden.",
+  "js.tour_contacts_card": "Elk contact: zijn kaartje, jouw eigen naam en notitie, een chat en snelle seintjes.",
+  "js.tour_contacts_backup": "Je contacten staan op je apparaten. Bewaar een kopie: in je adresboek of als back-upbestand.",
+  "js.tour_card_personas": "Meer dan één kaartje? Elk is een gezicht dat je laat zien: werk, hobby, buurt.",
+  "js.tour_card_form": "Vul alleen in wat je wilt geven. Niets is verplicht.",
+  "js.tour_card_tags": "Tags zeggen waar je van houdt, zodat mensen in de buurt met dezelfde interesses je vinden.",
+  "js.tour_card_link": "Je eigen link (/@naam): wie hem opent, kan met je verbinden zonder je eerst te ontmoeten.",
+  "js.tour_act_filter": "Alles, alleen je contacten, of alleen wat ongelezen is.",
+  "js.tour_act_row": "Elke rij is een gesprek: tik om te lezen en te antwoorden, of om te zien wat er met je bericht of meetup gebeurde."
 }

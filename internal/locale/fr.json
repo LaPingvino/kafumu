@@ -744,5 +744,18 @@
   "js.screen_apply": "Créer le lien",
   "js.screen_open_on": "Ouvre ce lien sur l'écran :",
   "js.screen_here": "L'utiliser ici",
-  "footer.screen": "Écran public"
+  "footer.screen": "Écran public",
+  "js.tour_connect_qr": "Quelqu'un à côté de toi scanne ceci avec son appareil photo : vous êtes connectés et échangez vos cartes.",
+  "js.tour_connect_pick": "Choisis ce que cette personne reçoit de ta carte : touche un champ pour le retirer.",
+  "js.tour_connect_share": "Pas côte à côte ? Envoie plutôt le lien, par n'importe quelle appli.",
+  "js.tour_connect_short": "Un code court se dit ou se tape plus facilement : il marche une heure.",
+  "js.tour_contacts_tools": "Cherche dans tes contacts ou trie-les : les plus récents, les plus proches, ou ceux devenus silencieux.",
+  "js.tour_contacts_card": "Chaque contact : sa carte, ton propre nom et ta note, une discussion et des signaux rapides.",
+  "js.tour_contacts_backup": "Tes contacts sont sur tes appareils. Garde une copie : dans ton carnet d'adresses ou en fichier de sauvegarde.",
+  "js.tour_card_personas": "Plus d'une carte ? Chacune est un visage que tu montres : travail, loisir, quartier.",
+  "js.tour_card_form": "Ne remplis que ce que tu veux donner. Rien n'est obligatoire.",
+  "js.tour_card_tags": "Les tags disent ce qui t'intéresse, pour que les gens du coin aux mêmes intérêts te trouvent.",
+  "js.tour_card_link": "Ton propre lien (/@nom) : qui l'ouvre peut se connecter à toi sans te rencontrer d'abord.",
+  "js.tour_act_filter": "Tout, seulement tes contacts, ou seulement le non-lu.",
+  "js.tour_act_row": "Chaque ligne est une conversation : touche-la pour lire et répondre, ou voir ce qui est arrivé à ton message ou ta rencontre."
 }

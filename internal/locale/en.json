@@ -744,5 +744,18 @@
   "js.screen_apply": "Make the link",
   "js.screen_open_on": "Open this link on the screen:",
   "js.screen_here": "Use it here",
-  "footer.screen": "Public screen"
+  "footer.screen": "Public screen",
+  "js.tour_connect_qr": "Someone next to you scans this with their camera: you're connected, and you swap cards.",
+  "js.tour_connect_pick": "Choose what this person gets from your card: tap a field to leave it out.",
+  "js.tour_connect_share": "Not next to each other? Send the link instead, by any app.",
+  "js.tour_connect_short": "A short code is easier to say or type: it works for an hour.",
+  "js.tour_contacts_tools": "Search your contacts, or sort them: newest, nearest, or the ones gone quiet.",
+  "js.tour_contacts_card": "Each contact: their card, your own name and note for them, a chat, and quick signals.",
+  "js.tour_contacts_backup": "Your contacts live on your devices. Keep a copy: in your address book, or as a backup file.",
+  "js.tour_card_personas": "More than one card? Each one is a face you show: work, hobby, neighbourhood.",
+  "js.tour_card_form": "Fill in only what you want to hand over. Nothing here is required.",
+  "js.tour_card_tags": "Tags say what you're into, so people nearby with the same interests can find you.",
+  "js.tour_card_link": "Your own link (/@name): people who open it can connect with you, without meeting first.",
+  "js.tour_act_filter": "Everything, only your contacts, or only what's unread.",
+  "js.tour_act_row": "Each row is a conversation: tap it to read and answer, or to see what happened to your post or meetup."
 }

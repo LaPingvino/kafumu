@@ -744,5 +744,18 @@
   "js.screen_apply": "Criar o link",
   "js.screen_open_on": "Abre este link no ecrã:",
   "js.screen_here": "Usar aqui",
-  "footer.screen": "Ecrã público"
+  "footer.screen": "Ecrã público",
+  "js.tour_connect_qr": "Alguém ao teu lado lê isto com a câmara: ficam ligados e trocam cartões.",
+  "js.tour_connect_pick": "Escolhe o que esta pessoa recebe do teu cartão: toca num campo para o deixar de fora.",
+  "js.tour_connect_share": "Não estão lado a lado? Envia o link, por qualquer app.",
+  "js.tour_connect_short": "Um código curto é mais fácil de dizer ou escrever: funciona durante uma hora.",
+  "js.tour_contacts_tools": "Procura nos teus contactos ou ordena-os: mais recentes, mais perto, ou os que ficaram calados.",
+  "js.tour_contacts_card": "Cada contacto: o cartão dele, o teu próprio nome e nota, uma conversa e sinais rápidos.",
+  "js.tour_contacts_backup": "Os teus contactos estão nos teus dispositivos. Guarda uma cópia: no livro de endereços ou num ficheiro de cópia.",
+  "js.tour_card_personas": "Mais de um cartão? Cada um é uma cara que mostras: trabalho, passatempo, bairro.",
+  "js.tour_card_form": "Preenche só o que queres dar. Nada é obrigatório.",
+  "js.tour_card_tags": "As etiquetas dizem o que te interessa, para que pessoas perto com os mesmos interesses te encontrem.",
+  "js.tour_card_link": "O teu próprio link (/@nome): quem o abrir pode ligar-se a ti sem te conhecer antes.",
+  "js.tour_act_filter": "Tudo, só os teus contactos ou só o que não leste.",
+  "js.tour_act_row": "Cada linha é uma conversa: toca para ler e responder, ou para ver o que aconteceu à tua mensagem ou encontro."
 }

@@ -36,6 +36,45 @@
     if (again) again.onclick = function () { showIntro(true); try { localStorage.removeItem(key); localStorage.removeItem("kafumu.introSeen"); } catch (e) {} };
   }
 
+  // Tours for the other pages (87b): "👀 Show me" on the page's bar walks
+  // through what's on it, one thing at a time (Around has its own, richer one).
+  var TOURS = {
+    connect: [["#qr", "tour_connect_qr"], ["#share-picker", "tour_connect_pick"], ["#share-link", "tour_connect_share"], ["#make-short", "tour_connect_short"]],
+    contacts: [["#contacts-tools", "tour_contacts_tools"], ["#contacts li.contact", "tour_contacts_card"], ["#export-vcf", "tour_contacts_backup"]],
+    card: [["#personas", "tour_card_personas"], ["#card-form", "tour_card_form"], ["#tag-chips", "tour_card_tags"], ["#link", "tour_card_link"]],
+    activity: [["#thread-filter", "tour_act_filter"], ["#threads > li", "tour_act_row"]]
+  };
+  var page = intro && intro.dataset.help, steps = TOURS[page];
+  if (steps && document.getElementById("tour-start")) {
+    var box, at = -1;
+    var tourText = function (k) { return T[k] || k; };
+    var shown = function () { return steps.filter(function (s) { var e = document.querySelector(s[0]); return e && !e.hidden && e.offsetParent !== null; }); };
+    var go = function (i) {
+      var old = document.querySelector(".tour-focus");
+      if (old) old.classList.remove("tour-focus");
+      var ss = shown();
+      if (i < 0 || i >= ss.length) { if (box) box.hidden = true; at = -1; return; }
+      if (!box) {
+        box = document.createElement("div"); box.className = "tour card"; box.setAttribute("role", "dialog"); box.setAttribute("aria-live", "polite");
+        box.innerHTML = '<p class="t"></p><div class="actions"><span class="dim small n"></span><button type="button" class="pill-sm b">←</button><button type="button" class="pill-sm suggested f">→</button><button type="button" class="pill-sm d">✓</button></div>';
+        box.querySelector(".b").onclick = function () { go(at - 1); };
+        box.querySelector(".f").onclick = function () { go(at + 1); };
+        box.querySelector(".d").onclick = function () { go(-1); };
+        document.body.appendChild(box);
+      }
+      at = i;
+      var el = document.querySelector(ss[i][0]);
+      el.classList.add("tour-focus");
+      el.scrollIntoView({ block: "center", behavior: "smooth" });
+      box.querySelector(".t").textContent = tourText(ss[i][1]);
+      box.querySelector(".n").textContent = (i + 1) + " / " + ss.length;
+      box.querySelector(".b").disabled = i === 0;
+      box.querySelector(".f").hidden = i === ss.length - 1;
+      box.hidden = false;
+    };
+    document.getElementById("tour-start").onclick = function () { go(0); };
+  }
+
   // Badge hellos: one mailbox read, only if a badge code exists, on pages
   // that load the device store (Around, Connect, Contacts…).
   if (window.kafumuDevice && window.kafumuPair) {

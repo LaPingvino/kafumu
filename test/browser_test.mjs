@@ -81,9 +81,19 @@ try {
   // A saved "quiet" view with nobody quiet: the tools stay, never "nobody yet" (Joop's Chromebook).
   await A.evaluate("localStorage.setItem('kafumu.contactSort', 'quiet'); true");
   await A.goto(base + "/contacts");
-  await A.waitFor("!document.getElementById('contacts-tools').hidden && document.getElementById('contacts-empty').hidden && !document.getElementById('quiet-tools').hidden && document.getElementById('contacts-sort').value === 'quiet'", "an empty view, not an empty list");
-  await A.evaluate("(() => { const s = document.getElementById('contacts-sort'); s.value = 'new'; s.dispatchEvent(new Event('change')); return true; })()");
-  await A.waitFor("document.querySelectorAll('#contacts li.contact').length > 0", "back to everyone");
+  // An old saved "quiet" counts as everyone; choosing it shows the quiet ones (none here), with the menu.
+  await A.waitFor("document.querySelectorAll('#contacts li.contact').length > 0 && document.getElementById('contacts-sort').value === 'new'", "a saved quiet view shows everyone");
+  await A.evaluate("(() => { const s = document.getElementById('contacts-sort'); s.value = 'quiet'; s.dispatchEvent(new Event('change')); return true; })()");
+  await A.waitFor("!document.getElementById('contacts-tools').hidden && document.getElementById('contacts-empty').hidden && !document.getElementById('quiet-tools').hidden && document.querySelectorAll('#contacts li.contact').length === 0", "an empty view, not an empty list");
+  await A.goto(base + "/contacts");
+  await A.waitFor("document.querySelectorAll('#contacts li.contact').length > 0", "not remembered: everyone again");
+  // Contacts has its own tour (87b): 👀 Show me on its bar.
+  await A.evaluate("localStorage.removeItem('kafumu.helpSeen.contacts'); true");
+  await A.goto(base + "/contacts");
+  await A.waitFor("!!document.getElementById('tour-start') && !document.getElementById('intro').hidden", "Contacts' bar with 👀 Show me");
+  await A.evaluate("document.getElementById('tour-start').click(); true");
+  await A.waitFor("(() => { const t = document.querySelector('.tour:not([hidden])'); return t && t.textContent.includes('/ ') && !!document.querySelector('.tour-focus'); })()", "the Contacts tour");
+  await A.evaluate("document.querySelector('.tour .d').click(); true");
   await A.evaluate("location.href = [...[...document.querySelectorAll('#contacts li')].find(l => l.textContent.includes('Bea')).querySelectorAll('a')].find(b => b.textContent.includes('Chat')).href; true");
   await A.waitFor("[...document.querySelectorAll('.bubble:not(.me)')].some(b => b.textContent === 'hallo " + RUN + "')", "A reads B's message");
   await A.waitFor("[...document.querySelectorAll('.chat-window:not([hidden]) .chat-note')].some(n => n.textContent.startsWith('🤝')) && [...document.querySelectorAll('.chat-window:not([hidden]) .chat-note')].some(n => n.textContent.startsWith('📶'))", "the chat also shows when you connected and B's signal (85d)");

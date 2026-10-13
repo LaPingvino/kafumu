@@ -744,5 +744,18 @@
   "js.screen_apply": "Lav linket",
   "js.screen_open_on": "Åbn dette link på skærmen:",
   "js.screen_here": "Brug det her",
-  "footer.screen": "Offentlig skærm"
+  "footer.screen": "Offentlig skærm",
+  "js.tour_connect_qr": "En ved siden af dig scanner dette med kameraet: I er forbundet og bytter kort.",
+  "js.tour_connect_pick": "Vælg, hvad personen får fra dit kort: tryk på et felt for at udelade det.",
+  "js.tour_connect_share": "Ikke ved siden af hinanden? Send linket i stedet, med en hvilken som helst app.",
+  "js.tour_connect_short": "En kort kode er nemmere at sige eller skrive: den virker en time.",
+  "js.tour_contacts_tools": "Søg i dine kontakter, eller sortér dem: nyeste, nærmeste eller dem, der er blevet stille.",
+  "js.tour_contacts_card": "Hver kontakt: deres kort, dit eget navn og din note, en chat og hurtige signaler.",
+  "js.tour_contacts_backup": "Dine kontakter er på dine enheder. Gem en kopi: i adressebogen eller som backupfil.",
+  "js.tour_card_personas": "Mere end ét kort? Hvert er et ansigt, du viser: arbejde, hobby, kvarter.",
+  "js.tour_card_form": "Udfyld kun det, du vil give. Intet er påkrævet.",
+  "js.tour_card_tags": "Tags siger, hvad du interesserer dig for, så folk i nærheden med samme interesser kan finde dig.",
+  "js.tour_card_link": "Dit eget link (/@navn): den, der åbner det, kan forbinde sig med dig uden at mødes først.",
+  "js.tour_act_filter": "Alt, kun dine kontakter eller kun ulæste.",
+  "js.tour_act_row": "Hver række er en samtale: tryk for at læse og svare, eller se hvad der skete med dit opslag eller meetup."
 }

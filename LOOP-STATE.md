@@ -1194,7 +1194,9 @@ Findable, Account, Business, meetups…), and with a "👀 Show me" button that 
       (help.* in 24 languages); × per page (kafumu.helpSeen.<page>), ? in the header brings it back; "👀 Show me" (the
       old 😕 tour button) sits on Around's bar. Was: The bar in base.html for every tab with a line (home's text stays), × per page, "?" in the header
       reopens it; "👀 Show me" starts the existing tour where there is one; 😕 leaves the area's rows. 24 languages.
-- [ ] 87b. Tours for the pages that don't have one yet (only where a tour adds something to the line).
+- [x] 87b. Done: "👀 Show me" on the bars of Connect, Contacts, My card and Activity runs a short tour of that page
+      (app.js, same .tour look as Around's); 24 languages; browser step on Contacts. Also: the contacts list's "quiet
+      for 90+ days" view is no longer remembered (an old saved one counts as everyone). Was: Tours for the pages that don't have one yet (only where a tour adds something to the line).
 
 ## 88. Joop 2026-10-13 (more)
 - [x] 88a. Done (Joop: phones get a chat page, desktops dock and pop out): static/chatdock.js on every page; chat
@@ -1205,6 +1207,13 @@ Findable, Account, Business, meetups…), and with a "👀 Show me" button that 
       secret kept in myPosts; POST /api/oln/withdraw?id&secret hides it (no account; TestWithdraw); "✕ Take back" on
       your own lines (says, questions, coffee) and next to "coffee sent", which also stops listening; #wd is never
       a subject; oln.html documents it. 24 languages.
+
+- [ ] 81i. Read a source right away (Joop, adding Rostos): after "Add a source", the device asks the node to read
+      that one source now (POST /api/oln/source/pull?id=…, same rules as adding: named + passkey/role), so its
+      news shows at once instead of after the next feeds run.
+- [ ] 81j. Sources as filters (Joop): the source line isn't a big message in "Here now" but a compact "📰 Rostos ·
+      rostos.pt · @name" at the head of its news (reactions there are the votes, 81h); a chip per source next to
+      Meetups / News / Bluesky shows just its news — for finding local events while travelling.
 
 ## 85. Every conversation as a chat (Joop 2026-10-13)
 One list of chats, like a messenger, merging the mailbox and Contacts (filter: "only contacts"). Every thing that

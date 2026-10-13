@@ -744,5 +744,18 @@
   "js.screen_apply": "Creează linkul",
   "js.screen_open_on": "Deschide acest link pe ecran:",
   "js.screen_here": "Folosește aici",
-  "footer.screen": "Ecran public"
+  "footer.screen": "Ecran public",
+  "js.tour_connect_qr": "Cineva lângă tine scanează asta cu camera: sunteți conectați și faceți schimb de cărți.",
+  "js.tour_connect_pick": "Alege ce primește persoana din cartea ta: atinge un câmp ca să-l lași deoparte.",
+  "js.tour_connect_share": "Nu sunteți unul lângă altul? Trimite linkul, cu orice aplicație.",
+  "js.tour_connect_short": "Un cod scurt e mai ușor de spus sau scris: merge o oră.",
+  "js.tour_contacts_tools": "Caută în contacte sau sortează-le: cele mai noi, cele mai apropiate sau cele care au tăcut.",
+  "js.tour_contacts_card": "Fiecare contact: cartea lui, numele și nota ta, o conversație și semnale rapide.",
+  "js.tour_contacts_backup": "Contactele tale sunt pe dispozitivele tale. Păstrează o copie: în agendă sau ca fișier de rezervă.",
+  "js.tour_card_personas": "Mai multe cărți? Fiecare e o față pe care o arăți: muncă, hobby, cartier.",
+  "js.tour_card_form": "Completează doar ce vrei să dai. Nimic nu e obligatoriu.",
+  "js.tour_card_tags": "Etichetele spun ce te interesează, ca oamenii din apropiere cu aceleași interese să te găsească.",
+  "js.tour_card_link": "Linkul tău (/@nume): cine îl deschide se poate conecta cu tine fără să vă fi întâlnit.",
+  "js.tour_act_filter": "Tot, doar contactele sau doar necititele.",
+  "js.tour_act_row": "Fiecare rând e o conversație: atinge-l ca să citești și să răspunzi, sau să vezi ce s-a întâmplat cu mesajul ori întâlnirea ta."
 }

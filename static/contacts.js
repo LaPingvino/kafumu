@@ -158,11 +158,18 @@
       return da - db;
     });
   }
-  function sortBy() { try { return localStorage.getItem("kafumu.contactSort") || "new"; } catch (e) { return "new"; } }
+  var quietNow = false;
+  function sortBy() {
+    if (quietNow) return "quiet";
+    var v = "new"; try { v = localStorage.getItem("kafumu.contactSort") || "new"; } catch (e) {}
+    return v === "quiet" ? "new" : v; // an old saved "quiet" (Joop's Chromebook) counts as everyone
+  }
   var sortSel = $("contacts-sort");
   if (sortSel) {
     sortSel.value = sortBy();
-    sortSel.onchange = function () { try { localStorage.setItem("kafumu.contactSort", sortSel.value); } catch (e) {} show(); };
+    // "Quiet for 90+ days" is a clean-up tool, not a way to look at your
+    // contacts: it isn't remembered, so the next visit shows everyone again.
+    sortSel.onchange = function () { try { localStorage.setItem("kafumu.contactSort", sortSel.value === "quiet" ? "new" : sortSel.value); } catch (e) {} quietNow = sortSel.value === "quiet"; show(); };
   }
 
   filter.addEventListener("input", function () {

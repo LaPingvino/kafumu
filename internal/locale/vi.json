@@ -744,5 +744,18 @@
   "js.screen_apply": "Tạo liên kết",
   "js.screen_open_on": "Mở liên kết này trên màn hình:",
   "js.screen_here": "Dùng tại đây",
-  "footer.screen": "Màn hình công cộng"
+  "footer.screen": "Màn hình công cộng",
+  "js.tour_connect_qr": "Người bên cạnh quét mã này bằng camera: hai bạn được kết nối và trao đổi danh thiếp.",
+  "js.tour_connect_pick": "Chọn những gì người này nhận từ danh thiếp của bạn: chạm vào một mục để bỏ ra.",
+  "js.tour_connect_share": "Không ở gần nhau? Hãy gửi liên kết, bằng ứng dụng bất kỳ.",
+  "js.tour_connect_short": "Mã ngắn dễ nói hoặc gõ hơn: dùng được trong một giờ.",
+  "js.tour_contacts_tools": "Tìm trong danh bạ hoặc sắp xếp: mới nhất, gần nhất, hoặc những người đã im lặng.",
+  "js.tour_contacts_card": "Mỗi liên hệ: danh thiếp, tên và ghi chú riêng của bạn, trò chuyện và tín hiệu nhanh.",
+  "js.tour_contacts_backup": "Danh bạ nằm trên các thiết bị của bạn. Hãy giữ bản sao: trong sổ địa chỉ hoặc tệp sao lưu.",
+  "js.tour_card_personas": "Có nhiều danh thiếp? Mỗi cái là một gương mặt bạn thể hiện: công việc, sở thích, khu phố.",
+  "js.tour_card_form": "Chỉ điền những gì bạn muốn trao. Không có gì bắt buộc.",
+  "js.tour_card_tags": "Thẻ cho biết bạn quan tâm gì, để người gần đó cùng sở thích tìm thấy bạn.",
+  "js.tour_card_link": "Liên kết của riêng bạn (/@tên): ai mở nó có thể kết nối với bạn mà chưa cần gặp.",
+  "js.tour_act_filter": "Tất cả, chỉ liên hệ, hoặc chỉ chưa đọc.",
+  "js.tour_act_row": "Mỗi dòng là một cuộc trò chuyện: chạm để đọc và trả lời, hoặc xem điều gì đã xảy ra với bài đăng hay buổi gặp của bạn."
 }

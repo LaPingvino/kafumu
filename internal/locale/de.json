@@ -744,5 +744,18 @@
   "js.screen_apply": "Link erstellen",
   "js.screen_open_on": "Öffne diesen Link auf dem Bildschirm:",
   "js.screen_here": "Hier verwenden",
-  "footer.screen": "Öffentlicher Bildschirm"
+  "footer.screen": "Öffentlicher Bildschirm",
+  "js.tour_connect_qr": "Jemand neben dir scannt das mit der Kamera: ihr seid verbunden und tauscht Karten.",
+  "js.tour_connect_pick": "Wähle, was diese Person von deiner Karte bekommt: tippe ein Feld an, um es wegzulassen.",
+  "js.tour_connect_share": "Nicht nebeneinander? Schick stattdessen den Link, mit jeder App.",
+  "js.tour_connect_short": "Ein kurzer Code lässt sich leichter sagen oder tippen: er gilt eine Stunde.",
+  "js.tour_contacts_tools": "Durchsuche deine Kontakte oder sortiere sie: neueste, nächste oder die still gewordenen.",
+  "js.tour_contacts_card": "Jeder Kontakt: seine Karte, dein eigener Name und deine Notiz, ein Chat und schnelle Signale.",
+  "js.tour_contacts_backup": "Deine Kontakte sind auf deinen Geräten. Behalte eine Kopie: im Adressbuch oder als Sicherungsdatei.",
+  "js.tour_card_personas": "Mehr als eine Karte? Jede ist ein Gesicht, das du zeigst: Arbeit, Hobby, Nachbarschaft.",
+  "js.tour_card_form": "Füll nur aus, was du weitergeben willst. Nichts ist Pflicht.",
+  "js.tour_card_tags": "Tags sagen, was dich interessiert, damit Leute in der Nähe mit denselben Interessen dich finden.",
+  "js.tour_card_link": "Dein eigener Link (/@name): Wer ihn öffnet, kann sich mit dir verbinden, ohne dich vorher zu treffen.",
+  "js.tour_act_filter": "Alles, nur deine Kontakte oder nur Ungelesenes.",
+  "js.tour_act_row": "Jede Zeile ist ein Gespräch: tippe, um zu lesen und zu antworten oder zu sehen, was mit deinem Beitrag oder Treffen geschah."
 }

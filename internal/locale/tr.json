@@ -744,5 +744,18 @@
   "js.screen_apply": "Bağlantıyı oluştur",
   "js.screen_open_on": "Bu bağlantıyı ekranda aç:",
   "js.screen_here": "Burada kullan",
-  "footer.screen": "Halka açık ekran"
+  "footer.screen": "Halka açık ekran",
+  "js.tour_connect_qr": "Yanındaki biri bunu kamerasıyla tarar: bağlanırsınız ve kart değişirsiniz.",
+  "js.tour_connect_pick": "Bu kişinin kartından ne alacağını seç: dışarıda bırakmak için bir alana dokun.",
+  "js.tour_connect_share": "Yan yana değil misiniz? Bağlantıyı herhangi bir uygulamayla gönder.",
+  "js.tour_connect_short": "Kısa kod söylemesi ya da yazması daha kolay: bir saat geçerli.",
+  "js.tour_contacts_tools": "Kişilerinde ara ya da sırala: en yeni, en yakın ya da sessizleşenler.",
+  "js.tour_contacts_card": "Her kişi: kartı, ona verdiğin ad ve not, sohbet ve hızlı sinyaller.",
+  "js.tour_contacts_backup": "Kişilerin cihazlarında. Bir kopya tut: rehberinde ya da yedek dosyası olarak.",
+  "js.tour_card_personas": "Birden fazla kartın mı var? Her biri gösterdiğin bir yüz: iş, hobi, mahalle.",
+  "js.tour_card_form": "Yalnızca vermek istediğini doldur. Hiçbiri zorunlu değil.",
+  "js.tour_card_tags": "Etiketler ilgi alanlarını söyler; yakındaki aynı ilgiye sahip insanlar seni bulur.",
+  "js.tour_card_link": "Kendi bağlantın (/@ad): onu açan, önce tanışmadan seninle bağlanabilir.",
+  "js.tour_act_filter": "Hepsi, yalnızca kişilerin ya da yalnızca okunmamışlar.",
+  "js.tour_act_row": "Her satır bir sohbet: okuyup yanıtlamak ya da gönderine veya buluşmana ne olduğunu görmek için dokun."
 }

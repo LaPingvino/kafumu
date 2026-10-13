@@ -744,5 +744,18 @@
   "js.screen_apply": "Skapa länken",
   "js.screen_open_on": "Öppna den här länken på skärmen:",
   "js.screen_here": "Använd här",
-  "footer.screen": "Offentlig skärm"
+  "footer.screen": "Offentlig skärm",
+  "js.tour_connect_qr": "Någon bredvid dig skannar detta med kameran: ni är kopplade och byter kort.",
+  "js.tour_connect_pick": "Välj vad personen får från ditt kort: tryck på ett fält för att utelämna det.",
+  "js.tour_connect_share": "Inte bredvid varandra? Skicka länken i stället, med vilken app som helst.",
+  "js.tour_connect_short": "En kort kod är lättare att säga eller skriva: den gäller en timme.",
+  "js.tour_contacts_tools": "Sök bland dina kontakter eller sortera dem: nyaste, närmaste eller de som tystnat.",
+  "js.tour_contacts_card": "Varje kontakt: deras kort, ditt eget namn och din anteckning, en chatt och snabba signaler.",
+  "js.tour_contacts_backup": "Dina kontakter finns på dina enheter. Spara en kopia: i adressboken eller som säkerhetskopia.",
+  "js.tour_card_personas": "Fler än ett kort? Vart och ett är ett ansikte du visar: jobb, hobby, grannskap.",
+  "js.tour_card_form": "Fyll bara i det du vill lämna ut. Inget är obligatoriskt.",
+  "js.tour_card_tags": "Taggar säger vad du gillar, så att folk i närheten med samma intressen hittar dig.",
+  "js.tour_card_link": "Din egen länk (/@namn): den som öppnar den kan koppla ihop sig med dig utan att ni träffats.",
+  "js.tour_act_filter": "Allt, bara dina kontakter eller bara olästa.",
+  "js.tour_act_row": "Varje rad är ett samtal: tryck för att läsa och svara, eller se vad som hänt med ditt inlägg eller din träff."
 }

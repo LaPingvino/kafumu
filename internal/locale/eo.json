@@ -744,5 +744,18 @@
   "js.screen_apply": "Krei la ligilon",
   "js.screen_open_on": "Malfermu ĉi tiun ligilon sur la ekrano:",
   "js.screen_here": "Uzi ĝin ĉi tie",
-  "footer.screen": "Publika ekrano"
+  "footer.screen": "Publika ekrano",
+  "js.tour_connect_qr": "Iu apud vi skanas tion per sia kamerao: vi estas konektitaj kaj interŝanĝas kartojn.",
+  "js.tour_connect_pick": "Elektu, kion ĉi tiu persono ricevas el via karto: tuŝu kampon por ellasi ĝin.",
+  "js.tour_connect_share": "Ne apude? Sendu anstataŭe la ligilon, per ajna aplikaĵo.",
+  "js.tour_connect_short": "Mallonga kodo estas pli facile direbla aŭ tajpebla: ĝi validas unu horon.",
+  "js.tour_contacts_tools": "Serĉu en viaj kontaktoj aŭ ordigu ilin: plej novaj, plej proksimaj aŭ silentiĝintaj.",
+  "js.tour_contacts_card": "Ĉiu kontakto: ĝia karto, via propra nomo kaj noto, babilo kaj rapidaj signaloj.",
+  "js.tour_contacts_backup": "Viaj kontaktoj estas en viaj aparatoj. Konservu kopion: en via adresaro aŭ kiel savkopion.",
+  "js.tour_card_personas": "Pli ol unu karto? Ĉiu estas vizaĝo, kiun vi montras: laboro, hobio, kvartalo.",
+  "js.tour_card_form": "Plenigu nur tion, kion vi volas doni. Nenio estas deviga.",
+  "js.tour_card_tags": "Etikedoj diras, kio interesas vin, por ke proksimaj homoj kun samaj interesoj trovu vin.",
+  "js.tour_card_link": "Via propra ligilo (/@nomo): kiu malfermas ĝin, povas konektiĝi kun vi sen antaŭa renkonto.",
+  "js.tour_act_filter": "Ĉio, nur viaj kontaktoj aŭ nur nelegitaĵoj.",
+  "js.tour_act_row": "Ĉiu vico estas konversacio: tuŝu por legi kaj respondi, aŭ por vidi, kio okazis al via afiŝo aŭ renkontiĝo."
 }

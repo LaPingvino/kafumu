@@ -744,5 +744,18 @@
   "js.screen_apply": "Vytvořit odkaz",
   "js.screen_open_on": "Otevři tento odkaz na obrazovce:",
   "js.screen_here": "Použít zde",
-  "footer.screen": "Veřejná obrazovka"
+  "footer.screen": "Veřejná obrazovka",
+  "js.tour_connect_qr": "Někdo vedle tebe to naskenuje fotoaparátem: jste propojeni a vyměníte si vizitky.",
+  "js.tour_connect_pick": "Vyber, co ten člověk z tvé vizitky dostane: klepnutím pole vynecháš.",
+  "js.tour_connect_share": "Nejste vedle sebe? Pošli místo toho odkaz, jakoukoli aplikací.",
+  "js.tour_connect_short": "Krátký kód se snáz řekne nebo napíše: platí hodinu.",
+  "js.tour_contacts_tools": "Hledej v kontaktech nebo je řaď: nejnovější, nejbližší nebo ti, kdo ztichli.",
+  "js.tour_contacts_card": "Každý kontakt: jeho vizitka, tvé vlastní jméno a poznámka, chat a rychlé signály.",
+  "js.tour_contacts_backup": "Kontakty máš ve svých zařízeních. Měj kopii: v adresáři nebo jako zálohu.",
+  "js.tour_card_personas": "Víc vizitek? Každá je tvář, kterou ukazuješ: práce, koníček, sousedství.",
+  "js.tour_card_form": "Vyplň jen to, co chceš předat. Nic není povinné.",
+  "js.tour_card_tags": "Štítky říkají, co tě zajímá, aby tě lidé poblíž se stejnými zájmy našli.",
+  "js.tour_card_link": "Tvůj vlastní odkaz (/@jméno): kdo ho otevře, může se s tebou spojit, aniž byste se potkali.",
+  "js.tour_act_filter": "Vše, jen kontakty, nebo jen nepřečtené.",
+  "js.tour_act_row": "Každý řádek je rozhovor: klepni pro čtení a odpověď, nebo co se stalo s tvým příspěvkem či setkáním."
 }

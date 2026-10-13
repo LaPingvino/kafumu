@@ -744,5 +744,18 @@
   "js.screen_apply": "Link készítése",
   "js.screen_open_on": "Nyisd meg ezt a linket a képernyőn:",
   "js.screen_here": "Használat itt",
-  "footer.screen": "Nyilvános képernyő"
+  "footer.screen": "Nyilvános képernyő",
+  "js.tour_connect_qr": "Valaki melletted beolvassa a kamerájával: összekapcsolódtatok, és kártyát cseréltek.",
+  "js.tour_connect_pick": "Válaszd ki, mit kap ez az ember a kártyádból: koppints egy mezőre, hogy kimaradjon.",
+  "js.tour_connect_share": "Nem vagytok egymás mellett? Küldd el a linket, bármilyen appal.",
+  "js.tour_connect_short": "A rövid kódot könnyebb kimondani vagy begépelni: egy óráig él.",
+  "js.tour_contacts_tools": "Keress a névjegyeid között, vagy rendezd őket: legújabb, legközelebbi vagy az elcsendesedettek.",
+  "js.tour_contacts_card": "Minden névjegy: a kártyája, a saját neved és jegyzeted, csevegés és gyors jelzések.",
+  "js.tour_contacts_backup": "A névjegyeid az eszközeiden vannak. Tarts másolatot: a címjegyzékben vagy mentésfájlként.",
+  "js.tour_card_personas": "Több kártyád van? Mindegyik egy arc, amit mutatsz: munka, hobbi, környék.",
+  "js.tour_card_form": "Csak azt töltsd ki, amit át akarsz adni. Semmi sem kötelező.",
+  "js.tour_card_tags": "A címkék mondják el, mi érdekel, hogy a közelben élő hasonló érdeklődésűek megtaláljanak.",
+  "js.tour_card_link": "Saját linked (/@név): aki megnyitja, kapcsolódhat veled találkozás nélkül.",
+  "js.tour_act_filter": "Minden, csak a névjegyeid vagy csak az olvasatlanok.",
+  "js.tour_act_row": "Minden sor egy beszélgetés: koppints rá olvasáshoz és válaszhoz, vagy hogy lásd, mi lett a bejegyzéseddel vagy találkozóddal."
 }

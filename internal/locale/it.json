@@ -744,5 +744,18 @@
   "js.screen_apply": "Crea il link",
   "js.screen_open_on": "Apri questo link sullo schermo:",
   "js.screen_here": "Usalo qui",
-  "footer.screen": "Schermo pubblico"
+  "footer.screen": "Schermo pubblico",
+  "js.tour_connect_qr": "Qualcuno accanto a te inquadra questo con la fotocamera: siete collegati e vi scambiate i biglietti.",
+  "js.tour_connect_pick": "Scegli cosa riceve questa persona dal tuo biglietto: tocca un campo per escluderlo.",
+  "js.tour_connect_share": "Non siete vicini? Manda il link, con qualsiasi app.",
+  "js.tour_connect_short": "Un codice corto è più facile da dire o scrivere: vale un'ora.",
+  "js.tour_contacts_tools": "Cerca tra i contatti o ordinali: più recenti, più vicini o quelli spariti.",
+  "js.tour_contacts_card": "Ogni contatto: il suo biglietto, il tuo nome e la tua nota per lui, una chat e segnali rapidi.",
+  "js.tour_contacts_backup": "I tuoi contatti sono sui tuoi dispositivi. Tieni una copia: in rubrica o come file di backup.",
+  "js.tour_card_personas": "Più di un biglietto? Ognuno è un volto che mostri: lavoro, hobby, quartiere.",
+  "js.tour_card_form": "Compila solo ciò che vuoi dare. Niente è obbligatorio.",
+  "js.tour_card_tags": "I tag dicono cosa ti interessa, così chi è vicino con gli stessi interessi ti trova.",
+  "js.tour_card_link": "Il tuo link (/@nome): chi lo apre può collegarsi a te senza incontrarti prima.",
+  "js.tour_act_filter": "Tutto, solo i tuoi contatti o solo i non letti.",
+  "js.tour_act_row": "Ogni riga è una conversazione: toccala per leggere e rispondere, o vedere cosa è successo al tuo messaggio o incontro."
 }

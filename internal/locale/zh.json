@@ -744,5 +744,18 @@
   "js.screen_apply": "生成链接",
   "js.screen_open_on": "在屏幕上打开此链接：",
   "js.screen_here": "在这里使用",
-  "footer.screen": "公共屏幕"
+  "footer.screen": "公共屏幕",
+  "js.tour_connect_qr": "身边的人用相机扫这个：你们就连上了，互换名片。",
+  "js.tour_connect_pick": "选择这个人能从你的名片拿到什么：点一下某个栏目就不给。",
+  "js.tour_connect_share": "不在一起？改发链接，用什么应用都行。",
+  "js.tour_connect_short": "短代码更容易说出或输入：一小时内有效。",
+  "js.tour_contacts_tools": "搜索联系人或排序：最新、最近，或已经沉寂的。",
+  "js.tour_contacts_card": "每位联系人：对方的名片、你给的名字和备注、聊天和快捷信号。",
+  "js.tour_contacts_backup": "联系人存在你的设备上。留一份副本：存进通讯录或备份文件。",
+  "js.tour_card_personas": "不止一张名片？每张都是你展示的一面：工作、爱好、街坊。",
+  "js.tour_card_form": "只填你想给的。没有必填项。",
+  "js.tour_card_tags": "标签说明你的兴趣，让附近志趣相投的人找到你。",
+  "js.tour_card_link": "你的专属链接（/@名字）：打开的人不用先见面就能和你连上。",
+  "js.tour_act_filter": "全部、仅联系人或仅未读。",
+  "js.tour_act_row": "每一行都是一段对话：点开阅读和回复，或看看你的帖子或聚会有什么动静。"
 }

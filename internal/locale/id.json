@@ -744,5 +744,18 @@
   "js.screen_apply": "Buat tautan",
   "js.screen_open_on": "Buka tautan ini di layar:",
   "js.screen_here": "Pakai di sini",
-  "footer.screen": "Layar publik"
+  "footer.screen": "Layar publik",
+  "js.tour_connect_qr": "Orang di sebelahmu memindai ini dengan kamera: kalian terhubung dan bertukar kartu.",
+  "js.tour_connect_pick": "Pilih apa yang diterima orang ini dari kartumu: ketuk kolom untuk melewatinya.",
+  "js.tour_connect_share": "Tidak bersebelahan? Kirim tautannya, lewat aplikasi apa saja.",
+  "js.tour_connect_short": "Kode pendek lebih mudah diucapkan atau diketik: berlaku satu jam.",
+  "js.tour_contacts_tools": "Cari di kontakmu atau urutkan: terbaru, terdekat, atau yang sudah diam.",
+  "js.tour_contacts_card": "Setiap kontak: kartunya, nama dan catatanmu untuknya, obrolan, dan sinyal cepat.",
+  "js.tour_contacts_backup": "Kontakmu ada di perangkatmu. Simpan salinan: di buku alamat atau sebagai berkas cadangan.",
+  "js.tour_card_personas": "Lebih dari satu kartu? Masing-masing wajah yang kamu tunjukkan: kerja, hobi, lingkungan.",
+  "js.tour_card_form": "Isi hanya yang ingin kamu berikan. Tidak ada yang wajib.",
+  "js.tour_card_tags": "Tag menunjukkan minatmu, supaya orang dekat dengan minat sama bisa menemukanmu.",
+  "js.tour_card_link": "Tautanmu sendiri (/@nama): siapa pun yang membukanya bisa terhubung tanpa bertemu dulu.",
+  "js.tour_act_filter": "Semua, hanya kontakmu, atau hanya yang belum dibaca.",
+  "js.tour_act_row": "Setiap baris adalah percakapan: ketuk untuk membaca dan membalas, atau melihat apa yang terjadi pada kiriman atau pertemuanmu."
 }

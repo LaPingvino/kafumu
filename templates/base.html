@@ -49,7 +49,7 @@
     <button type="button" class="go pill-sm">{{t .Lang "install.go"}}</button><button type="button" class="no pill-sm" aria-label="{{ts .Lang "js.oln_hide"}}">×</button></div>
   {{with .Help}}<!-- What this page is (82a, 87a); × closes it for this page, the ? in the header brings it back. -->
   <div id="intro" class="install-bar intro-bar" data-help="{{.}}" hidden><span class="text">{{help $.Lang .}}</span>
-    {{if eq . "around"}}<button type="button" id="tour-start" class="pill-sm">👀 {{t $.Lang "help.show"}}</button>{{end}}
+    {{if or (eq . "around") (eq . "connect") (eq . "contacts") (eq . "card") (eq . "activity")}}<button type="button" id="tour-start" class="pill-sm">👀 {{t $.Lang "help.show"}}</button>{{end}}
     <button type="button" class="no pill-sm" aria-label="{{ts $.Lang "common.close"}}" title="{{ts $.Lang "common.close"}}">×</button></div>{{end}}
   <main class="clamp">
   {{if and .Acting (or (eq .Tab "card") (eq .Tab "contacts") (eq .Tab "connect"))}}<p class="biz-banner"><svg class="wings{{if not (.Acting.Live .Now)}} off{{end}}"><use href="#i-wings"/></svg>
