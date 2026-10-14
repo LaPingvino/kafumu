@@ -1376,6 +1376,10 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       Findable's main choice, findable or not and how long, moved from the bottom to the top). a meetup (its place by name, "📍 Barreiro",
       linking to the area, not "#geo8ccgmw"). Pass done for the main pages; the rest as they come up.
 
+- [x] Fix (overnight check): the 06:00 feeds run read 0 sources (3 at midnight): the "seen cells" list lived only in
+      memcache, which can drop it. Now kept in Datastore too (Config/seen-cells), like the seen countries, and read
+      back into the cache when it's gone.
+
 ## 92. Look, access, media (Joop 2026-10-14; after 91 and 90; the last item lowest)
 - [x] 92a. Done: Me → 🎨 Look (for everyone, per device): 🌗 automatic (follows the device) · ☀️ light · 🌙 dark · ◐
       high contrast (black, white borders, yellow accent, underlined links, a strong focus ring); html[data-theme] is

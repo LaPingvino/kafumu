@@ -13,6 +13,7 @@ import (
 	"sync"
 	"time"
 
+	"cloud.google.com/go/datastore"
 	"github.com/LaPingvino/kafumu/internal/feeds"
 	"github.com/LaPingvino/kafumu/internal/geo"
 	"github.com/LaPingvino/kafumu/internal/importer"
@@ -50,10 +51,7 @@ func (h *Home) noteCell(ctx context.Context, cell string) {
 	}
 	h.seenCells.noted[cell] = now
 	h.seenCells.mu.Unlock()
-	m := map[string]int64{}
-	if b, ok := h.Cache.Get(ctx, seenCellsKey); ok {
-		json.Unmarshal(b, &m)
-	}
+	m := h.seenCellsMap(ctx)
 	m[cell] = now.Unix()
 	for c, at := range m { // three days, and a bounded list
 		if now.Sub(time.Unix(at, 0)) > 3*24*time.Hour {
@@ -62,17 +60,39 @@ func (h *Home) noteCell(ctx context.Context, cell string) {
 	}
 	if b, err := json.Marshal(m); err == nil && len(m) <= 2000 {
 		h.Cache.Set(ctx, seenCellsKey, b, 4*24*time.Hour)
+		// Kept in Datastore too, like the seen countries: memcache may drop it,
+		// and then the feeds job reads no sources at all (seen at 06:00: "0
+		// read" after 3 at midnight). At most once an hour per cell per instance.
+		if h.DB != nil {
+			_, _ = h.DB.Put(ctx, datastore.NameKey("Config", seenCellsKey, nil), &seenEntity{JSON: string(b)})
+		}
 	}
+}
+
+// seenCellsMap: the shared cache's list, or Datastore's when the cache lost
+// it (then put back in the cache).
+func (h *Home) seenCellsMap(ctx context.Context) map[string]int64 {
+	m := map[string]int64{}
+	if h.Cache == nil {
+		return m
+	}
+	if b, ok := h.Cache.Get(ctx, seenCellsKey); ok {
+		json.Unmarshal(b, &m)
+		return m
+	}
+	if h.DB != nil {
+		var e seenEntity
+		if h.DB.Get(ctx, datastore.NameKey("Config", seenCellsKey, nil), &e) == nil {
+			json.Unmarshal([]byte(e.JSON), &m)
+			h.Cache.Set(ctx, seenCellsKey, []byte(e.JSON), 4*24*time.Hour)
+		}
+	}
+	return m
 }
 
 // SeenCells: the cells looked at in the last three days, newest first.
 func (h *Home) SeenCells(ctx context.Context, now time.Time) []string {
-	m := map[string]int64{}
-	if h.Cache != nil {
-		if b, ok := h.Cache.Get(ctx, seenCellsKey); ok {
-			json.Unmarshal(b, &m)
-		}
-	}
+	m := h.seenCellsMap(ctx)
 	var out []string
 	for c, at := range m {
 		if now.Sub(time.Unix(at, 0)) < 3*24*time.Hour {
