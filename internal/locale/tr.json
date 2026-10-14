@@ -797,5 +797,8 @@
   "js.where_shared": "Kişilerin bugün buralarda olduğunu görüyor: bölgeyi, tam yerini değil.",
   "js.where_paused": "Kişilerin nerede olduğunu görmüyor.",
   "js.where_pause": "Duraklat",
-  "js.where_resume": "Yeniden paylaş"
+  "js.where_resume": "Yeniden paylaş",
+  "js.where_shared_group": "{group} etiketli kişilerin bugün buralarda olduğunu görüyor: bölgeyi, tam yerini değil.",
+  "js.where_everyone": "Tüm kişiler",
+  "js.where_with": "Paylaşılanlar"
 }

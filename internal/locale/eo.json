@@ -797,5 +797,8 @@
   "js.where_shared": "Viaj kontaktoj vidas, ke vi hodiaŭ estas ĉi-ĉirkaŭe: la regiono, ne via ĝusta loko.",
   "js.where_paused": "Viaj kontaktoj ne vidas, kie vi estas.",
   "js.where_pause": "Paŭzigi",
-  "js.where_resume": "Denove kunhavigi"
+  "js.where_resume": "Denove kunhavigi",
+  "js.where_shared_group": "Viaj kontaktoj kun la etikedo {group} vidas, ke vi hodiaŭ estas ĉi-ĉirkaŭe: la regiono, ne via ĝusta loko.",
+  "js.where_everyone": "Ĉiuj kontaktoj",
+  "js.where_with": "Kunhavigi kun"
 }

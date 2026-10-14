@@ -797,5 +797,8 @@
   "js.where_shared": "Contactele tale văd că azi ești prin zonă: zona, nu locul exact.",
   "js.where_paused": "Contactele tale nu văd unde ești.",
   "js.where_pause": "Pauză",
-  "js.where_resume": "Partajează din nou"
+  "js.where_resume": "Partajează din nou",
+  "js.where_shared_group": "Contactele tale cu eticheta {group} văd că azi ești prin zonă: zona, nu locul exact.",
+  "js.where_everyone": "Toate contactele",
+  "js.where_with": "Partajează cu"
 }

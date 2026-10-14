@@ -797,5 +797,8 @@
   "js.where_shared": "연락처 사람들은 오늘 당신이 이 근처에 있다는 걸 볼 수 있어요. 정확한 위치가 아니라 지역만요.",
   "js.where_paused": "연락처 사람들은 당신이 어디 있는지 볼 수 없어요.",
   "js.where_pause": "일시 중지",
-  "js.where_resume": "다시 공유"
+  "js.where_resume": "다시 공유",
+  "js.where_shared_group": "{group} 태그가 붙은 연락처는 오늘 당신이 이 근처에 있다는 걸 볼 수 있어요. 정확한 위치가 아니라 지역만요.",
+  "js.where_everyone": "모든 연락처",
+  "js.where_with": "공유 대상"
 }

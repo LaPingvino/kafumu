@@ -56,7 +56,7 @@
       <!-- Findable here, as one line once it's on (94a). -->
       <p class="dim small here-line" id="here-line" hidden><span></span> <button type="button" id="here-change" class="pill-sm">{{t .Lang "here.change"}}</button></p>
       <!-- What your contacts can see (95a): the area you're in today, said plainly, with a pause. -->
-      <p class="dim small where-banner" id="where-shared" hidden><span></span> <button type="button" id="where-toggle" class="pill-sm"></button></p>
+      <p class="dim small where-banner" id="where-shared" hidden><span></span> <select id="where-group" class="inline-select" aria-label="{{ts .Lang "js.where_with"}}" hidden></select> <button type="button" id="where-toggle" class="pill-sm"></button></p>
       <p class="dim small" id="quick-status" role="status"></p>
     </div>
     <!-- About the area rather than in it: smaller, out of the way. -->

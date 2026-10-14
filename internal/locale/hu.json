@@ -797,5 +797,8 @@
   "js.where_shared": "A kapcsolataid látják, hogy ma itt vagy a környéken: a területet, nem a pontos helyedet.",
   "js.where_paused": "A kapcsolataid nem látják, hol vagy.",
   "js.where_pause": "Szünet",
-  "js.where_resume": "Megosztás újra"
+  "js.where_resume": "Megosztás újra",
+  "js.where_shared_group": "A(z) {group} címkéjű kapcsolataid látják, hogy ma itt vagy a környéken: a területet, nem a pontos helyedet.",
+  "js.where_everyone": "Minden kapcsolat",
+  "js.where_with": "Megosztás velük"
 }

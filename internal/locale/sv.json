@@ -797,5 +797,8 @@
   "js.where_shared": "Dina kontakter ser att du är här i närheten i dag: området, inte din exakta plats.",
   "js.where_paused": "Dina kontakter ser inte var du är.",
   "js.where_pause": "Pausa",
-  "js.where_resume": "Dela igen"
+  "js.where_resume": "Dela igen",
+  "js.where_shared_group": "Dina kontakter med taggen {group} ser att du är här i närheten i dag: området, inte din exakta plats.",
+  "js.where_everyone": "Alla kontakter",
+  "js.where_with": "Dela med"
 }

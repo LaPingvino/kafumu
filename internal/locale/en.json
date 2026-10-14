@@ -797,5 +797,8 @@
   "js.where_shared": "Your contacts can see you're around here today: the area, not your exact spot.",
   "js.where_paused": "Your contacts don't see where you are.",
   "js.where_pause": "Pause",
-  "js.where_resume": "Share again"
+  "js.where_resume": "Share again",
+  "js.where_shared_group": "Your contacts tagged {group} can see you're around here today: the area, not your exact spot.",
+  "js.where_everyone": "All contacts",
+  "js.where_with": "Share with"
 }

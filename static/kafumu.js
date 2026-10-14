@@ -142,8 +142,13 @@
       // Your contacts see the area you're in today (not the spot), from a
       // real location fix; said plainly on the page, with a pause (95a).
       var sharing = gps && pref("kafumu.shareWhere") !== "off";
-      drawWhere(gps, sharing);
-      return (sharing ? pair.checkIn(c, cs) : Promise.resolve()).then(function () {
+      // A group (95b): one of your own tags on contacts; the rest don't see you.
+      var groups = [], group = pref("kafumu.shareGroup") || "";
+      cs.forEach(function (x) { (x.tags || []).forEach(function (t) { if (groups.indexOf(t) < 0) groups.push(t); }); });
+      if (groups.indexOf(group) < 0) group = "";
+      var inGroup = function (x) { return !group || (x.tags || []).indexOf(group) >= 0; };
+      drawWhere(gps, sharing, groups.sort(), group);
+      return (sharing ? pair.checkIn(c, cs.filter(inGroup), null, cs.filter(function (x) { return !inGroup(x); })) : Promise.resolve()).then(function () {
         return pair.around(rings(c, 1).map(function (p) { return p[0]; }), cs.slice(0, 30));
       }).then(function (hits) {
         var sec = noSection, list = sinks.friends;
@@ -192,11 +197,20 @@
   // drawWhere (95a): "📍 Your contacts can see you're around here today"
   // while it's shared, "⏸ … paused" when you paused it; nothing without a
   // location fix (then nothing is shared).
-  function drawWhere(gps, sharing) {
+  function drawWhere(gps, sharing, groups, group) {
     var el = $("where-shared");
     if (!el) return;
     el.hidden = !gps;
-    el.querySelector("span").textContent = sharing ? "📍 " + tr("where_shared") : "⏸ " + tr("where_paused");
+    el.querySelector("span").textContent = sharing ? "📍 " + (group ? tr("where_shared_group", { group: group }) : tr("where_shared")) : "⏸ " + tr("where_paused");
+    var sel = $("where-group");
+    sel.hidden = !sharing || !groups.length;
+    sel.textContent = "";
+    [""].concat(groups).forEach(function (g) {
+      var o = document.createElement("option");
+      o.value = g; o.textContent = g || tr("where_everyone"); o.selected = g === group;
+      sel.appendChild(o);
+    });
+    sel.onchange = function () { pref("kafumu.shareGroup", sel.value); friendsAround(currentCell, true); };
     var b = $("where-toggle");
     b.textContent = sharing ? "⏸ " + tr("where_pause") : "▶ " + tr("where_resume");
     b.onclick = function () { pref("kafumu.shareWhere", sharing ? "off" : "on"); friendsAround(currentCell, true); };

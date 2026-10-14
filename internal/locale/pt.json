@@ -797,5 +797,8 @@
   "js.where_shared": "Os teus contactos veem que hoje andas por aqui: a zona, não o sítio exato.",
   "js.where_paused": "Os teus contactos não veem onde estás.",
   "js.where_pause": "Pausar",
-  "js.where_resume": "Partilhar de novo"
+  "js.where_resume": "Partilhar de novo",
+  "js.where_shared_group": "Os teus contactos com a etiqueta {group} veem que hoje andas por aqui: a zona, não o sítio exato.",
+  "js.where_everyone": "Todos os contactos",
+  "js.where_with": "Partilhar com"
 }

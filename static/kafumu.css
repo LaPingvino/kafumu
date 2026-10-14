@@ -533,3 +533,4 @@ main:focus { outline: none; }
 .actions .reply-box [hidden] { display: none; }
 .actions .card-more { display: contents; }
 .actions .card-more[hidden] { display: none; }
+.where-banner select.inline-select { display: inline-block; width: auto; margin: 0 4px; padding: 2px 28px 2px 8px; height: auto; font-size: .85rem; }

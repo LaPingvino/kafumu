@@ -797,5 +797,8 @@
   "js.where_shared": "Twoje kontakty widzą, że jesteś dziś w tej okolicy: obszar, nie dokładne miejsce.",
   "js.where_paused": "Twoje kontakty nie widzą, gdzie jesteś.",
   "js.where_pause": "Wstrzymaj",
-  "js.where_resume": "Udostępniaj znowu"
+  "js.where_resume": "Udostępniaj znowu",
+  "js.where_shared_group": "Twoje kontakty z etykietą {group} widzą, że jesteś dziś w tej okolicy: obszar, nie dokładne miejsce.",
+  "js.where_everyone": "Wszystkie kontakty",
+  "js.where_with": "Udostępniaj"
 }

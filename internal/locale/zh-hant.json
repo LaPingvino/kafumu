@@ -797,5 +797,8 @@
   "js.where_shared": "你的聯絡人能看到你今天在這一帶：只是區域，不是確切位置。",
   "js.where_paused": "你的聯絡人看不到你在哪裡。",
   "js.where_pause": "暫停",
-  "js.where_resume": "重新分享"
+  "js.where_resume": "重新分享",
+  "js.where_shared_group": "標籤為 {group} 的聯絡人能看到你今天在這一帶：只是區域，不是確切位置。",
+  "js.where_everyone": "所有聯絡人",
+  "js.where_with": "分享給"
 }

@@ -450,8 +450,19 @@
     // checkIn records that we were in cell today and, for every contact whose
     // slot doesn't reflect that yet, rewrites our slot for them: the tokens of
     // each (cell, day) of the last week. Returns the number of slots written.
-    function checkIn(cell, contacts, now) {
+    // others (95b): contacts outside the group you share with; a slot they
+    // could read is emptied, once.
+    function checkIn(cell, contacts, now, others) {
       now = now || new Date();
+      var clearing = (others || []).filter(function (c) { return c.card && c.slotSig && c.slotSig !== "none"; });
+      var cleared = Promise.all(clearing.map(function (c) {
+        var key = unb64(c.key);
+        return slotID(key, c.role).then(function (id) {
+          return stamp("[]", "slot" + id).then(function (work) {
+            return fetchFn(base + "/api/slot/" + id, { method: "PUT", body: "[]", credentials: "omit", headers: { "X-Kafumu-Work": work } });
+          });
+        }).then(function (r) { if (r.ok) { c.slotSig = "none"; return store.putContact(c); } }).catch(function () {});
+      }));
       var today = day(now), weekAgo = day(new Date(now.getTime() - 7 * 864e5));
       return store.get("checkins").then(function (hist) {
         hist = (hist || []).filter(function (h) { return h.day > weekAgo; });
@@ -472,7 +483,7 @@
             }).then(function (r) {
               if (r.ok) { c.slotSig = sig; return store.putContact(c); }
             }).catch(function () {});
-          })).then(function () { return due.length; });
+          })).then(function () { return cleared.then(function () { return due.length; }); });
         });
       });
     }

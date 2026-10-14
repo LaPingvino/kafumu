@@ -74,6 +74,12 @@ check((await B.pair.checkContact(cb)).length === 0, "B's own message is not in B
   check(far.length === 0, "not seen from Amsterdam");
   const raw = await (await fetch(`${base}/api/slot/${"0".repeat(64)}`)).json();
   check(Array.isArray(raw.tokens), "slot api answers");
+  // A group without A (95b): B's slot for A is emptied, and A no longer sees B.
+  await B.pair.checkIn(venue, [], null, [bc]);
+  check(bc.slotSig === "none", "B emptied the slot A reads");
+  check((await A.pair.around([next, venue], [ac])).length === 0, "outside the group, A doesn't see Bea");
+  check(await B.pair.checkIn(venue, [bc]) === 1, "back in the group: written again");
+  check((await A.pair.around([next, venue], [ac])).length === 1, "and A sees Bea again");
 }
 
 // An old link still works after A made a new code (Joop lost two contacts

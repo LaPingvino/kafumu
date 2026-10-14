@@ -1432,7 +1432,8 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       just them; the ☕ broadcast is gone (brands keep their own public call button). Was: (Joop: no broadcast; transparency so people can opt in to coffee when close.) Your contacts see the
       area you're in today (the existing day/cell beacons, only from a location fix), said plainly on the area page
       with ⏸ pause; a contact around today shows ☕ Coffee? that goes to just them; the ☕ broadcast button goes.
-- [ ] 95b. Contact groups: tag contacts into groups on the device (Friends, Work…), and send the signal to one group.
+- [x] 95b. Done: your own tags on contacts are the groups; the banner's "Share with" picks All contacts or one
+      tag; contacts outside it get their slot emptied (they stop seeing you). Pair test. Was: Contact groups: tag contacts into groups on the device (Friends, Work…), and send the signal to one group.
 - [ ] 95c. Auto-signal (Joop's own default): on, the same area refreshes by itself (once an hour at most while the
       page is open there); a new area asks first ("Tell your contacts you're in Arnhem?").
 - [ ] 95d. A clear banner while your contacts know where you last were ("📍 Your contacts see you around Barreiro

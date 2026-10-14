@@ -797,5 +797,8 @@
   "js.where_shared": "Tvoje kontakty vidí, že jsi dnes tady v okolí: oblast, ne přesné místo.",
   "js.where_paused": "Tvoje kontakty nevidí, kde jsi.",
   "js.where_pause": "Pozastavit",
-  "js.where_resume": "Znovu sdílet"
+  "js.where_resume": "Znovu sdílet",
+  "js.where_shared_group": "Tvoje kontakty se štítkem {group} vidí, že jsi dnes tady v okolí: oblast, ne přesné místo.",
+  "js.where_everyone": "Všechny kontakty",
+  "js.where_with": "Sdílet s"
 }

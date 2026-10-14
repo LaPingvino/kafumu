@@ -797,5 +797,8 @@
   "js.where_shared": "Je contacten zien dat je vandaag hier in de buurt bent: het gebied, niet je precieze plek.",
   "js.where_paused": "Je contacten zien niet waar je bent.",
   "js.where_pause": "Pauzeren",
-  "js.where_resume": "Weer delen"
+  "js.where_resume": "Weer delen",
+  "js.where_shared_group": "Je contacten met het label {group} zien dat je vandaag hier in de buurt bent: het gebied, niet je precieze plek.",
+  "js.where_everyone": "Alle contacten",
+  "js.where_with": "Delen met"
 }

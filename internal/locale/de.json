@@ -797,5 +797,8 @@
   "js.where_shared": "Deine Kontakte sehen, dass du heute hier in der Gegend bist: das Gebiet, nicht deinen genauen Ort.",
   "js.where_paused": "Deine Kontakte sehen nicht, wo du bist.",
   "js.where_pause": "Pausieren",
-  "js.where_resume": "Wieder teilen"
+  "js.where_resume": "Wieder teilen",
+  "js.where_shared_group": "Deine Kontakte mit dem Tag {group} sehen, dass du heute hier in der Gegend bist: das Gebiet, nicht deinen genauen Ort.",
+  "js.where_everyone": "Alle Kontakte",
+  "js.where_with": "Teilen mit"
 }

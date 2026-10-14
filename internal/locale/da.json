@@ -797,5 +797,8 @@
   "js.where_shared": "Dine kontakter kan se, at du er her i området i dag: området, ikke dit præcise sted.",
   "js.where_paused": "Dine kontakter kan ikke se, hvor du er.",
   "js.where_pause": "Sæt på pause",
-  "js.where_resume": "Del igen"
+  "js.where_resume": "Del igen",
+  "js.where_shared_group": "Dine kontakter med mærket {group} kan se, at du er her i området i dag: området, ikke dit præcise sted.",
+  "js.where_everyone": "Alle kontakter",
+  "js.where_with": "Del med"
 }

@@ -797,5 +797,8 @@
   "js.where_shared": "Tes contacts voient que tu es dans le coin aujourd'hui : la zone, pas ton emplacement exact.",
   "js.where_paused": "Tes contacts ne voient pas où tu es.",
   "js.where_pause": "Pause",
-  "js.where_resume": "Partager à nouveau"
+  "js.where_resume": "Partager à nouveau",
+  "js.where_shared_group": "Tes contacts marqués {group} voient que tu es dans le coin aujourd'hui : la zone, pas ton emplacement exact.",
+  "js.where_everyone": "Tous les contacts",
+  "js.where_with": "Partager avec"
 }
