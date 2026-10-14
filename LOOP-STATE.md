@@ -1400,3 +1400,10 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
 - [x] 92d. Done (simple form): a "🖼 Pictures and videos n" chip next to the kinds shows only the cards with
       pictures, bigger, one after another (27 around Barreiro/Lisbon when checked). Was: (lowest) A picture/video view of an area: only the photos and videos people share there (Bluesky and the
       like), swiped through one by one.
+
+## 93. A post's replies as a group chat (Joop 2026-10-14: "for events that enables really interesting interactions")
+- [ ] 93a. "💬 n" on a line, a meetup or an event opens its public replies (#re) as a chat window (the same window
+      as private chats: docked on a computer, its own page on a phone), oldest first, refreshing while open; writing
+      in it posts a reply (#re, mined, as you or anonymous), reactions as small notes in between.
+- [ ] 93b. Meetups and events: the window is where people coming talk ("I'm at the door", "running late"); a meetup's
+      page shows it too; it lives as long as the meetup (replies kept alive by the thread, 86d).
