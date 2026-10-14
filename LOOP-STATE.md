@@ -1445,3 +1445,9 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
 - [x] 95d. Done: the banner came with 95a; ⏸ Pause now also empties what contacts could see (pair.clearSlots,
       once per contact), so "Your contacts don't see where you are" is true at once; ▶ writes it again. Pair test. Was: A clear banner while your contacts know where you last were ("📍 Your contacts see you around Barreiro
       since 14:00 · stop"); stop sends a "gone" signal.
+
+## Open questions for Joop
+- Chat lines in a meetup's (or any post's) group chat live 1 h at base work, so a meetup chat empties itself
+  between messages. Options: (a) mine longer lines in a meetup chat (each bit doubles: until the meetup ends costs
+  the sender seconds); (b) a node rule: replies to a live meetup stay until it ends (a new rule: VISION flags it).
+- [x] Polish: an empty group chat now says "No messages yet" (was drawn blank).

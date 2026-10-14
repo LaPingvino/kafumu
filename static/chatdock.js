@@ -72,7 +72,7 @@
     var sendBtn = el("button", "pill-sm suggested", T.chat_send || "Send"); sendBtn.type = "submit";
     form.appendChild(input); form.appendChild(sendBtn); form.appendChild(st);
     thread.appendChild(log); thread.appendChild(form);
-    var shown = "";
+    var shown = null; // nothing drawn yet (an empty thread draws its "no messages yet")
     function draw(ns) {
       var sig = ns.map(function (n) { return n.id; }).join(",");
       if (sig === shown) return;
