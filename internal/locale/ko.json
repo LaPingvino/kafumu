@@ -773,5 +773,6 @@
   "js.edit": "편집",
   "js.act_contact_cards": "상대 명함, 내 메모, 백업",
   "connect.qr_short": "1시간",
-  "connect.qr_long": "새 코드까지"
+  "connect.qr_long": "새 코드까지",
+  "js.online_tag": "온라인: {tag}"
 }

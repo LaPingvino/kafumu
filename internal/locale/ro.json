@@ -773,5 +773,6 @@
   "js.edit": "Editează",
   "js.act_contact_cards": "Cărțile lor, notele tale, copie",
   "connect.qr_short": "1 oră",
-  "connect.qr_long": "până la un cod nou"
+  "connect.qr_long": "până la un cod nou",
+  "js.online_tag": "Online: {tag}"
 }

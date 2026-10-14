@@ -773,5 +773,6 @@
   "js.edit": "Redakti",
   "js.act_contact_cards": "Iliaj kartoj, viaj notoj, savkopio",
   "connect.qr_short": "1 horo",
-  "connect.qr_long": "ĝis nova kodo"
+  "connect.qr_long": "ĝis nova kodo",
+  "js.online_tag": "Rete: {tag}"
 }

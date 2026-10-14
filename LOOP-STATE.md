@@ -1304,7 +1304,11 @@ Around · Chats (mailbox + Contacts, 🔔 folded in) · Connect (your code + My 
       filter needs the source's language), matched news ranks up like other items; the wide bundle carries news, so a
       filter that leaves the area empty finds news further out. Was: Tag and language filters apply to news from sources too (title, summary, the source line's tags), and when a
       filter leaves the area (nearly) empty, the wider rings bring news too (the wide bundle carries news).
-- [ ] 90b. Online events per tag, everywhere: like lines about a subject (78a), events without a place are filed by
+- [x] 90b. Done (first step): GET /api/online?tag= serves the online events of a tag from a list of online calendars
+      per tag; Eventa Servo's online calendar is simply the one for #esperanto (/api/esperanto/online stays as an alias).
+      The area shows "🌐 Online: #tag" for whatever tag you filter on (or a language that maps to one: epo →
+      esperanto), each with its host and reactions. Next step: people adding online calendars per tag (sources
+      without an area, filed by subject, same rules as 81). Was: Online events per tag, everywhere: like lines about a subject (78a), events without a place are filed by
       their tags and shown to anyone filtering on that tag; Eventa Servo's online events fit in there instead of
       being a special case.
 - [ ] 90c. The site's language rides along as #lang<xyz> on what you post (unless you pick another), so language

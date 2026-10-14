@@ -773,5 +773,6 @@
   "js.edit": "Изменить",
   "js.act_contact_cards": "Их карточки, ваши заметки, копия",
   "connect.qr_short": "1 час",
-  "connect.qr_long": "до нового кода"
+  "connect.qr_long": "до нового кода",
+  "js.online_tag": "Онлайн: {tag}"
 }

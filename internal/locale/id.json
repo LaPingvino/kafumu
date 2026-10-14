@@ -773,5 +773,6 @@
   "js.edit": "Ubah",
   "js.act_contact_cards": "Kartu mereka, catatanmu, cadangan",
   "connect.qr_short": "1 jam",
-  "connect.qr_long": "sampai kode baru"
+  "connect.qr_long": "sampai kode baru",
+  "js.online_tag": "Daring: {tag}"
 }

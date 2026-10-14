@@ -773,5 +773,6 @@
   "js.edit": "Sửa",
   "js.act_contact_cards": "Danh thiếp, ghi chú của bạn, sao lưu",
   "connect.qr_short": "1 giờ",
-  "connect.qr_long": "đến khi có mã mới"
+  "connect.qr_long": "đến khi có mã mới",
+  "js.online_tag": "Trực tuyến: {tag}"
 }

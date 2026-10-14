@@ -773,5 +773,6 @@
   "js.edit": "Modifier",
   "js.act_contact_cards": "Leurs cartes, tes notes, sauvegarde",
   "connect.qr_short": "1 heure",
-  "connect.qr_long": "jusqu'à un nouveau code"
+  "connect.qr_long": "jusqu'à un nouveau code",
+  "js.online_tag": "En ligne : {tag}"
 }

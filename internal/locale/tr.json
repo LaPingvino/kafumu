@@ -773,5 +773,6 @@
   "js.edit": "Düzenle",
   "js.act_contact_cards": "Kartları, notların, yedek",
   "connect.qr_short": "1 saat",
-  "connect.qr_long": "yeni bir koda kadar"
+  "connect.qr_long": "yeni bir koda kadar",
+  "js.online_tag": "Çevrim içi: {tag}"
 }

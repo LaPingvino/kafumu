@@ -214,7 +214,8 @@ func main() {
 	mux.HandleFunc("GET /cal/{cell}", meetups.ICS)
 	mux.HandleFunc("GET /rss/{cell}", meetups.RSS)
 	mux.HandleFunc("GET /cron/feeds", meetups.SyncFeeds)
-	mux.HandleFunc("GET /api/esperanto/online", meetups.EsperantoOnline)
+	mux.HandleFunc("GET /api/esperanto/online", meetups.Online) // = ?tag=esperanto
+	mux.HandleFunc("GET /api/online", meetups.Online)
 	runPurge := func(ctx context.Context) string {
 		if sq := sqliteDB(); sq != nil && db == nil {
 			res, err := sqlstore.Purge(ctx, sq, time.Now())

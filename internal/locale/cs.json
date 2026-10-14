@@ -773,5 +773,6 @@
   "js.edit": "Upravit",
   "js.act_contact_cards": "Jejich vizitky, tvé poznámky, záloha",
   "connect.qr_short": "1 hodina",
-  "connect.qr_long": "do nového kódu"
+  "connect.qr_long": "do nového kódu",
+  "js.online_tag": "Online: {tag}"
 }

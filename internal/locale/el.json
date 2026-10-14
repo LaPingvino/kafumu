@@ -773,5 +773,6 @@
   "js.edit": "Επεξεργασία",
   "js.act_contact_cards": "Οι κάρτες τους, οι σημειώσεις σου, αντίγραφο",
   "connect.qr_short": "1 ώρα",
-  "connect.qr_long": "μέχρι νέο κωδικό"
+  "connect.qr_long": "μέχρι νέο κωδικό",
+  "js.online_tag": "Διαδικτυακά: {tag}"
 }

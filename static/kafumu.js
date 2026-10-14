@@ -1558,15 +1558,16 @@
   // the newest load renders: an older one finishing late is dropped, or two
   // quick loads (last area, then your location) would show things twice.
   var loadSeq = 0;
-  // Online Esperanto events (Eventa Servo): when the app speaks Esperanto,
-  // or Esperanto is what you're looking at (language chip or #esperanto).
-  var onlineEvents = null;
+  // Online events per tag (90b): when you look at a subject (#esperanto, or
+  // a language that has one), its online events, from anywhere. Eventa
+  // Servo's online calendar is the one for #esperanto.
+  var onlineEvents = {}, ONLINE_LANG = { epo: "esperanto" };
   function drawOnline() {
     var box = $("online-events");
     if (!box) return;
-    var want = document.documentElement.lang === "eo" || view.lang === "epo" || view.tag === "esperanto";
-    if (!want) { box.hidden = true; return; }
-    (onlineEvents || (onlineEvents = fetch("/api/esperanto/online").then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; })))
+    var tag = view.tag || ONLINE_LANG[view.lang] || (document.documentElement.lang === "eo" ? "esperanto" : "");
+    if (!tag) { box.hidden = true; return; }
+    (onlineEvents[tag] || (onlineEvents[tag] = fetch("/api/online?tag=" + encodeURIComponent(tag)).then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; })))
       .then(function (evs) {
         var ul = box.querySelector("ul");
         ul.textContent = "";
@@ -1574,7 +1575,7 @@
           var li = document.createElement("li"), a = document.createElement("a");
           a.href = e.link; a.rel = "noopener"; a.target = "_blank"; a.textContent = e.title;
           var when = document.createElement("div"); when.className = "dim small";
-          when.textContent = new Date(e.start).toLocaleString(window.KAFUMU_LOCALE, { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+          when.textContent = new Date(e.start).toLocaleString(window.KAFUMU_LOCALE, { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) + (e.host ? " · " + e.host : "");
           li.appendChild(a); li.appendChild(when);
           var row = document.createElement("div"); // reactions: "#re" of the event's link, from anywhere (78b)
           row.className = "actions";
@@ -1583,7 +1584,7 @@
           attachReplies(li);
           ul.appendChild(li);
         });
-        $("online-title").textContent = tr("online_eo");
+        $("online-title").textContent = tr("online_tag", { tag: tagText(tag) });
         box.hidden = !evs.length;
         pullReactions();
       });

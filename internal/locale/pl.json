@@ -773,5 +773,6 @@
   "js.edit": "Edytuj",
   "js.act_contact_cards": "Ich wizytówki, twoje notatki, kopia",
   "connect.qr_short": "1 godzina",
-  "connect.qr_long": "do nowego kodu"
+  "connect.qr_long": "do nowego kodu",
+  "js.online_tag": "Online: {tag}"
 }

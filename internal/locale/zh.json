@@ -773,5 +773,6 @@
   "js.edit": "编辑",
   "js.act_contact_cards": "对方名片、你的备注、备份",
   "connect.qr_short": "1 小时",
-  "connect.qr_long": "直到新代码"
+  "connect.qr_long": "直到新代码",
+  "js.online_tag": "线上：{tag}"
 }

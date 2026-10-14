@@ -773,5 +773,6 @@
   "js.edit": "Rediger",
   "js.act_contact_cards": "Deres kort, dine noter, backup",
   "connect.qr_short": "1 time",
-  "connect.qr_long": "indtil en ny kode"
+  "connect.qr_long": "indtil en ny kode",
+  "js.online_tag": "Online: {tag}"
 }
