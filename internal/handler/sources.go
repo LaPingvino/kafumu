@@ -224,8 +224,16 @@ func hostsKey(cell string) string   { return "hosts:" + cell }
 func suggestKey(cell string) string { return "suggest:" + cell }
 func feedOfKey(host string) string  { return "feedof:" + host }
 
-// noteHosts counts the sites posts here link to (each post once per site).
-func (h *Home) noteHosts(ctx context.Context, cell string, links [][]string) {
+// shared: one post's links, and who posted it.
+type shared struct {
+	By    string
+	Links []string
+}
+
+// noteHosts counts the sites posts here link to: how many different people
+// shared each (one account sharing its own site often isn't "people here
+// care about it" — vers2045.com was suggested in Barreiro that way).
+func (h *Home) noteHosts(ctx context.Context, cell string, posts []shared) {
 	if h.Cache == nil {
 		return
 	}
@@ -240,19 +248,18 @@ func (h *Home) noteHosts(ctx context.Context, cell string, links [][]string) {
 	}
 	h.seenCells.hosts[cell] = now
 	h.seenCells.mu.Unlock()
-	count := map[string]int{}
-	for _, ls := range links {
-		seen := map[string]bool{}
-		for _, l := range ls {
+	count, by := map[string]int{}, map[string]bool{}
+	for _, p := range posts {
+		for _, l := range p.Links {
 			u, err := url.Parse(l)
 			if err != nil {
 				continue
 			}
 			host := strings.TrimPrefix(strings.ToLower(u.Hostname()), "www.")
-			if host == "" || notASource.MatchString(host) || seen[host] {
+			if host == "" || notASource.MatchString(host) || by[host+" "+p.By] {
 				continue
 			}
-			seen[host] = true
+			by[host+" "+p.By] = true
 			count[host]++
 		}
 	}

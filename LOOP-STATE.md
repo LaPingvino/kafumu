@@ -1456,3 +1456,5 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
 - [x] Polish: an empty group chat now says "No messages yet" (was drawn blank).
 - [x] Polish (idle tick): a card's controls were three rows (🔒 Answer privately / Reply… / reactions); now two:
       the reply box with a 🔒 beside it (label as title), then the reactions and ⋯. Checked on kafumu.com, Barreiro.
+- [x] Polish (idle tick): source suggestions count different people sharing a site, not posts (vers2045.com was
+      suggested in Barreiro from one account sharing its own site); still 3 needed. Go test.

@@ -62,13 +62,15 @@ func TestSuggestSources(t *testing.T) {
 	}
 	home := &Home{Cache: cache.New()}
 	home.noteCell(t.Context(), "8ccgmw")
-	var links [][]string
+	var links []shared
 	for i := 0; i < 4; i++ {
-		links = append(links, []string{"https://www.krant.example/a" + fmt.Sprint(i), "https://youtube.com/watch?v=" + fmt.Sprint(i)})
+		links = append(links, shared{By: fmt.Sprint("p", i), Links: []string{"https://www.krant.example/a" + fmt.Sprint(i), "https://youtube.com/watch?v=" + fmt.Sprint(i)}})
+		links = append(links, shared{By: "self", Links: []string{"https://own.example/post" + fmt.Sprint(i)}}) // one account, its own site: not people here
 	}
-	links = append(links, []string{"https://once.example/x"})
+	links = append(links, shared{By: "p0", Links: []string{"https://once.example/x"}})
 	home.noteHosts(t.Context(), "8ccgmw", links)
 	home.Cache.Set(t.Context(), feedOfKey("krant.example"), []byte("https://krant.example/feed"), time.Hour) // probed before
+	home.Cache.Set(t.Context(), feedOfKey("own.example"), []byte("https://own.example/feed"), time.Hour)
 	m := &Meetups{Home: home, Importer: &importer.Importer{Client: http.DefaultClient}}
 	m.suggestSources(t.Context(), time.Now())
 	got := home.Suggestions(t.Context(), "8ccgmw")

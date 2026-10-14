@@ -592,11 +592,11 @@ func (h *Home) Bundle(w http.ResponseWriter, r *http.Request) {
 	wg.Wait()
 	sort.Slice(b.Posts, func(i, j int) bool { return b.Posts[i].CreatedAt.After(b.Posts[j].CreatedAt) })
 	// The sites posts here link to (81f), and what the feeds job made of them.
-	links := make([][]string, 0, len(b.Posts))
+	posts := make([]shared, 0, len(b.Posts))
 	for _, p := range b.Posts {
-		links = append(links, p.Links)
+		posts = append(posts, shared{By: p.Handle, Links: p.Links})
 	}
-	h.noteHosts(r.Context(), cells[0], links)
+	h.noteHosts(r.Context(), cells[0], posts)
 	b.Suggest = h.Suggestions(r.Context(), cells[0])
 	b.Events = append(b.Events, h.foundEvents(&b, time.Now())...)
 	if h.Gaz != nil {
