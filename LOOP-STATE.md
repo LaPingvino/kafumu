@@ -1060,7 +1060,7 @@ Per the OLN json-spec, a link is an index key like a tag (index["link"] → mess
       Diagnostics added (actingSync, the key panel, GET keyreq): read them when it next fails.
 
 
-Order (Joop 2026-10-13: mailbox first, reorder freely): 83 → 82 → 87a → 85 → 86 → 88 → 81c2–f → 84.
+Order (Joop 2026-10-13: mailbox first, reorder freely): 83 → 82 → 87a → 85 → 86 → 88 → 81c2–f → 84 → 89 → 91 → 90b–c.
 ## 83. One mailbox for every conversation (Joop 2026-10-13)
 Private answers (now on the home page), chat messages and their answers (now on contact cards), replies to
 your posts and meetups (Activity, 77) in one mailbox, and notifications that always say who and about what.
@@ -1267,6 +1267,15 @@ Around · Chats (mailbox + Contacts, 🔔 folded in) · Connect (your code + My 
       9 nearest cells. Now the bundle (and the wide one) read the news of exactly the sources in view, from their own
       cells (Home.NewsFor), a busy area never cuts its sources off, and news of a source that's gone goes with it.
       TestNewsForNeighbours.
+
+## 91. The area page, much simpler on a phone (Joop 2026-10-14, screenshot: "almost only buttons, very confusing")
+- [ ] 91a. Chip rows (filters, kinds, sources) each one line that scrolls sideways, with a visible hint (a fade
+      and a › at the edge) that there's more.
+- [ ] 91b. The three big buttons become one text field on top ("Say something here…") with send buttons next to
+      it: 💬 Say · ❓ Ask · ☕ Coffee (the text optional for coffee); the composer's options fold under it.
+- [ ] 91c. The row of small action buttons (change area, share, calendar, RSS, host a meetup, add a source, be
+      findable) folds into the area heading: 📍 next to the name changes the area, one "⋯" menu holds the rest.
+- [ ] 91d. A search box near the top: words filter the feed as you type, a #tag or language becomes the view filter.
 
 ## 90. Filters reach everything (Joop 2026-10-14)
 - [x] 90a. Done: filterBundle marks news (its source's tags, or the words of title/summary for a tag; a language
