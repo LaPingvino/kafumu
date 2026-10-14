@@ -686,6 +686,7 @@
     reactRow("note", n.id, name, row, null);
     foldRow(row);
     row.appendChild(reportButton("note", n.id, "📰 " + name + " " + link, li));
+    foldMore(row); // ⚑ behind ⋯, as on every card
     li.appendChild(meta); li.appendChild(title); li.appendChild(row);
     // Also in my area / another one (Joop): a source can cover a bigger
     // region when people there opt in, each area by someone of that area.
@@ -775,6 +776,7 @@
       var nl = normURL(it.link) || it.link;
       li.dataset.reid = reactRow("link", nl, it.title, row, { link: nl, cell: it.cell, keep: "📰 " + it.title });
       row.appendChild(reportButton("note", it.src, "📰 " + it.host + ": " + it.title, li));
+      foldMore(row); // ⚑ behind ⋯, as on every card
       li.appendChild(row);
       list.appendChild(li);
     });
@@ -1947,6 +1949,7 @@
         li.dataset.reid = reactRow("meetup", m.id, m.title, mrow, { cell: m.cell, link: location.origin + "/meetups/" + m.id });
         li.dataset.meetup = m.id; // its chat reads through the meetup, which holds it (93b)
         mrow.appendChild(reportButton("meetup", m.id, m.title, li));
+        foldMore(mrow); // ⚑ behind ⋯, as on every card
         li.appendChild(mrow);
         list.appendChild(li);
       });
@@ -2005,6 +2008,7 @@
       prow.className = "actions";
       li.dataset.reid = reactRow("person", p.name, "@" + p.name + (p.bio ? ": " + p.bio : ""), prow, /^[a-z0-9_-]{3,30}$/.test(p.name || "") ? { link: location.origin + "/@" + p.name } : null);
       prow.appendChild(reportButton("person", p.name, "@" + p.name + (p.bio ? ": " + p.bio : ""), li));
+      foldMore(prow); // ⚑ behind ⋯, as on every card
       li.appendChild(prow);
       list.appendChild(li);
     });
