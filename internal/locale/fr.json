@@ -767,5 +767,6 @@
   "quick.say": "Dire",
   "quick.ask": "Demander",
   "quick.coffee": "Un café ?",
-  "coffee.findable": "Plutôt rester trouvable ici un moment, sans message ? Ton profil s'affiche ici pendant les heures que tu choisis."
+  "coffee.findable": "Plutôt rester trouvable ici un moment, sans message ? Ton profil s'affiche ici pendant les heures que tu choisis.",
+  "js.view_settings": "Réglages de la vue"
 }

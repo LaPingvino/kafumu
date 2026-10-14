@@ -767,5 +767,6 @@
   "quick.say": "說",
   "quick.ask": "問",
   "quick.coffee": "喝咖啡？",
-  "coffee.findable": "想在這裡被找到一段時間，不用發訊息？你的資料會在你選的時段顯示在這裡。"
+  "coffee.findable": "想在這裡被找到一段時間，不用發訊息？你的資料會在你選的時段顯示在這裡。",
+  "js.view_settings": "檢視設定"
 }

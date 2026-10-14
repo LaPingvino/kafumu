@@ -856,10 +856,15 @@
     edit.type = "button"; edit.className = "chip" + (editChips ? " on" : "");
     edit.textContent = editChips ? "✓" : "✎"; edit.title = tr("chip_edit");
     edit.onclick = function () { editChips = !editChips; drawFilterChips(); };
+    // ⚙: the view's settings (how strongly to filter, save it as a ☆ view).
+    var gear = document.createElement("button");
+    gear.type = "button"; gear.className = "chip"; gear.textContent = "⚙"; gear.title = tr("view_settings"); gear.setAttribute("aria-label", tr("view_settings"));
+    gear.onclick = function () { var p = $("picker"); p.hidden = !p.hidden; if (!p.hidden) p.scrollIntoView({ block: "nearest", behavior: "smooth" }); };
     // Editing and adding come first on the line, easy to find (Joop): ✎ 🗣+ #+, then the chips.
     box.insertBefore(subjOpen, box.firstChild);
     box.insertBefore(langOpen, box.firstChild);
     box.insertBefore(edit, box.firstChild);
+    box.insertBefore(gear, box.firstChild);
     box.hidden = false;
     // Looking at a language you don't speak: the learn card comes along.
     if (view.lang && view.lang === learnLang && learnNeeded) $("learn-card").hidden = false;
@@ -2141,7 +2146,7 @@
       pref("kafumu.autoLocate", "1");
       // Round immediately: only the 5 km cell is kept.
       var c = cell(pos.coords.latitude, pos.coords.longitude);
-      $("picker").hidden = true;
+      closePicker();
       show(c, tr("your_cell"), true);
     }, function () {
       if (!silent) { setStatus(tr("unavailable")); openPicker(); }
@@ -2161,11 +2166,19 @@
     }, function (next) { drawMap(next, selected); });
   }
 
+  // openPicker: the heading becomes the place search (91f), the name as
+  // its starting text, the map of around here under it.
   function openPicker() {
-    $("picker").hidden = false;
+    var ed = $("place-edit"), q = $("place-q");
+    ed.hidden = false;
+    $("change-area").classList.add("on");
+    document.querySelector(".cell-tag").classList.add("editing"); // the field takes the name's place
+    q.value = $("place-name").textContent.split(",")[0] || "";
+    setTimeout(function () { q.focus(); q.select(); }, 0);
     var cur = $("cell-tag").textContent.replace("#geo", "");
     if (validCell(cur)) drawMap(cur, cur);
   }
+  function closePicker() { $("place-edit").hidden = true; $("change-area").classList.remove("on"); document.querySelector(".cell-tag").classList.remove("editing"); $("place-results").textContent = ""; }
 
   var searchTimer;
   $("place-q").addEventListener("input", function () {
@@ -2183,8 +2196,8 @@
           b.onclick = function () {
             ul.textContent = "";
             $("place-q").value = m.name;
-            drawMap(m.cell, m.cell);
             choose(m.cell, tr("chosen_place", { place: m.name }));
+            closePicker(); // picked: back to the heading, with its new name
           };
           li.appendChild(b); ul.appendChild(li);
         });
@@ -2215,7 +2228,8 @@
     pref("kafumu.views", JSON.stringify(vs.slice(-12)));
     drawViews();
   };
-  $("change-area").onclick = function () { if ($("picker").hidden) openPicker(); else $("picker").hidden = true; };
+  $("change-area").onclick = function () { if ($("place-edit").hidden) openPicker(); else closePicker(); };
+  $("place-q").addEventListener("keydown", function (e) { if (e.key === "Escape") closePicker(); });
 
   $("manual-form").addEventListener("submit", function (e) {
     e.preventDefault();

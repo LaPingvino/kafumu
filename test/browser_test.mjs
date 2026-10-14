@@ -15,11 +15,14 @@ const A = await browser(9333), B = await browser(9334);
 try {
   // Area picker: no location prompt on load; search, map, tap a block.
   await A.goto(base + "/");
-  await A.waitFor("!document.getElementById('picker').hidden", "picker shown on first visit");
+  await A.waitFor("!document.getElementById('place-edit').hidden", "the place search shown on first visit");
   await A.evaluate("(() => { const q = document.getElementById('place-q'); q.value = 'Barreiro'; q.dispatchEvent(new Event('input')); return true; })()");
   await A.waitFor("document.querySelectorAll('#place-results button').length > 0", "search results");
   await A.evaluate("document.querySelector('#place-results button').click()");
-  await A.waitFor("document.querySelectorAll('.area-map .cell').length === 49", "7×7 cell grid");
+  // Picked: the heading names it; ✎ opens the search again, with the map (91f).
+  await A.waitFor("document.getElementById('place-edit').hidden && /Barreiro/.test(document.getElementById('place-name').textContent)", "the heading names the place");
+  await A.evaluate("document.getElementById('change-area').click(); true");
+  await A.waitFor("!document.getElementById('place-edit').hidden && document.querySelectorAll('.area-map .cell').length === 49", "7×7 cell grid");
   // Pan east with the arrow: the grid moves, so its first block changes.
   const firstBefore = await A.evaluate("document.querySelector('.area-map .cell').title");
   await A.evaluate("[...document.querySelectorAll('.area-map .pan')].find(b => b.textContent === '→').click()");

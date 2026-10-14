@@ -17,6 +17,20 @@
       <a id="rss-link" href="/rss/" title="{{ts .Lang "area.rss_title"}}" aria-label="{{ts .Lang "area.rss_title"}}" type="application/rss+xml">📰</a></span><span id="place-name"></span>
     <button type="button" id="change-area" class="head-btn" title="{{ts .Lang "area.change"}}" aria-label="{{ts .Lang "area.change"}}">✎</button><span class="tag-line"><span id="cell-tag"></span>
     <a id="share" href="#" class="head-btn" title="{{ts .Lang "home.share"}}" aria-label="{{ts .Lang "home.share"}}">↗</a></span></h1>
+  <!-- ✎ turns the heading into the place search (91f): type a place, use your location, or tap the map. -->
+  <div id="place-edit" hidden>
+    <div class="inline-row place-search">
+      <input id="place-q" type="search" autocomplete="off" placeholder="{{ts .Lang "area.search"}}" aria-label="{{ts .Lang "area.search"}}">
+      <button type="button" id="locate" title="{{ts .Lang "area.locate"}}" aria-label="{{ts .Lang "area.locate"}}">📍</button>
+    </div>
+    <ul id="place-results"></ul>
+    <div id="area-map-box"></div>
+    <p class="dim small" id="map-hint" hidden>{{t .Lang "area.tap_hint"}}</p>
+    <form id="manual-form" class="inline-row">
+      <input name="where" placeholder="{{ts .Lang "home.pick_placeholder"}}" aria-label="{{ts .Lang "home.pick_place"}}">
+      <button type="submit">{{t .Lang "home.go"}}</button>
+    </form>
+  </div>
   <p id="place-also" class="place-also" hidden></p>
   <!-- A site people here share often, with a feed (81f): add its news to this area? -->
   <div id="suggest-source" class="card events" style="padding:8px 16px" hidden>
@@ -118,11 +132,6 @@
   <div id="picker" class="card" style="padding:4px 16px 12px" hidden>
     <button type="button" class="close-x" data-close aria-label="{{ts .Lang "common.close"}}" title="{{ts .Lang "common.close"}}">✕</button>
     <h2>{{t .Lang "view.title"}}</h2>
-    <div class="inline-row">
-      <input id="place-q" type="search" autocomplete="off" placeholder="{{ts .Lang "area.search"}}" aria-label="{{ts .Lang "area.search"}}">
-      <button type="button" id="locate">📍 {{t .Lang "area.locate"}}</button>
-    </div>
-    <ul id="place-results"></ul>
     <div class="grid view-filters">
       <label>{{t .Lang "view.language"}}
         <select id="view-lang"><option value="">{{t .Lang "view.any"}}</option>
@@ -135,12 +144,6 @@
       <span class="dim small" id="view-strength-label"></span></label>
     <div class="actions"><button type="button" id="view-apply" class="pill">{{t .Lang "view.apply"}}</button>
       <button type="button" id="view-save" class="pill">☆ {{t .Lang "view.save"}}</button></div>
-    <div id="area-map-box"></div>
-    <p class="dim small" id="map-hint" hidden>{{t .Lang "area.tap_hint"}}</p>
-    <form id="manual-form" class="inline-row">
-      <input name="where" placeholder="{{ts .Lang "home.pick_placeholder"}}" aria-label="{{ts .Lang "home.pick_place"}}">
-      <button type="submit">{{t .Lang "home.go"}}</button>
-    </form>
   </div>
 </section>
 

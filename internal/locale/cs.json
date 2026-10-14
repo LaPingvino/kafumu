@@ -767,5 +767,6 @@
   "quick.say": "Říct",
   "quick.ask": "Zeptat se",
   "quick.coffee": "Kafe?",
-  "coffee.findable": "Radši být tu chvíli k nalezení, bez zprávy? Tvůj profil se tu ukáže na hodiny, které zvolíš."
+  "coffee.findable": "Radši být tu chvíli k nalezení, bez zprávy? Tvůj profil se tu ukáže na hodiny, které zvolíš.",
+  "js.view_settings": "Nastavení pohledu"
 }

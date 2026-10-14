@@ -767,5 +767,6 @@
   "quick.say": "Sig",
   "quick.ask": "Spørg",
   "quick.coffee": "Kaffe?",
-  "coffee.findable": "Hellere være til at finde her et stykke tid, uden besked? Din profil vises her i de timer, du vælger."
+  "coffee.findable": "Hellere være til at finde her et stykke tid, uden besked? Din profil vises her i de timer, du vælger.",
+  "js.view_settings": "Visningsindstillinger"
 }

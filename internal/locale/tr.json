@@ -767,5 +767,6 @@
   "quick.say": "Söyle",
   "quick.ask": "Sor",
   "quick.coffee": "Kahve?",
-  "coffee.findable": "Mesaj atmadan bir süre burada bulunabilir olmak mı istersin? Profilin seçtiğin saatlerde burada görünür."
+  "coffee.findable": "Mesaj atmadan bir süre burada bulunabilir olmak mı istersin? Profilin seçtiğin saatlerde burada görünür.",
+  "js.view_settings": "Görünüm ayarları"
 }

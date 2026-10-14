@@ -1291,7 +1291,9 @@ Around · Chats (mailbox + Contacts, 🔔 folded in) · Connect (your code + My 
       question, ☕ coffee / be findable here (merged, with a clear "let people here meet you, now or later" text), a
       meetup (host one: the meetup form in place), a source (add one). The separate "Host a meetup", "Add a source"
       and "Be findable here too" buttons go.
-- [ ] 91f. The area search in place (Joop): ✎ turns the place name itself into the place search field (same look as
+- [x] 91f. Done: ✎ turns the heading into the place search: the name makes way for the field (its text to start),
+      📍 next to it, results and the map right under it; picking closes it; Esc too. The view settings (strength,
+      save as ☆) open from a ⚙ at the start of the filter row. Checked at 390 px. Was: The area search in place (Joop): ✎ turns the place name itself into the place search field (same look as
       the heading), results right under it; the separate area-picker card goes.
 - [ ] 91d. A search box near the top: words filter the feed as you type, a #tag or language becomes the view filter.
 

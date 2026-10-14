@@ -767,5 +767,6 @@
   "quick.say": "말하기",
   "quick.ask": "묻기",
   "quick.coffee": "커피?",
-  "coffee.findable": "메시지 없이 한동안 여기서 찾을 수 있게 할까요? 고른 시간 동안 내 프로필이 여기 보여요."
+  "coffee.findable": "메시지 없이 한동안 여기서 찾을 수 있게 할까요? 고른 시간 동안 내 프로필이 여기 보여요.",
+  "js.view_settings": "보기 설정"
 }

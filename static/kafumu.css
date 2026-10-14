@@ -454,3 +454,12 @@ code, kbd, .doc a { overflow-wrap: anywhere; word-break: break-word; }
 .quick-compose textarea { margin: 0 0 6px; min-height: 2.8em; resize: none; border-radius: var(--radius); }
 .quick-compose .actions { margin: 0; flex-wrap: nowrap; }
 .quick-compose .actions .pill { flex: 1 1 0; min-width: 0; padding-left: 8px; padding-right: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* The place search in the heading (91f). */
+#place-edit { margin: -.2rem 0 .6rem; }
+#place-edit .place-search input { font-size: 1.4rem; font-weight: 700; margin: 0; }
+#place-edit .place-search button { width: auto; margin: 0; }
+#place-edit #place-results { list-style: none; padding: 0; margin: .3rem 0; }
+#place-edit #place-results button { width: 100%; text-align: left; margin: 2px 0; background: var(--card-bg); color: var(--fg); border: 1px solid var(--border); }
+.cell-tag .head-btn.on { background: var(--accent-bg); color: var(--accent-fg); }
+.cell-tag.editing #place-name { display: none; }
+.cell-tag.editing { margin-bottom: 0; }
