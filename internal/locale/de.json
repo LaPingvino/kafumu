@@ -770,5 +770,6 @@
   "coffee.findable": "Lieber eine Weile hier auffindbar sein, ohne Nachricht? Dein Profil steht hier für die Stunden, die du wählst.",
   "js.view_settings": "Ansichtseinstellungen",
   "search.placeholder": "Hier suchen… oder #Tag",
-  "js.edit": "Bearbeiten"
+  "js.edit": "Bearbeiten",
+  "js.act_contact_cards": "Ihre Karten, deine Notizen, Sicherung"
 }

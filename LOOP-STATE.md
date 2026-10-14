@@ -1362,7 +1362,7 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
 - [ ] 91g. A pass over every page for the same kind of thing (Joop): controls next to what they act on, separate
       cards and panels that can be the thing itself in place, near-duplicate buttons merged; one page per tick.
       Done: Contacts (a contact's tags, note and Remove fold behind ✎ in its head; a note you wrote shows as a
-      line). Next: Chats, Connect, My card, Me, a meetup.
+      line); Chats (one "Contacts": the filter leads to the cards, notes and backup). Next: Connect, My card, Me, a meetup.
 
 ## 92. Look, access, media (Joop 2026-10-14; after 91 and 90; the last item lowest)
 - [ ] 92a. Theming: light / dark / automatic (follows the device) / high contrast, chosen per device (Me), applied

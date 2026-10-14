@@ -196,6 +196,11 @@
         r[1].forEach(function (a) { byId["a:" + a.id] = a; });
         box.querySelectorAll("#thread-filter .chip").forEach(function (b) { b.classList.toggle("on", b.dataset.f === filter); b.setAttribute("aria-pressed", b.dataset.f === filter); });
         ul.textContent = "";
+        // The Contacts filter leads to their cards too (91g: one "Contacts", not two).
+        if (filter === "contacts") {
+          var go = el("li", "thread-cards"), a = el("a", "pill-sm", "🪪 " + (T.act_contact_cards || "Their cards, your notes, backup") + " →");
+          a.href = "/contacts"; a.setAttribute("role", "button"); go.appendChild(a); ul.appendChild(go);
+        }
         ts.filter(function (t) { return filter === "all" || (filter === "contacts" ? t.kind === "contact" : t.unread > 0); }).forEach(function (t) {
           var src = byId[t.id], li = el("li", "thread" + (t.unread ? " unread" : ""));
           li.id = t.kind === "contact" ? "chat-" + src.id : t.kind === "answer" ? "answer-" + src.id : "t-" + t.id;

@@ -469,3 +469,4 @@ code, kbd, .doc a { overflow-wrap: anywhere; word-break: break-word; }
 .contact-head .contact-edit { margin-left: auto; padding: 0 10px; }
 .contact-head .contact-edit.on { background: var(--accent-bg); color: var(--accent-fg); }
 .contact-more { border-top: 1px dashed var(--border); margin-top: 6px; padding-top: 6px; }
+.threads > li.thread-cards { border: 0; padding: 4px 0 8px; }

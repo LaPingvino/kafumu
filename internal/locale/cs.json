@@ -770,5 +770,6 @@
   "coffee.findable": "Radši být tu chvíli k nalezení, bez zprávy? Tvůj profil se tu ukáže na hodiny, které zvolíš.",
   "js.view_settings": "Nastavení pohledu",
   "search.placeholder": "Hledat tady… nebo #štítek",
-  "js.edit": "Upravit"
+  "js.edit": "Upravit",
+  "js.act_contact_cards": "Jejich vizitky, tvé poznámky, záloha"
 }

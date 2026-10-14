@@ -770,5 +770,6 @@
   "coffee.findable": "메시지 없이 한동안 여기서 찾을 수 있게 할까요? 고른 시간 동안 내 프로필이 여기 보여요.",
   "js.view_settings": "보기 설정",
   "search.placeholder": "여기서 검색… 또는 #태그",
-  "js.edit": "편집"
+  "js.edit": "편집",
+  "js.act_contact_cards": "상대 명함, 내 메모, 백업"
 }

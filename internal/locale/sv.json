@@ -770,5 +770,6 @@
   "coffee.findable": "Hellre vara sökbar här en stund, utan meddelande? Din profil syns här under de timmar du väljer.",
   "js.view_settings": "Vyinställningar",
   "search.placeholder": "Sök här… eller #tagg",
-  "js.edit": "Redigera"
+  "js.edit": "Redigera",
+  "js.act_contact_cards": "Deras kort, dina anteckningar, säkerhetskopia"
 }

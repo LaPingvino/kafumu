@@ -770,5 +770,6 @@
   "coffee.findable": "Wolisz być tu do znalezienia przez jakiś czas, bez wiadomości? Twój profil pokaże się tu na wybrane godziny.",
   "js.view_settings": "Ustawienia widoku",
   "search.placeholder": "Szukaj tutaj… lub #tag",
-  "js.edit": "Edytuj"
+  "js.edit": "Edytuj",
+  "js.act_contact_cards": "Ich wizytówki, twoje notatki, kopia"
 }

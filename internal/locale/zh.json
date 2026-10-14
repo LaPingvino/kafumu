@@ -770,5 +770,6 @@
   "coffee.findable": "想在这里被找到一段时间，不用发消息？你的资料会在你选的时段显示在这里。",
   "js.view_settings": "视图设置",
   "search.placeholder": "在这里搜索…或 #标签",
-  "js.edit": "编辑"
+  "js.edit": "编辑",
+  "js.act_contact_cards": "对方名片、你的备注、备份"
 }

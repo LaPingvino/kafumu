@@ -770,5 +770,6 @@
   "coffee.findable": "Hellere være til at finde her et stykke tid, uden besked? Din profil vises her i de timer, du vælger.",
   "js.view_settings": "Visningsindstillinger",
   "search.placeholder": "Søg her… eller #tag",
-  "js.edit": "Rediger"
+  "js.edit": "Rediger",
+  "js.act_contact_cards": "Deres kort, dine noter, backup"
 }

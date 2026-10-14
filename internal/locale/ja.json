@@ -770,5 +770,6 @@
   "coffee.findable": "メッセージなしで、しばらくここで見つけてもらいたい？選んだ時間だけ、ここにプロフィールが表示されます。",
   "js.view_settings": "表示の設定",
   "search.placeholder": "ここで検索…または #タグ",
-  "js.edit": "編集"
+  "js.edit": "編集",
+  "js.act_contact_cards": "相手の名刺・メモ・バックアップ"
 }
