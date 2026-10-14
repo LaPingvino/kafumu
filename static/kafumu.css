@@ -164,6 +164,9 @@ input, textarea {
 input:focus, textarea:focus { box-shadow: 0 0 0 2px var(--accent-bg); }
 form.inline, .magic { display: flex; gap: 8px; align-items: center; }
 form.inline input, .magic input { flex: 1; margin: 0; }
+/* Narrow: a field with a long button wraps, the field a full row (it read "you.bsky.soc"). */
+form.inline, .magic { flex-wrap: wrap; }
+form.inline input, .magic input { flex: 1 1 12rem; min-width: 0; }
 details { margin: .5rem 0; }
 summary { cursor: pointer; color: var(--accent); font-weight: 600; }
 details form { margin-top: .5rem; display: flex; gap: 8px; }
