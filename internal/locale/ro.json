@@ -781,5 +781,9 @@
   "look.dark": "Întunecat",
   "look.contrast": "Contrast ridicat",
   "look.note": "Păstrat pe acest dispozitiv. Automat urmează setarea luminos/întunecat a dispozitivului.",
-  "a11y.skip": "Sari la conținut"
+  "a11y.skip": "Sari la conținut",
+  "look.media": "Imagini și videoclipuri",
+  "look.media_on": "Arată",
+  "look.media_off": "Ascunde",
+  "privacy.media": "Imaginile se încarcă de unde sunt găzduite (serverele Bluesky, YouTube pentru imaginea unui video, site-ul unui link), care vede că dispozitivul tău le cere. Oprește-le din {host}."
 }

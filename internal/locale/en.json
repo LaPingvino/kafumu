@@ -781,5 +781,9 @@
   "look.dark": "Dark",
   "look.contrast": "High contrast",
   "look.note": "Kept on this device. Automatic follows your device's light or dark setting.",
-  "a11y.skip": "Skip to content"
+  "a11y.skip": "Skip to content",
+  "look.media": "Pictures and videos",
+  "look.media_on": "Show",
+  "look.media_off": "Hide",
+  "privacy.media": "Pictures load from where they're hosted (Bluesky's image servers, YouTube for a video's still, a link's own site), which sees your device ask for them. Switch them off under {host}."
 }

@@ -1385,7 +1385,10 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       focusable; Esc closes the tour or the open panel (through its own ✕); every control already had a name (the
       390 px check counts them). Browser step. More as we find it. Was: Accessibility: keyboard use everywhere (focus visible, tab order, Esc closes, no keyboard traps) and screen
       readers (names, roles, live regions for what changes); an audit pass with fixes.
-- [ ] 92c. Pictures and videos: show or hide them (per device), and post them through services we can embed
+- [x] 92c. Done: Bluesky posts carry their pictures and a video's still (embed views, also in quotes), shown in a grid
+      (lazy, with alt text, ▶ on videos, opening the post); a line linking a picture shows it, a YouTube link its still
+      with ▶ (only the still loads); Account → Look: 🖼 show / hide, per device; the privacy page says where pictures
+      load from. Posting = putting such a link in a line. 24 languages. Was: Pictures and videos: show or hide them (per device), and post them through services we can embed
       (links to Bluesky images, PeerTube, YouTube… shown as embeds when on).
 - [ ] 92d. (lowest) A picture/video view of an area: only the photos and videos people share there (Bluesky and the
       like), swiped through one by one.

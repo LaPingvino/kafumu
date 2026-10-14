@@ -175,6 +175,11 @@
     <button type="button" class="chip" data-theme="contrast">◐ {{t .Lang "look.contrast"}}</button>
   </div>
   <p class="dim small">{{t .Lang "look.note"}}</p>
+  <div class="chips" id="media-pick" role="group" aria-label="{{ts .Lang "look.media"}}">
+    <span class="dim small">🖼 {{t .Lang "look.media"}}</span>
+    <button type="button" class="chip" data-media="">{{t .Lang "look.media_on"}}</button>
+    <button type="button" class="chip" data-media="off">{{t .Lang "look.media_off"}}</button>
+  </div>
 </section>
 <script>
 (function () {
@@ -189,6 +194,13 @@
     };
   });
   mark();
+  // Pictures and videos on or off (92c), on this device.
+  var media = ""; try { media = localStorage.getItem("kafumu.media") || ""; } catch (e) {}
+  function markMedia() { document.querySelectorAll("#media-pick .chip").forEach(function (b) { var on = b.dataset.media === media; b.classList.toggle("on", on); b.setAttribute("aria-pressed", on); }); }
+  document.querySelectorAll("#media-pick .chip").forEach(function (b) {
+    b.onclick = function () { media = b.dataset.media; try { if (media) localStorage.setItem("kafumu.media", media); else localStorage.removeItem("kafumu.media"); } catch (e) {} markMedia(); };
+  });
+  markMedia();
 })();
 </script>
 {{if .Passkeys}}<script>window.KAFUMU_T = window.KAFUMU_T || {{.JS}};</script><script src="/static/passkey.js?v={{.V}}"></script>{{end}}

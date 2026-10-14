@@ -781,5 +781,9 @@
   "look.dark": "Tmavý",
   "look.contrast": "Vysoký kontrast",
   "look.note": "Uloženo v tomto zařízení. Automaticky se řídí světlým/tmavým nastavením zařízení.",
-  "a11y.skip": "Přejít na obsah"
+  "a11y.skip": "Přejít na obsah",
+  "look.media": "Obrázky a videa",
+  "look.media_on": "Zobrazit",
+  "look.media_off": "Skrýt",
+  "privacy.media": "Obrázky se načítají odtud, kde jsou uložené (servery Bluesky, YouTube pro náhled videa, web odkazu), a ty vidí, že je tvé zařízení žádá. Vypni je v {host}."
 }

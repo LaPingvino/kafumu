@@ -781,5 +781,9 @@
   "look.dark": "어둡게",
   "look.contrast": "고대비",
   "look.note": "이 기기에 저장돼요. 자동은 기기의 밝은/어두운 설정을 따라요.",
-  "a11y.skip": "본문으로 건너뛰기"
+  "a11y.skip": "본문으로 건너뛰기",
+  "look.media": "사진과 동영상",
+  "look.media_on": "보이기",
+  "look.media_off": "숨기기",
+  "privacy.media": "사진은 저장된 곳(Bluesky 이미지 서버, 동영상 정지화면은 YouTube, 링크의 사이트)에서 불러오며, 그곳은 내 기기의 요청을 볼 수 있어요. {host}에서 끌 수 있어요."
 }

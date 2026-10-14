@@ -781,5 +781,9 @@
   "look.dark": "Tối",
   "look.contrast": "Tương phản cao",
   "look.note": "Lưu trên thiết bị này. Tự động theo chế độ sáng/tối của thiết bị.",
-  "a11y.skip": "Đến nội dung"
+  "a11y.skip": "Đến nội dung",
+  "look.media": "Ảnh và video",
+  "look.media_on": "Hiện",
+  "look.media_off": "Ẩn",
+  "privacy.media": "Ảnh được tải từ nơi lưu trữ (máy chủ ảnh của Bluesky, YouTube cho ảnh video, trang của liên kết), nơi đó thấy thiết bị của bạn yêu cầu. Tắt tại {host}."
 }

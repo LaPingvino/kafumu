@@ -781,5 +781,9 @@
   "look.dark": "Gelap",
   "look.contrast": "Kontras tinggi",
   "look.note": "Disimpan di perangkat ini. Otomatis mengikuti setelan terang/gelap perangkatmu.",
-  "a11y.skip": "Langsung ke isi"
+  "a11y.skip": "Langsung ke isi",
+  "look.media": "Gambar dan video",
+  "look.media_on": "Tampilkan",
+  "look.media_off": "Sembunyikan",
+  "privacy.media": "Gambar dimuat dari tempatnya disimpan (server gambar Bluesky, YouTube untuk cuplikan video, situs sebuah tautan), yang melihat perangkatmu memintanya. Matikan di {host}."
 }

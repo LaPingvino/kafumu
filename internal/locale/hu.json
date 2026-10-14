@@ -781,5 +781,9 @@
   "look.dark": "Sötét",
   "look.contrast": "Nagy kontraszt",
   "look.note": "Ezen az eszközön tárolva. Az automatikus az eszköz világos/sötét beállítását követi.",
-  "a11y.skip": "Ugrás a tartalomra"
+  "a11y.skip": "Ugrás a tartalomra",
+  "look.media": "Képek és videók",
+  "look.media_on": "Mutasd",
+  "look.media_off": "Rejtsd el",
+  "privacy.media": "A képek onnan töltődnek, ahol tárolják őket (a Bluesky képszerverei, a YouTube egy videó állóképéhez, egy link oldala), amely látja, hogy az eszközöd kéri őket. Kikapcsolás: {host}."
 }

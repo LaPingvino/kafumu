@@ -1014,6 +1014,7 @@
     var shown = opts.reply ? firstLine(n.text) : n.text; // a carried reaction's context lines aren't shown at its target
     text.textContent = (opts.question ? "❓ " : "") + (m ? shown.replace(m[0], "").trim() : shown);
     li.appendChild(meta); li.appendChild(text);
+    var lm = linkMedia(n.text); if (lm) li.appendChild(lm); // a picture or video it links to (92c)
     var row = document.createElement("div");
     row.className = "actions";
     if (m && m[0].indexOf(location.origin + "/c#") === 0) {
@@ -1226,6 +1227,35 @@
     var site = siteTag(link);
     window.kafumuOLN.post(String(ctx.keep).slice(0, 300) + "\n" + link, "#geo" + cell + " #re" + reID("link", link) + (site ? " #" + site : ""), requiredBits, function () {})
       .then(function (n) { if (n && n.id) { ownNotes.push(n); linkLines[link] = true; if (cell === currentCell) load(currentCell, true); } }, function () { delete keptLinks[link]; });
+  }
+  // Pictures and videos (92c): shown unless switched off on this device (Me → Look).
+  function mediaOn() { try { return localStorage.getItem("kafumu.media") !== "off"; } catch (e) { return true; } }
+  function mediaBox(list, href) {
+    var box = document.createElement("div");
+    box.className = "media n" + Math.min(list.length, 4);
+    if (!mediaOn()) { box.hidden = true; return box; }
+    list.slice(0, 4).forEach(function (m) {
+      var a = document.createElement("a");
+      a.href = m.video ? href : (m.full || m.thumb); a.target = "_blank"; a.rel = "noopener";
+      if (m.video) a.className = "video";
+      var img = document.createElement("img");
+      img.src = m.thumb; img.alt = m.alt || ""; img.loading = "lazy"; img.decoding = "async";
+      img.onerror = function () { a.remove(); };
+      a.appendChild(img); box.appendChild(a);
+    });
+    return box;
+  }
+  // linkMedia: a picture link shows the picture, a YouTube link its still
+  // with ▶ (opens YouTube; nothing plays or loads from it here otherwise).
+  function linkMedia(text) {
+    if (!mediaOn()) return null;
+    var urls = String(text || "").match(/https?:\/\/[^\s<>"]+/g) || [];
+    for (var i = 0; i < urls.length; i++) {
+      var u = urls[i].replace(/[.,;:!?)\]]+$/, ""), y;
+      if (/\.(jpe?g|png|gif|webp|avif)(\?\S*)?$/i.test(u)) return mediaBox([{ thumb: u, full: u }], u);
+      if ((y = /(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([\w-]{11})/.exec(u))) return mediaBox([{ thumb: "https://i.ytimg.com/vi/" + y[1] + "/hqdefault.jpg", video: true }], u);
+    }
+    return null;
   }
   function linkOf(n) {
     var u = urlIn(n.text);
@@ -2023,6 +2053,7 @@
       row.appendChild(reveal);
     }
     li.appendChild(text);
+    if (p.media && p.media.length) li.appendChild(mediaBox(p.media, p.url)); // its pictures (92c)
     var open = document.createElement("a");
     open.href = p.url; open.target = "_blank"; open.rel = "noopener";
     open.setAttribute("role", "button"); open.className = "pill-sm";

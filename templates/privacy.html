@@ -17,6 +17,7 @@
   <p>{{t .Lang "privacy.never"}}</p>
   <h2>{{t .Lang "privacy.caveats_title"}}</h2>
   <p>{{t .Lang "privacy.caveats"}}</p>
+  <p>{{withHost (ts .Lang "privacy.media") (print (ts .Lang "nav.account") " → " (ts .Lang "look.title"))}}</p>
   <p>{{t .Lang "privacy.rights"}} <a href="/account">{{t .Lang "nav.account"}}</a> · <a href="{{.Contact}}">{{t .Lang "privacy.contact"}}</a></p>
 </article>
 {{template "foot" .}}

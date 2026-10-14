@@ -781,5 +781,9 @@
   "look.dark": "深色",
   "look.contrast": "高对比度",
   "look.note": "保存在这台设备上。自动会跟随设备的浅色/深色设置。",
-  "a11y.skip": "跳到内容"
+  "a11y.skip": "跳到内容",
+  "look.media": "图片和视频",
+  "look.media_on": "显示",
+  "look.media_off": "隐藏",
+  "privacy.media": "图片从其所在处加载（Bluesky 的图片服务器、视频截图来自 YouTube、链接所在网站），对方能看到你的设备在请求。可在 {host} 中关闭。"
 }

@@ -781,5 +781,9 @@
   "look.dark": "Oscuro",
   "look.contrast": "Alto contraste",
   "look.note": "Se guarda en este dispositivo. Automático sigue el ajuste claro/oscuro de tu dispositivo.",
-  "a11y.skip": "Ir al contenido"
+  "a11y.skip": "Ir al contenido",
+  "look.media": "Fotos y vídeos",
+  "look.media_on": "Mostrar",
+  "look.media_off": "Ocultar",
+  "privacy.media": "Las imágenes se cargan desde donde están alojadas (los servidores de Bluesky, YouTube para la imagen de un vídeo, la web de un enlace), que ve que tu dispositivo las pide. Desactívalas en {host}."
 }

@@ -36,6 +36,8 @@ type Post struct {
 	// Links: the web links in its text, for finding the sites an area
 	// shares most (81f).
 	Links []string `json:"links,omitempty"`
+	// Media: its pictures and a video's still (92c).
+	Media []Media `json:"media,omitempty"`
 	// For judging reliability on the device: engagement, the author's
 	// account age, and moderation labels on the post or its author.
 	Likes   int        `json:"likes,omitempty"`
@@ -159,12 +161,51 @@ func (c *Client) fetch(ctx context.Context, tag string, limit int) ([]Post, erro
 	return nil, lastErr
 }
 
+// embedView: the media part of a post as the AppView shows it (images,
+// a video's thumbnail; also inside a quote: recordWithMedia).
+type embedView struct {
+	Type   string `json:"$type"`
+	Images []struct {
+		Thumb    string `json:"thumb"`
+		Fullsize string `json:"fullsize"`
+		Alt      string `json:"alt"`
+	} `json:"images"`
+	Thumbnail string     `json:"thumbnail"`
+	Alt       string     `json:"alt"`
+	Media     *embedView `json:"media"`
+}
+
+// Media is a picture or a video in a post (92c).
+type Media struct {
+	Thumb string `json:"thumb"`
+	Full  string `json:"full,omitempty"`
+	Alt   string `json:"alt,omitempty"`
+	Video bool   `json:"video,omitempty"`
+}
+
+func (e *embedView) media() []Media {
+	if e == nil {
+		return nil
+	}
+	var out []Media
+	for _, im := range e.Images {
+		if im.Thumb != "" && len(out) < 4 {
+			out = append(out, Media{Thumb: im.Thumb, Full: im.Fullsize, Alt: im.Alt})
+		}
+	}
+	if e.Thumbnail != "" {
+		out = append(out, Media{Thumb: e.Thumbnail, Alt: e.Alt, Video: true})
+	}
+	return append(out, e.Media.media()...)
+}
+
 type searchResponse struct {
 	Posts []struct {
-		URI         string `json:"uri"`
-		LikeCount   int    `json:"likeCount"`
-		RepostCount int    `json:"repostCount"`
-		ReplyCount  int    `json:"replyCount"`
+		Embed       *embedView `json:"embed"`
+		URI         string     `json:"uri"`
+		LikeCount   int        `json:"likeCount"`
+		RepostCount int        `json:"repostCount"`
+		ReplyCount  int        `json:"replyCount"`
 		Labels      []struct {
 			Val string `json:"val"`
 		} `json:"labels"`
@@ -210,6 +251,7 @@ func (r *searchResponse) posts(via string) []Post {
 			Reposts:   p.RepostCount,
 			Replies:   p.ReplyCount,
 			Since:     p.Author.CreatedAt,
+			Media:     p.Embed.media(),
 		}
 		seen := map[string]bool{}
 		add := func(t string) {

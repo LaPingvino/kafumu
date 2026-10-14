@@ -781,5 +781,9 @@
   "look.dark": "Malhela",
   "look.contrast": "Alta kontrasto",
   "look.note": "Konservita en ĉi tiu aparato. Aŭtomata sekvas la helan aŭ malhelan agordon de via aparato.",
-  "a11y.skip": "Al la enhavo"
+  "a11y.skip": "Al la enhavo",
+  "look.media": "Bildoj kaj filmetoj",
+  "look.media_on": "Montri",
+  "look.media_off": "Kaŝi",
+  "privacy.media": "Bildoj ŝarĝiĝas de kie ili gastas (la bildserviloj de Bluesky, YouTube por bildo de filmeto, la retejo de ligilo), kiu vidas vian aparaton peti ilin. Malŝaltu ilin ĉe {host}."
 }

@@ -781,5 +781,9 @@
   "look.dark": "Ciemny",
   "look.contrast": "Wysoki kontrast",
   "look.note": "Zapisane na tym urządzeniu. Automatyczny podąża za trybem jasnym/ciemnym urządzenia.",
-  "a11y.skip": "Przejdź do treści"
+  "a11y.skip": "Przejdź do treści",
+  "look.media": "Zdjęcia i filmy",
+  "look.media_on": "Pokazuj",
+  "look.media_off": "Ukryj",
+  "privacy.media": "Zdjęcia ładują się z miejsca, gdzie są (serwery Bluesky, YouTube dla kadru filmu, strona linku), które widzi, że twoje urządzenie o nie prosi. Wyłącz je w {host}."
 }
