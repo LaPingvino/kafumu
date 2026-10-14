@@ -345,6 +345,9 @@ func (s *Service) Withdraw(ctx context.Context, id, secret string) error {
 	}
 	s.mu.Lock()
 	delete(s.cells, n.Cell)
+	if k := repeatKey(n); k != "" { // taken back: saying it again here is fine (Joop: a taken-back coffee couldn't be resent)
+		delete(s.repeats[k], n.Cell)
+	}
 	s.mu.Unlock()
 	return nil
 }
@@ -495,7 +498,7 @@ type Service struct {
 	subj   map[string]cellEntry // lines without a place per subject (78a)
 	// repeats: recently posted texts (normalised) and the cells they went
 	// to, for this node's repeat policy (see repeatPrice).
-	repeats map[string]map[string]time.Time
+	repeats map[string]map[string]seenText
 
 	// AuthorFor, if set, names the poster of a request who asked to post
 	// under their name (signed in, named); "" otherwise.
@@ -651,7 +654,7 @@ func (s *Service) PostAs(ctx context.Context, raw, author string) (*Note, error)
 		n.ExpiresAt = n.At.Add(PairTTL)
 		return n, s.Store.Put(ctx, n)
 	}
-	extra, err := s.repeatPrice(n, now)
+	extra, err := s.repeatPrice(ctx, n, now)
 	if err != nil {
 		return nil, err
 	}
@@ -972,24 +975,37 @@ func repeatKey(n *Note) string {
 	return hex.EncodeToString(h[:12])
 }
 
+// seenText: when a text was last said in a cell, and as which line.
+type seenText struct {
+	at time.Time
+	id string
+}
+
 // repeatPrice returns the extra bits for n, or ErrRepeat when it's already
-// in this cell.
-func (s *Service) repeatPrice(n *Note, now time.Time) (int, error) {
+// in this cell — unless that line was taken back or hidden since (asked of
+// the store, fresh: the take-back may have reached another instance).
+func (s *Service) repeatPrice(ctx context.Context, n *Note, now time.Time) (int, error) {
 	k := repeatKey(n)
 	if k == "" {
 		return 0, nil
 	}
 	s.mu.Lock()
-	defer s.mu.Unlock()
-	others := 0
-	for cell, at := range s.repeats[k] {
-		if now.Sub(at) > repeatWindow {
+	others, here := 0, ""
+	for cell, st := range s.repeats[k] {
+		if now.Sub(st.at) > repeatWindow {
 			continue
 		}
 		if cell == n.Cell {
-			return 0, ErrRepeat
+			here = st.id
+			continue
 		}
 		others++
+	}
+	s.mu.Unlock()
+	if here != "" {
+		if h, err := s.Store.Hidden(ctx); err != nil || !h[here] {
+			return 0, ErrRepeat
+		}
 	}
 	return others * RepeatBits, nil
 }
@@ -1002,12 +1018,12 @@ func (s *Service) rememberRepeat(n *Note, now time.Time) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	if s.repeats == nil || len(s.repeats) > 20000 {
-		s.repeats = map[string]map[string]time.Time{}
+		s.repeats = map[string]map[string]seenText{}
 	}
 	if s.repeats[k] == nil {
-		s.repeats[k] = map[string]time.Time{}
+		s.repeats[k] = map[string]seenText{}
 	}
-	s.repeats[k][n.Cell] = now
+	s.repeats[k][n.Cell] = seenText{now, n.ID}
 }
 
 // ForgetAll drops this instance's caches (admin maintenance).

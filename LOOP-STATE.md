@@ -1386,6 +1386,10 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
 - [x] Polish (Joop: no way to find a message's address): every local line shows 🔗 at the end of its info line
       (its /n/<id>; a tap copies it, ctrl/long-press opens it). Browser step.
 
+- [x] Fix (Joop: a taken-back coffee couldn't be resent, "this message is already here"): the repeat check now
+      remembers which line said it and lets it through when that line was taken back (asked of the store, so it
+      holds across instances). Go test.
+
 ## 92. Look, access, media (Joop 2026-10-14; after 91 and 90; the last item lowest)
 - [x] 92a. Done: Me → 🎨 Look (for everyone, per device): 🌗 automatic (follows the device) · ☀️ light · 🌙 dark · ◐
       high contrast (black, white borders, yellow accent, underlined links, a strong focus ring); html[data-theme] is
@@ -1421,3 +1425,12 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       there, as you unless you chose anonymous); 📤's 👀/🤝 send what you typed as your comment; Hide, ⚑ and 🔁 behind ⋯
       on lines and posts. Browser step. Was: Each card: a reply box that's simply there (type → it answers; quick reactions next to it), "📤 to a
       friend" sends the card with what you typed as your comment; hide, report and the rest behind one ⋯.
+
+## 95. Coffee goes to your contacts first (Joop 2026-10-14; before 93)
+- [ ] 95a. ☕ / 📍 I'm here! signals your contacts first (a private signal through each pair, like 🤝 / 👀: "☕ Joop is
+      around Barreiro, up for coffee"); posting it in public is an extra choice beside it.
+- [ ] 95b. Contact groups: tag contacts into groups on the device (Friends, Work…), and send the signal to one group.
+- [ ] 95c. Auto-signal (Joop's own default): on, the same area refreshes by itself (once an hour at most while the
+      page is open there); a new area asks first ("Tell your contacts you're in Arnhem?").
+- [ ] 95d. A clear banner while your contacts know where you last were ("📍 Your contacts see you around Barreiro
+      since 14:00 · stop"); stop sends a "gone" signal.

@@ -587,6 +587,26 @@ func TestWithdraw(t *testing.T) {
 	if got, _ := s.InCells(ctx, []string{"8ccgmw"}); len(got) != 0 {
 		t.Fatal("withdrawn line still shows")
 	}
+	// Taken back, it can be said again here (it was "already here").
+	if _, err := s.Post(ctx, mine(BaseBits, now, "☕ Who's up for coffee?", "#geo8ccgmw #wd"+hex.EncodeToString(h[:])[:16])); err != nil {
+		t.Fatalf("resent after taking back: %v", err)
+	}
+	// The same across instances: said on one, taken back on another.
+	st := NewMemoryStore()
+	s1, s2 := NewService(st), NewService(st)
+	n, err = s1.Post(ctx, mine(BaseBits, now, "☕ Anyone for a coffee here?", "#geo8ccgmw #wd"+hex.EncodeToString(h[:])[:16]))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := s2.Withdraw(ctx, n.ID, secret); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := s1.Post(ctx, mine(BaseBits, now, "☕ Anyone for a coffee here?", "#geo8ccgmw")); err != nil {
+		t.Fatalf("resent on the other instance: %v", err)
+	}
+	if _, err := s1.Post(ctx, mine(BaseBits, now, "☕ Anyone for a coffee here?", "#geo8ccgmw #cafe")); err != ErrRepeat {
+		t.Fatalf("a live repeat still drops: %v", err)
+	}
 }
 
 // Stopping sources (81c2): an account, or a network by its keyed hash (the
