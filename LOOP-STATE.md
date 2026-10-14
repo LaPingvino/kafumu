@@ -1460,3 +1460,4 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       suggested in Barreiro from one account sharing its own site); still 3 needed. Go test.
 - [x] Polish (idle tick): on a phone's first visit the install bar and the page's help bar stacked (~180 px); now one
       at a time: the install offer waits until the help bar is closed. Checked with an iPhone UA (not in the suite).
+- [x] Polish (idle tick): narrow screens wrap a field with a long button (the Bluesky field read "you.bsky.soc"). Checked on kafumu.com.
