@@ -147,7 +147,16 @@ details form input { margin: 0; }
 /* With a place name, the name leads and the cell tag becomes its caption. */
 .cell-tag.named { word-break: normal; overflow-wrap: anywhere; line-height: 1.1; }
 .place-also { margin: -.1rem 0 .6rem; font-size: .9rem; opacity: .65; line-height: 1.4; }
-.cell-tag.named #cell-tag { display: block; font-size: 1rem; font-weight: 500; opacity: .6; letter-spacing: .02em; margin-top: .3rem; }
+.cell-tag.named .tag-line { display: block; font-size: 1rem; font-weight: 500; letter-spacing: .02em; margin-top: .3rem; }
+.cell-tag.named #cell-tag { opacity: .6; }
+/* The heading's own controls (91c). */
+.cell-tag { position: relative; padding-right: 3.6rem; }
+.cell-tag .head-icons { position: absolute; top: .2rem; right: 0; display: flex; gap: 2px; font-size: 1.15rem; line-height: 1; }
+.cell-tag .head-icons a { padding: 6px; border-radius: 8px; text-decoration: none; opacity: .75; }
+.cell-tag .head-icons a:hover { opacity: 1; background: var(--button-hover); }
+.cell-tag .head-btn { display: inline-block; width: auto; margin: 0 0 0 .25em; padding: 2px 9px; font-size: 1rem; line-height: 1.4; vertical-align: middle;
+  background: var(--button-bg); color: var(--fg); border: 0; border-radius: 999px; text-decoration: none; font-weight: 600; letter-spacing: 0; }
+.cell-tag .head-btn:hover { background: var(--button-hover); }
 .events { border-left: 4px solid var(--accent-bg); padding: 10px 16px; }
 .events p { margin: 0; }
 .card-preview { padding: 4px 16px 10px; }

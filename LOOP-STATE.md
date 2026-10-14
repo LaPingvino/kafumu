@@ -1279,7 +1279,9 @@ Around · Chats (mailbox + Contacts, 🔔 folded in) · Connect (your code + My 
       it: 💬 Say · ❓ Ask · ☕ Coffee (the text optional for coffee); the composer's options fold under it.
 - [x] 91c-0. The tag row's ✎ / 🗣+ / #+ come first on its line (Joop: hard to find); an event card (Web Summit) has ✕
       (remembered per device).
-- [ ] 91c. The small buttons find their place (Joop): ✎ right after the big place name changes the area; share right
+- [x] 91c. Done: ✎ after the place name, ↗ after the #geo line, 📅 / 📰 as icons in the heading's corner; those four
+      left the button row (host a meetup, add a source, be findable remain until 91e). Checked at 390 px.
+      Was: The small buttons find their place (Joop): ✎ right after the big place name changes the area; share right
       after the #geo tag line; 📅 calendar and 📰 RSS as small icons in the heading's top-right corner (like Eventa
       Servo); the row of small buttons goes.
 - [ ] 91e. One post interface (Joop): the field on top gets a kind switch that changes the form below it: a line, a
@@ -1347,3 +1349,13 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       Bluesky posts (their bsky.app URL) and named people (/@name) get 📤 too; "🔗 Link" in every 📤 group (share sheet,
       else copied). /n/<id> skipped: a line lives ≤ 7 days and its area link already says where. Was: A line's permalink (`/n/<id>` → its area, highlighted) + "🔗 Link" in every item's share row; shares
       carry it.
+
+## 92. Look, access, media (Joop 2026-10-14; after 91 and 90; the last item lowest)
+- [ ] 92a. Theming: light / dark / automatic (follows the device) / high contrast, chosen per device (Me), applied
+      everywhere via the color tokens.
+- [ ] 92b. Accessibility: keyboard use everywhere (focus visible, tab order, Esc closes, no keyboard traps) and screen
+      readers (names, roles, live regions for what changes); an audit pass with fixes.
+- [ ] 92c. Pictures and videos: show or hide them (per device), and post them through services we can embed
+      (links to Bluesky images, PeerTube, YouTube… shown as embeds when on).
+- [ ] 92d. (lowest) A picture/video view of an area: only the photos and videos people share there (Bluesky and the
+      like), swiped through one by one.

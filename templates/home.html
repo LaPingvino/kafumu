@@ -10,7 +10,13 @@
   </div>
   <div id="views" class="chips scroll-row"></div>
   <p class="muted" id="status"></p>
-  <h1 class="cell-tag" hidden><span id="place-name"></span><span id="cell-tag"></span></h1>
+  <!-- The heading carries what's about the area itself (91c): ✎ changes it, ↗ shares it, and the
+       calendar and RSS subscriptions sit as small icons in the corner. -->
+  <h1 class="cell-tag" hidden><span class="head-icons">
+      <a id="cal-link" href="/cal/" title="{{ts .Lang "area.calendar_title"}}" aria-label="{{ts .Lang "area.calendar_title"}}">📅</a>
+      <a id="rss-link" href="/rss/" title="{{ts .Lang "area.rss_title"}}" aria-label="{{ts .Lang "area.rss_title"}}" type="application/rss+xml">📰</a></span><span id="place-name"></span>
+    <button type="button" id="change-area" class="head-btn" title="{{ts .Lang "area.change"}}" aria-label="{{ts .Lang "area.change"}}">✎</button><span class="tag-line"><span id="cell-tag"></span>
+    <a id="share" href="#" class="head-btn" title="{{ts .Lang "home.share"}}" aria-label="{{ts .Lang "home.share"}}">↗</a></span></h1>
   <p id="place-also" class="place-also" hidden></p>
   <!-- A site people here share often, with a feed (81f): add its news to this area? -->
   <div id="suggest-source" class="card events" style="padding:8px 16px" hidden>
@@ -33,10 +39,6 @@
     </div>
     <!-- About the area rather than in it: smaller, out of the way. -->
     <p class="actions minor">
-      <button type="button" id="change-area" class="pill-sm">📍 {{t .Lang "area.change"}}</button>
-      <a id="share" href="#" role="button" class="pill-sm">↗ {{t .Lang "home.share"}}</a>
-      <a id="cal-link" href="/cal/" role="button" class="pill-sm" title="{{ts .Lang "area.calendar_title"}}">📅 {{t .Lang "area.calendar"}}</a>
-      <a id="rss-link" href="/rss/" role="button" class="pill-sm" title="{{ts .Lang "area.rss_title"}}" type="application/rss+xml">📰 RSS</a>
       <a href="/meetups/new" role="button" class="pill-sm">＋ {{t .Lang "meetup.new_title"}}</a>
       <button type="button" id="source-open" class="pill-sm">📰 {{t .Lang "source.add"}}</button>
       <a id="be-findable" href="/findable" role="button" class="pill-sm">👁 {{t .Lang "home.be_findable"}}</a>
