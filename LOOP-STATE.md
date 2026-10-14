@@ -1427,9 +1427,11 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       friend" sends the card with what you typed as your comment; hide, report and the rest behind one ⋯.
 
 ## 95. Coffee goes to your contacts first (Joop 2026-10-14; before 93)
-- [ ] 95a. ☕ / 📍 I'm here! become one signal to your contacts only ("are my friends nearby"): a private signal
-      through each pair, like 🤝 / 👀 ("☕ Joop is around Barreiro"); contacts nearby see it. No public coffee post:
-      in public, a message does everything better (Joop), so the public coffee line goes.
+- [x] 95a. Done: "📍 Your contacts can see you're around here today: the area, not your exact spot" + ⏸ Pause /
+      ▶ Share again (per device; nothing shared without a location fix); ☕ Coffee? on a contact around today goes to
+      just them; the ☕ broadcast is gone (brands keep their own public call button). Was: (Joop: no broadcast; transparency so people can opt in to coffee when close.) Your contacts see the
+      area you're in today (the existing day/cell beacons, only from a location fix), said plainly on the area page
+      with ⏸ pause; a contact around today shows ☕ Coffee? that goes to just them; the ☕ broadcast button goes.
 - [ ] 95b. Contact groups: tag contacts into groups on the device (Friends, Work…), and send the signal to one group.
 - [ ] 95c. Auto-signal (Joop's own default): on, the same area refreshes by itself (once an hour at most while the
       page is open there); a new area asks first ("Tell your contacts you're in Arnhem?").

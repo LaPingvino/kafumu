@@ -410,7 +410,7 @@ try {
   await A.evaluate("document.getElementById('tour-start').click(); true");
   await A.waitFor("!document.getElementById('tour').hidden && !!document.querySelector('.cell-tag.tour-focus') && document.getElementById('tour-step').textContent.startsWith('1 /')", "tour starts at the area");
   await A.evaluate("document.getElementById('tour-next').click(); true");
-  await A.waitFor("!!document.querySelector('#coffee.tour-focus')", "tour step 2: coffee");
+  await A.waitFor("!!document.querySelector('#say.tour-focus')", "tour step 2: say");
   for (let i = 0; i < 12 && !(await A.evaluate("!!document.querySelector('a.bell.tour-focus')")); i++) await A.evaluate("document.getElementById('tour-next').click(); true");
   await A.waitFor("!!document.querySelector('a.bell.tour-focus') && /Chats/.test(document.getElementById('tour').textContent)", "the tour ends at the Chats tab");
   await A.evaluate("document.getElementById('tour-done').click(); true");
@@ -426,17 +426,9 @@ try {
   await A.evaluate("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')); li.querySelector('button.report').click(); li.querySelector('.report-reasons .chip').click(); return true; })()");
   await A.waitFor("document.getElementById('feed').textContent.includes('Reported')", "report sent");
 
-  // Who's up for coffee: A asks, B joins from the message and they connect.
+  // No broadcast ☕ (95a): coffee goes to a contact who's around, from their card.
   await A.goto(base + "/?cell=6fg223");
-  await A.evaluate("document.getElementById('quick-text').value = ''; document.getElementById('coffee').click(); true"); // ☕ sends at once (94a)
-  await A.waitFor("document.getElementById('quick-status').textContent.length > 0 && !/…|\\d+ tries/.test(document.getElementById('quick-status').textContent)", "coffee asked", 30000);
-  for (let i = 0; ; i++) {
-    await B.goto(base + "/?cell=6fg223");
-    try { await B.waitFor("!!document.querySelector('#feed a[href*=\"/c#v1.\"]')", "Join button for B", 8000); break; }
-    catch (e) { if (i >= 8) throw e; }
-  }
-  await B.evaluate("location.href = document.querySelector('#feed a[href*=\"/c#v1.\"]').href; true");
-  await B.waitFor("!document.getElementById('accept-area').hidden", "B on the connect page from Join");
+  await A.waitFor("!document.getElementById('coffee') && document.getElementById('where-shared').hidden", "no ☕ broadcast; nothing shared without a location fix");
 
   // Meetups: A makes an account on the way to hosting, B sees it in Around.
   await A.goto(base + "/meetups/new");

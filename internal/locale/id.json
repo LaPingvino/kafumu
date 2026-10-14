@@ -793,5 +793,9 @@
   "js.here_until": "Bisa ditemukan di sini sampai {time}",
   "here.need_name": "Pilih dulu nama untuk akunmu",
   "js.more": "Lainnya",
-  "js.reply_placeholder": "Balas…"
+  "js.reply_placeholder": "Balas…",
+  "js.where_shared": "Kontakmu bisa melihat kamu ada di sekitar sini hari ini: areanya, bukan titik persisnya.",
+  "js.where_paused": "Kontakmu tidak melihat di mana kamu berada.",
+  "js.where_pause": "Jeda",
+  "js.where_resume": "Bagikan lagi"
 }

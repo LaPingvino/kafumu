@@ -793,5 +793,9 @@
   "js.here_until": "Do znalezienia tu do {time}",
   "here.need_name": "Najpierw wybierz nazwę dla swojego konta",
   "js.more": "Więcej",
-  "js.reply_placeholder": "Odpowiedz…"
+  "js.reply_placeholder": "Odpowiedz…",
+  "js.where_shared": "Twoje kontakty widzą, że jesteś dziś w tej okolicy: obszar, nie dokładne miejsce.",
+  "js.where_paused": "Twoje kontakty nie widzą, gdzie jesteś.",
+  "js.where_pause": "Wstrzymaj",
+  "js.where_resume": "Udostępniaj znowu"
 }

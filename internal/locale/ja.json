@@ -793,5 +793,9 @@
   "js.here_until": "{time}までここで見つけてもらえます",
   "here.need_name": "まずアカウントの名前を決めてください",
   "js.more": "その他",
-  "js.reply_placeholder": "返信…"
+  "js.reply_placeholder": "返信…",
+  "js.where_shared": "連絡先の人には、今日あなたがこのあたりにいることが見えます（地域だけで、正確な場所ではありません）。",
+  "js.where_paused": "連絡先の人には、あなたの居場所は見えません。",
+  "js.where_pause": "一時停止",
+  "js.where_resume": "また共有する"
 }

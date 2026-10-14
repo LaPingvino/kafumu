@@ -793,5 +793,9 @@
   "js.here_until": "Findable here until {time}",
   "here.need_name": "First pick a name for your account",
   "js.more": "More",
-  "js.reply_placeholder": "Reply…"
+  "js.reply_placeholder": "Reply…",
+  "js.where_shared": "Your contacts can see you're around here today: the area, not your exact spot.",
+  "js.where_paused": "Your contacts don't see where you are.",
+  "js.where_pause": "Pause",
+  "js.where_resume": "Share again"
 }

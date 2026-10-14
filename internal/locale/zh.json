@@ -793,5 +793,9 @@
   "js.here_until": "在这里可被找到，直到 {time}",
   "here.need_name": "先为你的账户选一个名字",
   "js.more": "更多",
-  "js.reply_placeholder": "回复…"
+  "js.reply_placeholder": "回复…",
+  "js.where_shared": "你的联系人能看到你今天在这一带：只是区域，不是确切位置。",
+  "js.where_paused": "你的联系人看不到你在哪里。",
+  "js.where_pause": "暂停",
+  "js.where_resume": "重新共享"
 }

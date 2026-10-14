@@ -139,7 +139,11 @@
     dev.store.contacts().then(function (cs) {
       cs = cs.filter(function (x) { return x.card; });
       if (!cs.length) return;
-      return (gps ? pair.checkIn(c, cs) : Promise.resolve()).then(function () {
+      // Your contacts see the area you're in today (not the spot), from a
+      // real location fix; said plainly on the page, with a pause (95a).
+      var sharing = gps && pref("kafumu.shareWhere") !== "off";
+      drawWhere(gps, sharing);
+      return (sharing ? pair.checkIn(c, cs) : Promise.resolve()).then(function () {
         return pair.around(rings(c, 1).map(function (p) { return p[0]; }), cs.slice(0, 30));
       }).then(function (hits) {
         var sec = noSection, list = sinks.friends;
@@ -168,10 +172,34 @@
           var meta = document.createElement("div");
           meta.className = "meta";
           meta.textContent = tr(h.near ? "was_nearby" : "was_here", { when: when });
-          a.appendChild(who); a.appendChild(meta); li.appendChild(a); list.appendChild(li);
+          a.appendChild(who); a.appendChild(meta); li.appendChild(a);
+          if (h.day === today) { // around today: ☕ to just them (95a)
+            var cb = document.createElement("button");
+            cb.type = "button"; cb.className = "pill-sm suggested"; cb.textContent = tr("sig_btn_coffee");
+            cb.onclick = function () {
+              cb.disabled = true;
+              pair.send(h.contact, { t: "signal", s: "coffee", text: (travel.place || "#geo" + c).slice(0, 140), at: new Date().toISOString() })
+                .then(function () { cb.textContent = "✓ " + tr("sig_btn_coffee"); }, function () { cb.disabled = false; });
+            };
+            var row = document.createElement("div"); row.className = "actions"; row.appendChild(cb); li.appendChild(row);
+          }
+          list.appendChild(li);
         });
       });
     }).catch(function () {});
+  }
+
+  // drawWhere (95a): "📍 Your contacts can see you're around here today"
+  // while it's shared, "⏸ … paused" when you paused it; nothing without a
+  // location fix (then nothing is shared).
+  function drawWhere(gps, sharing) {
+    var el = $("where-shared");
+    if (!el) return;
+    el.hidden = !gps;
+    el.querySelector("span").textContent = sharing ? "📍 " + tr("where_shared") : "⏸ " + tr("where_paused");
+    var b = $("where-toggle");
+    b.textContent = sharing ? "⏸ " + tr("where_pause") : "▶ " + tr("where_resume");
+    b.onclick = function () { pref("kafumu.shareWhere", sharing ? "off" : "on"); friendsAround(currentCell, true); };
   }
 
   // Travel: your "home" cell is the one you've used most; somewhere more
@@ -521,11 +549,12 @@
 
   // "Who's up for coffee?": a local message carrying your connect code, so
   // whoever taps Join swaps cards with you (only what your persona shares).
-  // ☕ (94a): sends the coffee line at once (your words if you typed some).
-  $("coffee").onclick = function () {
-    var q = quickText();
+  // A brand's own call (e.g. "🙏 Who wants to pray with me?"): a public line
+  // here, your words if you typed some. Plain Kafumu has no such button (95a).
+  if ($("coffee")) $("coffee").onclick = function () {
+    var q = quickText(), call = $("coffee").textContent.trim();
     if (q) $("quick-text").value = "";
-    postCoffee($("coffee"), $("quick-status"), q ? function () { return q; } : function (card) { return tr("coffee_text", { name: card.name || "" }); }, function () { return olnKeywords() + " #coffee"; });
+    postCoffee($("coffee"), $("quick-status"), function () { return q || call; }, function () { return olnKeywords() + " #coffee"; });
   };
   // 📍 I'm here! (94a): findable in this area for a while, set right here;
   // once on, it's one line ("findable here until 18:00 · change").
@@ -733,7 +762,7 @@
   }
 
   // ---- "I'm confused": a short tour of the page, one thing at a time ----
-  var TOUR = [[".cell-tag", "tour_area"], ["#coffee", "tour_coffee"], ["#say", "tour_say"], ["#ask", "tour_ask"],
+  var TOUR = [[".cell-tag", "tour_area"], ["#say", "tour_say"], ["#ask", "tour_ask"],
     ["#filter-chips", "tour_chips"], ["#feed-kinds", "tour_feed"], ["#change-area", "tour_change"], [".switcher.bottom", "tour_tabs"], ["a.bell", "tour_bell"]];
   var tourAt = -1;
   // visible: the first match that's on screen (the tabs are twice in the page:

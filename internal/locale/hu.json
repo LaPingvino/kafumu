@@ -793,5 +793,9 @@
   "js.here_until": "Itt megtalálható eddig: {time}",
   "here.need_name": "Először válassz nevet a fiókodnak",
   "js.more": "Továbbiak",
-  "js.reply_placeholder": "Válasz…"
+  "js.reply_placeholder": "Válasz…",
+  "js.where_shared": "A kapcsolataid látják, hogy ma itt vagy a környéken: a területet, nem a pontos helyedet.",
+  "js.where_paused": "A kapcsolataid nem látják, hol vagy.",
+  "js.where_pause": "Szünet",
+  "js.where_resume": "Megosztás újra"
 }

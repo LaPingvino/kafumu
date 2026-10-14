@@ -793,5 +793,9 @@
   "js.here_until": "Trovebla ĉi tie ĝis {time}",
   "here.need_name": "Unue elektu nomon por via konto",
   "js.more": "Pli",
-  "js.reply_placeholder": "Respondi…"
+  "js.reply_placeholder": "Respondi…",
+  "js.where_shared": "Viaj kontaktoj vidas, ke vi hodiaŭ estas ĉi-ĉirkaŭe: la regiono, ne via ĝusta loko.",
+  "js.where_paused": "Viaj kontaktoj ne vidas, kie vi estas.",
+  "js.where_pause": "Paŭzigi",
+  "js.where_resume": "Denove kunhavigi"
 }

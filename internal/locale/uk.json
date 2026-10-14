@@ -793,5 +793,9 @@
   "js.here_until": "Вас видно тут до {time}",
   "here.need_name": "Спершу виберіть ім'я для свого акаунта",
   "js.more": "Ще",
-  "js.reply_placeholder": "Відповісти…"
+  "js.reply_placeholder": "Відповісти…",
+  "js.where_shared": "Твої контакти бачать, що сьогодні ти десь тут: район, а не точне місце.",
+  "js.where_paused": "Твої контакти не бачать, де ти.",
+  "js.where_pause": "Пауза",
+  "js.where_resume": "Знову показувати"
 }

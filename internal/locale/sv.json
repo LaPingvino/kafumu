@@ -793,5 +793,9 @@
   "js.here_until": "Sökbar här till {time}",
   "here.need_name": "Välj först ett namn för ditt konto",
   "js.more": "Mer",
-  "js.reply_placeholder": "Svara…"
+  "js.reply_placeholder": "Svara…",
+  "js.where_shared": "Dina kontakter ser att du är här i närheten i dag: området, inte din exakta plats.",
+  "js.where_paused": "Dina kontakter ser inte var du är.",
+  "js.where_pause": "Pausa",
+  "js.where_resume": "Dela igen"
 }

@@ -793,5 +793,9 @@
   "js.here_until": "Tìm thấy ở đây đến {time}",
   "here.need_name": "Trước tiên hãy chọn tên cho tài khoản của bạn",
   "js.more": "Thêm",
-  "js.reply_placeholder": "Trả lời…"
+  "js.reply_placeholder": "Trả lời…",
+  "js.where_shared": "Các liên hệ của bạn thấy hôm nay bạn ở quanh đây: khu vực, không phải vị trí chính xác.",
+  "js.where_paused": "Các liên hệ của bạn không thấy bạn ở đâu.",
+  "js.where_pause": "Tạm dừng",
+  "js.where_resume": "Chia sẻ lại"
 }

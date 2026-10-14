@@ -793,5 +793,9 @@
   "js.here_until": "Til at finde her indtil {time}",
   "here.need_name": "Vælg først et navn til din konto",
   "js.more": "Mere",
-  "js.reply_placeholder": "Svar…"
+  "js.reply_placeholder": "Svar…",
+  "js.where_shared": "Dine kontakter kan se, at du er her i området i dag: området, ikke dit præcise sted.",
+  "js.where_paused": "Dine kontakter kan ikke se, hvor du er.",
+  "js.where_pause": "Sæt på pause",
+  "js.where_resume": "Del igen"
 }

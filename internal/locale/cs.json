@@ -793,5 +793,9 @@
   "js.here_until": "K nalezení tady do {time}",
   "here.need_name": "Nejdřív si vyber jméno pro svůj účet",
   "js.more": "Více",
-  "js.reply_placeholder": "Odpovědět…"
+  "js.reply_placeholder": "Odpovědět…",
+  "js.where_shared": "Tvoje kontakty vidí, že jsi dnes tady v okolí: oblast, ne přesné místo.",
+  "js.where_paused": "Tvoje kontakty nevidí, kde jsi.",
+  "js.where_pause": "Pozastavit",
+  "js.where_resume": "Znovu sdílet"
 }

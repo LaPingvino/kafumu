@@ -793,5 +793,9 @@
   "js.here_until": "Vindbaar hier tot {time}",
   "here.need_name": "Kies eerst een naam voor je account",
   "js.more": "Meer",
-  "js.reply_placeholder": "Reageer…"
+  "js.reply_placeholder": "Reageer…",
+  "js.where_shared": "Je contacten zien dat je vandaag hier in de buurt bent: het gebied, niet je precieze plek.",
+  "js.where_paused": "Je contacten zien niet waar je bent.",
+  "js.where_pause": "Pauzeren",
+  "js.where_resume": "Weer delen"
 }

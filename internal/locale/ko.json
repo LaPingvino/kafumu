@@ -793,5 +793,9 @@
   "js.here_until": "{time}까지 여기서 찾을 수 있어요",
   "here.need_name": "먼저 계정 이름을 정하세요",
   "js.more": "더 보기",
-  "js.reply_placeholder": "답글…"
+  "js.reply_placeholder": "답글…",
+  "js.where_shared": "연락처 사람들은 오늘 당신이 이 근처에 있다는 걸 볼 수 있어요. 정확한 위치가 아니라 지역만요.",
+  "js.where_paused": "연락처 사람들은 당신이 어디 있는지 볼 수 없어요.",
+  "js.where_pause": "일시 중지",
+  "js.where_resume": "다시 공유"
 }

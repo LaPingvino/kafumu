@@ -793,5 +793,9 @@
   "js.here_until": "De găsit aici până la {time}",
   "here.need_name": "Mai întâi alege un nume pentru contul tău",
   "js.more": "Mai mult",
-  "js.reply_placeholder": "Răspunde…"
+  "js.reply_placeholder": "Răspunde…",
+  "js.where_shared": "Contactele tale văd că azi ești prin zonă: zona, nu locul exact.",
+  "js.where_paused": "Contactele tale nu văd unde ești.",
+  "js.where_pause": "Pauză",
+  "js.where_resume": "Partajează din nou"
 }
