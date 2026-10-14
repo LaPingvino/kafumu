@@ -785,5 +785,6 @@
   "look.media": "Obrázky a videa",
   "look.media_on": "Zobrazit",
   "look.media_off": "Skrýt",
-  "privacy.media": "Obrázky se načítají odtud, kde jsou uložené (servery Bluesky, YouTube pro náhled videa, web odkazu), a ty vidí, že je tvé zařízení žádá. Vypni je v {host}."
+  "privacy.media": "Obrázky se načítají odtud, kde jsou uložené (servery Bluesky, YouTube pro náhled videa, web odkazu), a ty vidí, že je tvé zařízení žádá. Vypni je v {host}.",
+  "js.kind_pics": "Obrázky a videa"
 }

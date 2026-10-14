@@ -785,5 +785,6 @@
   "look.media": "Bilder und Videos",
   "look.media_on": "Zeigen",
   "look.media_off": "Ausblenden",
-  "privacy.media": "Bilder laden von dort, wo sie liegen (Blueskys Bildserver, YouTube für das Standbild eines Videos, die Seite eines Links), die sieht, dass dein Gerät sie anfragt. Ausschalten unter {host}."
+  "privacy.media": "Bilder laden von dort, wo sie liegen (Blueskys Bildserver, YouTube für das Standbild eines Videos, die Seite eines Links), die sieht, dass dein Gerät sie anfragt. Ausschalten unter {host}.",
+  "js.kind_pics": "Bilder und Videos"
 }

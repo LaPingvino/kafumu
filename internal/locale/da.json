@@ -785,5 +785,6 @@
   "look.media": "Billeder og videoer",
   "look.media_on": "Vis",
   "look.media_off": "Skjul",
-  "privacy.media": "Billeder hentes, hvor de ligger (Blueskys billedservere, YouTube for et videostillbillede, et links eget site), som ser din enhed bede om dem. Slå dem fra under {host}."
+  "privacy.media": "Billeder hentes, hvor de ligger (Blueskys billedservere, YouTube for et videostillbillede, et links eget site), som ser din enhed bede om dem. Slå dem fra under {host}.",
+  "js.kind_pics": "Billeder og videoer"
 }

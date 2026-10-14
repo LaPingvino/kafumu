@@ -785,5 +785,6 @@
   "look.media": "Képek és videók",
   "look.media_on": "Mutasd",
   "look.media_off": "Rejtsd el",
-  "privacy.media": "A képek onnan töltődnek, ahol tárolják őket (a Bluesky képszerverei, a YouTube egy videó állóképéhez, egy link oldala), amely látja, hogy az eszközöd kéri őket. Kikapcsolás: {host}."
+  "privacy.media": "A képek onnan töltődnek, ahol tárolják őket (a Bluesky képszerverei, a YouTube egy videó állóképéhez, egy link oldala), amely látja, hogy az eszközöd kéri őket. Kikapcsolás: {host}.",
+  "js.kind_pics": "Képek és videók"
 }

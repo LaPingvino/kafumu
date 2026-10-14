@@ -1390,5 +1390,6 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       with ▶ (only the still loads); Account → Look: 🖼 show / hide, per device; the privacy page says where pictures
       load from. Posting = putting such a link in a line. 24 languages. Was: Pictures and videos: show or hide them (per device), and post them through services we can embed
       (links to Bluesky images, PeerTube, YouTube… shown as embeds when on).
-- [ ] 92d. (lowest) A picture/video view of an area: only the photos and videos people share there (Bluesky and the
+- [x] 92d. Done (simple form): a "🖼 Pictures and videos n" chip next to the kinds shows only the cards with
+      pictures, bigger, one after another (27 around Barreiro/Lisbon when checked). Was: (lowest) A picture/video view of an area: only the photos and videos people share there (Bluesky and the
       like), swiped through one by one.

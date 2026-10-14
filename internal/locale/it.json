@@ -785,5 +785,6 @@
   "look.media": "Foto e video",
   "look.media_on": "Mostra",
   "look.media_off": "Nascondi",
-  "privacy.media": "Le immagini si caricano da dove sono ospitate (i server di Bluesky, YouTube per l'anteprima di un video, il sito di un link), che vede il tuo dispositivo richiederle. Disattivale in {host}."
+  "privacy.media": "Le immagini si caricano da dove sono ospitate (i server di Bluesky, YouTube per l'anteprima di un video, il sito di un link), che vede il tuo dispositivo richiederle. Disattivale in {host}.",
+  "js.kind_pics": "Foto e video"
 }

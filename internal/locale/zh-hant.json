@@ -785,5 +785,6 @@
   "look.media": "圖片和影片",
   "look.media_on": "顯示",
   "look.media_off": "隱藏",
-  "privacy.media": "圖片從其所在處載入（Bluesky 的圖片伺服器、影片截圖來自 YouTube、連結所在網站），對方能看到你的裝置在請求。可在 {host} 中關閉。"
+  "privacy.media": "圖片從其所在處載入（Bluesky 的圖片伺服器、影片截圖來自 YouTube、連結所在網站），對方能看到你的裝置在請求。可在 {host} 中關閉。",
+  "js.kind_pics": "圖片和影片"
 }

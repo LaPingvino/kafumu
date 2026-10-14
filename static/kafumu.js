@@ -83,6 +83,7 @@
     }
     chip(tr("kind_all"), all, function () { setFeedKinds(KINDS.slice()); });
     var bySrc = on.length === 1 && /^src:/.test(on[0]) ? on[0].slice(4) : "";
+    var pics = on.length === 1 && on[0] === "pics"; // only cards with pictures or videos (92d)
     KINDS.forEach(function (k) {
       var n = cardsOf(k).filter(function (li) { return !li.classList.contains("muted") && !li.classList.contains("source-line"); }).length; // a source's head isn't news
       if (!n) return;
@@ -90,7 +91,7 @@
       chip(tr("kind_" + k) + " " + n, pressed, function () {
         // From All, a kind chip shows just that kind; after that, chips
         // add and remove kinds; none left means All again.
-        if (all || bySrc) { setFeedKinds([k]); return; }
+        if (all || bySrc || pics) { setFeedKinds([k]); return; }
         var next = pressed ? on.filter(function (x) { return x !== k; }) : on.concat([k]);
         setFeedKinds(next.length ? next : KINDS.slice());
       });
@@ -107,7 +108,11 @@
       if (!srcs[id].name) return;
       chip("📰 " + srcs[id].name + (srcs[id].n ? " " + srcs[id].n : ""), bySrc === id, function () { setFeedKinds(bySrc === id ? KINDS.slice() : ["src:" + id]); });
     });
+    var withPics = []; // every card that shows a picture
+    KINDS.forEach(function (k) { cardsOf(k).forEach(function (li) { if (li.querySelector(".media:not([hidden]) img")) withPics.push(li); }); });
+    if (withPics.length) chip("🖼 " + tr("kind_pics") + " " + withPics.length, pics, function () { setFeedKinds(pics ? KINDS.slice() : ["pics"]); });
     var items = [];
+    if (pics) items = withPics;
     if (bySrc) items = cardsOf("news").filter(function (li) { return li.dataset.src === bySrc; });
     KINDS.forEach(function (k) { if (on.indexOf(k) >= 0) items = items.concat(cardsOf(k)); });
     var real = items.filter(function (li) { return !li.classList.contains("muted"); });
@@ -117,6 +122,7 @@
     if (words.length) items = items.filter(function (li) { var t = fold(li.textContent); return words.every(function (w) { return t.indexOf(w) >= 0; }); });
     items.sort(function (a, z) { return parseFloat(z.dataset.score) - parseFloat(a.dataset.score); });
     ul.classList.toggle("mixed", on.length > 1);
+    ul.classList.toggle("pics", pics);
     ul.textContent = "";
     items.forEach(function (li) { attachReplies(li); ul.appendChild(li); });
     carriedCards(ul, items);

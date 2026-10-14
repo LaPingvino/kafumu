@@ -785,5 +785,6 @@
   "look.media": "Imagini și videoclipuri",
   "look.media_on": "Arată",
   "look.media_off": "Ascunde",
-  "privacy.media": "Imaginile se încarcă de unde sunt găzduite (serverele Bluesky, YouTube pentru imaginea unui video, site-ul unui link), care vede că dispozitivul tău le cere. Oprește-le din {host}."
+  "privacy.media": "Imaginile se încarcă de unde sunt găzduite (serverele Bluesky, YouTube pentru imaginea unui video, site-ul unui link), care vede că dispozitivul tău le cere. Oprește-le din {host}.",
+  "js.kind_pics": "Imagini și videoclipuri"
 }

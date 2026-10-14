@@ -785,5 +785,6 @@
   "look.media": "사진과 동영상",
   "look.media_on": "보이기",
   "look.media_off": "숨기기",
-  "privacy.media": "사진은 저장된 곳(Bluesky 이미지 서버, 동영상 정지화면은 YouTube, 링크의 사이트)에서 불러오며, 그곳은 내 기기의 요청을 볼 수 있어요. {host}에서 끌 수 있어요."
+  "privacy.media": "사진은 저장된 곳(Bluesky 이미지 서버, 동영상 정지화면은 YouTube, 링크의 사이트)에서 불러오며, 그곳은 내 기기의 요청을 볼 수 있어요. {host}에서 끌 수 있어요.",
+  "js.kind_pics": "사진과 동영상"
 }

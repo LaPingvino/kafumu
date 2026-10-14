@@ -785,5 +785,6 @@
   "look.media": "Foto's en video's",
   "look.media_on": "Tonen",
   "look.media_off": "Verbergen",
-  "privacy.media": "Foto's laden van waar ze staan (de beeldservers van Bluesky, YouTube voor een videostill, de site van een link), en die ziet je apparaat erom vragen. Zet ze uit onder {host}."
+  "privacy.media": "Foto's laden van waar ze staan (de beeldservers van Bluesky, YouTube voor een videostill, de site van een link), en die ziet je apparaat erom vragen. Zet ze uit onder {host}.",
+  "js.kind_pics": "Foto's en video's"
 }

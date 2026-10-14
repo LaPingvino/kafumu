@@ -785,5 +785,6 @@
   "look.media": "Fotos e vídeos",
   "look.media_on": "Mostrar",
   "look.media_off": "Esconder",
-  "privacy.media": "As imagens carregam de onde estão alojadas (os servidores de imagens do Bluesky, o YouTube para a imagem de um vídeo, o site de um link), que vê o teu dispositivo a pedi-las. Desliga-as em {host}."
+  "privacy.media": "As imagens carregam de onde estão alojadas (os servidores de imagens do Bluesky, o YouTube para a imagem de um vídeo, o site de um link), que vê o teu dispositivo a pedi-las. Desliga-as em {host}.",
+  "js.kind_pics": "Fotos e vídeos"
 }

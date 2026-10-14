@@ -785,5 +785,6 @@
   "look.media": "Ảnh và video",
   "look.media_on": "Hiện",
   "look.media_off": "Ẩn",
-  "privacy.media": "Ảnh được tải từ nơi lưu trữ (máy chủ ảnh của Bluesky, YouTube cho ảnh video, trang của liên kết), nơi đó thấy thiết bị của bạn yêu cầu. Tắt tại {host}."
+  "privacy.media": "Ảnh được tải từ nơi lưu trữ (máy chủ ảnh của Bluesky, YouTube cho ảnh video, trang của liên kết), nơi đó thấy thiết bị của bạn yêu cầu. Tắt tại {host}.",
+  "js.kind_pics": "Ảnh và video"
 }

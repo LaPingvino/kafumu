@@ -785,5 +785,6 @@
   "look.media": "Resimler ve videolar",
   "look.media_on": "Göster",
   "look.media_off": "Gizle",
-  "privacy.media": "Resimler barındırıldıkları yerden yüklenir (Bluesky'nin resim sunucuları, bir videonun karesi için YouTube, bir bağlantının sitesi) ve onlar cihazının istediğini görür. {host} bölümünden kapatabilirsin."
+  "privacy.media": "Resimler barındırıldıkları yerden yüklenir (Bluesky'nin resim sunucuları, bir videonun karesi için YouTube, bir bağlantının sitesi) ve onlar cihazının istediğini görür. {host} bölümünden kapatabilirsin.",
+  "js.kind_pics": "Resimler ve videolar"
 }

@@ -785,5 +785,6 @@
   "look.media": "Bilder och videor",
   "look.media_on": "Visa",
   "look.media_off": "Dölj",
-  "privacy.media": "Bilder laddas från där de finns (Blueskys bildservrar, YouTube för en videos stillbild, en länks egen webbplats), som ser att din enhet frågar efter dem. Stäng av under {host}."
+  "privacy.media": "Bilder laddas från där de finns (Blueskys bildservrar, YouTube för en videos stillbild, en länks egen webbplats), som ser att din enhet frågar efter dem. Stäng av under {host}.",
+  "js.kind_pics": "Bilder och videor"
 }

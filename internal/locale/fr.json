@@ -785,5 +785,6 @@
   "look.media": "Photos et vidéos",
   "look.media_on": "Afficher",
   "look.media_off": "Masquer",
-  "privacy.media": "Les images se chargent depuis leur hébergeur (les serveurs d'images de Bluesky, YouTube pour l'aperçu d'une vidéo, le site d'un lien), qui voit ton appareil les demander. Désactive-les dans {host}."
+  "privacy.media": "Les images se chargent depuis leur hébergeur (les serveurs d'images de Bluesky, YouTube pour l'aperçu d'une vidéo, le site d'un lien), qui voit ton appareil les demander. Désactive-les dans {host}.",
+  "js.kind_pics": "Photos et vidéos"
 }
