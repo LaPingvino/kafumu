@@ -763,5 +763,8 @@
   "js.source_where": "Welk gebied? Een #geo-code, pluscode of lat,lon",
   "js.source_there": "Staat er al",
   "nav.chats": "Chats",
-  "nav.my_code": "Mijn code"
+  "nav.my_code": "Mijn code",
+  "quick.say": "Zeg",
+  "quick.ask": "Vraag",
+  "quick.coffee": "Koffie?"
 }

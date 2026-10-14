@@ -763,5 +763,8 @@
   "js.source_where": "어느 지역인가요? #geo 코드, 플러스 코드 또는 위도,경도",
   "js.source_there": "이미 있어요",
   "nav.chats": "채팅",
-  "nav.my_code": "내 코드"
+  "nav.my_code": "내 코드",
+  "quick.say": "말하기",
+  "quick.ask": "묻기",
+  "quick.coffee": "커피?"
 }

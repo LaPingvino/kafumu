@@ -763,5 +763,8 @@
   "js.source_where": "Quale zona? Un codice #geo, plus code o lat,lon",
   "js.source_there": "Già presente",
   "nav.chats": "Chat",
-  "nav.my_code": "Il mio codice"
+  "nav.my_code": "Il mio codice",
+  "quick.say": "Dì",
+  "quick.ask": "Chiedi",
+  "quick.coffee": "Caffè?"
 }

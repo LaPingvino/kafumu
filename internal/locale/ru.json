@@ -763,5 +763,8 @@
   "js.source_where": "Какой район? Код #geo, plus code или широта,долгота",
   "js.source_there": "Уже там",
   "nav.chats": "Чаты",
-  "nav.my_code": "Мой код"
+  "nav.my_code": "Мой код",
+  "quick.say": "Сказать",
+  "quick.ask": "Спросить",
+  "quick.coffee": "Кофе?"
 }

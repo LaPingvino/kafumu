@@ -763,5 +763,8 @@
   "js.source_where": "Která oblast? Kód #geo, plus kód nebo lat,lon",
   "js.source_there": "Už tam je",
   "nav.chats": "Chaty",
-  "nav.my_code": "Můj kód"
+  "nav.my_code": "Můj kód",
+  "quick.say": "Říct",
+  "quick.ask": "Zeptat se",
+  "quick.coffee": "Kafe?"
 }

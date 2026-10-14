@@ -763,5 +763,8 @@
   "js.source_where": "Hangi bölge? #geo kodu, plus code veya enlem,boylam",
   "js.source_there": "Zaten orada",
   "nav.chats": "Sohbetler",
-  "nav.my_code": "Kodum"
+  "nav.my_code": "Kodum",
+  "quick.say": "Söyle",
+  "quick.ask": "Sor",
+  "quick.coffee": "Kahve?"
 }

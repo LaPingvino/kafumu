@@ -763,5 +763,8 @@
   "js.source_where": "Area mana? Kode #geo, plus code, atau lat,lon",
   "js.source_there": "Sudah ada",
   "nav.chats": "Obrolan",
-  "nav.my_code": "Kodeku"
+  "nav.my_code": "Kodeku",
+  "quick.say": "Bilang",
+  "quick.ask": "Tanya",
+  "quick.coffee": "Ngopi?"
 }

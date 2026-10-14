@@ -19,12 +19,18 @@
       <button type="button" id="suggest-no" class="pill-sm" aria-label="{{ts .Lang "common.close"}}">✕</button></div>
   </div>
   <div id="cell-actions" hidden>
-    <p class="actions">
-      <button type="button" id="coffee" class="suggested pill">{{if and .BrandInfo .BrandInfo.Button}}{{.BrandInfo.Button}}{{else}}☕ {{t .Lang "coffee.button"}}{{end}}</button>
-      <button type="button" id="say" class="pill">💬 {{t .Lang "oln.say"}}</button>
-      <button type="button" id="ask" class="pill">❓ {{t .Lang "ask.button"}}</button>
-      <button type="button" id="learn" class="pill" hidden></button>
-    </p>
+    <!-- One text field, then how to send it (91b): a line, a question, or "coffee?". Empty, each
+         button opens its own form as before. -->
+    <div class="quick-compose">
+      <textarea id="quick-text" rows="1" maxlength="500" aria-label="{{ts .Lang "oln.say"}}"></textarea>
+      <p class="actions">
+        <button type="button" id="say" class="pill suggested">💬 {{t .Lang "quick.say"}}</button>
+        <button type="button" id="ask" class="pill">❓ {{t .Lang "quick.ask"}}</button>
+        <button type="button" id="coffee" class="pill">{{if and .BrandInfo .BrandInfo.Button}}{{.BrandInfo.Button}}{{else}}☕ {{t .Lang "quick.coffee"}}{{end}}</button>
+        <button type="button" id="learn" class="pill" hidden></button>
+      </p>
+      <p class="dim small" id="quick-status" role="status"></p>
+    </div>
     <!-- About the area rather than in it: smaller, out of the way. -->
     <p class="actions minor">
       <button type="button" id="change-area" class="pill-sm">📍 {{t .Lang "area.change"}}</button>

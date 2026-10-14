@@ -763,5 +763,8 @@
   "js.source_where": "どの地域？#geoコード、プラスコード、緯度,経度",
   "js.source_there": "すでにあります",
   "nav.chats": "チャット",
-  "nav.my_code": "自分のコード"
+  "nav.my_code": "自分のコード",
+  "quick.say": "話す",
+  "quick.ask": "聞く",
+  "quick.coffee": "コーヒー？"
 }

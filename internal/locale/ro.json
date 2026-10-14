@@ -763,5 +763,8 @@
   "js.source_where": "Ce zonă? Un cod #geo, plus code sau lat,lon",
   "js.source_there": "Deja acolo",
   "nav.chats": "Conversații",
-  "nav.my_code": "Codul meu"
+  "nav.my_code": "Codul meu",
+  "quick.say": "Spune",
+  "quick.ask": "Întreabă",
+  "quick.coffee": "O cafea?"
 }

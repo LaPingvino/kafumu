@@ -763,5 +763,8 @@
   "js.source_where": "Kiu loko? #geo-kodo, plus-kodo aŭ lat,lon",
   "js.source_there": "Jam tie",
   "nav.chats": "Babiloj",
-  "nav.my_code": "Mia kodo"
+  "nav.my_code": "Mia kodo",
+  "quick.say": "Diri",
+  "quick.ask": "Demandi",
+  "quick.coffee": "Kafon?"
 }

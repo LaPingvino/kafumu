@@ -763,5 +763,8 @@
   "js.source_where": "Khu vực nào? Mã #geo, plus code hoặc vĩ độ,kinh độ",
   "js.source_there": "Đã có",
   "nav.chats": "Trò chuyện",
-  "nav.my_code": "Mã của tôi"
+  "nav.my_code": "Mã của tôi",
+  "quick.say": "Nói",
+  "quick.ask": "Hỏi",
+  "quick.coffee": "Cà phê?"
 }

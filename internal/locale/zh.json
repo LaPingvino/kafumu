@@ -763,5 +763,8 @@
   "js.source_where": "哪个地区？#geo 代码、Plus Code 或纬度,经度",
   "js.source_there": "已经有了",
   "nav.chats": "聊天",
-  "nav.my_code": "我的代码"
+  "nav.my_code": "我的代码",
+  "quick.say": "说",
+  "quick.ask": "问",
+  "quick.coffee": "喝咖啡？"
 }

@@ -763,5 +763,8 @@
   "js.source_where": "Welche Gegend? Ein #geo-Code, Plus Code oder Breite,Länge",
   "js.source_there": "Schon da",
   "nav.chats": "Chats",
-  "nav.my_code": "Mein Code"
+  "nav.my_code": "Mein Code",
+  "quick.say": "Sagen",
+  "quick.ask": "Fragen",
+  "quick.coffee": "Kaffee?"
 }

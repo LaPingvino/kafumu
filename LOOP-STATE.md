@@ -1273,7 +1273,9 @@ Around · Chats (mailbox + Contacts, 🔔 folded in) · Connect (your code + My 
       a wrapper (app.js) shows a fade with › / ‹ while there's more that way, re-measured as chips come and go.
       Checked at 390 px. Was: Chip rows (filters, kinds, sources) each one line that scrolls sideways, with a visible hint (a fade
       and a › at the edge) that there's more.
-- [ ] 91b. The three big buttons become one text field on top ("Say something here…") with send buttons next to
+- [x] 91b. Done: a text field on top (placeholder fits the moment) with 💬 Say · ❓ Ask · ☕ Coffee? under it, one row:
+      with text they send it as that kind (coffee: your words + your connect code), empty they open that kind's form
+      as before; 24 languages; browser step. Was: The three big buttons become one text field on top ("Say something here…") with send buttons next to
       it: 💬 Say · ❓ Ask · ☕ Coffee (the text optional for coffee); the composer's options fold under it.
 - [ ] 91c. The row of small action buttons (change area, share, calendar, RSS, host a meetup, add a source, be
       findable) folds into the area heading: 📍 next to the name changes the area, one "⋯" menu holds the rest.

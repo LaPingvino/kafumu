@@ -763,5 +763,8 @@
   "js.source_where": "Quel coin ? Un code #geo, plus code ou lat,lon",
   "js.source_there": "Déjà là",
   "nav.chats": "Discussions",
-  "nav.my_code": "Mon code"
+  "nav.my_code": "Mon code",
+  "quick.say": "Dire",
+  "quick.ask": "Demander",
+  "quick.coffee": "Un café ?"
 }

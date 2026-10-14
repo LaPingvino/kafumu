@@ -763,5 +763,8 @@
   "js.source_where": "Vilket område? En #geo-kod, plus code eller lat,lon",
   "js.source_there": "Redan där",
   "nav.chats": "Chattar",
-  "nav.my_code": "Min kod"
+  "nav.my_code": "Min kod",
+  "quick.say": "Säg",
+  "quick.ask": "Fråga",
+  "quick.coffee": "Kaffe?"
 }

@@ -763,5 +763,8 @@
   "js.source_where": "Która okolica? Kod #geo, plus code lub lat,lon",
   "js.source_there": "Już tam jest",
   "nav.chats": "Czaty",
-  "nav.my_code": "Mój kod"
+  "nav.my_code": "Mój kod",
+  "quick.say": "Powiedz",
+  "quick.ask": "Zapytaj",
+  "quick.coffee": "Kawa?"
 }

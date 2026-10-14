@@ -421,8 +421,23 @@
     updateEstimate(); suggestTags(); f.text.focus();
     f.scrollIntoView({ block: "nearest" });
   }
-  $("ask").onclick = function () { if ($("oln-form").hidden || !composeMode.ask) openComposer({ ask: true }); else $("oln-form").hidden = true; };
+  // The text field on top (91b): with text, a button sends it as that kind;
+  // empty, it opens that kind's form (all the options are there).
+  function quickText() { return ($("quick-text").value || "").trim(); }
+  function quickSend(mode) {
+    var f = $("oln-form"), q = quickText();
+    openComposer(mode);
+    f.text.value = q;
+    $("quick-text").value = ""; $("quick-text").style.height = "";
+    f.requestSubmit();
+  }
+  $("quick-text").addEventListener("input", function () { var t = this; t.style.height = "auto"; t.style.height = Math.min(t.scrollHeight, 160) + "px"; });
+  $("ask").onclick = function () {
+    if (quickText()) { quickSend({ ask: true }); return; }
+    if ($("oln-form").hidden || !composeMode.ask) openComposer({ ask: true }); else $("oln-form").hidden = true;
+  };
   $("say").onclick = function () {
+    if (quickText()) { quickSend({}); return; }
     var f = $("oln-form");
     if (!f.hidden && !composeMode.ask && !composeMode.re) { f.hidden = true; return; }
     openComposer({}); // starts from the current view's language and interest
@@ -481,7 +496,15 @@
 
   // "Who's up for coffee?": a local message carrying your connect code, so
   // whoever taps Join swaps cards with you (only what your persona shares).
-  $("coffee").onclick = function () { var c = $("coffee-card"); c.hidden = !c.hidden; };
+  $("coffee").onclick = function () {
+    var q = quickText();
+    if (q) { // your own words for it, with your connect code as always
+      $("quick-text").value = "";
+      postCoffee($("coffee"), $("quick-status"), function () { return q; }, function () { return olnKeywords() + " #coffee"; });
+      return;
+    }
+    var c = $("coffee-card"); c.hidden = !c.hidden;
+  };
   $("coffee-go").onclick = function () {
     postCoffee(this, $("coffee-status"), function (card) { return tr("coffee_text", { name: card.name || "" }); }, function () { return olnKeywords() + " #coffee"; });
   };
@@ -1465,6 +1488,7 @@
     document.querySelector(".cell-tag").classList.remove("named");
     document.querySelector(".cell-tag").hidden = false;
     $("cell-actions").hidden = false;
+    setTimeout(function () { $("quick-text").placeholder = sayPlaceholder(); }, 0);
     $("compose").href = "https://bsky.app/intent/compose?text=" + encodeURIComponent("\n\n" + tag);
     $("be-findable").href = "/findable?cell=" + c;
     // Follow the area elsewhere, like Eventa Servo does per country (81a):

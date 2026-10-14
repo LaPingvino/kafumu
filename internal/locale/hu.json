@@ -763,5 +763,8 @@
   "js.source_where": "Melyik környék? #geo kód, plus code vagy lat,lon",
   "js.source_there": "Már ott van",
   "nav.chats": "Csevegések",
-  "nav.my_code": "Kódom"
+  "nav.my_code": "Kódom",
+  "quick.say": "Mondd",
+  "quick.ask": "Kérdezz",
+  "quick.coffee": "Kávé?"
 }

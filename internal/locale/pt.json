@@ -763,5 +763,8 @@
   "js.source_where": "Que área? Um código #geo, plus code ou lat,lon",
   "js.source_there": "Já lá está",
   "nav.chats": "Conversas",
-  "nav.my_code": "O meu código"
+  "nav.my_code": "O meu código",
+  "quick.say": "Dizer",
+  "quick.ask": "Perguntar",
+  "quick.coffee": "Café?"
 }

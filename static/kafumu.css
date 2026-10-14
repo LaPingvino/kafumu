@@ -440,3 +440,8 @@ code, kbd, .doc a { overflow-wrap: anywhere; word-break: break-word; }
   background: linear-gradient(to right, transparent, var(--window-bg) 70%); }
 .scroll-wrap.more-left::before { content: "‹"; left: 0; justify-content: flex-start; padding-left: 2px;
   background: linear-gradient(to left, transparent, var(--window-bg) 70%); }
+/* The text field on top (91b). */
+.quick-compose { margin: .4rem 0 .2rem; }
+.quick-compose textarea { margin: 0 0 6px; min-height: 2.8em; resize: none; border-radius: var(--radius); }
+.quick-compose .actions { margin: 0; flex-wrap: nowrap; }
+.quick-compose .actions .pill { flex: 1 1 0; min-width: 0; padding-left: 8px; padding-right: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

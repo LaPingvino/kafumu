@@ -763,5 +763,8 @@
   "js.source_where": "Ποια περιοχή; Κωδικός #geo, plus code ή lat,lon",
   "js.source_there": "Ήδη εκεί",
   "nav.chats": "Συνομιλίες",
-  "nav.my_code": "Ο κωδικός μου"
+  "nav.my_code": "Ο κωδικός μου",
+  "quick.say": "Πες",
+  "quick.ask": "Ρώτα",
+  "quick.coffee": "Καφέ;"
 }

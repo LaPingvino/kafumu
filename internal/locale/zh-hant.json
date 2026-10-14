@@ -763,5 +763,8 @@
   "js.source_where": "哪個地區？#geo 代碼、Plus Code 或緯度,經度",
   "js.source_there": "已經有了",
   "nav.chats": "聊天",
-  "nav.my_code": "我的代碼"
+  "nav.my_code": "我的代碼",
+  "quick.say": "說",
+  "quick.ask": "問",
+  "quick.coffee": "喝咖啡？"
 }
