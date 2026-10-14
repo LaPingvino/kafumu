@@ -388,6 +388,33 @@ func (s *Service) ForPair(ctx context.Context, tag string) ([]*Note, error) {
 	return ns, nil
 }
 
+// ReID is a thing's reply id (its "#re" tag without "re"), as the device
+// makes it for anything that isn't a line: the first 10 hex of
+// SHA-1("kind:id"), e.g. ReID("meetup", id).
+func ReID(kind, id string) string {
+	h := sha1.Sum([]byte(kind + ":" + id))
+	return hex.EncodeToString(h[:])[:10]
+}
+
+// RepliesHeld returns every stored, unhidden reply to re, expired ones too,
+// oldest first: for a thing that holds its thread (a meetup until it ends —
+// Joop: "the event keeps a hold on GC"). Lines still expire everywhere else.
+func (s *Service) RepliesHeld(ctx context.Context, re string) ([]*Note, error) {
+	ns, err := s.Store.RepliesTo(ctx, []string{re}, time.Time{})
+	if err != nil {
+		return nil, err
+	}
+	hidden := s.hiddenSet(ctx)
+	out := ns[:0]
+	for _, n := range ns {
+		if !hidden[n.ID] {
+			out = append(out, n)
+		}
+	}
+	sort.Slice(out, func(i, j int) bool { return out[i].At.Before(out[j].At) })
+	return out, nil
+}
+
 // MaxReIDs bounds one /api/oln/re request.
 const MaxReIDs = 20
 

@@ -62,6 +62,12 @@
   // seeds: a thread's lines the page already had, handed over through
   // sessionStorage (on a phone the chat is another page).
   function seedOf(rid) { try { return (JSON.parse(sessionStorage.getItem("kafumu.threadSeeds") || "{}"))[rid] || []; } catch (e) { return []; } }
+  // a thread that belongs to a meetup reads through it (93b): the meetup
+  // holds its lines until it ends. "rid" → meetup id, kept on this device.
+  function meetupOf(rid) { try { return (JSON.parse(localStorage.getItem("kafumu.threadMeetups") || "{}"))[rid] || ""; } catch (e) { return ""; } }
+  function setMeetup(rid, id) {
+    try { var m = JSON.parse(localStorage.getItem("kafumu.threadMeetups") || "{}"); m[rid] = id; var ks = Object.keys(m); if (ks.length > 200) delete m[ks[0]]; localStorage.setItem("kafumu.threadMeetups", JSON.stringify(m)); } catch (e) {}
+  }
   function threadTitle(rid) { try { return (JSON.parse(localStorage.getItem("kafumu.threadTitles") || "{}"))[rid] || ""; } catch (e) { return ""; } }
   // replyThread (93a): a post's, meetup's or event's public replies (#re) as
   // a group chat: oldest first, refreshed while open; what you write is a
@@ -97,7 +103,8 @@
     }
     var mine = seedOf(rid); // what the page already showed (the server's list may lag a minute)
     function load() {
-      return fetch("/api/oln/re?ids=" + rid, { credentials: "omit", cache: "no-store" }).then(function (r) { return r.ok ? r.json() : []; }, function () { return []; }).then(function (ns) {
+      var mt = meetupOf(rid);
+      return fetch(mt ? "/api/meetups/" + encodeURIComponent(mt) + "/chat" : "/api/oln/re?ids=" + rid, { credentials: "omit", cache: "no-store" }).then(function (r) { return r.ok ? r.json() : []; }, function () { return []; }).then(function (ns) {
         var ids = {};
         ns.forEach(function (n) { ids[n.id] = true; });
         mine = mine.filter(function (n) { return !ids[n.id]; });
@@ -198,7 +205,8 @@
   }
   // open shows the chat for key ("c:<contact id>", "a:<answer thread id>" or
   // "r:<reply id>", a public thread; title: what it's about, remembered).
-  function open(key, focus, title, seed) {
+  function open(key, focus, title, seed, meetup) {
+    if (meetup && key.slice(0, 2) === "r:") setMeetup(key.slice(2), meetup);
     if (seed && key.slice(0, 2) === "r:") try {
       var ss = {}; ss[key.slice(2)] = seed.slice(-50).map(function (n) { return { id: n.id, text: n.text, at: n.at, author: n.author, mine: n.mine }; });
       sessionStorage.setItem("kafumu.threadSeeds", JSON.stringify(ss));
@@ -240,7 +248,8 @@
   });
   window.addEventListener("resize", layout);
   // inline (93b): a public thread right in the page (a meetup's own page).
-  function inline(box, rid) {
+  function inline(box, rid, meetup) {
+    if (meetup) setMeetup(rid, meetup);
     return need().then(function () { var t = replyThread(rid); t.thread.classList.add("inline-chat"); box.appendChild(t.thread); return t; });
   }
   window.kafumuChat = { open: open, close: close, keyOf: keyOf, inline: inline, isOpen: function (key) { return order.indexOf(key) >= 0; } };

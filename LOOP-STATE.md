@@ -1447,7 +1447,10 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       since 14:00 · stop"); stop sends a "gone" signal.
 
 ## Open questions for Joop
-- Chat lines in a meetup's (or any post's) group chat live 1 h at base work, so a meetup chat empties itself
-  between messages. Options: (a) mine longer lines in a meetup chat (each bit doubles: until the meetup ends costs
-  the sender seconds); (b) a node rule: replies to a live meetup stay until it ends (a new rule: VISION flags it).
+- [x] 93c. Answered (Joop: "let them expire but not remove, and show in the meetup context until it's over; the
+      event keeps a hold on GC"). Done: GET /api/meetups/{id}/chat returns the meetup's replies, expired ones too,
+      until it ends (then only live ones; a minute per instance); purge skips expired replies to meetups that haven't
+      ended; the meetup page and meetup cards read their chat through it. Lines still expire everywhere else. Go
+      tests (oln RepliesHeld, purge on the emulator) + the browser steps. If held replies ever fill purge's first
+      2000 expired lines, others wait a day: fine at today's scale.
 - [x] Polish: an empty group chat now says "No messages yet" (was drawn blank).

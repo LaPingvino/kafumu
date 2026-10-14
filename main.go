@@ -212,6 +212,7 @@ func main() {
 	mux.HandleFunc("POST /meetups/{id}/delete", meetups.Delete)
 	mux.HandleFunc("GET /meetups/{id}/ics", meetups.ICS)
 	mux.HandleFunc("GET /api/meetups", meetups.ByIDs)
+	mux.HandleFunc("GET /api/meetups/{id}/chat", meetups.Chat)
 	mux.HandleFunc("GET /cal/{cell}", meetups.ICS)
 	mux.HandleFunc("GET /rss/{cell}", meetups.RSS)
 	mux.HandleFunc("GET /cron/feeds", meetups.SyncFeeds)

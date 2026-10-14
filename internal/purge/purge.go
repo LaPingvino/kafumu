@@ -9,6 +9,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/LaPingvino/kafumu/internal/business"
+	"github.com/LaPingvino/kafumu/internal/oln"
 	"time"
 
 	"cloud.google.com/go/datastore"
@@ -37,7 +38,7 @@ func Run(ctx context.Context, db *datastore.Client, now time.Time) (Result, erro
 	for _, k := range []struct {
 		kind string
 		n    *int
-	}{{"Meetup", &r.Meetups}, {"Box", &r.Boxes}, {"Slot", &r.Slots}, {"ATSession", &r.ATSessions}, {"ATAuthRequest", &r.ATSessions}, {"PushSub", &r.Boxes}, {"Note", &r.Meetups}, {"ShortCode", &r.Boxes}, {"Report", &r.Boxes}, {"Hidden", &r.Boxes}, {"Handle", &r.Boxes}} {
+	}{{"Meetup", &r.Meetups}, {"Box", &r.Boxes}, {"Slot", &r.Slots}, {"ATSession", &r.ATSessions}, {"ATAuthRequest", &r.ATSessions}, {"PushSub", &r.Boxes}, {"ShortCode", &r.Boxes}, {"Report", &r.Boxes}, {"Hidden", &r.Boxes}, {"Handle", &r.Boxes}} {
 		q := datastore.NewQuery(k.kind).FilterField("expires_at", "<", now).KeysOnly().Limit(batch)
 		n, err := deleteAll(ctx, db, q)
 		if err != nil {
@@ -45,6 +46,13 @@ func Run(ctx context.Context, db *datastore.Client, now time.Time) (Result, erro
 		}
 		*k.n += n
 	}
+	// Lines: expired ones go, except replies to a meetup that hasn't ended
+	// (the event keeps a hold on them: its chat still shows them, 93b).
+	n, err := purgeNotes(ctx, db, now, heldReplies(ctx, db, now))
+	if err != nil {
+		return r, fmt.Errorf("Note: %w", err)
+	}
+	r.Meetups += n
 	// Accounts: everything idle for a day is a candidate (an admin may set
 	// a short keep); anonymous ones go after 30 days, named ones after a
 	// year, unless keep_days says otherwise.
@@ -94,6 +102,57 @@ func Run(ctx context.Context, db *datastore.Client, now time.Time) (Result, erro
 		}
 	}
 	return r, nil
+}
+
+// heldReplies: the reply ids ("#re") of meetups that haven't ended.
+func heldReplies(ctx context.Context, db *datastore.Client, now time.Time) map[string]bool {
+	var ms []struct {
+		EndAt time.Time `datastore:"end_at,noindex"`
+	}
+	keys, err := db.GetAll(ctx, datastore.NewQuery("Meetup").FilterField("expires_at", ">", now).Limit(5000), &ms)
+	if err != nil {
+		if _, ok := err.(*datastore.ErrFieldMismatch); !ok {
+			return nil
+		}
+	}
+	held := map[string]bool{}
+	for i, k := range keys {
+		if i < len(ms) && ms[i].EndAt.After(now) {
+			held[oln.ReID("meetup", k.Name)] = true
+		}
+	}
+	return held
+}
+
+// purgeNotes deletes expired lines, a batch at most, skipping held replies.
+// held nil (the meetups couldn't be read): every reply is kept this time.
+func purgeNotes(ctx context.Context, db *datastore.Client, now time.Time, held map[string]bool) (int, error) {
+	var ns []struct {
+		Re string `datastore:"re"`
+	}
+	keys, err := db.GetAll(ctx, datastore.NewQuery("Note").FilterField("expires_at", "<", now).Limit(batch*4), &ns)
+	if err != nil {
+		if _, ok := err.(*datastore.ErrFieldMismatch); !ok {
+			return 0, err
+		}
+	}
+	var del []*datastore.Key
+	for i, k := range keys {
+		re := ""
+		if i < len(ns) {
+			re = ns[i].Re
+		}
+		if re != "" && (held == nil || held[re]) {
+			continue
+		}
+		if del = append(del, k); len(del) >= batch {
+			break
+		}
+	}
+	if len(del) == 0 {
+		return 0, nil
+	}
+	return len(del), db.DeleteMulti(ctx, del)
 }
 
 func deleteAll(ctx context.Context, db *datastore.Client, q *datastore.Query) (int, error) {

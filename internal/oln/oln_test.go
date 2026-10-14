@@ -188,6 +188,29 @@ func TestReplies(t *testing.T) {
 	}
 }
 
+// A meetup's chat (93b): expired replies still come back, held for it;
+// ReID is the device's id for a thing ("meetup:<id>").
+func TestRepliesHeld(t *testing.T) {
+	if id := ReID("meetup", "abc"); !reTag.MatchString("re" + id) {
+		t.Fatalf("ReID = %q", id)
+	}
+	s := NewService(NewMemoryStore())
+	ctx, then := context.Background(), time.Now().UTC()
+	re := ReID("meetup", "m1")
+	n, err := s.Post(ctx, mine(BaseBits, then, "At the door", "#re"+re))
+	if err != nil {
+		t.Fatal(err)
+	}
+	s.Now = func() time.Time { return then.Add(3 * time.Hour) } // past its hour
+	if got, _ := s.Replies(ctx, []string{re}); len(got) != 0 {
+		t.Fatal("expired line still live")
+	}
+	got, err := s.RepliesHeld(ctx, re)
+	if err != nil || len(got) != 1 || got[0].ID != n.ID {
+		t.Fatalf("held = %+v, %v", got, err)
+	}
+}
+
 // Private messages: no place, one pair tag; a week's life at base work;
 // fetched by tag, never in an area's list.
 func TestPairMessages(t *testing.T) {

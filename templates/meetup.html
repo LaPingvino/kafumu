@@ -22,14 +22,14 @@
   <section class="meetup-chat">
     <h2>💬 {{t .Lang "meetup.chat"}}</h2>
     <p class="dim small">{{t .Lang "meetup.chat_explain"}}</p>
-    <div id="meetup-chat" data-rid="{{reid "meetup" .M.ID}}"></div>
+    <div id="meetup-chat" data-rid="{{reid "meetup" .M.ID}}" data-meetup="{{.M.ID}}"></div>
   </section>
 </article>
 <script src="/static/device.js?v={{.V}}"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   var box = document.getElementById("meetup-chat");
-  if (box && window.kafumuChat) window.kafumuChat.inline(box, box.dataset.rid);
+  if (box && window.kafumuChat) window.kafumuChat.inline(box, box.dataset.rid, box.dataset.meetup);
 });
 </script>
 <script>

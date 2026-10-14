@@ -3,6 +3,7 @@ package purge
 import (
 	"context"
 	"github.com/LaPingvino/kafumu/internal/business"
+	"github.com/LaPingvino/kafumu/internal/oln"
 	"os"
 	"testing"
 	"time"
@@ -56,6 +57,19 @@ func TestRun(t *testing.T) {
 		UserID string `datastore:"user_id,noindex"`
 	}{"biz:solo"})
 
+	// Lines (93b): an expired reply to a meetup that hasn't ended is held.
+	type note struct {
+		ExpiresAt time.Time `datastore:"expires_at"`
+		Re        string    `datastore:"re"`
+	}
+	put(datastore.NameKey("Meetup", "live", nil), &struct {
+		ExpiresAt time.Time `datastore:"expires_at"`
+		EndAt     time.Time `datastore:"end_at,noindex"`
+	}{now.Add(48 * time.Hour), now.Add(24 * time.Hour)})
+	put(datastore.NameKey("Note", "held", nil), &note{now.Add(-time.Hour), oln.ReID("meetup", "live")})
+	put(datastore.NameKey("Note", "reply-gone", nil), &note{now.Add(-time.Hour), "0123456789"})
+	put(datastore.NameKey("Note", "line-gone", nil), &note{now.Add(-time.Hour), ""})
+
 	r, err := Run(ctx, db, now)
 	if err != nil {
 		t.Fatal(err)
@@ -74,7 +88,16 @@ func TestRun(t *testing.T) {
 	if err := db.Get(ctx, datastore.NameKey("Username", "solo-shop", nil), &un); err != datastore.ErrNoSuchEntity {
 		t.Errorf("closed business's name still taken: %v", err)
 	}
-	if r.Meetups != 1 || r.Boxes != 1 || r.Slots != 1 || r.Users != 2 || r.Usernames != 1 {
+	var nt note
+	if err := db.Get(ctx, datastore.NameKey("Note", "held", nil), &nt); err != nil {
+		t.Errorf("a reply to a live meetup went: %v", err)
+	}
+	for _, k := range []string{"reply-gone", "line-gone"} {
+		if err := db.Get(ctx, datastore.NameKey("Note", k, nil), &nt); err != datastore.ErrNoSuchEntity {
+			t.Errorf("expired line %s kept: %v", k, err)
+		}
+	}
+	if r.Meetups != 3 || r.Boxes != 1 || r.Slots != 1 || r.Users != 2 || r.Usernames != 1 {
 		t.Errorf("result = %s", r)
 	}
 	for _, k := range []*datastore.Key{datastore.NameKey("Meetup", "new", nil), datastore.NameKey("User", "anon-active", nil),

@@ -1589,7 +1589,7 @@
     if (!rs.length && !nested && li.dataset.kind === "meetups" && window.kafumuChat) { // a meetup's chat, also before anyone wrote (93b)
       var mc = document.createElement("button");
       mc.type = "button"; mc.className = "pill-sm group-chat"; mc.textContent = "💬 " + tr("open_chat");
-      mc.onclick = function (ev) { ev.preventDefault(); ev.stopPropagation(); window.kafumuChat.open("r:" + rid, true, firstLine(li.textContent)); };
+      mc.onclick = function (ev) { ev.preventDefault(); ev.stopPropagation(); window.kafumuChat.open("r:" + rid, true, firstLine(li.textContent), null, li.dataset.meetup); };
       li.appendChild(mc);
     }
     if (!rs.length) return;
@@ -1604,7 +1604,7 @@
     if (!nested && window.kafumuChat) { // 💬 n: the replies as a group chat (93a)
       var gc = document.createElement("button");
       gc.type = "button"; gc.className = "pill-sm group-chat"; gc.textContent = "💬 " + rs.length + " · " + tr("open_chat");
-      gc.onclick = function (ev) { ev.preventDefault(); ev.stopPropagation(); window.kafumuChat.open("r:" + rid, true, firstLine(li.querySelector(".text") ? li.querySelector(".text").textContent : li.textContent), repliesFor(rid)); };
+      gc.onclick = function (ev) { ev.preventDefault(); ev.stopPropagation(); window.kafumuChat.open("r:" + rid, true, firstLine(li.querySelector(".text") ? li.querySelector(".text").textContent : li.textContent), repliesFor(rid), li.dataset.meetup); };
       li.appendChild(gc);
     }
     if (texts.length) {
@@ -1944,6 +1944,7 @@
         var mrow = document.createElement("div");
         mrow.className = "actions";
         li.dataset.reid = reactRow("meetup", m.id, m.title, mrow, { cell: m.cell, link: location.origin + "/meetups/" + m.id });
+        li.dataset.meetup = m.id; // its chat reads through the meetup, which holds it (93b)
         mrow.appendChild(reportButton("meetup", m.id, m.title, li));
         li.appendChild(mrow);
         list.appendChild(li);

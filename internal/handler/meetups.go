@@ -31,6 +31,57 @@ type Meetups struct {
 
 	mu   sync.Mutex
 	byID map[string]idEntry // /api/meetups, a minute per id
+	chat map[string]chatEntry
+}
+
+type chatEntry struct {
+	ns []*oln.Note
+	at time.Time
+}
+
+// Chat handles GET /api/meetups/{id}/chat (93b): the meetup's public
+// replies as its chat. Until the meetup ends it holds them: lines that
+// expired elsewhere still show here (and purge keeps them). Afterwards,
+// or for an unknown id, only the live ones. A minute per instance.
+func (h *Meetups) Chat(w http.ResponseWriter, r *http.Request) {
+	id := r.PathValue("id")
+	notes := h.Home.Notes
+	if notes == nil || id == "" || len(id) > 64 {
+		http.NotFound(w, r)
+		return
+	}
+	now := time.Now()
+	h.mu.Lock()
+	e, ok := h.chat[id]
+	h.mu.Unlock()
+	if !ok || now.Sub(e.at) > oln.Fresh {
+		re := oln.ReID("meetup", id)
+		var ns []*oln.Note
+		var err error
+		if m, gerr := h.Svc.Get(r.Context(), id); gerr == nil && m.EndAt.After(now) {
+			ns, err = notes.RepliesHeld(r.Context(), re)
+		} else {
+			ns, err = notes.Replies(r.Context(), []string{re})
+		}
+		if err != nil {
+			http.Error(w, "unavailable", http.StatusServiceUnavailable)
+			return
+		}
+		e = chatEntry{ns: ns, at: now}
+		h.mu.Lock()
+		if h.chat == nil || len(h.chat) > 2000 {
+			h.chat = map[string]chatEntry{}
+		}
+		h.chat[id] = e
+		h.mu.Unlock()
+	}
+	ns := e.ns
+	if ns == nil {
+		ns = []*oln.Note{}
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Cache-Control", oln.MaxAge())
+	json.NewEncoder(w).Encode(ns)
 }
 
 type idEntry struct {
