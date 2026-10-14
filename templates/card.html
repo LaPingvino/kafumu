@@ -22,19 +22,21 @@
       <label>{{t .Lang "card.field_tags"}}</label>
       <div id="tag-chips" class="chips"></div>
       <input id="custom-tag" class="chip-input wide" maxlength="40" placeholder="{{ts .Lang "card.custom_tag"}}" aria-label="{{ts .Lang "card.custom_tag"}}">
-      <label>{{t .Lang "card.field_email"}}<input name="email" type="email" autocomplete="email"></label>
-      <label>{{t .Lang "card.field_phone"}}<input name="phone" type="tel" autocomplete="tel"></label>
-      <label>WhatsApp<input name="whatsapp" type="tel" placeholder="+…" data-phone></label>
-      <label>Signal<input name="signal" placeholder="+… / signal.me/…" data-phone="/ signal.me/…"></label>
-      <label>Telegram<input name="telegram" placeholder="@…"></label>
-      <label>Bluesky<input name="bluesky" placeholder="you.bsky.social"></label>
-      <label>LinkedIn<input name="linkedin" placeholder="linkedin.com/in/…"></label>
-      <label>Instagram<input name="instagram" placeholder="@…"></label>
-      <label>Facebook<input name="facebook" placeholder="facebook.com/…"></label>
-      <label>Mastodon<input name="mastodon" placeholder="@you@mastodon.social"></label>
-      <label>TikTok<input name="tiktok" placeholder="@…"></label>
-      <label>YouTube<input name="youtube" placeholder="@…"></label>
-      <label>{{t .Lang "card.field_website"}}<input name="website" type="url" autocomplete="url"></label>
+      <label class="reach">{{t .Lang "card.field_email"}}<input name="email" type="email" autocomplete="email"></label>
+      <label class="reach">{{t .Lang "card.field_phone"}}<input name="phone" type="tel" autocomplete="tel"></label>
+      <label class="reach">WhatsApp<input name="whatsapp" type="tel" placeholder="+…" data-phone></label>
+      <label class="reach">Signal<input name="signal" placeholder="+… / signal.me/…" data-phone="/ signal.me/…"></label>
+      <label class="reach">Telegram<input name="telegram" placeholder="@…"></label>
+      <label class="reach">Bluesky<input name="bluesky" placeholder="you.bsky.social"></label>
+      <label class="reach">LinkedIn<input name="linkedin" placeholder="linkedin.com/in/…"></label>
+      <label class="reach">Instagram<input name="instagram" placeholder="@…"></label>
+      <label class="reach">Facebook<input name="facebook" placeholder="facebook.com/…"></label>
+      <label class="reach">Mastodon<input name="mastodon" placeholder="@you@mastodon.social"></label>
+      <label class="reach">TikTok<input name="tiktok" placeholder="@…"></label>
+      <label class="reach">YouTube<input name="youtube" placeholder="@…"></label>
+      <label class="reach">{{t .Lang "card.field_website"}}<input name="website" type="url" autocomplete="url"></label>
+      <!-- Ways to reach you (91g): the ones you filled in show; the rest are one tap away. -->
+      <div id="reach-add" class="chips"></div>
       <div id="custom-fields"></div>
       <p><button type="button" id="add-field" class="pill-sm">＋ {{t .Lang "card.add_field"}}</button></p>
       <div class="actions">

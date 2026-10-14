@@ -103,7 +103,23 @@
     form.elements.label.value = cur.label || "";
     dev.FIELDS.forEach(function (f) { form.elements[f].value = (cur.card && cur.card[f]) || ""; });
     cur.card = cur.card || {};
-    drawSwitcher(); drawTags(); drawCustom(); render(); drawLink();
+    drawSwitcher(); drawTags(); drawCustom(); render(); drawLink(); drawReach();
+  }
+  // drawReach: the ways to reach you that are filled in show as fields; the
+  // others wait as "＋ Email", "＋ WhatsApp"… chips (91g: no wall of empty boxes).
+  function drawReach() {
+    var box = $("reach-add");
+    if (!box) return;
+    box.textContent = "";
+    Array.prototype.forEach.call(form.querySelectorAll("label.reach"), function (lab) {
+      var inp = lab.querySelector("input");
+      lab.hidden = !inp.value.trim() && document.activeElement !== inp;
+      if (!lab.hidden) return;
+      var b = el("button", "chip", "＋ " + lab.firstChild.textContent.trim());
+      b.type = "button";
+      b.onclick = function () { lab.hidden = false; b.remove(); inp.focus(); };
+      box.appendChild(b);
+    });
   }
 
   function save(quiet) {
