@@ -791,5 +791,7 @@
   "here.more": "Meer instellingen",
   "here.change": "Wijzigen",
   "js.here_until": "Vindbaar hier tot {time}",
-  "here.need_name": "Kies eerst een naam voor je account"
+  "here.need_name": "Kies eerst een naam voor je account",
+  "js.more": "Meer",
+  "js.reply_placeholder": "Reageer…"
 }

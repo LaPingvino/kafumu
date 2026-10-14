@@ -791,5 +791,7 @@
   "here.more": "Cài đặt khác",
   "here.change": "Đổi",
   "js.here_until": "Tìm thấy ở đây đến {time}",
-  "here.need_name": "Trước tiên hãy chọn tên cho tài khoản của bạn"
+  "here.need_name": "Trước tiên hãy chọn tên cho tài khoản của bạn",
+  "js.more": "Thêm",
+  "js.reply_placeholder": "Trả lời…"
 }

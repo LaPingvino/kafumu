@@ -791,5 +791,7 @@
   "here.more": "Pengaturan lain",
   "here.change": "Ubah",
   "js.here_until": "Bisa ditemukan di sini sampai {time}",
-  "here.need_name": "Pilih dulu nama untuk akunmu"
+  "here.need_name": "Pilih dulu nama untuk akunmu",
+  "js.more": "Lainnya",
+  "js.reply_placeholder": "Balas…"
 }

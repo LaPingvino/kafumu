@@ -791,5 +791,7 @@
   "here.more": "Flere indstillinger",
   "here.change": "Skift",
   "js.here_until": "Til at finde her indtil {time}",
-  "here.need_name": "Vælg først et navn til din konto"
+  "here.need_name": "Vælg først et navn til din konto",
+  "js.more": "Mere",
+  "js.reply_placeholder": "Svar…"
 }

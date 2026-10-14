@@ -791,5 +791,7 @@
   "here.more": "More settings",
   "here.change": "Change",
   "js.here_until": "Findable here until {time}",
-  "here.need_name": "First pick a name for your account"
+  "here.need_name": "First pick a name for your account",
+  "js.more": "More",
+  "js.reply_placeholder": "Reply…"
 }

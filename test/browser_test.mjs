@@ -107,6 +107,9 @@ try {
   await A.goto(base + "/?cell=6fg223");
   await A.evaluate("(() => { document.getElementById('say').click(); const f = document.getElementById('oln-form'); f.text.value = 'Browser test: hi from the OLN " + RUN + "'; f.requestSubmit(); return true; })()");
   await A.waitFor("document.getElementById('feed').textContent.includes('hi from the OLN " + RUN + "')", "A's message in Here now", 30000);
+  // The reply box on a card (94b): type, send, and it answers right there.
+  await A.waitFor("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')); const f = li && li.querySelector('form.reply-box'); if (!f) return false; f.text.value = 'Boxed reply " + RUN + "'; f.requestSubmit(); return true; })()", "a reply typed in the card's box");
+  await A.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('hi from the OLN " + RUN + "') && li.querySelector('.replies') && li.querySelector('.replies').textContent.includes('Boxed reply " + RUN + "'))", "the reply under the card", 30000);
   // Its language tag reads as the language, never as a raw "#langeng".
   await A.waitFor("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')); return li && !/#lang/.test(li.textContent) && li.textContent.includes('🗣'); })()", "language shown as 🗣, not #lang…");
   // Every line has its permalink (86b): 🔗 among the 📤 sends.

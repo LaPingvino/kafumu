@@ -791,5 +791,7 @@
   "here.more": "その他の設定",
   "here.change": "変更",
   "js.here_until": "{time}までここで見つけてもらえます",
-  "here.need_name": "まずアカウントの名前を決めてください"
+  "here.need_name": "まずアカウントの名前を決めてください",
+  "js.more": "その他",
+  "js.reply_placeholder": "返信…"
 }

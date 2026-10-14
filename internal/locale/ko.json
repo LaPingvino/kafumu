@@ -791,5 +791,7 @@
   "here.more": "설정 더 보기",
   "here.change": "변경",
   "js.here_until": "{time}까지 여기서 찾을 수 있어요",
-  "here.need_name": "먼저 계정 이름을 정하세요"
+  "here.need_name": "먼저 계정 이름을 정하세요",
+  "js.more": "더 보기",
+  "js.reply_placeholder": "답글…"
 }

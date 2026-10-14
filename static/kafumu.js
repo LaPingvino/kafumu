@@ -1090,7 +1090,7 @@
     }
     function hideIt() { var h = hiddenNotes(); h.push(n.id); pref("kafumu.hiddenNotes", JSON.stringify(h.slice(-500))); li.remove(); }
     var hide = document.createElement("button");
-    hide.type = "button"; hide.className = "pill-sm"; hide.textContent = tr("oln_hide");
+    hide.type = "button"; hide.className = "pill-sm hide-btn"; hide.textContent = tr("oln_hide");
     hide.onclick = hideIt;
     // Replies can be reacted to as well (77g), one level deep: a reaction to a reply shows under it.
     var link = !opts.reply && linkOf(n);
@@ -1113,6 +1113,7 @@
     else if (opts.question) li.dataset.reid = reID("note", n.id);
     row.appendChild(hide);
     row.appendChild(reportButton("note", n.id, n.text, li, hideIt));
+    foldMore(row);
     li.appendChild(row);
     swipeAway(li, hideIt);
     return li;
@@ -1297,7 +1298,7 @@
   // line in your encrypted chat with them: the question, its title, its link (80a).
   // With "🤝"/"go_together" it asks "Shall we go together?" (80b): their
   // chat then offers Yes / Can't.
-  function seenButton(about, link, row, icon, key) {
+  function seenButton(about, link, row, icon, key, box) {
     var b = document.createElement("button");
     b.type = "button"; b.className = "pill-sm"; b.textContent = icon;
     b.title = tr(key); b.setAttribute("aria-label", tr(key));
@@ -1317,12 +1318,13 @@
           chip.onclick = function (e2) {
             e2.preventDefault(); e2.stopPropagation();
             chip.disabled = true;
-            var text = icon + " " + tr(key) + "\n" + String(about || "").replace(/\s+/g, " ").slice(0, 80) + "\n" + link;
+            var said = box ? box.text.value.trim() : ""; // your words, typed in the reply box (94b)
+            var text = icon + " " + (said || tr(key)) + "\n" + String(about || "").replace(/\s+/g, " ").slice(0, 80) + "\n" + link;
             aPair.sendChat(c, text, answerMine).then(function (at) {
               c.messages = (c.messages || []).concat([{ me: true, text: text, at: at }]).slice(-200);
               c.lastChat = at;
               return dev.store.putContact(c);
-            }).then(function () { chip.textContent = "✓ " + chip.textContent; }, function () { chip.disabled = false; });
+            }).then(function () { chip.textContent = "✓ " + chip.textContent; if (said) box.text.value = ""; }, function () { chip.disabled = false; });
           };
           pick.appendChild(chip);
         });
@@ -1374,6 +1376,49 @@
   // carryText: a reaction carried home says what it's about, on the lines
   // after it: the thing's title and link (78c).
   function carryText(text, about, link) { return text + "\n" + String(about || "").replace(/\s+/g, " ").slice(0, 80) + "\n" + link; }
+  function replyBox(rid, carryOf, ctx) {
+    var f = document.createElement("form");
+    f.className = "reply-box inline-row";
+    var inp = document.createElement("input");
+    inp.name = "text"; inp.maxLength = 500; inp.placeholder = "💬 " + tr("reply_placeholder"); inp.setAttribute("aria-label", tr("react"));
+    var go = document.createElement("button");
+    go.type = "submit"; go.className = "pill-sm suggested"; go.textContent = tr("answer_send"); go.hidden = true;
+    var st = document.createElement("span"); st.className = "dim small"; st.setAttribute("role", "status");
+    inp.oninput = function () { go.hidden = !inp.value.trim(); };
+    f.appendChild(inp); f.appendChild(go); f.appendChild(st);
+    f.onclick = function (ev) { ev.stopPropagation(); };
+    f.onsubmit = function (ev) {
+      ev.preventDefault(); ev.stopPropagation();
+      var text = inp.value.trim(), carry = carryOf();
+      if (!text || !currentCell || !window.kafumuOLN) return;
+      go.disabled = inp.disabled = true;
+      var keywords = olnKeywords().split(" ").filter(function (k) { return /^#lang/.test(k); }).concat(["#re" + rid]).join(" "); // a reply: "#re" and its language only (78a)
+      if (carry) { keywords = "#geo" + carry.cell + " " + keywords; text = carryText(text, carry.about, carry.link); }
+      window.kafumuOLN.post(text, keywords, requiredBits, function (tries) { st.textContent = tr("oln_working", { n: tries }); }, 0, pref("kafumu.postAsMe") !== "0")
+        .then(function (n) {
+          showOwnReaction(rid, n);
+          if (ctx && ctx.keep) keepItem(ctx);
+          rememberPost(n, "reply", text.split("\n")[0]);
+          inp.value = ""; go.hidden = true; st.textContent = "✓";
+        }, function () { st.textContent = tr("oln_failed"); })
+        .then(function () { go.disabled = inp.disabled = false; });
+    };
+    return f; // f.text is the input (its name)
+  }
+  // foldMore (94b): the rarely used buttons of a card (hide, report, keep)
+  // behind one ⋯, so a card shows few, obvious controls.
+  function foldMore(row) {
+    var extra = row.querySelectorAll(":scope > .hide-btn, :scope > .report, :scope > .keep-alive");
+    if (!extra.length) return;
+    var more = document.createElement("span");
+    more.className = "card-more"; more.hidden = true;
+    Array.prototype.forEach.call(extra, function (b) { more.appendChild(b); });
+    var dots = document.createElement("button");
+    dots.type = "button"; dots.className = "pill-sm more-btn"; dots.textContent = "⋯";
+    dots.title = tr("more"); dots.setAttribute("aria-label", tr("more")); dots.setAttribute("aria-expanded", "false");
+    dots.onclick = function (ev) { ev.preventDefault(); ev.stopPropagation(); more.hidden = !more.hidden; dots.setAttribute("aria-expanded", String(!more.hidden)); };
+    row.appendChild(dots); row.appendChild(more);
+  }
   function reactRow(kind, id, about, row, ctx) {
     var rid = reID(kind, id), home = currentCell && homeCell(currentCell, false), carry = null, pin = null;
     // 📍: also show the reaction in your home area, so friends there see
@@ -1420,11 +1465,17 @@
     var t = document.createElement("button");
     t.type = "button"; t.className = "pill-sm"; t.textContent = "💬 " + tr("react");
     t.onclick = function (ev) { ev.preventDefault(); ev.stopPropagation(); openComposer({ re: rid, about: about, carry: carry, keep: ctx && ctx.keep ? ctx : null }); };
-    row.appendChild(t);
+    // A reply box that's simply there (94b): type and it answers here; what
+    // you typed also rides along as your comment when you 📤 it to a friend.
+    var box = null;
+    if (!(ctx && ctx.compact)) {
+      box = replyBox(rid, function () { return carry; }, ctx);
+      row.insertBefore(box, row.firstChild);
+    } else row.appendChild(t);
     // 👀 / 🤝 to a contact: behind one 📤, so the reactions stay one row.
     if (ctx && ctx.link) {
-      var sends = [seenButton(about, ctx.link, row, "👀", "did_you_see")];
-      if (kind === "meetup") sends.push(seenButton(about, ctx.link, row, "🤝", "go_together")); // 80b
+      var sends = [seenButton(about, ctx.link, row, "👀", "did_you_see", box)];
+      if (kind === "meetup") sends.push(seenButton(about, ctx.link, row, "🤝", "go_together", box)); // 80b
       // 🔗 its permalink, for anywhere else (86b): the share sheet, or copied.
       var cp = document.createElement("button");
       cp.type = "button"; cp.className = "pill-sm copy-link"; cp.textContent = "🔗 " + tr("copy_link");
@@ -2093,7 +2144,7 @@
     row.appendChild(open);
     function hideIt() { var h = hiddenNotes(); h.push(p.uri); pref("kafumu.hiddenNotes", JSON.stringify(h.slice(-500))); li.remove(); }
     var hide = document.createElement("button");
-    hide.type = "button"; hide.className = "pill-sm"; hide.textContent = tr("oln_hide");
+    hide.type = "button"; hide.className = "pill-sm hide-btn"; hide.textContent = tr("oln_hide");
     hide.onclick = hideIt;
     row.appendChild(hide);
     // With its address, a post is reacted to like any link (81g): the first
@@ -2102,6 +2153,7 @@
     li.dataset.reid = pl ? reactRow("link", pl, pAbout, row, { link: pl, cell: currentCell, keep: "🦋 " + firstLine(pAbout) })
       : reactRow("post", p.uri, pAbout, row, null);
     row.appendChild(reportButton("post", p.uri, (p.handle ? "@" + p.handle + ": " : "") + p.text, li, hideIt));
+    foldMore(row);
     li.appendChild(row);
     swipeAway(li, hideIt);
     return li;

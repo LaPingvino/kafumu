@@ -791,5 +791,7 @@
   "here.more": "更多設定",
   "here.change": "更改",
   "js.here_until": "在這裡可被找到，直到 {time}",
-  "here.need_name": "先為你的帳戶選一個名字"
+  "here.need_name": "先為你的帳戶選一個名字",
+  "js.more": "更多",
+  "js.reply_placeholder": "回覆…"
 }

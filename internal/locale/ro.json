@@ -791,5 +791,7 @@
   "here.more": "Mai multe setări",
   "here.change": "Schimbă",
   "js.here_until": "De găsit aici până la {time}",
-  "here.need_name": "Mai întâi alege un nume pentru contul tău"
+  "here.need_name": "Mai întâi alege un nume pentru contul tău",
+  "js.more": "Mai mult",
+  "js.reply_placeholder": "Răspunde…"
 }

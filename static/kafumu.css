@@ -527,3 +527,9 @@ main:focus { outline: none; }
 /* 📍 I'm here! with a small ☕ beside it (94a). */
 .quick-compose .actions .pill.coffee-small { flex: 0 0 auto; padding-left: 14px; padding-right: 14px; }
 .here-line { margin: .3rem 0 0; }
+/* A card's reply box and ⋯ (94b). */
+.actions .reply-box { flex: 1 0 100%; margin: 0 0 .3rem; gap: 6px; align-items: center; }
+.actions .reply-box input { margin: 0; padding: 6px 12px; height: auto; font-size: .9rem; border-radius: 999px; }
+.actions .reply-box [hidden] { display: none; }
+.actions .card-more { display: contents; }
+.actions .card-more[hidden] { display: none; }

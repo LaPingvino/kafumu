@@ -791,5 +791,7 @@
   "here.more": "Diğer ayarlar",
   "here.change": "Değiştir",
   "js.here_until": "{time} saatine kadar burada bulunabilirsin",
-  "here.need_name": "Önce hesabın için bir ad seç"
+  "here.need_name": "Önce hesabın için bir ad seç",
+  "js.more": "Daha fazla",
+  "js.reply_placeholder": "Yanıtla…"
 }

@@ -791,5 +791,7 @@
   "here.more": "További beállítások",
   "here.change": "Módosítás",
   "js.here_until": "Itt megtalálható eddig: {time}",
-  "here.need_name": "Először válassz nevet a fiókodnak"
+  "here.need_name": "Először válassz nevet a fiókodnak",
+  "js.more": "Továbbiak",
+  "js.reply_placeholder": "Válasz…"
 }

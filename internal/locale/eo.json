@@ -791,5 +791,7 @@
   "here.more": "Pliaj agordoj",
   "here.change": "Ŝanĝi",
   "js.here_until": "Trovebla ĉi tie ĝis {time}",
-  "here.need_name": "Unue elektu nomon por via konto"
+  "here.need_name": "Unue elektu nomon por via konto",
+  "js.more": "Pli",
+  "js.reply_placeholder": "Respondi…"
 }

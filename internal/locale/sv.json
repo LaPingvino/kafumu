@@ -791,5 +791,7 @@
   "here.more": "Fler inställningar",
   "here.change": "Ändra",
   "js.here_until": "Sökbar här till {time}",
-  "here.need_name": "Välj först ett namn för ditt konto"
+  "here.need_name": "Välj först ett namn för ditt konto",
+  "js.more": "Mer",
+  "js.reply_placeholder": "Svara…"
 }

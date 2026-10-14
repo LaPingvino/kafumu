@@ -791,5 +791,7 @@
   "here.more": "Další nastavení",
   "here.change": "Změnit",
   "js.here_until": "K nalezení tady do {time}",
-  "here.need_name": "Nejdřív si vyber jméno pro svůj účet"
+  "here.need_name": "Nejdřív si vyber jméno pro svůj účet",
+  "js.more": "Více",
+  "js.reply_placeholder": "Odpovědět…"
 }

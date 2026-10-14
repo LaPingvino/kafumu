@@ -1417,5 +1417,7 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       ☕ beside it sends the coffee line at once (your words if typed). Signed-in save not browser-tested yet. Was: it opens the findability settings right on the area page (how
       long, what people see), with a small "☕ Coffee?" at its right that just sends the coffee line; once set, it
       folds into a one-line shortcut ("👁 Findable here until 18:00 · change"), and coffee stays one tap.
-- [ ] 94b. Each card: a reply box that's simply there (type → it answers; quick reactions next to it), "📤 to a
+- [x] 94b. Done: local lines, Bluesky posts and the other reactable cards carry a reply box (type → it answers
+      there, as you unless you chose anonymous); 📤's 👀/🤝 send what you typed as your comment; Hide, ⚑ and 🔁 behind ⋯
+      on lines and posts. Browser step. Was: Each card: a reply box that's simply there (type → it answers; quick reactions next to it), "📤 to a
       friend" sends the card with what you typed as your comment; hide, report and the rest behind one ⋯.
