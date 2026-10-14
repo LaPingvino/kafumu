@@ -806,5 +806,7 @@
   "js.where_no": "這裡不要",
   "js.where_not_here": "在這個區域，你的聯絡人看不到你。",
   "js.where_share_here": "在這裡分享",
-  "js.open_chat": "以聊天開啟"
+  "js.open_chat": "以聊天開啟",
+  "meetup.chat": "和要來的人聊天",
+  "meetup.chat_explain": "公開：打開這個聚會的人都看得到。適合說「我在門口」或「我會晚到」。"
 }

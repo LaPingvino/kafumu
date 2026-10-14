@@ -806,5 +806,7 @@
   "js.where_no": "ここではしない",
   "js.where_not_here": "この地域では、連絡先の人にあなたは見えません。",
   "js.where_share_here": "ここで共有する",
-  "js.open_chat": "チャットで開く"
+  "js.open_chat": "チャットで開く",
+  "meetup.chat": "参加する人とチャット",
+  "meetup.chat_explain": "公開：このミートアップを開いた人は誰でも見られます。「入口にいます」「少し遅れます」などに便利です。"
 }

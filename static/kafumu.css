@@ -535,3 +535,5 @@ main:focus { outline: none; }
 .actions .card-more[hidden] { display: none; }
 .where-banner select.inline-select { display: inline-block; width: auto; margin: 0 4px; padding: 2px 28px 2px 8px; height: auto; font-size: .85rem; }
 .where-banner.asking { color: var(--fg); background: var(--card-bg, transparent); border: 1px solid var(--accent); border-radius: 12px; padding: 8px 12px; }
+/* A meetup's chat on its page (93b). */
+.meetup-chat .inline-chat .chat-log { max-height: 50vh; overflow-y: auto; }

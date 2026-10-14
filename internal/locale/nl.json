@@ -806,5 +806,7 @@
   "js.where_no": "Hier niet",
   "js.where_not_here": "Je contacten zien je niet in dit gebied.",
   "js.where_share_here": "Hier delen",
-  "js.open_chat": "Openen als chat"
+  "js.open_chat": "Openen als chat",
+  "meetup.chat": "Chat met wie er komt",
+  "meetup.chat_explain": "Openbaar: iedereen die deze meetup opent ziet het. Handig voor “ik sta bij de deur” of “ik ben wat later”."
 }

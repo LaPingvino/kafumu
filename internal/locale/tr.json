@@ -806,5 +806,7 @@
   "js.where_no": "Burada değil",
   "js.where_not_here": "Kişilerin seni bu bölgede görmüyor.",
   "js.where_share_here": "Burada paylaş",
-  "js.open_chat": "Sohbet olarak aç"
+  "js.open_chat": "Sohbet olarak aç",
+  "meetup.chat": "Gelenlerle sohbet et",
+  "meetup.chat_explain": "Herkese açık: bu buluşmayı açan herkes görür. “Kapıdayım” ya da “geç kalıyorum” demek için kullanışlı."
 }

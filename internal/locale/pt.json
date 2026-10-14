@@ -806,5 +806,7 @@
   "js.where_no": "Aqui não",
   "js.where_not_here": "Os teus contactos não te veem nesta zona.",
   "js.where_share_here": "Partilhar aqui",
-  "js.open_chat": "Abrir como conversa"
+  "js.open_chat": "Abrir como conversa",
+  "meetup.chat": "Conversa com quem vem",
+  "meetup.chat_explain": "Público: todos os que abrem este encontro o veem. Útil para «estou à porta» ou «vou chegar atrasado»."
 }

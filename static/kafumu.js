@@ -1586,6 +1586,12 @@
     if (!rid) return;
     Array.prototype.forEach.call(li.querySelectorAll(":scope > .reactions, :scope > .replies"), function (x) { x.remove(); });
     var rs = repliesFor(rid).filter(function (r) { return r.id !== li.dataset.self; }); // a link share isn't its own reaction
+    if (!rs.length && !nested && li.dataset.kind === "meetups" && window.kafumuChat) { // a meetup's chat, also before anyone wrote (93b)
+      var mc = document.createElement("button");
+      mc.type = "button"; mc.className = "pill-sm group-chat"; mc.textContent = "💬 " + tr("open_chat");
+      mc.onclick = function (ev) { ev.preventDefault(); ev.stopPropagation(); window.kafumuChat.open("r:" + rid, true, firstLine(li.textContent)); };
+      li.appendChild(mc);
+    }
     if (!rs.length) return;
     var counts = {}, texts = [];
     rs.forEach(function (r) { var t = firstLine(r.text); if (isEmojiOnly(t)) { var k = t.trim(); counts[k] = (counts[k] || 0) + 1; } else texts.push(r); });

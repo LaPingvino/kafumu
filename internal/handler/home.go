@@ -4,6 +4,8 @@ package handler
 import (
 	"cloud.google.com/go/datastore"
 	"context"
+	"crypto/sha1"
+	"encoding/hex"
 	"encoding/json"
 	"github.com/LaPingvino/kafumu/internal/brand"
 	"github.com/LaPingvino/kafumu/internal/business"
@@ -401,6 +403,11 @@ var Funcs = template.FuncMap{
 		return template.HTML(strings.ReplaceAll(s, "{host}", template.HTMLEscapeString(host)))
 	},
 	"venue": meetup.CleanVenue,
+	// reid: a thing's reply id ("#re" + it), as the device makes it (93b).
+	"reid": func(kind, id string) string {
+		h := sha1.Sum([]byte(kind + ":" + id))
+		return hex.EncodeToString(h[:])[:10]
+	},
 	// tagLabel shows a tag to people: "lang:epo" as "🗣 Esperanto" (an
 	// internal language tag), anything else as "#tag".
 	"tagLabel": func(tag string) string {

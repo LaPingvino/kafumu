@@ -18,8 +18,20 @@
     <a href="/meetups/{{.M.ID}}/ics" role="button" class="pill">{{t .Lang "meetup.add_calendar"}}</a>
     <button type="button" class="pill" onclick="navigator.share?navigator.share({title:document.title,url:location.href}).catch(function(){}):navigator.clipboard&&navigator.clipboard.writeText(location.href)">{{t .Lang "meetup.share"}}</button>
   </div>
+  <!-- Talk with the people coming (93b): the meetup's public replies as a chat. -->
+  <section class="meetup-chat">
+    <h2>💬 {{t .Lang "meetup.chat"}}</h2>
+    <p class="dim small">{{t .Lang "meetup.chat_explain"}}</p>
+    <div id="meetup-chat" data-rid="{{reid "meetup" .M.ID}}"></div>
+  </section>
 </article>
 <script src="/static/device.js?v={{.V}}"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var box = document.getElementById("meetup-chat");
+  if (box && window.kafumuChat) window.kafumuChat.inline(box, box.dataset.rid);
+});
+</script>
 <script>
 // The device remembers meetups you host or are going to, as they are now,
 // so Activity can tell you about new RSVPs, changes and cancellations (77d).

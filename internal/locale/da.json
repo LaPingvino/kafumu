@@ -806,5 +806,7 @@
   "js.where_no": "Ikke her",
   "js.where_not_here": "Dine kontakter kan ikke se dig i dette område.",
   "js.where_share_here": "Del her",
-  "js.open_chat": "Åbn som chat"
+  "js.open_chat": "Åbn som chat",
+  "meetup.chat": "Chat med dem, der kommer",
+  "meetup.chat_explain": "Offentlig: alle, der åbner dette meetup, kan se den. Praktisk til “jeg står ved døren” eller “jeg er lidt forsinket”."
 }

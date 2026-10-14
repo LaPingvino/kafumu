@@ -806,5 +806,7 @@
   "js.where_no": "Itt nem",
   "js.where_not_here": "A kapcsolataid nem látnak ezen a területen.",
   "js.where_share_here": "Megosztás itt",
-  "js.open_chat": "Megnyitás csevegésként"
+  "js.open_chat": "Megnyitás csevegésként",
+  "meetup.chat": "Csevegés azokkal, akik jönnek",
+  "meetup.chat_explain": "Nyilvános: mindenki látja, aki megnyitja ezt a találkozót. Jól jön egy „az ajtónál vagyok” vagy „késem” üzenethez."
 }

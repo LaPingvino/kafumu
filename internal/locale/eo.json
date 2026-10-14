@@ -806,5 +806,7 @@
   "js.where_no": "Ne ĉi tie",
   "js.where_not_here": "Viaj kontaktoj ne vidas vin en ĉi tiu regiono.",
   "js.where_share_here": "Kunhavigi ĉi tie",
-  "js.open_chat": "Malfermi kiel babilon"
+  "js.open_chat": "Malfermi kiel babilon",
+  "meetup.chat": "Babilu kun la venontoj",
+  "meetup.chat_explain": "Publika: ĉiu, kiu malfermas ĉi tiun renkontiĝon, vidas ĝin. Oportuna por «mi estas ĉe la pordo» aŭ «mi malfruos»."
 }

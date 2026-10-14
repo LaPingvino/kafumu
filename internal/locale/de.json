@@ -806,5 +806,7 @@
   "js.where_no": "Hier nicht",
   "js.where_not_here": "Deine Kontakte sehen dich in diesem Gebiet nicht.",
   "js.where_share_here": "Hier teilen",
-  "js.open_chat": "Als Chat öffnen"
+  "js.open_chat": "Als Chat öffnen",
+  "meetup.chat": "Chat mit allen, die kommen",
+  "meetup.chat_explain": "Öffentlich: Alle, die dieses Treffen öffnen, sehen ihn. Praktisch für „Ich bin an der Tür“ oder „Ich komme später“."
 }

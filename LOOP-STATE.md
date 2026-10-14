@@ -1414,7 +1414,9 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       writing posts a reply (#re, as you unless anonymous). The card itself keeps the newest 3. Browser step. Was: "💬 n" on a line, a meetup or an event opens its public replies (#re) as a chat window (the same window
       as private chats: docked on a computer, its own page on a phone), oldest first, refreshing while open; writing
       in it posts a reply (#re, mined, as you or anonymous), reactions as small notes in between.
-- [ ] 93b. Meetups and events: the window is where people coming talk ("I'm at the door", "running late"); a meetup's
+- [x] 93b. Done: a meetup's page has "💬 Chat with the people coming" (its public replies, inline, said to be
+      public); meetup cards in Around show 💬 Open as chat also before anyone wrote. Each line lives its own OLN time
+      (not yet tied to the meetup's end). Browser steps (A writes on the page, B reads from the card). Was: Meetups and events: the window is where people coming talk ("I'm at the door", "running late"); a meetup's
       page shows it too; it lives as long as the meetup (replies kept alive by the thread, 86d).
 
 ## 94. Cards with few, obvious controls (Joop 2026-10-14; before 93)

@@ -806,5 +806,7 @@
   "js.where_no": "Nu aici",
   "js.where_not_here": "Contactele tale nu te văd în această zonă.",
   "js.where_share_here": "Partajează aici",
-  "js.open_chat": "Deschide ca chat"
+  "js.open_chat": "Deschide ca chat",
+  "meetup.chat": "Chat cu cei care vin",
+  "meetup.chat_explain": "Public: îl vede oricine deschide această întâlnire. Util pentru „sunt la ușă” sau „întârzii”."
 }

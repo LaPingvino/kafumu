@@ -806,5 +806,7 @@
   "js.where_no": "Inte här",
   "js.where_not_here": "Dina kontakter ser dig inte i det här området.",
   "js.where_share_here": "Dela här",
-  "js.open_chat": "Öppna som chatt"
+  "js.open_chat": "Öppna som chatt",
+  "meetup.chat": "Chatta med dem som kommer",
+  "meetup.chat_explain": "Offentlig: alla som öppnar den här träffen ser den. Bra för ”jag står vid dörren” eller ”jag blir sen”."
 }

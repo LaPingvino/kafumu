@@ -806,5 +806,7 @@
   "js.where_no": "Nie tutaj",
   "js.where_not_here": "Twoje kontakty nie widzą cię w tym obszarze.",
   "js.where_share_here": "Udostępniaj tutaj",
-  "js.open_chat": "Otwórz jako czat"
+  "js.open_chat": "Otwórz jako czat",
+  "meetup.chat": "Czat z tymi, którzy przyjdą",
+  "meetup.chat_explain": "Publiczny: widzi go każdy, kto otworzy to spotkanie. Przydatny do „jestem przy drzwiach” albo „spóźnię się”."
 }

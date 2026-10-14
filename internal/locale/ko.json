@@ -806,5 +806,7 @@
   "js.where_no": "여기선 안 해요",
   "js.where_not_here": "이 지역에서는 연락처 사람들이 당신을 볼 수 없어요.",
   "js.where_share_here": "여기서 공유",
-  "js.open_chat": "채팅으로 열기"
+  "js.open_chat": "채팅으로 열기",
+  "meetup.chat": "오는 사람들과 채팅",
+  "meetup.chat_explain": "공개: 이 모임을 여는 누구나 볼 수 있어요. “입구에 있어요”나 “좀 늦어요” 같은 말에 편해요."
 }

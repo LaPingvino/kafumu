@@ -239,7 +239,11 @@
     if (key) open(key); else if (e.data && e.data.open) location.href = e.data.open;
   });
   window.addEventListener("resize", layout);
-  window.kafumuChat = { open: open, close: close, keyOf: keyOf, isOpen: function (key) { return order.indexOf(key) >= 0; } };
+  // inline (93b): a public thread right in the page (a meetup's own page).
+  function inline(box, rid) {
+    return need().then(function () { var t = replyThread(rid); t.thread.classList.add("inline-chat"); box.appendChild(t.thread); return t; });
+  }
+  window.kafumuChat = { open: open, close: close, keyOf: keyOf, inline: inline, isOpen: function (key) { return order.indexOf(key) >= 0; } };
   // On /chat?k=…, this chat is the page.
   var pageKey = page ? new URLSearchParams(location.search).get("k") || "" : "";
   if (page) need().then(function () { return pageKey ? build(pageKey, true) : null; }).then(function (w) {
