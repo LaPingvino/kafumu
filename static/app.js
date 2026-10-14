@@ -78,6 +78,28 @@
     document.getElementById("tour-start").onclick = function () { go(0); };
   }
 
+  // Scrolling chip rows (91a): each sits in a wrapper that shows a fade and
+  // a ‹ › when there's more to that side; it keeps up with new chips.
+  function hint(row) {
+    if (row.dataset.hinted) return;
+    row.dataset.hinted = "1";
+    var wrap = document.createElement("div"); wrap.className = "scroll-wrap";
+    row.parentNode.insertBefore(wrap, row); wrap.appendChild(row);
+    var upd = function () {
+      var more = row.scrollWidth - row.clientWidth > 4;
+      wrap.classList.toggle("more-right", more && row.scrollLeft < row.scrollWidth - row.clientWidth - 4);
+      wrap.classList.toggle("more-left", more && row.scrollLeft > 4);
+      wrap.hidden = row.hidden;
+    };
+    row.addEventListener("scroll", upd, { passive: true });
+    window.addEventListener("resize", upd);
+    var later = function () { requestAnimationFrame(upd); }; // measure once laid out
+    if (window.MutationObserver) new MutationObserver(later).observe(row, { childList: true, subtree: true, attributes: true, attributeFilter: ["hidden"] });
+    if (window.ResizeObserver) new ResizeObserver(later).observe(row);
+    upd();
+  }
+  document.querySelectorAll(".chips.scroll-row").forEach(hint);
+
   // Badge hellos: one mailbox read, only if a badge code exists, on pages
   // that load the device store (Around, Connect, Contacts…).
   if (window.kafumuDevice && window.kafumuPair) {

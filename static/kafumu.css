@@ -428,3 +428,15 @@ body.chat-fullpage .chat-window.chat-page .chat-log { overscroll-behavior: conta
 }
 /* Long code and links wrap instead of widening the page. */
 code, kbd, .doc a { overflow-wrap: anywhere; word-break: break-word; }
+/* Chip rows on one line that scroll sideways (91a), with a hint when there's
+   more: the edge fades and a › shows (app.js sets .more-right / .more-left). */
+.chips.scroll-row { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; position: relative; }
+.chips.scroll-row::-webkit-scrollbar { display: none; }
+.chips.scroll-row > * { flex: none; white-space: nowrap; }
+.scroll-wrap { position: relative; }
+.scroll-wrap.more-right::after, .scroll-wrap.more-left::before { position: absolute; top: 0; bottom: 4px; width: 2.2em; display: flex; align-items: center;
+  pointer-events: none; font-weight: 700; color: var(--fg); z-index: 1; }
+.scroll-wrap.more-right::after { content: "›"; right: 0; justify-content: flex-end; padding-right: 2px;
+  background: linear-gradient(to right, transparent, var(--window-bg) 70%); }
+.scroll-wrap.more-left::before { content: "‹"; left: 0; justify-content: flex-start; padding-left: 2px;
+  background: linear-gradient(to left, transparent, var(--window-bg) 70%); }

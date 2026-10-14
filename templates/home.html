@@ -8,7 +8,7 @@
       <button type="button" id="guess-pick" class="pill">{{t .Lang "guess.pick"}}</button></div>
     <p class="dim small">{{t .Lang "guess.note"}}</p>
   </div>
-  <div id="views" class="chips"></div>
+  <div id="views" class="chips scroll-row"></div>
   <p class="muted" id="status"></p>
   <h1 class="cell-tag" hidden><span id="place-name"></span><span id="cell-tag"></span></h1>
   <p id="place-also" class="place-also" hidden></p>
@@ -151,9 +151,9 @@
 </div>
 <p id="answers-link" class="actions" hidden><a href="/activity#answers" role="button" class="pill-sm"></a></p>
 <section id="feed-section">
-  <div id="filter-chips" class="chips filter-chips" role="group" hidden></div>
+  <div id="filter-chips" class="chips filter-chips scroll-row" role="group" hidden></div>
   <p id="filter-note" class="dim small" role="status" hidden></p>
-  <div id="feed-kinds" class="chips" role="group"></div>
+  <div id="feed-kinds" class="chips scroll-row" role="group"></div>
   <ul id="feed" class="boxed-list feed"><li class="muted">{{t .Lang "home.nothing_loaded"}}</li></ul>
   <p class="muted" id="list-note"></p>
   <div id="online-events" hidden><h2 class="dim">🌐 <span id="online-title"></span></h2><ul class="boxed-list"></ul>

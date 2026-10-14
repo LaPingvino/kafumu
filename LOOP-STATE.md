@@ -1269,7 +1269,9 @@ Around · Chats (mailbox + Contacts, 🔔 folded in) · Connect (your code + My 
       TestNewsForNeighbours.
 
 ## 91. The area page, much simpler on a phone (Joop 2026-10-14, screenshot: "almost only buttons, very confusing")
-- [ ] 91a. Chip rows (filters, kinds, sources) each one line that scrolls sideways, with a visible hint (a fade
+- [x] 91a. Done: views, tag filters, kinds/sources and the mailbox filters are one line each that scrolls sideways;
+      a wrapper (app.js) shows a fade with › / ‹ while there's more that way, re-measured as chips come and go.
+      Checked at 390 px. Was: Chip rows (filters, kinds, sources) each one line that scrolls sideways, with a visible hint (a fade
       and a › at the edge) that there's more.
 - [ ] 91b. The three big buttons become one text field on top ("Say something here…") with send buttons next to
       it: 💬 Say · ❓ Ask · ☕ Coffee (the text optional for coffee); the composer's options fold under it.
