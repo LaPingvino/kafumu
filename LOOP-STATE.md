@@ -1464,3 +1464,4 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
 - [x] Polish (idle tick): no more "Showing a shared cell:" / "Your area:" over the place name (the heading says it); after a location fix: "📍 Your location, rounded on this device to this area" (24 languages).
 - [x] Fix (idle tick): meetup cards grew one "💬 Open as chat" per redraw (4 seen in Lisbon); now one. Browser check (before the click: on a phone the click leaves the page).
 - [x] Polish (idle tick): meetup, news, source and people cards fold ⚑ behind ⋯ like lines and posts (one pattern on every card).
+- [x] Polish (idle tick): before the place name loads (or where there is none), the heading is the #geo code on one line with ✎ after it (it broke mid-word, "#geo8ccgm / w", ✎ in front).

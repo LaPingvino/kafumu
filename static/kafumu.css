@@ -179,6 +179,9 @@ details form input { margin: 0; }
 .cell-tag { font-size: clamp(2.2rem, 11vw, 3.4rem); letter-spacing: .01em; margin: .25rem 0; word-break: break-all; }
 /* With a place name, the name leads and the cell tag becomes its caption. */
 .cell-tag.named { word-break: normal; overflow-wrap: anywhere; line-height: 1.1; }
+/* Before the place's name is known (or where there is none): the #geo code alone, on one line, ✎ after it. */
+.cell-tag:not(.named) { display: flex; flex-wrap: wrap; align-items: center; font-size: clamp(1.7rem, 8.5vw, 3rem); word-break: normal; }
+.cell-tag:not(.named) #change-area { order: 2; }
 .place-also { margin: -.1rem 0 .6rem; font-size: .9rem; opacity: .65; line-height: 1.4; }
 .cell-tag.named .tag-line { display: block; font-size: 1rem; font-weight: 500; letter-spacing: .02em; margin-top: .3rem; }
 .cell-tag.named #cell-tag { opacity: .6; }
