@@ -35,14 +35,12 @@
         <button type="button" id="coffee" class="pill">{{if and .BrandInfo .BrandInfo.Button}}{{.BrandInfo.Button}}{{else}}☕ {{t .Lang "quick.coffee"}}{{end}}</button>
         <button type="button" id="learn" class="pill" hidden></button>
       </p>
+      <!-- What else you can put here (91e): a meetup (the field's text becomes its title), a source. -->
+      <p class="actions minor kinds"><a id="quick-meetup" href="/meetups/new" role="button" class="pill-sm">📅 {{t .Lang "meetup.new_title"}}</a>
+        <button type="button" id="source-open" class="pill-sm">📰 {{t .Lang "source.add"}}</button></p>
       <p class="dim small" id="quick-status" role="status"></p>
     </div>
     <!-- About the area rather than in it: smaller, out of the way. -->
-    <p class="actions minor">
-      <a href="/meetups/new" role="button" class="pill-sm">＋ {{t .Lang "meetup.new_title"}}</a>
-      <button type="button" id="source-open" class="pill-sm">📰 {{t .Lang "source.add"}}</button>
-      <a id="be-findable" href="/findable" role="button" class="pill-sm">👁 {{t .Lang "home.be_findable"}}</a>
-    </p>
   </div>
   {{if and .ATproto .User}}{{if .BskyHandle}}
   <form id="composer" method="post" action="/post" class="card" style="padding:4px 16px 12px" hidden>
@@ -76,6 +74,8 @@
     <p>{{t .Lang "coffee.explain1"}}</p>
     <p class="dim">{{t .Lang "coffee.explain2"}}</p>
     <div class="actions"><button type="button" id="coffee-go" class="pill suggested">{{t .Lang "coffee.go"}}</button></div>
+    <!-- Coffee now, or findable for longer (91e: one place for "let people here meet you"). -->
+    <p class="dim small">{{t .Lang "coffee.findable"}} <a id="be-findable" href="/findable">👁 {{t .Lang "home.be_findable"}}</a></p>
     <p class="dim small" id="coffee-status" role="status"></p>
   </div>
   <div id="learn-card" class="card" style="padding:4px 16px 12px" hidden>

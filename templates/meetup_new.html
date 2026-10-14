@@ -42,6 +42,10 @@
 (function () {
   var f = document.getElementById("meetup-form"), G = window.kafumuGeo;
   try { var last = localStorage.getItem("kafumu.lastCell"); if (last) f.cell.value = last; } catch (e) {}
+  // From the area's field (91e): its area, and what you typed as the title.
+  var q = new URLSearchParams(location.search);
+  if (/^[23456789cfghjmpqrvwx]{6}$/.test(q.get("cell") || "")) f.cell.value = q.get("cell");
+  if (q.get("title")) f.title.value = q.get("title").slice(0, 100);
   var d = new Date(Date.now() + 3600e3); d.setMinutes(0, 0, 0);
   f.start.value = new Date(d.getTime() - d.getTimezoneOffset() * 60e3).toISOString().slice(0, 16);
   document.getElementById("use-location").onclick = function () {

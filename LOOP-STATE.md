@@ -1284,10 +1284,15 @@ Around · Chats (mailbox + Contacts, 🔔 folded in) · Connect (your code + My 
       Was: The small buttons find their place (Joop): ✎ right after the big place name changes the area; share right
       after the #geo tag line; 📅 calendar and 📰 RSS as small icons in the heading's top-right corner (like Eventa
       Servo); the row of small buttons goes.
-- [ ] 91e. One post interface (Joop): the field on top gets a kind switch that changes the form below it: a line, a
+- [x] 91e. Done (first step): under the field on top, "📅 Host a meetup" (the field's text becomes its title, the
+      area comes along) and "📰 Add a source" (a link typed on top becomes the source); "be findable" moved into the
+      coffee card with a clear line (coffee now, or findable for a while); the separate button row is gone. 24 languages.
+      A fully switching form (kinds changing the form in place) stays open. Was: One post interface (Joop): the field on top gets a kind switch that changes the form below it: a line, a
       question, ☕ coffee / be findable here (merged, with a clear "let people here meet you, now or later" text), a
       meetup (host one: the meetup form in place), a source (add one). The separate "Host a meetup", "Add a source"
       and "Be findable here too" buttons go.
+- [ ] 91f. The area search in place (Joop): ✎ turns the place name itself into the place search field (same look as
+      the heading), results right under it; the separate area-picker card goes.
 - [ ] 91d. A search box near the top: words filter the feed as you type, a #tag or language becomes the view filter.
 
 ## 90. Filters reach everything (Joop 2026-10-14)

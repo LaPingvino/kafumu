@@ -723,6 +723,8 @@
   // under your name (the server only takes it from a named passkey account).
   if ($("source-open")) $("source-open").onclick = function () {
     var f = $("source-form"); f.hidden = !f.hidden;
+    var q = quickText(), u = (q.match(/https?:\/\/\S+/) || [""])[0]; // a link typed on top is the source
+    if (!f.hidden && f.url && u) { f.url.value = u; f.name.value = q.replace(u, "").trim(); $("quick-text").value = ""; }
     if (!f.hidden && f.url) f.url.focus();
   };
   if ($("source-form") && $("source-form").url) $("source-form").onsubmit = function (e) {
@@ -1494,6 +1496,10 @@
     setTimeout(function () { $("quick-text").placeholder = sayPlaceholder(); }, 0);
     $("compose").href = "https://bsky.app/intent/compose?text=" + encodeURIComponent("\n\n" + tag);
     $("be-findable").href = "/findable?cell=" + c;
+    $("quick-meetup").onclick = function (e) { // the field's text as its title
+      e.preventDefault();
+      location.href = "/meetups/new?cell=" + c + (quickText() ? "&title=" + encodeURIComponent(quickText().slice(0, 100)) : "");
+    };
     // Follow the area elsewhere, like Eventa Servo does per country (81a):
     // its meetups as a calendar subscription, everything as RSS.
     $("cal-link").href = "webcal://" + location.host + "/cal/" + c + ".ics";

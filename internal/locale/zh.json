@@ -766,5 +766,6 @@
   "nav.my_code": "我的代码",
   "quick.say": "说",
   "quick.ask": "问",
-  "quick.coffee": "喝咖啡？"
+  "quick.coffee": "喝咖啡？",
+  "coffee.findable": "想在这里被找到一段时间，不用发消息？你的资料会在你选的时段显示在这里。"
 }

@@ -766,5 +766,6 @@
   "nav.my_code": "Min kod",
   "quick.say": "Säg",
   "quick.ask": "Fråga",
-  "quick.coffee": "Kaffe?"
+  "quick.coffee": "Kaffe?",
+  "coffee.findable": "Hellre vara sökbar här en stund, utan meddelande? Din profil syns här under de timmar du väljer."
 }
