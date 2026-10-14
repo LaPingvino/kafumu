@@ -1468,3 +1468,4 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
 - [x] Polish (idle tick): the stray footer line "Only people you have connected with can see this… · Be findable here too" under the feed is gone (the where-you-are banner, 95a, says it in context; 📍 I am here! is the findable button).
 - [x] Fix (idle tick): an empty public group chat said "Only you two can read them" (false); now "Public: anyone who opens this can read them" (24 languages). Its title is the card title, not date+title glued. Browser checks.
 - [x] Polish (idle tick): replies under a card no longer carry their own reply box (reactions + a small 💬 instead); the card box and its chat do the talking. Browser check.
+- [x] Polish (idle tick): the Look section (theme, pictures) showed on Findable too; now only on Account.

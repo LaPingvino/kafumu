@@ -165,8 +165,8 @@
     </div>{{end}}
   {{end}}
 </article>
-<!-- Look (92a): per device, for everyone, signed in or not. -->
-<section class="card look" style="padding:4px 16px 12px">
+<!-- Look (92a): per device, for everyone, signed in or not; on Account, not on Findable. -->
+{{if not .Findable}}<section class="card look" style="padding:4px 16px 12px">
   <h2>🎨 {{t .Lang "look.title"}}</h2>
   <div class="chips" id="theme-pick" role="group" aria-label="{{ts .Lang "look.title"}}">
     <button type="button" class="chip" data-theme="">🌗 {{t .Lang "look.auto"}}</button>
@@ -202,7 +202,7 @@
   });
   markMedia();
 })();
-</script>
+</script>{{end}}
 {{if .Passkeys}}<script>window.KAFUMU_T = window.KAFUMU_T || {{.JS}};</script><script src="/static/passkey.js?v={{.V}}"></script>{{end}}
 {{if .User}}<script>window.KAFUMU_T = window.KAFUMU_T || {{.JS}};</script>
 <script src="/static/device.js?v={{.V}}"></script>
