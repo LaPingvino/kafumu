@@ -46,6 +46,8 @@ type meetupPage struct {
 	Error string
 	// HostAs: the live business accounts you may host as (meetups/new).
 	HostAs []*business.Business
+	// Place: the meetup's area by name ("Barreiro"), not its #geo code (91g).
+	Place string
 }
 
 // New handles GET /meetups/new.
@@ -138,6 +140,14 @@ func (h *Meetups) Show(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	p := meetupPage{page: h.Home.newPage(r, m.Title), M: m}
+	if h.Home.Gaz != nil {
+		if n := h.Home.Gaz.Nearest(m.Cell); n != nil && n.Name != "" {
+			p.Place = n.Name
+			if n.City != "" && n.City != n.Name {
+				p.Place += ", " + n.City
+			}
+		}
+	}
 	p.Tab = "around"
 	if u := p.User; u != nil {
 		p.Going, p.Mine = m.HasRSVP(u.ID), m.AuthorID == u.ID

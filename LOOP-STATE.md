@@ -1359,14 +1359,15 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       else copied). /n/<id> skipped: a line lives ≤ 7 days and its area link already says where. Was: A line's permalink (`/n/<id>` → its area, highlighted) + "🔗 Link" in every item's share row; shares
       carry it.
 
-- [ ] 91g. A pass over every page for the same kind of thing (Joop): controls next to what they act on, separate
+- [x] 91g. A pass over every page for the same kind of thing (Joop): controls next to what they act on, separate
       cards and panels that can be the thing itself in place, near-duplicate buttons merged; one page per tick.
       Done: Contacts (a contact's tags, note and Remove fold behind ✎ in its head; a note you wrote shows as a
       line); Chats (one "Contacts": the filter leads to the cards, notes and backup). Connect (Joop: the QR is the short code by default,
       smaller and easier to scan, renewed before its hour ends; "⏱ 1 hour · ∞ until a new code" replaces the "make a
       short code" button). My card (the preview first; ways to reach you
       show when filled in, the rest as "＋ Email"… chips, no wall of 13 empty fields). Me (no second "Be findable →" next to the switch;
-      Findable's main choice, findable or not and how long, moved from the bottom to the top). Next: a meetup page.
+      Findable's main choice, findable or not and how long, moved from the bottom to the top). a meetup (its place by name, "📍 Barreiro",
+      linking to the area, not "#geo8ccgmw"). Pass done for the main pages; the rest as they come up.
 
 ## 92. Look, access, media (Joop 2026-10-14; after 91 and 90; the last item lowest)
 - [ ] 92a. Theming: light / dark / automatic (follows the device) / high contrast, chosen per device (Me), applied
