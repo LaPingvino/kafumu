@@ -1380,6 +1380,9 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       memcache, which can drop it. Now kept in Datastore too (Config/seen-cells), like the seen countries, and read
       back into the cache when it's gone.
 
+- [x] Polish (Joop: the › hint did nothing on a computer): ‹ › are real buttons that move the row most of its width,
+      and the mouse wheel scrolls a chip row sideways while you point at it (until its end, then the page scrolls).
+
 ## 92. Look, access, media (Joop 2026-10-14; after 91 and 90; the last item lowest)
 - [x] 92a. Done: Me → 🎨 Look (for everyone, per device): 🌗 automatic (follows the device) · ☀️ light · 🌙 dark · ◐
       high contrast (black, white borders, yellow accent, underlined links, a strong focus ring); html[data-theme] is

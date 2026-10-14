@@ -473,12 +473,12 @@ code, kbd, .doc a { overflow-wrap: anywhere; word-break: break-word; }
 .chips.scroll-row::-webkit-scrollbar { display: none; }
 .chips.scroll-row > * { flex: none; white-space: nowrap; }
 .scroll-wrap { position: relative; }
-.scroll-wrap.more-right::after, .scroll-wrap.more-left::before { position: absolute; top: 0; bottom: 4px; width: 2.2em; display: flex; align-items: center;
-  pointer-events: none; font-weight: 700; color: var(--fg); z-index: 1; }
-.scroll-wrap.more-right::after { content: "›"; right: 0; justify-content: flex-end; padding-right: 2px;
-  background: linear-gradient(to right, transparent, var(--window-bg) 70%); }
-.scroll-wrap.more-left::before { content: "‹"; left: 0; justify-content: flex-start; padding-left: 2px;
-  background: linear-gradient(to left, transparent, var(--window-bg) 70%); }
+.scroll-btn { position: absolute; top: 0; bottom: 4px; width: 2.4em; margin: 0; padding: 0; border: 0; border-radius: 0; z-index: 2;
+  font-weight: 700; font-size: 1.1rem; color: var(--fg); cursor: pointer; display: flex; align-items: center; }
+.scroll-btn[hidden] { display: none; }
+.scroll-btn.right { right: 0; justify-content: flex-end; padding-right: 4px; background: linear-gradient(to right, transparent, var(--window-bg) 55%); }
+.scroll-btn.left { left: 0; justify-content: flex-start; padding-left: 4px; background: linear-gradient(to left, transparent, var(--window-bg) 55%); }
+.scroll-btn:hover { color: var(--accent); }
 /* The text field on top (91b). */
 .quick-compose { margin: .4rem 0 .2rem; }
 .quick-compose textarea { margin: 0 0 6px; min-height: 2.8em; resize: none; border-radius: var(--radius); }

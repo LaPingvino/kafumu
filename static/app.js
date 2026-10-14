@@ -85,13 +85,34 @@
     row.dataset.hinted = "1";
     var wrap = document.createElement("div"); wrap.className = "scroll-wrap";
     row.parentNode.insertBefore(wrap, row); wrap.appendChild(row);
+    // ‹ › are buttons too (Joop: on a computer there's no swipe): each moves
+    // the row most of its width.
+    var mk = function (side, label) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "scroll-btn " + side; b.textContent = label; b.tabIndex = -1;
+      b.setAttribute("aria-hidden", "true"); // the chips themselves stay reachable by keyboard
+      b.onclick = function () { row.scrollBy({ left: (side === "right" ? 1 : -1) * row.clientWidth * 0.8, behavior: "smooth" }); };
+      wrap.appendChild(b);
+      return b;
+    };
+    var left = mk("left", "‹"), right = mk("right", "›");
     var upd = function () {
       var more = row.scrollWidth - row.clientWidth > 4;
-      wrap.classList.toggle("more-right", more && row.scrollLeft < row.scrollWidth - row.clientWidth - 4);
-      wrap.classList.toggle("more-left", more && row.scrollLeft > 4);
+      var r = more && row.scrollLeft < row.scrollWidth - row.clientWidth - 4, l = more && row.scrollLeft > 4;
+      wrap.classList.toggle("more-right", r); wrap.classList.toggle("more-left", l);
+      right.hidden = !r; left.hidden = !l;
       wrap.hidden = row.hidden;
     };
     row.addEventListener("scroll", upd, { passive: true });
+    // The mouse wheel scrolls the row sideways while you point at it (only
+    // while there's more that way; otherwise the page scrolls as usual).
+    row.addEventListener("wheel", function (e) {
+      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX) || row.scrollWidth - row.clientWidth <= 4) return;
+      var atEnd = e.deltaY > 0 ? row.scrollLeft >= row.scrollWidth - row.clientWidth - 2 : row.scrollLeft <= 2;
+      if (atEnd) return;
+      e.preventDefault();
+      row.scrollLeft += e.deltaY;
+    }, { passive: false });
     window.addEventListener("resize", upd);
     var later = function () { requestAnimationFrame(upd); }; // measure once laid out
     if (window.MutationObserver) new MutationObserver(later).observe(row, { childList: true, subtree: true, attributes: true, attributeFilter: ["hidden"] });
