@@ -22,7 +22,7 @@
   "about.private": "Privates (Leute, die du gescannt hast, ihre Kontaktdaten) bleibt auf deinem Gerät. Öffentliches liegt in öffentlichen Netzwerken, die du kontrollierst. Der Kafumu-Server speichert nur, was er muss, und das meiste davon verfällt innerhalb weniger Tage. Was wir nicht haben, können wir nicht verlieren.",
   "about.free_title": "Kostenlos, für immer",
   "about.free": "Leute finden, Freunde in der Nähe und Treffen veranstalten bleibt immer kostenlos. Kafumu wird von einer einzigen Person betrieben; wenn es dir hilft, jemanden kennenzulernen, kannst du etwas beisteuern.",
-  "js.your_cell": "Deine Zelle, auf diesem Gerät berechnet:",
+  "js.your_cell": "📍 Dein Standort, auf diesem Gerät auf dieses Gebiet gerundet",
   "js.shared_cell": "Geteilte Zelle:",
   "js.chosen_cell": "Gewählte Zelle:",
   "js.last_cell": "Standort nicht verfügbar; deine letzte Zelle:",

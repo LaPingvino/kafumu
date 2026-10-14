@@ -22,7 +22,7 @@
   "about.private": "Soukromé věci (lidi, které jsi naskenoval, jejich kontakty) zůstávají na tvém zařízení. Veřejné věci žijí ve veřejných sítích, které máš pod kontrolou. Server Kafumu uchovává jen to, co musí, a většina z toho do pár dnů vyprší. Nemůžeme vyzradit, co nemáme.",
   "about.free_title": "Zdarma, navždy",
   "about.free": "Hledání lidí, přátelé poblíž a pořádání setkání budou vždycky zdarma. Kafumu provozuje jeden člověk; jestli ti pomůže někoho potkat, budeš moct přispět.",
-  "js.your_cell": "Tvůj čtverec, spočítaný na tomto zařízení:",
+  "js.your_cell": "📍 Tvoje poloha, na tomto zařízení zaokrouhlená na tuto oblast",
   "js.shared_cell": "Zobrazuji sdílený čtverec:",
   "js.chosen_cell": "Zobrazuji vybraný čtverec:",
   "js.last_cell": "Poloha není dostupná; zobrazuji tvůj poslední čtverec:",

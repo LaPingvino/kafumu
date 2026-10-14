@@ -22,7 +22,7 @@
   "about.private": "Privézaken (mensen die je gescand hebt, hun contactgegevens) blijven op je apparaat. Openbare zaken staan op openbare netwerken die jij beheert. De Kafumu-server bewaart alleen wat strikt nodig is, en het meeste daarvan verloopt binnen een paar dagen. Wat we niet hebben, kunnen we niet lekken.",
   "about.free_title": "Gratis, voor altijd",
   "about.free": "Mensen vinden, vrienden in de buurt en bijeenkomsten organiseren blijft altijd gratis. Kafumu wordt door één persoon gerund; als het je helpt iemand te ontmoeten, kun je bijdragen.",
-  "js.your_cell": "Je cel, berekend op dit apparaat:",
+  "js.your_cell": "📍 Je locatie, op dit apparaat afgerond tot dit gebied",
   "js.shared_cell": "Een gedeelde cel:",
   "js.chosen_cell": "Een gekozen cel:",
   "js.last_cell": "Locatie niet beschikbaar; je laatste cel:",

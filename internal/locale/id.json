@@ -22,7 +22,7 @@
   "about.private": "Hal-hal pribadi (orang yang kamu pindai, detail kontak mereka) tetap di perangkatmu. Hal-hal publik ada di jaringan publik yang kamu kendalikan. Server Kafumu hanya menyimpan yang benar-benar perlu, dan sebagian besar kedaluwarsa dalam beberapa hari. Kami tidak bisa membocorkan apa yang tidak kami punya.",
   "about.free_title": "Gratis, selamanya",
   "about.free": "Menemukan orang, teman di sekitar, dan mengadakan meetup akan selalu gratis. Kafumu dijalankan oleh satu orang; kalau ini membantumu bertemu seseorang, kamu bisa ikut menyumbang.",
-  "js.your_cell": "Selmu, dihitung di perangkat ini:",
+  "js.your_cell": "📍 Lokasimu, dibulatkan di perangkat ini ke area ini",
   "js.shared_cell": "Menampilkan sel yang dibagikan:",
   "js.chosen_cell": "Menampilkan sel pilihan:",
   "js.last_cell": "Lokasi tidak tersedia; menampilkan sel terakhirmu:",

@@ -22,7 +22,7 @@
   "about.private": "Privata saker (personer du har skannat, deras kontaktuppgifter) stannar på din enhet. Offentliga saker finns på offentliga nätverk som du styr över. Kafumus server sparar bara det den måste, och det mesta av det försvinner inom några dagar. Vi kan inte läcka det vi inte har.",
   "about.free_title": "Gratis, för alltid",
   "about.free": "Att hitta folk, vänner i närheten och att ordna träffar kommer alltid att vara gratis. Kafumu drivs av en enda person; om det hjälper dig att träffa någon kommer du att kunna bidra.",
-  "js.your_cell": "Din ruta, beräknad på den här enheten:",
+  "js.your_cell": "📍 Din plats, avrundad på den här enheten till det här området",
   "js.shared_cell": "Visar en delad ruta:",
   "js.chosen_cell": "Visar en vald ruta:",
   "js.last_cell": "Platsen är inte tillgänglig; visar din senaste ruta:",

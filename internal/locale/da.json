@@ -22,7 +22,7 @@
   "about.private": "Private ting (folk du har scannet, deres kontaktoplysninger) bliver på din enhed. Offentlige ting lever på offentlige netværk, som du styrer. Kafumus server gemmer kun det, den skal, og det meste af det udløber inden for få dage. Vi kan ikke lække det, vi ikke har.",
   "about.free_title": "Gratis, for altid",
   "about.free": "At finde folk, venner i nærheden og at holde meetups vil altid være gratis. Kafumu drives af én person; hvis det hjælper dig med at møde nogen, kan du give et bidrag.",
-  "js.your_cell": "Din celle, beregnet på denne enhed:",
+  "js.your_cell": "📍 Din placering, afrundet på denne enhed til dette område",
   "js.shared_cell": "Viser en delt celle:",
   "js.chosen_cell": "Viser en valgt celle:",
   "js.last_cell": "Placering ikke tilgængelig; viser din seneste celle:",

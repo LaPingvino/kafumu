@@ -22,7 +22,7 @@
   "about.private": "A privát dolgok (akiket beszkenneltél, az elérhetőségeik) az eszközödön maradnak. A nyilvános dolgok általad irányított nyilvános hálózatokon élnek. A Kafumu szervere csak azt tárolja, amit muszáj, és ennek nagy része napokon belül lejár. Amink nincs, azt nem is szivárogtathatjuk ki.",
   "about.free_title": "Ingyenes, örökre",
   "about.free": "Emberek keresése, barátok a közelben és találkozók szervezése mindig ingyenes lesz. A Kafumut egyetlen ember üzemelteti; ha segít, hogy megismerj valakit, majd beszállhatsz egy kicsivel.",
-  "js.your_cell": "A cellád, ezen az eszközön számolva:",
+  "js.your_cell": "📍 A helyed, ezen az eszközön erre a területre kerekítve",
   "js.shared_cell": "Megosztott cella:",
   "js.chosen_cell": "Választott cella:",
   "js.last_cell": "A helyzet nem elérhető; az utolsó cellád látszik:",

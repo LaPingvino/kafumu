@@ -22,7 +22,7 @@
   "about.private": "Rzeczy prywatne (osoby, które zeskanowałeś, ich dane kontaktowe) zostają na twoim urządzeniu. Rzeczy publiczne żyją w publicznych sieciach, nad którymi masz kontrolę. Serwer Kafumu przechowuje tylko to, co musi, a większość z tego wygasa w ciągu kilku dni. Nie możemy wyciec czegoś, czego nie mamy.",
   "about.free_title": "Za darmo, na zawsze",
   "about.free": "Znajdowanie ludzi, znajomi w pobliżu i organizowanie spotkań zawsze będą darmowe. Kafumu prowadzi jedna osoba; jeśli pomoże ci kogoś poznać, będziesz mógł się dorzucić.",
-  "js.your_cell": "Twój kwadrat, obliczony na tym urządzeniu:",
+  "js.your_cell": "📍 Twoja lokalizacja, zaokrąglona na tym urządzeniu do tego obszaru",
   "js.shared_cell": "Pokazuję udostępniony kwadrat:",
   "js.chosen_cell": "Pokazuję wybrany kwadrat:",
   "js.last_cell": "Lokalizacja niedostępna; pokazuję twój ostatni kwadrat:",

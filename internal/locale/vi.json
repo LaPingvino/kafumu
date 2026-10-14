@@ -22,7 +22,7 @@
   "about.private": "Những thứ riêng tư (những người bạn đã quét mã, thông tin liên hệ của họ) ở lại trên thiết bị của bạn. Những thứ công khai nằm trên các mạng công khai do bạn kiểm soát. Máy chủ Kafumu chỉ giữ những gì bắt buộc, và phần lớn sẽ hết hạn trong vài ngày. Chúng tôi không thể làm lộ thứ mình không có.",
   "about.free_title": "Miễn phí, mãi mãi",
   "about.free": "Tìm người, bạn bè gần đây và tổ chức buổi gặp mặt sẽ luôn miễn phí. Kafumu do một người vận hành; nếu nó giúp bạn gặp được ai đó, bạn có thể góp một chút.",
-  "js.your_cell": "Ô của bạn, được tính trên thiết bị này:",
+  "js.your_cell": "📍 Vị trí của bạn, được làm tròn trên thiết bị này thành khu vực này",
   "js.shared_cell": "Đang hiển thị một ô được chia sẻ:",
   "js.chosen_cell": "Đang hiển thị một ô đã chọn:",
   "js.last_cell": "Không lấy được vị trí; đang hiển thị ô gần nhất của bạn:",

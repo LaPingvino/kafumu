@@ -22,7 +22,7 @@
   "about.private": "Lucrurile private (oamenii pe care i-ai scanat, datele lor de contact) rămân pe dispozitivul tău. Lucrurile publice stau pe rețele publice pe care le controlezi tu. Serverul Kafumu păstrează doar ce trebuie, iar cea mai mare parte expiră în câteva zile. Nu putem scurge ce nu avem.",
   "about.free_title": "Gratuit, pentru totdeauna",
   "about.free": "Găsirea oamenilor, prietenii din apropiere și organizarea de întâlniri vor fi mereu gratuite. Kafumu e făcut de o singură persoană; dacă te ajută să cunoști pe cineva, vei putea contribui.",
-  "js.your_cell": "Celula ta, calculată pe acest dispozitiv:",
+  "js.your_cell": "📍 Locația ta, rotunjită pe acest dispozitiv la această zonă",
   "js.shared_cell": "Se afișează o celulă distribuită:",
   "js.chosen_cell": "Se afișează o celulă aleasă:",
   "js.last_cell": "Locație indisponibilă; se afișează ultima ta celulă:",

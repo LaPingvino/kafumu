@@ -22,7 +22,7 @@
   "about.private": "Özel şeyler (taradığın kişiler, iletişim bilgileri) cihazında kalır. Herkese açık şeyler senin kontrol ettiğin açık ağlarda yaşar. Kafumu sunucusu yalnızca zorunlu olanı tutar ve bunun çoğu birkaç gün içinde silinir. Elimizde olmayanı sızdıramayız.",
   "about.free_title": "Ücretsiz, sonsuza dek",
   "about.free": "İnsan bulmak, yakındaki arkadaşlar ve buluşma düzenlemek her zaman ücretsiz olacak. Kafumu'yu tek bir kişi yürütüyor; biriyle tanışmana yardımcı olursa katkıda bulunabileceksin.",
-  "js.your_cell": "Bu cihazda hesaplanan hücren:",
+  "js.your_cell": "📍 Konumun, bu cihazda bu bölgeye yuvarlandı",
   "js.shared_cell": "Paylaşılan bir hücre gösteriliyor:",
   "js.chosen_cell": "Seçilen bir hücre gösteriliyor:",
   "js.last_cell": "Konum alınamadı; son hücren gösteriliyor:",

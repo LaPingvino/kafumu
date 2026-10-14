@@ -22,7 +22,7 @@
   "about.private": "O que é privado (as pessoas cujo código leu, os contactos delas) fica no seu dispositivo. O que é público vive em redes públicas que controla. O servidor do Kafumu guarda só o indispensável, e quase tudo expira em poucos dias. Não podemos divulgar o que não temos.",
   "about.free_title": "Gratuito, para sempre",
   "about.free": "Encontrar pessoas, amigos por perto e organizar encontros será sempre gratuito. O Kafumu é mantido por uma pessoa; se o ajudar a conhecer alguém, poderá contribuir.",
-  "js.your_cell": "A sua célula, calculada neste dispositivo:",
+  "js.your_cell": "📍 A tua localização, arredondada neste dispositivo a esta zona",
   "js.shared_cell": "A mostrar uma célula partilhada:",
   "js.chosen_cell": "A mostrar uma célula escolhida:",
   "js.last_cell": "Localização indisponível; a mostrar a sua última célula:",

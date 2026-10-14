@@ -22,7 +22,7 @@
   "about.private": "Privataj aferoj (homoj, kies kodon vi skanis, iliaj kontaktinformoj) restas en via aparato. Publikaj aferoj loĝas en publikaj retoj, kiujn vi regas. La servilo de Kafumu tenas nur la nepran, kaj plejparto de tio eksvalidiĝas post kelkaj tagoj. Ni ne povas liki tion, kion ni ne havas.",
   "about.free_title": "Senpage, por ĉiam",
   "about.free": "Trovi homojn, proksimajn amikojn kaj organizi renkontiĝojn ĉiam estos senpage. Unu persono funkciigas Kafumu; se ĝi helpas vin renkonti iun, vi povos kontribui.",
-  "js.your_cell": "Via ĉelo, kalkulita en ĉi tiu aparato:",
+  "js.your_cell": "📍 Via loko, rondigita sur ĉi tiu aparato al ĉi tiu regiono",
   "js.shared_cell": "Montrante konigitan ĉelon:",
   "js.chosen_cell": "Montrante elektitan ĉelon:",
   "js.last_cell": "Loko ne disponeblas; montrante vian lastan ĉelon:",
