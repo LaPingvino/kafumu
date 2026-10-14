@@ -471,6 +471,10 @@ try {
     try { await B.waitFor("document.getElementById('feed').textContent.includes('Browser test kafo')", "meetup in B's Around", 8000); break; }
     catch (e) { if (i >= 10) throw e; }
   }
+  // One 💬 on the meetup card, however often its replies are redrawn.
+  await B.evaluate("window.dispatchEvent(new Event('resize')); true");
+  await sleep(1500);
+  await B.waitFor("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('Browser test kafo')); return li && li.querySelectorAll(':scope > .group-chat').length === 1; })()", "one 💬 on the meetup card, not one per redraw", 15000);
   // B opens the meetup's chat from its card and sees A's line.
   await B.waitFor("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('Browser test kafo')); const b = li && li.querySelector(':scope > .group-chat'); if (!b) return false; b.click(); return true; })()", "💬 on the meetup card", 20000);
   await B.waitFor("[...document.querySelectorAll('.chat-window')].some(w => w.textContent.includes('At the door " + RUN + "'))", "B sees A's line in the meetup chat", 70000);

@@ -1462,3 +1462,4 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       at a time: the install offer waits until the help bar is closed. Checked with an iPhone UA (not in the suite).
 - [x] Polish (idle tick): narrow screens wrap a field with a long button (the Bluesky field read "you.bsky.soc"). Checked on kafumu.com.
 - [x] Polish (idle tick): no more "Showing a shared cell:" / "Your area:" over the place name (the heading says it); after a location fix: "📍 Your location, rounded on this device to this area" (24 languages).
+- [x] Fix (idle tick): meetup cards grew one "💬 Open as chat" per redraw (4 seen in Lisbon); now one. Browser check (before the click: on a phone the click leaves the page).

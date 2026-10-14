@@ -1585,7 +1585,7 @@
   function attachReplies(li, nested) {
     var rid = li.dataset.reid;
     if (!rid) return;
-    Array.prototype.forEach.call(li.querySelectorAll(":scope > .reactions, :scope > .replies"), function (x) { x.remove(); });
+    Array.prototype.forEach.call(li.querySelectorAll(":scope > .reactions, :scope > .replies, :scope > .group-chat"), function (x) { x.remove(); }); // redrawn each time replies come in
     var rs = repliesFor(rid).filter(function (r) { return r.id !== li.dataset.self; }); // a link share isn't its own reaction
     if (!rs.length && !nested && li.dataset.kind === "meetups" && window.kafumuChat) { // a meetup's chat, also before anyone wrote (93b)
       var mc = document.createElement("button");
