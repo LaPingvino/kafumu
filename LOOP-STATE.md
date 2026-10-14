@@ -1263,6 +1263,15 @@ Around · Chats (mailbox + Contacts, 🔔 folded in) · Connect (your code + My 
       360 px. Quiet sources (O Setubalense's Barreiro page: nothing this week) show their newest 3 of the last month
       (TestQuietSource).
 
+## 90. Filters reach everything (Joop 2026-10-14)
+- [ ] 90a. Tag and language filters apply to news from sources too (title, summary, the source line's tags), and when a
+      filter leaves the area (nearly) empty, the wider rings bring news too (the wide bundle carries news).
+- [ ] 90b. Online events per tag, everywhere: like lines about a subject (78a), events without a place are filed by
+      their tags and shown to anyone filtering on that tag; Eventa Servo's online events fit in there instead of
+      being a special case.
+- [ ] 90c. The site's language rides along as #lang<xyz> on what you post (unless you pick another), so language
+      isn't a special step: check the composer, coffee, questions and sources.
+
 ## 85. Every conversation as a chat (Joop 2026-10-13)
 One list of chats, like a messenger, merging the mailbox and Contacts (filter: "only contacts"). Every thing that
 talks to you is a thread: a contact, a private answer, your post (its replies and reactions), your meetup (RSVPs,
