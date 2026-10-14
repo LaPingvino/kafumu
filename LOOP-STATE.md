@@ -1465,3 +1465,4 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
 - [x] Fix (idle tick): meetup cards grew one "💬 Open as chat" per redraw (4 seen in Lisbon); now one. Browser check (before the click: on a phone the click leaves the page).
 - [x] Polish (idle tick): meetup, news, source and people cards fold ⚑ behind ⋯ like lines and posts (one pattern on every card).
 - [x] Polish (idle tick): before the place name loads (or where there is none), the heading is the #geo code on one line with ✎ after it (it broke mid-word, "#geo8ccgm / w", ✎ in front).
+- [x] Polish (idle tick): the stray footer line "Only people you have connected with can see this… · Be findable here too" under the feed is gone (the where-you-are banner, 95a, says it in context; 📍 I am here! is the findable button).
