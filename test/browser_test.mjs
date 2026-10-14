@@ -110,6 +110,7 @@ try {
   // The reply box on a card (94b): type, send, and it answers right there.
   await A.waitFor("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')); const f = li && li.querySelector('form.reply-box'); if (!f) return false; f.text.value = 'Boxed reply " + RUN + "'; f.requestSubmit(); return true; })()", "a reply typed in the card's box");
   await A.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('hi from the OLN " + RUN + "') && li.querySelector('.replies') && li.querySelector('.replies').textContent.includes('Boxed reply " + RUN + "'))", "the reply under the card", 30000);
+  await A.waitFor("(() => { const r = [...document.querySelectorAll('#feed .replies > li')].find(li => li.textContent.includes('Boxed reply " + RUN + "')); return r && !r.querySelector('form.reply-box') && !!r.querySelector('button.react'); })()", "a reply has reactions but no box of its own");
   // 💬 n opens the replies as a group chat (93a): there, and a line sent from it.
   await A.waitFor("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')); const b = li && li.querySelector(':scope > .group-chat'); if (!b) return false; b.click(); return true; })()", "💬 n on the card");
   await A.waitFor("[...document.querySelectorAll('.chat-window')].some(w => /^r:/.test(w.dataset.thread) && w.textContent.includes('Boxed reply " + RUN + "'))", "the replies as a chat", 20000);

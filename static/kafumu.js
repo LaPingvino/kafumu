@@ -1185,7 +1185,7 @@
       li.dataset.self = n.id;
     }
     if (!opts.question && !opts.nested) li.dataset.reid = link ? reactRow("link", link, firstLine(n.text), row, { link: link })
-      : reactRow("note", n.id, firstLine(n.text), row, n.id ? { cell: n.cell && n.cell !== "000000" ? n.cell : "", link: location.origin + "/n/" + n.id } : null); // its permalink (86c): /n/<id> opens it in its area, or says it faded
+      : reactRow("note", n.id, firstLine(n.text), row, n.id ? { cell: n.cell && n.cell !== "000000" ? n.cell : "", link: location.origin + "/n/" + n.id, reply: !!opts.reply } : null); // its permalink (86c): /n/<id> opens it in its area, or says it faded
     else if (opts.question) li.dataset.reid = reID("note", n.id);
     row.appendChild(hide);
     row.appendChild(reportButton("note", n.id, n.text, li, hideIt));
@@ -1544,10 +1544,10 @@
     // A reply box that's simply there (94b): type and it answers here; what
     // you typed also rides along as your comment when you 📤 it to a friend.
     var box = null;
-    if (!(ctx && ctx.compact)) {
+    if (!(ctx && (ctx.compact || ctx.reply))) { // a reply under a card: its reactions and a small 💬, no box of its own
       box = replyBox(rid, function () { return carry; }, ctx);
       row.insertBefore(box, row.firstChild);
-    } else row.appendChild(t);
+    } else { if (ctx && ctx.reply) t.textContent = "💬"; t.setAttribute("aria-label", tr("react")); row.appendChild(t); }
     // 👀 / 🤝 to a contact: behind one 📤, so the reactions stay one row.
     if (ctx && ctx.link) {
       var sends = [seenButton(about, ctx.link, row, "👀", "did_you_see", box)];
