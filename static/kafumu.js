@@ -317,7 +317,9 @@
     b.news = mark(b.news, function (it) {
       var text = it.title + " " + (it.text || "");
       if (tagsOK(srcTags[it.src], text)) return true;
-      if (lt && !(srcTags[it.src] || []).some(function (t) { return lt[t]; })) return false; // a language filter needs the source's language
+      // A language filter needs the source's language: its line's #lang, or what its feed says (90c).
+      var il = it.lang && ((me.from1 || {})[it.lang] || it.lang);
+      if (lt && !(srcTags[it.src] || []).some(function (t) { return lt[t]; }) && !(il && lt["lang" + il])) return false;
       return !!tag && tagGroup(tag).some(function (g) { return new RegExp("(^|[^\\p{L}\\p{N}])" + g.replace(/[^\p{L}\p{N}_]/gu, "") + "($|[^\\p{L}\\p{N}])", "iu").test(text); });
     });
     b.people = mark(b.people, function (p) {
@@ -598,7 +600,8 @@
       var addTo = function (cell, btn) {
         btn.disabled = true;
         fetch("/api/oln/required?cell=" + cell).then(function (r) { return r.json(); }).then(function (j) {
-          return window.kafumuOLN.post(n.text, "#geo" + cell + " #feed", (j.bits || 4) + 8, function (t) { btn.textContent = tr("oln_working", { n: t }); }, 0, true);
+          var lt = (n.tags || []).filter(function (t) { return /^lang/.test(t); })[0]; // the source's language goes along
+          return window.kafumuOLN.post(n.text, "#geo" + cell + " #feed" + (lt ? " #" + lt : ""), (j.bits || 4) + 8, function (t) { btn.textContent = tr("oln_working", { n: t }); }, 0, true);
         }).then(function (m) {
           btn.textContent = "✓ #geo" + cell;
           if (m && m.id) fetch("/api/oln/source/pull?id=" + m.id, { method: "POST", credentials: "omit" }).catch(function () {});

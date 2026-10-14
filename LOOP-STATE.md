@@ -1311,7 +1311,10 @@ Around · Chats (mailbox + Contacts, 🔔 folded in) · Connect (your code + My 
       without an area, filed by subject, same rules as 81). Was: Online events per tag, everywhere: like lines about a subject (78a), events without a place are filed by
       their tags and shown to anyone filtering on that tag; Eventa Servo's online events fit in there instead of
       being a special case.
-- [ ] 90c. The site's language rides along as #lang<xyz> on what you post (unless you pick another), so language
+- [x] 90c. Done: checked: your own words (a line, a question, coffee, from the field on top or the composer) already
+      carry #lang of the site's language unless you pick another. Sources and kept news/Bluesky items aren't your
+      words, so they don't get your language: a feed's own language (RSS <language>, Atom xml:lang) now comes with
+      its news, and a language filter uses it. Was: The site's language rides along as #lang<xyz> on what you post (unless you pick another), so language
       isn't a special step: check the composer, coffee, questions and sources.
 
 ## 85. Every conversation as a chat (Joop 2026-10-13)

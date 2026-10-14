@@ -23,6 +23,7 @@ type Item struct {
 type Feed struct {
 	Title string
 	Link  string
+	Lang  string // what the feed says it's in ("pt", from "pt-PT"), if it says
 	Items []Item
 }
 
@@ -35,8 +36,10 @@ type rssDoc struct {
 	Channel struct {
 		Title string    `xml:"title"`
 		Link  string    `xml:"link"`
+		Lang  string    `xml:"language"`
 		Items []rssItem `xml:"item"`
 	} `xml:"channel"`
+	XMLLang  string    `xml:"http://www.w3.org/XML/1998/namespace lang,attr"`
 	RDFItems []rssItem `xml:"item"`
 	// Atom
 	Title   string      `xml:"title"`
@@ -81,7 +84,7 @@ func ParseFeed(body string) (f Feed, ok bool) {
 	}
 	switch strings.ToLower(d.XMLName.Local) {
 	case "rss", "rdf":
-		f.Title, f.Link = clean(d.Channel.Title), strings.TrimSpace(d.Channel.Link)
+		f.Title, f.Link, f.Lang = clean(d.Channel.Title), strings.TrimSpace(d.Channel.Link), lang2(d.Channel.Lang)
 		for _, it := range append(d.Channel.Items, d.RDFItems...) {
 			at := parseDate(it.PubDate)
 			if at.IsZero() {
@@ -90,7 +93,7 @@ func ParseFeed(body string) (f Feed, ok bool) {
 			f.add(Item{Title: clean(it.Title), Link: strings.TrimSpace(it.Link), Text: plain(it.Desc), At: at, GUID: strings.TrimSpace(it.GUID)})
 		}
 	case "feed":
-		f.Title, f.Link = clean(d.Title), atomHref(d.Links)
+		f.Title, f.Link, f.Lang = clean(d.Title), atomHref(d.Links), lang2(d.XMLLang)
 		for _, e := range d.Entries {
 			at := parseDate(e.Published)
 			if at.IsZero() {
@@ -167,4 +170,13 @@ func (im *Importer) FetchFeed(ctx context.Context, raw string) (Feed, error) {
 		return Feed{}, ErrNoFeed
 	}
 	return f, nil
+}
+
+// lang2: "pt-PT", "en_us" → "pt", "en"; anything else → "".
+func lang2(s string) string {
+	s = strings.ToLower(strings.TrimSpace(s))
+	if len(s) >= 2 && s[0] >= 'a' && s[0] <= 'z' && s[1] >= 'a' && s[1] <= 'z' && (len(s) == 2 || s[2] == '-' || s[2] == '_') {
+		return s[:2]
+	}
+	return ""
 }

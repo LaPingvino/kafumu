@@ -7,7 +7,7 @@ import (
 )
 
 func TestParseFeed(t *testing.T) {
-	rss := `<?xml version="1.0"?><rss version="2.0"><channel><title>Stadskrant</title><link>https://krant.example/</link>
+	rss := `<?xml version="1.0"?><rss version="2.0"><channel><title>Stadskrant</title><link>https://krant.example/</link><language>nl-NL</language>
 <item><title>Kermis op het &amp; plein</title><link>https://krant.example/kermis</link>
 <description>&lt;p&gt;Vanaf &lt;b&gt;vrijdag&lt;/b&gt;&amp;nbsp;draait de kermis.&lt;/p&gt;</description>
 <pubDate>Fri, 9 Oct 2026 10:00:00 +0200</pubDate><guid>krant-1</guid></item>
@@ -15,7 +15,7 @@ func TestParseFeed(t *testing.T) {
 <item><title>No link</title><link>javascript:alert(1)</link></item>
 </channel></rss>`
 	f, ok := ParseFeed(rss)
-	if !ok || f.Title != "Stadskrant" || len(f.Items) != 1 {
+	if !ok || f.Title != "Stadskrant" || f.Lang != "nl" || len(f.Items) != 1 {
 		t.Fatalf("rss = %v %+v", ok, f)
 	}
 	it := f.Items[0]

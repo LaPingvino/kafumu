@@ -94,6 +94,7 @@ type NewsItem struct {
 	Bits  int       `json:"bits"`         // the source line's value
 	Src   string    `json:"src"`          // the source line's id
 	Cell  string    `json:"cell"`
+	Lang  string    `json:"lang,omitempty"` // the feed's language ("pt"), when it says (90c)
 }
 
 func newsKey(cell string) string { return "news:" + cell }
@@ -394,7 +395,7 @@ func (h *Meetups) readSource(ctx context.Context, s *oln.Note, cell string, now 
 			if at.IsZero() || at.After(now) {
 				at = now
 			}
-			news = append(news, NewsItem{Title: it.Title, Link: it.Link, Text: it.Text, At: at, Host: host, By: by, Bits: s.Bits, Src: s.ID, Cell: cell})
+			news = append(news, NewsItem{Title: it.Title, Link: it.Link, Text: it.Text, At: at, Host: host, By: by, Bits: s.Bits, Src: s.ID, Cell: cell, Lang: f.Lang})
 		}
 		return news, nil
 	}
