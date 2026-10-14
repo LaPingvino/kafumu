@@ -771,5 +771,7 @@
   "js.view_settings": "Görünüm ayarları",
   "search.placeholder": "Burada ara… ya da #etiket",
   "js.edit": "Düzenle",
-  "js.act_contact_cards": "Kartları, notların, yedek"
+  "js.act_contact_cards": "Kartları, notların, yedek",
+  "connect.qr_short": "1 saat",
+  "connect.qr_long": "yeni bir koda kadar"
 }

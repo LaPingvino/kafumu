@@ -771,5 +771,7 @@
   "js.view_settings": "Weergave-instellingen",
   "search.placeholder": "Zoek hier… of #tag",
   "js.edit": "Bewerken",
-  "js.act_contact_cards": "Hun kaartjes, je notities, back-up"
+  "js.act_contact_cards": "Hun kaartjes, je notities, back-up",
+  "connect.qr_short": "1 uur",
+  "connect.qr_long": "tot een nieuwe code"
 }

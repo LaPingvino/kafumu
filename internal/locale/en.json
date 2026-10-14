@@ -771,5 +771,7 @@
   "js.view_settings": "View settings",
   "search.placeholder": "Search here… or #tag",
   "js.edit": "Edit",
-  "js.act_contact_cards": "Their cards, your notes, backup"
+  "js.act_contact_cards": "Their cards, your notes, backup",
+  "connect.qr_short": "1 hour",
+  "connect.qr_long": "until a new code"
 }

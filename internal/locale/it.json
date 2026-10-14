@@ -771,5 +771,7 @@
   "js.view_settings": "Impostazioni della vista",
   "search.placeholder": "Cerca qui… o #tag",
   "js.edit": "Modifica",
-  "js.act_contact_cards": "I loro biglietti, le tue note, backup"
+  "js.act_contact_cards": "I loro biglietti, le tue note, backup",
+  "connect.qr_short": "1 ora",
+  "connect.qr_long": "fino a un nuovo codice"
 }

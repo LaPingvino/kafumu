@@ -771,5 +771,7 @@
   "js.view_settings": "Nézet beállításai",
   "search.placeholder": "Keresés itt… vagy #címke",
   "js.edit": "Szerkesztés",
-  "js.act_contact_cards": "Kártyáik, jegyzeteid, mentés"
+  "js.act_contact_cards": "Kártyáik, jegyzeteid, mentés",
+  "connect.qr_short": "1 óra",
+  "connect.qr_long": "új kódig"
 }

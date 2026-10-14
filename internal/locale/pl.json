@@ -771,5 +771,7 @@
   "js.view_settings": "Ustawienia widoku",
   "search.placeholder": "Szukaj tutaj… lub #tag",
   "js.edit": "Edytuj",
-  "js.act_contact_cards": "Ich wizytówki, twoje notatki, kopia"
+  "js.act_contact_cards": "Ich wizytówki, twoje notatki, kopia",
+  "connect.qr_short": "1 godzina",
+  "connect.qr_long": "do nowego kodu"
 }

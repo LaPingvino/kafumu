@@ -771,5 +771,7 @@
   "js.view_settings": "Agordoj de la vido",
   "search.placeholder": "Serĉu ĉi tie… aŭ #etikedo",
   "js.edit": "Redakti",
-  "js.act_contact_cards": "Iliaj kartoj, viaj notoj, savkopio"
+  "js.act_contact_cards": "Iliaj kartoj, viaj notoj, savkopio",
+  "connect.qr_short": "1 horo",
+  "connect.qr_long": "ĝis nova kodo"
 }

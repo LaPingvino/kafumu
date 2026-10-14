@@ -771,5 +771,7 @@
   "js.view_settings": "Réglages de la vue",
   "search.placeholder": "Chercher ici… ou #tag",
   "js.edit": "Modifier",
-  "js.act_contact_cards": "Leurs cartes, tes notes, sauvegarde"
+  "js.act_contact_cards": "Leurs cartes, tes notes, sauvegarde",
+  "connect.qr_short": "1 heure",
+  "connect.qr_long": "jusqu'à un nouveau code"
 }

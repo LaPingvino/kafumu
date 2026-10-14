@@ -771,5 +771,7 @@
   "js.view_settings": "Ajustes de la vista",
   "search.placeholder": "Buscar aquí… o #etiqueta",
   "js.edit": "Editar",
-  "js.act_contact_cards": "Sus tarjetas, tus notas, copia"
+  "js.act_contact_cards": "Sus tarjetas, tus notas, copia",
+  "connect.qr_short": "1 hora",
+  "connect.qr_long": "hasta un código nuevo"
 }

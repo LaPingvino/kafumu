@@ -771,5 +771,7 @@
   "js.view_settings": "Vyinställningar",
   "search.placeholder": "Sök här… eller #tagg",
   "js.edit": "Redigera",
-  "js.act_contact_cards": "Deras kort, dina anteckningar, säkerhetskopia"
+  "js.act_contact_cards": "Deras kort, dina anteckningar, säkerhetskopia",
+  "connect.qr_short": "1 timme",
+  "connect.qr_long": "tills en ny kod"
 }

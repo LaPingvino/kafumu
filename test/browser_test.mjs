@@ -39,11 +39,14 @@ try {
   await A.waitFor("document.querySelectorAll('#share-picker .chip').length > 0", "A's share picker");
   await A.evaluate("[...document.querySelectorAll('#share-picker .chip')].find(b => b.textContent.includes('open source')).click()");
   await A.waitFor("[...document.querySelectorAll('#share-picker .chip')].some(b => b.getAttribute('aria-pressed') === 'false')", "about unticked");
+  // The QR is the short code by default (an hour); ∞ shows the long link.
+  await A.waitFor("document.getElementById('short-code').textContent.includes('/j/') && document.getElementById('invite-link').value.includes('/j/')", "short code by default");
+  await A.evaluate("document.querySelector('#qr-mode .chip[data-mode=long]').click(); true");
+  await A.waitFor("/\\/c#v1\\./.test(document.getElementById('invite-link').value)", "∞: the long link");
   const url = await A.evaluate("document.getElementById('invite-link').value");
-  if (!/\/c#v1\./.test(url)) throw new Error("bad invite url " + url);
+  await A.evaluate("document.querySelector('#qr-mode .chip[data-mode=short]').click(); true");
 
   // B follows the short code instead of the long link.
-  await A.evaluate("document.getElementById('make-short').click()");
   await A.waitFor("document.getElementById('short-code').textContent.includes('/j/')", "short code");
   const short = await A.evaluate("document.getElementById('short-code').textContent");
   await B.goto(base + "/j/" + short.split("/j/")[1]);

@@ -771,5 +771,7 @@
   "js.view_settings": "Definições da vista",
   "search.placeholder": "Procurar aqui… ou #tag",
   "js.edit": "Editar",
-  "js.act_contact_cards": "Os cartões deles, as tuas notas, cópia"
+  "js.act_contact_cards": "Os cartões deles, as tuas notas, cópia",
+  "connect.qr_short": "1 hora",
+  "connect.qr_long": "até um código novo"
 }

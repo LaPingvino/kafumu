@@ -103,25 +103,38 @@
   function showCode() {
     var qrBox = $("qr"), link = $("invite-link"), list = $("new-contacts"), status = $("connect-status");
     var poller;
-    var shortBtn = $("make-short");
-    function render(inv) {
-      if (shortBtn) {
-        $("short-code").textContent = "";
-        shortBtn.hidden = false;
-        shortBtn.onclick = function () {
-          shortBtn.disabled = true;
-          pair.shortLink(inv.payload).then(function (s) {
-            shortBtn.hidden = true;
-            $("short-code").textContent = s.url.replace(/^https?:\/\//, "");
-          }).catch(function () { shortBtn.disabled = false; });
-        };
-      }
+    // The QR shows the short code by default (Joop): a smaller code that's
+    // easier to scan, working for an hour; ∞ shows the long link instead,
+    // which works until you make a new code.
+    var mode = "short", shortFor = null, shortTimer;
+    try { mode = localStorage.getItem("kafumu.qrMode") || "short"; } catch (e) {}
+    function draw(url) {
       var q = qrcode(0, "M");
-      q.addData(inv.url);
+      q.addData(url);
       q.make();
       qrBox.innerHTML = q.createSvgTag({ cellSize: 6, margin: 2, scalable: true });
-      link.value = inv.url;
+      link.value = url;
     }
+    var current = null;
+    function render(inv) {
+      current = inv;
+      document.querySelectorAll("#qr-mode .chip").forEach(function (b) { b.classList.toggle("on", b.dataset.mode === mode); b.setAttribute("aria-pressed", b.dataset.mode === mode); });
+      $("short-code").textContent = "";
+      if (mode !== "short") { draw(inv.url); return; }
+      if (shortFor && shortFor.payload === inv.payload && Date.now() - shortFor.at < 55 * 60000) { draw(shortFor.url); $("short-code").textContent = shortFor.url.replace(/^https?:\/\//, ""); return; }
+      draw(inv.url); // works meanwhile; the short one replaces it in a moment
+      pair.shortLink(inv.payload).then(function (s) {
+        if (current !== inv || mode !== "short") return;
+        shortFor = { payload: inv.payload, url: s.url, at: Date.now() };
+        draw(s.url);
+        $("short-code").textContent = s.url.replace(/^https?:\/\//, "");
+        clearTimeout(shortTimer);
+        shortTimer = setTimeout(function () { if (current) render(current); }, 55 * 60000); // a fresh one before this one ends
+      }).catch(function () {});
+    }
+    document.querySelectorAll("#qr-mode .chip").forEach(function (b) {
+      b.onclick = function () { mode = b.dataset.mode; try { localStorage.setItem("kafumu.qrMode", mode); } catch (e) {} if (current) render(current); };
+    });
     function start(fresh) {
       pair.invite(fresh).then(function (inv) {
         render(inv);

@@ -771,5 +771,7 @@
   "js.view_settings": "Налаштування вигляду",
   "search.placeholder": "Шукати тут… або #тег",
   "js.edit": "Змінити",
-  "js.act_contact_cards": "Їхні картки, ваші нотатки, копія"
+  "js.act_contact_cards": "Їхні картки, ваші нотатки, копія",
+  "connect.qr_short": "1 година",
+  "connect.qr_long": "до нового коду"
 }

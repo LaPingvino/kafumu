@@ -771,5 +771,7 @@
   "js.view_settings": "Cài đặt chế độ xem",
   "search.placeholder": "Tìm ở đây… hoặc #thẻ",
   "js.edit": "Sửa",
-  "js.act_contact_cards": "Danh thiếp, ghi chú của bạn, sao lưu"
+  "js.act_contact_cards": "Danh thiếp, ghi chú của bạn, sao lưu",
+  "connect.qr_short": "1 giờ",
+  "connect.qr_long": "đến khi có mã mới"
 }

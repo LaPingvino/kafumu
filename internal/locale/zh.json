@@ -771,5 +771,7 @@
   "js.view_settings": "视图设置",
   "search.placeholder": "在这里搜索…或 #标签",
   "js.edit": "编辑",
-  "js.act_contact_cards": "对方名片、你的备注、备份"
+  "js.act_contact_cards": "对方名片、你的备注、备份",
+  "connect.qr_short": "1 小时",
+  "connect.qr_long": "直到新代码"
 }
