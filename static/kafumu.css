@@ -522,3 +522,5 @@ main:focus { outline: none; }
 /* Only pictures (92d): bigger, one after another. */
 #feed.pics .media { max-width: none; }
 #feed.pics .media img { max-height: 70vh; }
+.meta .permalink { text-decoration: none; opacity: .7; }
+.meta .permalink:hover { opacity: 1; }

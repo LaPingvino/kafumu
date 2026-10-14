@@ -1014,6 +1014,16 @@
     meta.appendChild(document.createTextNode((n.author ? "@" + n.author + " ✓ · " : "") + (opts.forYou ? "★ " + tr("ask_for_you") + " · " : "") + ago(n.at) + " · ⚡" + n.bits + " · " +
       tr("oln_left", { h: left < 1 ? "<1" : Math.round(left) }) + (n.via ? " · ↪ " + n.via.replace(/^https?:\/\//, "") : "") +
       (n.tags || []).filter(function (t) { return !/^(geo|re[0-9a-f]{10}$|ask$|rk[ab][0-9a-f]{33}$|wd[0-9a-f]{16}$)/.test(t); }).map(function (t) { return " " + tagText(t); }).join("")));
+    if (n.id) { // its own address, in plain sight (Joop: no way to find it); long-press or right-click to copy
+      var pl = document.createElement("a");
+      pl.href = "/n/" + n.id; pl.className = "permalink"; pl.textContent = " 🔗"; pl.title = tr("copy_link"); pl.setAttribute("aria-label", tr("copy_link"));
+      pl.onclick = function (e) {
+        if (e.ctrlKey || e.metaKey || e.shiftKey || !navigator.clipboard) return;
+        e.preventDefault();
+        navigator.clipboard.writeText(location.origin + "/n/" + n.id).then(function () { pl.textContent = " ✓ " + tr("link_copied"); setTimeout(function () { pl.textContent = " 🔗"; }, 2000); }, function () { location.href = pl.href; });
+      };
+      meta.appendChild(pl);
+    }
     var text = document.createElement("p");
     text.className = "text";
     var m = n.text.match(/https?:\/\/[^\s]+\/c#v1\.[A-Za-z0-9_-]+/);

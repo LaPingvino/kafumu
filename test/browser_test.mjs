@@ -111,6 +111,7 @@ try {
   await A.waitFor("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')); return li && !/#lang/.test(li.textContent) && li.textContent.includes('🗣'); })()", "language shown as 🗣, not #lang…");
   // Every line has its permalink (86b): 🔗 among the 📤 sends.
   await A.waitFor("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')); return li && !!li.querySelector('.copy-link'); })()", "🔗 Link on a line");
+  await A.waitFor("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')); const a = li && li.querySelector('.meta a.permalink'); return a && /\\/n\\/[0-9a-f]{40}$/.test(a.href); })()", "a line's own address in plain sight");
   // 🔁 keeps a line here (86d): a reaction, counted under it.
   await A.evaluate("[...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')).querySelector('.keep-alive').click(); true");
   await A.waitFor("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')); return li && li.querySelector('.keep-alive').textContent.includes('✓') && li.textContent.includes('🔁 1'); })()", "🔁 sent and counted", 30000);

@@ -1383,6 +1383,9 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
 - [x] Polish (Joop: the › hint did nothing on a computer): ‹ › are real buttons that move the row most of its width,
       and the mouse wheel scrolls a chip row sideways while you point at it (until its end, then the page scrolls).
 
+- [x] Polish (Joop: no way to find a message's address): every local line shows 🔗 at the end of its info line
+      (its /n/<id>; a tap copies it, ctrl/long-press opens it). Browser step.
+
 ## 92. Look, access, media (Joop 2026-10-14; after 91 and 90; the last item lowest)
 - [x] 92a. Done: Me → 🎨 Look (for everyone, per device): 🌗 automatic (follows the device) · ☀️ light · 🌙 dark · ◐
       high contrast (black, white borders, yellow accent, underlined links, a strong focus ring); html[data-theme] is
@@ -1407,3 +1410,10 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       in it posts a reply (#re, mined, as you or anonymous), reactions as small notes in between.
 - [ ] 93b. Meetups and events: the window is where people coming talk ("I'm at the door", "running late"); a meetup's
       page shows it too; it lives as long as the meetup (replies kept alive by the thread, 86d).
+
+## 94. Cards with few, obvious controls (Joop 2026-10-14; before 93)
+- [ ] 94a. "📍 I'm here!" replaces the Coffee button: it opens the findability settings right on the area page (how
+      long, what people see), with a small "☕ Coffee?" at its right that just sends the coffee line; once set, it
+      folds into a one-line shortcut ("👁 Findable here until 18:00 · change"), and coffee stays one tap.
+- [ ] 94b. Each card: a reply box that's simply there (type → it answers; quick reactions next to it), "📤 to a
+      friend" sends the card with what you typed as your comment; hide, report and the rest behind one ⋯.
