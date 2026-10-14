@@ -157,7 +157,8 @@
       if (groups.indexOf(group) < 0) group = "";
       var inGroup = function (x) { return !group || (x.tags || []).indexOf(group) >= 0; };
       drawWhere(state, groups.sort(), group);
-      return (sharing ? pair.checkIn(c, cs.filter(inGroup), null, cs.filter(function (x) { return !inGroup(x); })) : Promise.resolve()).then(function () {
+      // Paused (95d): what they could see is emptied too, not just left to fade.
+      return (sharing ? pair.checkIn(c, cs.filter(inGroup), null, cs.filter(function (x) { return !inGroup(x); })) : state === "off" ? pair.clearSlots(cs) : Promise.resolve()).then(function () {
         return pair.around(rings(c, 1).map(function (p) { return p[0]; }), cs.slice(0, 30));
       }).then(function (hits) {
         var sec = noSection, list = sinks.friends;

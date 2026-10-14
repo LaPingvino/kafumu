@@ -454,15 +454,7 @@
     // could read is emptied, once.
     function checkIn(cell, contacts, now, others) {
       now = now || new Date();
-      var clearing = (others || []).filter(function (c) { return c.card && c.slotSig && c.slotSig !== "none"; });
-      var cleared = Promise.all(clearing.map(function (c) {
-        var key = unb64(c.key);
-        return slotID(key, c.role).then(function (id) {
-          return stamp("[]", "slot" + id).then(function (work) {
-            return fetchFn(base + "/api/slot/" + id, { method: "PUT", body: "[]", credentials: "omit", headers: { "X-Kafumu-Work": work } });
-          });
-        }).then(function (r) { if (r.ok) { c.slotSig = "none"; return store.putContact(c); } }).catch(function () {});
-      }));
+      var cleared = clearSlots(others || []);
       var today = day(now), weekAgo = day(new Date(now.getTime() - 7 * 864e5));
       return store.get("checkins").then(function (hist) {
         hist = (hist || []).filter(function (h) { return h.day > weekAgo; });
@@ -486,6 +478,20 @@
           })).then(function () { return cleared.then(function () { return due.length; }); });
         });
       });
+    }
+
+    // clearSlots empties the slots these contacts read (95b/d: outside the
+    // group, or paused): they stop seeing where you were. Each once.
+    function clearSlots(contacts) {
+      var clearing = contacts.filter(function (c) { return c.card && c.slotSig && c.slotSig !== "none"; });
+      return Promise.all(clearing.map(function (c) {
+        var key = unb64(c.key);
+        return slotID(key, c.role).then(function (id) {
+          return stamp("[]", "slot" + id).then(function (work) {
+            return fetchFn(base + "/api/slot/" + id, { method: "PUT", body: "[]", credentials: "omit", headers: { "X-Kafumu-Work": work } });
+          });
+        }).then(function (r) { if (r.ok) { c.slotSig = "none"; return store.putContact(c); } }).catch(function () {});
+      })).then(function () { return clearing.length; });
     }
 
     // around reports which contacts were in or next to cells during the last
@@ -862,7 +868,7 @@
       });
     }
     return { pushSubscribe: pushSubscribe, watched: watched, labelled: labelled, replyKey: replyKey, replyKeyOf: replyKeyOf, answer: answer, readAnswers: readAnswers, threads: threads, putThread: putThread,
-      flush: flush, outboxSize: outboxSize, sendChat: sendChat, readChat: readChat, report: report, namedLink: namedLink, shortLink: shortLink, inbox: inbox, writeTo: writeTo, readInbox: readInbox, connectBack: connectBack, checkIn: checkIn, around: around, invite: invite, accept: accept, moveSend: moveSend, moveReceive: moveReceive, checkInvite: checkInvite, checkContact: checkContact, send: send,
+      flush: flush, clearSlots: clearSlots, outboxSize: outboxSize, sendChat: sendChat, readChat: readChat, report: report, namedLink: namedLink, shortLink: shortLink, inbox: inbox, writeTo: writeTo, readInbox: readInbox, connectBack: connectBack, checkIn: checkIn, around: around, invite: invite, accept: accept, moveSend: moveSend, moveReceive: moveReceive, checkInvite: checkInvite, checkContact: checkContact, send: send,
       _open: open, _boxOf: boxOf, _inviteBox: inviteBox, _unb64: unb64 };
   }
 

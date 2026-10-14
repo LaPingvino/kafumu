@@ -80,6 +80,8 @@ check((await B.pair.checkContact(cb)).length === 0, "B's own message is not in B
   check((await A.pair.around([next, venue], [ac])).length === 0, "outside the group, A doesn't see Bea");
   check(await B.pair.checkIn(venue, [bc]) === 1, "back in the group: written again");
   check((await A.pair.around([next, venue], [ac])).length === 1, "and A sees Bea again");
+  check(await B.pair.clearSlots([bc]) === 1 && (await A.pair.around([next, venue], [ac])).length === 0, "paused (95d): A no longer sees Bea");
+  check(await B.pair.clearSlots([bc]) === 0, "and only once");
 }
 
 // An old link still works after A made a new code (Joop lost two contacts

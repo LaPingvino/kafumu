@@ -1438,5 +1438,6 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       a new one asks first ("Tell your contacts you're around here today?" ✓ Yes / Not here); "not here" stays
       quiet there with ▶ Share here. Browser step with a faked location. (Per day, so no hourly refresh needed.) Was: Auto-signal (Joop's own default): on, the same area refreshes by itself (once an hour at most while the
       page is open there); a new area asks first ("Tell your contacts you're in Arnhem?").
-- [ ] 95d. A clear banner while your contacts know where you last were ("📍 Your contacts see you around Barreiro
+- [x] 95d. Done: the banner came with 95a; ⏸ Pause now also empties what contacts could see (pair.clearSlots,
+      once per contact), so "Your contacts don't see where you are" is true at once; ▶ writes it again. Pair test. Was: A clear banner while your contacts know where you last were ("📍 Your contacts see you around Barreiro
       since 14:00 · stop"); stop sends a "gone" signal.
