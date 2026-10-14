@@ -9,8 +9,13 @@
   var bar = document.getElementById("install-bar");
   var dismissed = false;
   try { dismissed = localStorage.getItem("kafumu.installDismissed") === "1"; } catch (e) {}
+  // One bar at a time on top: while a page's help bar shows, the install
+  // offer waits until it's closed.
+  var waiting = null;
   function offer(text, onInstall) {
     if (!bar || standalone || dismissed) return;
+    var help = document.getElementById("intro");
+    if (help && (!help.hidden || !help.dataset.ready)) { waiting = function () { offer(text, onInstall); }; return; }
     bar.querySelector(".text").textContent = text;
     var go = bar.querySelector(".go");
     go.hidden = !onInstall;
@@ -30,7 +35,8 @@
   if (intro) {
     var key = "kafumu.helpSeen." + intro.dataset.help, seen = false;
     try { seen = localStorage.getItem(key) === "1" || (intro.dataset.help === "around" && localStorage.getItem("kafumu.introSeen") === "1"); } catch (e) {}
-    var showIntro = function (on) { intro.hidden = !on; if (again) again.hidden = on; };
+    var showIntro = function (on) { intro.hidden = !on; if (again) again.hidden = on; if (!on && waiting) { var w = waiting; waiting = null; w(); } };
+    intro.dataset.ready = "1";
     showIntro(!seen);
     intro.querySelector(".no").onclick = function () { showIntro(false); try { localStorage.setItem(key, "1"); } catch (e) {} };
     if (again) again.onclick = function () { showIntro(true); try { localStorage.removeItem(key); localStorage.removeItem("kafumu.introSeen"); } catch (e) {} };

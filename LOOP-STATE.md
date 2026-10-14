@@ -1458,3 +1458,5 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       the reply box with a 🔒 beside it (label as title), then the reactions and ⋯. Checked on kafumu.com, Barreiro.
 - [x] Polish (idle tick): source suggestions count different people sharing a site, not posts (vers2045.com was
       suggested in Barreiro from one account sharing its own site); still 3 needed. Go test.
+- [x] Polish (idle tick): on a phone's first visit the install bar and the page's help bar stacked (~180 px); now one
+      at a time: the install offer waits until the help bar is closed. Checked with an iPhone UA (not in the suite).
