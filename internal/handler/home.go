@@ -308,7 +308,7 @@ func (h *Home) ShowContacts(w http.ResponseWriter, r *http.Request) {
 // ShowActivity renders /activity; the list itself is gathered on the device (77c).
 func (h *Home) ShowActivity(w http.ResponseWriter, r *http.Request) {
 	p := h.newPage(r, "")
-	p.Title, p.Tab, p.Help = locale.T(p.Lang, "activity.title"), "activity", "activity"
+	p.Title, p.Tab, p.Help = locale.T(p.Lang, "nav.chats"), "activity", "activity"
 	h.render(w, "activity.html", p)
 }
 

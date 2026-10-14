@@ -1255,7 +1255,8 @@ Around · Chats (mailbox + Contacts, 🔔 folded in) · Connect (your code + My 
       Was: Connect: your code and your card on one page (card editor under the code, the share picker between).
 - [x] 89c. Done (as one tab): Findable's tab merged into Me (your @name / Sign in); "👤 Account · 👁 Findable" switch.
       Tabs now: Around · Chats · Connect · Me. Tour text about the tabs rewritten, 24 languages. Was: Me: Account and Findable as sections of one page; the tab shows your @name / business as now.
-- [ ] 89d. Old addresses keep working (redirects), tours and help bars follow, 390 px check, 24 languages.
+- [x] 89d. Done: every old address is still its own page (nothing to redirect); help bars follow each page; the Chats
+      page's title says Chats; tours find the visible tab; the 390 px check passes (browser test). Was: Old addresses keep working (redirects), tours and help bars follow, 390 px check, 24 languages.
 
 ## 85. Every conversation as a chat (Joop 2026-10-13)
 One list of chats, like a messenger, merging the mailbox and Contacts (filter: "only contacts"). Every thing that
