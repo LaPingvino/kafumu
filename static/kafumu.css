@@ -19,8 +19,10 @@
   --radius: 12px;
   --font: "Cantarell", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
+/* Theme (92a): automatic follows the device; Me → Look can pin light, dark or
+   high contrast on this device (html[data-theme], set before the page draws). */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
     --accent: #cdab8f;          /* brown 1 */
     --accent-bg: #865e3c;
     --window-bg: #242424;
@@ -36,6 +38,34 @@
     --destructive: #ff7b63;
   }
 }
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --accent: #cdab8f;      /* brown 1 */
+  --accent-bg: #865e3c;
+  --window-bg: #242424;
+  --view-bg: #1e1e1e;
+  --card-bg: rgba(255, 255, 255, .08);
+  --headerbar-bg: #303030;
+  --fg: #ffffff;
+  --dim: rgba(255, 255, 255, .55);
+  --border: rgba(255, 255, 255, .1);
+  --shade: rgba(0, 0, 0, .36);
+  --button-bg: rgba(255, 255, 255, .1);
+  --button-hover: rgba(255, 255, 255, .15);
+  --destructive: #ff7b63;
+}
+:root[data-theme="contrast"] {
+  color-scheme: dark;
+  --accent: #ffd54f; --accent-bg: #ffd54f; --accent-fg: #000000;
+  --window-bg: #000000; --view-bg: #000000; --card-bg: #000000; --headerbar-bg: #000000;
+  --fg: #ffffff; --dim: #e0e0e0; --border: #ffffff; --shade: transparent;
+  --button-bg: #1a1a1a; --button-hover: #333333; --destructive: #ff8a80;
+}
+:root[data-theme="contrast"] a { text-decoration: underline; }
+:root[data-theme="contrast"] .card, :root[data-theme="contrast"] .chip, :root[data-theme="contrast"] button, :root[data-theme="contrast"] input,
+:root[data-theme="contrast"] select, :root[data-theme="contrast"] textarea { border: 1px solid #ffffff; }
+:root[data-theme="contrast"] :focus-visible { outline: 3px solid #ffd54f; outline-offset: 2px; }
 
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }

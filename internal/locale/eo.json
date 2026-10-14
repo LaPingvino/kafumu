@@ -774,5 +774,11 @@
   "js.act_contact_cards": "Iliaj kartoj, viaj notoj, savkopio",
   "connect.qr_short": "1 horo",
   "connect.qr_long": "ĝis nova kodo",
-  "js.online_tag": "Rete: {tag}"
+  "js.online_tag": "Rete: {tag}",
+  "look.title": "Aspekto",
+  "look.auto": "Aŭtomata",
+  "look.light": "Hela",
+  "look.dark": "Malhela",
+  "look.contrast": "Alta kontrasto",
+  "look.note": "Konservita en ĉi tiu aparato. Aŭtomata sekvas la helan aŭ malhelan agordon de via aparato."
 }

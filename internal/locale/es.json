@@ -774,5 +774,11 @@
   "js.act_contact_cards": "Sus tarjetas, tus notas, copia",
   "connect.qr_short": "1 hora",
   "connect.qr_long": "hasta un código nuevo",
-  "js.online_tag": "En línea: {tag}"
+  "js.online_tag": "En línea: {tag}",
+  "look.title": "Aspecto",
+  "look.auto": "Automático",
+  "look.light": "Claro",
+  "look.dark": "Oscuro",
+  "look.contrast": "Alto contraste",
+  "look.note": "Se guarda en este dispositivo. Automático sigue el ajuste claro/oscuro de tu dispositivo."
 }

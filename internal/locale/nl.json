@@ -774,5 +774,11 @@
   "js.act_contact_cards": "Hun kaartjes, je notities, back-up",
   "connect.qr_short": "1 uur",
   "connect.qr_long": "tot een nieuwe code",
-  "js.online_tag": "Online: {tag}"
+  "js.online_tag": "Online: {tag}",
+  "look.title": "Uiterlijk",
+  "look.auto": "Automatisch",
+  "look.light": "Licht",
+  "look.dark": "Donker",
+  "look.contrast": "Hoog contrast",
+  "look.note": "Bewaard op dit apparaat. Automatisch volgt de licht/donker-instelling van je apparaat."
 }

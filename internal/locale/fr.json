@@ -774,5 +774,11 @@
   "js.act_contact_cards": "Leurs cartes, tes notes, sauvegarde",
   "connect.qr_short": "1 heure",
   "connect.qr_long": "jusqu'à un nouveau code",
-  "js.online_tag": "En ligne : {tag}"
+  "js.online_tag": "En ligne : {tag}",
+  "look.title": "Apparence",
+  "look.auto": "Automatique",
+  "look.light": "Clair",
+  "look.dark": "Sombre",
+  "look.contrast": "Contraste élevé",
+  "look.note": "Gardé sur cet appareil. Automatique suit le réglage clair/sombre de ton appareil."
 }

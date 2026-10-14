@@ -774,5 +774,11 @@
   "js.act_contact_cards": "Their cards, your notes, backup",
   "connect.qr_short": "1 hour",
   "connect.qr_long": "until a new code",
-  "js.online_tag": "Online: {tag}"
+  "js.online_tag": "Online: {tag}",
+  "look.title": "Look",
+  "look.auto": "Automatic",
+  "look.light": "Light",
+  "look.dark": "Dark",
+  "look.contrast": "High contrast",
+  "look.note": "Kept on this device. Automatic follows your device's light or dark setting."
 }

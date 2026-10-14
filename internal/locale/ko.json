@@ -774,5 +774,11 @@
   "js.act_contact_cards": "상대 명함, 내 메모, 백업",
   "connect.qr_short": "1시간",
   "connect.qr_long": "새 코드까지",
-  "js.online_tag": "온라인: {tag}"
+  "js.online_tag": "온라인: {tag}",
+  "look.title": "모양",
+  "look.auto": "자동",
+  "look.light": "밝게",
+  "look.dark": "어둡게",
+  "look.contrast": "고대비",
+  "look.note": "이 기기에 저장돼요. 자동은 기기의 밝은/어두운 설정을 따라요."
 }

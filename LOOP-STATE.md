@@ -1377,7 +1377,9 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       linking to the area, not "#geo8ccgmw"). Pass done for the main pages; the rest as they come up.
 
 ## 92. Look, access, media (Joop 2026-10-14; after 91 and 90; the last item lowest)
-- [ ] 92a. Theming: light / dark / automatic (follows the device) / high contrast, chosen per device (Me), applied
+- [x] 92a. Done: Me → 🎨 Look (for everyone, per device): 🌗 automatic (follows the device) · ☀️ light · 🌙 dark · ◐
+      high contrast (black, white borders, yellow accent, underlined links, a strong focus ring); html[data-theme] is
+      set before the page draws. 24 languages; checked dark and contrast at 390 px. Was: Theming: light / dark / automatic (follows the device) / high contrast, chosen per device (Me), applied
       everywhere via the color tokens.
 - [ ] 92b. Accessibility: keyboard use everywhere (focus visible, tab order, Esc closes, no keyboard traps) and screen
       readers (names, roles, live regions for what changes); an audit pass with fixes.

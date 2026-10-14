@@ -774,5 +774,11 @@
   "js.act_contact_cards": "Jejich vizitky, tvé poznámky, záloha",
   "connect.qr_short": "1 hodina",
   "connect.qr_long": "do nového kódu",
-  "js.online_tag": "Online: {tag}"
+  "js.online_tag": "Online: {tag}",
+  "look.title": "Vzhled",
+  "look.auto": "Automaticky",
+  "look.light": "Světlý",
+  "look.dark": "Tmavý",
+  "look.contrast": "Vysoký kontrast",
+  "look.note": "Uloženo v tomto zařízení. Automaticky se řídí světlým/tmavým nastavením zařízení."
 }

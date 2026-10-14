@@ -774,5 +774,11 @@
   "js.act_contact_cards": "Kartu mereka, catatanmu, cadangan",
   "connect.qr_short": "1 jam",
   "connect.qr_long": "sampai kode baru",
-  "js.online_tag": "Daring: {tag}"
+  "js.online_tag": "Daring: {tag}",
+  "look.title": "Tampilan",
+  "look.auto": "Otomatis",
+  "look.light": "Terang",
+  "look.dark": "Gelap",
+  "look.contrast": "Kontras tinggi",
+  "look.note": "Disimpan di perangkat ini. Otomatis mengikuti setelan terang/gelap perangkatmu."
 }

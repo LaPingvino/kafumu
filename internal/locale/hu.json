@@ -774,5 +774,11 @@
   "js.act_contact_cards": "Kártyáik, jegyzeteid, mentés",
   "connect.qr_short": "1 óra",
   "connect.qr_long": "új kódig",
-  "js.online_tag": "Online: {tag}"
+  "js.online_tag": "Online: {tag}",
+  "look.title": "Megjelenés",
+  "look.auto": "Automatikus",
+  "look.light": "Világos",
+  "look.dark": "Sötét",
+  "look.contrast": "Nagy kontraszt",
+  "look.note": "Ezen az eszközön tárolva. Az automatikus az eszköz világos/sötét beállítását követi."
 }
