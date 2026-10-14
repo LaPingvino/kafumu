@@ -3,8 +3,11 @@
 <article>
   <h1>{{if .Findable}}{{t .Lang "profile.title"}}{{else}}{{t .Lang "account.title"}}{{end}}</h1>
   {{if .Error}}<p role="alert" class="error">{{.Error}}</p>{{end}}
-  {{if not .User}}
-    {{if .Findable}}<p>{{t .Lang "profile.explain"}}</p>{{end}}
+  {{if and (not .User) .Findable}}
+    <!-- Signed out on Findable: what it is, and one way on (the sign-in block lives on Account). -->
+    <p>{{t .Lang "profile.explain"}}</p>
+    <p><a href="/account?next=/findable" role="button" class="pill">{{t .Lang "here.need_name"}} →</a></p>
+  {{else if not .User}}
     <p>{{t .Lang "account.why"}}</p>
     {{if .ATproto}}<form method="post" action="/oauth/login" class="inline"><input name="handle" placeholder="you.bsky.social" autocomplete="username" aria-label="Handle">
       <button type="submit" class="pill">{{t .Lang "atproto.signin"}}</button></form>{{end}}
