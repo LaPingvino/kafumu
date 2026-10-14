@@ -473,3 +473,5 @@ code, kbd, .doc a { overflow-wrap: anywhere; word-break: break-word; }
 /* My card on a phone: what people get (the preview) first, then the form (91g). */
 @media (max-width: 719px) { #card-form { order: 2; } #card-form + aside { order: 1; } article > .grid { display: flex; flex-direction: column; } }
 #reach-add { margin: .2rem 0 .6rem; }
+label.visible-choice { font-weight: 600; }
+label.visible-choice select { font-weight: 600; }
