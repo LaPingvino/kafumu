@@ -112,6 +112,9 @@
     KINDS.forEach(function (k) { if (on.indexOf(k) >= 0) items = items.concat(cardsOf(k)); });
     var real = items.filter(function (li) { return !li.classList.contains("muted"); });
     if (real.length) items = real;
+    // The search box (91d): every word must be in the card (accents ignored).
+    var words = fold($("feed-search") ? $("feed-search").value : "").split(/\s+/).filter(function (w) { return w && w[0] !== "#"; });
+    if (words.length) items = items.filter(function (li) { var t = fold(li.textContent); return words.every(function (w) { return t.indexOf(w) >= 0; }); });
     items.sort(function (a, z) { return parseFloat(z.dataset.score) - parseFloat(a.dataset.score); });
     ul.classList.toggle("mixed", on.length > 1);
     ul.textContent = "";
@@ -421,6 +424,20 @@
     updateEstimate(); suggestTags(); f.text.focus();
     f.scrollIntoView({ block: "nearest" });
   }
+  // Search what's here (91d): as you type, the list narrows; "#tag" and
+  // Enter makes it the area's filter (a language name works too).
+  if ($("feed-search")) {
+    var fsT;
+    $("feed-search").addEventListener("input", function () { clearTimeout(fsT); fsT = setTimeout(drawFeed, 150); });
+    $("feed-search").addEventListener("keydown", function (e) {
+      if (e.key !== "Enter") return;
+      var v = this.value.trim(), names = (window.KAFUMU_ME || {}).names || {}, lang = "";
+      Object.keys(names).forEach(function (code) { if (fold(names[code]) === fold(v)) lang = code; });
+      if (lang) { e.preventDefault(); location.href = chipURL("lang", lang, false); return; }
+      if (/^#\S+/.test(v)) { e.preventDefault(); location.href = chipURL("tag", normTag(v), false); }
+    });
+  }
+
   // The text field on top (91b): with text, a button sends it as that kind;
   // empty, it opens that kind's form (all the options are there).
   function quickText() { return ($("quick-text").value || "").trim(); }

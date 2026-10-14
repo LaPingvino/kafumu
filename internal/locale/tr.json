@@ -768,5 +768,6 @@
   "quick.ask": "Sor",
   "quick.coffee": "Kahve?",
   "coffee.findable": "Mesaj atmadan bir süre burada bulunabilir olmak mı istersin? Profilin seçtiğin saatlerde burada görünür.",
-  "js.view_settings": "Görünüm ayarları"
+  "js.view_settings": "Görünüm ayarları",
+  "search.placeholder": "Burada ara… ya da #etiket"
 }

@@ -1295,7 +1295,9 @@ Around · Chats (mailbox + Contacts, 🔔 folded in) · Connect (your code + My 
       📍 next to it, results and the map right under it; picking closes it; Esc too. The view settings (strength,
       save as ☆) open from a ⚙ at the start of the filter row. Checked at 390 px. Was: The area search in place (Joop): ✎ turns the place name itself into the place search field (same look as
       the heading), results right under it; the separate area-picker card goes.
-- [ ] 91d. A search box near the top: words filter the feed as you type, a #tag or language becomes the view filter.
+- [x] 91d. Done: "🔍 Search here… or #tag" right under the field on top (outlined, not another field to write in): words
+      narrow the list as you type (accents ignored), "#tag" or a language name + Enter becomes the area's filter; the
+      tag row follows it, the event and travel cards come after. 24 languages; browser step. Was: A search box near the top: words filter the feed as you type, a #tag or language becomes the view filter.
 
 ## 90. Filters reach everything (Joop 2026-10-14)
 - [x] 90a. Done: filterBundle marks news (its source's tags, or the words of title/summary for a tag; a language

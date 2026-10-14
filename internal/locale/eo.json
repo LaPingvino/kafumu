@@ -768,5 +768,6 @@
   "quick.ask": "Demandi",
   "quick.coffee": "Kafon?",
   "coffee.findable": "Prefere troveblu ĉi tie dum iom da tempo, sen mesaĝo? Via profilo aperas ĉi tie dum la horoj, kiujn vi elektas.",
-  "js.view_settings": "Agordoj de la vido"
+  "js.view_settings": "Agordoj de la vido",
+  "search.placeholder": "Serĉu ĉi tie… aŭ #etikedo"
 }

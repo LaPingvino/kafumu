@@ -768,5 +768,6 @@
   "quick.ask": "Vraag",
   "quick.coffee": "Koffie?",
   "coffee.findable": "Liever een tijdje vindbaar hier, zonder bericht? Je profiel staat hier voor de uren die je kiest.",
-  "js.view_settings": "Weergave-instellingen"
+  "js.view_settings": "Weergave-instellingen",
+  "search.placeholder": "Zoek hier… of #tag"
 }

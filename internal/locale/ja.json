@@ -768,5 +768,6 @@
   "quick.ask": "聞く",
   "quick.coffee": "コーヒー？",
   "coffee.findable": "メッセージなしで、しばらくここで見つけてもらいたい？選んだ時間だけ、ここにプロフィールが表示されます。",
-  "js.view_settings": "表示の設定"
+  "js.view_settings": "表示の設定",
+  "search.placeholder": "ここで検索…または #タグ"
 }

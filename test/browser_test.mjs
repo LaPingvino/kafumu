@@ -140,6 +140,10 @@ try {
   // The text field on top (91b): type, then 💬 sends it as a line here.
   await A.evaluate("(() => { document.getElementById('oln-form').hidden = true; document.getElementById('quick-text').value = 'Quick line " + RUN + "'; document.getElementById('say').click(); return true; })()");
   await A.waitFor("document.getElementById('feed').textContent.includes('Quick line " + RUN + "') && document.getElementById('quick-text').value === ''", "a line sent from the field on top", 30000);
+  // Search what's here (91d): words narrow the list as you type.
+  await A.evaluate("(() => { const q = document.getElementById('feed-search'); q.value = 'Quick line " + RUN + "'; q.dispatchEvent(new Event('input')); return true; })()");
+  await A.waitFor("[...document.querySelectorAll('#feed > li')].length >= 1 && [...document.querySelectorAll('#feed > li')].every(li => li.textContent.includes('Quick line'))", "the search narrows the list");
+  await A.evaluate("(() => { const q = document.getElementById('feed-search'); q.value = ''; q.dispatchEvent(new Event('input')); return true; })()");
   // The area as RSS and as a calendar (81a): the buttons point at this cell, the feed has the line.
   await A.waitFor("/^\\/rss\\/[0-9a-z]{6}$/.test(new URL(document.getElementById('rss-link').href).pathname) && document.getElementById('cal-link').href.startsWith('webcal://')", "📰 RSS and 📅 Calendar for this area");
   await A.waitFor("fetch(document.getElementById('rss-link').href, { cache: 'no-store' }).then(r => r.text()).then(x => x.includes('<rss') && x.includes('hi from the OLN " + RUN + "'))", "the area's RSS has the message", 20000);

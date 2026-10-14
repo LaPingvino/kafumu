@@ -768,5 +768,6 @@
   "quick.ask": "Demander",
   "quick.coffee": "Un café ?",
   "coffee.findable": "Plutôt rester trouvable ici un moment, sans message ? Ton profil s'affiche ici pendant les heures que tu choisis.",
-  "js.view_settings": "Réglages de la vue"
+  "js.view_settings": "Réglages de la vue",
+  "search.placeholder": "Chercher ici… ou #tag"
 }

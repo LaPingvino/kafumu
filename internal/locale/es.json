@@ -768,5 +768,6 @@
   "quick.ask": "Preguntar",
   "quick.coffee": "¿Café?",
   "coffee.findable": "¿Prefieres ser localizable aquí un rato, sin mensaje? Tu perfil aparece aquí las horas que elijas.",
-  "js.view_settings": "Ajustes de la vista"
+  "js.view_settings": "Ajustes de la vista",
+  "search.placeholder": "Buscar aquí… o #etiqueta"
 }

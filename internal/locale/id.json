@@ -768,5 +768,6 @@
   "quick.ask": "Tanya",
   "quick.coffee": "Ngopi?",
   "coffee.findable": "Lebih suka bisa ditemukan di sini sebentar, tanpa pesan? Profilmu tampil di sini selama jam yang kamu pilih.",
-  "js.view_settings": "Pengaturan tampilan"
+  "js.view_settings": "Pengaturan tampilan",
+  "search.placeholder": "Cari di sini… atau #tag"
 }

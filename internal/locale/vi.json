@@ -768,5 +768,6 @@
   "quick.ask": "Hỏi",
   "quick.coffee": "Cà phê?",
   "coffee.findable": "Muốn được tìm thấy ở đây một lúc mà không cần nhắn? Hồ sơ của bạn hiện ở đây trong những giờ bạn chọn.",
-  "js.view_settings": "Cài đặt chế độ xem"
+  "js.view_settings": "Cài đặt chế độ xem",
+  "search.placeholder": "Tìm ở đây… hoặc #thẻ"
 }

@@ -463,3 +463,4 @@ code, kbd, .doc a { overflow-wrap: anywhere; word-break: break-word; }
 .cell-tag .head-btn.on { background: var(--accent-bg); color: var(--accent-fg); }
 .cell-tag.editing #place-name { display: none; }
 .cell-tag.editing { margin-bottom: 0; }
+.feed-search { margin: .5rem 0 0; border-radius: 999px; padding-left: 1rem; background: transparent; border: 1px solid var(--border); } /* not another field to write in */

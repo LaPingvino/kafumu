@@ -147,9 +147,6 @@
   </div>
 </section>
 
-<div id="events" class="card events" hidden></div>
-
-<div id="travel" class="card events" hidden></div>
 
 <!-- One feed (Joop): contacts, local messages, meetups, people and Bluesky
      as cards in one list, ranked on the device; chips filter by kind. -->
@@ -162,8 +159,13 @@
 </div>
 <p id="answers-link" class="actions" hidden><a href="/activity#answers" role="button" class="pill-sm"></a></p>
 <section id="feed-section">
+  <!-- Search what's here (91d): words narrow the list as you type; "#tag" + Enter becomes the filter. -->
+  <input id="feed-search" type="search" class="feed-search" autocomplete="off" placeholder="🔍 {{ts .Lang "search.placeholder"}}" aria-label="{{ts .Lang "search.placeholder"}}">
   <div id="filter-chips" class="chips filter-chips scroll-row" role="group" hidden></div>
   <p id="filter-note" class="dim small" role="status" hidden></p>
+  <!-- Events here and the travel note, under search and filters (91d): those first. -->
+  <div id="events" class="card events" hidden></div>
+  <div id="travel" class="card events" hidden></div>
   <div id="feed-kinds" class="chips scroll-row" role="group"></div>
   <ul id="feed" class="boxed-list feed"><li class="muted">{{t .Lang "home.nothing_loaded"}}</li></ul>
   <p class="muted" id="list-note"></p>
