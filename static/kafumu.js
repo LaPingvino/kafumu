@@ -307,6 +307,16 @@
     });
     b.meetups = mark(b.meetups, function (m) { return tagsOK(m.tags, m.title + " " + (m.text || "")); });
     b.notes = mark(b.notes, function (n) { return tagsOK(n.tags, n.text); });
+    // News (90a): its source's tags, or the words of its title and summary
+    // (news has no hashtags: "esperanto" in the text counts for #esperanto).
+    var srcTags = {};
+    (b.notes || []).forEach(function (n) { if ((n.tags || []).indexOf("feed") >= 0) srcTags[n.id] = n.tags; });
+    b.news = mark(b.news, function (it) {
+      var text = it.title + " " + (it.text || "");
+      if (tagsOK(srcTags[it.src], text)) return true;
+      if (lt && !(srcTags[it.src] || []).some(function (t) { return lt[t]; })) return false; // a language filter needs the source's language
+      return !!tag && tagGroup(tag).some(function (g) { return new RegExp("(^|[^\\p{L}\\p{N}])" + g.replace(/[^\p{L}\p{N}_]/gu, "") + "($|[^\\p{L}\\p{N}])", "iu").test(text); });
+    });
     b.people = mark(b.people, function (p) {
       if (view.lang && !(p.langs || []).some(function (l) { return l.split("/")[0] === view.lang; })) return false;
       return !tag || tagGroup(tag).some(function (g) { return (p.tags || []).map(function (x) { return String(x).toLowerCase(); }).indexOf(g) >= 0; });
@@ -614,7 +624,7 @@
       var ageD = (Date.now() - new Date(it.at).getTime()) / 864e5;
       // Local first (Joop: the area's own news, not the EU pages of a local paper).
       var here = localTo(names, it.title + " " + (it.text || ""));
-      li.dataset.score = BASE.news + Math.min(it.bits || 0, 24) / 12 - ageD * 0.4 + (here ? 3 : -1);
+      li.dataset.score = BASE.news + Math.min(it.bits || 0, 24) / 12 - ageD * 0.4 + (here ? 3 : -1) + (it._match ? view.strength * 3 : 0);
       var meta = document.createElement("div"); meta.className = "meta";
       meta.textContent = (here ? "📍 " + here + " · " : "") + "📰 " + it.host + (it.by ? " · " + tr("news_by", { name: "@" + it.by }) : "") + " · " + ago(it.at);
       var a = document.createElement("a"); a.href = it.link; a.target = "_blank"; a.rel = "noopener"; a.className = "news-title";
@@ -1583,7 +1593,7 @@
         $("list-note").textContent = named.length
           ? tr("also_tags", { tags: named.join(", ") })
           : "";
-        b._places = places;
+        b._places = places; b._names = placeNames(b);
         widen(c, seq, ringOf, b, 4);
       })
       .catch(function () { feed.posts = []; scheduleDraw(); note(tr("load_failed")); });
@@ -1594,7 +1604,7 @@
   // messages, meetups, people only: no upstream calls), up to ring 8.
   var WIDEN_ENOUGH = 15, WIDEN_MAX = 8;
   function widen(c, seq, ringOf, acc, from) {
-    var have = (acc.notes || []).length + (acc.meetups || []).length + (acc.people || []).length + (acc.posts || []).length;
+    var have = (acc.notes || []).length + (acc.meetups || []).length + (acc.people || []).length + (acc.posts || []).length + (acc.news || []).length;
     if (have >= WIDEN_ENOUGH || seq !== loadSeq) return;
     if (from > WIDEN_MAX) {
       // Still quiet: the server fetches the outer rings' Bluesky posts slowly
@@ -1618,10 +1628,12 @@
         acc.meetups = merge(acc.meetups, wb.meetups, function (x) { return x.id; });
         acc.people = merge(acc.people, wb.people, function (x) { return x.name; });
         acc.posts = merge(acc.posts, wb.posts, function (x) { return x.uri; });
+        acc.news = merge(acc.news, wb.news, function (x) { return x.link; }); // further out too (90a)
         if ((wb.notes || []).length) showNotes(acc.notes);
         if ((wb.meetups || []).length) showMeetups(acc.meetups, acc.events || []);
         if ((wb.people || []).length) showPeople(acc.people);
         if ((wb.posts || []).length) render(acc.posts, ringOf, acc._places || {}, c);
+        if ((wb.news || []).length) showNews(acc.news, acc._names || {});
         widen(c, seq, ringOf, acc, to + 1);
       }).catch(function () {});
   }

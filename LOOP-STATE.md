@@ -1264,7 +1264,9 @@ Around · Chats (mailbox + Contacts, 🔔 folded in) · Connect (your code + My 
       (TestQuietSource).
 
 ## 90. Filters reach everything (Joop 2026-10-14)
-- [ ] 90a. Tag and language filters apply to news from sources too (title, summary, the source line's tags), and when a
+- [x] 90a. Done: filterBundle marks news (its source's tags, or the words of title/summary for a tag; a language
+      filter needs the source's language), matched news ranks up like other items; the wide bundle carries news, so a
+      filter that leaves the area empty finds news further out. Was: Tag and language filters apply to news from sources too (title, summary, the source line's tags), and when a
       filter leaves the area (nearly) empty, the wider rings bring news too (the wide bundle carries news).
 - [ ] 90b. Online events per tag, everywhere: like lines about a subject (78a), events without a place are filed by
       their tags and shown to anyone filtering on that tag; Eventa Servo's online events fit in there instead of

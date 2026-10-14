@@ -736,7 +736,8 @@ func (h *Home) wideBundle(w http.ResponseWriter, r *http.Request, cells []string
 		Meetups []*meetup.Meetup `json:"meetups"`
 		People  []account.Person `json:"people"`
 		Posts   []bsky.Post      `json:"posts"`
-	}{Notes: []*oln.Note{}, Meetups: []*meetup.Meetup{}, People: []account.Person{}, Posts: []bsky.Post{}}
+		News    []NewsItem       `json:"news"` // further out too (90a): cache reads only
+	}{Notes: []*oln.Note{}, Meetups: []*meetup.Meetup{}, People: []account.Person{}, Posts: []bsky.Post{}, News: h.News(r.Context(), cells)}
 	ctx := r.Context()
 	if h.Notes != nil {
 		if ns, err := h.Notes.InCells(ctx, cells); err == nil && ns != nil {
