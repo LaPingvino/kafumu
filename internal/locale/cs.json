@@ -808,5 +808,6 @@
   "js.where_share_here": "Sdílet tady",
   "js.open_chat": "Otevřít jako chat",
   "meetup.chat": "Chat s těmi, kdo přijdou",
-  "meetup.chat_explain": "Veřejný: uvidí ho každý, kdo otevře toto setkání. Hodí se na „jsem u dveří“ nebo „přijdu později“."
+  "meetup.chat_explain": "Veřejný: uvidí ho každý, kdo otevře toto setkání. Hodí se na „jsem u dveří“ nebo „přijdu později“.",
+  "js.public_chat_empty": "Zatím žádné zprávy. Veřejné: přečte je každý, kdo tohle otevře."
 }

@@ -808,5 +808,6 @@
   "js.where_share_here": "Hier delen",
   "js.open_chat": "Openen als chat",
   "meetup.chat": "Chat met wie er komt",
-  "meetup.chat_explain": "Openbaar: iedereen die deze meetup opent ziet het. Handig voor “ik sta bij de deur” of “ik ben wat later”."
+  "meetup.chat_explain": "Openbaar: iedereen die deze meetup opent ziet het. Handig voor “ik sta bij de deur” of “ik ben wat later”.",
+  "js.public_chat_empty": "Nog geen berichten. Openbaar: iedereen die dit opent kan ze lezen."
 }

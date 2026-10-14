@@ -808,5 +808,6 @@
   "js.where_share_here": "Partager ici",
   "js.open_chat": "Ouvrir en discussion",
   "meetup.chat": "Discute avec ceux qui viennent",
-  "meetup.chat_explain": "Public : tous ceux qui ouvrent cette rencontre le voient. Pratique pour « je suis à la porte » ou « j'arrive en retard »."
+  "meetup.chat_explain": "Public : tous ceux qui ouvrent cette rencontre le voient. Pratique pour « je suis à la porte » ou « j'arrive en retard ».",
+  "js.public_chat_empty": "Pas encore de messages. Public : quiconque ouvre ceci peut les lire."
 }

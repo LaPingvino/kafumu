@@ -808,5 +808,6 @@
   "js.where_share_here": "Hier teilen",
   "js.open_chat": "Als Chat öffnen",
   "meetup.chat": "Chat mit allen, die kommen",
-  "meetup.chat_explain": "Öffentlich: Alle, die dieses Treffen öffnen, sehen ihn. Praktisch für „Ich bin an der Tür“ oder „Ich komme später“."
+  "meetup.chat_explain": "Öffentlich: Alle, die dieses Treffen öffnen, sehen ihn. Praktisch für „Ich bin an der Tür“ oder „Ich komme später“.",
+  "js.public_chat_empty": "Noch keine Nachrichten. Öffentlich: Alle, die das öffnen, können sie lesen."
 }

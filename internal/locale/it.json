@@ -808,5 +808,6 @@
   "js.where_share_here": "Condividi qui",
   "js.open_chat": "Apri come chat",
   "meetup.chat": "Chatta con chi viene",
-  "meetup.chat_explain": "Pubblica: la vede chiunque apra questo incontro. Comoda per «sono alla porta» o «arrivo in ritardo»."
+  "meetup.chat_explain": "Pubblica: la vede chiunque apra questo incontro. Comoda per «sono alla porta» o «arrivo in ritardo».",
+  "js.public_chat_empty": "Ancora nessun messaggio. Pubblico: chiunque apra questo può leggerli."
 }

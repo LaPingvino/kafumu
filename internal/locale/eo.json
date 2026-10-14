@@ -808,5 +808,6 @@
   "js.where_share_here": "Kunhavigi ĉi tie",
   "js.open_chat": "Malfermi kiel babilon",
   "meetup.chat": "Babilu kun la venontoj",
-  "meetup.chat_explain": "Publika: ĉiu, kiu malfermas ĉi tiun renkontiĝon, vidas ĝin. Oportuna por «mi estas ĉe la pordo» aŭ «mi malfruos»."
+  "meetup.chat_explain": "Publika: ĉiu, kiu malfermas ĉi tiun renkontiĝon, vidas ĝin. Oportuna por «mi estas ĉe la pordo» aŭ «mi malfruos».",
+  "js.public_chat_empty": "Ankoraŭ neniuj mesaĝoj. Publike: ĉiu, kiu malfermas ĉi tion, povas legi ilin."
 }

@@ -808,5 +808,6 @@
   "js.where_share_here": "Dela här",
   "js.open_chat": "Öppna som chatt",
   "meetup.chat": "Chatta med dem som kommer",
-  "meetup.chat_explain": "Offentlig: alla som öppnar den här träffen ser den. Bra för ”jag står vid dörren” eller ”jag blir sen”."
+  "meetup.chat_explain": "Offentlig: alla som öppnar den här träffen ser den. Bra för ”jag står vid dörren” eller ”jag blir sen”.",
+  "js.public_chat_empty": "Inga meddelanden än. Offentligt: alla som öppnar det här kan läsa dem."
 }

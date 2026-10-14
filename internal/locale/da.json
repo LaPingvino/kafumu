@@ -808,5 +808,6 @@
   "js.where_share_here": "Del her",
   "js.open_chat": "Åbn som chat",
   "meetup.chat": "Chat med dem, der kommer",
-  "meetup.chat_explain": "Offentlig: alle, der åbner dette meetup, kan se den. Praktisk til “jeg står ved døren” eller “jeg er lidt forsinket”."
+  "meetup.chat_explain": "Offentlig: alle, der åbner dette meetup, kan se den. Praktisk til “jeg står ved døren” eller “jeg er lidt forsinket”.",
+  "js.public_chat_empty": "Ingen beskeder endnu. Offentligt: alle, der åbner dette, kan læse dem."
 }

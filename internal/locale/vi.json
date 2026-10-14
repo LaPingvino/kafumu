@@ -808,5 +808,6 @@
   "js.where_share_here": "Chia sẻ ở đây",
   "js.open_chat": "Mở dạng trò chuyện",
   "meetup.chat": "Trò chuyện với những người sẽ đến",
-  "meetup.chat_explain": "Công khai: ai mở buổi gặp này đều thấy. Tiện để báo “tôi đang ở cửa” hay “tôi đến muộn”."
+  "meetup.chat_explain": "Công khai: ai mở buổi gặp này đều thấy. Tiện để báo “tôi đang ở cửa” hay “tôi đến muộn”.",
+  "js.public_chat_empty": "Chưa có tin nhắn. Công khai: ai mở mục này cũng đọc được."
 }

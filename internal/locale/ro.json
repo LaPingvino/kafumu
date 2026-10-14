@@ -808,5 +808,6 @@
   "js.where_share_here": "Partajează aici",
   "js.open_chat": "Deschide ca chat",
   "meetup.chat": "Chat cu cei care vin",
-  "meetup.chat_explain": "Public: îl vede oricine deschide această întâlnire. Util pentru „sunt la ușă” sau „întârzii”."
+  "meetup.chat_explain": "Public: îl vede oricine deschide această întâlnire. Util pentru „sunt la ușă” sau „întârzii”.",
+  "js.public_chat_empty": "Încă nu sunt mesaje. Public: oricine deschide asta le poate citi."
 }

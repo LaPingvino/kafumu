@@ -455,6 +455,7 @@ try {
   await A.evaluate("(() => { const f = document.getElementById('meetup-form'); f.title.value = 'Browser test kafo'; f.cell.value = '6fg222'; f.venue.value = 'Pavilion 2'; f.requestSubmit(); return true; })()");
   await A.waitFor("location.pathname.startsWith('/meetups/') && document.querySelector('h1').textContent.includes('Browser test kafo')", "meetup page");
   // The meetup's chat (93b), right on its page.
+  await A.waitFor("/Public/.test(document.getElementById('meetup-chat').textContent) && !/only you two/i.test(document.getElementById('meetup-chat').textContent)", "an empty meetup chat says it's public", 15000);
   await A.waitFor("(() => { const f = document.querySelector('#meetup-chat .chat-form'); if (!f) return false; f.querySelector('input').value = 'At the door " + RUN + "'; f.requestSubmit(); return true; })()", "the meetup's chat on its page", 15000);
   await A.waitFor("document.getElementById('meetup-chat').textContent.includes('At the door " + RUN + "')", "a line in the meetup's chat", 30000);
   // Activity (77d): the device remembers a meetup you host; someone joining
@@ -478,6 +479,7 @@ try {
   // B opens the meetup's chat from its card and sees A's line.
   await B.waitFor("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('Browser test kafo')); const b = li && li.querySelector(':scope > .group-chat'); if (!b) return false; b.click(); return true; })()", "💬 on the meetup card", 20000);
   await B.waitFor("[...document.querySelectorAll('.chat-window')].some(w => w.textContent.includes('At the door " + RUN + "'))", "B sees A's line in the meetup chat", 70000);
+  await B.waitFor("[...document.querySelectorAll('.chat-window')].some(w => w.textContent.includes('At the door') && /^💬 Browser test kafo/.test(w.querySelector('.win-head strong').textContent))", "the chat's title is the meetup's name (no date glued on)");
   await B.evaluate("localStorage.removeItem('kafumu.openChats'); true");
   // Clean up (this test also runs against production).
   try { await A.evaluate("window.confirm = () => true; document.querySelector('form[action$=\"/delete\"]').requestSubmit(); true"); } catch (e) { console.log("DEBUG at", await A.evaluate("location.href + ' | ' + document.body.innerText.slice(0, 300)")); throw e; }

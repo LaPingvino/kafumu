@@ -85,7 +85,7 @@
       shown = sig;
       var atEnd = log.scrollHeight - log.scrollTop - log.clientHeight < 40;
       log.textContent = "";
-      if (!ns.length) log.appendChild(el("p", "dim small", T.chat_empty || "No messages yet."));
+      if (!ns.length) log.appendChild(el("p", "dim small", T.public_chat_empty || "No messages yet.")); // public: not "only you two"
       ns.forEach(function (n) {
         var text = String(n.text || "").split("\n")[0];
         if (/^\s*(\p{Extended_Pictographic}|\u200d|\ufe0f|\s)+\s*$/u.test(text)) { // a reaction: a small note in between

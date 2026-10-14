@@ -808,5 +808,6 @@
   "js.where_share_here": "Burada paylaş",
   "js.open_chat": "Sohbet olarak aç",
   "meetup.chat": "Gelenlerle sohbet et",
-  "meetup.chat_explain": "Herkese açık: bu buluşmayı açan herkes görür. “Kapıdayım” ya da “geç kalıyorum” demek için kullanışlı."
+  "meetup.chat_explain": "Herkese açık: bu buluşmayı açan herkes görür. “Kapıdayım” ya da “geç kalıyorum” demek için kullanışlı.",
+  "js.public_chat_empty": "Henüz mesaj yok. Herkese açık: bunu açan herkes okuyabilir."
 }

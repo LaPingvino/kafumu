@@ -808,5 +808,6 @@
   "js.where_share_here": "Bagikan di sini",
   "js.open_chat": "Buka sebagai obrolan",
   "meetup.chat": "Ngobrol dengan yang datang",
-  "meetup.chat_explain": "Publik: semua yang membuka meetup ini bisa melihatnya. Berguna untuk “aku di pintu” atau “aku telat”."
+  "meetup.chat_explain": "Publik: semua yang membuka meetup ini bisa melihatnya. Berguna untuk “aku di pintu” atau “aku telat”.",
+  "js.public_chat_empty": "Belum ada pesan. Publik: siapa pun yang membuka ini bisa membacanya."
 }

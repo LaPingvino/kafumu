@@ -808,5 +808,6 @@
   "js.where_share_here": "在這裡分享",
   "js.open_chat": "以聊天開啟",
   "meetup.chat": "和要來的人聊天",
-  "meetup.chat_explain": "公開：打開這個聚會的人都看得到。適合說「我在門口」或「我會晚到」。"
+  "meetup.chat_explain": "公開：打開這個聚會的人都看得到。適合說「我在門口」或「我會晚到」。",
+  "js.public_chat_empty": "還沒有訊息。公開：打開這裡的任何人都看得到。"
 }

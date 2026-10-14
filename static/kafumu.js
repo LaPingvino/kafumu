@@ -1583,6 +1583,12 @@
     }
     return rid;
   }
+  // cardTitle: what a card is, for its chat window's title: a meetup's or
+  // news item's title, a line's text (not the date glued to it).
+  function cardTitle(li) {
+    var t = li.querySelector(".meetup-row strong, :scope > .text, :scope > a strong, :scope > strong");
+    return firstLine((t || li).textContent);
+  }
   // attachReplies puts a card's reactions under it: emoji counts, then texts.
   function attachReplies(li, nested) {
     var rid = li.dataset.reid;
@@ -1592,7 +1598,7 @@
     if (!rs.length && !nested && li.dataset.kind === "meetups" && window.kafumuChat) { // a meetup's chat, also before anyone wrote (93b)
       var mc = document.createElement("button");
       mc.type = "button"; mc.className = "pill-sm group-chat"; mc.textContent = "💬 " + tr("open_chat");
-      mc.onclick = function (ev) { ev.preventDefault(); ev.stopPropagation(); window.kafumuChat.open("r:" + rid, true, firstLine(li.textContent), null, li.dataset.meetup); };
+      mc.onclick = function (ev) { ev.preventDefault(); ev.stopPropagation(); window.kafumuChat.open("r:" + rid, true, cardTitle(li), null, li.dataset.meetup); };
       li.appendChild(mc);
     }
     if (!rs.length) return;
@@ -1607,7 +1613,7 @@
     if (!nested && window.kafumuChat) { // 💬 n: the replies as a group chat (93a)
       var gc = document.createElement("button");
       gc.type = "button"; gc.className = "pill-sm group-chat"; gc.textContent = "💬 " + rs.length + " · " + tr("open_chat");
-      gc.onclick = function (ev) { ev.preventDefault(); ev.stopPropagation(); window.kafumuChat.open("r:" + rid, true, firstLine(li.querySelector(".text") ? li.querySelector(".text").textContent : li.textContent), repliesFor(rid), li.dataset.meetup); };
+      gc.onclick = function (ev) { ev.preventDefault(); ev.stopPropagation(); window.kafumuChat.open("r:" + rid, true, cardTitle(li), repliesFor(rid), li.dataset.meetup); };
       li.appendChild(gc);
     }
     if (texts.length) {

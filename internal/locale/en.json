@@ -808,5 +808,6 @@
   "js.where_share_here": "Share here",
   "js.open_chat": "Open as chat",
   "meetup.chat": "Chat with the people coming",
-  "meetup.chat_explain": "Public: everyone who opens this meetup sees it. Handy for “I'm at the door” or “running late”."
+  "meetup.chat_explain": "Public: everyone who opens this meetup sees it. Handy for “I'm at the door” or “running late”.",
+  "js.public_chat_empty": "No messages yet. Public: anyone who opens this can read them."
 }
