@@ -477,16 +477,17 @@ func (h *Home) Bundle(w http.ResponseWriter, r *http.Request) {
 	h.noteCountry(r.Context(), cells[0])
 	h.noteCell(r.Context(), cells[0])
 
-	b := bundle{Cells: cells, Places: []gazetteer.PlaceTag{}, Events: []gazetteer.EventTag{}, Meetups: []*meetup.Meetup{}, People: []account.Person{}, Notes: []*oln.Note{}, Posts: []bsky.Post{}}
-	b.News = h.News(r.Context(), cells)
+	b := bundle{Cells: cells, Places: []gazetteer.PlaceTag{}, Events: []gazetteer.EventTag{}, Meetups: []*meetup.Meetup{}, People: []account.Person{}, Notes: []*oln.Note{}, Posts: []bsky.Post{}, News: []NewsItem{}}
 	if h.Notes != nil {
 		if ns, err := h.Notes.InCells(r.Context(), cells); err != nil {
 			log.Printf("bundle: notes: %v", err)
 		} else if ns != nil {
+			srcs := sourcesIn(ns)
 			if len(ns) > oln.PerBundle {
-				ns = ns[:oln.PerBundle]
+				ns = keepSources(ns[:oln.PerBundle], srcs) // a busy area never hides its sources
 			}
 			b.Notes = ns
+			b.News = h.NewsFor(r.Context(), srcs)
 		}
 		b.RequiredBits = h.Notes.RequiredFor(r.Context(), cells[0])
 	}
@@ -737,11 +738,12 @@ func (h *Home) wideBundle(w http.ResponseWriter, r *http.Request, cells []string
 		People  []account.Person `json:"people"`
 		Posts   []bsky.Post      `json:"posts"`
 		News    []NewsItem       `json:"news"` // further out too (90a): cache reads only
-	}{Notes: []*oln.Note{}, Meetups: []*meetup.Meetup{}, People: []account.Person{}, Posts: []bsky.Post{}, News: h.News(r.Context(), cells)}
+	}{Notes: []*oln.Note{}, Meetups: []*meetup.Meetup{}, People: []account.Person{}, Posts: []bsky.Post{}, News: []NewsItem{}}
 	ctx := r.Context()
 	if h.Notes != nil {
 		if ns, err := h.Notes.InCells(ctx, cells); err == nil && ns != nil {
 			out.Notes = ns
+			out.News = h.NewsFor(ctx, sourcesIn(ns))
 		}
 	}
 	if h.Meetups != nil {

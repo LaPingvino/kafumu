@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/http/httptest"
@@ -122,5 +123,27 @@ func TestQuietSource(t *testing.T) {
 	items, _ := m.readSource(t.Context(), &oln.Note{ID: strings.Repeat("f", 40), Text: "📰 Quiet " + srv.URL + "/rss", Src: "x"}, "8ccgmw", now)
 	if len(items) != 3 || items[0].Title != "Item 0" || items[2].Title != "Item 2" {
 		t.Fatalf("items = %+v", items)
+	}
+}
+
+// An area shows a source from its outer rings, and that source's news with
+// it (Joop: Azeitão showed Rostos but none of its stories); a source that's
+// gone takes its news along.
+func TestNewsForNeighbours(t *testing.T) {
+	home := &Home{Cache: cache.New()}
+	now := time.Now().UTC()
+	far := strings.Repeat("a", 40) // a source three rings out, in another cell
+	put := func(cell string, items []NewsItem) {
+		b, _ := json.Marshal(items)
+		home.Cache.Set(t.Context(), newsKey(cell), b, time.Hour)
+	}
+	put("8ccgmw", []NewsItem{{Title: "Feira", Src: far, Cell: "8ccgmw", At: now}, {Title: "Gone", Src: strings.Repeat("b", 40), Cell: "8ccgmw", At: now}})
+	got := home.NewsFor(t.Context(), []*oln.Note{{ID: far, Cell: "8ccgmw"}})
+	if len(got) != 1 || got[0].Title != "Feira" {
+		t.Fatalf("news = %+v", got)
+	}
+	// The same news, whichever neighbouring area asks: what counts is where the source is.
+	if again := home.NewsFor(t.Context(), []*oln.Note{{ID: far, Cell: "8ccgmw"}}); len(again) != len(got) {
+		t.Fatal("not the same news for a neighbour")
 	}
 }

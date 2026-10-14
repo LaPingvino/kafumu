@@ -1263,6 +1263,11 @@ Around · Chats (mailbox + Contacts, 🔔 folded in) · Connect (your code + My 
       360 px. Quiet sources (O Setubalense's Barreiro page: nothing this week) show their newest 3 of the last month
       (TestQuietSource).
 
+- [x] Fix (Joop, Azeitão: sources shown, no news): an area shows sources from all its rings but read news only for its
+      9 nearest cells. Now the bundle (and the wide one) read the news of exactly the sources in view, from their own
+      cells (Home.NewsFor), a busy area never cuts its sources off, and news of a source that's gone goes with it.
+      TestNewsForNeighbours.
+
 ## 90. Filters reach everything (Joop 2026-10-14)
 - [x] 90a. Done: filterBundle marks news (its source's tags, or the words of title/summary for a tag; a language
       filter needs the source's language), matched news ranks up like other items; the wide bundle carries news, so a

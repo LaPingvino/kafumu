@@ -98,14 +98,14 @@ type NewsItem struct {
 
 func newsKey(cell string) string { return "news:" + cell }
 
-// News: what the sources of these cells brought in (bundle; first 9 cells).
+// News: what the sources of these cells brought in.
 func (h *Home) News(ctx context.Context, cells []string) []NewsItem {
 	out := []NewsItem{}
 	if h.Cache == nil {
 		return out
 	}
 	for i, c := range cells {
-		if i >= 9 {
+		if i >= 30 { // one cache read each
 			break
 		}
 		if b, ok := h.Cache.Get(ctx, newsKey(c)); ok {
@@ -460,4 +460,54 @@ func (h *Meetups) PullSource(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]int{"news": len(items), "calendar": map[bool]int{true: 1}[cal != nil]})
+}
+
+// sourcesIn: the source lines among ns.
+func sourcesIn(ns []*oln.Note) []*oln.Note {
+	var out []*oln.Note
+	for _, n := range ns {
+		if oln.IsSource(n) {
+			out = append(out, n)
+		}
+	}
+	return out
+}
+
+// keepSources adds back the sources a cut-off list lost.
+func keepSources(ns, srcs []*oln.Note) []*oln.Note {
+	have := map[string]bool{}
+	for _, n := range ns {
+		have[n.ID] = true
+	}
+	for _, s := range srcs {
+		if !have[s.ID] {
+			ns = append(ns, s)
+		}
+	}
+	return ns
+}
+
+// NewsFor: the news of these sources, read from the cells they're in: an
+// area shows a source from any of its rings, so it shows that source's news
+// too, not only for the nearest cells (Joop: Azeitão showed Rostos without
+// its stories).
+func (h *Home) NewsFor(ctx context.Context, srcs []*oln.Note) []NewsItem {
+	var cells []string
+	seen := map[string]bool{}
+	want := map[string]bool{}
+	for _, s := range srcs {
+		want[s.ID] = true
+		if !seen[s.Cell] {
+			seen[s.Cell] = true
+			cells = append(cells, s.Cell)
+		}
+	}
+	all := h.News(ctx, cells)
+	out := all[:0]
+	for _, it := range all {
+		if want[it.Src] { // a source that's gone (taken back, expired) takes its news along
+			out = append(out, it)
+		}
+	}
+	return out
 }
