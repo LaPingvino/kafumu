@@ -1277,8 +1277,15 @@ Around · Chats (mailbox + Contacts, 🔔 folded in) · Connect (your code + My 
       with text they send it as that kind (coffee: your words + your connect code), empty they open that kind's form
       as before; 24 languages; browser step. Was: The three big buttons become one text field on top ("Say something here…") with send buttons next to
       it: 💬 Say · ❓ Ask · ☕ Coffee (the text optional for coffee); the composer's options fold under it.
-- [ ] 91c. The row of small action buttons (change area, share, calendar, RSS, host a meetup, add a source, be
-      findable) folds into the area heading: 📍 next to the name changes the area, one "⋯" menu holds the rest.
+- [x] 91c-0. The tag row's ✎ / 🗣+ / #+ come first on its line (Joop: hard to find); an event card (Web Summit) has ✕
+      (remembered per device).
+- [ ] 91c. The small buttons find their place (Joop): ✎ right after the big place name changes the area; share right
+      after the #geo tag line; 📅 calendar and 📰 RSS as small icons in the heading's top-right corner (like Eventa
+      Servo); the row of small buttons goes.
+- [ ] 91e. One post interface (Joop): the field on top gets a kind switch that changes the form below it: a line, a
+      question, ☕ coffee / be findable here (merged, with a clear "let people here meet you, now or later" text), a
+      meetup (host one: the meetup form in place), a source (add one). The separate "Host a meetup", "Add a source"
+      and "Be findable here too" buttons go.
 - [ ] 91d. A search box near the top: words filter the feed as you type, a #tag or language becomes the view filter.
 
 ## 90. Filters reach everything (Joop 2026-10-14)

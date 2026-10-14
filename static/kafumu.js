@@ -836,11 +836,11 @@
       b.onclick = function () { b.replaceWith(open()); };
       return b;
     }
-    box.appendChild(opener("🗣 +", tr("chip_lang"), function () {
+    var langOpen = opener("🗣 +", tr("chip_lang"), function () {
       langs.hidden = false;
       setTimeout(function () { langs.focus(); try { langs.showPicker(); } catch (e) {} }, 0);
       return langs;
-    }));
+    });
     var subj = document.createElement("form");
     subj.className = "chip-subject";
     var inp = document.createElement("input");
@@ -849,12 +849,15 @@
     TAG_GROUPS.forEach(function (g) { var o = document.createElement("option"); o.value = "#" + g[0]; dl.appendChild(o); });
     subj.appendChild(inp); subj.appendChild(dl);
     subj.onsubmit = function (e) { e.preventDefault(); var t = normTag(inp.value); if (!t) return; pin("tag:" + t).then(function () { location.href = chipURL("tag", t, false); }); };
-    box.appendChild(opener("# +", tr("chip_subject"), function () { setTimeout(function () { inp.focus(); }, 0); return subj; }));
+    var subjOpen = opener("# +", tr("chip_subject"), function () { setTimeout(function () { inp.focus(); }, 0); return subj; });
     var edit = document.createElement("button");
     edit.type = "button"; edit.className = "chip" + (editChips ? " on" : "");
     edit.textContent = editChips ? "✓" : "✎"; edit.title = tr("chip_edit");
     edit.onclick = function () { editChips = !editChips; drawFilterChips(); };
-    box.appendChild(edit);
+    // Editing and adding come first on the line, easy to find (Joop): ✎ 🗣+ #+, then the chips.
+    box.insertBefore(subjOpen, box.firstChild);
+    box.insertBefore(langOpen, box.firstChild);
+    box.insertBefore(edit, box.firstChild);
     box.hidden = false;
     // Looking at a language you don't speak: the learn card comes along.
     if (view.lang && view.lang === learnLang && learnNeeded) $("learn-card").hidden = false;
@@ -1817,8 +1820,20 @@
     eventsHere = events || [];
     var box = $("events");
     box.textContent = "";
-    box.hidden = !events.length;
-    events.forEach(function (e) {
+    // ✕ hides an event's card on this device (Joop); its chip and tag stay.
+    var closed = []; try { closed = JSON.parse(localStorage.getItem("kafumu.eventsClosed") || "[]"); } catch (e) {}
+    var shownEv = (events || []).filter(function (e) { return closed.indexOf(e.tag) < 0; });
+    box.hidden = !shownEv.length;
+    if (shownEv.length) {
+      var x = document.createElement("button");
+      x.type = "button"; x.className = "close-x"; x.textContent = "✕"; x.setAttribute("aria-label", tr("close")); x.title = tr("close");
+      x.onclick = function () {
+        try { localStorage.setItem("kafumu.eventsClosed", JSON.stringify(closed.concat(shownEv.map(function (e) { return e.tag; })).slice(-50))); } catch (e2) {}
+        box.hidden = true;
+      };
+      box.appendChild(x);
+    }
+    shownEv.forEach(function (e) {
       var p = document.createElement("p");
       var strong = document.createElement("strong");
       strong.textContent = e.name;
