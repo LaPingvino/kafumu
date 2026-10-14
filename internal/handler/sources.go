@@ -128,6 +128,8 @@ const (
 	maxNewsPerSource  = 10
 	maxNewsPerCell    = 30
 	newsMaxAge        = 7 * 24 * time.Hour
+	newsQuietAge      = 30 * 24 * time.Hour // how far back a quiet source still shows
+	minNewsPerSource  = 3                   // its newest few
 )
 
 // pullSources reads the sources of recently seen cells; it returns the
@@ -381,7 +383,11 @@ func (h *Meetups) readSource(ctx context.Context, s *oln.Note, cell string, now 
 			by = s.Src
 		}
 		for i, it := range f.Items {
-			if i >= maxNewsPerSource || (!it.At.IsZero() && now.Sub(it.At) > newsMaxAge) {
+			// A week back, but a quiet local feed (a paper's page per town)
+			// still shows its newest few from the last month (Joop: O
+			// Setubalense's Barreiro page showed nothing).
+			age := now.Sub(it.At)
+			if i >= maxNewsPerSource || (!it.At.IsZero() && age > newsMaxAge && (len(news) >= minNewsPerSource || age > newsQuietAge)) {
 				continue
 			}
 			at := it.At

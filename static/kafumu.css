@@ -415,3 +415,16 @@ body.chat-fullpage .chat-window.chat-page .chat-log { overscroll-behavior: conta
 .switcher.top a.bell .bell-n { left: auto; right: 2px; top: -2px; }
 .subnav { margin: 4px 0 8px; }
 .subnav a.chip { text-decoration: none; }
+/* Phones (Joop: "the CSS on mobile is a bit loose"): the header never makes
+   the page wider than the screen; the language menu gives way first. */
+.headerbar { max-width: 100vw; box-sizing: border-box; }
+.headerbar > * { flex-shrink: 0; }
+.headerbar .title { flex-shrink: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.headerbar select { flex-shrink: 1; min-width: 0; width: auto; max-width: 11em; }
+@media (max-width: 480px) {
+  .headerbar { gap: 2px; padding-left: 4px; padding-right: 4px; }
+  .headerbar .about-link { padding: 8px 6px; }
+  .headerbar select { max-width: 7.5em; padding-left: 6px; padding-right: 22px; text-overflow: ellipsis; }
+}
+/* Long code and links wrap instead of widening the page. */
+code, kbd, .doc a { overflow-wrap: anywhere; word-break: break-word; }

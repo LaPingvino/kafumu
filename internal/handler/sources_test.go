@@ -105,3 +105,22 @@ func TestPullSourceNow(t *testing.T) {
 		t.Fatalf("news = %+v", news)
 	}
 }
+
+// A quiet source (nothing this week) still shows its newest few of the
+// month; nothing older than that.
+func TestQuietSource(t *testing.T) {
+	now := time.Now().UTC()
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprint(w, `<rss version="2.0"><channel>`)
+		for i, d := range []int{8, 9, 12, 15, 40} {
+			fmt.Fprintf(w, `<item><title>Item %d</title><link>https://x.example/%d</link><pubDate>%s</pubDate></item>`, i, i, now.Add(-time.Duration(d)*24*time.Hour).Format(time.RFC1123Z))
+		}
+		fmt.Fprint(w, `</channel></rss>`)
+	}))
+	defer srv.Close()
+	m := &Meetups{Home: &Home{}, Importer: &importer.Importer{Client: srv.Client()}}
+	items, _ := m.readSource(t.Context(), &oln.Note{ID: strings.Repeat("f", 40), Text: "📰 Quiet " + srv.URL + "/rss", Src: "x"}, "8ccgmw", now)
+	if len(items) != 3 || items[0].Title != "Item 0" || items[2].Title != "Item 2" {
+		t.Fatalf("items = %+v", items)
+	}
+}

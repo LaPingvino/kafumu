@@ -1258,6 +1258,11 @@ Around · Chats (mailbox + Contacts, 🔔 folded in) · Connect (your code + My 
 - [x] 89d. Done: every old address is still its own page (nothing to redirect); help bars follow each page; the Chats
       page's title says Chats; tours find the visible tab; the 390 px check passes (browser test). Was: Old addresses keep working (redirects), tours and help bars follow, 390 px check, 24 languages.
 
+- [x] Polish (Joop, phones): the header made pages wider than the screen when ⚙ / ? / ⓘ were all there (377 px on a
+      360 px phone): items no longer grow it, the language menu gives way; long code wraps. Measured on 12 pages at
+      360 px. Quiet sources (O Setubalense's Barreiro page: nothing this week) show their newest 3 of the last month
+      (TestQuietSource).
+
 ## 85. Every conversation as a chat (Joop 2026-10-13)
 One list of chats, like a messenger, merging the mailbox and Contacts (filter: "only contacts"). Every thing that
 talks to you is a thread: a contact, a private answer, your post (its replies and reactions), your meetup (RSVPs,
