@@ -1427,8 +1427,9 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       friend" sends the card with what you typed as your comment; hide, report and the rest behind one ⋯.
 
 ## 95. Coffee goes to your contacts first (Joop 2026-10-14; before 93)
-- [ ] 95a. ☕ / 📍 I'm here! signals your contacts first (a private signal through each pair, like 🤝 / 👀: "☕ Joop is
-      around Barreiro, up for coffee"); posting it in public is an extra choice beside it.
+- [ ] 95a. ☕ / 📍 I'm here! become one signal to your contacts only ("are my friends nearby"): a private signal
+      through each pair, like 🤝 / 👀 ("☕ Joop is around Barreiro"); contacts nearby see it. No public coffee post:
+      in public, a message does everything better (Joop), so the public coffee line goes.
 - [ ] 95b. Contact groups: tag contacts into groups on the device (Friends, Work…), and send the signal to one group.
 - [ ] 95c. Auto-signal (Joop's own default): on, the same area refreshes by itself (once an hour at most while the
       page is open there); a new area asks first ("Tell your contacts you're in Arnhem?").
