@@ -800,5 +800,10 @@
   "js.where_resume": "Megosztás újra",
   "js.where_shared_group": "A(z) {group} címkéjű kapcsolataid látják, hogy ma itt vagy a környéken: a területet, nem a pontos helyedet.",
   "js.where_everyone": "Minden kapcsolat",
-  "js.where_with": "Megosztás velük"
+  "js.where_with": "Megosztás velük",
+  "js.where_ask": "Szólsz a kapcsolataidnak, hogy ma itt vagy a környéken? Csak a területet, nem a pontos helyedet.",
+  "js.where_yes": "Igen, szólj nekik",
+  "js.where_no": "Itt nem",
+  "js.where_not_here": "A kapcsolataid nem látnak ezen a területen.",
+  "js.where_share_here": "Megosztás itt"
 }

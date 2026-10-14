@@ -800,5 +800,10 @@
   "js.where_resume": "重新分享",
   "js.where_shared_group": "標籤為 {group} 的聯絡人能看到你今天在這一帶：只是區域，不是確切位置。",
   "js.where_everyone": "所有聯絡人",
-  "js.where_with": "分享給"
+  "js.where_with": "分享給",
+  "js.where_ask": "告訴你的聯絡人你今天在這一帶嗎？只是區域，不是確切位置。",
+  "js.where_yes": "好，告訴他們",
+  "js.where_no": "這裡不要",
+  "js.where_not_here": "在這個區域，你的聯絡人看不到你。",
+  "js.where_share_here": "在這裡分享"
 }

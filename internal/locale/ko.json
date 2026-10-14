@@ -800,5 +800,10 @@
   "js.where_resume": "다시 공유",
   "js.where_shared_group": "{group} 태그가 붙은 연락처는 오늘 당신이 이 근처에 있다는 걸 볼 수 있어요. 정확한 위치가 아니라 지역만요.",
   "js.where_everyone": "모든 연락처",
-  "js.where_with": "공유 대상"
+  "js.where_with": "공유 대상",
+  "js.where_ask": "오늘 이 근처에 있다고 연락처 사람들에게 알릴까요? 정확한 위치가 아니라 지역만요.",
+  "js.where_yes": "네, 알려요",
+  "js.where_no": "여기선 안 해요",
+  "js.where_not_here": "이 지역에서는 연락처 사람들이 당신을 볼 수 없어요.",
+  "js.where_share_here": "여기서 공유"
 }

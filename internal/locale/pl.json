@@ -800,5 +800,10 @@
   "js.where_resume": "Udostępniaj znowu",
   "js.where_shared_group": "Twoje kontakty z etykietą {group} widzą, że jesteś dziś w tej okolicy: obszar, nie dokładne miejsce.",
   "js.where_everyone": "Wszystkie kontakty",
-  "js.where_with": "Udostępniaj"
+  "js.where_with": "Udostępniaj",
+  "js.where_ask": "Dać znać kontaktom, że jesteś dziś w tej okolicy? Tylko obszar, nie dokładne miejsce.",
+  "js.where_yes": "Tak, daj znać",
+  "js.where_no": "Nie tutaj",
+  "js.where_not_here": "Twoje kontakty nie widzą cię w tym obszarze.",
+  "js.where_share_here": "Udostępniaj tutaj"
 }

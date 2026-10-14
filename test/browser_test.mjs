@@ -429,6 +429,15 @@ try {
   // No broadcast ☕ (95a): coffee goes to a contact who's around, from their card.
   await A.goto(base + "/?cell=6fg223");
   await A.waitFor("!document.getElementById('coffee') && document.getElementById('where-shared').hidden", "no ☕ broadcast; nothing shared without a location fix");
+  // A location fix in a new area asks first (95c); yes, and it says what's shared.
+  await A.send("Browser.grantPermissions", { permissions: ["geolocation"], origin: base }).catch(() => {});
+  await A.send("Emulation.setGeolocationOverride", { latitude: 38.66, longitude: -9.07, accuracy: 50 });
+  await A.evaluate("localStorage.removeItem('kafumu.shareCells'); localStorage.removeItem('kafumu.shareNoCells'); document.getElementById('locate').click(); true");
+  await A.waitFor("!document.getElementById('where-shared').hidden && document.getElementById('where-shared').classList.contains('asking')", "a new area asks before sharing", 20000);
+  await A.evaluate("document.getElementById('where-toggle').click(); true");
+  await A.waitFor("/can see you're around here/.test(document.getElementById('where-shared').textContent) && !document.getElementById('where-shared').classList.contains('asking')", "shared after yes, and said plainly", 20000);
+  await A.send("Emulation.clearGeolocationOverride");
+  await A.evaluate("localStorage.removeItem('kafumu.autoLocate'); true"); // the rest of the run picks its areas
 
   // Meetups: A makes an account on the way to hosting, B sees it in Around.
   await A.goto(base + "/meetups/new");
@@ -481,7 +490,7 @@ try {
     // The business's own @name and its public page, seen by someone else.
     const bizName = ("cafe-" + RUN).toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 30);
     await A.goto(base + "/business");
-    await A.evaluate("(() => { const f = document.querySelector('form[action$=\"/name\"]'); f.username.value = '" + bizName + "'; f.requestSubmit(); return true; })()");
+    await A.waitFor("(() => { const f = document.querySelector('form[action$=\"/name\"]'); if (!f) return false; f.username.value = '" + bizName + "'; f.requestSubmit(); return true; })()", "business name form");
     await A.waitFor("!!document.querySelector('a[href=\"/@" + bizName + "\"]')", "business username set");
     await B.goto(base + "/@" + bizName);
     await B.waitFor("!!document.querySelector('.biz-profile svg.wings') && document.querySelector('h1').textContent.includes('Café Teste " + RUN + "')", "business page at /@name");

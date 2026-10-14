@@ -800,5 +800,10 @@
   "js.where_resume": "Partager à nouveau",
   "js.where_shared_group": "Tes contacts marqués {group} voient que tu es dans le coin aujourd'hui : la zone, pas ton emplacement exact.",
   "js.where_everyone": "Tous les contacts",
-  "js.where_with": "Partager avec"
+  "js.where_with": "Partager avec",
+  "js.where_ask": "Dire à tes contacts que tu es dans le coin aujourd'hui ? Seulement la zone, pas ton emplacement exact.",
+  "js.where_yes": "Oui, préviens-les",
+  "js.where_no": "Pas ici",
+  "js.where_not_here": "Tes contacts ne te voient pas dans cette zone.",
+  "js.where_share_here": "Partager ici"
 }

@@ -1434,7 +1434,9 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       with ⏸ pause; a contact around today shows ☕ Coffee? that goes to just them; the ☕ broadcast button goes.
 - [x] 95b. Done: your own tags on contacts are the groups; the banner's "Share with" picks All contacts or one
       tag; contacts outside it get their slot emptied (they stop seeing you). Pair test. Was: Contact groups: tag contacts into groups on the device (Friends, Work…), and send the signal to one group.
-- [ ] 95c. Auto-signal (Joop's own default): on, the same area refreshes by itself (once an hour at most while the
+- [x] 95c. Done: an area you shared from before goes on by itself (seeded from the device's check-in history);
+      a new one asks first ("Tell your contacts you're around here today?" ✓ Yes / Not here); "not here" stays
+      quiet there with ▶ Share here. Browser step with a faked location. (Per day, so no hourly refresh needed.) Was: Auto-signal (Joop's own default): on, the same area refreshes by itself (once an hour at most while the
       page is open there); a new area asks first ("Tell your contacts you're in Arnhem?").
 - [ ] 95d. A clear banner while your contacts know where you last were ("📍 Your contacts see you around Barreiro
       since 14:00 · stop"); stop sends a "gone" signal.

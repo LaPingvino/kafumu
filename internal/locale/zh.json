@@ -800,5 +800,10 @@
   "js.where_resume": "重新共享",
   "js.where_shared_group": "标签为 {group} 的联系人能看到你今天在这一带：只是区域，不是确切位置。",
   "js.where_everyone": "所有联系人",
-  "js.where_with": "共享给"
+  "js.where_with": "共享给",
+  "js.where_ask": "告诉你的联系人你今天在这一带吗？只是区域，不是确切位置。",
+  "js.where_yes": "好，告诉他们",
+  "js.where_no": "这里不要",
+  "js.where_not_here": "在这个区域，你的联系人看不到你。",
+  "js.where_share_here": "在这里共享"
 }

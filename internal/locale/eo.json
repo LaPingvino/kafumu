@@ -800,5 +800,10 @@
   "js.where_resume": "Denove kunhavigi",
   "js.where_shared_group": "Viaj kontaktoj kun la etikedo {group} vidas, ke vi hodiaŭ estas ĉi-ĉirkaŭe: la regiono, ne via ĝusta loko.",
   "js.where_everyone": "Ĉiuj kontaktoj",
-  "js.where_with": "Kunhavigi kun"
+  "js.where_with": "Kunhavigi kun",
+  "js.where_ask": "Ĉu sciigi viajn kontaktojn, ke vi hodiaŭ estas ĉi-ĉirkaŭe? Nur la regiono, ne via ĝusta loko.",
+  "js.where_yes": "Jes, sciigu",
+  "js.where_no": "Ne ĉi tie",
+  "js.where_not_here": "Viaj kontaktoj ne vidas vin en ĉi tiu regiono.",
+  "js.where_share_here": "Kunhavigi ĉi tie"
 }

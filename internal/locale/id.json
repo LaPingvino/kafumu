@@ -800,5 +800,10 @@
   "js.where_resume": "Bagikan lagi",
   "js.where_shared_group": "Kontakmu dengan tag {group} bisa melihat kamu ada di sekitar sini hari ini: areanya, bukan titik persisnya.",
   "js.where_everyone": "Semua kontak",
-  "js.where_with": "Bagikan ke"
+  "js.where_with": "Bagikan ke",
+  "js.where_ask": "Beri tahu kontakmu bahwa kamu ada di sekitar sini hari ini? Hanya areanya, bukan titik persisnya.",
+  "js.where_yes": "Ya, beri tahu",
+  "js.where_no": "Jangan di sini",
+  "js.where_not_here": "Kontakmu tidak melihatmu di area ini.",
+  "js.where_share_here": "Bagikan di sini"
 }

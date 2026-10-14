@@ -800,5 +800,10 @@
   "js.where_resume": "Chia sẻ lại",
   "js.where_shared_group": "Các liên hệ có nhãn {group} thấy hôm nay bạn ở quanh đây: khu vực, không phải vị trí chính xác.",
   "js.where_everyone": "Tất cả liên hệ",
-  "js.where_with": "Chia sẻ với"
+  "js.where_with": "Chia sẻ với",
+  "js.where_ask": "Báo cho các liên hệ rằng hôm nay bạn ở quanh đây? Chỉ khu vực, không phải vị trí chính xác.",
+  "js.where_yes": "Có, báo họ",
+  "js.where_no": "Không ở đây",
+  "js.where_not_here": "Các liên hệ không thấy bạn ở khu vực này.",
+  "js.where_share_here": "Chia sẻ ở đây"
 }

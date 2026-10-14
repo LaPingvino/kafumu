@@ -800,5 +800,10 @@
   "js.where_resume": "Weer delen",
   "js.where_shared_group": "Je contacten met het label {group} zien dat je vandaag hier in de buurt bent: het gebied, niet je precieze plek.",
   "js.where_everyone": "Alle contacten",
-  "js.where_with": "Delen met"
+  "js.where_with": "Delen met",
+  "js.where_ask": "Je contacten laten weten dat je vandaag hier in de buurt bent? Alleen het gebied, niet je precieze plek.",
+  "js.where_yes": "Ja, laat weten",
+  "js.where_no": "Hier niet",
+  "js.where_not_here": "Je contacten zien je niet in dit gebied.",
+  "js.where_share_here": "Hier delen"
 }

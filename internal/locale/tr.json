@@ -800,5 +800,10 @@
   "js.where_resume": "Yeniden paylaş",
   "js.where_shared_group": "{group} etiketli kişilerin bugün buralarda olduğunu görüyor: bölgeyi, tam yerini değil.",
   "js.where_everyone": "Tüm kişiler",
-  "js.where_with": "Paylaşılanlar"
+  "js.where_with": "Paylaşılanlar",
+  "js.where_ask": "Kişilerine bugün buralarda olduğunu söyleyelim mi? Sadece bölge, tam yerin değil.",
+  "js.where_yes": "Evet, söyle",
+  "js.where_no": "Burada değil",
+  "js.where_not_here": "Kişilerin seni bu bölgede görmüyor.",
+  "js.where_share_here": "Burada paylaş"
 }

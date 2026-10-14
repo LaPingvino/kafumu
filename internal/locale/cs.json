@@ -800,5 +800,10 @@
   "js.where_resume": "Znovu sdílet",
   "js.where_shared_group": "Tvoje kontakty se štítkem {group} vidí, že jsi dnes tady v okolí: oblast, ne přesné místo.",
   "js.where_everyone": "Všechny kontakty",
-  "js.where_with": "Sdílet s"
+  "js.where_with": "Sdílet s",
+  "js.where_ask": "Dát kontaktům vědět, že jsi dnes tady v okolí? Jen oblast, ne přesné místo.",
+  "js.where_yes": "Ano, dej jim vědět",
+  "js.where_no": "Tady ne",
+  "js.where_not_here": "Tvoje kontakty tě v této oblasti nevidí.",
+  "js.where_share_here": "Sdílet tady"
 }

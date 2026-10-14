@@ -139,15 +139,24 @@
     dev.store.contacts().then(function (cs) {
       cs = cs.filter(function (x) { return x.card; });
       if (!cs.length) return;
+      if (pref("kafumu.shareSeeded") !== "1") return dev.store.get("checkins").then(function (h) {
+        (h || []).forEach(function (x) { toList("kafumu.shareCells", x.cell, true); });
+        pref("kafumu.shareSeeded", "1");
+        friendsAround(c, gps);
+      });
       // Your contacts see the area you're in today (not the spot), from a
       // real location fix; said plainly on the page, with a pause (95a).
       var sharing = gps && pref("kafumu.shareWhere") !== "off";
+      // 95c: an area you shared from before goes on by itself; a new one asks
+      // first; one you said "not here" to stays quiet.
+      var state = !gps ? "" : !sharing ? "off" : inList("kafumu.shareNoCells", c) ? "no" : inList("kafumu.shareCells", c) ? "on" : "ask";
+      sharing = state === "on";
       // A group (95b): one of your own tags on contacts; the rest don't see you.
       var groups = [], group = pref("kafumu.shareGroup") || "";
       cs.forEach(function (x) { (x.tags || []).forEach(function (t) { if (groups.indexOf(t) < 0) groups.push(t); }); });
       if (groups.indexOf(group) < 0) group = "";
       var inGroup = function (x) { return !group || (x.tags || []).indexOf(group) >= 0; };
-      drawWhere(gps, sharing, groups.sort(), group);
+      drawWhere(state, groups.sort(), group);
       return (sharing ? pair.checkIn(c, cs.filter(inGroup), null, cs.filter(function (x) { return !inGroup(x); })) : Promise.resolve()).then(function () {
         return pair.around(rings(c, 1).map(function (p) { return p[0]; }), cs.slice(0, 30));
       }).then(function (hits) {
@@ -197,11 +206,26 @@
   // drawWhere (95a): "📍 Your contacts can see you're around here today"
   // while it's shared, "⏸ … paused" when you paused it; nothing without a
   // location fix (then nothing is shared).
-  function drawWhere(gps, sharing, groups, group) {
+  function inList(key, c) { try { return JSON.parse(localStorage.getItem(key) || "[]").indexOf(c) >= 0; } catch (e) { return false; } }
+  function toList(key, c, on) {
+    var l = [];
+    try { l = JSON.parse(localStorage.getItem(key) || "[]"); } catch (e) {}
+    l = l.filter(function (x) { return x !== c; });
+    if (on) l.push(c);
+    try { localStorage.setItem(key, JSON.stringify(l.slice(-300))); } catch (e) {}
+  }
+  function drawWhere(state, groups, group) {
     var el = $("where-shared");
     if (!el) return;
-    el.hidden = !gps;
-    el.querySelector("span").textContent = sharing ? "📍 " + (group ? tr("where_shared_group", { group: group }) : tr("where_shared")) : "⏸ " + tr("where_paused");
+    var sharing = state === "on", c = currentCell;
+    el.hidden = !state;
+    el.classList.toggle("asking", state === "ask");
+    el.querySelector("span").textContent = sharing ? "📍 " + (group ? tr("where_shared_group", { group: group }) : tr("where_shared"))
+      : state === "ask" ? "📍 " + tr("where_ask") : state === "no" ? "📍 " + tr("where_not_here") : "⏸ " + tr("where_paused");
+    var no = $("where-no");
+    no.hidden = state !== "ask";
+    no.textContent = tr("where_no");
+    no.onclick = function () { toList("kafumu.shareNoCells", c, true); friendsAround(c, true); };
     var sel = $("where-group");
     sel.hidden = !sharing || !groups.length;
     sel.textContent = "";
@@ -212,8 +236,13 @@
     });
     sel.onchange = function () { pref("kafumu.shareGroup", sel.value); friendsAround(currentCell, true); };
     var b = $("where-toggle");
-    b.textContent = sharing ? "⏸ " + tr("where_pause") : "▶ " + tr("where_resume");
-    b.onclick = function () { pref("kafumu.shareWhere", sharing ? "off" : "on"); friendsAround(currentCell, true); };
+    b.classList.toggle("suggested", state === "ask");
+    b.textContent = sharing ? "⏸ " + tr("where_pause") : state === "ask" ? "✓ " + tr("where_yes") : state === "no" ? "▶ " + tr("where_share_here") : "▶ " + tr("where_resume");
+    b.onclick = function () {
+      if (state === "ask" || state === "no") { toList("kafumu.shareNoCells", c, false); toList("kafumu.shareCells", c, true); }
+      else pref("kafumu.shareWhere", sharing ? "off" : "on");
+      friendsAround(c, true);
+    };
   }
 
   // Travel: your "home" cell is the one you've used most; somewhere more

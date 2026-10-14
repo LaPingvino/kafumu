@@ -800,5 +800,10 @@
   "js.where_resume": "Condividi di nuovo",
   "js.where_shared_group": "I tuoi contatti con l'etichetta {group} vedono che oggi sei da queste parti: la zona, non il punto esatto.",
   "js.where_everyone": "Tutti i contatti",
-  "js.where_with": "Condividi con"
+  "js.where_with": "Condividi con",
+  "js.where_ask": "Dire ai tuoi contatti che oggi sei da queste parti? Solo la zona, non il punto esatto.",
+  "js.where_yes": "Sì, diglielo",
+  "js.where_no": "Qui no",
+  "js.where_not_here": "I tuoi contatti non ti vedono in questa zona.",
+  "js.where_share_here": "Condividi qui"
 }

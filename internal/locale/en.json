@@ -800,5 +800,10 @@
   "js.where_resume": "Share again",
   "js.where_shared_group": "Your contacts tagged {group} can see you're around here today: the area, not your exact spot.",
   "js.where_everyone": "All contacts",
-  "js.where_with": "Share with"
+  "js.where_with": "Share with",
+  "js.where_ask": "Tell your contacts you're around here today? Only the area, not your exact spot.",
+  "js.where_yes": "Yes, tell them",
+  "js.where_no": "Not here",
+  "js.where_not_here": "Your contacts don't see you in this area.",
+  "js.where_share_here": "Share here"
 }

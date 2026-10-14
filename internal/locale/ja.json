@@ -800,5 +800,10 @@
   "js.where_resume": "また共有する",
   "js.where_shared_group": "タグ「{group}」の連絡先には、今日あなたがこのあたりにいることが見えます（地域だけで、正確な場所ではありません）。",
   "js.where_everyone": "すべての連絡先",
-  "js.where_with": "共有先"
+  "js.where_with": "共有先",
+  "js.where_ask": "今日このあたりにいることを連絡先の人に知らせますか？地域だけで、正確な場所ではありません。",
+  "js.where_yes": "はい、知らせる",
+  "js.where_no": "ここではしない",
+  "js.where_not_here": "この地域では、連絡先の人にあなたは見えません。",
+  "js.where_share_here": "ここで共有する"
 }

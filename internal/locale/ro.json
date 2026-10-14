@@ -800,5 +800,10 @@
   "js.where_resume": "Partajează din nou",
   "js.where_shared_group": "Contactele tale cu eticheta {group} văd că azi ești prin zonă: zona, nu locul exact.",
   "js.where_everyone": "Toate contactele",
-  "js.where_with": "Partajează cu"
+  "js.where_with": "Partajează cu",
+  "js.where_ask": "Le spui contactelor că azi ești prin zonă? Doar zona, nu locul exact.",
+  "js.where_yes": "Da, spune-le",
+  "js.where_no": "Nu aici",
+  "js.where_not_here": "Contactele tale nu te văd în această zonă.",
+  "js.where_share_here": "Partajează aici"
 }
