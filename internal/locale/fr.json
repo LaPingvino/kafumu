@@ -786,5 +786,10 @@
   "look.media_on": "Afficher",
   "look.media_off": "Masquer",
   "privacy.media": "Les images se chargent depuis leur hébergeur (les serveurs d'images de Bluesky, YouTube pour l'aperçu d'une vidéo, le site d'un lien), qui voit ton appareil les demander. Désactive-les dans {host}.",
-  "js.kind_pics": "Photos et vidéos"
+  "js.kind_pics": "Photos et vidéos",
+  "here.button": "Je suis là !",
+  "here.more": "Plus de réglages",
+  "here.change": "Modifier",
+  "js.here_until": "Trouvable ici jusqu'à {time}",
+  "here.need_name": "Choisis d'abord un nom pour ton compte"
 }

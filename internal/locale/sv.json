@@ -786,5 +786,10 @@
   "look.media_on": "Visa",
   "look.media_off": "Dölj",
   "privacy.media": "Bilder laddas från där de finns (Blueskys bildservrar, YouTube för en videos stillbild, en länks egen webbplats), som ser att din enhet frågar efter dem. Stäng av under {host}.",
-  "js.kind_pics": "Bilder och videor"
+  "js.kind_pics": "Bilder och videor",
+  "here.button": "Jag är här!",
+  "here.more": "Fler inställningar",
+  "here.change": "Ändra",
+  "js.here_until": "Sökbar här till {time}",
+  "here.need_name": "Välj först ett namn för ditt konto"
 }

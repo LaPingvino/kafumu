@@ -524,3 +524,6 @@ main:focus { outline: none; }
 #feed.pics .media img { max-height: 70vh; }
 .meta .permalink { text-decoration: none; opacity: .7; }
 .meta .permalink:hover { opacity: 1; }
+/* 📍 I'm here! with a small ☕ beside it (94a). */
+.quick-compose .actions .pill.coffee-small { flex: 0 0 auto; padding-left: 14px; padding-right: 14px; }
+.here-line { margin: .3rem 0 0; }

@@ -46,12 +46,15 @@
       <p class="actions">
         <button type="button" id="say" class="pill suggested">💬 {{t .Lang "quick.say"}}</button>
         <button type="button" id="ask" class="pill">❓ {{t .Lang "quick.ask"}}</button>
-        <button type="button" id="coffee" class="pill">{{if and .BrandInfo .BrandInfo.Button}}{{.BrandInfo.Button}}{{else}}☕ {{t .Lang "quick.coffee"}}{{end}}</button>
+        <button type="button" id="here-open" class="pill">📍 {{t .Lang "here.button"}}</button>
+        <button type="button" id="coffee" class="pill coffee-small" title="{{ts .Lang "coffee.button"}}" aria-label="{{ts .Lang "coffee.button"}}">{{if and .BrandInfo .BrandInfo.Button}}{{.BrandInfo.Button}}{{else}}☕{{end}}</button>
         <button type="button" id="learn" class="pill" hidden></button>
       </p>
       <!-- What else you can put here (91e): a meetup (the field's text becomes its title), a source. -->
       <p class="actions minor kinds"><a id="quick-meetup" href="/meetups/new" role="button" class="pill-sm">📅 {{t .Lang "meetup.new_title"}}</a>
         <button type="button" id="source-open" class="pill-sm">📰 {{t .Lang "source.add"}}</button></p>
+      <!-- Findable here, as one line once it's on (94a). -->
+      <p class="dim small here-line" id="here-line" hidden><span></span> <button type="button" id="here-change" class="pill-sm">{{t .Lang "here.change"}}</button></p>
       <p class="dim small" id="quick-status" role="status"></p>
     </div>
     <!-- About the area rather than in it: smaller, out of the way. -->
@@ -82,16 +85,22 @@
     <p class="dim small" id="source-status" role="status"></p>
     {{else}}<p class="dim">{{t .Lang "source.need"}} <a href="/account">{{t .Lang "nav.account"}} →</a></p>{{end}}
   </form>
-  <div id="coffee-card" class="card" style="padding:4px 16px 12px" hidden>
+  <div id="coffee-card" hidden><p id="coffee-status" role="status"></p><button type="button" id="coffee-go" hidden></button></div>
+  <!-- "I'm here!" (94a): findable in this area for a while, set right here. -->
+  <form id="here-card" class="card" style="padding:4px 16px 12px" hidden data-cell="{{.HereCell}}" data-until="{{.HereUntil}}">
     <button type="button" class="close-x" data-close aria-label="{{ts .Lang "common.close"}}" title="{{ts .Lang "common.close"}}">✕</button>
-    <h2>☕ {{t .Lang "coffee.button"}}</h2>
-    <p>{{t .Lang "coffee.explain1"}}</p>
-    <p class="dim">{{t .Lang "coffee.explain2"}}</p>
-    <div class="actions"><button type="button" id="coffee-go" class="pill suggested">{{t .Lang "coffee.go"}}</button></div>
-    <!-- Coffee now, or findable for longer (91e: one place for "let people here meet you"). -->
-    <p class="dim small">{{t .Lang "coffee.findable"}} <a id="be-findable" href="/findable">👁 {{t .Lang "home.be_findable"}}</a></p>
-    <p class="dim small" id="coffee-status" role="status"></p>
-  </div>
+    <h2>📍 {{t .Lang "here.button"}}</h2>
+    <p class="dim">{{t .Lang "profile.explain"}}</p>
+    {{if and .User .User.Username}}
+    <label>{{t .Lang "profile.visible"}}
+      <select name="hours"><option value="12">{{t .Lang "profile.today"}}</option><option value="72">{{t .Lang "profile.three_days"}}</option><option value="168">{{t .Lang "profile.week"}}</option><option value="0">{{t .Lang "profile.hidden"}}</option></select></label>
+    <label>{{t .Lang "profile.where"}}<input name="where" maxlength="80" placeholder="{{ts .Lang "profile.where_placeholder"}}" value="{{.User.Where}}"></label>
+    <div class="actions"><button type="submit" class="pill suggested">📍 {{t .Lang "here.button"}}</button>
+      <a href="/findable" class="pill-sm" role="button">⚙ {{t .Lang "here.more"}}</a></div>
+    <p class="dim small" id="here-status" role="status"></p>
+    {{else}}<p><a href="/account">{{t .Lang "here.need_name"}} →</a></p>{{end}}
+    <a id="be-findable" href="/findable" hidden></a>
+  </form>
   <div id="learn-card" class="card" style="padding:4px 16px 12px" hidden>
     <button type="button" class="close-x" data-close aria-label="{{ts .Lang "common.close"}}" title="{{ts .Lang "common.close"}}">✕</button>
     <h2 id="learn-title"></h2>

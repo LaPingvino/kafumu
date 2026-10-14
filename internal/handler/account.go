@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/LaPingvino/kafumu/internal/business"
+	"github.com/LaPingvino/kafumu/internal/geo"
 	"github.com/LaPingvino/kafumu/internal/handle"
 	"github.com/LaPingvino/kafumu/internal/vault"
 	"html/template"
@@ -300,6 +301,34 @@ func (a *Accounts) SetProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	http.Redirect(w, r, "/findable", http.StatusSeeOther)
+}
+
+// SetHere handles POST /account/here (94a): "I'm here!" from the area page:
+// findable in this area for a while (hours=0 stops it), where to find you
+// optional; the rest of your profile stays as it is. Answers JSON.
+func (a *Accounts) SetHere(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	u := UserFrom(r.Context())
+	if u == nil || u.Username == "" {
+		w.WriteHeader(http.StatusForbidden)
+		w.Write([]byte(`{"error":"name"}`))
+		return
+	}
+	cell := strings.ToLower(strings.TrimSpace(r.FormValue("cell")))
+	if !geo.Valid(cell) {
+		http.Error(w, `{"error":"cell"}`, http.StatusBadRequest)
+		return
+	}
+	hours, _ := strconv.Atoi(r.FormValue("hours"))
+	if err := a.Svc.SetHere(r.Context(), u, cell, r.FormValue("where"), time.Duration(hours)*time.Hour); err != nil {
+		http.Error(w, `{"error":"save"}`, http.StatusInternalServerError)
+		return
+	}
+	out := map[string]string{"cell": u.Cell}
+	if !u.VisibleUntil.IsZero() {
+		out["until"] = u.VisibleUntil.UTC().Format(time.RFC3339)
+	}
+	json.NewEncoder(w).Encode(out)
 }
 
 // LinkJSON handles GET /account/link.json: this device's sign-in link on

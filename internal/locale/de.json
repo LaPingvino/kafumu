@@ -786,5 +786,10 @@
   "look.media_on": "Zeigen",
   "look.media_off": "Ausblenden",
   "privacy.media": "Bilder laden von dort, wo sie liegen (Blueskys Bildserver, YouTube für das Standbild eines Videos, die Seite eines Links), die sieht, dass dein Gerät sie anfragt. Ausschalten unter {host}.",
-  "js.kind_pics": "Bilder und Videos"
+  "js.kind_pics": "Bilder und Videos",
+  "here.button": "Ich bin hier!",
+  "here.more": "Mehr Einstellungen",
+  "here.change": "Ändern",
+  "js.here_until": "Hier auffindbar bis {time}",
+  "here.need_name": "Wähle zuerst einen Namen für dein Konto"
 }

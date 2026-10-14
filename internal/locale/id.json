@@ -786,5 +786,10 @@
   "look.media_on": "Tampilkan",
   "look.media_off": "Sembunyikan",
   "privacy.media": "Gambar dimuat dari tempatnya disimpan (server gambar Bluesky, YouTube untuk cuplikan video, situs sebuah tautan), yang melihat perangkatmu memintanya. Matikan di {host}.",
-  "js.kind_pics": "Gambar dan video"
+  "js.kind_pics": "Gambar dan video",
+  "here.button": "Aku di sini!",
+  "here.more": "Pengaturan lain",
+  "here.change": "Ubah",
+  "js.here_until": "Bisa ditemukan di sini sampai {time}",
+  "here.need_name": "Pilih dulu nama untuk akunmu"
 }

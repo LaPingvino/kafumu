@@ -786,5 +786,10 @@
   "look.media_on": "Montri",
   "look.media_off": "Kaŝi",
   "privacy.media": "Bildoj ŝarĝiĝas de kie ili gastas (la bildserviloj de Bluesky, YouTube por bildo de filmeto, la retejo de ligilo), kiu vidas vian aparaton peti ilin. Malŝaltu ilin ĉe {host}.",
-  "js.kind_pics": "Bildoj kaj filmetoj"
+  "js.kind_pics": "Bildoj kaj filmetoj",
+  "here.button": "Mi estas ĉi tie!",
+  "here.more": "Pliaj agordoj",
+  "here.change": "Ŝanĝi",
+  "js.here_until": "Trovebla ĉi tie ĝis {time}",
+  "here.need_name": "Unue elektu nomon por via konto"
 }

@@ -329,6 +329,32 @@ func (s *Service) SetProfile(ctx context.Context, u *User, cell, bio, where stri
 	return err
 }
 
+// SetHere (94a): findable in cell for visibleFor (0 stops it), and where
+// to find you if given; languages, interests and the line about you stay.
+func (s *Service) SetHere(ctx context.Context, u *User, cell, where string, visibleFor time.Duration) error {
+	c := strings.ToLower(strings.TrimSpace(cell))
+	w := clip(strings.TrimSpace(where), 80)
+	if visibleFor > MaxVisible {
+		visibleFor = MaxVisible
+	}
+	err := s.Update(ctx, u, func(x *User) {
+		if len(c) == 6 {
+			x.Cell = c
+		}
+		if w != "" {
+			x.Where = w
+		}
+		x.VisibleUntil = time.Time{}
+		if visibleFor > 0 && x.Username != "" && len(x.Cell) == 6 {
+			x.VisibleUntil = time.Now().Add(visibleFor)
+		}
+	})
+	s.mu.Lock()
+	s.people = map[string]peopleEntry{}
+	s.mu.Unlock()
+	return err
+}
+
 // People returns the discoverable people in cells, via a per-instance
 // cache (one query per instance per minute for missing cells).
 func (s *Service) People(ctx context.Context, cells []string) ([]Person, error) {

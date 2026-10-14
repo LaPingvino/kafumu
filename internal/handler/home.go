@@ -172,6 +172,9 @@ func (h *Home) ShowHome(w http.ResponseWriter, r *http.Request) {
 	p.Tab, p.Cell, p.Help = "around", cell, "around"
 	if u := p.User; u != nil {
 		p.MyLangs, p.MyTags = u.Langs, u.Tags
+		if u.VisibleUntil.After(time.Now()) {
+			p.HereCell, p.HereUntil = u.Cell, u.VisibleUntil.UTC().Format(time.RFC3339)
+		}
 	}
 	// First visit without a cell (desktop, mostly): App Engine's own city
 	// guess from the IP, turned into a cell for this page only (never
@@ -211,6 +214,8 @@ type homePage struct {
 	From1           map[string]string
 	// GuessCell/GuessName: the area App Engine guesses from the IP.
 	GuessCell, GuessName string
+	// HereCell/HereUntil: where and until when you're findable (94a), if you are.
+	HereCell, HereUntil string
 }
 
 // guessCell turns "52.040000,5.665000" into a cell; "" if absent or 0,0.

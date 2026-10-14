@@ -786,5 +786,10 @@
   "look.media_on": "表示",
   "look.media_off": "非表示",
   "privacy.media": "画像は置かれている場所（Blueskyの画像サーバー、動画の静止画はYouTube、リンク先のサイト）から読み込まれ、そこには端末からの要求が見えます。{host} でオフにできます。",
-  "js.kind_pics": "写真と動画"
+  "js.kind_pics": "写真と動画",
+  "here.button": "ここにいるよ！",
+  "here.more": "その他の設定",
+  "here.change": "変更",
+  "js.here_until": "{time}までここで見つけてもらえます",
+  "here.need_name": "まずアカウントの名前を決めてください"
 }

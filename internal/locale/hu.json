@@ -786,5 +786,10 @@
   "look.media_on": "Mutasd",
   "look.media_off": "Rejtsd el",
   "privacy.media": "A képek onnan töltődnek, ahol tárolják őket (a Bluesky képszerverei, a YouTube egy videó állóképéhez, egy link oldala), amely látja, hogy az eszközöd kéri őket. Kikapcsolás: {host}.",
-  "js.kind_pics": "Képek és videók"
+  "js.kind_pics": "Képek és videók",
+  "here.button": "Itt vagyok!",
+  "here.more": "További beállítások",
+  "here.change": "Módosítás",
+  "js.here_until": "Itt megtalálható eddig: {time}",
+  "here.need_name": "Először válassz nevet a fiókodnak"
 }

@@ -521,14 +521,30 @@
 
   // "Who's up for coffee?": a local message carrying your connect code, so
   // whoever taps Join swaps cards with you (only what your persona shares).
+  // ☕ (94a): sends the coffee line at once (your words if you typed some).
   $("coffee").onclick = function () {
     var q = quickText();
-    if (q) { // your own words for it, with your connect code as always
-      $("quick-text").value = "";
-      postCoffee($("coffee"), $("quick-status"), function () { return q; }, function () { return olnKeywords() + " #coffee"; });
-      return;
-    }
-    var c = $("coffee-card"); c.hidden = !c.hidden;
+    if (q) $("quick-text").value = "";
+    postCoffee($("coffee"), $("quick-status"), q ? function () { return q; } : function (card) { return tr("coffee_text", { name: card.name || "" }); }, function () { return olnKeywords() + " #coffee"; });
+  };
+  // 📍 I'm here! (94a): findable in this area for a while, set right here;
+  // once on, it's one line ("findable here until 18:00 · change").
+  function drawHere() {
+    var f = $("here-card"), line = $("here-line");
+    if (!f || !line) return;
+    var until = f.dataset.until, on = until && new Date(until) > Date.now() && f.dataset.cell === currentCell;
+    line.hidden = !on;
+    if (on) line.querySelector("span").textContent = "👁 " + tr("here_until", { time: new Date(until).toLocaleString(window.KAFUMU_LOCALE, { weekday: "short", hour: "2-digit", minute: "2-digit" }) });
+  }
+  $("here-open").onclick = function () { var f = $("here-card"); f.hidden = !f.hidden; if (!f.hidden) f.scrollIntoView({ block: "nearest", behavior: "smooth" }); };
+  $("here-change").onclick = function () { $("here-card").hidden = false; };
+  if ($("here-card") && $("here-card").hours) $("here-card").onsubmit = function (e) {
+    e.preventDefault();
+    var f = this, st = $("here-status"), body = new URLSearchParams({ cell: currentCell, hours: f.hours.value, where: f.where.value });
+    st.textContent = "…";
+    fetch("/account/here", { method: "POST", credentials: "same-origin", body: body }).then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || r.status); return j; }); })
+      .then(function (j) { f.dataset.cell = j.cell || currentCell; f.dataset.until = j.until || ""; st.textContent = ""; f.hidden = true; drawHere(); load(currentCell, true); },
+        function () { st.textContent = tr("network_retry"); });
   };
   $("coffee-go").onclick = function () {
     postCoffee(this, $("coffee-status"), function (card) { return tr("coffee_text", { name: card.name || "" }); }, function () { return olnKeywords() + " #coffee"; });
@@ -1564,7 +1580,7 @@
     document.querySelector(".cell-tag").classList.remove("named");
     document.querySelector(".cell-tag").hidden = false;
     $("cell-actions").hidden = false;
-    setTimeout(function () { $("quick-text").placeholder = sayPlaceholder(); }, 0);
+    setTimeout(function () { $("quick-text").placeholder = sayPlaceholder(); drawHere(); }, 0);
     $("compose").href = "https://bsky.app/intent/compose?text=" + encodeURIComponent("\n\n" + tag);
     $("be-findable").href = "/findable?cell=" + c;
     $("quick-meetup").onclick = function (e) { // the field's text as its title

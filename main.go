@@ -175,6 +175,7 @@ func main() {
 	mux.HandleFunc("POST /account/start", accounts.Start)
 	mux.HandleFunc("POST /account/name", accounts.SetName)
 	mux.HandleFunc("POST /account/profile", accounts.SetProfile)
+	mux.HandleFunc("POST /account/here", accounts.SetHere)
 	mux.HandleFunc("POST /account/inbox", accounts.SetInbox)
 	mux.HandleFunc("GET /account/move", accounts.MoveRequest)
 	mux.HandleFunc("POST /account/move", accounts.MoveRequest)

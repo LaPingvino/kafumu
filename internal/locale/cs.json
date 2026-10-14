@@ -786,5 +786,10 @@
   "look.media_on": "Zobrazit",
   "look.media_off": "Skrýt",
   "privacy.media": "Obrázky se načítají odtud, kde jsou uložené (servery Bluesky, YouTube pro náhled videa, web odkazu), a ty vidí, že je tvé zařízení žádá. Vypni je v {host}.",
-  "js.kind_pics": "Obrázky a videa"
+  "js.kind_pics": "Obrázky a videa",
+  "here.button": "Jsem tady!",
+  "here.more": "Další nastavení",
+  "here.change": "Změnit",
+  "js.here_until": "K nalezení tady do {time}",
+  "here.need_name": "Nejdřív si vyber jméno pro svůj účet"
 }

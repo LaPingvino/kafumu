@@ -786,5 +786,10 @@
   "look.media_on": "顯示",
   "look.media_off": "隱藏",
   "privacy.media": "圖片從其所在處載入（Bluesky 的圖片伺服器、影片截圖來自 YouTube、連結所在網站），對方能看到你的裝置在請求。可在 {host} 中關閉。",
-  "js.kind_pics": "圖片和影片"
+  "js.kind_pics": "圖片和影片",
+  "here.button": "我在這兒！",
+  "here.more": "更多設定",
+  "here.change": "更改",
+  "js.here_until": "在這裡可被找到，直到 {time}",
+  "here.need_name": "先為你的帳戶選一個名字"
 }

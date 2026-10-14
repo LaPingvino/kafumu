@@ -786,5 +786,10 @@
   "look.media_on": "Göster",
   "look.media_off": "Gizle",
   "privacy.media": "Resimler barındırıldıkları yerden yüklenir (Bluesky'nin resim sunucuları, bir videonun karesi için YouTube, bir bağlantının sitesi) ve onlar cihazının istediğini görür. {host} bölümünden kapatabilirsin.",
-  "js.kind_pics": "Resimler ve videolar"
+  "js.kind_pics": "Resimler ve videolar",
+  "here.button": "Buradayım!",
+  "here.more": "Diğer ayarlar",
+  "here.change": "Değiştir",
+  "js.here_until": "{time} saatine kadar burada bulunabilirsin",
+  "here.need_name": "Önce hesabın için bir ad seç"
 }

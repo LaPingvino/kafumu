@@ -786,5 +786,10 @@
   "look.media_on": "Hiện",
   "look.media_off": "Ẩn",
   "privacy.media": "Ảnh được tải từ nơi lưu trữ (máy chủ ảnh của Bluesky, YouTube cho ảnh video, trang của liên kết), nơi đó thấy thiết bị của bạn yêu cầu. Tắt tại {host}.",
-  "js.kind_pics": "Ảnh và video"
+  "js.kind_pics": "Ảnh và video",
+  "here.button": "Tôi ở đây!",
+  "here.more": "Cài đặt khác",
+  "here.change": "Đổi",
+  "js.here_until": "Tìm thấy ở đây đến {time}",
+  "here.need_name": "Trước tiên hãy chọn tên cho tài khoản của bạn"
 }

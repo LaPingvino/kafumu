@@ -1412,7 +1412,9 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       page shows it too; it lives as long as the meetup (replies kept alive by the thread, 86d).
 
 ## 94. Cards with few, obvious controls (Joop 2026-10-14; before 93)
-- [ ] 94a. "📍 I'm here!" replaces the Coffee button: it opens the findability settings right on the area page (how
+- [x] 94a. Done: 📍 I'm here! opens how long + where to find you right on the area page (POST /account/here; the
+      rest of the profile stays; ⚙ More settings → /findable), then folds into "👁 Findable here until …  Change";
+      ☕ beside it sends the coffee line at once (your words if typed). Signed-in save not browser-tested yet. Was: it opens the findability settings right on the area page (how
       long, what people see), with a small "☕ Coffee?" at its right that just sends the coffee line; once set, it
       folds into a one-line shortcut ("👁 Findable here until 18:00 · change"), and coffee stays one tap.
 - [ ] 94b. Each card: a reply box that's simply there (type → it answers; quick reactions next to it), "📤 to a

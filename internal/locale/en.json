@@ -786,5 +786,10 @@
   "look.media_on": "Show",
   "look.media_off": "Hide",
   "privacy.media": "Pictures load from where they're hosted (Bluesky's image servers, YouTube for a video's still, a link's own site), which sees your device ask for them. Switch them off under {host}.",
-  "js.kind_pics": "Pictures and videos"
+  "js.kind_pics": "Pictures and videos",
+  "here.button": "I'm here!",
+  "here.more": "More settings",
+  "here.change": "Change",
+  "js.here_until": "Findable here until {time}",
+  "here.need_name": "First pick a name for your account"
 }

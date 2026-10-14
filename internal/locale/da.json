@@ -786,5 +786,10 @@
   "look.media_on": "Vis",
   "look.media_off": "Skjul",
   "privacy.media": "Billeder hentes, hvor de ligger (Blueskys billedservere, YouTube for et videostillbillede, et links eget site), som ser din enhed bede om dem. Slå dem fra under {host}.",
-  "js.kind_pics": "Billeder og videoer"
+  "js.kind_pics": "Billeder og videoer",
+  "here.button": "Jeg er her!",
+  "here.more": "Flere indstillinger",
+  "here.change": "Skift",
+  "js.here_until": "Til at finde her indtil {time}",
+  "here.need_name": "Vælg først et navn til din konto"
 }

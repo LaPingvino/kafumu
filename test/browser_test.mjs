@@ -425,8 +425,8 @@ try {
 
   // Who's up for coffee: A asks, B joins from the message and they connect.
   await A.goto(base + "/?cell=6fg223");
-  await A.evaluate("document.getElementById('coffee').click(); document.getElementById('coffee-go').click(); true");
-  await A.waitFor("document.getElementById('coffee-status').textContent.length > 0 && !document.getElementById('coffee-status').textContent.includes('…')", "coffee asked", 30000);
+  await A.evaluate("document.getElementById('quick-text').value = ''; document.getElementById('coffee').click(); true"); // ☕ sends at once (94a)
+  await A.waitFor("document.getElementById('quick-status').textContent.length > 0 && !/…|\\d+ tries/.test(document.getElementById('quick-status').textContent)", "coffee asked", 30000);
   for (let i = 0; ; i++) {
     await B.goto(base + "/?cell=6fg223");
     try { await B.waitFor("!!document.querySelector('#feed a[href*=\"/c#v1.\"]')", "Join button for B", 8000); break; }
