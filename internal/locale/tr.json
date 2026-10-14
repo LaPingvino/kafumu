@@ -780,5 +780,6 @@
   "look.light": "Açık",
   "look.dark": "Koyu",
   "look.contrast": "Yüksek karşıtlık",
-  "look.note": "Bu cihazda saklanır. Otomatik, cihazının açık/koyu ayarını izler."
+  "look.note": "Bu cihazda saklanır. Otomatik, cihazının açık/koyu ayarını izler.",
+  "a11y.skip": "İçeriğe geç"
 }

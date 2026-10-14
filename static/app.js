@@ -100,6 +100,16 @@
   }
   document.querySelectorAll(".chips.scroll-row").forEach(hint);
 
+  // Esc closes what's open on top (92b): the tour, then the last panel with
+  // a ✕ (its own close button, so each panel's own clean-up runs).
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape" || e.defaultPrevented) return;
+    var tour = document.querySelector(".tour:not([hidden])");
+    if (tour) { var d = tour.querySelector(".d, #tour-done"); if (d) d.click(); return; }
+    var open = Array.prototype.filter.call(document.querySelectorAll("[data-close]"), function (x) { return x.parentElement && !x.parentElement.hidden && x.getClientRects().length; });
+    if (open.length) { open[open.length - 1].click(); }
+  });
+
   // Badge hellos: one mailbox read, only if a badge code exists, on pages
   // that load the device store (Around, Connect, Contacts…).
   if (window.kafumuDevice && window.kafumuPair) {

@@ -780,5 +780,6 @@
   "look.light": "Hell",
   "look.dark": "Dunkel",
   "look.contrast": "Hoher Kontrast",
-  "look.note": "Auf diesem Gerät gespeichert. Automatisch folgt der Hell/Dunkel-Einstellung deines Geräts."
+  "look.note": "Auf diesem Gerät gespeichert. Automatisch folgt der Hell/Dunkel-Einstellung deines Geräts.",
+  "a11y.skip": "Zum Inhalt"
 }

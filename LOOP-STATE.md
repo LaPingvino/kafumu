@@ -1381,7 +1381,9 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       high contrast (black, white borders, yellow accent, underlined links, a strong focus ring); html[data-theme] is
       set before the page draws. 24 languages; checked dark and contrast at 390 px. Was: Theming: light / dark / automatic (follows the device) / high contrast, chosen per device (Me), applied
       everywhere via the color tokens.
-- [ ] 92b. Accessibility: keyboard use everywhere (focus visible, tab order, Esc closes, no keyboard traps) and screen
+- [x] 92b. Done (first pass): a visible focus ring in every theme, a "Skip to content" link (first on every page), main
+      focusable; Esc closes the tour or the open panel (through its own ✕); every control already had a name (the
+      390 px check counts them). Browser step. More as we find it. Was: Accessibility: keyboard use everywhere (focus visible, tab order, Esc closes, no keyboard traps) and screen
       readers (names, roles, live regions for what changes); an audit pass with fixes.
 - [ ] 92c. Pictures and videos: show or hide them (per device), and post them through services we can embed
       (links to Bluesky images, PeerTube, YouTube… shown as embeds when on).

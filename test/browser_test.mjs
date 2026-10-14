@@ -147,6 +147,11 @@ try {
   await A.evaluate("(() => { const q = document.getElementById('feed-search'); q.value = 'Quick line " + RUN + "'; q.dispatchEvent(new Event('input')); return true; })()");
   await A.waitFor("[...document.querySelectorAll('#feed > li')].length >= 1 && [...document.querySelectorAll('#feed > li')].every(li => li.textContent.includes('Quick line'))", "the search narrows the list");
   await A.evaluate("(() => { const q = document.getElementById('feed-search'); q.value = ''; q.dispatchEvent(new Event('input')); return true; })()");
+  // Keyboard (92b): Esc closes the panel that's open; a skip link leads to the content.
+  await A.evaluate("(() => { document.getElementById('oln-form').hidden = true; document.getElementById('quick-text').value = ''; document.getElementById('say').click(); return true; })()");
+  await A.waitFor("!document.getElementById('oln-form').hidden", "the composer open");
+  await A.evaluate("document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); true");
+  await A.waitFor("document.getElementById('oln-form').hidden && !!document.querySelector('a.skip-link[href=\"#main\"]')", "Esc closes it; skip link there");
   // The area as RSS and as a calendar (81a): the buttons point at this cell, the feed has the line.
   await A.waitFor("/^\\/rss\\/[0-9a-z]{6}$/.test(new URL(document.getElementById('rss-link').href).pathname) && document.getElementById('cal-link').href.startsWith('webcal://')", "📰 RSS and 📅 Calendar for this area");
   await A.waitFor("fetch(document.getElementById('rss-link').href, { cache: 'no-store' }).then(r => r.text()).then(x => x.includes('<rss') && x.includes('hi from the OLN " + RUN + "'))", "the area's RSS has the message", 20000);

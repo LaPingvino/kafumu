@@ -780,5 +780,6 @@
   "look.light": "Hela",
   "look.dark": "Malhela",
   "look.contrast": "Alta kontrasto",
-  "look.note": "Konservita en ĉi tiu aparato. Aŭtomata sekvas la helan aŭ malhelan agordon de via aparato."
+  "look.note": "Konservita en ĉi tiu aparato. Aŭtomata sekvas la helan aŭ malhelan agordon de via aparato.",
+  "a11y.skip": "Al la enhavo"
 }

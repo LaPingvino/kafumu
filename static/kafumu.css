@@ -505,3 +505,8 @@ code, kbd, .doc a { overflow-wrap: anywhere; word-break: break-word; }
 #reach-add { margin: .2rem 0 .6rem; }
 label.visible-choice { font-weight: 600; }
 label.visible-choice select { font-weight: 600; }
+/* Keyboard and screen readers (92b). */
+:focus-visible { outline: 2px solid var(--accent-bg); outline-offset: 2px; }
+.skip-link { position: absolute; left: 8px; top: -100px; z-index: 100; background: var(--card-bg); color: var(--fg); padding: 8px 14px; border-radius: 8px; box-shadow: 0 2px 10px var(--shade); }
+.skip-link:focus { top: 8px; }
+main:focus { outline: none; }

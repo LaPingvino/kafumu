@@ -780,5 +780,6 @@
   "look.light": "Clair",
   "look.dark": "Sombre",
   "look.contrast": "Contraste élevé",
-  "look.note": "Gardé sur cet appareil. Automatique suit le réglage clair/sombre de ton appareil."
+  "look.note": "Gardé sur cet appareil. Automatique suit le réglage clair/sombre de ton appareil.",
+  "a11y.skip": "Aller au contenu"
 }

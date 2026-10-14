@@ -780,5 +780,6 @@
   "look.light": "Light",
   "look.dark": "Dark",
   "look.contrast": "High contrast",
-  "look.note": "Kept on this device. Automatic follows your device's light or dark setting."
+  "look.note": "Kept on this device. Automatic follows your device's light or dark setting.",
+  "a11y.skip": "Skip to content"
 }

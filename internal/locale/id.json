@@ -780,5 +780,6 @@
   "look.light": "Terang",
   "look.dark": "Gelap",
   "look.contrast": "Kontras tinggi",
-  "look.note": "Disimpan di perangkat ini. Otomatis mengikuti setelan terang/gelap perangkatmu."
+  "look.note": "Disimpan di perangkat ini. Otomatis mengikuti setelan terang/gelap perangkatmu.",
+  "a11y.skip": "Langsung ke isi"
 }

@@ -780,5 +780,6 @@
   "look.light": "Lyst",
   "look.dark": "Mørkt",
   "look.contrast": "Høj kontrast",
-  "look.note": "Gemt på denne enhed. Automatisk følger enhedens lys/mørk-indstilling."
+  "look.note": "Gemt på denne enhed. Automatisk følger enhedens lys/mørk-indstilling.",
+  "a11y.skip": "Gå til indhold"
 }

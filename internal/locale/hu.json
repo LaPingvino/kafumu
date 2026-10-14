@@ -780,5 +780,6 @@
   "look.light": "Világos",
   "look.dark": "Sötét",
   "look.contrast": "Nagy kontraszt",
-  "look.note": "Ezen az eszközön tárolva. Az automatikus az eszköz világos/sötét beállítását követi."
+  "look.note": "Ezen az eszközön tárolva. Az automatikus az eszköz világos/sötét beállítását követi.",
+  "a11y.skip": "Ugrás a tartalomra"
 }

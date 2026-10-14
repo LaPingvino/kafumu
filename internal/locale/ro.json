@@ -780,5 +780,6 @@
   "look.light": "Luminos",
   "look.dark": "Întunecat",
   "look.contrast": "Contrast ridicat",
-  "look.note": "Păstrat pe acest dispozitiv. Automat urmează setarea luminos/întunecat a dispozitivului."
+  "look.note": "Păstrat pe acest dispozitiv. Automat urmează setarea luminos/întunecat a dispozitivului.",
+  "a11y.skip": "Sari la conținut"
 }

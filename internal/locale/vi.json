@@ -780,5 +780,6 @@
   "look.light": "Sáng",
   "look.dark": "Tối",
   "look.contrast": "Tương phản cao",
-  "look.note": "Lưu trên thiết bị này. Tự động theo chế độ sáng/tối của thiết bị."
+  "look.note": "Lưu trên thiết bị này. Tự động theo chế độ sáng/tối của thiết bị.",
+  "a11y.skip": "Đến nội dung"
 }

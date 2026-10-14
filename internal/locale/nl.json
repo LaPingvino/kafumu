@@ -780,5 +780,6 @@
   "look.light": "Licht",
   "look.dark": "Donker",
   "look.contrast": "Hoog contrast",
-  "look.note": "Bewaard op dit apparaat. Automatisch volgt de licht/donker-instelling van je apparaat."
+  "look.note": "Bewaard op dit apparaat. Automatisch volgt de licht/donker-instelling van je apparaat.",
+  "a11y.skip": "Naar de inhoud"
 }

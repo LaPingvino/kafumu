@@ -780,5 +780,6 @@
   "look.light": "Ljust",
   "look.dark": "Mörkt",
   "look.contrast": "Hög kontrast",
-  "look.note": "Sparas på den här enheten. Automatiskt följer enhetens ljusa/mörka läge."
+  "look.note": "Sparas på den här enheten. Automatiskt följer enhetens ljusa/mörka läge.",
+  "a11y.skip": "Hoppa till innehållet"
 }

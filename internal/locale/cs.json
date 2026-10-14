@@ -780,5 +780,6 @@
   "look.light": "Světlý",
   "look.dark": "Tmavý",
   "look.contrast": "Vysoký kontrast",
-  "look.note": "Uloženo v tomto zařízení. Automaticky se řídí světlým/tmavým nastavením zařízení."
+  "look.note": "Uloženo v tomto zařízení. Automaticky se řídí světlým/tmavým nastavením zařízení.",
+  "a11y.skip": "Přejít na obsah"
 }

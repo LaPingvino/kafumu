@@ -780,5 +780,6 @@
   "look.light": "Claro",
   "look.dark": "Oscuro",
   "look.contrast": "Alto contraste",
-  "look.note": "Se guarda en este dispositivo. Automático sigue el ajuste claro/oscuro de tu dispositivo."
+  "look.note": "Se guarda en este dispositivo. Automático sigue el ajuste claro/oscuro de tu dispositivo.",
+  "a11y.skip": "Ir al contenido"
 }

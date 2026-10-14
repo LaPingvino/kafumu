@@ -780,5 +780,6 @@
   "look.light": "Jasny",
   "look.dark": "Ciemny",
   "look.contrast": "Wysoki kontrast",
-  "look.note": "Zapisane na tym urządzeniu. Automatyczny podąża za trybem jasnym/ciemnym urządzenia."
+  "look.note": "Zapisane na tym urządzeniu. Automatyczny podąża za trybem jasnym/ciemnym urządzenia.",
+  "a11y.skip": "Przejdź do treści"
 }
