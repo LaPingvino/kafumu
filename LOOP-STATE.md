@@ -1454,3 +1454,5 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       tests (oln RepliesHeld, purge on the emulator) + the browser steps. If held replies ever fill purge's first
       2000 expired lines, others wait a day: fine at today's scale.
 - [x] Polish: an empty group chat now says "No messages yet" (was drawn blank).
+- [x] Polish (idle tick): a card's controls were three rows (🔒 Answer privately / Reply… / reactions); now two:
+      the reply box with a 🔒 beside it (label as title), then the reactions and ⋯. Checked on kafumu.com, Barreiro.
