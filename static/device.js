@@ -478,18 +478,29 @@
       });
       li.appendChild(srow);
     }
-    li.appendChild(mine);
+    // Your own things about them (tags, note, remove) fold behind ✎ (91g):
+    // a contact shows who it is and how to reach them; a note you wrote
+    // shows as a line.
+    var more = el("div", "contact-more");
+    more.hidden = true;
+    var pen = el("button", "pill-sm contact-edit", "✎");
+    pen.type = "button"; pen.title = T.edit || "Edit"; pen.setAttribute("aria-label", T.edit || "Edit"); pen.setAttribute("aria-expanded", "false");
+    pen.onclick = function () { more.hidden = !more.hidden; pen.setAttribute("aria-expanded", String(!more.hidden)); pen.classList.toggle("on", !more.hidden); };
+    head.appendChild(pen);
+    if (c.note) li.appendChild(el("p", "dim small contact-note", "📝 " + c.note));
+    li.appendChild(more);
+    more.appendChild(mine);
     var note = el("input");
     note.placeholder = T.note_placeholder || "";
     note.value = c.note || "";
     note.setAttribute("aria-label", T.note_placeholder || "note");
     note.addEventListener("change", function () { c.note = note.value; edited(c, "note"); store.putContact(c); });
-    li.appendChild(note);
+    more.appendChild(note);
     if (opts.onDelete) {
       var del = el("button", "contrast pill-sm", T.remove || "Remove");
       del.type = "button";
       del.onclick = function () { if (confirm(T.remove_confirm || "Remove?")) store.deleteContact(c.id).then(function () { li.remove(); opts.onDelete(c); }); };
-      li.appendChild(del);
+      more.appendChild(del);
     }
     return li;
   }

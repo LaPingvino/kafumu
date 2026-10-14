@@ -769,5 +769,6 @@
   "quick.coffee": "Coffee?",
   "coffee.findable": "Rather stay findable here for a while, without a message? Your profile shows here for the hours you choose.",
   "js.view_settings": "View settings",
-  "search.placeholder": "Search here… or #tag"
+  "search.placeholder": "Search here… or #tag",
+  "js.edit": "Edit"
 }

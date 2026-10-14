@@ -464,3 +464,8 @@ code, kbd, .doc a { overflow-wrap: anywhere; word-break: break-word; }
 .cell-tag.editing #place-name { display: none; }
 .cell-tag.editing { margin-bottom: 0; }
 .feed-search { margin: .5rem 0 0; border-radius: 999px; padding-left: 1rem; background: transparent; border: 1px solid var(--border); } /* not another field to write in */
+/* A contact's own edits behind ✎ (91g). */
+.contact-head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.contact-head .contact-edit { margin-left: auto; padding: 0 10px; }
+.contact-head .contact-edit.on { background: var(--accent-bg); color: var(--accent-fg); }
+.contact-more { border-top: 1px dashed var(--border); margin-top: 6px; padding-top: 6px; }

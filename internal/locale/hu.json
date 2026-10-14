@@ -769,5 +769,6 @@
   "quick.coffee": "Kávé?",
   "coffee.findable": "Inkább megtalálható lennél itt egy ideig, üzenet nélkül? A profilod a választott órákra itt látszik.",
   "js.view_settings": "Nézet beállításai",
-  "search.placeholder": "Keresés itt… vagy #címke"
+  "search.placeholder": "Keresés itt… vagy #címke",
+  "js.edit": "Szerkesztés"
 }
