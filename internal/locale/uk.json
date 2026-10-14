@@ -805,5 +805,6 @@
   "js.where_yes": "Так, повідомити",
   "js.where_no": "Не тут",
   "js.where_not_here": "Твої контакти не бачать тебе в цьому районі.",
-  "js.where_share_here": "Показувати тут"
+  "js.where_share_here": "Показувати тут",
+  "js.open_chat": "Відкрити як чат"
 }

@@ -805,5 +805,6 @@
   "js.where_yes": "Ano, dej jim vědět",
   "js.where_no": "Tady ne",
   "js.where_not_here": "Tvoje kontakty tě v této oblasti nevidí.",
-  "js.where_share_here": "Sdílet tady"
+  "js.where_share_here": "Sdílet tady",
+  "js.open_chat": "Otevřít jako chat"
 }

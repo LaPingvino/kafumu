@@ -805,5 +805,6 @@
   "js.where_yes": "Ja, laat weten",
   "js.where_no": "Hier niet",
   "js.where_not_here": "Je contacten zien je niet in dit gebied.",
-  "js.where_share_here": "Hier delen"
+  "js.where_share_here": "Hier delen",
+  "js.open_chat": "Openen als chat"
 }

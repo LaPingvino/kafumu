@@ -805,5 +805,6 @@
   "js.where_yes": "Evet, söyle",
   "js.where_no": "Burada değil",
   "js.where_not_here": "Kişilerin seni bu bölgede görmüyor.",
-  "js.where_share_here": "Burada paylaş"
+  "js.where_share_here": "Burada paylaş",
+  "js.open_chat": "Sohbet olarak aç"
 }

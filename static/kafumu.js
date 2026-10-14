@@ -1595,9 +1595,16 @@
       c.textContent = Object.keys(counts).map(function (k) { return k + " " + counts[k]; }).join("  ");
       li.appendChild(c);
     }
+    if (!nested && window.kafumuChat) { // 💬 n: the replies as a group chat (93a)
+      var gc = document.createElement("button");
+      gc.type = "button"; gc.className = "pill-sm group-chat"; gc.textContent = "💬 " + rs.length + " · " + tr("open_chat");
+      gc.onclick = function (ev) { ev.preventDefault(); ev.stopPropagation(); window.kafumuChat.open("r:" + rid, true, firstLine(li.querySelector(".text") ? li.querySelector(".text").textContent : li.textContent), repliesFor(rid)); };
+      li.appendChild(gc);
+    }
     if (texts.length) {
       var ul = document.createElement("ul");
       ul.className = "replies";
+      if (!nested && texts.length > 3) texts = texts.slice(-3); // the newest few here; all of them in the chat
       texts.slice().reverse().forEach(function (r) {
         var item = noteItem(r, { reply: true, nested: !!nested });
         if (!nested) attachReplies(item, true); // its own reactions, one level down

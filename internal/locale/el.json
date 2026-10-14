@@ -805,5 +805,6 @@
   "js.where_yes": "Ναι, πες τους",
   "js.where_no": "Όχι εδώ",
   "js.where_not_here": "Οι επαφές σου δεν σε βλέπουν σε αυτή την περιοχή.",
-  "js.where_share_here": "Κοινοποίηση εδώ"
+  "js.where_share_here": "Κοινοποίηση εδώ",
+  "js.open_chat": "Άνοιγμα ως συνομιλία"
 }

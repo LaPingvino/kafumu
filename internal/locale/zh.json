@@ -805,5 +805,6 @@
   "js.where_yes": "好，告诉他们",
   "js.where_no": "这里不要",
   "js.where_not_here": "在这个区域，你的联系人看不到你。",
-  "js.where_share_here": "在这里共享"
+  "js.where_share_here": "在这里共享",
+  "js.open_chat": "以聊天打开"
 }

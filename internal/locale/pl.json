@@ -805,5 +805,6 @@
   "js.where_yes": "Tak, daj znać",
   "js.where_no": "Nie tutaj",
   "js.where_not_here": "Twoje kontakty nie widzą cię w tym obszarze.",
-  "js.where_share_here": "Udostępniaj tutaj"
+  "js.where_share_here": "Udostępniaj tutaj",
+  "js.open_chat": "Otwórz jako czat"
 }

@@ -805,5 +805,6 @@
   "js.where_yes": "Ja, sig det",
   "js.where_no": "Ikke her",
   "js.where_not_here": "Dine kontakter kan ikke se dig i dette område.",
-  "js.where_share_here": "Del her"
+  "js.where_share_here": "Del her",
+  "js.open_chat": "Åbn som chat"
 }

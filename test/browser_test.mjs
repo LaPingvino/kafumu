@@ -110,6 +110,13 @@ try {
   // The reply box on a card (94b): type, send, and it answers right there.
   await A.waitFor("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')); const f = li && li.querySelector('form.reply-box'); if (!f) return false; f.text.value = 'Boxed reply " + RUN + "'; f.requestSubmit(); return true; })()", "a reply typed in the card's box");
   await A.waitFor("[...document.querySelectorAll('#feed > li')].some(li => li.textContent.includes('hi from the OLN " + RUN + "') && li.querySelector('.replies') && li.querySelector('.replies').textContent.includes('Boxed reply " + RUN + "'))", "the reply under the card", 30000);
+  // 💬 n opens the replies as a group chat (93a): there, and a line sent from it.
+  await A.waitFor("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')); const b = li && li.querySelector(':scope > .group-chat'); if (!b) return false; b.click(); return true; })()", "💬 n on the card");
+  await A.waitFor("[...document.querySelectorAll('.chat-window')].some(w => /^r:/.test(w.dataset.thread) && w.textContent.includes('Boxed reply " + RUN + "'))", "the replies as a chat", 20000);
+  await A.evaluate("(() => { const w = [...document.querySelectorAll('.chat-window')].find(w => /^r:/.test(w.dataset.thread)); const f = w.querySelector('.chat-form'); f.querySelector('input').value = 'From the chat " + RUN + "'; f.requestSubmit(); return true; })()");
+  await A.waitFor("[...document.querySelectorAll('.chat-window')].some(w => /^r:/.test(w.dataset.thread) && w.textContent.includes('From the chat " + RUN + "'))", "a line sent from the group chat", 30000);
+  await A.goto(base + "/?cell=6fg223");
+  await A.evaluate("localStorage.removeItem('kafumu.openChats'); document.querySelectorAll('.chat-window').forEach(w => w.remove()); true");
   // Its language tag reads as the language, never as a raw "#langeng".
   await A.waitFor("(() => { const li = [...document.querySelectorAll('#feed > li')].find(li => li.textContent.includes('hi from the OLN " + RUN + "')); return li && !/#lang/.test(li.textContent) && li.textContent.includes('🗣'); })()", "language shown as 🗣, not #lang…");
   // Every line has its permalink (86b): 🔗 among the 📤 sends.

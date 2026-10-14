@@ -1409,7 +1409,9 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
       like), swiped through one by one.
 
 ## 93. A post's replies as a group chat (Joop 2026-10-14: "for events that enables really interesting interactions")
-- [ ] 93a. "💬 n" on a line, a meetup or an event opens its public replies (#re) as a chat window (the same window
+- [x] 93a. Done: a card with replies shows "💬 n · Open as chat": its public replies as a chat window (docked on a
+      computer, /chat?k=r:<id> on a phone), oldest first, reactions as small notes, refreshed every 20 s while open;
+      writing posts a reply (#re, as you unless anonymous). The card itself keeps the newest 3. Browser step. Was: "💬 n" on a line, a meetup or an event opens its public replies (#re) as a chat window (the same window
       as private chats: docked on a computer, its own page on a phone), oldest first, refreshing while open; writing
       in it posts a reply (#re, mined, as you or anonymous), reactions as small notes in between.
 - [ ] 93b. Meetups and events: the window is where people coming talk ("I'm at the door", "running late"); a meetup's
