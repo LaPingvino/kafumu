@@ -1137,7 +1137,8 @@
     var rk = answersPair() && answersPair().replyKeyOf(n.tags);
     if (rk && !opts.reply) {
       var pa = document.createElement("button");
-      pa.type = "button"; pa.className = "pill-sm"; pa.textContent = "🔒 " + tr("answer_private");
+      pa.type = "button"; pa.className = "pill-sm answer-private"; pa.textContent = "🔒"; // beside the reply box: public or private, one row
+      pa.title = tr("answer_private"); pa.setAttribute("aria-label", tr("answer_private"));
       pa.onclick = function () {
         if (li.querySelector(".answer-form")) return;
         var form = document.createElement("form"); form.className = "answer-form inline-row";
