@@ -1492,7 +1492,10 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       builds standalone (GOWORK=off) as App Engine will; identity doc + signed checkpoint served locally. No
       persistence yet; admin token random per process (closed). Was: ~/liquiditypub: make node/ deployable as a GAE service (conformance importable: tag or vendor; a
       cmd/lpgae main that serves one or more hosted nodes under one base); runs locally.
-- [ ] 96c. ~/liquiditypub: a Datastore store: ledger records as append-only entities + one small state entity with
+- [x] 96c. Done: gae/dsstore.go: each ledger record its own entity (append-only), the rest of the snapshot in
+      chunks under LPState (namespace lp) whose version makes one writer (a second exits and reloads); admin token
+      made once and kept in LPConfig. Emulator tests: 600-record ledger survives a restart, chain intact; second
+      writer gets ErrConflict; token kept. Was: ~/liquiditypub: a Datastore store: ledger records as append-only entities + one small state entity with
       a version check (single writer; the 1 MiB entity limit rules out one snapshot blob). Tests on the emulator.
 - [ ] 96d. Live: service `lp` + dispatch.yaml + cron (daily dividend); the K$ identity document at
       kafumu.com/.well-known/liquiditypub. Nothing user-facing yet.
