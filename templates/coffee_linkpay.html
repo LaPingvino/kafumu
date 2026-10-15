@@ -5,7 +5,7 @@
   <p>{{ts .Lang "coffee.linkpay_line" | amount .Pay .Sym | replace "{name}" .To | replace "{from}" .From | replace "{to}" .ToGroup}}</p>
   <div class="card" style="padding:8px 16px 12px">
     <h2>🔗 {{t .Lang "coffee.link_what_title"}}</h2>
-    <p>{{t .Lang "coffee.link_what"}}</p>
+    <p>{{t .Lang "coffee.link_what"}} {{t .Lang "coffee.link_cap"}}</p>
   </div>
   <form method="post" action="/coffee/linkask" class="actions">
     <input type="hidden" name="g" value="{{.Gid}}"><input type="hidden" name="tg" value="{{.Tg}}">

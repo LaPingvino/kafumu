@@ -891,5 +891,7 @@
   "coffee.ask_decline": "Weigeren",
   "coffee.accepted": "Verbonden, en de betaling is onderweg naar je: {amount} K$.",
   "coffee.declined": "Geweigerd.",
-  "coffee.ask_gone": "Dat verzoek is weg of verlopen."
+  "coffee.ask_gone": "Dat verzoek is weg of verlopen.",
+  "coffee.link_cap": "De pot raakt nooit leeg, maar hoe groter de betaling, hoe slechter de koers: honderd dagen dividend overmaken levert ongeveer de helft op.",
+  "coffee.confirm_impact": "Deze betaling krijgt {pct}% minder dan de huidige koers van de pot, omdat de pot tussen de groepen klein is vergeleken ermee. Kleinere betalingen krijgen een betere koers."
 }

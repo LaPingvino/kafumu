@@ -891,5 +891,7 @@
   "coffee.ask_decline": "Rifiuta",
   "coffee.accepted": "Collegati, e il pagamento è in arrivo: {amount} K$.",
   "coffee.declined": "Rifiutato.",
-  "coffee.ask_gone": "Quella richiesta non c'è più o è scaduta."
+  "coffee.ask_gone": "Quella richiesta non c'è più o è scaduta.",
+  "coffee.link_cap": "Il fondo non si svuota mai, ma più un pagamento è grande, peggiore è il cambio: pagando cento giorni di dividendo all'altro gruppo ne arriva circa la metà.",
+  "coffee.confirm_impact": "Questo pagamento riceve il {pct}% in meno del cambio attuale del fondo, perché il fondo tra i gruppi è piccolo al confronto. I pagamenti più piccoli hanno un cambio migliore."
 }

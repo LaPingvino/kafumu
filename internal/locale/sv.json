@@ -891,5 +891,7 @@
   "coffee.ask_decline": "Avböj",
   "coffee.accepted": "Ihopkopplade, och betalningen är på väg till dig: {amount} K$.",
   "coffee.declined": "Avböjt.",
-  "coffee.ask_gone": "Den förfrågan finns inte längre eller har gått ut."
+  "coffee.ask_gone": "Den förfrågan finns inte längre eller har gått ut.",
+  "coffee.link_cap": "Potten kan aldrig ta slut, men ju större betalning, desto sämre kurs: betalar man hundra dagars utdelning över kommer ungefär hälften fram.",
+  "coffee.confirm_impact": "Den här betalningen får {pct} % mindre än pottens nuvarande kurs, eftersom potten mellan grupperna är liten i jämförelse. Mindre betalningar får bättre kurs."
 }

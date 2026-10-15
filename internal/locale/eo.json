@@ -891,5 +891,7 @@
   "coffee.ask_decline": "Rifuzi",
   "coffee.accepted": "Ligitaj, kaj la pago estas survoje al vi: {amount} K$.",
   "coffee.declined": "Rifuzita.",
-  "coffee.ask_gone": "Tiu peto ne plu ekzistas aŭ eksvalidiĝis."
+  "coffee.ask_gone": "Tiu peto ne plu ekzistas aŭ eksvalidiĝis.",
+  "coffee.link_cap": "La kaso neniam malpleniĝas, sed ju pli granda pago, des pli malbona ĝia kurzo: pagi cent tagojn da dividendo al la alia grupo alvenigas ĉirkaŭ duonon.",
+  "coffee.confirm_impact": "Ĉi tiu pago ricevas {pct}% malpli ol la nuna kurzo de la kaso, ĉar la kaso inter la grupoj estas malgranda kompare. Pli malgrandaj pagoj ricevas pli bonan kurzon."
 }

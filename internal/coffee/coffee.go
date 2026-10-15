@@ -332,11 +332,19 @@ func (c *Client) LinkGroups(ctx context.Context, a, b string) error {
 	return c.do(ctx, "POST", "/lp/admin/link", map[string]string{"a": a, "b": b}, nil)
 }
 
-// Quote: what the payee in group to receives for amount from group from, now.
-func (c *Client) Quote(ctx context.Context, from, to string, amount int64) (int64, error) {
-	var q struct{ Dst int64 }
-	err := c.do(ctx, "GET", fmt.Sprintf("/lp/admin/quote?from_gid=%s&to_gid=%s&amount=%d", from, to, amount), nil, &q)
-	return q.Dst, err
+// Quote: what the payee in group to receives for amount from group from,
+// now, and how much worse than the pot's current rate that is (impact, 0..1:
+// amount/(payer-side reserve + amount) — the pot's cap, 96p).
+func (c *Client) Quote(ctx context.Context, from, to string, amount int64) (dst int64, impact float64, err error) {
+	var q struct {
+		Dst  int64
+		RSrc int64 `json:"r_src"`
+	}
+	err = c.do(ctx, "GET", fmt.Sprintf("/lp/admin/quote?from_gid=%s&to_gid=%s&amount=%d", from, to, amount), nil, &q)
+	if q.RSrc+amount > 0 {
+		impact = float64(amount) / float64(q.RSrc+amount)
+	}
+	return q.Dst, impact, err
 }
 
 // Transfer pays across two linked groups, priced by their pool.

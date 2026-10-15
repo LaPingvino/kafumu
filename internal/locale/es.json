@@ -891,5 +891,7 @@
   "coffee.ask_decline": "Rechazar",
   "coffee.accepted": "Enlazados, y el pago va de camino a ti: {amount} K$.",
   "coffee.declined": "Rechazado.",
-  "coffee.ask_gone": "Esa petición ya no existe o ha caducado."
+  "coffee.ask_gone": "Esa petición ya no existe o ha caducado.",
+  "coffee.link_cap": "El fondo nunca se vacía, pero cuanto mayor es un pago, peor es su cambio: pagar cien días de dividendo al otro grupo hace llegar más o menos la mitad.",
+  "coffee.confirm_impact": "Este pago recibe un {pct} % menos que el cambio actual del fondo, porque el fondo entre los grupos es pequeño comparado con él. Los pagos más pequeños tienen mejor cambio."
 }

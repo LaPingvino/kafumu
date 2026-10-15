@@ -891,5 +891,7 @@
   "coffee.ask_decline": "Refuser",
   "coffee.accepted": "Reliés, et le paiement est en route vers toi : {amount} K$.",
   "coffee.declined": "Refusé.",
-  "coffee.ask_gone": "Cette demande n'existe plus ou a expiré."
+  "coffee.ask_gone": "Cette demande n'existe plus ou a expiré.",
+  "coffee.link_cap": "La cagnotte ne peut jamais se vider, mais plus un paiement est gros, moins son taux est bon : payer cent jours de dividende d'un groupe à l'autre en fait arriver environ la moitié.",
+  "coffee.confirm_impact": "Ce paiement obtient {pct} % de moins que le taux actuel de la cagnotte, car la cagnotte entre les groupes est petite en comparaison. Les petits paiements obtiennent un meilleur taux."
 }

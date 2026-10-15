@@ -1630,7 +1630,10 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       plain words: what a link is (two groups can pay each other), what it costs (each group puts a hundred days of
       dividend into a shared pot, its own money, nobody's balance), what moves the rate (payments), and that it can
       be undone later only by both. Today: linking needs one person in both groups ("Link your groups" on /coffee).
-- [ ] 96p. The pot's cap, said plainly (Joop: "the pot system means there can be a cap on payments between groups"):
+- [x] 96p. Done + deployed: the quote returns the pool's reserves (lp); impact = amount/(payer reserve + amount);
+      the confirm page warns at ≥5% ("this payment gets N% less than the pot's current rate…"); every linking
+      explanation adds "the pot can never run dry, but the bigger a payment, the worse its rate: a hundred days of
+      dividend across gets about half"; 2 strings x 24; test. Was: The pot's cap, said plainly (Joop: "the pot system means there can be a cap on payments between groups"):
       constant product: a payment can never empty a pot, but the bigger it is the worse the rate (with a hundred days
       of dividend a side: paying 10 days' worth gets ~9.1 across, 100 days' worth only ~50). One sentence in the
       linking explanation; on the confirm page a clear notice when the quote is >5% below the pot's current rate.

@@ -345,6 +345,9 @@ type confirmPage struct {
 	Amount                     int64
 	Pay, Gets                  string
 	Ok                         bool
+	// Impact: how much less than the pot's current rate this payment gets,
+	// in %, when it's 5 or more (96p); "" otherwise.
+	Impact string
 }
 
 // across resolves a payment across groups from the form: the payer in g, @to
@@ -382,7 +385,10 @@ func (c *Coffee) Confirm(w http.ResponseWriter, r *http.Request) {
 	p.Tab = "account"
 	_, to, gid, tg, amount, ok := c.across(r)
 	if ok {
-		if dst, err := c.C.Quote(r.Context(), gid, tg, amount); err == nil {
+		if dst, impact, err := c.C.Quote(r.Context(), gid, tg, amount); err == nil {
+			if impact >= 0.05 {
+				p.Impact = fmt.Sprintf("%.0f", impact*100)
+			}
 			p.Ok, p.Gid, p.Tg, p.To, p.Amount = true, gid, tg, to.Username, amount
 			p.Pay, p.Gets = coffee.Money(amount), coffee.Money(dst)
 			fi, ti := c.C.GroupInfo(r.Context(), gid), c.C.GroupInfo(r.Context(), tg)

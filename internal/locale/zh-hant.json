@@ -891,5 +891,7 @@
   "coffee.ask_decline": "拒絕",
   "coffee.accepted": "已連結，付款正在到來：{amount} K$。",
   "coffee.declined": "已拒絕。",
-  "coffee.ask_gone": "該請求已不存在或已過期。"
+  "coffee.ask_gone": "該請求已不存在或已過期。",
+  "coffee.link_cap": "資金池永遠不會被掏空，但付款越大，匯率越差：把一百天的分紅付到對方群組，大約只能到帳一半。",
+  "coffee.confirm_impact": "這筆付款比資金池目前匯率少得 {pct}%，因為群組之間的資金池相對它來說很小。較小的付款匯率更好。"
 }

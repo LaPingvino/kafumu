@@ -891,5 +891,7 @@
   "coffee.ask_decline": "Từ chối",
   "coffee.accepted": "Đã liên kết, và khoản thanh toán đang đến với bạn: {amount} K$.",
   "coffee.declined": "Đã từ chối.",
-  "coffee.ask_gone": "Đề nghị đó không còn hoặc đã hết hạn."
+  "coffee.ask_gone": "Đề nghị đó không còn hoặc đã hết hạn.",
+  "coffee.link_cap": "Quỹ chung không bao giờ cạn, nhưng khoản thanh toán càng lớn thì tỷ giá càng kém: trả một trăm ngày cổ tức sang nhóm kia thì chỉ đến được khoảng một nửa.",
+  "coffee.confirm_impact": "Khoản thanh toán này nhận ít hơn {pct}% so với tỷ giá hiện tại của quỹ, vì quỹ giữa hai nhóm nhỏ so với nó. Khoản nhỏ hơn sẽ được tỷ giá tốt hơn."
 }

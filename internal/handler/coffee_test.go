@@ -73,7 +73,7 @@ func (f *fakeLP) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(out)
 		return
 	case "/lp/admin/quote":
-		w.Write([]byte(`{"amount":2000000,"dst":1960784}`))
+		w.Write([]byte(`{"amount":2000000,"dst":1960784,"r_src":8000000,"r_dst":8000000}`)) // 2 into a pot of 8: 20% worse
 		return
 	case "/lp/admin/transfer":
 		f.sent = append(f.sent, raw)
@@ -232,6 +232,9 @@ func TestCoffeeStartInviteJoin(t *testing.T) {
 		t.Fatalf("paying across should confirm first: %s", w.Header().Get("Location"))
 	}
 	w = as(bea, "GET", loc.String(), nil, c.Confirm)
+	if !strings.Contains(w.Body.String(), "20% less than the pot") {
+		t.Fatalf("no notice for a big payment: %s", w.Body.String())
+	}
 	if !strings.Contains(w.Body.String(), "2.00 B$") || !strings.Contains(w.Body.String(), "1.96 B$") || !strings.Contains(w.Body.String(), "@dan receives") {
 		t.Fatalf("confirm page: %s", w.Body.String())
 	}

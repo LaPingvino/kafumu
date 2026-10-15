@@ -891,5 +891,7 @@
   "coffee.ask_decline": "Decline",
   "coffee.accepted": "Linked, and the payment is on its way to you: {amount} K$.",
   "coffee.declined": "Declined.",
-  "coffee.ask_gone": "That request is gone or has expired."
+  "coffee.ask_gone": "That request is gone or has expired.",
+  "coffee.link_cap": "The pot can never run dry, but the bigger a payment, the worse its rate: paying a hundred days of dividend across gets about half that.",
+  "coffee.confirm_impact": "This payment gets {pct}% less than the pot's current rate, because the pot between the groups is small next to it. Smaller payments get a better rate."
 }

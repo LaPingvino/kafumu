@@ -6,7 +6,7 @@
   {{else if eq .Msg "declined"}}<p class="coffee-msg ok" role="status">{{t .Lang "coffee.declined"}}</p>
   {{else if eq .Msg "ask_gone"}}<p class="coffee-msg error" role="status">{{t .Lang "coffee.ask_gone"}}</p>{{end}}
   {{with .Asks}}<h2>🔗 {{t $.Lang "coffee.asks_title"}}</h2>
-  <p class="dim small">{{t $.Lang "coffee.link_what"}}</p>
+  <p class="dim small">{{t $.Lang "coffee.link_what"}} {{t $.Lang "coffee.link_cap"}}</p>
   {{range .}}<div class="card" style="padding:8px 16px 12px">
     <p>{{ts $.Lang "coffee.ask_line" | amount .Amount .Sym | replace "{name}" .From | replace "{from}" .FromGroup | replace "{to}" .ToGroup}}</p>
     <div class="actions">
@@ -42,7 +42,7 @@
     </li>{{end}}
   </ul>
   {{with .Pairs}}<h2>{{t $.Lang "coffee.link_title"}}</h2>
-  <p class="dim small">{{t $.Lang "coffee.link_explain"}}</p>
+  <p class="dim small">{{t $.Lang "coffee.link_explain"}} {{t $.Lang "coffee.link_cap"}}</p>
   {{range .}}<form method="post" action="/coffee/link"><input type="hidden" name="a" value="{{(index . 0).Gid}}"><input type="hidden" name="b" value="{{(index . 1).Gid}}">
     <button type="submit" class="pill-sm">🔗 {{ts $.Lang "coffee.link_btn" | replace "{a}" (index . 0).Name | replace "{b}" (index . 1).Name}}</button></form>{{end}}{{end}}
   {{else}}<p class="dim">{{t .Lang "coffee.none"}}</p>{{end}}

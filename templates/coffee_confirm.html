@@ -6,6 +6,7 @@
     <p>{{t .Lang "coffee.confirm_pay"}}: <strong>{{.Pay}} {{.FromSym}}</strong> <span class="dim">({{.From}})</span></p>
     <p>{{ts .Lang "coffee.confirm_gets" | replace "{name}" .To}}: <strong>{{.Gets}} {{.ToSym}}</strong> <span class="dim">({{.ToGroup}})</span></p>
     <p class="dim small">{{t .Lang "coffee.confirm_rate"}}</p>
+    {{with .Impact}}<p class="coffee-msg error" role="alert">⚠ {{ts $.Lang "coffee.confirm_impact" | replace "{pct}" .}}</p>{{end}}
     <form method="post" action="/coffee/across" class="actions">
       <input type="hidden" name="g" value="{{.Gid}}"><input type="hidden" name="tg" value="{{.Tg}}">
       <input type="hidden" name="to" value="{{.To}}"><input type="hidden" name="a" value="{{.Amount}}">

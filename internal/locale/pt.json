@@ -891,5 +891,7 @@
   "coffee.ask_decline": "Recusar",
   "coffee.accepted": "Ligados, e o pagamento vai a caminho: {amount} K$.",
   "coffee.declined": "Recusado.",
-  "coffee.ask_gone": "Esse pedido já não existe ou expirou."
+  "coffee.ask_gone": "Esse pedido já não existe ou expirou.",
+  "coffee.link_cap": "O fundo nunca se esgota, mas quanto maior o pagamento, pior o câmbio: pagar cem dias de dividendo ao outro grupo faz chegar mais ou menos metade.",
+  "coffee.confirm_impact": "Este pagamento recebe {pct}% menos do que o câmbio atual do fundo, porque o fundo entre os grupos é pequeno em comparação. Pagamentos mais pequenos têm melhor câmbio."
 }

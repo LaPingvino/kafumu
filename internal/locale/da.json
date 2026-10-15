@@ -891,5 +891,7 @@
   "coffee.ask_decline": "Afvis",
   "coffee.accepted": "Forbundet, og betalingen er på vej til dig: {amount} K$.",
   "coffee.declined": "Afvist.",
-  "coffee.ask_gone": "Den anmodning findes ikke længere eller er udløbet."
+  "coffee.ask_gone": "Den anmodning findes ikke længere eller er udløbet.",
+  "coffee.link_cap": "Puljen kan aldrig løbe tør, men jo større en betaling er, jo dårligere kurs: betaler man hundrede dages udbytte over, kommer cirka halvdelen frem.",
+  "coffee.confirm_impact": "Denne betaling får {pct} % mindre end puljens nuværende kurs, fordi puljen mellem grupperne er lille i forhold til den. Mindre betalinger får en bedre kurs."
 }
