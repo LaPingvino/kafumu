@@ -923,5 +923,6 @@
   "js.board_connect_btn": "Verbinden",
   "js.board_pay": "{amount} zahlen",
   "groups.title": "Gruppen",
-  "groups.intro": "Kleine Gruppen von Leuten, die sich kennen: ein Brett nur für Mitglieder für Angebote und Gesuche, und eigenes Geld, CoffeeBucks, mit derselben Dividende für jedes Mitglied."
+  "groups.intro": "Kleine Gruppen von Leuten, die sich kennen: ein Brett nur für Mitglieder für Angebote und Gesuche, und eigenes Geld, CoffeeBucks, mit derselben Dividende für jedes Mitglied.",
+  "js.push_board": "📋 Neu auf dem Brett von {group}"
 }

@@ -923,5 +923,6 @@
   "js.board_connect_btn": "Połącz",
   "js.board_pay": "Zapłać {amount}",
   "groups.title": "Grupy",
-  "groups.intro": "Małe grupy ludzi, którzy się znają: tablica tylko dla członków na oferty i prośby, i własne pieniądze, CoffeeBucks, z tą samą dywidendą dla każdego członka."
+  "groups.intro": "Małe grupy ludzi, którzy się znają: tablica tylko dla członków na oferty i prośby, i własne pieniądze, CoffeeBucks, z tą samą dywidendą dla każdego członka.",
+  "js.push_board": "📋 Nowość na tablicy grupy {group}"
 }

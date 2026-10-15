@@ -923,5 +923,6 @@
   "js.board_connect_btn": "Ligar",
   "js.board_pay": "Pagar {amount}",
   "groups.title": "Grupos",
-  "groups.intro": "Pequenos grupos de pessoas que se conhecem: um quadro só para membros com ofertas e pedidos, e uma moeda própria, CoffeeBucks, com o mesmo dividendo para cada membro."
+  "groups.intro": "Pequenos grupos de pessoas que se conhecem: um quadro só para membros com ofertas e pedidos, e uma moeda própria, CoffeeBucks, com o mesmo dividendo para cada membro.",
+  "js.push_board": "📋 Novidade no quadro de {group}"
 }

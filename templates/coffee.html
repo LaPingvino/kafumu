@@ -153,7 +153,7 @@
           var rgo = el("button", "pill-sm suggested", T.board_post || "Post"); rgo.type = "submit";
           rf.appendChild(ri); rf.appendChild(rgo); item.appendChild(rf); ri.focus();
           rf.onsubmit = function (e) { e.preventDefault(); rgo.disabled = true;
-            window.kafumuBoard.post(key, { kind: "reply", text: ri.value, by: ME, re: p.id }, mineFn).then(load, function () { rgo.disabled = false; }); };
+            window.kafumuBoard.post(key, { kind: "reply", text: ri.value, by: ME, re: p.id }, mineFn).then(function () { markPosted(key); load(); }, function () { rgo.disabled = false; }); };
         };
         list.appendChild(item);
       });
@@ -172,9 +172,16 @@
       var withConnect = cb.checked && getPair() ? getPair().invite(false).then(function (inv) { return inv.url; }, function () { return ""; }) : Promise.resolve("");
       withConnect.then(function (url) {
         return window.kafumuBoard.post(key, { kind: kind.value, text: text.value, price: parseMoney(price.value), by: ME, connect: url }, mineFn);
-      }).then(function () { text.value = ""; price.value = ""; load(); }, function () { st.textContent = T.network_retry || "…"; }).then(function () { go.disabled = false; });
+      }).then(function () { text.value = ""; price.value = ""; markPosted(key); load(); }, function () { st.textContent = T.network_retry || "…"; }).then(function () { go.disabled = false; });
     };
     load();
+  }
+  // markPosted: your own post comes back as a push too; the service worker
+  // shows it silently (97e2).
+  function markPosted(key) {
+    window.kafumuBoard.tag(key).then(function (t) {
+      return dev.store.get("justPosted").then(function (m) { m = m || {}; m[t] = Date.now(); return dev.store.set("justPosted", m); });
+    });
   }
   function drawBoards() {
     // The groups' names, for their threads in Chats (97e).
@@ -191,6 +198,7 @@
     });
   }
   if (dev) drawBoards();
+  if (dev && getPair()) keys().then(function (all) { if (Object.keys(all).length) getPair().pushSubscribe(false).catch(function () {}); });
   // Payment requests (96l): the link carries everything (nothing stored);
   // the note stays in the link, never on the ledger.
   document.querySelectorAll(".coffee-request-form").forEach(function (f) {

@@ -1696,7 +1696,9 @@ read, expiring like every line (rule 3 holds).
       as bubbles, Open → the group), unread = newer than your last look at the board (boardSeen, set when the board
       loads on /groups; group names kept on the device as groupNames). Also: the Chats filter code no longer treats
       the 👥 Groups link as a filter chip. Not browser-tested.
-- [ ] 97e2. Board posts wake you like chat lines (push): the board tag joins the device's watched pair tags.
+- [x] 97e2. Done + deployed: each group key's board tag joins the device's watched push boxes ("📋 New on the board
+      of <group>" → the group), refreshed on /groups; your own post comes back too (one tag per group), so the page marks
+      it (justPosted) and the service worker shows it silently. 1 string x 24. Not device-tested. Was: Board posts wake you like chat lines (push): the board tag joins the device's watched pair tags.
 - [x] 97e. (split into 97e1/e2) Group boards in Chats (Joop: "access the group chats together with all others, notification-wise"):
       each group's board is a thread in Chats (Activity) with its unread count, opens like the others (docked / its
       page), and new posts wake you like chat lines (push: the board tag joins the device's watched pair tags).

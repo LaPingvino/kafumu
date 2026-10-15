@@ -67,8 +67,17 @@ function labelFor(box) {
     req.onsuccess = function () {
       var d = req.result;
       if (!d.objectStoreNames.contains("kv")) { d.close(); return resolve(null); }
-      var get = d.transaction("kv").objectStore("kv").get("pushLabels");
-      get.onsuccess = function () { d.close(); resolve((get.result || {})[box] || null); };
+      var kv = d.transaction("kv").objectStore("kv"), get = kv.get("pushLabels"), mine = kv.get("justPosted");
+      mine.onsuccess = function () {
+        get.onsuccess = function () {
+          var l = (get.result || {})[box] || null;
+          // Your own board post (97e2): one tag for the whole group, so it
+          // comes back to you too; shown, but silently.
+          if (l && Date.now() - ((mine.result || {})[box] || 0) < 120000) l = Object.assign({}, l, { silent: true });
+          d.close(); resolve(l);
+        };
+        if (get.readyState === "done") get.onsuccess();
+      };
       get.onerror = function () { d.close(); resolve(null); };
     };
   });
@@ -79,7 +88,7 @@ self.addEventListener("push", function (e) {
   e.waitUntil(labelFor(d.box).catch(function () { return null; }).then(function (l) {
     var url = (l && l.url) || d.url || "/contacts";
     return self.registration.showNotification("Kafumu", {
-      body: (l && l.body) || d.text || "☕", tag: "kafumu-" + (d.box || url), renotify: true, icon: "/static/icon.svg", data: { url: url }
+      body: (l && l.body) || d.text || "☕", tag: "kafumu-" + (d.box || url), renotify: !(l && l.silent), silent: !!(l && l.silent), icon: "/static/icon.svg", data: { url: url }
     });
   }));
 });

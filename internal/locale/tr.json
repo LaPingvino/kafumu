@@ -923,5 +923,6 @@
   "js.board_connect_btn": "Bağlan",
   "js.board_pay": "{amount} öde",
   "groups.title": "Gruplar",
-  "groups.intro": "Birbirini tanıyan insanlardan küçük gruplar: teklif ve istekler için yalnızca üyelere açık bir pano ve her üyeye aynı kâr payını veren kendi paranız, CoffeeBucks."
+  "groups.intro": "Birbirini tanıyan insanlardan küçük gruplar: teklif ve istekler için yalnızca üyelere açık bir pano ve her üyeye aynı kâr payını veren kendi paranız, CoffeeBucks.",
+  "js.push_board": "📋 {group} panosunda yeni bir şey var"
 }

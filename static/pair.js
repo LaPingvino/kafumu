@@ -799,7 +799,7 @@
       var T = (typeof window !== "undefined" && window.KAFUMU_T) || {};
       function tr(k, d, v) { var x = T[k] || d; for (var n in v || {}) x = x.split("{" + n + "}").join(v[n]); return x; }
       function short(x) { x = String(x || "").replace(/\s+/g, " ").trim(); return x.length > 60 ? x.slice(0, 59) + "…" : x; }
-      return Promise.all([store.contacts(), store.get("invite"), store.get("invite:badge"), store.get("publicInbox"), store.get("replyKeys"), threads()]).then(function (r) {
+      return Promise.all([store.contacts(), store.get("invite"), store.get("invite:badge"), store.get("publicInbox"), store.get("replyKeys"), threads(), store.get("groupKeys"), store.get("groupNames")]).then(function (r) {
         var out = [];
         function add(p, body, url) { out.push(Promise.resolve(p).then(function (id) { return id ? { id: id, body: body, url: url } : null; })); }
         r[0].forEach(function (c) {
@@ -817,6 +817,12 @@
           keysOf(t).forEach(function (k) {
             add(chatTag(unb64(k.key), k.role), tr("push_answer", "🔒 A private answer to “{post}”", { post: short(t.post && t.post.text) }), "/chat?k=a:" + encodeURIComponent(t.id));
           });
+        });
+        // Group boards (97e2): a new post wakes you like a chat line.
+        var gk = r[6] || {}, gn = r[7] || {};
+        Object.keys(gk).forEach(function (g) {
+          add(hmacHex(unb64(gk[g]), "board").then(function (h) { return "p" + h.slice(0, 32); }),
+            tr("push_board", "📋 New on the board of {group}", { group: gn[g] || g }), "/groups?g=" + encodeURIComponent(g) + "#g-" + encodeURIComponent(g));
         });
         return Promise.all(out).then(function (ls) { return ls.filter(Boolean).slice(0, 300); });
       });

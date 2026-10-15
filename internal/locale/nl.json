@@ -923,5 +923,6 @@
   "js.board_connect_btn": "Verbinden",
   "js.board_pay": "{amount} betalen",
   "groups.title": "Groepen",
-  "groups.intro": "Kleine groepen mensen die elkaar kennen: een bord alleen voor leden voor aanbod en vraag, en een eigen munt, CoffeeBucks, met hetzelfde dividend voor elk lid."
+  "groups.intro": "Kleine groepen mensen die elkaar kennen: een bord alleen voor leden voor aanbod en vraag, en een eigen munt, CoffeeBucks, met hetzelfde dividend voor elk lid.",
+  "js.push_board": "📋 Nieuw op het bord van {group}"
 }
