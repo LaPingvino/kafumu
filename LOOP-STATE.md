@@ -1588,7 +1588,11 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       offers move or destroy only; give/share refused server-side when last (balance API now counts active members).
       Found on the way: the node's identity doc published active_members counting members who left (peers price
       dilution from it): fixed, node/v0.2.5 (the PHP node was right). String x 24, handler test.
-- [ ] 96k. Rename your group, its currency and its symbol (Joop: "a nice bit of flair"; "any member can rename,
+- [x] 96k1. Done + deployed (lp): node.SetIdentity (node/v0.2.6); LPGroup keeps currency/symbol, applied at start;
+      POST /lp/admin/rename {gid,name?,currency?,symbol?} (≤60/30/5, control chars dropped). Admin test.
+- [ ] 96k2. Kafumu: a rename form on each group card (any member); each group's own symbol instead of K$ (from its
+      identity doc; "{amount} K$" in strings filled with amount + symbol); strings x 24.
+- [x] 96k. (split into 96k1/k2) Rename your group, its currency and its symbol (Joop: "a nice bit of flair"; "any member can rename,
       that encourages small groups where you truly know and trust each other"; "keeps the whimsy in it, and makes a
       good argument about the 'is this real money' thing"): LPGroup keeps group name, currency name (≤30) and symbol
       (≤5); POST /lp/admin/rename {gid, name?, currency?, symbol?} sets them on the node (identity doc); any member
