@@ -932,5 +932,9 @@
   "js.act_no_boards": "這台裝置上還沒有群組看板：在群組卡片上建立或開啟一個。",
   "js.board_placeholder": "寫給群組…",
   "js.group_card": "群組",
-  "js.board_need_name": "在「我」裡選一個使用者名稱就能在這裡寫。"
+  "js.board_need_name": "在「我」裡選一個使用者名稱就能在這裡寫。",
+  "js.swap_btn": "交換名片？",
+  "js.swap_asked": "已邀請 @{name} 交換名片",
+  "js.swap_from": "@{name} 想和你交換名片",
+  "js.push_swap": "🤝 {group} 裡有人想和你交換名片"
 }

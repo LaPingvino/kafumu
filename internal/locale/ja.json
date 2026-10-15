@@ -932,5 +932,9 @@
   "js.act_no_boards": "この端末にはまだグループのボードがありません。グループのカードから始めるか開いてください。",
   "js.board_placeholder": "グループに書く…",
   "js.group_card": "グループ",
-  "js.board_need_name": "ここに書くには「自分」でユーザー名を決めてください。"
+  "js.board_need_name": "ここに書くには「自分」でユーザー名を決めてください。",
+  "js.swap_btn": "カードを交換しますか？",
+  "js.swap_asked": "@{name} さんにカード交換を申し込みました",
+  "js.swap_from": "@{name} さんがカード交換を希望しています",
+  "js.push_swap": "🤝 {group} の誰かがカード交換を希望しています"
 }

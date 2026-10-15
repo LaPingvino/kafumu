@@ -932,5 +932,9 @@
   "js.act_no_boards": "Ancora nessuna bacheca di gruppo su questo dispositivo: aprine una dalla scheda di un gruppo.",
   "js.board_placeholder": "Scrivi al gruppo…",
   "js.group_card": "Gruppo",
-  "js.board_need_name": "Scegli un nome utente in Io per scrivere qui."
+  "js.board_need_name": "Scegli un nome utente in Io per scrivere qui.",
+  "js.swap_btn": "Scambiare i biglietti?",
+  "js.swap_asked": "Hai chiesto a @{name} di scambiare i biglietti",
+  "js.swap_from": "@{name} vorrebbe scambiare i biglietti",
+  "js.push_swap": "🤝 Qualcuno in {group} vorrebbe scambiare i biglietti"
 }

@@ -196,12 +196,12 @@
         var keys = r[0] || {}, names = r[1] || {}, seen = r[2] || {};
         boardGroups = Object.keys(keys).map(function (g) { return { id: g, name: names[g] || g }; });
         return Promise.all(Object.keys(keys).map(function (g) {
-          return window.kafumuBoard.read(keys[g]).then(function (posts) {
+          return window.kafumuBoard.readFor(keys[g], document.body.dataset.me || "").then(function (posts) {
             var today = new Date().toISOString().slice(0, 10);
             posts = posts.filter(function (p) { return p.kind !== "here" || String(p.at).slice(0, 10) === today; });
             return posts.map(function (p) {
               return { thread: "g:" + g, kind: "group", title: "👥 " + (names[g] || g), href: "/chat?k=b:" + encodeURIComponent(g),
-                icon: p.kind === "offer" ? "🎁" : p.kind === "request" ? "🙋" : p.kind === "reply" ? "💬" : p.kind === "here" ? "📍" : "📝", who: p.by ? "@" + p.by : "", text: p.kind === "here" ? (T.board_here || "@{name}: {place}").replace("{name}", p.by || "").replace("{place}", p.text).replace(/^@\S+\s*/, "") : p.text, at: p.at,
+                icon: p.kind === "offer" ? "🎁" : p.kind === "request" ? "🙋" : p.kind === "reply" ? "💬" : p.kind === "here" ? "📍" : p.kind === "swap" ? "🤝" : "📝", who: p.by ? "@" + p.by : "", text: p.kind === "swap" ? (T.swap_from || "@{name}").replace("{name}", p.by || "").replace(/^@\S+\s*/, "") : p.kind === "here" ? (T.board_here || "@{name}: {place}").replace("{name}", p.by || "").replace("{place}", p.text).replace(/^@\S+\s*/, "") : p.text, at: p.at,
                 unread: !seen[g] || String(p.at) > seen[g] };
             });
           }, function () { return []; });

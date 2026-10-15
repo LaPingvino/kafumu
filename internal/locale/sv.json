@@ -932,5 +932,9 @@
   "js.act_no_boards": "Inga grupptavlor på den här enheten än: starta eller öppna en på en grupps kort.",
   "js.board_placeholder": "Skriv till gruppen…",
   "js.group_card": "Grupp",
-  "js.board_need_name": "Välj ett användarnamn under Jag för att skriva här."
+  "js.board_need_name": "Välj ett användarnamn under Jag för att skriva här.",
+  "js.swap_btn": "Byta kort?",
+  "js.swap_asked": "Du har frågat @{name} om att byta kort",
+  "js.swap_from": "@{name} vill gärna byta kort",
+  "js.push_swap": "🤝 Någon i {group} vill gärna byta kort"
 }

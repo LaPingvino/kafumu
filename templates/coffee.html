@@ -24,7 +24,7 @@
         <button type="button" class="pill-sm coffee-invite-contact" data-g="{{.Gid}}" data-name="{{.Name}}">👤 {{t $.Lang "coffee.invite_contact"}}</button></div>
       <div class="chips coffee-pick" hidden></div>
       <p class="dim small">{{t $.Lang "coffee.invite_note"}}</p>
-      {{with .MemberNames}}<p class="small coffee-members">👥 {{t $.Lang "coffee.members_list"}}: {{range $i, $n := .}}{{if $i}}, {{end}}@{{$n}}{{end}}</p>{{end}}
+      {{with .MemberNames}}<p class="small coffee-members">👥 {{t $.Lang "coffee.members_list"}}: {{range $i, $n := .}}{{if $i}}, {{end}}<span class="coffee-member" data-name="{{$n}}">@{{$n}}</span>{{end}}</p>{{end}}
       {{with .Links}}<p class="dim small">🔗 {{t $.Lang "coffee.linked_with"}}: {{range $i, $l := .}}{{if $i}}, {{end}}{{$l.Name}}{{end}}</p>{{end}}
       <div class="coffee-money"><h4>💰 {{if .Currency}}{{.Currency}}{{else}}CoffeeBucks{{end}} ({{.Sym}})</h4>
       {{if .Unavailable}}<p class="dim">{{t $.Lang "coffee.unavailable"}}</p>{{else}}
@@ -135,6 +135,12 @@
       var tops = posts.filter(function (p) { return !p.re; }), replies = posts.filter(function (p) { return p.re; });
       if (!tops.length) list.appendChild(el("li", "dim small", T.board_empty || ""));
       tops.forEach(function (p) {
+        if (p.kind === "swap") { // 97h: an ask to you only
+          var sw = el("li", "board-post board-swap");
+          sw.appendChild(el("p", "", "🤝 " + (T.swap_from || "@{name}").replace("{name}", p.by || "")));
+          if (p.connect) { var sc = el("a", "pill-sm suggested", "🤝 " + (T.board_connect_btn || "Connect")); sc.href = p.connect; sc.setAttribute("role", "button"); sw.appendChild(sc); }
+          list.appendChild(sw); return;
+        }
         if (p.kind === "here") { list.appendChild(el("li", "board-post board-here small", "📍 " + (T.board_here || "@{name}: {place}").replace("{name}", p.by || "").replace("{place}", p.text))); return; }
         var item = el("li", "board-post board-" + p.kind);
         var head = el("div", "dim small", (p.kind === "offer" ? "🎁 " : p.kind === "request" ? "🙋 " : "📝 ") + (p.by ? "@" + p.by + " · " : "") + new Date(p.at).toLocaleString(window.KAFUMU_LOCALE, { weekday: "short", hour: "2-digit", minute: "2-digit" }));
@@ -166,7 +172,7 @@
     function mineFn(t, kw, bits) { return window.kafumuOLN.post(t, kw, bits, function (n) { st.textContent = (T.oln_working || "{n}").replace("{n}", n); }); }
     function load() {
       st.textContent = "";
-      window.kafumuBoard.read(key).then(function (posts) {
+      window.kafumuBoard.readFor(key, ME).then(function (posts) {
         draw(posts);
         // Seen (97e): Chats counts what's newer than this as unread.
         dev.store.get("boardSeen").then(function (seen) { seen = seen || {}; seen[g] = new Date().toISOString(); return dev.store.set("boardSeen", seen); });
@@ -188,6 +194,31 @@
       return dev.store.get("justPosted").then(function (m) { m = m || {}; m[t] = Date.now(); return dev.store.set("justPosted", m); });
     });
   }
+  // swapButtons (97h): "🤝" by each other member: asks them, in their own
+  // corner of the board, to swap cards, with a connect link to you.
+  function swapButtons(li, key) {
+    if (!ME || !getPair()) return;
+    dev.store.get("swapAsked").then(function (asked) {
+      asked = asked || {};
+      li.querySelectorAll(".coffee-member").forEach(function (m) {
+        var name = m.dataset.name, id = li.dataset.g + "/" + name;
+        if (name === ME || m.querySelector("button")) return;
+        var b = el("button", "pill-sm swap-btn", asked[id] ? "✓" : "🤝"); b.type = "button";
+        b.title = asked[id] ? (T.swap_asked || "").replace("{name}", name) : (T.swap_btn || "Swap cards?");
+        b.setAttribute("aria-label", b.title); b.disabled = !!asked[id];
+        b.onclick = function () {
+          b.disabled = true; b.textContent = "…";
+          getPair().invite(false).then(function (inv) {
+            return window.kafumuBoard.askSwap(key, ME, name, inv.url, function (t, kw, bits) { return window.kafumuOLN.post(t, kw, bits, function () {}); });
+          }).then(function () {
+            asked[id] = Date.now(); dev.store.set("swapAsked", asked);
+            b.textContent = "✓"; b.title = (T.swap_asked || "").replace("{name}", name); b.setAttribute("aria-label", b.title);
+          }, function () { b.disabled = false; b.textContent = "🤝"; });
+        };
+        m.appendChild(document.createTextNode(" ")); m.appendChild(b);
+      });
+    });
+  }
   function drawBoards() {
     // The groups' names, for their threads in Chats (97e).
     var names = {};
@@ -198,7 +229,7 @@
         var d = li.querySelector(".coffee-board"), key = all[li.dataset.g];
         d.hidden = !key || !window.kafumuBoard;
         d.querySelector(".board-title").textContent = T.board || "Board";
-        if (key && !d.dataset.loaded) { d.dataset.loaded = "1"; d.open = true; drawBoard(li, key); } // groups first: the board is the first thing
+        if (key && !d.dataset.loaded) { d.dataset.loaded = "1"; d.open = true; drawBoard(li, key); swapButtons(li, key); } // groups first: the board is the first thing
       });
     });
   }

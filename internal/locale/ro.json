@@ -932,5 +932,9 @@
   "js.act_no_boards": "Încă niciun panou de grup pe acest dispozitiv: pornește sau deschide unul pe cardul unui grup.",
   "js.board_placeholder": "Scrie grupului…",
   "js.group_card": "Grup",
-  "js.board_need_name": "Alege un nume de utilizator la Eu ca să scrii aici."
+  "js.board_need_name": "Alege un nume de utilizator la Eu ca să scrii aici.",
+  "js.swap_btn": "Schimbați cartonașele?",
+  "js.swap_asked": "I-ai propus lui @{name} să schimbați cartonașele",
+  "js.swap_from": "@{name} ar vrea să schimbați cartonașele",
+  "js.push_swap": "🤝 Cineva din {group} ar vrea să schimbați cartonașele"
 }

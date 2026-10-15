@@ -932,5 +932,9 @@
   "js.act_no_boards": "Bu cihazda henüz grup panosu yok: bir grubun kartından başlat ya da aç.",
   "js.board_placeholder": "Gruba yaz…",
   "js.group_card": "Grup",
-  "js.board_need_name": "Buraya yazmak için Ben sekmesinden bir kullanıcı adı seç."
+  "js.board_need_name": "Buraya yazmak için Ben sekmesinden bir kullanıcı adı seç.",
+  "js.swap_btn": "Kart değişelim mi?",
+  "js.swap_asked": "@{name} kişisine kart değişmeyi önerdin",
+  "js.swap_from": "@{name} seninle kart değişmek istiyor",
+  "js.push_swap": "🤝 {group} grubundan biri seninle kart değişmek istiyor"
 }

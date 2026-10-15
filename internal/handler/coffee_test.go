@@ -176,7 +176,7 @@ func TestCoffeeStartInviteJoin(t *testing.T) {
 		t.Fatalf("bea's join: %d %v %v", w.Code, bea.Groups, lp.groups[gid])
 	}
 	// Members (97c): both names on the card, for members.
-	if w := as(bea, "GET", "/coffee", nil, c.Show); !strings.Contains(w.Body.String(), "@ana, @bea") {
+	if w := as(bea, "GET", "/coffee", nil, c.Show); !strings.Contains(w.Body.String(), `data-name="ana">@ana</span>, <span class="coffee-member" data-name="bea">@bea</span>`) {
 		t.Fatalf("members line: %s", w.Body.String())
 	}
 	// The pages: bea's wallet (balance, dividend, days); the join page for a

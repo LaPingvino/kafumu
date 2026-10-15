@@ -932,5 +932,9 @@
   "js.act_no_boards": "Ainda não há quadros de grupo neste dispositivo: cria ou abre um no cartão de um grupo.",
   "js.board_placeholder": "Escreve ao grupo…",
   "js.group_card": "Grupo",
-  "js.board_need_name": "Escolhe um nome de utilizador em Eu para escrever aqui."
+  "js.board_need_name": "Escolhe um nome de utilizador em Eu para escrever aqui.",
+  "js.swap_btn": "Trocar cartões?",
+  "js.swap_asked": "Pediste a @{name} para trocar cartões",
+  "js.swap_from": "@{name} gostaria de trocar cartões",
+  "js.push_swap": "🤝 Alguém em {group} gostaria de trocar cartões"
 }

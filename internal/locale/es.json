@@ -932,5 +932,9 @@
   "js.act_no_boards": "Aún no hay tablones de grupo en este dispositivo: crea o abre uno en la tarjeta de un grupo.",
   "js.board_placeholder": "Escribe al grupo…",
   "js.group_card": "Grupo",
-  "js.board_need_name": "Elige un nombre de usuario en Yo para escribir aquí."
+  "js.board_need_name": "Elige un nombre de usuario en Yo para escribir aquí.",
+  "js.swap_btn": "¿Intercambiar tarjetas?",
+  "js.swap_asked": "Le pediste a @{name} intercambiar tarjetas",
+  "js.swap_from": "A @{name} le gustaría intercambiar tarjetas",
+  "js.push_swap": "🤝 Alguien de {group} quiere intercambiar tarjetas"
 }

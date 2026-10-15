@@ -932,5 +932,9 @@
   "js.act_no_boards": "Na tomto zařízení zatím není žádná nástěnka skupiny: založ nebo otevři ji na kartě skupiny.",
   "js.board_placeholder": "Napiš skupině…",
   "js.group_card": "Skupina",
-  "js.board_need_name": "Pro psaní si vyber uživatelské jméno v sekci Já."
+  "js.board_need_name": "Pro psaní si vyber uživatelské jméno v sekci Já.",
+  "js.swap_btn": "Vyměnit si karty?",
+  "js.swap_asked": "Požádal(a) jsi @{name} o výměnu karet",
+  "js.swap_from": "@{name} by si rád(a) vyměnil(a) karty",
+  "js.push_swap": "🤝 Někdo ze skupiny {group} by si rád vyměnil karty"
 }

@@ -932,5 +932,9 @@
   "js.act_no_boards": "이 기기에는 아직 그룹 게시판이 없어요. 그룹 카드에서 시작하거나 열어 보세요.",
   "js.board_placeholder": "그룹에 글 쓰기…",
   "js.group_card": "그룹",
-  "js.board_need_name": "여기에 쓰려면 '나'에서 사용자 이름을 정하세요."
+  "js.board_need_name": "여기에 쓰려면 '나'에서 사용자 이름을 정하세요.",
+  "js.swap_btn": "카드를 교환할까요?",
+  "js.swap_asked": "@{name}님에게 카드 교환을 요청했어요",
+  "js.swap_from": "@{name}님이 카드 교환을 원해요",
+  "js.push_swap": "🤝 {group}의 누군가가 카드 교환을 원해요"
 }

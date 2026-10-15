@@ -932,5 +932,9 @@
   "js.act_no_boards": "Pas encore de tableau de groupe sur cet appareil : lance-en ou ouvre-en un sur la carte d'un groupe.",
   "js.board_placeholder": "Écris au groupe…",
   "js.group_card": "Groupe",
-  "js.board_need_name": "Choisis un nom d'utilisateur dans Moi pour écrire ici."
+  "js.board_need_name": "Choisis un nom d'utilisateur dans Moi pour écrire ici.",
+  "js.swap_btn": "Échanger vos cartes ?",
+  "js.swap_asked": "Tu as proposé à @{name} d'échanger vos cartes",
+  "js.swap_from": "@{name} aimerait échanger vos cartes",
+  "js.push_swap": "🤝 Quelqu'un dans {group} aimerait échanger vos cartes"
 }

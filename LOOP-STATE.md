@@ -1728,6 +1728,10 @@ read, expiring like every line (rule 3 holds).
       threads; a board thread opens as a two-way chat window (the dock on a computer, its page on a phone; key
       "b:<gid>"): read and post there. (A group shows only when this device has its board key: Esperantistoj needs
       "Start this group's board" once.)
-- [ ] 97h. Swap cards from the member list (Joop: "the member list lacks a ping to signal getting each other's
+- [x] 97h. Done + deployed: "🤝" by each other member (on a device with the group's key): posts an encrypted
+      ask with a connect link under that member's own tag (HMAC(key, "swap:<name>")), so only they get the push
+      ("🤝 Someone in <group> would like to swap cards"); they see "@you would like to swap cards" + Connect on the
+      board, in the board chat and in Chats; asked = ✓ (swapAsked on the device). Keyed by @name: a rename misses old
+      asks. 4 strings x 24; board unit test. Not browser-tested. Was: Swap cards from the member list (Joop: "the member list lacks a ping to signal getting each other's
       contacts"): "🤝 Swap cards?" by each member; it posts an encrypted board ping addressed to them, carrying a
       connect link; they see "@you would like to swap cards" with Connect in Chats (and a push). No server change.

@@ -146,6 +146,11 @@
       log.textContent = "";
       if (!ps.length) log.appendChild(el("p", "dim small", T.public_chat_empty || "No messages yet."));
       ps.forEach(function (p) {
+        if (p.kind === "swap") {
+          var sw = el("div", "chat-note small", "🤝 " + (T.swap_from || "@{name}").replace("{name}", p.by || "") + " ");
+          if (p.connect) { var sc = el("a", "pill-sm suggested", T.board_connect_btn || "Connect"); sc.href = p.connect; sc.dataset.page = "1"; sw.appendChild(sc); }
+          log.appendChild(sw); return;
+        }
         if (p.kind === "here") { log.appendChild(el("div", "chat-note dim small", "📍 " + (T.board_here || "@{name}: {place}").replace("{name}", p.by || "").replace("{place}", p.text))); return; }
         var icon = p.kind === "offer" ? "🎁 " : p.kind === "request" ? "🙋 " : "";
         var b = el("div", "bubble" + (p.by && p.by === me ? " me" : ""), "");
@@ -157,7 +162,7 @@
       if (atEnd || !log.dataset.seen) log.scrollTop = log.scrollHeight;
       log.dataset.seen = "1";
     }
-    function load() { return window.kafumuBoard.read(key).then(function (ps) { draw(ps); return seen(); }, function () {}); }
+    function load() { return window.kafumuBoard.readFor(key, me).then(function (ps) { draw(ps); return seen(); }, function () {}); }
     form.onsubmit = function (e) {
       e.preventDefault();
       var text = input.value.trim();

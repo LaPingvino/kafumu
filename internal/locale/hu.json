@@ -932,5 +932,9 @@
   "js.act_no_boards": "Ezen az eszközön még nincs csoporttábla: indíts vagy nyiss meg egyet egy csoport kártyáján.",
   "js.board_placeholder": "Írj a csoportnak…",
   "js.group_card": "Csoport",
-  "js.board_need_name": "Válassz felhasználónevet az Én lapon, hogy itt írhass."
+  "js.board_need_name": "Válassz felhasználónevet az Én lapon, hogy itt írhass.",
+  "js.swap_btn": "Kártyacsere?",
+  "js.swap_asked": "Megkérdezted @{name} felhasználót, cseréltek-e kártyát",
+  "js.swap_from": "@{name} szívesen cserélne kártyát",
+  "js.push_swap": "🤝 Valaki a(z) {group} csoportból szívesen cserélne kártyát"
 }

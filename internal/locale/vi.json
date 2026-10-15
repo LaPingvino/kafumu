@@ -932,5 +932,9 @@
   "js.act_no_boards": "Thiết bị này chưa có bảng nhóm nào: hãy tạo hoặc mở một bảng trên thẻ của nhóm.",
   "js.board_placeholder": "Viết cho nhóm…",
   "js.group_card": "Nhóm",
-  "js.board_need_name": "Hãy chọn tên người dùng ở mục Tôi để viết ở đây."
+  "js.board_need_name": "Hãy chọn tên người dùng ở mục Tôi để viết ở đây.",
+  "js.swap_btn": "Trao đổi thẻ?",
+  "js.swap_asked": "Bạn đã mời @{name} trao đổi thẻ",
+  "js.swap_from": "@{name} muốn trao đổi thẻ với bạn",
+  "js.push_swap": "🤝 Một người trong {group} muốn trao đổi thẻ với bạn"
 }

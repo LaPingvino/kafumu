@@ -932,5 +932,9 @@
   "js.act_no_boards": "Belum ada papan grup di perangkat ini: mulai atau buka dari kartu grup.",
   "js.board_placeholder": "Tulis ke grup…",
   "js.group_card": "Grup",
-  "js.board_need_name": "Pilih nama pengguna di Saya untuk menulis di sini."
+  "js.board_need_name": "Pilih nama pengguna di Saya untuk menulis di sini.",
+  "js.swap_btn": "Tukar kartu?",
+  "js.swap_asked": "Kamu mengajak @{name} bertukar kartu",
+  "js.swap_from": "@{name} ingin bertukar kartu",
+  "js.push_swap": "🤝 Seseorang di {group} ingin bertukar kartu"
 }

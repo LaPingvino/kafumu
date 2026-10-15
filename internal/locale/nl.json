@@ -932,5 +932,9 @@
   "js.act_no_boards": "Nog geen groepsborden op dit apparaat: start of open er een op de kaart van een groep.",
   "js.board_placeholder": "Schrijf naar de groep…",
   "js.group_card": "Groep",
-  "js.board_need_name": "Kies een gebruikersnaam bij Ik om hier te schrijven."
+  "js.board_need_name": "Kies een gebruikersnaam bij Ik om hier te schrijven.",
+  "js.swap_btn": "Kaartjes ruilen?",
+  "js.swap_asked": "@{name} gevraagd om kaartjes te ruilen",
+  "js.swap_from": "@{name} wil graag kaartjes ruilen",
+  "js.push_swap": "🤝 Iemand in {group} wil graag kaartjes ruilen"
 }

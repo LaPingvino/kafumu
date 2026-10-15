@@ -36,4 +36,15 @@ if (got.length !== 2 || got[0].text !== "Need a ladder" || got[1].text !== "Bike
 let mined;
 const p = await B.post(key, { kind: "offer", text: "Bread", price: 1 }, async (text, kw, bits) => { mined = { text, kw, bits }; return { id: "x" }; });
 if (mined.kw !== "#" + t || mined.text.includes("Bread") || p.id !== "x") fail("post " + JSON.stringify(mined));
-console.log("ok  static/board.js (seal/open, wrong key, tag, read skips the unreadable, post sends ciphertext)");
+// Swap asks (97h): under the member's own tag, not the board's; readFor
+// mixes the ones to me into the board.
+let swapKw;
+await B.askSwap(key, "ana", "bea", "https://x/c#k", async (text, kw) => { swapKw = kw; return { id: "s" }; });
+const swapTag = await B.tag(key, "swap:bea");
+if (swapKw !== "#" + swapTag || swapTag === t || swapTag === await B.tag(key, "swap:cas")) fail("swap tag " + swapKw);
+const swap = await B.seal(key, { kind: "swap", by: "ana", to: "bea", connect: "https://x/c#k", at: "2026-10-15T14:00:00Z" });
+globalThis.fetch = async (u) => ({ ok: true, json: async () => u.endsWith(swapTag) ? [{ id: "s", text: swap, at: "2026-10-15T14:00:00Z" }] : posts });
+const mix = await B.readFor(key, "bea");
+if (mix.length !== 3 || mix[0].kind !== "swap" || mix[0].connect !== "https://x/c#k") fail("readFor " + JSON.stringify(mix));
+if ((await B.readFor(key, "cas")).some((p) => p.kind === "swap")) fail("someone else's ask shown");
+console.log("ok  static/board.js (seal/open, wrong key, tag, read skips the unreadable, post sends ciphertext, swap asks per member)");

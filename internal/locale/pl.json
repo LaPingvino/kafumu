@@ -932,5 +932,9 @@
   "js.act_no_boards": "Na tym urządzeniu nie ma jeszcze tablic grup: załóż lub otwórz ją na karcie grupy.",
   "js.board_placeholder": "Napisz do grupy…",
   "js.group_card": "Grupa",
-  "js.board_need_name": "Wybierz nazwę użytkownika w zakładce Ja, aby tu pisać."
+  "js.board_need_name": "Wybierz nazwę użytkownika w zakładce Ja, aby tu pisać.",
+  "js.swap_btn": "Wymienić się wizytówkami?",
+  "js.swap_asked": "Poproszono @{name} o wymianę wizytówek",
+  "js.swap_from": "@{name} chce wymienić się wizytówkami",
+  "js.push_swap": "🤝 Ktoś z grupy {group} chce wymienić się wizytówkami"
 }

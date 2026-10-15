@@ -932,5 +932,9 @@
   "js.act_no_boards": "Ankoraŭ neniu grupa tabulo en ĉi tiu aparato: komencu aŭ malfermu unu ĉe la karto de grupo.",
   "js.board_placeholder": "Skribu al la grupo…",
   "js.group_card": "Grupo",
-  "js.board_need_name": "Elektu uzantnomon ĉe Mi por skribi ĉi tie."
+  "js.board_need_name": "Elektu uzantnomon ĉe Mi por skribi ĉi tie.",
+  "js.swap_btn": "Interŝanĝi kartojn?",
+  "js.swap_asked": "Vi petis @{name} interŝanĝi kartojn",
+  "js.swap_from": "@{name} ŝatus interŝanĝi kartojn",
+  "js.push_swap": "🤝 Iu en {group} ŝatus interŝanĝi kartojn"
 }

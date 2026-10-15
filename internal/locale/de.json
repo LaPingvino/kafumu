@@ -932,5 +932,9 @@
   "js.act_no_boards": "Noch keine Gruppenbretter auf diesem Gerät: starte oder öffne eins auf der Karte einer Gruppe.",
   "js.board_placeholder": "Schreib an die Gruppe…",
   "js.group_card": "Gruppe",
-  "js.board_need_name": "Wähle unter Ich einen Benutzernamen, um hier zu schreiben."
+  "js.board_need_name": "Wähle unter Ich einen Benutzernamen, um hier zu schreiben.",
+  "js.swap_btn": "Karten tauschen?",
+  "js.swap_asked": "@{name} gefragt, Karten zu tauschen",
+  "js.swap_from": "@{name} möchte gern Karten tauschen",
+  "js.push_swap": "🤝 Jemand in {group} möchte gern Karten tauschen"
 }

@@ -932,5 +932,9 @@
   "js.act_no_boards": "No group boards on this device yet: start or open one on a group's card.",
   "js.board_placeholder": "Write to the group…",
   "js.group_card": "Group",
-  "js.board_need_name": "Pick a username on Me to write here."
+  "js.board_need_name": "Pick a username on Me to write here.",
+  "js.swap_btn": "Swap cards?",
+  "js.swap_asked": "Asked @{name} to swap cards",
+  "js.swap_from": "@{name} would like to swap cards",
+  "js.push_swap": "🤝 Someone in {group} would like to swap cards"
 }
