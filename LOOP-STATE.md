@@ -1579,3 +1579,6 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       the privacy paragraph adds it; 2 strings x 24. Tests: handler delete sends destroy per group; purge (emulator)
       calls the hook for a named idle account in groups. Was: Kafumu: deleting an account destroys its balances in every group (the default for unlinked accounts),
       said on the delete confirmation and the privacy page.
+- [ ] 96i. Rejoin a group you left (Joop: "rejoining/reactivating sounds good"): node.Reactivate (the same
+      member id, dividend again; balance as it was); lp /lp/admin/member reactivates an inactive member instead of
+      refusing; Kafumu's join then just works (a fresh invite). Tests; tag node, deploy lp.
