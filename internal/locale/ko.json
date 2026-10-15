@@ -827,5 +827,14 @@
   "coffee.join_explain": "한 회원이 당신을 초대했어요. 회원이 되면 매일 그룹의 배당을 받아요.",
   "coffee.join_go": "참여",
   "coffee.join_bad": "이 초대 링크는 유효하지 않아요.",
-  "coffee.join_member": "이미 이 그룹의 회원이에요."
+  "coffee.join_member": "이미 이 그룹의 회원이에요.",
+  "coffee.pay": "지불",
+  "coffee.pay_to": "받는 사람 (@이름)",
+  "coffee.pay_amount": "금액 (K$)",
+  "coffee.paid": "@{name}에게 {amount} K$를 지불했어요.",
+  "coffee.pay_not_member": "@{name}은(는) 이 그룹에 없어요.",
+  "coffee.pay_funds": "K$가 부족해요.",
+  "coffee.pay_self": "자기 자신에게는 지불할 수 없어요.",
+  "coffee.pay_bad_amount": "금액이 올바르지 않아요: 예) 2.50",
+  "coffee.pay_error": "지금은 지불할 수 없어요. 다시 시도하세요."
 }

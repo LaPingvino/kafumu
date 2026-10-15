@@ -827,5 +827,14 @@
   "coffee.join_explain": "Un membru te-a invitat. Ca membru primești zilnic dividendul grupului.",
   "coffee.join_go": "Intră",
   "coffee.join_bad": "Acest link de invitație nu este valid.",
-  "coffee.join_member": "Ești deja în acest grup."
+  "coffee.join_member": "Ești deja în acest grup.",
+  "coffee.pay": "Plătește",
+  "coffee.pay_to": "Cui (@nume)",
+  "coffee.pay_amount": "Suma în K$",
+  "coffee.paid": "Ai plătit {amount} K$ lui @{name}.",
+  "coffee.pay_not_member": "@{name} nu e în acest grup.",
+  "coffee.pay_funds": "Nu ai destui K$ pentru asta.",
+  "coffee.pay_self": "Nu îți poți plăti singur.",
+  "coffee.pay_bad_amount": "Suma nu pare corectă: de ex. 2,50",
+  "coffee.pay_error": "Nu se poate plăti acum. Încearcă din nou."
 }

@@ -827,5 +827,14 @@
   "coffee.join_explain": "Et medlem har inviteret dig. Som medlem får du gruppens udbytte hver dag.",
   "coffee.join_go": "Bliv medlem",
   "coffee.join_bad": "Dette invitationslink er ikke gyldigt.",
-  "coffee.join_member": "Du er allerede i denne gruppe."
+  "coffee.join_member": "Du er allerede i denne gruppe.",
+  "coffee.pay": "Betal",
+  "coffee.pay_to": "Til hvem (@navn)",
+  "coffee.pay_amount": "Beløb i K$",
+  "coffee.paid": "Betalt {amount} K$ til @{name}.",
+  "coffee.pay_not_member": "@{name} er ikke i denne gruppe.",
+  "coffee.pay_funds": "Ikke nok K$ til det.",
+  "coffee.pay_self": "Du kan ikke betale dig selv.",
+  "coffee.pay_bad_amount": "Det beløb ser forkert ud: f.eks. 2,50",
+  "coffee.pay_error": "Betaling lykkedes ikke lige nu. Prøv igen."
 }

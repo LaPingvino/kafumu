@@ -827,5 +827,14 @@
   "coffee.join_explain": "一位成员邀请了你。作为成员，你每天都会获得群组的分红。",
   "coffee.join_go": "加入",
   "coffee.join_bad": "这个邀请链接无效。",
-  "coffee.join_member": "你已经在这个群组里了。"
+  "coffee.join_member": "你已经在这个群组里了。",
+  "coffee.pay": "付款",
+  "coffee.pay_to": "付给谁（@名字）",
+  "coffee.pay_amount": "金额（K$）",
+  "coffee.paid": "已向 @{name} 支付 {amount} K$。",
+  "coffee.pay_not_member": "@{name} 不在这个群组里。",
+  "coffee.pay_funds": "你的 K$ 不够。",
+  "coffee.pay_self": "不能付款给自己。",
+  "coffee.pay_bad_amount": "这个金额不对：例如 2.50",
+  "coffee.pay_error": "暂时无法付款，请再试一次。"
 }

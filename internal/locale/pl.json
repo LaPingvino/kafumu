@@ -827,5 +827,14 @@
   "coffee.join_explain": "Zaprosił cię członek. Jako członek dostajesz codziennie dywidendę grupy.",
   "coffee.join_go": "Dołącz",
   "coffee.join_bad": "To zaproszenie jest nieważne.",
-  "coffee.join_member": "Jesteś już w tej grupie."
+  "coffee.join_member": "Jesteś już w tej grupie.",
+  "coffee.pay": "Zapłać",
+  "coffee.pay_to": "Komu (@nazwa)",
+  "coffee.pay_amount": "Kwota w K$",
+  "coffee.paid": "Zapłacono {amount} K$ dla @{name}.",
+  "coffee.pay_not_member": "@{name} nie należy do tej grupy.",
+  "coffee.pay_funds": "Za mało K$ na to.",
+  "coffee.pay_self": "Nie możesz zapłacić samemu sobie.",
+  "coffee.pay_bad_amount": "Ta kwota się nie zgadza: np. 2,50",
+  "coffee.pay_error": "Nie udało się teraz zapłacić. Spróbuj ponownie."
 }

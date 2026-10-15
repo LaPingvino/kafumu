@@ -1538,6 +1538,11 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       real group (ledgers are permanent: Joop's first group is the first live round trip). Was: The page: /coffee (your groups, balance, dividend, invite link to copy/QR, start a group) and
       /coffee/join (which group, who invited, Join), linked from the Me tab; 24 languages; deploy.
 - [x] 96e3. (split into 96e3a/b) Was: Kafumu: start a group, invite link, join (calls the lp admin API with the token from Datastore).
-- [ ] 96f. Wallet on the Me tab: balance in K$ and in UD, dividends received, 💸 pay @name in your group; across
+- [x] 96f1. Done: 💸 Pay @name in K$ on each group card (/coffee/pay: both in the group, amount 2 / 2.5 / 2,50,
+      not yourself, enough K$; the ledger gets two member ids, never names); result line on the card; 9 strings x 24.
+      Tests: ParseMoney/Money; pay paid/not_member/self/bad_amount/funds/non-member against the fake lp.
+- [ ] 96f2. Across linked groups: link two groups (members of both), pay @name in another group at the pool's price,
+      shown before paying (the lp transfer + its state).
+- [x] 96f. (split into 96f1/f2) Was: Wallet on the Me tab: balance in K$ and in UD, dividends received, 💸 pay @name in your group; across
       groups at the pool's price, shown before paying.
 - [ ] 96g. Privacy page + /about: what's public in the ledger, what isn't.

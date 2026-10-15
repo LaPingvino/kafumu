@@ -827,5 +827,14 @@
   "coffee.join_explain": "Membro invitis vin. Kiel membro vi ricevas ĉiutage la dividendon de la grupo.",
   "coffee.join_go": "Aliĝi",
   "coffee.join_bad": "Ĉi tiu invita ligilo ne validas.",
-  "coffee.join_member": "Vi jam estas en ĉi tiu grupo."
+  "coffee.join_member": "Vi jam estas en ĉi tiu grupo.",
+  "coffee.pay": "Pagi",
+  "coffee.pay_to": "Al kiu (@nomo)",
+  "coffee.pay_amount": "Sumo en K$",
+  "coffee.paid": "Pagis {amount} K$ al @{name}.",
+  "coffee.pay_not_member": "@{name} ne estas en ĉi tiu grupo.",
+  "coffee.pay_funds": "Ne sufiĉas K$ por tio.",
+  "coffee.pay_self": "Vi ne povas pagi al vi mem.",
+  "coffee.pay_bad_amount": "Tiu sumo ne ĝustas: ekz. 2,50",
+  "coffee.pay_error": "Nun ne eblas pagi. Reprovu."
 }

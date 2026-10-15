@@ -10,6 +10,11 @@
       {{if .Unavailable}}<p class="dim">{{t $.Lang "coffee.unavailable"}}</p>{{else}}
       <p class="coffee-balance"><strong>{{.Balance}} K$</strong>{{if .Days}} <span class="dim small">{{ts $.Lang "coffee.in_days" | replace "{n}" .Days}}</span>{{end}}</p>
       <p class="dim small">{{t $.Lang "coffee.dividend"}}: {{.UD}} K$ · {{ts $.Lang "coffee.members" | replace "{n}" (print .Members)}}</p>{{end}}
+      {{if eq .Gid $.Focus}}{{with $.Msg}}<p class="coffee-msg{{if eq . "paid"}} ok{{else}} error{{end}}" role="status">{{if eq . "paid"}}✓ {{ts $.Lang "coffee.paid" | replace "{amount}" $.Amount | replace "{name}" $.To}}{{else if eq . "not_member"}}{{ts $.Lang "coffee.pay_not_member" | replace "{name}" $.To}}{{else}}{{t $.Lang (print "coffee.pay_" .)}}{{end}}</p>{{end}}{{end}}
+      {{if not .Unavailable}}<form method="post" action="/coffee/pay#g-{{.Gid}}" class="inline coffee-pay"><input type="hidden" name="g" value="{{.Gid}}">
+        <input name="to" required placeholder="@name" aria-label="{{ts $.Lang "coffee.pay_to"}}" autocomplete="off" autocapitalize="off">
+        <input name="amount" required inputmode="decimal" placeholder="0.00 K$" aria-label="{{ts $.Lang "coffee.pay_amount"}}" class="coffee-amount">
+        <button type="submit" class="pill">💸 {{t $.Lang "coffee.pay"}}</button></form>{{end}}
       <div class="actions"><button type="button" class="pill-sm suggested coffee-invite" data-g="{{.Gid}}">🔗 {{t $.Lang "coffee.invite"}}</button></div>
       <p class="dim small">{{t $.Lang "coffee.invite_note"}}</p>
       <p class="dim small coffee-status" role="status"></p>

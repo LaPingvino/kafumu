@@ -827,5 +827,14 @@
   "coffee.join_explain": "Een lid heeft je uitgenodigd. Als lid krijg je elke dag het dividend van de groep.",
   "coffee.join_go": "Lid worden",
   "coffee.join_bad": "Deze uitnodigingslink klopt niet.",
-  "coffee.join_member": "Je zit al in deze groep."
+  "coffee.join_member": "Je zit al in deze groep.",
+  "coffee.pay": "Betalen",
+  "coffee.pay_to": "Aan wie (@naam)",
+  "coffee.pay_amount": "Bedrag in K$",
+  "coffee.paid": "{amount} K$ betaald aan @{name}.",
+  "coffee.pay_not_member": "@{name} zit niet in deze groep.",
+  "coffee.pay_funds": "Niet genoeg K$ daarvoor.",
+  "coffee.pay_self": "Je kunt jezelf niet betalen.",
+  "coffee.pay_bad_amount": "Dat bedrag klopt niet: bijvoorbeeld 2,50",
+  "coffee.pay_error": "Betalen lukt nu niet. Probeer het opnieuw."
 }

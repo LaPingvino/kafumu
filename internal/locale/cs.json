@@ -827,5 +827,14 @@
   "coffee.join_explain": "Pozval tě člen. Jako člen dostáváš každý den dividendu skupiny.",
   "coffee.join_go": "Přidat se",
   "coffee.join_bad": "Tahle pozvánka není platná.",
-  "coffee.join_member": "V téhle skupině už jsi."
+  "coffee.join_member": "V téhle skupině už jsi.",
+  "coffee.pay": "Zaplatit",
+  "coffee.pay_to": "Komu (@jméno)",
+  "coffee.pay_amount": "Částka v K$",
+  "coffee.paid": "Zaplaceno {amount} K$ uživateli @{name}.",
+  "coffee.pay_not_member": "@{name} není v této skupině.",
+  "coffee.pay_funds": "Na to nemáš dost K$.",
+  "coffee.pay_self": "Nemůžeš platit sám sobě.",
+  "coffee.pay_bad_amount": "Tahle částka nesedí: např. 2,50",
+  "coffee.pay_error": "Teď se zaplatit nepodařilo. Zkus to znovu."
 }

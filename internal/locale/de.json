@@ -827,5 +827,14 @@
   "coffee.join_explain": "Ein Mitglied hat dich eingeladen. Als Mitglied bekommst du jeden Tag die Dividende der Gruppe.",
   "coffee.join_go": "Beitreten",
   "coffee.join_bad": "Dieser Einladungslink ist nicht gültig.",
-  "coffee.join_member": "Du bist schon in dieser Gruppe."
+  "coffee.join_member": "Du bist schon in dieser Gruppe.",
+  "coffee.pay": "Bezahlen",
+  "coffee.pay_to": "An wen (@name)",
+  "coffee.pay_amount": "Betrag in K$",
+  "coffee.paid": "{amount} K$ an @{name} bezahlt.",
+  "coffee.pay_not_member": "@{name} ist nicht in dieser Gruppe.",
+  "coffee.pay_funds": "Dafür reichen deine K$ nicht.",
+  "coffee.pay_self": "Du kannst dich nicht selbst bezahlen.",
+  "coffee.pay_bad_amount": "Dieser Betrag stimmt nicht: z. B. 2,50",
+  "coffee.pay_error": "Bezahlen geht gerade nicht. Versuch es noch einmal."
 }

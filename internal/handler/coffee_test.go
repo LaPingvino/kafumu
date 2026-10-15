@@ -22,6 +22,7 @@ type fakeLP struct {
 	mu      sync.Mutex
 	groups  map[string][]string
 	created []string
+	paid    []map[string]any
 }
 
 func (f *fakeLP) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -33,14 +34,26 @@ func (f *fakeLP) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, `{"error":"unauthorized"}`, 401)
 		return
 	}
-	var in map[string]string
-	json.NewDecoder(r.Body).Decode(&in)
+	var raw map[string]any
+	json.NewDecoder(r.Body).Decode(&raw)
+	in := map[string]string{}
+	for k, v := range raw {
+		if s, ok := v.(string); ok {
+			in[k] = s
+		}
+	}
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	switch r.URL.Path {
 	case "/lp/admin/group":
 		f.groups[in["gid"]] = nil
 		f.created = append(f.created, in["gid"])
+	case "/lp/admin/pay":
+		if raw["amount"].(float64) > 10_000_000 {
+			http.Error(w, `{"error":"insufficient balance"}`, 400)
+			return
+		}
+		f.paid = append(f.paid, raw)
 	case "/lp/admin/balance":
 		w.Write([]byte(`{"member":"x","active":true,"balance":12345678,"current_ud":1000000,"members":2}`))
 		return
@@ -137,6 +150,23 @@ func TestCoffeeStartInviteJoin(t *testing.T) {
 	}
 	if w := as(anon, "GET", "/coffee/join?"+bad.Encode(), nil, c.ShowJoin); !strings.Contains(w.Body.String(), "This invite link isn") {
 		t.Fatalf("forged join page: %s", w.Body.String())
+	}
+	// Paying @name in the group: the ledger gets two member ids, never names.
+	pay := func(u *account.User, to, amount string) string {
+		w := as(u, "POST", "/coffee/pay", url.Values{"g": {gid}, "to": {to}, "amount": {amount}}, c.Pay)
+		loc, _ := url.Parse(w.Header().Get("Location"))
+		return loc.Query().Get("m")
+	}
+	if m := pay(ana, "@Bea", "2,50"); m != "paid" || len(lp.paid) != 1 || lp.paid[0]["amount"].(float64) != 2_500_000 || lp.paid[0]["to"] == "bea" {
+		t.Fatalf("pay @bea: %s %v", m, lp.paid)
+	}
+	for _, c := range []struct{ to, amount, want string }{{"nobody", "1", "not_member"}, {"ana", "1", "self"}, {"bea", "two", "bad_amount"}, {"bea", "50", "funds"}} {
+		if m := pay(ana, c.to, c.amount); m != c.want {
+			t.Errorf("pay %s %s: %s, want %s", c.to, c.amount, m, c.want)
+		}
+	}
+	if w := as(anon, "POST", "/coffee/pay", url.Values{"g": {gid}, "to": {"bea"}, "amount": {"1"}}, c.Pay); w.Code != 403 {
+		t.Fatal("a non-member paid from the group")
 	}
 	// Member ids: stable per account, different between accounts.
 	a1, _ := c.C.MemberID(ctx, ana.ID)

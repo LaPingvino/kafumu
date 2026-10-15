@@ -184,6 +184,7 @@ func main() {
 	mux.HandleFunc("POST /coffee/group", coffeeH.StartGroup)
 	mux.HandleFunc("GET /coffee/invite", coffeeH.Invite)
 	mux.HandleFunc("POST /coffee/join", coffeeH.Join)
+	mux.HandleFunc("POST /coffee/pay", coffeeH.Pay)
 	mux.HandleFunc("POST /account/inbox", accounts.SetInbox)
 	mux.HandleFunc("GET /account/move", accounts.MoveRequest)
 	mux.HandleFunc("POST /account/move", accounts.MoveRequest)

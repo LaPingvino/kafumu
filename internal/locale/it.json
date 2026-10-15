@@ -827,5 +827,14 @@
   "coffee.join_explain": "Un membro ti ha invitato. Come membro ricevi ogni giorno il dividendo del gruppo.",
   "coffee.join_go": "Entra",
   "coffee.join_bad": "Questo link d'invito non è valido.",
-  "coffee.join_member": "Sei già in questo gruppo."
+  "coffee.join_member": "Sei già in questo gruppo.",
+  "coffee.pay": "Paga",
+  "coffee.pay_to": "A chi (@nome)",
+  "coffee.pay_amount": "Importo in K$",
+  "coffee.paid": "Pagati {amount} K$ a @{name}.",
+  "coffee.pay_not_member": "@{name} non è in questo gruppo.",
+  "coffee.pay_funds": "Non hai abbastanza K$.",
+  "coffee.pay_self": "Non puoi pagare te stesso.",
+  "coffee.pay_bad_amount": "Questo importo non va bene: es. 2,50",
+  "coffee.pay_error": "Ora non si riesce a pagare. Riprova."
 }

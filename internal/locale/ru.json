@@ -827,5 +827,14 @@
   "coffee.join_explain": "Тебя пригласил участник. Как участник ты каждый день получаешь дивиденд группы.",
   "coffee.join_go": "Вступить",
   "coffee.join_bad": "Это приглашение недействительно.",
-  "coffee.join_member": "Ты уже в этой группе."
+  "coffee.join_member": "Ты уже в этой группе.",
+  "coffee.pay": "Заплатить",
+  "coffee.pay_to": "Кому (@имя)",
+  "coffee.pay_amount": "Сумма в K$",
+  "coffee.paid": "Оплачено {amount} K$ пользователю @{name}.",
+  "coffee.pay_not_member": "@{name} нет в этой группе.",
+  "coffee.pay_funds": "На это не хватает K$.",
+  "coffee.pay_self": "Нельзя заплатить самому себе.",
+  "coffee.pay_bad_amount": "Сумма выглядит неправильно: например, 2,50",
+  "coffee.pay_error": "Сейчас заплатить не получилось. Попробуй ещё раз."
 }

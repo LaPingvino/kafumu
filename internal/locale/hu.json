@@ -827,5 +827,14 @@
   "coffee.join_explain": "Egy tag meghívott. Tagként minden nap megkapod a csoport osztalékát.",
   "coffee.join_go": "Csatlakozom",
   "coffee.join_bad": "Ez a meghívó link nem érvényes.",
-  "coffee.join_member": "Már tagja vagy ennek a csoportnak."
+  "coffee.join_member": "Már tagja vagy ennek a csoportnak.",
+  "coffee.pay": "Fizetés",
+  "coffee.pay_to": "Kinek (@név)",
+  "coffee.pay_amount": "Összeg K$-ban",
+  "coffee.paid": "Kifizetve {amount} K$ neki: @{name}.",
+  "coffee.pay_not_member": "@{name} nincs ebben a csoportban.",
+  "coffee.pay_funds": "Ehhez nincs elég K$-od.",
+  "coffee.pay_self": "Magadnak nem fizethetsz.",
+  "coffee.pay_bad_amount": "Ez az összeg nem jó: pl. 2,50",
+  "coffee.pay_error": "Most nem sikerült fizetni. Próbáld újra."
 }

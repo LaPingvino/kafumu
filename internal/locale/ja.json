@@ -827,5 +827,14 @@
   "coffee.join_explain": "メンバーがあなたを招待しました。メンバーになると毎日グループの配当を受け取れます。",
   "coffee.join_go": "参加する",
   "coffee.join_bad": "この招待リンクは無効です。",
-  "coffee.join_member": "すでにこのグループに入っています。"
+  "coffee.join_member": "すでにこのグループに入っています。",
+  "coffee.pay": "支払う",
+  "coffee.pay_to": "相手（@名前）",
+  "coffee.pay_amount": "金額（K$）",
+  "coffee.paid": "@{name} に {amount} K$ を支払いました。",
+  "coffee.pay_not_member": "@{name} はこのグループにいません。",
+  "coffee.pay_funds": "K$ が足りません。",
+  "coffee.pay_self": "自分自身には支払えません。",
+  "coffee.pay_bad_amount": "金額が正しくないようです：例 2.50",
+  "coffee.pay_error": "いま支払えませんでした。もう一度お試しください。"
 }

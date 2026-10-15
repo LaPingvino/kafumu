@@ -827,5 +827,14 @@
   "coffee.join_explain": "Тебе запросив учасник. Як учасник ти щодня отримуєш дивіденд групи.",
   "coffee.join_go": "Приєднатися",
   "coffee.join_bad": "Це запрошення недійсне.",
-  "coffee.join_member": "Ти вже в цій групі."
+  "coffee.join_member": "Ти вже в цій групі.",
+  "coffee.pay": "Заплатити",
+  "coffee.pay_to": "Кому (@ім'я)",
+  "coffee.pay_amount": "Сума в K$",
+  "coffee.paid": "Сплачено {amount} K$ користувачу @{name}.",
+  "coffee.pay_not_member": "@{name} немає в цій групі.",
+  "coffee.pay_funds": "На це не вистачає K$.",
+  "coffee.pay_self": "Не можна заплатити самому собі.",
+  "coffee.pay_bad_amount": "Сума виглядає неправильно: наприклад, 2,50",
+  "coffee.pay_error": "Зараз заплатити не вдалося. Спробуй ще раз."
 }

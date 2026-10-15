@@ -260,3 +260,32 @@ func Money(micro int64) string {
 	}
 	return fmt.Sprintf("%s%d.%02d", sign, micro/1_000_000, micro%1_000_000/10_000)
 }
+
+// ParseMoney reads "12", "12.5" or "12,50" K$ as micro-units (up to six
+// decimals); false for anything else, zero or negative.
+func ParseMoney(s string) (int64, bool) {
+	s = strings.TrimSpace(strings.ReplaceAll(s, ",", "."))
+	whole, frac, _ := strings.Cut(s, ".")
+	if whole == "" && frac == "" || len(frac) > 6 || len(whole) > 12 {
+		return 0, false
+	}
+	var w, f int64
+	for _, r := range whole {
+		if r < '0' || r > '9' {
+			return 0, false
+		}
+		w = w*10 + int64(r-'0')
+	}
+	for i := 0; i < 6; i++ {
+		f *= 10
+		if i < len(frac) {
+			r := frac[i]
+			if r < '0' || r > '9' {
+				return 0, false
+			}
+			f += int64(r - '0')
+		}
+	}
+	m := w*1_000_000 + f
+	return m, m > 0
+}

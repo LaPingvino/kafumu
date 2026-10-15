@@ -827,5 +827,14 @@
   "coffee.join_explain": "Một thành viên đã mời bạn. Là thành viên, mỗi ngày bạn nhận cổ tức của nhóm.",
   "coffee.join_go": "Tham gia",
   "coffee.join_bad": "Liên kết mời này không hợp lệ.",
-  "coffee.join_member": "Bạn đã ở trong nhóm này."
+  "coffee.join_member": "Bạn đã ở trong nhóm này.",
+  "coffee.pay": "Trả",
+  "coffee.pay_to": "Cho ai (@tên)",
+  "coffee.pay_amount": "Số tiền bằng K$",
+  "coffee.paid": "Đã trả {amount} K$ cho @{name}.",
+  "coffee.pay_not_member": "@{name} không ở trong nhóm này.",
+  "coffee.pay_funds": "Bạn không đủ K$ cho khoản đó.",
+  "coffee.pay_self": "Bạn không thể tự trả cho mình.",
+  "coffee.pay_bad_amount": "Số tiền này không đúng: vd. 2,50",
+  "coffee.pay_error": "Hiện chưa trả được. Hãy thử lại."
 }

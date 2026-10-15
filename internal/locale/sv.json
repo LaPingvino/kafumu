@@ -827,5 +827,14 @@
   "coffee.join_explain": "En medlem bjöd in dig. Som medlem får du gruppens utdelning varje dag.",
   "coffee.join_go": "Gå med",
   "coffee.join_bad": "Den här inbjudningslänken är inte giltig.",
-  "coffee.join_member": "Du är redan med i den här gruppen."
+  "coffee.join_member": "Du är redan med i den här gruppen.",
+  "coffee.pay": "Betala",
+  "coffee.pay_to": "Till vem (@namn)",
+  "coffee.pay_amount": "Belopp i K$",
+  "coffee.paid": "Betalade {amount} K$ till @{name}.",
+  "coffee.pay_not_member": "@{name} är inte med i den här gruppen.",
+  "coffee.pay_funds": "Inte tillräckligt med K$ för det.",
+  "coffee.pay_self": "Du kan inte betala dig själv.",
+  "coffee.pay_bad_amount": "Beloppet ser fel ut: t.ex. 2,50",
+  "coffee.pay_error": "Det gick inte att betala just nu. Försök igen."
 }

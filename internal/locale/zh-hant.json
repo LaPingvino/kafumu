@@ -827,5 +827,14 @@
   "coffee.join_explain": "一位成員邀請了你。作為成員，你每天都會獲得群組的分紅。",
   "coffee.join_go": "加入",
   "coffee.join_bad": "這個邀請連結無效。",
-  "coffee.join_member": "你已經在這個群組裡了。"
+  "coffee.join_member": "你已經在這個群組裡了。",
+  "coffee.pay": "付款",
+  "coffee.pay_to": "付給誰（@名字）",
+  "coffee.pay_amount": "金額（K$）",
+  "coffee.paid": "已向 @{name} 支付 {amount} K$。",
+  "coffee.pay_not_member": "@{name} 不在這個群組裡。",
+  "coffee.pay_funds": "你的 K$ 不夠。",
+  "coffee.pay_self": "不能付款給自己。",
+  "coffee.pay_bad_amount": "這個金額不對：例如 2.50",
+  "coffee.pay_error": "暫時無法付款，請再試一次。"
 }

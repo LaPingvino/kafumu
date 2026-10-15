@@ -827,5 +827,14 @@
   "coffee.join_explain": "Seorang anggota mengundangmu. Sebagai anggota kamu mendapat dividen grup setiap hari.",
   "coffee.join_go": "Gabung",
   "coffee.join_bad": "Tautan undangan ini tidak berlaku.",
-  "coffee.join_member": "Kamu sudah ada di grup ini."
+  "coffee.join_member": "Kamu sudah ada di grup ini.",
+  "coffee.pay": "Bayar",
+  "coffee.pay_to": "Ke siapa (@nama)",
+  "coffee.pay_amount": "Jumlah dalam K$",
+  "coffee.paid": "Membayar {amount} K$ ke @{name}.",
+  "coffee.pay_not_member": "@{name} tidak ada di grup ini.",
+  "coffee.pay_funds": "K$-mu tidak cukup untuk itu.",
+  "coffee.pay_self": "Kamu tidak bisa membayar dirimu sendiri.",
+  "coffee.pay_bad_amount": "Jumlah itu tidak benar: mis. 2,50",
+  "coffee.pay_error": "Pembayaran gagal saat ini. Coba lagi."
 }

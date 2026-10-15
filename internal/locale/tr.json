@@ -827,5 +827,14 @@
   "coffee.join_explain": "Bir üye seni davet etti. Üye olarak her gün grubun kâr payını alırsın.",
   "coffee.join_go": "Katıl",
   "coffee.join_bad": "Bu davet bağlantısı geçerli değil.",
-  "coffee.join_member": "Zaten bu gruptasın."
+  "coffee.join_member": "Zaten bu gruptasın.",
+  "coffee.pay": "Öde",
+  "coffee.pay_to": "Kime (@ad)",
+  "coffee.pay_amount": "K$ cinsinden tutar",
+  "coffee.paid": "@{name} kişisine {amount} K$ ödendi.",
+  "coffee.pay_not_member": "@{name} bu grupta değil.",
+  "coffee.pay_funds": "Bunun için yeterli K$'ın yok.",
+  "coffee.pay_self": "Kendine ödeme yapamazsın.",
+  "coffee.pay_bad_amount": "Bu tutar doğru görünmüyor: örn. 2,50",
+  "coffee.pay_error": "Şu an ödeme yapılamadı. Tekrar dene."
 }

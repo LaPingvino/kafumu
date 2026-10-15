@@ -546,3 +546,7 @@ main:focus { outline: none; }
 /* The reply box and 🔒 answer privately share one row; reactions the next. */
 .actions:has(> .answer-private) > .reply-box { flex: 1 1 calc(100% - 3.5rem); order: -2; } /* the row: the box and 🔒, nothing else */
 .actions > .answer-private { order: -1; }
+/* CoffeeBucks (96f). */
+.coffee-pay input.coffee-amount { flex: 0 1 7rem; }
+.coffee-msg.ok { color: var(--accent); }
+.coffee-msg.error { color: var(--del-color, #b3261e); }

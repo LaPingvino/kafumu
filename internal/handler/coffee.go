@@ -146,12 +146,15 @@ type coffeePage struct {
 	Groups   []coffeeGroup
 	MayStart bool
 	Focus    string
+	// Msg: how the last payment went (paid, funds, not_member, self, amount,
+	// error), with To and Amount for "paid".
+	Msg, To, Amount string
 }
 
 // Show renders /coffee: your groups (balance, today's dividend), invites,
 // starting a group.
 func (c *Coffee) Show(w http.ResponseWriter, r *http.Request) {
-	p := coffeePage{page: c.Home.newPage(r, "CoffeeBucks"), Focus: r.FormValue("g")}
+	p := coffeePage{page: c.Home.newPage(r, "CoffeeBucks"), Focus: r.FormValue("g"), Msg: r.FormValue("m"), To: r.FormValue("to"), Amount: r.FormValue("a")}
 	p.Tab = "account"
 	u := p.User
 	p.MayStart = mayStart(u)
@@ -202,4 +205,59 @@ func (c *Coffee) ShowJoin(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Cache-Control", "no-store")
 	w.Header().Set("Referrer-Policy", "no-referrer") // the link carries an invite
 	c.Home.render(w, "coffee_join.html", p)
+}
+
+// Pay handles POST /coffee/pay (g, to, amount): pay @name, a member of the
+// same group, in K$. The ledger sees two pseudonymous member ids; who they
+// are stays with Kafumu.
+func (c *Coffee) Pay(w http.ResponseWriter, r *http.Request) {
+	u := UserFrom(r.Context())
+	gid := r.FormValue("g")
+	back := func(msg string, extra ...string) {
+		q := url.Values{"g": {gid}, "m": {msg}}
+		for i := 0; i+1 < len(extra); i += 2 {
+			q.Set(extra[i], extra[i+1])
+		}
+		http.Redirect(w, r, "/coffee?"+q.Encode()+"#g-"+gid, http.StatusSeeOther)
+	}
+	if u == nil || !slices.Contains(u.Groups, gid) {
+		http.Error(w, "not a member", http.StatusForbidden)
+		return
+	}
+	ctx := r.Context()
+	name := strings.ToLower(strings.TrimPrefix(strings.TrimSpace(r.FormValue("to")), "@"))
+	amount, ok := coffee.ParseMoney(r.FormValue("amount"))
+	if !ok {
+		back("bad_amount")
+		return
+	}
+	id, err := c.Accounts.Store.LookupUsername(ctx, name)
+	var to *account.User
+	if err == nil && id != "" {
+		to, err = c.Accounts.ByID(ctx, id)
+	}
+	if err != nil || to == nil || !slices.Contains(to.Groups, gid) {
+		back("not_member", "to", name)
+		return
+	}
+	if to.ID == u.ID {
+		back("self")
+		return
+	}
+	from, err1 := c.C.MemberID(ctx, u.ID)
+	them, err2 := c.C.MemberID(ctx, to.ID)
+	if err1 != nil || err2 != nil {
+		back("error")
+		return
+	}
+	if err := c.C.Pay(ctx, gid, from, them, amount); err != nil {
+		if strings.Contains(err.Error(), "insufficient") {
+			back("funds")
+		} else {
+			log.Printf("coffee: pay in %s: %v", gid, err)
+			back("error")
+		}
+		return
+	}
+	back("paid", "to", name, "a", coffee.Money(amount))
 }
