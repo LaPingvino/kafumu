@@ -1514,7 +1514,14 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       ledger), test; node/v0.2.1 tagged, gae requires it. Also fixed: gae restart test compared two zero balances
       (member prefix is m:), now asserts a real one. Was: ~/liquiditypub/node: Node.Pay(from, to, amount, note): a local payment between active members (balance
       checked, persisted), test; tag node/v0.2.1, gae requires it.
-- [ ] 96e2. ~/liquiditypub/gae: host many group nodes (LPGroup registry; in-process Sender; /lp/g/<gid>/ reads; an
+- [x] 96e2a. Done: gae/host.go: Host runs many group nodes (own store id g-<gid>, base https://<gid>.g.kafumu.com),
+      in-process Sender, Link (contact seeded at UD parity), RunUD over all groups. Tests: two groups dividend + pay
+      inside + link + pay across, settled; two nodes paying each other concurrently 30x under -race: all settle or
+      refused, channel root/op seq/reserves agree, supply unchanged. That test found a real data race in the node
+      (values read after Unlock): fixed, node/v0.2.2.
+- [ ] 96e2b. ~/liquiditypub/gae: wire Host into main (groups registry LPGroup; daily cron = Host.RunUD), /lp/g/<gid>/
+      public reads, admin API for Kafumu (create group, add member, pay, link, cross-group transfer), deploy.
+- [x] 96e2. (split into 96e2a/b) Was: ~/liquiditypub/gae: host many group nodes (LPGroup registry; in-process Sender; /lp/g/<gid>/ reads; an
       admin API for Kafumu: create group, add member, pay, link two groups = a contact seeded at UD parity,
       cross-group transfer). Test: two groups, dividend, link, a payment across, both ledgers verify.
 - [ ] 96e3. Kafumu: start a group, invite link, join (calls the lp admin API with the token from Datastore).
