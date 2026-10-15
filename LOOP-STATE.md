@@ -1648,7 +1648,9 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       records/day per group whatever its size. Group nodes: UDPeriod PT1H, c ≈ 11 ppm/hour (≈10.1 %/year; integer
       ppm can't do 274/24 exactly), GenesisUD floor per hour; cron hourly. New members get a dividend within the hour.
       Node (+ conformance/PHP note: batched UD is node-internal), lp, cron.yaml; tests.
-- [ ] Fix (Joop 2026-10-15): picking an area in the picker doesn't show the name of the area you clicked; it shows
+- [x] Fix: the map picker stays open while you click blocks, and its field covers the heading; it kept the old
+      (or, after the sea, empty) text. Now it shows #geo<cell> at once and the area's name when it loads. Checked in a
+      browser: Barreiro → click Lisbon's block → "#geo8ccgpv" → "Lisbon". Was: (Joop 2026-10-15): picking an area in the picker doesn't show the name of the area you clicked; it shows
       properly only after a reload (seen after visiting a piece of sea with no local names first). Next.
 - [x] 96l. Done + deployed: 🧾 Ask for a payment on each group card (amount, what for) → a link + QR (built in the
       browser; nothing stored; the note stays in the link) to share; /coffee/request shows "@you asks you for 3.50 B$",

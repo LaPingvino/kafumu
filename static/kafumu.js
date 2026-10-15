@@ -1722,6 +1722,10 @@
     var tag = "#geo" + c;
     $("cell-tag").textContent = tag;
     $("place-name").textContent = "";
+    // The picker stays open while you click around the map (91f): its field
+    // stands in for the heading, so it shows where you are now — the #geo
+    // code until the name arrives (Joop: picking showed no name till reload).
+    if (document.querySelector(".cell-tag.editing")) $("place-q").value = "#geo" + c;
     $("place-also").hidden = true;
     document.querySelector(".cell-tag").classList.remove("named");
     document.querySelector(".cell-tag").hidden = false;
@@ -1843,6 +1847,7 @@
           var langName = view.lang ? (((window.KAFUMU_ME || {}).names || {})[view.lang] || view.lang) : "";
           $("place-name").textContent = view.tag ? tagText(view.tag) + " · " + placeText : langName ? "🗣 " + langName + " · " + placeText : placeText;
           document.querySelector(".cell-tag").classList.add("named");
+          if (document.querySelector(".cell-tag.editing")) $("place-q").value = b.near.name;
           // The cloud: neighbourhoods and villages around, small.
           var also = $("place-also");
           also.textContent = (b.near.also || []).join(" · ");
