@@ -850,8 +850,8 @@
   "coffee.confirm_rate": "La cursul de azi dintre cele două grupuri; se mișcă puțin la fiecare plată.",
   "coffee.confirm_go": "Plătește {amount} K$",
   "coffee.confirm_bad": "Plata asta nu (mai) e posibilă.",
-  "privacy.coffee_title": "CoffeeBucks: singurul lucru păstrat definitiv",
-  "privacy.coffee": "Dacă intri într-un grup CoffeeBucks, registrul grupului e ținut de serviciul monetar al Kafumu și e, intenționat, public și permanent: oricine poate verifica că nu apar bani din nimic. În el ești un identificator pseudonim, nu numele sau contul tău. Serverul Kafumu știe care identificator e al tău și vede fiecare plată, ca o bancă; pentru ce a fost o plată nu se scrie nicăieri. Dacă îți ștergi contul Kafumu, identificatorul tău rămâne în istoria registrului, dar nimic nu-l mai leagă de tine. Nimic altceva pe Kafumu nu e păstrat așa.",
+  "privacy.coffee_title": "CoffeeBucks: păstrat cât timp există grupul",
+  "privacy.coffee": "Dacă intri într-un grup CoffeeBucks, registrul grupului e ținut de serviciul monetar al Kafumu, intenționat public și păstrat cât timp există grupul: oricine poate verifica că nu apar bani din nimic. În el ești un identificator pseudonim, nu numele sau contul tău. Serverul Kafumu știe care identificator e al tău și vede fiecare plată, ca o bancă; pentru ce a fost o plată nu se scrie nicăieri. Un grup în care n-a fost nimeni timp de 90 de zile e șters, cu registru cu tot. Dacă îți ștergi contul Kafumu, identificatorul tău rămâne în istoria registrului, dar nimic nu-l mai leagă de tine.",
   "about.coffee_title": "O monedă locală",
   "about.coffee": "CoffeeBucks (K$) sunt bani pe care grupuri de oameni care se cunosc îi țin împreună: fiecare membru primește zilnic același dividend, iar grupurile legate își pot plăti la un curs care se mișcă odată cu plățile. Funcționează pe LiquidityPub, un protocol deschis: fără blockchain și fără vreo firmă la mijloc.",
   "coffee.leave_link": "Ieși din acest grup",
@@ -877,5 +877,6 @@
   "coffee.rename_go": "Salvează",
   "coffee.rename_note": "Orice membru le poate redenumi. Sumele rămân aceleași.",
   "coffee.renamed": "Redenumit.",
-  "coffee.pay_rename_bad": "Nu s-a putut redenumi: nume până la 60, monedă până la 30, simbol până la 5 caractere."
+  "coffee.pay_rename_bad": "Nu s-a putut redenumi: nume până la 60, monedă până la 30, simbol până la 5 caractere.",
+  "coffee.leave_last_gc": "Dacă nimeni nu intră în 90 de zile, grupul e șters, cu registru cu tot."
 }

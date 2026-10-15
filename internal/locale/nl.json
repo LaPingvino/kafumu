@@ -850,8 +850,8 @@
   "coffee.confirm_rate": "Tegen de koers van vandaag tussen de twee groepen; die beweegt bij elke betaling een beetje.",
   "coffee.confirm_go": "Betaal {amount} K$",
   "coffee.confirm_bad": "Deze betaling kan niet (meer).",
-  "privacy.coffee_title": "CoffeeBucks: het enige dat blijft",
-  "privacy.coffee": "Word je lid van een CoffeeBucks-groep, dan houdt de geld-service van Kafumu het grootboek van die groep bij, en dat is openbaar en blijvend, met opzet: iedereen kan nagaan dat er geen geld uit het niets verschijnt. Daarin ben je een pseudoniem, niet je naam of account. De server van Kafumu weet welk pseudoniem van jou is en ziet elke betaling, zoals een bank; waarvoor een betaling was, wordt nergens opgeschreven. Verwijder je je Kafumu-account, dan blijft je pseudoniem in de geschiedenis van het grootboek, maar niets koppelt het nog aan jou. Niets anders op Kafumu wordt zo bewaard.",
+  "privacy.coffee_title": "CoffeeBucks: bewaard zolang de groep bestaat",
+  "privacy.coffee": "Word je lid van een CoffeeBucks-groep, dan houdt de geld-service van Kafumu het grootboek van die groep bij, met opzet openbaar en bewaard zolang de groep bestaat: iedereen kan nagaan dat er geen geld uit het niets verschijnt. Daarin ben je een pseudoniem, niet je naam of account. De server van Kafumu weet welk pseudoniem van jou is en ziet elke betaling, zoals een bank; waarvoor een betaling was, wordt nergens opgeschreven. Een groep waar 90 dagen niemand in zat, wordt verwijderd, grootboek en al. Verwijder je je Kafumu-account, dan blijft je pseudoniem in de geschiedenis van het grootboek, maar niets koppelt het nog aan jou.",
   "about.coffee_title": "Een lokale munt",
   "about.coffee": "CoffeeBucks (K$) is geld dat groepen mensen die elkaar kennen samen bijhouden: elk lid krijgt elke dag hetzelfde dividend, en verbonden groepen kunnen elkaar betalen tegen een koers die met de betalingen meebeweegt. Het draait op LiquidityPub, een open protocol: geen blockchain, en geen bedrijf ertussen.",
   "coffee.leave_link": "Deze groep verlaten",
@@ -877,5 +877,6 @@
   "coffee.rename_go": "Opslaan",
   "coffee.rename_note": "Elk lid kan deze hernoemen. Bedragen blijven gelijk.",
   "coffee.renamed": "Hernoemd.",
-  "coffee.pay_rename_bad": "Hernoemen lukte niet: naam max. 60, munt max. 30, symbool max. 5 tekens."
+  "coffee.pay_rename_bad": "Hernoemen lukte niet: naam max. 60, munt max. 30, symbool max. 5 tekens.",
+  "coffee.leave_last_gc": "Wordt er binnen 90 dagen niemand lid, dan wordt de groep verwijderd, grootboek en al."
 }

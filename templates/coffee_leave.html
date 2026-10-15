@@ -7,7 +7,7 @@
     <input type="hidden" name="g" value="{{.Gid}}">
     {{range $i, $l := .MoveTo}}<label><input type="radio" name="mode" value="move" data-tg="{{$l.Gid}}"{{if eq $i 0}} checked{{end}}> {{ts $.Lang "coffee.leave_move" | replace "{group}" $l.Name}}</label>{{end}}
     {{with .MoveTo}}<input type="hidden" name="tg" value="{{(index . 0).Gid}}">{{end}}
-    {{if .Last}}<p class="dim small">{{t .Lang "coffee.leave_last"}}</p>{{else}}
+    {{if .Last}}<p class="dim small">{{t .Lang "coffee.leave_last"}} {{t .Lang "coffee.leave_last_gc"}}</p>{{else}}
     <label><input type="radio" name="mode" value="give"> {{t .Lang "coffee.leave_give"}}</label>
     <input name="to" placeholder="@name" autocomplete="off" autocapitalize="off" aria-label="{{ts .Lang "coffee.pay_to"}}" value="{{.To}}">
     <label><input type="radio" name="mode" value="share"{{if not .MoveTo}} checked{{end}}> {{t .Lang "coffee.leave_share"}}</label>{{end}}

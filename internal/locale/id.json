@@ -850,8 +850,8 @@
   "coffee.confirm_rate": "Dengan kurs hari ini antara kedua grup; sedikit berubah setiap ada pembayaran.",
   "coffee.confirm_go": "Bayar {amount} K$",
   "coffee.confirm_bad": "Pembayaran ini tidak (lagi) bisa dilakukan.",
-  "privacy.coffee_title": "CoffeeBucks: satu-satunya yang disimpan selamanya",
-  "privacy.coffee": "Kalau kamu bergabung dengan grup CoffeeBucks, buku besar grup itu dicatat oleh layanan uang Kafumu, dan sengaja dibuat publik dan permanen: siapa pun bisa memeriksa bahwa tidak ada uang muncul dari ketiadaan. Di sana kamu adalah ID samaran, bukan nama atau akunmu. Server Kafumu tahu ID mana yang milikmu dan melihat setiap pembayaran, seperti bank; untuk apa sebuah pembayaran tidak pernah dicatat. Kalau kamu menghapus akun Kafumu, ID-mu tetap ada di riwayat buku besar, tapi tidak ada lagi yang menghubungkannya denganmu. Tidak ada hal lain di Kafumu yang disimpan seperti ini.",
+  "privacy.coffee_title": "CoffeeBucks: disimpan selama grupnya ada",
+  "privacy.coffee": "Kalau kamu bergabung dengan grup CoffeeBucks, buku besar grup itu dicatat oleh layanan uang Kafumu, sengaja publik dan disimpan selama grupnya ada: siapa pun bisa memeriksa bahwa tidak ada uang muncul dari ketiadaan. Di sana kamu adalah ID samaran, bukan nama atau akunmu. Server Kafumu tahu ID mana yang milikmu dan melihat setiap pembayaran, seperti bank; untuk apa sebuah pembayaran tidak pernah dicatat. Grup yang kosong selama 90 hari dihapus, beserta buku besarnya. Kalau kamu menghapus akun Kafumu, ID-mu tetap ada di riwayat buku besar, tapi tidak ada lagi yang menghubungkannya denganmu.",
   "about.coffee_title": "Mata uang lokal",
   "about.coffee": "CoffeeBucks (K$) adalah uang yang dikelola bersama oleh kelompok orang yang saling kenal: setiap anggota mendapat dividen yang sama setiap hari, dan grup yang terhubung bisa saling membayar dengan kurs yang bergerak mengikuti pembayaran. Berjalan di LiquidityPub, protokol terbuka: tanpa blockchain dan tanpa perusahaan di tengah.",
   "coffee.leave_link": "Keluar dari grup ini",
@@ -877,5 +877,6 @@
   "coffee.rename_go": "Simpan",
   "coffee.rename_note": "Setiap anggota bisa mengganti nama ini. Jumlahnya tetap sama.",
   "coffee.renamed": "Nama diganti.",
-  "coffee.pay_rename_bad": "Gagal mengganti nama: nama maks. 60, mata uang 30, simbol 5 karakter."
+  "coffee.pay_rename_bad": "Gagal mengganti nama: nama maks. 60, mata uang 30, simbol 5 karakter.",
+  "coffee.leave_last_gc": "Kalau tidak ada yang bergabung dalam 90 hari, grup dihapus beserta buku besarnya."
 }

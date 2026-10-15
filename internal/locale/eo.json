@@ -850,8 +850,8 @@
   "coffee.confirm_rate": "Laŭ la hodiaŭa kurzo inter la du grupoj; ĝi iom moviĝas kun ĉiu pago.",
   "coffee.confirm_go": "Pagi {amount} K$",
   "coffee.confirm_bad": "Ĉi tiu pago ne (plu) eblas.",
-  "privacy.coffee_title": "CoffeeBucks: la sola afero konservata por ĉiam",
-  "privacy.coffee": "Se vi aliĝas al CoffeeBucks-grupo, la mona servo de Kafumu tenas la librotenadon de tiu grupo, kaj ĝi estas intence publika kaj daŭra: ĉiu povas kontroli, ke neniu mono aperas el nenio. En ĝi vi estas pseŭdonima identigilo, ne via nomo aŭ konto. La servilo de Kafumu scias, kiu identigilo estas via, kaj vidas ĉiun pagon, kiel banko; por kio pago estis, neniam estas skribita. Se vi forigas vian Kafumu-konton, via identigilo restas en la historio de la librotenado, sed nenio plu ligas ĝin al vi. Nenio alia ĉe Kafumu estas konservata tiel.",
+  "privacy.coffee_title": "CoffeeBucks: konservata, dum la grupo ekzistas",
+  "privacy.coffee": "Se vi aliĝas al CoffeeBucks-grupo, la mona servo de Kafumu tenas la librotenadon de tiu grupo, intence publikan kaj konservatan, dum la grupo ekzistas: ĉiu povas kontroli, ke neniu mono aperas el nenio. En ĝi vi estas pseŭdonima identigilo, ne via nomo aŭ konto. La servilo de Kafumu scias, kiu identigilo estas via, kaj vidas ĉiun pagon, kiel banko; por kio pago estis, neniam estas skribita. Grupo, en kiu neniu estis dum 90 tagoj, estas forigita, kun la librotenado. Se vi forigas vian Kafumu-konton, via identigilo restas en la historio de la librotenado, sed nenio plu ligas ĝin al vi.",
   "about.coffee_title": "Loka mono",
   "about.coffee": "CoffeeBucks (K$) estas mono, kiun grupoj de homoj, kiuj konas unu la alian, tenas kune: ĉiu membro ricevas la saman dividendon ĉiutage, kaj ligitaj grupoj povas pagi unu al la alia laŭ kurzo, kiu moviĝas kun la pagoj. Ĝi funkcias per LiquidityPub, malferma protokolo: sen blokĉeno kaj sen firmao meze.",
   "coffee.leave_link": "Forlasi ĉi tiun grupon",
@@ -877,5 +877,6 @@
   "coffee.rename_go": "Konservi",
   "coffee.rename_note": "Ĉiu membro povas renomi ilin. La sumoj restas samaj.",
   "coffee.renamed": "Renomita.",
-  "coffee.pay_rename_bad": "Ne eblis renomi: nomo ĝis 60, mono ĝis 30, simbolo ĝis 5 signoj."
+  "coffee.pay_rename_bad": "Ne eblis renomi: nomo ĝis 60, mono ĝis 30, simbolo ĝis 5 signoj.",
+  "coffee.leave_last_gc": "Se neniu aliĝas ene de 90 tagoj, la grupo estas forigita, kun la librotenado."
 }

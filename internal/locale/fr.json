@@ -850,8 +850,8 @@
   "coffee.confirm_rate": "Au taux du jour entre les deux groupes ; il bouge un peu à chaque paiement.",
   "coffee.confirm_go": "Payer {amount} K$",
   "coffee.confirm_bad": "Ce paiement n'est pas (plus) possible.",
-  "privacy.coffee_title": "CoffeeBucks : la seule chose gardée pour de bon",
-  "privacy.coffee": "Si tu rejoins un groupe CoffeeBucks, le registre de ce groupe est tenu par le service monétaire de Kafumu, et il est public et permanent, à dessein : chacun peut vérifier qu'aucune monnaie n'apparaît de nulle part. Tu y figures sous un identifiant pseudonyme, pas sous ton nom ni ton compte. Le serveur de Kafumu sait quel identifiant est le tien et voit chaque paiement, comme une banque ; l'objet d'un paiement n'est jamais noté. Si tu supprimes ton compte Kafumu, ton identifiant reste dans l'historique du registre, mais plus rien ne le relie à toi. Rien d'autre sur Kafumu n'est gardé ainsi.",
+  "privacy.coffee_title": "CoffeeBucks : gardé tant que le groupe existe",
+  "privacy.coffee": "Si tu rejoins un groupe CoffeeBucks, le registre de ce groupe est tenu par le service monétaire de Kafumu, public à dessein et gardé tant que le groupe existe : chacun peut vérifier qu'aucune monnaie n'apparaît de nulle part. Tu y figures sous un identifiant pseudonyme, pas sous ton nom ni ton compte. Le serveur de Kafumu sait quel identifiant est le tien et voit chaque paiement, comme une banque ; l'objet d'un paiement n'est jamais noté. Un groupe resté vide pendant 90 jours est supprimé, registre compris. Si tu supprimes ton compte Kafumu, ton identifiant reste dans l'historique du registre, mais plus rien ne le relie à toi.",
   "about.coffee_title": "Une monnaie locale",
   "about.coffee": "CoffeeBucks (K$), c'est de l'argent que des groupes de gens qui se connaissent tiennent ensemble : chaque membre reçoit le même dividende chaque jour, et les groupes reliés peuvent se payer à un taux qui évolue avec les paiements. Ça tourne sur LiquidityPub, un protocole ouvert : pas de blockchain, ni d'entreprise au milieu.",
   "coffee.leave_link": "Quitter ce groupe",
@@ -877,5 +877,6 @@
   "coffee.rename_go": "Enregistrer",
   "coffee.rename_note": "Tout membre peut les renommer. Les montants restent les mêmes.",
   "coffee.renamed": "Renommé.",
-  "coffee.pay_rename_bad": "Impossible de renommer : nom 60, monnaie 30, symbole 5 caractères max."
+  "coffee.pay_rename_bad": "Impossible de renommer : nom 60, monnaie 30, symbole 5 caractères max.",
+  "coffee.leave_last_gc": "Si personne ne rejoint d'ici 90 jours, le groupe est supprimé, registre compris."
 }

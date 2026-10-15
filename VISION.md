@@ -44,8 +44,9 @@ Every piece of data lives in exactly one of three places. Deciding which is most
 1. **Private data never leaves the device unencrypted.** Pairs, notes, check-in history, preferences. Sync is an opaque blob under a key the server doesn't have.
 2. **Public data is the user's, on ATproto.** If a thing is meant to be seen by strangers, it is a record in the user's PDS, and Kafumu only indexes it.
 3. **The server holds only opaque or expiring data.** Random-keyed slots and boxes, cached bundles, TTL'd fallback records, and the minimal account. Every server entity has either no meaning without a client-held key, or an `expiresAt`, or both. For pair-derived keys, **only the owner side is authenticated; the other side is anonymous** (`credentials: 'omit'`), otherwise random ids would be linked by the cookies on both ends.
-   *One stated exception (2026-10-15): the money layer.* A LiquidityPub ledger (CoffeeBucks, §4) is public and
-   permanent by design — tamper-evidence is the point — so it neither expires nor hides behind a client key. It
+   *One stated exception (2026-10-15): the money layer.* A LiquidityPub ledger (CoffeeBucks, §4) is public by
+   design — tamper-evidence is the point — and kept as long as its group exists, so it neither expires on a timer
+   nor hides behind a client key. A group with nobody in it for 90 days is deleted, ledger and all. It
    lives in its own service, holds pseudonymous account ids, and records only what members chose to do with
    money. Nothing else may lean on this exception.
 4. **Ranking and matching happen on the device**, against per-cell bundles, so the server never learns what matched you.
@@ -177,9 +178,10 @@ with it (Joop: "pretend groups are separate nodes until they link up", Circles-s
 on purpose, never derived from the contact graph: the server still doesn't know pairs. Kafumu acts as a clearing
 house for its group nodes (LiquidityPub PROTOCOL §12), clearing between them internally, with one identity at
 kafumu.com for later federation with outside nodes. Checklist: (1) its own tier — the stated exception to rule 3:
-a separate GAE service `lp` with a Datastore ledger, public and permanent by design; (2) no OLN tags; addressed by
+a separate GAE service `lp` with a Datastore ledger, public by design, kept as long as the group exists (90 days
+with nobody in it and it's deleted); (2) no OLN tags; addressed by
 LiquidityPub's own endpoints (`/.well-known/liquiditypub`, `/lp/*`); (3) the server sees each member's
-pseudonymous account, their group, and every payment, as the published ledger does; (4) no TTL on the ledger;
+pseudonymous account, their group, and every payment, as the published ledger does; (4) no TTL on a living group's ledger (a group empty for 90 days goes);
 cost: a few writes per payment and one dividend run a day per group; (5) the wallet reads its own account; nothing
 in the Bundle. Regulation (closed-loop/limited-network rules): Joop's call is to learn from real use first.
 

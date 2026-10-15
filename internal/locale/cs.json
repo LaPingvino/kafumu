@@ -850,8 +850,8 @@
   "coffee.confirm_rate": "Za dnešní kurz mezi oběma skupinami; s každou platbou se trochu pohne.",
   "coffee.confirm_go": "Zaplatit {amount} K$",
   "coffee.confirm_bad": "Tahle platba (už) není možná.",
-  "privacy.coffee_title": "CoffeeBucks: jediné, co zůstává natrvalo",
-  "privacy.coffee": "Když se přidáš do skupiny CoffeeBucks, účetní knihu té skupiny vede peněžní služba Kafumu a ta je záměrně veřejná a trvalá: kdokoli si může ověřit, že se peníze neobjevují z ničeho. Jsi v ní pseudonymní identifikátor, ne tvé jméno ani účet. Server Kafumu ví, který identifikátor je tvůj, a vidí každou platbu, jako banka; za co platba byla, se nikde nezapisuje. Když smažeš svůj účet na Kafumu, tvůj identifikátor zůstane v historii knihy, ale už ho s tebou nic nespojuje. Nic jiného na Kafumu se takhle neuchovává.",
+  "privacy.coffee_title": "CoffeeBucks: uchovává se, dokud skupina existuje",
+  "privacy.coffee": "Když se přidáš do skupiny CoffeeBucks, účetní knihu té skupiny vede peněžní služba Kafumu, záměrně veřejnou a uchovávanou, dokud skupina existuje: kdokoli si může ověřit, že se peníze neobjevují z ničeho. Jsi v ní pseudonymní identifikátor, ne tvé jméno ani účet. Server Kafumu ví, který identifikátor je tvůj, a vidí každou platbu, jako banka; za co platba byla, se nikde nezapisuje. Skupina, ve které 90 dní nikdo nebyl, se smaže i s knihou. Když smažeš svůj účet na Kafumu, tvůj identifikátor zůstane v historii knihy, ale už ho s tebou nic nespojuje.",
   "about.coffee_title": "Místní měna",
   "about.coffee": "CoffeeBucks (K$) jsou peníze, které spolu vedou skupiny lidí, kteří se znají: každý člen dostává každý den stejnou dividendu a propojené skupiny si mohou platit za kurz, který se hýbe s platbami. Běží na LiquidityPub, otevřeném protokolu: žádný blockchain a žádná firma uprostřed.",
   "coffee.leave_link": "Opustit tuto skupinu",
@@ -877,5 +877,6 @@
   "coffee.rename_go": "Uložit",
   "coffee.rename_note": "Přejmenovat může kterýkoli člen. Částky zůstávají stejné.",
   "coffee.renamed": "Přejmenováno.",
-  "coffee.pay_rename_bad": "Přejmenovat nešlo: název do 60, měna do 30, symbol do 5 znaků."
+  "coffee.pay_rename_bad": "Přejmenovat nešlo: název do 60, měna do 30, symbol do 5 znaků.",
+  "coffee.leave_last_gc": "Když se do 90 dní nikdo nepřidá, skupina se smaže i s knihou."
 }

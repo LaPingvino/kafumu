@@ -850,8 +850,8 @@
   "coffee.confirm_rate": "두 그룹 사이의 오늘 환율이에요. 지불할 때마다 조금씩 움직여요.",
   "coffee.confirm_go": "{amount} K$ 지불",
   "coffee.confirm_bad": "이 지불은 (더 이상) 할 수 없어요.",
-  "privacy.coffee_title": "CoffeeBucks: 영구히 남는 유일한 것",
-  "privacy.coffee": "CoffeeBucks 그룹에 들어가면 그 그룹의 장부는 Kafumu의 돈 서비스가 관리하며, 일부러 공개되고 영구적이에요. 아무것도 없는 데서 돈이 생기지 않는다는 걸 누구나 확인할 수 있어요. 장부 속 당신은 이름이나 계정이 아니라 가명 ID예요. Kafumu 서버는 어떤 ID가 당신 것인지 알고 은행처럼 모든 지불을 보지만, 지불의 목적은 어디에도 기록하지 않아요. Kafumu 계정을 삭제하면 당신의 ID는 장부 기록에 남지만, 더 이상 당신과 연결되지 않아요. Kafumu에서 이렇게 보관되는 건 이것뿐이에요.",
+  "privacy.coffee_title": "CoffeeBucks: 그룹이 있는 동안 보관돼요",
+  "privacy.coffee": "CoffeeBucks 그룹에 들어가면 그 그룹의 장부는 Kafumu의 돈 서비스가 관리하며, 일부러 공개되고 그룹이 있는 동안 보관돼요. 아무것도 없는 데서 돈이 생기지 않는다는 걸 누구나 확인할 수 있어요. 장부 속 당신은 이름이나 계정이 아니라 가명 ID예요. Kafumu 서버는 어떤 ID가 당신 것인지 알고 은행처럼 모든 지불을 보지만, 지불의 목적은 어디에도 기록하지 않아요. 90일 동안 아무도 없던 그룹은 장부와 함께 삭제돼요. Kafumu 계정을 삭제하면 당신의 ID는 장부 기록에 남지만, 더 이상 당신과 연결되지 않아요.",
   "about.coffee_title": "지역 화폐",
   "about.coffee": "CoffeeBucks(K$)는 서로 아는 사람들의 그룹이 함께 관리하는 돈이에요. 모든 회원이 매일 같은 배당을 받고, 연결된 그룹끼리는 지불에 따라 움직이는 환율로 서로 지불할 수 있어요. 개방형 프로토콜인 LiquidityPub 위에서 돌아가요. 블록체인도, 중간에 끼는 회사도 없어요.",
   "coffee.leave_link": "이 그룹 나가기",
@@ -877,5 +877,6 @@
   "coffee.rename_go": "저장",
   "coffee.rename_note": "회원 누구나 바꿀 수 있어요. 금액은 그대로예요.",
   "coffee.renamed": "이름을 바꿨어요.",
-  "coffee.pay_rename_bad": "바꾸지 못했어요: 이름 60자, 화폐 30자, 기호 5자까지."
+  "coffee.pay_rename_bad": "바꾸지 못했어요: 이름 60자, 화폐 30자, 기호 5자까지.",
+  "coffee.leave_last_gc": "90일 안에 아무도 들어오지 않으면 그룹은 장부와 함께 삭제돼요."
 }

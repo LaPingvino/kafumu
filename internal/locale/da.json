@@ -850,8 +850,8 @@
   "coffee.confirm_rate": "Til dagens kurs mellem de to grupper; den flytter sig lidt ved hver betaling.",
   "coffee.confirm_go": "Betal {amount} K$",
   "coffee.confirm_bad": "Denne betaling er ikke (længere) mulig.",
-  "privacy.coffee_title": "CoffeeBucks: det eneste, der gemmes for altid",
-  "privacy.coffee": "Bliver du medlem af en CoffeeBucks-gruppe, føres gruppens regnskab af Kafumus pengetjeneste, og det er med vilje offentligt og permanent: alle kan tjekke, at der ikke opstår penge ud af ingenting. Her er du et pseudonym, ikke dit navn eller din konto. Kafumus server ved, hvilket pseudonym der er dit, og ser hver betaling, ligesom en bank; hvad en betaling var for, skrives aldrig ned. Sletter du din Kafumu-konto, bliver dit pseudonym i regnskabets historik, men intet forbinder det længere med dig. Intet andet på Kafumu gemmes sådan.",
+  "privacy.coffee_title": "CoffeeBucks: gemt, så længe gruppen findes",
+  "privacy.coffee": "Bliver du medlem af en CoffeeBucks-gruppe, føres gruppens regnskab af Kafumus pengetjeneste, med vilje offentligt og gemt, så længe gruppen findes: alle kan tjekke, at der ikke opstår penge ud af ingenting. Her er du et pseudonym, ikke dit navn eller din konto. Kafumus server ved, hvilket pseudonym der er dit, og ser hver betaling, ligesom en bank; hvad en betaling var for, skrives aldrig ned. En gruppe, der har været tom i 90 dage, slettes, regnskab og det hele. Sletter du din Kafumu-konto, bliver dit pseudonym i regnskabets historik, men intet forbinder det længere med dig.",
   "about.coffee_title": "En lokal valuta",
   "about.coffee": "CoffeeBucks (K$) er penge, som grupper af folk, der kender hinanden, holder sammen: hvert medlem får det samme udbytte hver dag, og forbundne grupper kan betale hinanden til en kurs, der følger betalingerne. Det kører på LiquidityPub, en åben protokol: ingen blockchain og intet firma i midten.",
   "coffee.leave_link": "Forlad denne gruppe",
@@ -877,5 +877,6 @@
   "coffee.rename_go": "Gem",
   "coffee.rename_note": "Alle medlemmer kan omdøbe dem. Beløbene er de samme.",
   "coffee.renamed": "Omdøbt.",
-  "coffee.pay_rename_bad": "Kunne ikke omdøbe: navn op til 60, valuta op til 30, symbol op til 5 tegn."
+  "coffee.pay_rename_bad": "Kunne ikke omdøbe: navn op til 60, valuta op til 30, symbol op til 5 tegn.",
+  "coffee.leave_last_gc": "Bliver ingen medlem inden for 90 dage, slettes gruppen, regnskab og det hele."
 }

@@ -850,8 +850,8 @@
   "coffee.confirm_rate": "Al cambio de hoy entre los dos grupos; se mueve un poco con cada pago.",
   "coffee.confirm_go": "Pagar {amount} K$",
   "coffee.confirm_bad": "Este pago no es posible (ya).",
-  "privacy.coffee_title": "CoffeeBucks: lo único que se guarda para siempre",
-  "privacy.coffee": "Si te unes a un grupo de CoffeeBucks, el servicio monetario de Kafumu lleva el libro de ese grupo, y es público y permanente a propósito: cualquiera puede comprobar que no aparece dinero de la nada. En él eres un identificador seudónimo, no tu nombre ni tu cuenta. El servidor de Kafumu sabe qué identificador es el tuyo y ve cada pago, como un banco; para qué era un pago nunca se anota. Si borras tu cuenta de Kafumu, tu identificador sigue en la historia del libro, pero ya nada lo vincula contigo. Nada más en Kafumu se guarda así.",
+  "privacy.coffee_title": "CoffeeBucks: se guarda mientras exista el grupo",
+  "privacy.coffee": "Si te unes a un grupo de CoffeeBucks, el servicio monetario de Kafumu lleva el libro de ese grupo, público a propósito y guardado mientras exista el grupo: cualquiera puede comprobar que no aparece dinero de la nada. En él eres un identificador seudónimo, no tu nombre ni tu cuenta. El servidor de Kafumu sabe qué identificador es el tuyo y ve cada pago, como un banco; para qué era un pago nunca se anota. Un grupo que lleva 90 días sin nadie dentro se borra, libro incluido. Si borras tu cuenta de Kafumu, tu identificador sigue en la historia del libro, pero ya nada lo vincula contigo.",
   "about.coffee_title": "Una moneda local",
   "about.coffee": "CoffeeBucks (K$) es dinero que llevan juntos grupos de gente que se conoce: cada miembro recibe el mismo dividendo cada día, y los grupos enlazados pueden pagarse a un cambio que se mueve con los pagos. Funciona sobre LiquidityPub, un protocolo abierto: sin blockchain y sin ninguna empresa en medio.",
   "coffee.leave_link": "Salir de este grupo",
@@ -877,5 +877,6 @@
   "coffee.rename_go": "Guardar",
   "coffee.rename_note": "Cualquier miembro puede renombrarlos. Los importes no cambian.",
   "coffee.renamed": "Renombrado.",
-  "coffee.pay_rename_bad": "No se pudo renombrar: nombre hasta 60, moneda hasta 30, símbolo hasta 5 caracteres."
+  "coffee.pay_rename_bad": "No se pudo renombrar: nombre hasta 60, moneda hasta 30, símbolo hasta 5 caracteres.",
+  "coffee.leave_last_gc": "Si nadie entra en 90 días, el grupo se borra, libro incluido."
 }

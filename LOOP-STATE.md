@@ -1602,7 +1602,9 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
 - [x] 96m1. Done + deployed (lp): LPGroup.EmptySince (set on the last leave/move, cleared on a join); daily cron
       sweepGroups after 90 days: Host.Remove (links closed both sides, linked groups RetireReserve: node/v0.2.7,
       reserve.retire in PROTOCOL §9), DSStore.Delete, registry gone. Tests: Remove; sweep on the emulator.
-- [ ] 96m2. Wording: VISION's exception and the privacy page ("public and permanent", "kept for good") become "kept as
+- [x] 96m2. Done: privacy title/paragraph rewritten in 24 languages ("kept as long as the group lives"; 90 days
+      with nobody in it and it's deleted; the deleted-account sentence kept), the last member's leave page says it,
+      VISION's exception and checklist reworded. Was: Wording: VISION's exception and the privacy page ("public and permanent", "kept for good") become "kept as
       long as the group exists; 90 days with nobody in it and it's deleted"; the last member's leave page says so;
       strings x 24.
 - [x] 96m. (split into 96m1/m2) A group nobody's in for 90 days is deleted (Joop: "give it 90 days for someone to return with an invite

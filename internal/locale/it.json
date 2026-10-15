@@ -850,8 +850,8 @@
   "coffee.confirm_rate": "Al cambio di oggi tra i due gruppi; si muove un po' a ogni pagamento.",
   "coffee.confirm_go": "Paga {amount} K$",
   "coffee.confirm_bad": "Questo pagamento non è (più) possibile.",
-  "privacy.coffee_title": "CoffeeBucks: l'unica cosa conservata per sempre",
-  "privacy.coffee": "Se entri in un gruppo CoffeeBucks, il registro di quel gruppo è tenuto dal servizio monetario di Kafumu, ed è pubblico e permanente per scelta: chiunque può verificare che non compaia denaro dal nulla. Lì sei un identificativo pseudonimo, non il tuo nome né il tuo account. Il server di Kafumu sa quale identificativo è il tuo e vede ogni pagamento, come una banca; a cosa serviva un pagamento non viene mai scritto. Se elimini il tuo account Kafumu, il tuo identificativo resta nella storia del registro, ma niente lo collega più a te. Nient'altro su Kafumu viene conservato così.",
+  "privacy.coffee_title": "CoffeeBucks: conservato finché il gruppo esiste",
+  "privacy.coffee": "Se entri in un gruppo CoffeeBucks, il registro di quel gruppo è tenuto dal servizio monetario di Kafumu, pubblico per scelta e conservato finché il gruppo esiste: chiunque può verificare che non compaia denaro dal nulla. Lì sei un identificativo pseudonimo, non il tuo nome né il tuo account. Il server di Kafumu sa quale identificativo è il tuo e vede ogni pagamento, come una banca; a cosa serviva un pagamento non viene mai scritto. Un gruppo rimasto vuoto per 90 giorni viene eliminato, registro compreso. Se elimini il tuo account Kafumu, il tuo identificativo resta nella storia del registro, ma niente lo collega più a te.",
   "about.coffee_title": "Una moneta locale",
   "about.coffee": "CoffeeBucks (K$) è denaro che gruppi di persone che si conoscono tengono insieme: ogni membro riceve lo stesso dividendo ogni giorno, e i gruppi collegati possono pagarsi a un cambio che si muove con i pagamenti. Funziona su LiquidityPub, un protocollo aperto: niente blockchain e nessuna azienda in mezzo.",
   "coffee.leave_link": "Lascia questo gruppo",
@@ -877,5 +877,6 @@
   "coffee.rename_go": "Salva",
   "coffee.rename_note": "Qualsiasi membro può rinominarli. Gli importi restano uguali.",
   "coffee.renamed": "Rinominato.",
-  "coffee.pay_rename_bad": "Impossibile rinominare: nome fino a 60, moneta fino a 30, simbolo fino a 5 caratteri."
+  "coffee.pay_rename_bad": "Impossibile rinominare: nome fino a 60, moneta fino a 30, simbolo fino a 5 caratteri.",
+  "coffee.leave_last_gc": "Se nessuno entra entro 90 giorni, il gruppo viene eliminato, registro compreso."
 }

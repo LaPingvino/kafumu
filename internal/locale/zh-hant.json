@@ -850,8 +850,8 @@
   "coffee.confirm_rate": "按兩個群組之間今天的匯率；每筆付款都會讓它稍微變動。",
   "coffee.confirm_go": "支付 {amount} K$",
   "coffee.confirm_bad": "這筆付款無法（再）進行。",
-  "privacy.coffee_title": "CoffeeBucks：唯一永久保存的東西",
-  "privacy.coffee": "如果你加入一個 CoffeeBucks 群組，該群組的帳本由 Kafumu 的貨幣服務保管，而且刻意是公開且永久的：任何人都可以核實沒有憑空出現的錢。在帳本裡你是一個化名 ID，而不是你的名字或帳號。Kafumu 的伺服器知道哪個 ID 是你的，並像銀行一樣看到每一筆付款；付款的用途從不被記錄。如果你刪除 Kafumu 帳號，你的 ID 仍留在帳本的歷史中，但再也沒有任何東西把它和你連結起來。Kafumu 上沒有別的東西是這樣保存的。",
+  "privacy.coffee_title": "CoffeeBucks：群組存在期間一直保存",
+  "privacy.coffee": "如果你加入一個 CoffeeBucks 群組，該群組的帳本由 Kafumu 的貨幣服務保管，刻意公開，並在群組存在期間一直保存：任何人都可以核實沒有憑空出現的錢。在帳本裡你是一個化名 ID，而不是你的名字或帳號。Kafumu 的伺服器知道哪個 ID 是你的，並像銀行一樣看到每一筆付款；付款的用途從不被記錄。90 天裡沒有任何成員的群組會連同帳本一起被刪除。如果你刪除 Kafumu 帳號，你的 ID 仍留在帳本的歷史中，但再也沒有任何東西把它和你連結起來。",
   "about.coffee_title": "在地貨幣",
   "about.coffee": "CoffeeBucks（K$）是由彼此認識的人組成的群組共同管理的錢：每位成員每天獲得同樣的分紅，相互連結的群組可以按隨付款變動的匯率互相付款。它運行在開放協定 LiquidityPub 之上：沒有區塊鏈，也沒有夾在中間的公司。",
   "coffee.leave_link": "退出這個群組",
@@ -877,5 +877,6 @@
   "coffee.rename_go": "儲存",
   "coffee.rename_note": "任何成員都可以改名。金額保持不變。",
   "coffee.renamed": "已改名。",
-  "coffee.pay_rename_bad": "改名失敗：名稱最多 60、貨幣最多 30、符號最多 5 個字元。"
+  "coffee.pay_rename_bad": "改名失敗：名稱最多 60、貨幣最多 30、符號最多 5 個字元。",
+  "coffee.leave_last_gc": "如果 90 天內沒有人加入，群組會連同帳本一起被刪除。"
 }
