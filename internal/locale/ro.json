@@ -925,5 +925,7 @@
   "groups.title": "Grupuri",
   "groups.intro": "Grupuri mici de oameni care se cunosc: un panou doar pentru membri cu oferte și cereri, și o monedă proprie, CoffeeBucks, cu același dividend pentru fiecare membru.",
   "js.push_board": "📋 Ceva nou pe panoul {group}",
-  "coffee.members_list": "Membri"
+  "coffee.members_list": "Membri",
+  "js.where_groups_too": "Grupurile tale CoffeeBucks văd și ele.",
+  "js.board_here": "@{name} e azi prin {place}"
 }

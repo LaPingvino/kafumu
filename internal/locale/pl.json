@@ -925,5 +925,7 @@
   "groups.title": "Grupy",
   "groups.intro": "Małe grupy ludzi, którzy się znają: tablica tylko dla członków na oferty i prośby, i własne pieniądze, CoffeeBucks, z tą samą dywidendą dla każdego członka.",
   "js.push_board": "📋 Nowość na tablicy grupy {group}",
-  "coffee.members_list": "Członkowie"
+  "coffee.members_list": "Członkowie",
+  "js.where_groups_too": "Twoje grupy CoffeeBucks też to widzą.",
+  "js.board_here": "@{name} jest dziś w okolicy {place}"
 }

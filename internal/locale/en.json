@@ -925,5 +925,7 @@
   "groups.title": "Groups",
   "groups.intro": "Small groups of people who know each other: a members-only board for offers and requests, and a money of your own, CoffeeBucks, with the same dividend for every member.",
   "js.push_board": "📋 New on the board of {group}",
-  "coffee.members_list": "Members"
+  "coffee.members_list": "Members",
+  "js.where_groups_too": "Your CoffeeBucks groups see it too.",
+  "js.board_here": "@{name} is around {place} today"
 }

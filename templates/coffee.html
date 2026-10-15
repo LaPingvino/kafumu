@@ -129,9 +129,13 @@
     var list = el("ul", "board-list"); body.appendChild(list);
     function draw(posts) {
       list.textContent = "";
+      // "📍 around <area> today" (97d) shows only today; older ones fade on the device.
+      var today = new Date().toISOString().slice(0, 10);
+      posts = posts.filter(function (p) { return p.kind !== "here" || String(p.at).slice(0, 10) === today; });
       var tops = posts.filter(function (p) { return !p.re; }), replies = posts.filter(function (p) { return p.re; });
       if (!tops.length) list.appendChild(el("li", "dim small", T.board_empty || ""));
       tops.forEach(function (p) {
+        if (p.kind === "here") { list.appendChild(el("li", "board-post board-here small", "📍 " + (T.board_here || "@{name}: {place}").replace("{name}", p.by || "").replace("{place}", p.text))); return; }
         var item = el("li", "board-post board-" + p.kind);
         var head = el("div", "dim small", (p.kind === "offer" ? "🎁 " : p.kind === "request" ? "🙋 " : "📝 ") + (p.by ? "@" + p.by + " · " : "") + new Date(p.at).toLocaleString(window.KAFUMU_LOCALE, { weekday: "short", hour: "2-digit", minute: "2-digit" }));
         item.appendChild(head);

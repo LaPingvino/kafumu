@@ -925,5 +925,7 @@
   "groups.title": "Csoportok",
   "groups.intro": "Egymást ismerő emberek kis csoportjai: csak tagoknak szóló tábla ajánlatokhoz és kérésekhez, és saját pénz, CoffeeBucks, minden tagnak ugyanakkora osztalékkal.",
   "js.push_board": "📋 Új bejegyzés a(z) {group} tábláján",
-  "coffee.members_list": "Tagok"
+  "coffee.members_list": "Tagok",
+  "js.where_groups_too": "A CoffeeBucks-csoportjaid is látják.",
+  "js.board_here": "@{name} ma {place} környékén van"
 }

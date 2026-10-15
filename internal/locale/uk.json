@@ -925,5 +925,7 @@
   "groups.title": "Групи",
   "groups.intro": "Невеликі групи людей, які знають одне одного: дошка лише для учасників із пропозиціями й запитами, і власні гроші, CoffeeBucks, з однаковим дивідендом для кожного учасника.",
   "js.push_board": "📋 Нове на дошці групи {group}",
-  "coffee.members_list": "Учасники"
+  "coffee.members_list": "Учасники",
+  "js.where_groups_too": "Твої групи CoffeeBucks теж це бачать.",
+  "js.board_here": "@{name} сьогодні десь біля {place}"
 }

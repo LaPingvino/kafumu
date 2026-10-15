@@ -925,5 +925,7 @@
   "groups.title": "群組",
   "groups.intro": "彼此認識的人組成的小群組：只有成員能看的看板（提供與徵求）、以及你們自己的錢 CoffeeBucks，每位成員分紅相同。",
   "js.push_board": "📋 {group} 的看板有新內容",
-  "coffee.members_list": "成員"
+  "coffee.members_list": "成員",
+  "js.where_groups_too": "你的 CoffeeBucks 群組也看得到。",
+  "js.board_here": "@{name} 今天在 {place} 一帶"
 }

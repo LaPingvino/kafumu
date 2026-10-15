@@ -925,5 +925,7 @@
   "groups.title": "Skupiny",
   "groups.intro": "Malé skupiny lidí, kteří se znají: nástěnka jen pro členy na nabídky a poptávky, a vlastní peníze, CoffeeBucks, se stejnou dividendou pro každého člena.",
   "js.push_board": "📋 Novinka na nástěnce skupiny {group}",
-  "coffee.members_list": "Členové"
+  "coffee.members_list": "Členové",
+  "js.where_groups_too": "Vidí to i tvé skupiny CoffeeBucks.",
+  "js.board_here": "@{name} je dnes někde u {place}"
 }

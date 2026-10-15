@@ -925,5 +925,7 @@
   "groups.title": "Grupper",
   "groups.intro": "Små grupper av folk som känner varandra: en tavla bara för medlemmar med erbjudanden och efterlysningar, och egna pengar, CoffeeBucks, med samma utdelning till varje medlem.",
   "js.push_board": "📋 Nytt på tavlan i {group}",
-  "coffee.members_list": "Medlemmar"
+  "coffee.members_list": "Medlemmar",
+  "js.where_groups_too": "Dina CoffeeBucks-grupper ser det också.",
+  "js.board_here": "@{name} är i närheten av {place} i dag"
 }

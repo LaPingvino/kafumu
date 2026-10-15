@@ -1712,6 +1712,10 @@ read, expiring like every line (rule 3 holds).
       opens Groups is added if missing; empty = deleted); each group card shows "👥 Members: @a, @b" (only your own
       groups are ever listed, so only members see it; names resolved fresh, so renames show). 1 string x 24; test.
       Was: Members of a group, for its members only: their @names (server: only to a member of that group; cached).
-- [ ] 97d. Where you are, to your group: "📍 around <area> today" as an encrypted board line that expires at the end
+- [x] 97d. Done + deployed: when "where you are" is shared (same rules: location fix, asks in a new area, pause),
+      each group whose board key is on the device gets "📍 @you is around <area> today" (once per group, area and day;
+      your own push silent); boards and Chats show only today's; the banner adds "your CoffeeBucks groups see it too";
+      someone with groups but no contacts now shares too. Lines live a week on the server (pair TTL); "today only" is
+      a device filter. 2 strings x 24. Not browser-tested. Was: Where you are, to your group: "📍 around <area> today" as an encrypted board line that expires at the end
       of the day; the same plain banner and pause as for contacts (95), automatic in areas you shared before, asks in
       a new one.

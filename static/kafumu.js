@@ -136,9 +136,9 @@
     var dev = window.kafumuDevice;
     if (!dev || !window.kafumuPair) return;
     var pair = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: dev.store, origin: location.origin });
-    dev.store.contacts().then(function (cs) {
-      cs = cs.filter(function (x) { return x.card; });
-      if (!cs.length) return;
+    Promise.all([dev.store.contacts(), dev.store.get("groupKeys")]).then(function (r0) {
+      var cs = r0[0].filter(function (x) { return x.card; }), gkeys = r0[1] || {};
+      if (!cs.length && !Object.keys(gkeys).length) return; // nobody to tell
       if (pref("kafumu.shareSeeded") !== "1") return dev.store.get("checkins").then(function (h) {
         (h || []).forEach(function (x) { toList("kafumu.shareCells", x.cell, true); });
         pref("kafumu.shareSeeded", "1");
@@ -156,7 +156,10 @@
       cs.forEach(function (x) { (x.tags || []).forEach(function (t) { if (groups.indexOf(t) < 0) groups.push(t); }); });
       if (groups.indexOf(group) < 0) group = "";
       var inGroup = function (x) { return !group || (x.tags || []).indexOf(group) >= 0; };
-      drawWhere(state, groups.sort(), group);
+      drawWhere(state, groups.sort(), group, Object.keys(gkeys).length > 0);
+      // Your CoffeeBucks groups (97d): "📍 around <area> today" on each board
+      // you have the key for, once a day per area; same rules as contacts.
+      if (sharing && Object.keys(gkeys).length && window.kafumuBoard) setTimeout(function () { tellGroups(c, gkeys); }, 4000);
       // Paused (95d): what they could see is emptied too, not just left to fade.
       return (sharing ? pair.checkIn(c, cs.filter(inGroup), null, cs.filter(function (x) { return !inGroup(x); })) : state === "off" ? pair.clearSlots(cs) : Promise.resolve()).then(function () {
         return pair.around(rings(c, 1).map(function (p) { return p[0]; }), cs.slice(0, 30));
@@ -215,13 +218,31 @@
     if (on) l.push(c);
     try { localStorage.setItem(key, JSON.stringify(l.slice(-300))); } catch (e) {}
   }
-  function drawWhere(state, groups, group) {
+  function tellGroups(c, gkeys) {
+    var dev = window.kafumuDevice, day = new Date().toISOString().slice(0, 10), me = (window.KAFUMU_ME || {}).username || "";
+    if (!dev || !me) return;
+    dev.store.get("boardHere").then(function (done) {
+      done = done || {};
+      var todo = Object.keys(gkeys).filter(function (g) { return done[g] !== c + day; });
+      return todo.reduce(function (p, g) {
+        return p.then(function () {
+          return window.kafumuBoard.post(gkeys[g], { kind: "here", text: travel.place || "#geo" + c, by: me }, function (t, kw, bits) { return window.kafumuOLN.post(t, kw, bits, function () {}); })
+            .then(function () {
+              done[g] = c + day;
+              // your own post comes back as a push: shown silently (97e2)
+              return window.kafumuBoard.tag(gkeys[g]).then(function (t) { return dev.store.get("justPosted").then(function (m) { m = m || {}; m[t] = Date.now(); return dev.store.set("justPosted", m); }); });
+            }, function () {});
+        });
+      }, Promise.resolve()).then(function () { return dev.store.set("boardHere", done); });
+    }).catch(function () {});
+  }
+  function drawWhere(state, groups, group, toGroups) {
     var el = $("where-shared");
     if (!el) return;
     var sharing = state === "on", c = currentCell;
     el.hidden = !state;
     el.classList.toggle("asking", state === "ask");
-    el.querySelector("span").textContent = sharing ? "📍 " + (group ? tr("where_shared_group", { group: group }) : tr("where_shared"))
+    el.querySelector("span").textContent = sharing ? "📍 " + (group ? tr("where_shared_group", { group: group }) : tr("where_shared")) + (toGroups ? " " + tr("where_groups_too") : "")
       : state === "ask" ? "📍 " + tr("where_ask") : state === "no" ? "📍 " + tr("where_not_here") : "⏸ " + tr("where_paused");
     var no = $("where-no");
     no.hidden = state !== "ask";

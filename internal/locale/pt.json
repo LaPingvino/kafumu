@@ -925,5 +925,7 @@
   "groups.title": "Grupos",
   "groups.intro": "Pequenos grupos de pessoas que se conhecem: um quadro só para membros com ofertas e pedidos, e uma moeda própria, CoffeeBucks, com o mesmo dividendo para cada membro.",
   "js.push_board": "📋 Novidade no quadro de {group}",
-  "coffee.members_list": "Membros"
+  "coffee.members_list": "Membros",
+  "js.where_groups_too": "Os teus grupos CoffeeBucks também veem.",
+  "js.board_here": "@{name} anda hoje por {place}"
 }

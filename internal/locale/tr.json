@@ -925,5 +925,7 @@
   "groups.title": "Gruplar",
   "groups.intro": "Birbirini tanıyan insanlardan küçük gruplar: teklif ve istekler için yalnızca üyelere açık bir pano ve her üyeye aynı kâr payını veren kendi paranız, CoffeeBucks.",
   "js.push_board": "📋 {group} panosunda yeni bir şey var",
-  "coffee.members_list": "Üyeler"
+  "coffee.members_list": "Üyeler",
+  "js.where_groups_too": "CoffeeBucks grupların da bunu görür.",
+  "js.board_here": "@{name} bugün {place} civarında"
 }

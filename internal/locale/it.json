@@ -925,5 +925,7 @@
   "groups.title": "Gruppi",
   "groups.intro": "Piccoli gruppi di persone che si conoscono: una bacheca solo per i membri con offerte e richieste, e una moneta vostra, CoffeeBucks, con lo stesso dividendo per ogni membro.",
   "js.push_board": "📋 Novità sulla bacheca di {group}",
-  "coffee.members_list": "Membri"
+  "coffee.members_list": "Membri",
+  "js.where_groups_too": "Lo vedono anche i tuoi gruppi CoffeeBucks.",
+  "js.board_here": "@{name} oggi è dalle parti di {place}"
 }

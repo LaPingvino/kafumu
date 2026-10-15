@@ -196,9 +196,11 @@
         var keys = r[0] || {}, names = r[1] || {}, seen = r[2] || {};
         return Promise.all(Object.keys(keys).map(function (g) {
           return window.kafumuBoard.read(keys[g]).then(function (posts) {
+            var today = new Date().toISOString().slice(0, 10);
+            posts = posts.filter(function (p) { return p.kind !== "here" || String(p.at).slice(0, 10) === today; });
             return posts.map(function (p) {
               return { thread: "g:" + g, kind: "group", title: "📋 " + (names[g] || g), href: "/groups?g=" + encodeURIComponent(g) + "#g-" + encodeURIComponent(g),
-                icon: p.kind === "offer" ? "🎁" : p.kind === "request" ? "🙋" : p.kind === "reply" ? "💬" : "📝", who: p.by ? "@" + p.by : "", text: p.text, at: p.at,
+                icon: p.kind === "offer" ? "🎁" : p.kind === "request" ? "🙋" : p.kind === "reply" ? "💬" : p.kind === "here" ? "📍" : "📝", who: p.by ? "@" + p.by : "", text: p.kind === "here" ? (T.board_here || "@{name}: {place}").replace("{name}", p.by || "").replace("{place}", p.text).replace(/^@\S+\s*/, "") : p.text, at: p.at,
                 unread: !seen[g] || String(p.at) > seen[g] };
             });
           }, function () { return []; });
