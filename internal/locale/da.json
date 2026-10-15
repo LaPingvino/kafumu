@@ -869,5 +869,13 @@
   "coffee.left": "Du har forladt gruppen.",
   "account.delete_coffee": "Dine CoffeeBucks-saldi tilintetgøres samtidig.",
   "privacy.coffee_delete": "Dens saldi tilintetgøres da: tages ud af omløb. Det samme sker med en navngiven konto, der slettes efter et år uden brug.",
-  "coffee.leave_last": "Du er det sidste medlem: gruppen går i dvale (intet udbytte), indtil nogen bliver medlem igen med en invitation. Flyt din saldo eller tilintetgør den."
+  "coffee.leave_last": "Du er det sidste medlem: gruppen går i dvale (intet udbytte), indtil nogen bliver medlem igen med en invitation. Flyt din saldo eller tilintetgør den.",
+  "coffee.rename": "Omdøb",
+  "coffee.rename_group": "Gruppens navn",
+  "coffee.rename_currency": "Valutaens navn",
+  "coffee.rename_symbol": "Symbol (op til 5)",
+  "coffee.rename_go": "Gem",
+  "coffee.rename_note": "Alle medlemmer kan omdøbe dem. Beløbene er de samme.",
+  "coffee.renamed": "Omdøbt.",
+  "coffee.pay_rename_bad": "Kunne ikke omdøbe: navn op til 60, valuta op til 30, symbol op til 5 tegn."
 }

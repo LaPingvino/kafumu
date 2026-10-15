@@ -869,5 +869,13 @@
   "coffee.left": "You left the group.",
   "account.delete_coffee": "Your CoffeeBucks balances are destroyed with it.",
   "privacy.coffee_delete": "Its balances are destroyed then: taken out of circulation. The same happens to a named account deleted after a year without use.",
-  "coffee.leave_last": "You're the last member: the group goes quiet (no dividend) until someone joins again with an invite. Move your balance or destroy it."
+  "coffee.leave_last": "You're the last member: the group goes quiet (no dividend) until someone joins again with an invite. Move your balance or destroy it.",
+  "coffee.rename": "Rename",
+  "coffee.rename_group": "Group name",
+  "coffee.rename_currency": "Currency name",
+  "coffee.rename_symbol": "Symbol (up to 5)",
+  "coffee.rename_go": "Save",
+  "coffee.rename_note": "Any member can rename these. Amounts stay the same.",
+  "coffee.renamed": "Renamed.",
+  "coffee.pay_rename_bad": "Couldn't rename: name up to 60, currency up to 30, symbol up to 5 characters."
 }

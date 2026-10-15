@@ -1590,7 +1590,9 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       dilution from it): fixed, node/v0.2.5 (the PHP node was right). String x 24, handler test.
 - [x] 96k1. Done + deployed (lp): node.SetIdentity (node/v0.2.6); LPGroup keeps currency/symbol, applied at start;
       POST /lp/admin/rename {gid,name?,currency?,symbol?} (≤60/30/5, control chars dropped). Admin test.
-- [ ] 96k2. Kafumu: a rename form on each group card (any member); each group's own symbol instead of K$ (from its
+- [x] 96k2. Done: ✎ Rename on each group card (any member: group name, currency name, symbol); every amount on
+      the coffee pages in the group's own symbol (GroupInfo from its identity doc; template func amount fills
+      "{amount} K$"); 8 strings x 24; handler test (symbol shown, non-member can't rename). Was: Kafumu: a rename form on each group card (any member); each group's own symbol instead of K$ (from its
       identity doc; "{amount} K$" in strings filled with amount + symbol); strings x 24.
 - [x] 96k. (split into 96k1/k2) Rename your group, its currency and its symbol (Joop: "a nice bit of flair"; "any member can rename,
       that encourages small groups where you truly know and trust each other"; "keeps the whimsy in it, and makes a
@@ -1603,6 +1605,13 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       its LPState/LPStateChunk/LPRecord/LPGroup; leftover balances of members who left go with it. Wording: VISION's
       exception and the privacy page say "kept as long as the group exists; 90 days with nobody in it and it's gone";
       the last member's leave page says it too. Tests (emulator for the delete).
+- [ ] 96n. Linking from a payment (Joop: "first person tries a cross-group payment, it starts linking? might be the
+      main way"; "be very clear about what the group linking does"): paying @name in a group not linked to yours
+      offers "link our groups and pay"; the payee gets a request (Chats) to accept; accepting opens the pool (each
+      group puts in a hundred days of dividend) and the payment goes through. Both sides see, before agreeing, in
+      plain words: what a link is (two groups can pay each other), what it costs (each group puts a hundred days of
+      dividend into a shared pot, its own money, nobody's balance), what moves the rate (payments), and that it can
+      be undone later only by both. Today: linking needs one person in both groups ("Link your groups" on /coffee).
 - [ ] 96l. Payment requests (Joop): "ask @me for 3.50 in <group>" as a link and a QR code (/coffee/pay?g=&to=&a=&for=
       prefilled, a short note not stored on the ledger); scanning or opening it shows the pay form filled in (or the
       across confirm when the payer is in a linked group); strings x 24.

@@ -869,5 +869,13 @@
   "coffee.left": "Vi forlasis la grupon.",
   "account.delete_coffee": "Viaj CoffeeBucks-saldoj estas detruitaj kune.",
   "privacy.coffee_delete": "Ties saldoj tiam estas detruitaj: forprenitaj el cirkulado. Same okazas al nomita konto forigita post jaro sen uzo.",
-  "coffee.leave_last": "Vi estas la lasta membro: la grupo ripozos (sen dividendo) ĝis iu aliĝos denove per invito. Movu vian saldon aŭ detruu ĝin."
+  "coffee.leave_last": "Vi estas la lasta membro: la grupo ripozos (sen dividendo) ĝis iu aliĝos denove per invito. Movu vian saldon aŭ detruu ĝin.",
+  "coffee.rename": "Renomi",
+  "coffee.rename_group": "Nomo de la grupo",
+  "coffee.rename_currency": "Nomo de la mono",
+  "coffee.rename_symbol": "Simbolo (ĝis 5)",
+  "coffee.rename_go": "Konservi",
+  "coffee.rename_note": "Ĉiu membro povas renomi ilin. La sumoj restas samaj.",
+  "coffee.renamed": "Renomita.",
+  "coffee.pay_rename_bad": "Ne eblis renomi: nomo ĝis 60, mono ĝis 30, simbolo ĝis 5 signoj."
 }

@@ -869,5 +869,13 @@
   "coffee.left": "Opustil(a) jsi skupinu.",
   "account.delete_coffee": "Tvé zůstatky CoffeeBucks se s ním zničí.",
   "privacy.coffee_delete": "Jeho zůstatky se pak zničí: stáhnou se z oběhu. Totéž se stane s pojmenovaným účtem smazaným po roce nepoužívání.",
-  "coffee.leave_last": "Jsi poslední člen: skupina utichne (bez dividendy), dokud se někdo znovu nepřidá přes pozvánku. Převeď svůj zůstatek, nebo ho znič."
+  "coffee.leave_last": "Jsi poslední člen: skupina utichne (bez dividendy), dokud se někdo znovu nepřidá přes pozvánku. Převeď svůj zůstatek, nebo ho znič.",
+  "coffee.rename": "Přejmenovat",
+  "coffee.rename_group": "Název skupiny",
+  "coffee.rename_currency": "Název měny",
+  "coffee.rename_symbol": "Symbol (až 5)",
+  "coffee.rename_go": "Uložit",
+  "coffee.rename_note": "Přejmenovat může kterýkoli člen. Částky zůstávají stejné.",
+  "coffee.renamed": "Přejmenováno.",
+  "coffee.pay_rename_bad": "Přejmenovat nešlo: název do 60, měna do 30, symbol do 5 znaků."
 }

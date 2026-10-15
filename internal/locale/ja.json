@@ -869,5 +869,13 @@
   "coffee.left": "グループを抜けました。",
   "account.delete_coffee": "CoffeeBucks の残高も一緒に消滅します。",
   "privacy.coffee_delete": "そのとき残高は消滅し、流通から外されます。名前のあるアカウントが1年使われずに削除された場合も同じです。",
-  "coffee.leave_last": "あなたが最後のメンバーです。誰かが招待で参加し直すまで、グループは休止します（配当なし）。残高を移すか、消滅させてください。"
+  "coffee.leave_last": "あなたが最後のメンバーです。誰かが招待で参加し直すまで、グループは休止します（配当なし）。残高を移すか、消滅させてください。",
+  "coffee.rename": "名前を変える",
+  "coffee.rename_group": "グループ名",
+  "coffee.rename_currency": "通貨の名前",
+  "coffee.rename_symbol": "記号（5文字まで）",
+  "coffee.rename_go": "保存",
+  "coffee.rename_note": "メンバーなら誰でも変えられます。金額は変わりません。",
+  "coffee.renamed": "名前を変えました。",
+  "coffee.pay_rename_bad": "変更できませんでした：名前60文字、通貨30文字、記号5文字まで。"
 }

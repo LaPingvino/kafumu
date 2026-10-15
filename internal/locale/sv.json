@@ -869,5 +869,13 @@
   "coffee.left": "Du har lämnat gruppen.",
   "account.delete_coffee": "Dina CoffeeBucks-saldon förstörs samtidigt.",
   "privacy.coffee_delete": "Saldona förstörs då: tas ur omlopp. Detsamma händer ett namngivet konto som raderas efter ett år utan användning.",
-  "coffee.leave_last": "Du är den sista medlemmen: gruppen vilar (ingen utdelning) tills någon går med igen via en inbjudan. Flytta ditt saldo eller förstör det."
+  "coffee.leave_last": "Du är den sista medlemmen: gruppen vilar (ingen utdelning) tills någon går med igen via en inbjudan. Flytta ditt saldo eller förstör det.",
+  "coffee.rename": "Byt namn",
+  "coffee.rename_group": "Gruppens namn",
+  "coffee.rename_currency": "Valutans namn",
+  "coffee.rename_symbol": "Symbol (upp till 5)",
+  "coffee.rename_go": "Spara",
+  "coffee.rename_note": "Alla medlemmar kan byta namn. Beloppen förblir desamma.",
+  "coffee.renamed": "Namnet är bytt.",
+  "coffee.pay_rename_bad": "Kunde inte byta namn: namn upp till 60, valuta upp till 30, symbol upp till 5 tecken."
 }

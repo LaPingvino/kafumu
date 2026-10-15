@@ -869,5 +869,13 @@
   "coffee.left": "Ai ieșit din grup.",
   "account.delete_coffee": "Soldurile tale CoffeeBucks sunt distruse odată cu el.",
   "privacy.coffee_delete": "Soldurile sale sunt atunci distruse: scoase din circulație. La fel se întâmplă cu un cont cu nume șters după un an de nefolosire.",
-  "coffee.leave_last": "Ești ultimul membru: grupul intră în repaus (fără dividend) până când cineva intră din nou cu o invitație. Mută-ți soldul sau distruge-l."
+  "coffee.leave_last": "Ești ultimul membru: grupul intră în repaus (fără dividend) până când cineva intră din nou cu o invitație. Mută-ți soldul sau distruge-l.",
+  "coffee.rename": "Redenumește",
+  "coffee.rename_group": "Numele grupului",
+  "coffee.rename_currency": "Numele monedei",
+  "coffee.rename_symbol": "Simbol (până la 5)",
+  "coffee.rename_go": "Salvează",
+  "coffee.rename_note": "Orice membru le poate redenumi. Sumele rămân aceleași.",
+  "coffee.renamed": "Redenumit.",
+  "coffee.pay_rename_bad": "Nu s-a putut redenumi: nume până la 60, monedă până la 30, simbol până la 5 caractere."
 }

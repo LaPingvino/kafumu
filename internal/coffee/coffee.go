@@ -209,48 +209,70 @@ var names = struct {
 }{m: map[string]nameEntry{}}
 
 type nameEntry struct {
-	name string
+	info Info
 	at   time.Time
 }
 
-// GroupName reads a group's name from its public identity document (cached
-// ten minutes per instance); "" if the group doesn't exist.
-func (c *Client) GroupName(ctx context.Context, gid string) string {
+// Info is how a group presents itself (its identity document): its name,
+// its currency's name and symbol — renamed by its members as they like.
+type Info struct {
+	Name, Currency, Symbol string
+}
+
+// GroupInfo reads a group's name, currency and symbol from its public
+// identity document (cached ten minutes per instance); empty if the group
+// doesn't exist. Symbol defaults to K$.
+func (c *Client) GroupInfo(ctx context.Context, gid string) Info {
 	names.Lock()
 	e, ok := names.m[gid]
 	names.Unlock()
 	if ok && time.Since(e.at) < 10*time.Minute {
-		return e.name
+		return e.info
 	}
-	if c.Base == "" {
-		return ""
+	var info Info
+	if c.Base != "" {
+		if req, err := http.NewRequestWithContext(ctx, "GET", c.Base+"/lp/g/"+gid+"/.well-known/liquiditypub", nil); err == nil {
+			hc := c.HTTP
+			if hc == nil {
+				hc = &http.Client{Timeout: 10 * time.Second}
+			}
+			if res, err := hc.Do(req); err == nil {
+				var doc struct {
+					Node     struct{ Name string } `json:"node"`
+					Currency struct{ Name, Symbol string }
+				}
+				if res.StatusCode == http.StatusOK {
+					json.NewDecoder(res.Body).Decode(&doc)
+				}
+				res.Body.Close()
+				info = Info{doc.Node.Name, doc.Currency.Name, doc.Currency.Symbol}
+			}
+		}
 	}
-	req, err := http.NewRequestWithContext(ctx, "GET", c.Base+"/lp/g/"+gid+"/.well-known/liquiditypub", nil)
-	if err != nil {
-		return ""
-	}
-	hc := c.HTTP
-	if hc == nil {
-		hc = &http.Client{Timeout: 10 * time.Second}
-	}
-	res, err := hc.Do(req)
-	if err != nil {
-		return ""
-	}
-	defer res.Body.Close()
-	var doc struct {
-		Node struct{ Name string } `json:"node"`
-	}
-	if res.StatusCode == http.StatusOK {
-		json.NewDecoder(res.Body).Decode(&doc)
+	if info.Symbol == "" {
+		info.Symbol = "K$"
 	}
 	names.Lock()
 	if len(names.m) > 1000 {
 		names.m = map[string]nameEntry{}
 	}
-	names.m[gid] = nameEntry{doc.Node.Name, time.Now()}
+	names.m[gid] = nameEntry{info, time.Now()}
 	names.Unlock()
-	return doc.Node.Name
+	return info
+}
+
+// GroupName is GroupInfo's name.
+func (c *Client) GroupName(ctx context.Context, gid string) string { return c.GroupInfo(ctx, gid).Name }
+
+// Rename renames a group, its currency or its symbol (empty = keep).
+func (c *Client) Rename(ctx context.Context, gid, name, currency, symbol string) error {
+	err := c.do(ctx, "POST", "/lp/admin/rename", map[string]string{"gid": gid, "name": name, "currency": currency, "symbol": symbol}, nil)
+	if err == nil {
+		names.Lock()
+		delete(names.m, gid)
+		names.Unlock()
+	}
+	return err
 }
 
 // Money formats micro-units as "12.34" (two decimals, floored).

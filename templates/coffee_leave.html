@@ -1,7 +1,7 @@
 {{template "head" .}}
 <article class="coffee">
   <h1>☕ {{ts .Lang "coffee.leave_title" | replace "{group}" .Name}}</h1>
-  <p>{{if .Balance}}{{ts .Lang "coffee.leave_explain" | replace "{amount}" .Balance}}{{else}}{{t .Lang "coffee.leave_explain0"}}{{end}}</p>
+  <p>{{if .Balance}}{{ts .Lang "coffee.leave_explain" | amount .Balance .Sym}}{{else}}{{t .Lang "coffee.leave_explain0"}}{{end}}</p>
   {{with .Err}}<p class="coffee-msg error" role="alert">{{if eq . "give_bad"}}{{ts $.Lang "coffee.pay_not_member" | replace "{name}" $.To}}{{else if eq . "last"}}{{t $.Lang "coffee.leave_last"}}{{else if eq . "sure"}}{{t $.Lang "coffee.leave_sure_needed"}}{{else}}{{t $.Lang "coffee.leave_error"}}{{end}}</p>{{end}}
   <form method="post" action="/coffee/leave" class="card coffee-leave" style="padding:8px 16px 12px">
     <input type="hidden" name="g" value="{{.Gid}}">

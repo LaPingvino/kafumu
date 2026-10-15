@@ -134,12 +134,13 @@ func (c *Coffee) Join(w http.ResponseWriter, r *http.Request) {
 }
 
 type coffeeGroup struct {
-	Links       []coffee.Link // groups this one is linked with
-	Gid, Name   string
-	Balance, UD string // K$, two decimals
-	Days        string // the balance in days of dividend
-	Members     int64
-	Unavailable bool
+	Currency, Sym string        // the group's own currency name and symbol (96k)
+	Links         []coffee.Link // groups this one is linked with
+	Gid, Name     string
+	Balance, UD   string // K$, two decimals
+	Days          string // the balance in days of dividend
+	Members       int64
+	Unavailable   bool
 }
 
 type coffeePage struct {
@@ -164,7 +165,8 @@ func (c *Coffee) Show(w http.ResponseWriter, r *http.Request) {
 	if u != nil {
 		me, err := c.C.MemberID(r.Context(), u.ID)
 		for _, gid := range u.Groups {
-			g := coffeeGroup{Gid: gid, Name: c.C.GroupName(r.Context(), gid)}
+			info := c.C.GroupInfo(r.Context(), gid)
+			g := coffeeGroup{Gid: gid, Name: info.Name, Currency: info.Currency, Sym: info.Symbol}
 			if g.Name == "" {
 				g.Name = gid
 			}
@@ -313,6 +315,7 @@ func (c *Coffee) Link(w http.ResponseWriter, r *http.Request) {
 
 type confirmPage struct {
 	page
+	FromSym, ToSym             string
 	Gid, Tg, From, ToGroup, To string
 	Amount                     int64
 	Pay, Gets                  string
@@ -357,7 +360,8 @@ func (c *Coffee) Confirm(w http.ResponseWriter, r *http.Request) {
 		if dst, err := c.C.Quote(r.Context(), gid, tg, amount); err == nil {
 			p.Ok, p.Gid, p.Tg, p.To, p.Amount = true, gid, tg, to.Username, amount
 			p.Pay, p.Gets = coffee.Money(amount), coffee.Money(dst)
-			p.From, p.ToGroup = c.C.GroupName(r.Context(), gid), c.C.GroupName(r.Context(), tg)
+			fi, ti := c.C.GroupInfo(r.Context(), gid), c.C.GroupInfo(r.Context(), tg)
+			p.From, p.ToGroup, p.FromSym, p.ToSym = fi.Name, ti.Name, fi.Symbol, ti.Symbol
 		}
 	}
 	w.Header().Set("Cache-Control", "no-store")
@@ -392,9 +396,9 @@ func (c *Coffee) Across(w http.ResponseWriter, r *http.Request) {
 
 type leavePage struct {
 	page
-	Gid, Name, Balance string
-	MoveTo             []coffee.Link // linked groups you're also in
-	Err, To            string
+	Gid, Name, Balance, Sym string
+	MoveTo                  []coffee.Link // linked groups you're also in
+	Err, To                 string
 	// Last: you're the only active member (96j): give has nobody to go to and
 	// sharing out would only sit in the fund, so it's move or destroy.
 	Last bool
@@ -409,7 +413,8 @@ func (c *Coffee) ShowLeave(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	ctx := r.Context()
-	p := leavePage{page: c.Home.newPage(r, "CoffeeBucks"), Gid: gid, Name: c.C.GroupName(ctx, gid), Err: r.FormValue("m"), To: r.FormValue("to")}
+	info := c.C.GroupInfo(ctx, gid)
+	p := leavePage{page: c.Home.newPage(r, "CoffeeBucks"), Gid: gid, Name: info.Name, Sym: info.Symbol, Err: r.FormValue("m"), To: r.FormValue("to")}
 	p.Tab = "account"
 	if p.Name == "" {
 		p.Name = gid
@@ -508,4 +513,22 @@ func (c *Coffee) Leave(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	http.Redirect(w, r, "/coffee?m=left", http.StatusSeeOther)
+}
+
+// Rename handles POST /coffee/rename (g, name, currency, symbol): any member
+// renames the group, its currency or its symbol (Joop: that keeps groups small
+// enough to trust each other, and the whimsy in it).
+func (c *Coffee) Rename(w http.ResponseWriter, r *http.Request) {
+	u := UserFrom(r.Context())
+	gid := r.FormValue("g")
+	if u == nil || !slices.Contains(u.Groups, gid) {
+		http.Error(w, "not a member", http.StatusForbidden)
+		return
+	}
+	m := "renamed"
+	if err := c.C.Rename(r.Context(), gid, r.FormValue("name"), r.FormValue("currency"), r.FormValue("symbol")); err != nil {
+		log.Printf("coffee: rename %s: %v", gid, err)
+		m = "rename_bad"
+	}
+	http.Redirect(w, r, "/coffee?"+url.Values{"g": {gid}, "m": {m}}.Encode()+"#g-"+gid, http.StatusSeeOther)
 }

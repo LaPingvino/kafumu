@@ -28,11 +28,12 @@ type fakeLP struct {
 	sent    []map[string]any
 	left    []map[string]any
 	lastOne bool
+	renamed []map[string]any
 }
 
 func (f *fakeLP) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if strings.HasPrefix(r.URL.Path, "/lp/g/") { // public: a group's identity document
-		w.Write([]byte(`{"node":{"name":"Barreiro Coffee!"}}`))
+		w.Write([]byte(`{"node":{"name":"Barreiro Coffee!"},"currency":{"name":"Bica","symbol":"B$"}}`))
 		return
 	}
 	if r.Header.Get("Authorization") != "Bearer tok" {
@@ -53,6 +54,8 @@ func (f *fakeLP) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	case "/lp/admin/group":
 		f.groups[in["gid"]] = nil
 		f.created = append(f.created, in["gid"])
+	case "/lp/admin/rename":
+		f.renamed = append(f.renamed, raw)
 	case "/lp/admin/leave", "/lp/admin/move":
 		raw["path"] = r.URL.Path
 		f.left = append(f.left, raw)
@@ -174,7 +177,7 @@ func TestCoffeeStartInviteJoin(t *testing.T) {
 	}
 	// The pages: bea's wallet (balance, dividend, days); the join page for a
 	// valid invite names the group, a forged one says it isn't valid.
-	if w := as(bea, "GET", "/coffee", nil, c.Show); w.Code != 200 || !strings.Contains(w.Body.String(), "12.34 K$") || !strings.Contains(w.Body.String(), "Barreiro Coffee!") || !strings.Contains(w.Body.String(), "≈ 12.3 days") {
+	if w := as(bea, "GET", "/coffee", nil, c.Show); w.Code != 200 || !strings.Contains(w.Body.String(), "12.34 B$") || !strings.Contains(w.Body.String(), "Bica") || !strings.Contains(w.Body.String(), "Barreiro Coffee!") || !strings.Contains(w.Body.String(), "≈ 12.3 days") {
 		t.Fatalf("wallet page: %d %s", w.Code, w.Body.String())
 	}
 	if w := as(anon, "GET", "/coffee/join?"+q.Encode(), nil, c.ShowJoin); !strings.Contains(w.Body.String(), "Join Barreiro Coffee!") || !strings.Contains(w.Body.String(), "/account?next=") {
@@ -221,7 +224,7 @@ func TestCoffeeStartInviteJoin(t *testing.T) {
 		t.Fatalf("paying across should confirm first: %s", w.Header().Get("Location"))
 	}
 	w = as(bea, "GET", loc.String(), nil, c.Confirm)
-	if !strings.Contains(w.Body.String(), "2.00 K$") || !strings.Contains(w.Body.String(), "1.96 K$") || !strings.Contains(w.Body.String(), "@dan receives") {
+	if !strings.Contains(w.Body.String(), "2.00 B$") || !strings.Contains(w.Body.String(), "1.96 B$") || !strings.Contains(w.Body.String(), "@dan receives") {
 		t.Fatalf("confirm page: %s", w.Body.String())
 	}
 	w = as(bea, "POST", "/coffee/across", loc.Query(), c.Across)
@@ -230,6 +233,13 @@ func TestCoffeeStartInviteJoin(t *testing.T) {
 	}
 	if w := as(dan, "POST", "/coffee/across", loc.Query(), c.Across); w.Code != 400 {
 		t.Fatal("someone outside the payer's group sent the payment")
+	}
+	// Renaming: any member; strangers can't.
+	if w := as(dan, "POST", "/coffee/rename", url.Values{"g": {gid}, "symbol": {"X$"}}, c.Rename); w.Code != 403 {
+		t.Fatal("a non-member renamed the group")
+	}
+	if w := as(bea, "POST", "/coffee/rename", url.Values{"g": {gid}, "symbol": {"X$"}}, c.Rename); w.Code != 303 || len(lp.renamed) != 1 || lp.renamed[0]["symbol"] != "X$" {
+		t.Fatalf("rename: %d %v", w.Code, lp.renamed)
 	}
 	// Leaving: the page; the box must be ticked; give needs a member; share
 	// and move call the service and take the group off the account.

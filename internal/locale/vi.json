@@ -869,5 +869,13 @@
   "coffee.left": "Bạn đã rời nhóm.",
   "account.delete_coffee": "Số dư CoffeeBucks của bạn cũng bị hủy theo.",
   "privacy.coffee_delete": "Khi đó số dư của nó bị hủy: rút khỏi lưu thông. Điều tương tự xảy ra với một tài khoản có tên bị xóa sau một năm không dùng.",
-  "coffee.leave_last": "Bạn là thành viên cuối cùng: nhóm sẽ ngừng hoạt động (không cổ tức) cho đến khi có người tham gia lại bằng lời mời. Hãy chuyển số dư hoặc hủy nó."
+  "coffee.leave_last": "Bạn là thành viên cuối cùng: nhóm sẽ ngừng hoạt động (không cổ tức) cho đến khi có người tham gia lại bằng lời mời. Hãy chuyển số dư hoặc hủy nó.",
+  "coffee.rename": "Đổi tên",
+  "coffee.rename_group": "Tên nhóm",
+  "coffee.rename_currency": "Tên đồng tiền",
+  "coffee.rename_symbol": "Ký hiệu (tối đa 5)",
+  "coffee.rename_go": "Lưu",
+  "coffee.rename_note": "Thành viên nào cũng đổi tên được. Số tiền giữ nguyên.",
+  "coffee.renamed": "Đã đổi tên.",
+  "coffee.pay_rename_bad": "Không đổi được: tên tối đa 60, đồng tiền 30, ký hiệu 5 ký tự."
 }

@@ -869,5 +869,13 @@
   "coffee.left": "Has salido del grupo.",
   "account.delete_coffee": "Tus saldos de CoffeeBucks se destruyen con ella.",
   "privacy.coffee_delete": "Sus saldos se destruyen entonces: se retiran de la circulación. Lo mismo pasa con una cuenta con nombre que se borra tras un año sin uso.",
-  "coffee.leave_last": "Eres el último miembro: el grupo queda en pausa (sin dividendo) hasta que alguien vuelva a entrar con una invitación. Mueve tu saldo o destrúyelo."
+  "coffee.leave_last": "Eres el último miembro: el grupo queda en pausa (sin dividendo) hasta que alguien vuelva a entrar con una invitación. Mueve tu saldo o destrúyelo.",
+  "coffee.rename": "Renombrar",
+  "coffee.rename_group": "Nombre del grupo",
+  "coffee.rename_currency": "Nombre de la moneda",
+  "coffee.rename_symbol": "Símbolo (hasta 5)",
+  "coffee.rename_go": "Guardar",
+  "coffee.rename_note": "Cualquier miembro puede renombrarlos. Los importes no cambian.",
+  "coffee.renamed": "Renombrado.",
+  "coffee.pay_rename_bad": "No se pudo renombrar: nombre hasta 60, moneda hasta 30, símbolo hasta 5 caracteres."
 }

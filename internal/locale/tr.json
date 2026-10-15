@@ -869,5 +869,13 @@
   "coffee.left": "Gruptan ayrıldın.",
   "account.delete_coffee": "CoffeeBucks bakiyelerin de onunla birlikte yok edilir.",
   "privacy.coffee_delete": "Bakiyeleri o zaman yok edilir: dolaşımdan çıkarılır. Bir yıl kullanılmadığı için silinen adlı bir hesap için de aynısı geçerlidir.",
-  "coffee.leave_last": "Son üyesin: biri bir davetle yeniden katılana kadar grup sessizleşir (kâr payı yok). Bakiyeni taşı ya da yok et."
+  "coffee.leave_last": "Son üyesin: biri bir davetle yeniden katılana kadar grup sessizleşir (kâr payı yok). Bakiyeni taşı ya da yok et.",
+  "coffee.rename": "Yeniden adlandır",
+  "coffee.rename_group": "Grup adı",
+  "coffee.rename_currency": "Para birimi adı",
+  "coffee.rename_symbol": "Sembol (en fazla 5)",
+  "coffee.rename_go": "Kaydet",
+  "coffee.rename_note": "Her üye bunları yeniden adlandırabilir. Tutarlar aynı kalır.",
+  "coffee.renamed": "Yeniden adlandırıldı.",
+  "coffee.pay_rename_bad": "Olmadı: ad en fazla 60, para birimi 30, sembol 5 karakter."
 }

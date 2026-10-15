@@ -405,6 +405,14 @@ var Funcs = template.FuncMap{
 	"reid": oln.ReID,
 	// replace: {{ts .Lang "x" | replace "{n}" .N}} fills a placeholder.
 	"replace": func(old, new, s string) string { return strings.ReplaceAll(s, old, new) },
+	// amount: {{ts .Lang "coffee.paid" | amount .A .Sym}} fills "{amount} K$"
+	// with an amount in a group's own symbol (96k).
+	"amount": func(a, sym, s string) string {
+		if sym == "" {
+			sym = "K$"
+		}
+		return strings.ReplaceAll(strings.ReplaceAll(s, "{amount} K$", a+" "+sym), "{amount}", a)
+	},
 	// tagLabel shows a tag to people: "lang:epo" as "🗣 Esperanto" (an
 	// internal language tag), anything else as "#tag".
 	"tagLabel": func(tag string) string {

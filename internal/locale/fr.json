@@ -869,5 +869,13 @@
   "coffee.left": "Tu as quitté le groupe.",
   "account.delete_coffee": "Tes soldes CoffeeBucks sont alors détruits.",
   "privacy.coffee_delete": "Ses soldes sont alors détruits : retirés de la circulation. Il en va de même pour un compte avec nom supprimé après un an sans utilisation.",
-  "coffee.leave_last": "Tu es le dernier membre : le groupe se met en sommeil (pas de dividende) jusqu'à ce que quelqu'un le rejoigne avec une invitation. Transfère ton solde ou détruis-le."
+  "coffee.leave_last": "Tu es le dernier membre : le groupe se met en sommeil (pas de dividende) jusqu'à ce que quelqu'un le rejoigne avec une invitation. Transfère ton solde ou détruis-le.",
+  "coffee.rename": "Renommer",
+  "coffee.rename_group": "Nom du groupe",
+  "coffee.rename_currency": "Nom de la monnaie",
+  "coffee.rename_symbol": "Symbole (5 max.)",
+  "coffee.rename_go": "Enregistrer",
+  "coffee.rename_note": "Tout membre peut les renommer. Les montants restent les mêmes.",
+  "coffee.renamed": "Renommé.",
+  "coffee.pay_rename_bad": "Impossible de renommer : nom 60, monnaie 30, symbole 5 caractères max."
 }

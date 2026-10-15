@@ -8,17 +8,25 @@
   <ul class="boxed-list">{{range .Groups}}
     <li id="g-{{.Gid}}" class="card coffee-group{{if eq .Gid $.Focus}} flash{{end}}" style="padding:8px 16px 12px">
       <h3>{{.Name}}</h3>
+      {{if .Currency}}<p class="dim small">{{.Currency}} ({{.Sym}})</p>{{end}}
       {{if .Unavailable}}<p class="dim">{{t $.Lang "coffee.unavailable"}}</p>{{else}}
-      <p class="coffee-balance"><strong>{{.Balance}} K$</strong>{{if .Days}} <span class="dim small">{{ts $.Lang "coffee.in_days" | replace "{n}" .Days}}</span>{{end}}</p>
-      <p class="dim small">{{t $.Lang "coffee.dividend"}}: {{.UD}} K$ · {{ts $.Lang "coffee.members" | replace "{n}" (print .Members)}}</p>{{end}}
+      <p class="coffee-balance"><strong>{{.Balance}} {{.Sym}}</strong>{{if .Days}} <span class="dim small">{{ts $.Lang "coffee.in_days" | replace "{n}" .Days}}</span>{{end}}</p>
+      <p class="dim small">{{t $.Lang "coffee.dividend"}}: {{.UD}} {{.Sym}} · {{ts $.Lang "coffee.members" | replace "{n}" (print .Members)}}</p>{{end}}
       {{with .Links}}<p class="dim small">🔗 {{t $.Lang "coffee.linked_with"}}: {{range $i, $l := .}}{{if $i}}, {{end}}{{$l.Name}}{{end}}</p>{{end}}
-      {{if eq .Gid $.Focus}}{{with $.Msg}}<p class="coffee-msg{{if or (eq . "paid") (eq . "sent") (eq . "linked")}} ok{{else}} error{{end}}" role="status">{{if eq . "paid"}}✓ {{ts $.Lang "coffee.paid" | replace "{amount}" $.Amount | replace "{name}" $.To}}{{else if eq . "sent"}}✓ {{ts $.Lang "coffee.pay_sent" | replace "{amount}" $.Amount | replace "{name}" $.To}}{{else if eq . "linked"}}✓ {{t $.Lang "coffee.linked"}}{{else if eq . "not_member"}}{{ts $.Lang "coffee.pay_not_member" | replace "{name}" $.To}}{{else}}{{t $.Lang (print "coffee.pay_" .)}}{{end}}</p>{{end}}{{end}}
+      {{if eq .Gid $.Focus}}{{with $.Msg}}<p class="coffee-msg{{if or (eq . "paid") (eq . "sent") (eq . "linked") (eq . "renamed")}} ok{{else}} error{{end}}" role="status">{{if eq . "paid"}}✓ {{ts $.Lang "coffee.paid" | amount $.Amount .Sym | replace "{name}" $.To}}{{else if eq . "sent"}}✓ {{ts $.Lang "coffee.pay_sent" | amount $.Amount .Sym | replace "{name}" $.To}}{{else if eq . "linked"}}✓ {{t $.Lang "coffee.linked"}}{{else if eq . "renamed"}}✓ {{t $.Lang "coffee.renamed"}}{{else if eq . "not_member"}}{{ts $.Lang "coffee.pay_not_member" | replace "{name}" $.To}}{{else}}{{t $.Lang (print "coffee.pay_" .)}}{{end}}</p>{{end}}{{end}}
       {{if not .Unavailable}}<form method="post" action="/coffee/pay#g-{{.Gid}}" class="inline coffee-pay"><input type="hidden" name="g" value="{{.Gid}}">
         <input name="to" required placeholder="@name" aria-label="{{ts $.Lang "coffee.pay_to"}}" autocomplete="off" autocapitalize="off">
-        <input name="amount" required inputmode="decimal" placeholder="0.00 K$" aria-label="{{ts $.Lang "coffee.pay_amount"}}" class="coffee-amount">
+        <input name="amount" required inputmode="decimal" placeholder="0.00 {{.Sym}}" aria-label="{{ts $.Lang "coffee.pay_amount"}}" class="coffee-amount">
         <button type="submit" class="pill">💸 {{t $.Lang "coffee.pay"}}</button></form>{{end}}
       <div class="actions"><button type="button" class="pill-sm suggested coffee-invite" data-g="{{.Gid}}">🔗 {{t $.Lang "coffee.invite"}}</button></div>
       <p class="dim small">{{t $.Lang "coffee.invite_note"}}</p>
+      <details class="coffee-rename"><summary class="dim small">✎ {{t $.Lang "coffee.rename"}}</summary>
+        <form method="post" action="/coffee/rename#g-{{.Gid}}"><input type="hidden" name="g" value="{{.Gid}}">
+          <label>{{t $.Lang "coffee.rename_group"}}<input name="name" maxlength="60" placeholder="{{.Name}}"></label>
+          <label>{{t $.Lang "coffee.rename_currency"}}<input name="currency" maxlength="30" placeholder="{{.Currency}}"></label>
+          <label>{{t $.Lang "coffee.rename_symbol"}}<input name="symbol" maxlength="5" placeholder="{{.Sym}}"></label>
+          <button type="submit" class="pill-sm">{{t $.Lang "coffee.rename_go"}}</button>
+          <p class="dim small">{{t $.Lang "coffee.rename_note"}}</p></form></details>
       <p class="small"><a href="/coffee/leave?g={{.Gid}}" class="dim">{{t $.Lang "coffee.leave_link"}}</a></p>
       <p class="dim small coffee-status" role="status"></p>
     </li>{{end}}

@@ -869,5 +869,13 @@
   "coffee.left": "你已退出群组。",
   "account.delete_coffee": "你的 CoffeeBucks 余额也会随之销毁。",
   "privacy.coffee_delete": "届时其余额会被销毁：退出流通。有名字的账户在一年未使用后被删除时也一样。",
-  "coffee.leave_last": "你是最后一位成员：在有人凭邀请重新加入之前，群组会进入休眠（没有分红）。请转走你的余额或将其销毁。"
+  "coffee.leave_last": "你是最后一位成员：在有人凭邀请重新加入之前，群组会进入休眠（没有分红）。请转走你的余额或将其销毁。",
+  "coffee.rename": "改名",
+  "coffee.rename_group": "群组名称",
+  "coffee.rename_currency": "货币名称",
+  "coffee.rename_symbol": "符号（最多 5 个字符）",
+  "coffee.rename_go": "保存",
+  "coffee.rename_note": "任何成员都可以改名。金额保持不变。",
+  "coffee.renamed": "已改名。",
+  "coffee.pay_rename_bad": "改名失败：名称最多 60、货币最多 30、符号最多 5 个字符。"
 }

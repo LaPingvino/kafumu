@@ -3,13 +3,13 @@
   <h1>☕ {{t .Lang "coffee.confirm_title"}}</h1>
   {{if .Ok}}
   <div class="card" style="padding:8px 16px 12px">
-    <p>{{t .Lang "coffee.confirm_pay"}}: <strong>{{.Pay}} K$</strong> <span class="dim">({{.From}})</span></p>
-    <p>{{ts .Lang "coffee.confirm_gets" | replace "{name}" .To}}: <strong>{{.Gets}} K$</strong> <span class="dim">({{.ToGroup}})</span></p>
+    <p>{{t .Lang "coffee.confirm_pay"}}: <strong>{{.Pay}} {{.FromSym}}</strong> <span class="dim">({{.From}})</span></p>
+    <p>{{ts .Lang "coffee.confirm_gets" | replace "{name}" .To}}: <strong>{{.Gets}} {{.ToSym}}</strong> <span class="dim">({{.ToGroup}})</span></p>
     <p class="dim small">{{t .Lang "coffee.confirm_rate"}}</p>
     <form method="post" action="/coffee/across" class="actions">
       <input type="hidden" name="g" value="{{.Gid}}"><input type="hidden" name="tg" value="{{.Tg}}">
       <input type="hidden" name="to" value="{{.To}}"><input type="hidden" name="a" value="{{.Amount}}">
-      <button type="submit" class="pill suggested">💸 {{ts .Lang "coffee.confirm_go" | replace "{amount}" .Pay}}</button>
+      <button type="submit" class="pill suggested">💸 {{ts .Lang "coffee.confirm_go" | amount .Pay .FromSym}}</button>
       <a href="/coffee?g={{.Gid}}" class="pill-sm" role="button">{{t .Lang "common.close"}}</a>
     </form>
   </div>

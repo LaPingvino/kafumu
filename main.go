@@ -192,6 +192,7 @@ func main() {
 	mux.HandleFunc("POST /coffee/across", coffeeH.Across)
 	mux.HandleFunc("GET /coffee/leave", coffeeH.ShowLeave)
 	mux.HandleFunc("POST /coffee/leave", coffeeH.Leave)
+	mux.HandleFunc("POST /coffee/rename", coffeeH.Rename)
 	mux.HandleFunc("POST /account/inbox", accounts.SetInbox)
 	mux.HandleFunc("GET /account/move", accounts.MoveRequest)
 	mux.HandleFunc("POST /account/move", accounts.MoveRequest)
