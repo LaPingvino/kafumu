@@ -159,7 +159,14 @@
       });
     }
     function mineFn(t, kw, bits) { return window.kafumuOLN.post(t, kw, bits, function (n) { st.textContent = (T.oln_working || "{n}").replace("{n}", n); }); }
-    function load() { st.textContent = ""; window.kafumuBoard.read(key).then(draw, function () { st.textContent = T.network_retry || "…"; }); }
+    function load() {
+      st.textContent = "";
+      window.kafumuBoard.read(key).then(function (posts) {
+        draw(posts);
+        // Seen (97e): Chats counts what's newer than this as unread.
+        dev.store.get("boardSeen").then(function (seen) { seen = seen || {}; seen[g] = new Date().toISOString(); return dev.store.set("boardSeen", seen); });
+      }, function () { st.textContent = T.network_retry || "…"; });
+    }
     f.onsubmit = function (e) {
       e.preventDefault(); go.disabled = true;
       var withConnect = cb.checked && getPair() ? getPair().invite(false).then(function (inv) { return inv.url; }, function () { return ""; }) : Promise.resolve("");
@@ -170,6 +177,10 @@
     load();
   }
   function drawBoards() {
+    // The groups' names, for their threads in Chats (97e).
+    var names = {};
+    document.querySelectorAll(".coffee-group").forEach(function (li) { names[li.dataset.g] = li.querySelector("h3").textContent; });
+    dev.store.get("groupNames").then(function (n) { dev.store.set("groupNames", Object.assign(n || {}, names)); });
     keys().then(function (all) {
       document.querySelectorAll(".coffee-group").forEach(function (li) {
         var d = li.querySelector(".coffee-board"), key = all[li.dataset.g];

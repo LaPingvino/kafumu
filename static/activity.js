@@ -187,14 +187,32 @@
       var wrap = el("div", "chat"); wrap.appendChild(log); wrap.appendChild(go);
       return wrap;
     }
+    // Group boards (97e): each board a thread here, read with the group's key
+    // on this device; unread = newer than your last look at that board.
+    var boardItems = [];
+    function readBoards() {
+      if (!window.kafumuBoard) return Promise.resolve();
+      return Promise.all([dev.store.get("groupKeys"), dev.store.get("groupNames"), dev.store.get("boardSeen")]).then(function (r) {
+        var keys = r[0] || {}, names = r[1] || {}, seen = r[2] || {};
+        return Promise.all(Object.keys(keys).map(function (g) {
+          return window.kafumuBoard.read(keys[g]).then(function (posts) {
+            return posts.map(function (p) {
+              return { thread: "g:" + g, kind: "group", title: "📋 " + (names[g] || g), href: "/groups?g=" + encodeURIComponent(g) + "#g-" + encodeURIComponent(g),
+                icon: p.kind === "offer" ? "🎁" : p.kind === "request" ? "🙋" : p.kind === "reply" ? "💬" : "📝", who: p.by ? "@" + p.by : "", text: p.text, at: p.at,
+                unread: !seen[g] || String(p.at) > seen[g] };
+            });
+          }, function () { return []; });
+        })).then(function (lists) { boardItems = [].concat.apply([], lists); });
+      }, function () {});
+    }
     function draw() {
       return Promise.all([dev.store.contacts(), pair.threads(), dev.store.get("inboxMsgs")]).then(function (r) {
-        var ts = window.kafumuThreads.build({ contacts: r[0], answers: r[1], inbox: r[2] || [], notices: items.filter(function (i) { return i.thread; }),
+        var ts = window.kafumuThreads.build({ contacts: r[0], answers: r[1], inbox: r[2] || [], notices: items.filter(function (i) { return i.thread; }).concat(boardItems),
           nameOf: dev.nameOf, signalText: dev.signalText }, T);
         var byId = {};
         r[0].forEach(function (c) { byId["c:" + c.id] = c; });
         r[1].forEach(function (a) { byId["a:" + a.id] = a; });
-        box.querySelectorAll("#thread-filter .chip").forEach(function (b) { b.classList.toggle("on", b.dataset.f === filter); b.setAttribute("aria-pressed", b.dataset.f === filter); });
+        box.querySelectorAll("#thread-filter .chip[data-f]").forEach(function (b) { b.classList.toggle("on", b.dataset.f === filter); b.setAttribute("aria-pressed", b.dataset.f === filter); });
         ul.textContent = "";
         // The Contacts filter leads to their cards too (91g: one "Contacts", not two).
         if (filter === "contacts") {
@@ -238,10 +256,11 @@
         document.getElementById("activity-empty").hidden = ts.length > 0;
       });
     }
-    box.querySelectorAll("#thread-filter .chip").forEach(function (b) { b.onclick = function () { filter = b.dataset.f; open = {}; draw(); }; });
+    box.querySelectorAll("#thread-filter .chip[data-f]").forEach(function (b) { b.onclick = function () { filter = b.dataset.f; open = {}; draw(); }; });
     window.addEventListener("hashchange", function () { linked = false; draw(); });
     // Show what's stored at once, then read new lines of the ten most recent
     // chats (one anonymous fetch each) and redraw if any came in.
+    readBoards().then(function () { if (boardItems.length) draw(); }); // the boards come in after the first draw
     return draw().then(function () { return dev.store.contacts(); }).then(function (cs) {
       cs = cs.filter(function (c) { return (c.messages || []).length; }).sort(function (a, b) { return ((b.messages.slice(-1)[0] || {}).at || "").localeCompare((a.messages.slice(-1)[0] || {}).at || ""); }).slice(0, 10);
       return Promise.all(cs.map(function (c) { return pair.readChat(c).catch(function () { return 0; }); }));

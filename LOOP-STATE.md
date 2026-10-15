@@ -1692,7 +1692,12 @@ read, expiring like every line (rule 3 holds).
       tag, read skips the unreadable, post sends ciphertext). Not browser-tested end to end. Was: The board: offers, requests and notes (an optional price) as encrypted OLN lines; replies in their thread;
       on a post 💸 Pay / 🧾 Request (prefilled), 🤝 Connect (the post carries a connect code, as questions do).
       Fades like any line; 🔁 keeps it. Strings x 24.
-- [ ] 97e. Group boards in Chats (Joop: "access the group chats together with all others, notification-wise"):
+- [x] 97e1. Done + deployed: each group board you have the key for is a thread in Chats ("📋 <group>", its posts
+      as bubbles, Open → the group), unread = newer than your last look at the board (boardSeen, set when the board
+      loads on /groups; group names kept on the device as groupNames). Also: the Chats filter code no longer treats
+      the 👥 Groups link as a filter chip. Not browser-tested.
+- [ ] 97e2. Board posts wake you like chat lines (push): the board tag joins the device's watched pair tags.
+- [x] 97e. (split into 97e1/e2) Group boards in Chats (Joop: "access the group chats together with all others, notification-wise"):
       each group's board is a thread in Chats (Activity) with its unread count, opens like the others (docked / its
       page), and new posts wake you like chat lines (push: the board tag joins the device's watched pair tags).
 - [x] 97f. Done + deployed: "👥 Groups" (/groups, /coffee still works) linked next to Contacts in Chats and from
