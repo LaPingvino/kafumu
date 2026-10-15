@@ -181,9 +181,10 @@ func (c *Coffee) Show(w http.ResponseWriter, r *http.Request) {
 			}
 			if err == nil {
 				if wl, berr := c.C.Balance(r.Context(), gid, me); berr == nil {
-					g.Balance, g.UD, g.Members = coffee.Money(wl.Balance), coffee.Money(wl.CurrentUD), wl.Members
-					if wl.CurrentUD > 0 {
-						g.Days = fmt.Sprintf("%.1f", float64(wl.Balance)/float64(wl.CurrentUD))
+					perDay := wl.CurrentUD * coffee.PeriodsPerDay // paid hourly, shown per day
+					g.Balance, g.UD, g.Members = coffee.Money(wl.Balance), coffee.Money(perDay), wl.Members
+					if perDay > 0 {
+						g.Days = fmt.Sprintf("%.1f", float64(wl.Balance)/float64(perDay))
 					}
 				} else {
 					g.Unavailable = true

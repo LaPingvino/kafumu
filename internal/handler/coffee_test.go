@@ -177,7 +177,7 @@ func TestCoffeeStartInviteJoin(t *testing.T) {
 	}
 	// The pages: bea's wallet (balance, dividend, days); the join page for a
 	// valid invite names the group, a forged one says it isn't valid.
-	if w := as(bea, "GET", "/coffee", nil, c.Show); w.Code != 200 || !strings.Contains(w.Body.String(), "12.34 B$") || !strings.Contains(w.Body.String(), "Bica") || !strings.Contains(w.Body.String(), "Barreiro Coffee!") || !strings.Contains(w.Body.String(), "≈ 12.3 days") {
+	if w := as(bea, "GET", "/coffee", nil, c.Show); w.Code != 200 || !strings.Contains(w.Body.String(), "12.34 B$") || !strings.Contains(w.Body.String(), "Bica") || !strings.Contains(w.Body.String(), "Barreiro Coffee!") || !strings.Contains(w.Body.String(), "≈ 0.5 days") {
 		t.Fatalf("wallet page: %d %s", w.Code, w.Body.String())
 	}
 	if w := as(anon, "GET", "/coffee/join?"+q.Encode(), nil, c.ShowJoin); !strings.Contains(w.Body.String(), "Join Barreiro Coffee!") || !strings.Contains(w.Body.String(), "/account?next=") {

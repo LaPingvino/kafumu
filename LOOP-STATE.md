@@ -1642,7 +1642,9 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       2 strings x 24. Inline script parse-checked; not browser-tested (needs a group + a connected contact). Was: (Joop): next to "Share an invite link", "Send to a contact" lists your
       contacts (device-side, like 👀 "Did you see this?") and sends "☕ Join my CoffeeBucks group <name>: <link>" as a
       chat line through the pair (device.js/pair.js on /coffee); strings x 24.
-- [ ] 96r. Hourly dividend, the bank way (Joop: "run every hour, consolidate ledger entries"; "the ledger grows
+- [x] 96r. Done + deployed: node Config.BatchUD (one issuance.ud record per run, same amounts; node/v0.2.8,
+      test: 3 records for 3 runs vs 12); lp hourly: PT1H, 11 ppm/h, floor 1 K$/24, links still seeded 100 K$;
+      cron every 1 hours; Kafumu shows the dividend per day (x24) and days of dividend from that. Was: Hourly dividend, the bank way (Joop: "run every hour, consolidate ledger entries"; "the ledger grows
       anyway"): the log is a hash chain, so no rewriting history — batch at write time instead: RunUD writes ONE
       issuance.ud tx per run with an entry for every active member (not one record per member). Then hourly costs 24
       records/day per group whatever its size. Group nodes: UDPeriod PT1H, c ≈ 11 ppm/hour (≈10.1 %/year; integer

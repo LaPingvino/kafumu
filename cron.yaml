@@ -5,7 +5,7 @@ cron:
   - description: "Forget what /privacy promises to forget: expired meetups, mailboxes, slots, idle accounts"
     url: /cron/purge
     schedule: every day 04:00
-  - description: "CoffeeBucks: the daily Universal Dividend (the lp service, ~/liquiditypub/gae)"
+  - description: "CoffeeBucks: the Universal Dividend, hourly, one batched record per group (the lp service)"
     url: /cron/ud
     target: lp
-    schedule: every day 00:05
+    schedule: every 1 hours

@@ -181,6 +181,10 @@ func (c *Client) AddMember(ctx context.Context, gid, member string) error {
 	return c.do(ctx, "POST", "/lp/admin/member", map[string]string{"gid": gid, "member": member}, nil)
 }
 
+// PeriodsPerDay: the lp service pays the dividend hourly (96r); the wallet
+// shows a day's worth.
+const PeriodsPerDay = 24
+
 // Wallet is a member's view of one group.
 type Wallet struct {
 	Member      string `json:"member"`
