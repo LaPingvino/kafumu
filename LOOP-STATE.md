@@ -1531,7 +1531,11 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       Kafumu's own key in Config/coffee, made once); member id u+16 hex HMAC(user id); invite token HMAC(gid, inviter)
       — nothing stored; User.Groups (max 5); POST /coffee/group (named + passkey or role), GET /coffee/invite (members),
       POST /coffee/join (named; valid invite; not your own). KAFUMU_LP_BASE in app.yaml. Handler test against a fake lp.
-- [ ] 96e3b. The page: /coffee (your groups, balance, dividend, invite link to copy/QR, start a group) and
+- [x] 96e3b. Done + deployed: /coffee (your groups: name from the group's identity doc, balance in K$ and in days
+      of dividend, today's dividend, members, share an invite link; start a group, gated) and /coffee/join (names the
+      group, Join, or pick a name first; bad link says so); ☕ CoffeeBucks card on Me → Account; 18 strings x 24.
+      Handler test renders both against a fake lp; live page checked with @claude-admin-test. Not exercised live: a
+      real group (ledgers are permanent: Joop's first group is the first live round trip). Was: The page: /coffee (your groups, balance, dividend, invite link to copy/QR, start a group) and
       /coffee/join (which group, who invited, Join), linked from the Me tab; 24 languages; deploy.
 - [x] 96e3. (split into 96e3a/b) Was: Kafumu: start a group, invite link, join (calls the lp admin API with the token from Datastore).
 - [ ] 96f. Wallet on the Me tab: balance in K$ and in UD, dividends received, 💸 pay @name in your group; across
