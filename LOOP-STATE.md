@@ -1552,4 +1552,9 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       shown before paying (the lp transfer + its state).
 - [x] 96f. (split into 96f1/f2) Was: Wallet on the Me tab: balance in K$ and in UD, dividends received, 💸 pay @name in your group; across
       groups at the pool's price, shown before paying.
-- [ ] 96g. Privacy page + /about: what's public in the ledger, what isn't.
+- [x] 96g. Done: privacy "CoffeeBucks: the one thing kept for good" (public, permanent ledger; a pseudonymous id;
+      the server can tell which id is yours and sees payments, like a bank; no purpose written down; deleting your
+      account leaves the id with nothing linking it to you); /about "A local currency" + link; 4 strings x 24.
+      (A first draft promised "leaving a group stops your dividend": no leave exists yet, so it says what's true.)
+- [ ] 96h. (open, for Joop) Leave a group (deactivate the member: no more dividend, balance stays), and what
+      happens to a balance then. Not built: decide first. Was: Privacy page + /about: what's public in the ledger, what isn't.

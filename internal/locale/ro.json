@@ -849,5 +849,9 @@
   "coffee.confirm_gets": "@{name} primește",
   "coffee.confirm_rate": "La cursul de azi dintre cele două grupuri; se mișcă puțin la fiecare plată.",
   "coffee.confirm_go": "Plătește {amount} K$",
-  "coffee.confirm_bad": "Plata asta nu (mai) e posibilă."
+  "coffee.confirm_bad": "Plata asta nu (mai) e posibilă.",
+  "privacy.coffee_title": "CoffeeBucks: singurul lucru păstrat definitiv",
+  "privacy.coffee": "Dacă intri într-un grup CoffeeBucks, registrul grupului e ținut de serviciul monetar al Kafumu și e, intenționat, public și permanent: oricine poate verifica că nu apar bani din nimic. În el ești un identificator pseudonim, nu numele sau contul tău. Serverul Kafumu știe care identificator e al tău și vede fiecare plată, ca o bancă; pentru ce a fost o plată nu se scrie nicăieri. Dacă îți ștergi contul Kafumu, identificatorul tău rămâne în istoria registrului, dar nimic nu-l mai leagă de tine. Nimic altceva pe Kafumu nu e păstrat așa.",
+  "about.coffee_title": "O monedă locală",
+  "about.coffee": "CoffeeBucks (K$) sunt bani pe care grupuri de oameni care se cunosc îi țin împreună: fiecare membru primește zilnic același dividend, iar grupurile legate își pot plăti la un curs care se mișcă odată cu plățile. Funcționează pe LiquidityPub, un protocol deschis: fără blockchain și fără vreo firmă la mijloc."
 }

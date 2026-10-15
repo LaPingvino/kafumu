@@ -849,5 +849,9 @@
   "coffee.confirm_gets": "@{name} ricevas",
   "coffee.confirm_rate": "Laŭ la hodiaŭa kurzo inter la du grupoj; ĝi iom moviĝas kun ĉiu pago.",
   "coffee.confirm_go": "Pagi {amount} K$",
-  "coffee.confirm_bad": "Ĉi tiu pago ne (plu) eblas."
+  "coffee.confirm_bad": "Ĉi tiu pago ne (plu) eblas.",
+  "privacy.coffee_title": "CoffeeBucks: la sola afero konservata por ĉiam",
+  "privacy.coffee": "Se vi aliĝas al CoffeeBucks-grupo, la mona servo de Kafumu tenas la librotenadon de tiu grupo, kaj ĝi estas intence publika kaj daŭra: ĉiu povas kontroli, ke neniu mono aperas el nenio. En ĝi vi estas pseŭdonima identigilo, ne via nomo aŭ konto. La servilo de Kafumu scias, kiu identigilo estas via, kaj vidas ĉiun pagon, kiel banko; por kio pago estis, neniam estas skribita. Se vi forigas vian Kafumu-konton, via identigilo restas en la historio de la librotenado, sed nenio plu ligas ĝin al vi. Nenio alia ĉe Kafumu estas konservata tiel.",
+  "about.coffee_title": "Loka mono",
+  "about.coffee": "CoffeeBucks (K$) estas mono, kiun grupoj de homoj, kiuj konas unu la alian, tenas kune: ĉiu membro ricevas la saman dividendon ĉiutage, kaj ligitaj grupoj povas pagi unu al la alia laŭ kurzo, kiu moviĝas kun la pagoj. Ĝi funkcias per LiquidityPub, malferma protokolo: sen blokĉeno kaj sen firmao meze."
 }

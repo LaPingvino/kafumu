@@ -849,5 +849,9 @@
   "coffee.confirm_gets": "@{name} dostaje",
   "coffee.confirm_rate": "Po dzisiejszym kursie między grupami; zmienia się trochę z każdą płatnością.",
   "coffee.confirm_go": "Zapłać {amount} K$",
-  "coffee.confirm_bad": "Ta płatność nie jest (już) możliwa."
+  "coffee.confirm_bad": "Ta płatność nie jest (już) możliwa.",
+  "privacy.coffee_title": "CoffeeBucks: jedyne, co zostaje na zawsze",
+  "privacy.coffee": "Gdy dołączysz do grupy CoffeeBucks, księgę tej grupy prowadzi usługa pieniężna Kafumu, a jest ona celowo publiczna i trwała: każdy może sprawdzić, że pieniądze nie biorą się znikąd. Jesteś w niej pseudonimowym identyfikatorem, nie imieniem ani kontem. Serwer Kafumu wie, który identyfikator jest twój, i widzi każdą płatność, jak bank; za co była płatność, nigdzie się nie zapisuje. Jeśli usuniesz konto na Kafumu, twój identyfikator zostanie w historii księgi, ale nic już nie łączy go z tobą. Nic innego w Kafumu nie jest tak przechowywane.",
+  "about.coffee_title": "Lokalna waluta",
+  "about.coffee": "CoffeeBucks (K$) to pieniądze, które wspólnie prowadzą grupy ludzi, którzy się znają: każdy członek dostaje codziennie tę samą dywidendę, a połączone grupy mogą sobie płacić po kursie, który zmienia się z płatnościami. Działa na LiquidityPub, otwartym protokole: bez blockchaina i bez firmy pośrodku."
 }

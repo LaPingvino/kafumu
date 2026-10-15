@@ -849,5 +849,9 @@
   "coffee.confirm_gets": "@{name} 收到",
   "coffee.confirm_rate": "按两个群组之间今天的汇率；每笔付款都会让它稍微变动。",
   "coffee.confirm_go": "支付 {amount} K$",
-  "coffee.confirm_bad": "这笔付款无法（再）进行。"
+  "coffee.confirm_bad": "这笔付款无法（再）进行。",
+  "privacy.coffee_title": "CoffeeBucks：唯一永久保存的东西",
+  "privacy.coffee": "如果你加入一个 CoffeeBucks 群组，该群组的账本由 Kafumu 的货币服务保管，而且有意是公开且永久的：任何人都可以核实没有凭空出现的钱。在账本里你是一个化名 ID，而不是你的名字或账户。Kafumu 的服务器知道哪个 ID 是你的，并像银行一样看到每一笔付款；付款的用途从不被记录。如果你删除 Kafumu 账户，你的 ID 仍留在账本的历史中，但再也没有任何东西把它和你联系起来。Kafumu 上没有别的东西是这样保存的。",
+  "about.coffee_title": "本地货币",
+  "about.coffee": "CoffeeBucks（K$）是由彼此认识的人组成的群组共同管理的钱：每位成员每天获得同样的分红，相互连接的群组可以按随付款变动的汇率互相付款。它运行在开放协议 LiquidityPub 之上：没有区块链，也没有夹在中间的公司。"
 }

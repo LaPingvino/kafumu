@@ -849,5 +849,9 @@
   "coffee.confirm_gets": "@{name} nhận",
   "coffee.confirm_rate": "Theo tỷ giá hôm nay giữa hai nhóm; mỗi lần thanh toán lại dịch đi một chút.",
   "coffee.confirm_go": "Trả {amount} K$",
-  "coffee.confirm_bad": "Khoản thanh toán này không (còn) thực hiện được."
+  "coffee.confirm_bad": "Khoản thanh toán này không (còn) thực hiện được.",
+  "privacy.coffee_title": "CoffeeBucks: thứ duy nhất được lưu mãi",
+  "privacy.coffee": "Nếu bạn tham gia một nhóm CoffeeBucks, sổ cái của nhóm đó do dịch vụ tiền của Kafumu lưu giữ, và nó cố ý được công khai và lưu vĩnh viễn: ai cũng có thể kiểm tra rằng không có tiền nào tự dưng xuất hiện. Trong đó bạn là một mã bí danh, không phải tên hay tài khoản của bạn. Máy chủ Kafumu biết mã nào là của bạn và thấy mọi khoản thanh toán, như một ngân hàng; mục đích của một khoản thanh toán không bao giờ được ghi lại. Nếu bạn xóa tài khoản Kafumu, mã của bạn vẫn còn trong lịch sử sổ cái, nhưng không còn gì liên kết nó với bạn nữa. Không có gì khác trên Kafumu được lưu như vậy.",
+  "about.coffee_title": "Một đồng tiền địa phương",
+  "about.coffee": "CoffeeBucks (K$) là tiền mà các nhóm người quen nhau cùng giữ: mỗi thành viên nhận cùng một khoản cổ tức mỗi ngày, và các nhóm đã liên kết có thể trả tiền cho nhau theo tỷ giá thay đổi theo các khoản thanh toán. Nó chạy trên LiquidityPub, một giao thức mở: không có blockchain và không có công ty nào ở giữa."
 }

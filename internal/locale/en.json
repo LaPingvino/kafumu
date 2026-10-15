@@ -849,5 +849,9 @@
   "coffee.confirm_gets": "@{name} receives",
   "coffee.confirm_rate": "At today's rate between the two groups; it moves a little with every payment.",
   "coffee.confirm_go": "Pay {amount} K$",
-  "coffee.confirm_bad": "This payment isn't possible (any more)."
+  "coffee.confirm_bad": "This payment isn't possible (any more).",
+  "privacy.coffee_title": "CoffeeBucks: the one thing kept for good",
+  "privacy.coffee": "If you join a CoffeeBucks group, that group's ledger is kept by Kafumu's money service, and it is public and permanent by design: anyone can check that no money appears out of nowhere. In it you are a pseudonymous id, not your name or account. Kafumu's server can tell which id is yours and sees every payment, as a bank would; what a payment was for is never written down. If you delete your Kafumu account, your id stays in the ledger's history, but nothing links it to you any more. Nothing else on Kafumu is kept like this.",
+  "about.coffee_title": "A local currency",
+  "about.coffee": "CoffeeBucks (K$) is money that groups of people who know each other keep together: every member gets the same dividend every day, and groups that link can pay each other at a rate that moves with the payments. It runs on LiquidityPub, an open protocol: no blockchain, and no company in the middle."
 }

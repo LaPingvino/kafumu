@@ -849,5 +849,9 @@
   "coffee.confirm_gets": "@{name} får",
   "coffee.confirm_rate": "Till dagens kurs mellan de två grupperna; den rör sig lite med varje betalning.",
   "coffee.confirm_go": "Betala {amount} K$",
-  "coffee.confirm_bad": "Den här betalningen går inte (längre)."
+  "coffee.confirm_bad": "Den här betalningen går inte (längre).",
+  "privacy.coffee_title": "CoffeeBucks: det enda som sparas för gott",
+  "privacy.coffee": "Går du med i en CoffeeBucks-grupp förs gruppens kassabok av Kafumus pengatjänst, och den är avsiktligt offentlig och permanent: vem som helst kan kontrollera att inga pengar uppstår ur tomma intet. Där är du ett pseudonym, inte ditt namn eller konto. Kafumus server vet vilket pseudonym som är ditt och ser varje betalning, som en bank; vad en betalning gällde skrivs aldrig ner. Raderar du ditt Kafumu-konto finns ditt pseudonym kvar i kassabokens historik, men inget kopplar det till dig längre. Inget annat på Kafumu sparas så här.",
+  "about.coffee_title": "En lokal valuta",
+  "about.coffee": "CoffeeBucks (K$) är pengar som grupper av folk som känner varandra håller ihop: varje medlem får samma utdelning varje dag, och sammankopplade grupper kan betala varandra till en kurs som rör sig med betalningarna. Det körs på LiquidityPub, ett öppet protokoll: ingen blockkedja och inget företag emellan."
 }

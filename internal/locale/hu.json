@@ -849,5 +849,9 @@
   "coffee.confirm_gets": "@{name} kap",
   "coffee.confirm_rate": "A két csoport mai árfolyamán; minden fizetéssel kicsit mozdul.",
   "coffee.confirm_go": "{amount} K$ fizetése",
-  "coffee.confirm_bad": "Ez a fizetés nem (már nem) lehetséges."
+  "coffee.confirm_bad": "Ez a fizetés nem (már nem) lehetséges.",
+  "privacy.coffee_title": "CoffeeBucks: az egyetlen, ami végleg megmarad",
+  "privacy.coffee": "Ha belépsz egy CoffeeBucks-csoportba, a csoport főkönyvét a Kafumu pénzügyi szolgáltatása vezeti, és ez szándékosan nyilvános és végleges: bárki ellenőrizheti, hogy nem keletkezik pénz a semmiből. Ebben egy álnév vagy, nem a neved vagy a fiókod. A Kafumu szervere tudja, melyik álnév a tiéd, és lát minden fizetést, ahogy egy bank; hogy mire ment egy fizetés, azt sehol nem írja le. Ha törlöd a Kafumu-fiókodat, az álneved a főkönyv történetében marad, de már semmi sem köti hozzád. Semmi mást nem őriz így a Kafumu.",
+  "about.coffee_title": "Helyi pénz",
+  "about.coffee": "A CoffeeBucks (K$) olyan pénz, amelyet egymást ismerő emberek csoportjai közösen vezetnek: minden tag minden nap ugyanannyi osztalékot kap, az összekapcsolt csoportok pedig a fizetésekkel mozgó árfolyamon fizethetnek egymásnak. A LiquidityPub nyílt protokollon fut: nincs blokklánc, és nincs cég középen."
 }

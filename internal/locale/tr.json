@@ -849,5 +849,9 @@
   "coffee.confirm_gets": "@{name} alacak",
   "coffee.confirm_rate": "İki grup arasındaki bugünkü kurla; her ödemeyle biraz değişir.",
   "coffee.confirm_go": "{amount} K$ öde",
-  "coffee.confirm_bad": "Bu ödeme (artık) mümkün değil."
+  "coffee.confirm_bad": "Bu ödeme (artık) mümkün değil.",
+  "privacy.coffee_title": "CoffeeBucks: kalıcı olarak saklanan tek şey",
+  "privacy.coffee": "Bir CoffeeBucks grubuna katılırsan, o grubun defterini Kafumu'nun para hizmeti tutar; defter bilerek herkese açık ve kalıcıdır: herkes yoktan para çıkmadığını kontrol edebilir. Defterde adınla ya da hesabınla değil, takma bir kimlikle yer alırsın. Kafumu'nun sunucusu hangi kimliğin senin olduğunu bilir ve bir banka gibi her ödemeyi görür; bir ödemenin ne için yapıldığı hiçbir yere yazılmaz. Kafumu hesabını silersen kimliğin defterin geçmişinde kalır, ama artık hiçbir şey onu sana bağlamaz. Kafumu'da başka hiçbir şey böyle saklanmaz.",
+  "about.coffee_title": "Yerel bir para",
+  "about.coffee": "CoffeeBucks (K$), birbirini tanıyan insan gruplarının birlikte tuttuğu paradır: her üye her gün aynı kâr payını alır ve bağlantılı gruplar, ödemelerle değişen bir kurdan birbirine ödeme yapabilir. LiquidityPub adlı açık bir protokol üzerinde çalışır: blokzincir yok, arada şirket yok."
 }
