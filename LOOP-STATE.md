@@ -1599,7 +1599,13 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       good argument about the 'is this real money' thing"): LPGroup keeps group name, currency name (≤30) and symbol
       (≤5); POST /lp/admin/rename {gid, name?, currency?, symbol?} sets them on the node (identity doc); any member
       renames from the group card; Kafumu shows each group's own symbol instead of a fixed K$; strings x 24.
-- [ ] 96m. A group nobody's in for 90 days is deleted (Joop: "give it 90 days for someone to return with an invite
+- [x] 96m1. Done + deployed (lp): LPGroup.EmptySince (set on the last leave/move, cleared on a join); daily cron
+      sweepGroups after 90 days: Host.Remove (links closed both sides, linked groups RetireReserve: node/v0.2.7,
+      reserve.retire in PROTOCOL §9), DSStore.Delete, registry gone. Tests: Remove; sweep on the emulator.
+- [ ] 96m2. Wording: VISION's exception and the privacy page ("public and permanent", "kept for good") become "kept as
+      long as the group exists; 90 days with nobody in it and it's deleted"; the last member's leave page says so;
+      strings x 24.
+- [x] 96m. (split into 96m1/m2) A group nobody's in for 90 days is deleted (Joop: "give it 90 days for someone to return with an invite
       link, then garbage collect"): LPGroup.EmptySince (set when the last member leaves, cleared on a join); the daily
       cron closes the group's contacts first (contact.close: each linked group gets its own seed back), then deletes
       its LPState/LPStateChunk/LPRecord/LPGroup; leftover balances of members who left go with it. Wording: VISION's
