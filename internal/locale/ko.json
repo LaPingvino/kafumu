@@ -893,5 +893,7 @@
   "coffee.declined": "거절했어요.",
   "coffee.ask_gone": "그 요청은 없어졌거나 만료됐어요.",
   "coffee.link_cap": "풀은 절대 바닥나지 않지만, 지불이 클수록 환율이 나빠져요. 배당 100일치를 건너편으로 보내면 대략 절반만 도착해요.",
-  "coffee.confirm_impact": "이 지불은 풀의 현재 환율보다 {pct}% 적게 받아요. 그룹 사이의 풀이 이 금액에 비해 작기 때문이에요. 작은 지불일수록 환율이 좋아요."
+  "coffee.confirm_impact": "이 지불은 풀의 현재 환율보다 {pct}% 적게 받아요. 그룹 사이의 풀이 이 금액에 비해 작기 때문이에요. 작은 지불일수록 환율이 좋아요.",
+  "coffee.invite_contact": "연락처에 보내기",
+  "js.coffee_invite_text": "☕ 내 CoffeeBucks 그룹 {group}에 들어와요:"
 }

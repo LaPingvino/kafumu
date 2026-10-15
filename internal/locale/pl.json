@@ -893,5 +893,7 @@
   "coffee.declined": "Odrzucono.",
   "coffee.ask_gone": "Ta prośba już nie istnieje albo wygasła.",
   "coffee.link_cap": "Pula nigdy się nie wyczerpie, ale im większa płatność, tym gorszy kurs: przelanie stu dni dywidendy do drugiej grupy daje mniej więcej połowę.",
-  "coffee.confirm_impact": "Ta płatność dostaje o {pct}% mniej niż obecny kurs puli, bo pula między grupami jest przy niej mała. Mniejsze płatności mają lepszy kurs."
+  "coffee.confirm_impact": "Ta płatność dostaje o {pct}% mniej niż obecny kurs puli, bo pula między grupami jest przy niej mała. Mniejsze płatności mają lepszy kurs.",
+  "coffee.invite_contact": "Wyślij kontaktowi",
+  "js.coffee_invite_text": "☕ Dołącz do mojej grupy CoffeeBucks {group}:"
 }

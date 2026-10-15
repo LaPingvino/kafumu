@@ -893,5 +893,7 @@
   "coffee.declined": "已拒绝。",
   "coffee.ask_gone": "该请求已不存在或已过期。",
   "coffee.link_cap": "资金池永远不会被掏空，但付款越大，汇率越差：把一百天的分红付到对方群组，大约只能到账一半。",
-  "coffee.confirm_impact": "这笔付款比资金池当前汇率少得 {pct}%，因为群组之间的资金池相对它来说很小。较小的付款汇率更好。"
+  "coffee.confirm_impact": "这笔付款比资金池当前汇率少得 {pct}%，因为群组之间的资金池相对它来说很小。较小的付款汇率更好。",
+  "coffee.invite_contact": "发给联系人",
+  "js.coffee_invite_text": "☕ 加入我的 CoffeeBucks 群组 {group}："
 }

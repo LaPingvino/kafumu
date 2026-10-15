@@ -893,5 +893,7 @@
   "coffee.declined": "Avböjt.",
   "coffee.ask_gone": "Den förfrågan finns inte längre eller har gått ut.",
   "coffee.link_cap": "Potten kan aldrig ta slut, men ju större betalning, desto sämre kurs: betalar man hundra dagars utdelning över kommer ungefär hälften fram.",
-  "coffee.confirm_impact": "Den här betalningen får {pct} % mindre än pottens nuvarande kurs, eftersom potten mellan grupperna är liten i jämförelse. Mindre betalningar får bättre kurs."
+  "coffee.confirm_impact": "Den här betalningen får {pct} % mindre än pottens nuvarande kurs, eftersom potten mellan grupperna är liten i jämförelse. Mindre betalningar får bättre kurs.",
+  "coffee.invite_contact": "Skicka till en kontakt",
+  "js.coffee_invite_text": "☕ Gå med i min CoffeeBucks-grupp {group}:"
 }

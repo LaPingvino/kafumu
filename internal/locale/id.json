@@ -893,5 +893,7 @@
   "coffee.declined": "Ditolak.",
   "coffee.ask_gone": "Permintaan itu sudah tidak ada atau kedaluwarsa.",
   "coffee.link_cap": "Kolamnya tidak akan pernah habis, tapi makin besar pembayaran, makin buruk kursnya: membayar seratus hari dividen ke grup lain hanya sampai sekitar separuhnya.",
-  "coffee.confirm_impact": "Pembayaran ini mendapat {pct}% lebih sedikit dari kurs kolam saat ini, karena kolam di antara grup kecil dibandingkan pembayarannya. Pembayaran yang lebih kecil mendapat kurs yang lebih baik."
+  "coffee.confirm_impact": "Pembayaran ini mendapat {pct}% lebih sedikit dari kurs kolam saat ini, karena kolam di antara grup kecil dibandingkan pembayarannya. Pembayaran yang lebih kecil mendapat kurs yang lebih baik.",
+  "coffee.invite_contact": "Kirim ke kontak",
+  "js.coffee_invite_text": "☕ Gabung ke grup CoffeeBucks-ku {group}:"
 }

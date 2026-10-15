@@ -893,5 +893,7 @@
   "coffee.declined": "Geweigerd.",
   "coffee.ask_gone": "Dat verzoek is weg of verlopen.",
   "coffee.link_cap": "De pot raakt nooit leeg, maar hoe groter de betaling, hoe slechter de koers: honderd dagen dividend overmaken levert ongeveer de helft op.",
-  "coffee.confirm_impact": "Deze betaling krijgt {pct}% minder dan de huidige koers van de pot, omdat de pot tussen de groepen klein is vergeleken ermee. Kleinere betalingen krijgen een betere koers."
+  "coffee.confirm_impact": "Deze betaling krijgt {pct}% minder dan de huidige koers van de pot, omdat de pot tussen de groepen klein is vergeleken ermee. Kleinere betalingen krijgen een betere koers.",
+  "coffee.invite_contact": "Naar een contact sturen",
+  "js.coffee_invite_text": "☕ Word lid van mijn CoffeeBucks-groep {group}:"
 }

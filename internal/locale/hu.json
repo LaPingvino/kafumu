@@ -893,5 +893,7 @@
   "coffee.declined": "Elutasítva.",
   "coffee.ask_gone": "Ez a kérés már nem létezik vagy lejárt.",
   "coffee.link_cap": "A kassza sosem ürül ki, de minél nagyobb a fizetés, annál rosszabb az árfolyama: ha száz napnyi osztalékot fizetsz át, nagyjából a fele érkezik meg.",
-  "coffee.confirm_impact": "Ez a fizetés {pct}%-kal kevesebbet kap a kassza mostani árfolyamánál, mert a csoportok közti kassza ehhez képest kicsi. A kisebb fizetések jobb árfolyamot kapnak."
+  "coffee.confirm_impact": "Ez a fizetés {pct}%-kal kevesebbet kap a kassza mostani árfolyamánál, mert a csoportok közti kassza ehhez képest kicsi. A kisebb fizetések jobb árfolyamot kapnak.",
+  "coffee.invite_contact": "Küldés egy ismerősnek",
+  "js.coffee_invite_text": "☕ Lépj be a CoffeeBucks-csoportomba ({group}):"
 }

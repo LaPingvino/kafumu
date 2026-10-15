@@ -1637,7 +1637,9 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       constant product: a payment can never empty a pot, but the bigger it is the worse the rate (with a hundred days
       of dividend a side: paying 10 days' worth gets ~9.1 across, 100 days' worth only ~50). One sentence in the
       linking explanation; on the confirm page a clear notice when the quote is >5% below the pot's current rate.
-- [ ] 96q. Send a group invite to a contact (Joop): next to "Share an invite link", "Send to a contact" lists your
+- [x] 96q. Done + deployed: "👤 Send to a contact" on each group card lists your contacts (device) and sends
+      "☕ Join my CoffeeBucks group <name>:" + the invite link as a chat line through the pair (kept in that chat);
+      2 strings x 24. Inline script parse-checked; not browser-tested (needs a group + a connected contact). Was: (Joop): next to "Share an invite link", "Send to a contact" lists your
       contacts (device-side, like 👀 "Did you see this?") and sends "☕ Join my CoffeeBucks group <name>: <link>" as a
       chat line through the pair (device.js/pair.js on /coffee); strings x 24.
 - [ ] 96l. Payment requests (Joop): "ask @me for 3.50 in <group>" as a link and a QR code (/coffee/pay?g=&to=&a=&for=

@@ -893,5 +893,7 @@
   "coffee.declined": "Refuzat.",
   "coffee.ask_gone": "Cererea nu mai există sau a expirat.",
   "coffee.link_cap": "Fondul nu se golește niciodată, dar cu cât plata e mai mare, cu atât cursul e mai slab: dacă plătești o sută de zile de dividend către celălalt grup, ajunge cam jumătate.",
-  "coffee.confirm_impact": "Această plată primește cu {pct}% mai puțin decât cursul actual al fondului, pentru că fondul dintre grupuri e mic față de ea. Plățile mai mici au un curs mai bun."
+  "coffee.confirm_impact": "Această plată primește cu {pct}% mai puțin decât cursul actual al fondului, pentru că fondul dintre grupuri e mic față de ea. Plățile mai mici au un curs mai bun.",
+  "coffee.invite_contact": "Trimite unui contact",
+  "js.coffee_invite_text": "☕ Intră în grupul meu CoffeeBucks {group}:"
 }

@@ -28,7 +28,9 @@
         <input name="to" required placeholder="@name" aria-label="{{ts $.Lang "coffee.pay_to"}}" autocomplete="off" autocapitalize="off">
         <input name="amount" required inputmode="decimal" placeholder="0.00 {{.Sym}}" aria-label="{{ts $.Lang "coffee.pay_amount"}}" class="coffee-amount">
         <button type="submit" class="pill">💸 {{t $.Lang "coffee.pay"}}</button></form>{{end}}
-      <div class="actions"><button type="button" class="pill-sm suggested coffee-invite" data-g="{{.Gid}}">🔗 {{t $.Lang "coffee.invite"}}</button></div>
+      <div class="actions"><button type="button" class="pill-sm suggested coffee-invite" data-g="{{.Gid}}">🔗 {{t $.Lang "coffee.invite"}}</button>
+        <button type="button" class="pill-sm coffee-invite-contact" data-g="{{.Gid}}" data-name="{{.Name}}">👤 {{t $.Lang "coffee.invite_contact"}}</button></div>
+      <div class="chips coffee-pick" hidden></div>
       <p class="dim small">{{t $.Lang "coffee.invite_note"}}</p>
       <details class="coffee-rename"><summary class="dim small">✎ {{t $.Lang "coffee.rename"}}</summary>
         <form method="post" action="/coffee/rename#g-{{.Gid}}"><input type="hidden" name="g" value="{{.Gid}}">
@@ -53,9 +55,49 @@
   {{else}}<p class="dim small">{{t .Lang "coffee.start_need"}} <a href="/account">→</a></p>{{end}}
   {{else}}<p><a href="/account?next=/coffee" role="button" class="pill">{{t .Lang "here.need_name"}} →</a></p>{{end}}
 </article>
+<script>window.KAFUMU_T = window.KAFUMU_T || {{.JS}};</script>
+<script src="/static/device.js?v={{.V}}"></script>
+<script src="/static/sha1.js?v={{.V}}"></script>
+<script src="/static/pair.js?v={{.V}}"></script>
+<script src="/static/oln.js?v={{.V}}"></script>
 <script>
 (function () {
   var T = {{.JS}};
+  // Send a group invite to a contact (96q): through the pair, as a chat line,
+  // like 👀 "Did you see this?" — contacts never leave the device.
+  var pair;
+  function getPair() {
+    if (!pair && window.kafumuDevice && window.kafumuPair) pair = window.kafumuPair.create({ fetch: window.fetch.bind(window), store: window.kafumuDevice.store, origin: location.origin,
+      mine: function (t, kw, b) { return window.kafumuOLN.post(t, kw, b, function () {}); } });
+    return pair;
+  }
+  document.querySelectorAll(".coffee-invite-contact").forEach(function (b) {
+    b.onclick = function () {
+      var li = b.closest("li"), pick = li.querySelector(".coffee-pick"), st = li.querySelector(".coffee-status"), dev = window.kafumuDevice;
+      if (!pick.hidden) { pick.hidden = true; return; }
+      if (!dev || !getPair()) return;
+      Promise.all([dev.store.contacts(), fetch("/coffee/invite?g=" + encodeURIComponent(b.dataset.g), { credentials: "same-origin" }).then(function (r) { return r.json(); })]).then(function (res) {
+        var cs = res[0], link = res[1].link;
+        pick.textContent = "";
+        if (!cs.length) { pick.appendChild(Object.assign(document.createElement("span"), { className: "dim small", textContent: T.seen_none || "" })); }
+        cs.sort(function (a, z) { return (z.lastChat || z.createdAt || "").localeCompare(a.lastChat || a.createdAt || ""); }).slice(0, 12).forEach(function (c) {
+          var chip = document.createElement("button");
+          chip.type = "button"; chip.className = "chip"; chip.textContent = dev.nameOf(c, T);
+          chip.onclick = function () {
+            chip.disabled = true;
+            var text = (T.coffee_invite_text || "☕ Join my CoffeeBucks group {group}:").replace("{group}", b.dataset.name) + "\n" + link;
+            getPair().sendChat(c, text, function (t, kw, bits) { return window.kafumuOLN.post(t, kw, bits, function () {}); }).then(function (at) {
+              c.messages = (c.messages || []).concat([{ me: true, text: text, at: at }]).slice(-200);
+              c.lastChat = at;
+              return dev.store.putContact(c);
+            }).then(function () { chip.textContent = "✓ " + chip.textContent; }, function () { chip.disabled = false; st.textContent = T.network_retry || "…"; });
+          };
+          pick.appendChild(chip);
+        });
+        pick.hidden = false;
+      }, function () { st.textContent = T.network_retry || "…"; });
+    };
+  });
   document.querySelectorAll(".coffee-invite").forEach(function (b) {
     b.onclick = function () {
       var st = b.closest("li").querySelector(".coffee-status");

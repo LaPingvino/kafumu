@@ -893,5 +893,7 @@
   "coffee.declined": "Abgelehnt.",
   "coffee.ask_gone": "Diese Anfrage gibt es nicht mehr oder sie ist abgelaufen.",
   "coffee.link_cap": "Der Topf wird nie leer, aber je größer eine Zahlung, desto schlechter ihr Kurs: Wer hundert Tage Dividende hinüberzahlt, bekommt etwa die Hälfte davon an.",
-  "coffee.confirm_impact": "Diese Zahlung bekommt {pct} % weniger als der aktuelle Kurs des Topfs, weil der Topf zwischen den Gruppen im Vergleich klein ist. Kleinere Zahlungen bekommen einen besseren Kurs."
+  "coffee.confirm_impact": "Diese Zahlung bekommt {pct} % weniger als der aktuelle Kurs des Topfs, weil der Topf zwischen den Gruppen im Vergleich klein ist. Kleinere Zahlungen bekommen einen besseren Kurs.",
+  "coffee.invite_contact": "An einen Kontakt schicken",
+  "js.coffee_invite_text": "☕ Komm in meine CoffeeBucks-Gruppe {group}:"
 }
