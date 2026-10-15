@@ -1719,3 +1719,11 @@ read, expiring like every line (rule 3 holds).
       a device filter. 2 strings x 24. Not browser-tested. Was: Where you are, to your group: "📍 around <area> today" as an encrypted board line that expires at the end
       of the day; the same plain banner and pause as for contacts (95), automatic in areas you shared before, asks in
       a new one.
+- [ ] 97g. Groups inside Chats (Joop: "the groups button immediately goes to the group card view; I imagined the
+      notifications contain group chats"): "👥 Groups" in Chats becomes a filter (like Contacts) showing the group board
+      threads; a board thread opens as a two-way chat window (the dock on a computer, its page on a phone; key
+      "b:<gid>"): read and post there. (A group shows only when this device has its board key: Esperantistoj needs
+      "Start this group's board" once.)
+- [ ] 97h. Swap cards from the member list (Joop: "the member list lacks a ping to signal getting each other's
+      contacts"): "🤝 Swap cards?" by each member; it posts an encrypted board ping addressed to them, carrying a
+      connect link; they see "@you would like to swap cards" with Connect in Chats (and a push). No server change.
