@@ -1597,6 +1597,12 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       good argument about the 'is this real money' thing"): LPGroup keeps group name, currency name (≤30) and symbol
       (≤5); POST /lp/admin/rename {gid, name?, currency?, symbol?} sets them on the node (identity doc); any member
       renames from the group card; Kafumu shows each group's own symbol instead of a fixed K$; strings x 24.
+- [ ] 96m. A group nobody's in for 90 days is deleted (Joop: "give it 90 days for someone to return with an invite
+      link, then garbage collect"): LPGroup.EmptySince (set when the last member leaves, cleared on a join); the daily
+      cron closes the group's contacts first (contact.close: each linked group gets its own seed back), then deletes
+      its LPState/LPStateChunk/LPRecord/LPGroup; leftover balances of members who left go with it. Wording: VISION's
+      exception and the privacy page say "kept as long as the group exists; 90 days with nobody in it and it's gone";
+      the last member's leave page says it too. Tests (emulator for the delete).
 - [ ] 96l. Payment requests (Joop): "ask @me for 3.50 in <group>" as a link and a QR code (/coffee/pay?g=&to=&a=&for=
       prefilled, a short note not stored on the ledger); scanning or opening it shows the pay form filled in (or the
       across confirm when the payer is in a linked group); strings x 24.
