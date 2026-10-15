@@ -78,7 +78,9 @@ func TestRun(t *testing.T) {
 		Groups     []string  `datastore:"groups,noindex"`
 	}{"eli", now.Add(-400 * 24 * time.Hour), []string{"g1", "g2"}})
 	var hooked []string
-	OnUserDeleted = func(_ context.Context, id string, groups []string) { hooked = append(hooked, id+":"+strings.Join(groups, ",")) }
+	OnUserDeleted = func(_ context.Context, id string, groups []string) {
+		hooked = append(hooked, id+":"+strings.Join(groups, ","))
+	}
 	defer func() { OnUserDeleted = nil }()
 
 	r, err := Run(ctx, db, now)

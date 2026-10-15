@@ -1613,7 +1613,13 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       its LPState/LPStateChunk/LPRecord/LPGroup; leftover balances of members who left go with it. Wording: VISION's
       exception and the privacy page say "kept as long as the group exists; 90 days with nobody in it and it's gone";
       the last member's leave page says it too. Tests (emulator for the delete).
-- [ ] 96n. Linking from a payment (Joop: "first person tries a cross-group payment, it starts linking? might be the
+- [x] 96n1. Done (server; NOT deployed: Pay now redirects to /coffee/linkpay, which comes in 96n2): LinkAsk
+      (expiring entity, a week; purged), User.CoffeeAsks; POST /coffee/linkask (payer in g, payee in tg), /linkaccept
+      (only the payee: link the groups, then the payment, retried while the link opens), /linkdecline. Handler test.
+- [ ] 96n2. The pages: /coffee/linkpay (what a link is, what it costs, the rate, undoing: plain words; "Ask @name to
+      link and pay"), the payee's requests on /coffee (accept / decline, the same explanation); messages; strings x 24;
+      then deploy.
+- [x] 96n. (split into 96n1/n2) Linking from a payment (Joop: "first person tries a cross-group payment, it starts linking? might be the
       main way"; "be very clear about what the group linking does"): paying @name in a group not linked to yours
       offers "link our groups and pay"; the payee gets a request (Chats) to accept; accepting opens the pool (each
       group puts in a hundred days of dividend) and the payment goes through. Both sides see, before agreeing, in

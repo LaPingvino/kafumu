@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -8,6 +9,7 @@ import (
 	"net/url"
 	"slices"
 	"strings"
+	"time"
 
 	"github.com/LaPingvino/kafumu/internal/account"
 	"github.com/LaPingvino/kafumu/internal/coffee"
@@ -19,6 +21,7 @@ type Coffee struct {
 	Home     *Home
 	Accounts *account.Service
 	C        *coffee.Client
+	Asks     coffee.Asks // link requests (96n)
 }
 
 // MaxGroups bounds how many groups one account is in.
@@ -270,6 +273,12 @@ func (c *Coffee) Pay(w http.ResponseWriter, r *http.Request) {
 					return
 				}
 			}
+		}
+		if len(to.Groups) > 0 && to.ID != u.ID {
+			// Not linked yet: ask them to link our groups and take the payment (96n).
+			q := url.Values{"g": {gid}, "tg": {to.Groups[0]}, "to": {name}, "a": {fmt.Sprint(amount)}}
+			http.Redirect(w, r, "/coffee/linkpay?"+q.Encode(), http.StatusSeeOther)
+			return
 		}
 		back("not_member", "to", name)
 		return
@@ -531,4 +540,129 @@ func (c *Coffee) Rename(w http.ResponseWriter, r *http.Request) {
 		m = "rename_bad"
 	}
 	http.Redirect(w, r, "/coffee?"+url.Values{"g": {gid}, "m": {m}}.Encode()+"#g-"+gid, http.StatusSeeOther)
+}
+
+// userByName finds an account by @name.
+func (c *Coffee) userByName(ctx context.Context, name string) *account.User {
+	name = strings.ToLower(strings.TrimPrefix(strings.TrimSpace(name), "@"))
+	id, err := c.Accounts.Store.LookupUsername(ctx, name)
+	if err != nil || id == "" {
+		return nil
+	}
+	u, err := c.Accounts.ByID(ctx, id)
+	if err != nil {
+		return nil
+	}
+	return u
+}
+
+// LinkAsk handles POST /coffee/linkask (g, tg, to, a): the payer asks @to to
+// link the payer's group g with tg (the payee's) and take a payment of a.
+func (c *Coffee) LinkAsk(w http.ResponseWriter, r *http.Request) {
+	u := UserFrom(r.Context())
+	ctx := r.Context()
+	gid, tg := r.FormValue("g"), r.FormValue("tg")
+	var amount int64
+	fmt.Sscan(r.FormValue("a"), &amount)
+	to := c.userByName(ctx, r.FormValue("to"))
+	if u == nil || to == nil || to.ID == u.ID || gid == tg || amount <= 0 || !slices.Contains(u.Groups, gid) || !slices.Contains(to.Groups, tg) || c.Asks == nil {
+		http.Error(w, "not possible", http.StatusBadRequest)
+		return
+	}
+	a := &coffee.LinkAsk{FromGid: gid, ToGid: tg, FromUser: u.ID, ToUser: to.ID, Amount: amount, ExpiresAt: time.Now().Add(coffee.AskTTL)}
+	if err := c.Asks.Put(ctx, a); err != nil {
+		http.Error(w, "unavailable", http.StatusServiceUnavailable)
+		return
+	}
+	c.Accounts.Update(ctx, to, func(x *account.User) { x.CoffeeAsks = append(x.CoffeeAsks, a.ID) })
+	q := url.Values{"g": {gid}, "m": {"asked"}, "to": {to.Username}, "a": {coffee.Money(amount)}}
+	http.Redirect(w, r, "/coffee?"+q.Encode()+"#g-"+gid, http.StatusSeeOther)
+}
+
+// pendingAsks: the link requests addressed to u that are still there.
+func (c *Coffee) pendingAsks(ctx context.Context, u *account.User) []*coffee.LinkAsk {
+	if c.Asks == nil || u == nil {
+		return nil
+	}
+	var out []*coffee.LinkAsk
+	for _, id := range u.CoffeeAsks {
+		if a, err := c.Asks.Get(ctx, id); err == nil && a.ToUser == u.ID {
+			out = append(out, a)
+		}
+	}
+	return out
+}
+
+func (c *Coffee) dropAsk(ctx context.Context, u *account.User, id string) {
+	if c.Asks != nil {
+		c.Asks.Delete(ctx, id)
+	}
+	c.Accounts.Update(ctx, u, func(x *account.User) {
+		x.CoffeeAsks = slices.DeleteFunc(x.CoffeeAsks, func(s string) bool { return s == id })
+	})
+}
+
+// LinkAccept handles POST /coffee/linkaccept (id): the payee agrees; the two
+// groups link (each puts a hundred days of dividend into the pool) and the
+// payment goes through it.
+func (c *Coffee) LinkAccept(w http.ResponseWriter, r *http.Request) {
+	u := UserFrom(r.Context())
+	ctx := r.Context()
+	if u == nil || c.Asks == nil {
+		http.Error(w, "sign in", http.StatusForbidden)
+		return
+	}
+	id := r.FormValue("id")
+	a, err := c.Asks.Get(ctx, id)
+	if err != nil || a.ToUser != u.ID {
+		http.Redirect(w, r, "/coffee?m=ask_gone", http.StatusSeeOther)
+		return
+	}
+	payer, perr := c.Accounts.ByID(ctx, a.FromUser)
+	if perr != nil || payer == nil || !slices.Contains(payer.Groups, a.FromGid) || !slices.Contains(u.Groups, a.ToGid) {
+		c.dropAsk(ctx, u, id)
+		http.Redirect(w, r, "/coffee?m=ask_gone", http.StatusSeeOther)
+		return
+	}
+	from, e1 := c.C.MemberID(ctx, payer.ID)
+	me, e2 := c.C.MemberID(ctx, u.ID)
+	if e1 != nil || e2 != nil {
+		http.Redirect(w, r, "/coffee?m=error", http.StatusSeeOther)
+		return
+	}
+	if err := c.C.LinkGroups(ctx, a.FromGid, a.ToGid); err != nil && !strings.Contains(err.Error(), "exist") && !strings.Contains(err.Error(), "already") {
+		log.Printf("coffee: link on accept: %v", err)
+		http.Redirect(w, r, "/coffee?m=error", http.StatusSeeOther)
+		return
+	}
+	// The link opens in a moment; the payment waits for it (a few tries).
+	var terr error
+	for i := 0; i < 25; i++ {
+		if _, terr = c.C.Transfer(ctx, a.FromGid, from, a.ToGid, me, a.Amount); terr == nil {
+			break
+		}
+		time.Sleep(200 * time.Millisecond)
+	}
+	c.dropAsk(ctx, u, id)
+	m := "accepted"
+	if terr != nil {
+		log.Printf("coffee: pay on accept: %v", terr)
+		m = "linked" // linked, but the payment didn't go: the payer can pay now
+	}
+	q := url.Values{"g": {a.ToGid}, "m": {m}, "a": {coffee.Money(a.Amount)}}
+	http.Redirect(w, r, "/coffee?"+q.Encode()+"#g-"+a.ToGid, http.StatusSeeOther)
+}
+
+// LinkDecline handles POST /coffee/linkdecline (id).
+func (c *Coffee) LinkDecline(w http.ResponseWriter, r *http.Request) {
+	u := UserFrom(r.Context())
+	if u == nil {
+		http.Error(w, "sign in", http.StatusForbidden)
+		return
+	}
+	id := r.FormValue("id")
+	if a, err := c.Asks.Get(r.Context(), id); err == nil && a.ToUser == u.ID {
+		c.dropAsk(r.Context(), u, id)
+	}
+	http.Redirect(w, r, "/coffee?m=declined", http.StatusSeeOther)
 }

@@ -98,6 +98,11 @@ func main() {
 	// CoffeeBucks (96e): groups, invites, joining; the money lives in the lp service.
 	coffeeH := &handler.Coffee{Home: home, Accounts: accounts.Svc, C: &coffee.Client{Base: os.Getenv("KAFUMU_LP_BASE"), DB: db}}
 	accounts.Coffee = coffeeH.C
+	if db != nil {
+		coffeeH.Asks = &coffee.DatastoreAsks{DB: db}
+	} else {
+		coffeeH.Asks = &coffee.MemoryAsks{}
+	}
 	purge.OnUserDeleted = coffeeH.C.DestroyAll
 	mailbox := box.NewHandler(&box.CachedStore{Store: boxes, Cache: kv})
 	slotAPI := slot.NewHandler(&slot.CachedStore{Store: slots, Cache: kv})
@@ -193,6 +198,9 @@ func main() {
 	mux.HandleFunc("GET /coffee/leave", coffeeH.ShowLeave)
 	mux.HandleFunc("POST /coffee/leave", coffeeH.Leave)
 	mux.HandleFunc("POST /coffee/rename", coffeeH.Rename)
+	mux.HandleFunc("POST /coffee/linkask", coffeeH.LinkAsk)
+	mux.HandleFunc("POST /coffee/linkaccept", coffeeH.LinkAccept)
+	mux.HandleFunc("POST /coffee/linkdecline", coffeeH.LinkDecline)
 	mux.HandleFunc("POST /account/inbox", accounts.SetInbox)
 	mux.HandleFunc("GET /account/move", accounts.MoveRequest)
 	mux.HandleFunc("POST /account/move", accounts.MoveRequest)

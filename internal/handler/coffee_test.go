@@ -281,6 +281,37 @@ func TestCoffeeStartInviteJoin(t *testing.T) {
 	if len(lp.left) != before+len(dan.Groups) || lp.left[len(lp.left)-1]["mode"] != "destroy" {
 		t.Fatalf("delete: %v", lp.left[before:])
 	}
+	// Linking from a payment (96n): eli is in a group not linked to ana's;
+	// paying @eli offers a link request; eli accepts: link + payment.
+	c.Asks = &coffee.MemoryAsks{}
+	eli := user("eli", "host")
+	w = as(eli, "POST", "/coffee/group", url.Values{"name": {"Setúbal"}}, c.StartGroup)
+	gid3 := lp.created[len(lp.created)-1]
+	w = as(ana, "POST", "/coffee/pay", url.Values{"g": {gid}, "to": {"eli"}, "amount": {"1"}}, c.Pay)
+	lpURL, _ := url.Parse(w.Header().Get("Location"))
+	if lpURL.Path != "/coffee/linkpay" || lpURL.Query().Get("tg") != gid3 {
+		t.Fatalf("paying across unlinked groups: %s", w.Header().Get("Location"))
+	}
+	w = as(ana, "POST", "/coffee/linkask", lpURL.Query(), c.LinkAsk)
+	eli, _ = svc.ByID(ctx, eli.ID) // the handler updated the stored account
+	if len(eli.CoffeeAsks) != 1 {
+		t.Fatalf("eli got no request: %d %v", w.Code, eli.CoffeeAsks)
+	}
+	askID := eli.CoffeeAsks[0]
+	if w := as(ana, "POST", "/coffee/linkaccept", url.Values{"id": {askID}}, c.LinkAccept); !strings.Contains(w.Header().Get("Location"), "ask_gone") {
+		t.Fatal("the payer accepted their own request")
+	}
+	links0, sent0 := len(lp.links), len(lp.sent)
+	w = as(eli, "POST", "/coffee/linkaccept", url.Values{"id": {askID}}, c.LinkAccept)
+	if !strings.Contains(w.Header().Get("Location"), "m=accepted") || len(lp.links) != links0+1 || len(lp.sent) != sent0+1 || lp.sent[len(lp.sent)-1]["to_gid"] != gid3 {
+		t.Fatalf("accept: %s links %d sent %d", w.Header().Get("Location"), len(lp.links)-links0, len(lp.sent)-sent0)
+	}
+	if len(eli.CoffeeAsks) != 0 {
+		t.Fatal("the request stayed")
+	}
+	if w := as(eli, "POST", "/coffee/linkaccept", url.Values{"id": {askID}}, c.LinkAccept); !strings.Contains(w.Header().Get("Location"), "ask_gone") {
+		t.Fatal("a request was accepted twice")
+	}
 	// Member ids: stable per account, different between accounts.
 	a1, _ := c.C.MemberID(ctx, ana.ID)
 	a2, _ := c.C.MemberID(ctx, ana.ID)

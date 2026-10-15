@@ -55,6 +55,9 @@ type User struct {
 	// Groups: the CoffeeBucks groups this account is a member of (VISION §4);
 	// its money lives in each group's ledger under a pseudonymous member id.
 	Groups []string `datastore:"groups,noindex"`
+	// CoffeeAsks: link requests addressed to this account (ids of expiring
+	// LinkAsk entities, 96n); stale ones are dropped when read.
+	CoffeeAsks []string `datastore:"coffee_asks,noindex"`
 	// A public inbox lets people who find you write to you, encrypted to a
 	// key only your device holds, paying InboxBits of work per message.
 	InboxBox  string `datastore:"inbox_box,noindex"`
