@@ -927,5 +927,10 @@
   "js.push_board": "📋 {group} 게시판에 새 글",
   "coffee.members_list": "회원",
   "js.where_groups_too": "CoffeeBucks 그룹도 볼 수 있어요.",
-  "js.board_here": "@{name}님이 오늘 {place} 근처에 있어요"
+  "js.board_here": "@{name}님이 오늘 {place} 근처에 있어요",
+  "js.act_group_cards": "회원, 초대, CoffeeBucks",
+  "js.act_no_boards": "이 기기에는 아직 그룹 게시판이 없어요. 그룹 카드에서 시작하거나 열어 보세요.",
+  "js.board_placeholder": "그룹에 글 쓰기…",
+  "js.group_card": "그룹",
+  "js.board_need_name": "여기에 쓰려면 '나'에서 사용자 이름을 정하세요."
 }

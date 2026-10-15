@@ -927,5 +927,10 @@
   "js.push_board": "📋 {group} 的看板有新內容",
   "coffee.members_list": "成員",
   "js.where_groups_too": "你的 CoffeeBucks 群組也看得到。",
-  "js.board_here": "@{name} 今天在 {place} 一帶"
+  "js.board_here": "@{name} 今天在 {place} 一帶",
+  "js.act_group_cards": "成員、邀請、CoffeeBucks",
+  "js.act_no_boards": "這台裝置上還沒有群組看板：在群組卡片上建立或開啟一個。",
+  "js.board_placeholder": "寫給群組…",
+  "js.group_card": "群組",
+  "js.board_need_name": "在「我」裡選一個使用者名稱就能在這裡寫。"
 }

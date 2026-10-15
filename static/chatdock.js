@@ -13,10 +13,10 @@
   // need loads what a chat needs on pages that don't have it yet.
   var loading;
   function need() {
-    if (window.kafumuDevice && window.kafumuPair && window.kafumuOLN) return Promise.resolve();
+    if (window.kafumuDevice && window.kafumuPair && window.kafumuOLN && window.kafumuBoard) return Promise.resolve();
     if (loading) return loading;
     var v = encodeURIComponent(window.KAFUMU_V || "");
-    var files = [!window.kafumuDevice && "device.js", !window.kafumuSHA1 && "sha1.js", !window.kafumuPair && "pair.js", !window.kafumuOLN && "oln.js"].filter(Boolean);
+    var files = [!window.kafumuDevice && "device.js", !window.kafumuSHA1 && "sha1.js", !window.kafumuPair && "pair.js", !window.kafumuOLN && "oln.js", !window.kafumuBoard && "board.js"].filter(Boolean);
     loading = files.reduce(function (p, f) {
       return p.then(function () {
         return new Promise(function (ok, fail) { var s = document.createElement("script"); s.src = "/static/" + f + "?v=" + v; s.onload = ok; s.onerror = fail; document.head.appendChild(s); });
@@ -125,8 +125,61 @@
     var timer = setInterval(function () { if (!document.hidden && thread.isConnected) load(); else if (!thread.isConnected) clearInterval(timer); }, 20000);
     return { thread: thread, open: function () {} };
   }
+  // boardThread (97g): a group's board as a group chat, read and written
+  // with the group's key on this device; opening it counts as reading it.
+  function boardThread(gid, key) {
+    var dev = window.kafumuDevice, me = document.body.dataset.me || "";
+    var thread = el("div", "chat"), log = el("div", "chat-log"), form = el("form", "chat-form"), input = el("input"), st = el("span", "dim small");
+    input.maxLength = 500; input.placeholder = T.board_placeholder || T.reply_placeholder || "…"; input.setAttribute("aria-label", input.placeholder);
+    var sendBtn = el("button", "pill-sm suggested", T.chat_send || "Send"); sendBtn.type = "submit";
+    form.appendChild(input); form.appendChild(sendBtn); form.appendChild(st);
+    if (!me) { input.disabled = sendBtn.disabled = true; st.textContent = T.board_need_name || ""; }
+    thread.appendChild(log); thread.appendChild(form);
+    var shown = null, today = function () { return new Date().toISOString().slice(0, 10); };
+    function seen() { return dev.store.get("boardSeen").then(function (s) { s = s || {}; s[gid] = new Date().toISOString(); return dev.store.set("boardSeen", s); }); }
+    function draw(ps) {
+      ps = ps.filter(function (p) { return p.kind !== "here" || String(p.at).slice(0, 10) === today(); }).reverse(); // oldest first
+      var sig = ps.map(function (p) { return p.id; }).join(",");
+      if (sig === shown) return;
+      shown = sig;
+      var atEnd = log.scrollHeight - log.scrollTop - log.clientHeight < 40;
+      log.textContent = "";
+      if (!ps.length) log.appendChild(el("p", "dim small", T.public_chat_empty || "No messages yet."));
+      ps.forEach(function (p) {
+        if (p.kind === "here") { log.appendChild(el("div", "chat-note dim small", "📍 " + (T.board_here || "@{name}: {place}").replace("{name}", p.by || "").replace("{place}", p.text))); return; }
+        var icon = p.kind === "offer" ? "🎁 " : p.kind === "request" ? "🙋 " : "";
+        var b = el("div", "bubble" + (p.by && p.by === me ? " me" : ""), "");
+        if (p.by && p.by !== me) b.appendChild(el("div", "dim small", "@" + p.by));
+        b.appendChild(document.createTextNode(icon + String(p.text || "")));
+        b.title = new Date(p.at).toLocaleString(window.KAFUMU_LOCALE);
+        log.appendChild(b);
+      });
+      if (atEnd || !log.dataset.seen) log.scrollTop = log.scrollHeight;
+      log.dataset.seen = "1";
+    }
+    function load() { return window.kafumuBoard.read(key).then(function (ps) { draw(ps); return seen(); }, function () {}); }
+    form.onsubmit = function (e) {
+      e.preventDefault();
+      var text = input.value.trim();
+      if (!text || !me) return;
+      sendBtn.disabled = input.disabled = true; st.textContent = "…";
+      window.kafumuBoard.post(key, { kind: "note", text: text, by: me }, function (t, kw, b) { return window.kafumuOLN.post(t, kw, b, function (n) { st.textContent = (T.oln_working || "{n}").replace("{n}", n); }); }).then(function () {
+        input.value = ""; st.textContent = "";
+        // your own post comes back as a push: shown silently (97e2)
+        window.kafumuBoard.tag(key).then(function (t) { return dev.store.get("justPosted").then(function (m) { m = m || {}; m[t] = Date.now(); return dev.store.set("justPosted", m); }); });
+        return load();
+      }, function () { st.textContent = T.oln_failed || "!"; }).then(function () { sendBtn.disabled = input.disabled = false; input.focus(); });
+    };
+    load();
+    var timer = setInterval(function () { if (!document.hidden && thread.isConnected) load(); else if (!thread.isConnected) clearInterval(timer); }, 20000);
+    return { thread: thread, open: function () {} };
+  }
   function build(key, asPage) {
     var dev = window.kafumuDevice, kind = key.slice(0, 2), id = key.slice(2), p = pair();
+    if (kind === "b:") return Promise.all([dev.store.get("groupKeys"), dev.store.get("groupNames")]).then(function (r) {
+      var k = (r[0] || {})[id];
+      return k ? win(key, asPage, "👥 " + ((r[1] || {})[id] || id), boardThread(id, k)) : null;
+    });
     if (kind === "r:") return /^[0-9a-f]{10}$/.test(id) ? Promise.resolve(win(key, asPage, "💬 " + (threadTitle(id) || "#re" + id), replyThread(id))) : Promise.resolve(null);
     var find = kind === "c:" ? dev.store.contacts() : p.threads();
     return find.then(function (all) {
@@ -165,6 +218,7 @@
       }
       head.appendChild(back); head.appendChild(el("strong", "", title));
       if (kind === "c:") { var card = el("a", "dim small", "🪪 " + (T.contact_card || "Card")); card.href = "/contacts#c-" + encodeURIComponent(id); head.appendChild(card); }
+      if (kind === "b:") { var gc = el("a", "dim small", "👥 " + (T.group_card || "Group")); gc.href = "/groups?g=" + encodeURIComponent(id) + "#g-" + encodeURIComponent(id); gc.dataset.page = "1"; head.appendChild(gc); }
       if (!asPage) { // a docked window pops out into its own page
         var pop = el("a", "dim small pop-out", "⤢"); pop.href = chatURL(key); pop.dataset.page = "1";
         pop.title = T.pop_out || "Open as a page"; pop.setAttribute("aria-label", pop.title);

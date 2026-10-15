@@ -927,5 +927,10 @@
   "js.push_board": "📋 Nieuw op het bord van {group}",
   "coffee.members_list": "Leden",
   "js.where_groups_too": "Je CoffeeBucks-groepen zien het ook.",
-  "js.board_here": "@{name} is vandaag rond {place}"
+  "js.board_here": "@{name} is vandaag rond {place}",
+  "js.act_group_cards": "Leden, uitnodigingen, CoffeeBucks",
+  "js.act_no_boards": "Nog geen groepsborden op dit apparaat: start of open er een op de kaart van een groep.",
+  "js.board_placeholder": "Schrijf naar de groep…",
+  "js.group_card": "Groep",
+  "js.board_need_name": "Kies een gebruikersnaam bij Ik om hier te schrijven."
 }

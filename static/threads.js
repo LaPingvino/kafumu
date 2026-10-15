@@ -36,6 +36,10 @@
     }
     // Notices (replies to your posts, meetup news, Bluesky) grouped by the thing they're about.
     var byThing = {};
+    // Group boards (97g): every group with its key here, also before any post.
+    (src.groups || []).forEach(function (g) {
+      byThing["g:" + g.id] = { id: "g:" + g.id, kind: "group", title: "👥 " + (g.name || g.id), twoWay: true, url: "/chat?k=b:" + encodeURIComponent(g.id), unread: 0, items: [] };
+    });
     (src.notices || []).forEach(function (n) {
       if (!n.thread) return;
       var t = byThing[n.thread];
@@ -43,7 +47,7 @@
       t.items.push({ me: false, icon: n.icon, who: n.who || "", text: n.text, at: n.at });
       if (n.unread) t.unread++;
     });
-    Object.keys(byThing).forEach(function (k) { threads.push(byThing[k]); });
+    Object.keys(byThing).forEach(function (k) { var t = byThing[k]; if (t.kind === "group") t.quiet = !t.items.length; threads.push(t); });
     threads.forEach(function (t) {
       t.items.sort(function (a, b) { return time(a.at) - time(b.at); });
       var last = t.items[t.items.length - 1];

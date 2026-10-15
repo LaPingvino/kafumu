@@ -927,5 +927,10 @@
   "js.push_board": "📋 {group} のボードに新着",
   "coffee.members_list": "メンバー",
   "js.where_groups_too": "CoffeeBucks のグループにも見えます。",
-  "js.board_here": "@{name} は今日 {place} のあたりにいます"
+  "js.board_here": "@{name} は今日 {place} のあたりにいます",
+  "js.act_group_cards": "メンバー、招待、CoffeeBucks",
+  "js.act_no_boards": "この端末にはまだグループのボードがありません。グループのカードから始めるか開いてください。",
+  "js.board_placeholder": "グループに書く…",
+  "js.group_card": "グループ",
+  "js.board_need_name": "ここに書くには「自分」でユーザー名を決めてください。"
 }

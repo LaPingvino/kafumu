@@ -927,5 +927,10 @@
   "js.push_board": "📋 Novidade no quadro de {group}",
   "coffee.members_list": "Membros",
   "js.where_groups_too": "Os teus grupos CoffeeBucks também veem.",
-  "js.board_here": "@{name} anda hoje por {place}"
+  "js.board_here": "@{name} anda hoje por {place}",
+  "js.act_group_cards": "Membros, convites, CoffeeBucks",
+  "js.act_no_boards": "Ainda não há quadros de grupo neste dispositivo: cria ou abre um no cartão de um grupo.",
+  "js.board_placeholder": "Escreve ao grupo…",
+  "js.group_card": "Grupo",
+  "js.board_need_name": "Escolhe um nome de utilizador em Eu para escrever aqui."
 }

@@ -189,17 +189,18 @@
     }
     // Group boards (97e): each board a thread here, read with the group's key
     // on this device; unread = newer than your last look at that board.
-    var boardItems = [];
+    var boardItems = [], boardGroups = [];
     function readBoards() {
       if (!window.kafumuBoard) return Promise.resolve();
       return Promise.all([dev.store.get("groupKeys"), dev.store.get("groupNames"), dev.store.get("boardSeen")]).then(function (r) {
         var keys = r[0] || {}, names = r[1] || {}, seen = r[2] || {};
+        boardGroups = Object.keys(keys).map(function (g) { return { id: g, name: names[g] || g }; });
         return Promise.all(Object.keys(keys).map(function (g) {
           return window.kafumuBoard.read(keys[g]).then(function (posts) {
             var today = new Date().toISOString().slice(0, 10);
             posts = posts.filter(function (p) { return p.kind !== "here" || String(p.at).slice(0, 10) === today; });
             return posts.map(function (p) {
-              return { thread: "g:" + g, kind: "group", title: "📋 " + (names[g] || g), href: "/groups?g=" + encodeURIComponent(g) + "#g-" + encodeURIComponent(g),
+              return { thread: "g:" + g, kind: "group", title: "👥 " + (names[g] || g), href: "/chat?k=b:" + encodeURIComponent(g),
                 icon: p.kind === "offer" ? "🎁" : p.kind === "request" ? "🙋" : p.kind === "reply" ? "💬" : p.kind === "here" ? "📍" : "📝", who: p.by ? "@" + p.by : "", text: p.kind === "here" ? (T.board_here || "@{name}: {place}").replace("{name}", p.by || "").replace("{place}", p.text).replace(/^@\S+\s*/, "") : p.text, at: p.at,
                 unread: !seen[g] || String(p.at) > seen[g] };
             });
@@ -209,7 +210,7 @@
     }
     function draw() {
       return Promise.all([dev.store.contacts(), pair.threads(), dev.store.get("inboxMsgs")]).then(function (r) {
-        var ts = window.kafumuThreads.build({ contacts: r[0], answers: r[1], inbox: r[2] || [], notices: items.filter(function (i) { return i.thread; }).concat(boardItems),
+        var ts = window.kafumuThreads.build({ contacts: r[0], answers: r[1], inbox: r[2] || [], notices: items.filter(function (i) { return i.thread; }).concat(boardItems), groups: boardGroups,
           nameOf: dev.nameOf, signalText: dev.signalText }, T);
         var byId = {};
         r[0].forEach(function (c) { byId["c:" + c.id] = c; });
@@ -221,7 +222,13 @@
           var go = el("li", "thread-cards"), a = el("a", "pill-sm", "🪪 " + (T.act_contact_cards || "Their cards, your notes, backup") + " →");
           a.href = "/contacts"; a.setAttribute("role", "button"); go.appendChild(a); ul.appendChild(go);
         }
-        ts.filter(function (t) { return filter === "all" || (filter === "contacts" ? t.kind === "contact" : t.unread > 0); }).forEach(function (t) {
+        // Groups (97g): their boards as chats; the cards (members, money) one tap away.
+        if (filter === "groups") {
+          var gg = el("li", "thread-cards"), ga = el("a", "pill-sm", "👥 " + (T.act_group_cards || "Members, invites, CoffeeBucks") + " →");
+          ga.href = "/groups"; ga.setAttribute("role", "button"); gg.appendChild(ga); ul.appendChild(gg);
+          if (!ts.some(function (t) { return t.kind === "group"; })) ul.appendChild(el("li", "dim small", T.act_no_boards || ""));
+        }
+        ts.filter(function (t) { return filter === "all" || (filter === "contacts" ? t.kind === "contact" : filter === "groups" ? t.kind === "group" : t.unread > 0); }).forEach(function (t) {
           var src = byId[t.id], li = el("li", "thread" + (t.unread ? " unread" : ""));
           li.id = t.kind === "contact" ? "chat-" + src.id : t.kind === "answer" ? "answer-" + src.id : "t-" + t.id;
           var head = el("button", "thread-head"); head.type = "button";
@@ -235,7 +242,7 @@
           var body;
           // Two-way threads open as chat windows (chatdock.js, 88a); one-way
           // ones unfold in the list.
-          var key = t.kind === "contact" ? "c:" + src.id : t.kind === "answer" ? "a:" + src.id : "";
+          var key = t.kind === "contact" ? "c:" + src.id : t.kind === "answer" ? "a:" + src.id : t.kind === "group" ? "b:" + t.id.slice(2) : "";
           function openIt() {
             if (key) { // chatdock.js loads deferred: wait for it on a fresh page
               if (window.kafumuChat) window.kafumuChat.open(key);
@@ -262,7 +269,7 @@
     window.addEventListener("hashchange", function () { linked = false; draw(); });
     // Show what's stored at once, then read new lines of the ten most recent
     // chats (one anonymous fetch each) and redraw if any came in.
-    readBoards().then(function () { if (boardItems.length) draw(); }); // the boards come in after the first draw
+    readBoards().then(function () { if (boardGroups.length) draw(); }); // the boards come in after the first draw
     return draw().then(function () { return dev.store.contacts(); }).then(function (cs) {
       cs = cs.filter(function (c) { return (c.messages || []).length; }).sort(function (a, b) { return ((b.messages.slice(-1)[0] || {}).at || "").localeCompare((a.messages.slice(-1)[0] || {}).at || ""); }).slice(0, 10);
       return Promise.all(cs.map(function (c) { return pair.readChat(c).catch(function () { return 0; }); }));

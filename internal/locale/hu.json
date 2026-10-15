@@ -927,5 +927,10 @@
   "js.push_board": "📋 Új bejegyzés a(z) {group} tábláján",
   "coffee.members_list": "Tagok",
   "js.where_groups_too": "A CoffeeBucks-csoportjaid is látják.",
-  "js.board_here": "@{name} ma {place} környékén van"
+  "js.board_here": "@{name} ma {place} környékén van",
+  "js.act_group_cards": "Tagok, meghívók, CoffeeBucks",
+  "js.act_no_boards": "Ezen az eszközön még nincs csoporttábla: indíts vagy nyiss meg egyet egy csoport kártyáján.",
+  "js.board_placeholder": "Írj a csoportnak…",
+  "js.group_card": "Csoport",
+  "js.board_need_name": "Válassz felhasználónevet az Én lapon, hogy itt írhass."
 }

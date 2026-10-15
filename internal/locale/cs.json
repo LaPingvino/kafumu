@@ -927,5 +927,10 @@
   "js.push_board": "📋 Novinka na nástěnce skupiny {group}",
   "coffee.members_list": "Členové",
   "js.where_groups_too": "Vidí to i tvé skupiny CoffeeBucks.",
-  "js.board_here": "@{name} je dnes někde u {place}"
+  "js.board_here": "@{name} je dnes někde u {place}",
+  "js.act_group_cards": "Členové, pozvánky, CoffeeBucks",
+  "js.act_no_boards": "Na tomto zařízení zatím není žádná nástěnka skupiny: založ nebo otevři ji na kartě skupiny.",
+  "js.board_placeholder": "Napiš skupině…",
+  "js.group_card": "Skupina",
+  "js.board_need_name": "Pro psaní si vyber uživatelské jméno v sekci Já."
 }

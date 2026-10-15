@@ -927,5 +927,10 @@
   "js.push_board": "📋 Có bài mới trên bảng của {group}",
   "coffee.members_list": "Thành viên",
   "js.where_groups_too": "Các nhóm CoffeeBucks của bạn cũng thấy.",
-  "js.board_here": "@{name} hôm nay ở quanh {place}"
+  "js.board_here": "@{name} hôm nay ở quanh {place}",
+  "js.act_group_cards": "Thành viên, lời mời, CoffeeBucks",
+  "js.act_no_boards": "Thiết bị này chưa có bảng nhóm nào: hãy tạo hoặc mở một bảng trên thẻ của nhóm.",
+  "js.board_placeholder": "Viết cho nhóm…",
+  "js.group_card": "Nhóm",
+  "js.board_need_name": "Hãy chọn tên người dùng ở mục Tôi để viết ở đây."
 }

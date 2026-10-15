@@ -927,5 +927,10 @@
   "js.push_board": "📋 Nova sur la tabulo de {group}",
   "coffee.members_list": "Membroj",
   "js.where_groups_too": "Viaj CoffeeBucks-grupoj vidas ĝin ankaŭ.",
-  "js.board_here": "@{name} estas hodiaŭ ĉirkaŭ {place}"
+  "js.board_here": "@{name} estas hodiaŭ ĉirkaŭ {place}",
+  "js.act_group_cards": "Membroj, invitoj, CoffeeBucks",
+  "js.act_no_boards": "Ankoraŭ neniu grupa tabulo en ĉi tiu aparato: komencu aŭ malfermu unu ĉe la karto de grupo.",
+  "js.board_placeholder": "Skribu al la grupo…",
+  "js.group_card": "Grupo",
+  "js.board_need_name": "Elektu uzantnomon ĉe Mi por skribi ĉi tie."
 }

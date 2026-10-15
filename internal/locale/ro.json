@@ -927,5 +927,10 @@
   "js.push_board": "📋 Ceva nou pe panoul {group}",
   "coffee.members_list": "Membri",
   "js.where_groups_too": "Grupurile tale CoffeeBucks văd și ele.",
-  "js.board_here": "@{name} e azi prin {place}"
+  "js.board_here": "@{name} e azi prin {place}",
+  "js.act_group_cards": "Membri, invitații, CoffeeBucks",
+  "js.act_no_boards": "Încă niciun panou de grup pe acest dispozitiv: pornește sau deschide unul pe cardul unui grup.",
+  "js.board_placeholder": "Scrie grupului…",
+  "js.group_card": "Grup",
+  "js.board_need_name": "Alege un nume de utilizator la Eu ca să scrii aici."
 }

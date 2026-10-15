@@ -1719,7 +1719,11 @@ read, expiring like every line (rule 3 holds).
       a device filter. 2 strings x 24. Not browser-tested. Was: Where you are, to your group: "📍 around <area> today" as an encrypted board line that expires at the end
       of the day; the same plain banner and pause as for contacts (95), automatic in areas you shared before, asks in
       a new one.
-- [ ] 97g. Groups inside Chats (Joop: "the groups button immediately goes to the group card view; I imagined the
+- [x] 97g. Done + deployed: "👥 Groups" in Chats is a filter now (the group boards, plus a link to the cards:
+      members, invites, CoffeeBucks); every group with its key here is a thread, also before its first post; it opens
+      as a chat window (key b:<gid>, docked or /chat?k=b:…): posts oldest first, yours on the right, "here" lines as
+      notes, write = a board note, opening = read; board pushes open it too. 5 strings x 24; threads unit test.
+      Not browser-tested. Was: Groups inside Chats (Joop: "the groups button immediately goes to the group card view; I imagined the
       notifications contain group chats"): "👥 Groups" in Chats becomes a filter (like Contacts) showing the group board
       threads; a board thread opens as a two-way chat window (the dock on a computer, its page on a phone; key
       "b:<gid>"): read and post there. (A group shows only when this device has its board key: Esperantistoj needs

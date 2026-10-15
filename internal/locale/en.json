@@ -927,5 +927,10 @@
   "js.push_board": "📋 New on the board of {group}",
   "coffee.members_list": "Members",
   "js.where_groups_too": "Your CoffeeBucks groups see it too.",
-  "js.board_here": "@{name} is around {place} today"
+  "js.board_here": "@{name} is around {place} today",
+  "js.act_group_cards": "Members, invites, CoffeeBucks",
+  "js.act_no_boards": "No group boards on this device yet: start or open one on a group's card.",
+  "js.board_placeholder": "Write to the group…",
+  "js.group_card": "Group",
+  "js.board_need_name": "Pick a username on Me to write here."
 }

@@ -927,5 +927,10 @@
   "js.push_board": "📋 Neu auf dem Brett von {group}",
   "coffee.members_list": "Mitglieder",
   "js.where_groups_too": "Deine CoffeeBucks-Gruppen sehen es auch.",
-  "js.board_here": "@{name} ist heute in der Gegend von {place}"
+  "js.board_here": "@{name} ist heute in der Gegend von {place}",
+  "js.act_group_cards": "Mitglieder, Einladungen, CoffeeBucks",
+  "js.act_no_boards": "Noch keine Gruppenbretter auf diesem Gerät: starte oder öffne eins auf der Karte einer Gruppe.",
+  "js.board_placeholder": "Schreib an die Gruppe…",
+  "js.group_card": "Gruppe",
+  "js.board_need_name": "Wähle unter Ich einen Benutzernamen, um hier zu schreiben."
 }

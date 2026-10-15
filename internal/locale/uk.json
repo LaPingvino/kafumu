@@ -927,5 +927,10 @@
   "js.push_board": "📋 Нове на дошці групи {group}",
   "coffee.members_list": "Учасники",
   "js.where_groups_too": "Твої групи CoffeeBucks теж це бачать.",
-  "js.board_here": "@{name} сьогодні десь біля {place}"
+  "js.board_here": "@{name} сьогодні десь біля {place}",
+  "js.act_group_cards": "Учасники, запрошення, CoffeeBucks",
+  "js.act_no_boards": "На цьому пристрої ще немає дошок груп: створи або відкрий дошку на картці групи.",
+  "js.board_placeholder": "Напиши групі…",
+  "js.group_card": "Група",
+  "js.board_need_name": "Вибери ім'я користувача в розділі «Я», щоб писати тут."
 }

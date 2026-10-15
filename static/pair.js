@@ -822,7 +822,7 @@
         var gk = r[6] || {}, gn = r[7] || {};
         Object.keys(gk).forEach(function (g) {
           add(hmacHex(unb64(gk[g]), "board").then(function (h) { return "p" + h.slice(0, 32); }),
-            tr("push_board", "📋 New on the board of {group}", { group: gn[g] || g }), "/groups?g=" + encodeURIComponent(g) + "#g-" + encodeURIComponent(g));
+            tr("push_board", "📋 New on the board of {group}", { group: gn[g] || g }), "/chat?k=b:" + encodeURIComponent(g));
         });
         return Promise.all(out).then(function (ls) { return ls.filter(Boolean).slice(0, 300); });
       });

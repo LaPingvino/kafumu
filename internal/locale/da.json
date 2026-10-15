@@ -927,5 +927,10 @@
   "js.push_board": "📋 Nyt på tavlen i {group}",
   "coffee.members_list": "Medlemmer",
   "js.where_groups_too": "Dine CoffeeBucks-grupper kan også se det.",
-  "js.board_here": "@{name} er i dag omkring {place}"
+  "js.board_here": "@{name} er i dag omkring {place}",
+  "js.act_group_cards": "Medlemmer, invitationer, CoffeeBucks",
+  "js.act_no_boards": "Ingen gruppetavler på denne enhed endnu: start eller åbn en på en gruppes kort.",
+  "js.board_placeholder": "Skriv til gruppen…",
+  "js.group_card": "Gruppe",
+  "js.board_need_name": "Vælg et brugernavn under Mig for at skrive her."
 }

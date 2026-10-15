@@ -32,4 +32,12 @@ assert.equal(post.twoWay, false);
 assert.equal(post.items.length, 2, "a post's replies and reactions in one thread");
 assert.equal(post.unread, 1);
 assert.equal(ts.find(t => t.id === "a:t1").title, "🔒 Coffee at the market?");
+// Group boards (97g): a group shows before its first post; its posts land in it.
+const gs = build({ groups: [{ id: "g1", name: "Esperantistoj" }, { id: "g2", name: "Quiet" }],
+  notices: [{ thread: "g:g1", kind: "group", title: "x", text: "kafo?", who: "@ana", at: "2026-10-16T08:00:00Z", unread: true }] }, T);
+assert.deepEqual(gs.map(t => t.id), ["g:g1", "g:g2"], "a group with posts first, an empty one after");
+assert.equal(gs[0].title, "👥 Esperantistoj");
+assert.equal(gs[0].unread, 1);
+assert.equal(gs[0].url, "/chat?k=b:g1");
+assert.equal(gs[1].quiet, true);
 console.log("ok  static/threads.js (contacts always, two-way chats, one-way notices per thing)");

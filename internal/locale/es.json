@@ -927,5 +927,10 @@
   "js.push_board": "📋 Novedad en el tablón de {group}",
   "coffee.members_list": "Miembros",
   "js.where_groups_too": "Tus grupos de CoffeeBucks también lo ven.",
-  "js.board_here": "@{name} anda hoy por {place}"
+  "js.board_here": "@{name} anda hoy por {place}",
+  "js.act_group_cards": "Miembros, invitaciones, CoffeeBucks",
+  "js.act_no_boards": "Aún no hay tablones de grupo en este dispositivo: crea o abre uno en la tarjeta de un grupo.",
+  "js.board_placeholder": "Escribe al grupo…",
+  "js.group_card": "Grupo",
+  "js.board_need_name": "Elige un nombre de usuario en Yo para escribir aquí."
 }

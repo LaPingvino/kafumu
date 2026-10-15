@@ -927,5 +927,10 @@
   "js.push_board": "📋 Nowość na tablicy grupy {group}",
   "coffee.members_list": "Członkowie",
   "js.where_groups_too": "Twoje grupy CoffeeBucks też to widzą.",
-  "js.board_here": "@{name} jest dziś w okolicy {place}"
+  "js.board_here": "@{name} jest dziś w okolicy {place}",
+  "js.act_group_cards": "Członkowie, zaproszenia, CoffeeBucks",
+  "js.act_no_boards": "Na tym urządzeniu nie ma jeszcze tablic grup: załóż lub otwórz ją na karcie grupy.",
+  "js.board_placeholder": "Napisz do grupy…",
+  "js.group_card": "Grupa",
+  "js.board_need_name": "Wybierz nazwę użytkownika w zakładce Ja, aby tu pisać."
 }

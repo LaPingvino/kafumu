@@ -927,5 +927,10 @@
   "js.push_board": "📋 {group} panosunda yeni bir şey var",
   "coffee.members_list": "Üyeler",
   "js.where_groups_too": "CoffeeBucks grupların da bunu görür.",
-  "js.board_here": "@{name} bugün {place} civarında"
+  "js.board_here": "@{name} bugün {place} civarında",
+  "js.act_group_cards": "Üyeler, davetler, CoffeeBucks",
+  "js.act_no_boards": "Bu cihazda henüz grup panosu yok: bir grubun kartından başlat ya da aç.",
+  "js.board_placeholder": "Gruba yaz…",
+  "js.group_card": "Grup",
+  "js.board_need_name": "Buraya yazmak için Ben sekmesinden bir kullanıcı adı seç."
 }

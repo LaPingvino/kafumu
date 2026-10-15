@@ -927,5 +927,10 @@
   "js.push_board": "📋 Νέο στον πίνακα της ομάδας {group}",
   "coffee.members_list": "Μέλη",
   "js.where_groups_too": "Το βλέπουν και οι ομάδες σου CoffeeBucks.",
-  "js.board_here": "Ο/Η @{name} είναι σήμερα κοντά στο {place}"
+  "js.board_here": "Ο/Η @{name} είναι σήμερα κοντά στο {place}",
+  "js.act_group_cards": "Μέλη, προσκλήσεις, CoffeeBucks",
+  "js.act_no_boards": "Δεν υπάρχει ακόμα πίνακας ομάδας σε αυτή τη συσκευή: ξεκίνα ή άνοιξε έναν από την κάρτα μιας ομάδας.",
+  "js.board_placeholder": "Γράψε στην ομάδα…",
+  "js.group_card": "Ομάδα",
+  "js.board_need_name": "Διάλεξε όνομα χρήστη στο Εγώ για να γράψεις εδώ."
 }
