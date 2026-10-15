@@ -924,5 +924,6 @@
   "js.board_pay": "Pagi {amount}",
   "groups.title": "Grupoj",
   "groups.intro": "Malgrandaj grupoj de homoj, kiuj konas unu la alian: tabulo nur por membroj por ofertoj kaj petoj, kaj propra mono, CoffeeBucks, kun la sama dividendo por ĉiu membro.",
-  "js.push_board": "📋 Nova sur la tabulo de {group}"
+  "js.push_board": "📋 Nova sur la tabulo de {group}",
+  "coffee.members_list": "Membroj"
 }

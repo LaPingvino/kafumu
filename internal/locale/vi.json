@@ -924,5 +924,6 @@
   "js.board_pay": "Trả {amount}",
   "groups.title": "Nhóm",
   "groups.intro": "Những nhóm nhỏ người quen nhau: một bảng chỉ dành cho thành viên để đăng đề nghị và nhu cầu, và một đồng tiền riêng, CoffeeBucks, với cùng một khoản cổ tức cho mỗi thành viên.",
-  "js.push_board": "📋 Có bài mới trên bảng của {group}"
+  "js.push_board": "📋 Có bài mới trên bảng của {group}",
+  "coffee.members_list": "Thành viên"
 }

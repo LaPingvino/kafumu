@@ -111,7 +111,7 @@ func TestCoffeeStartInviteJoin(t *testing.T) {
 	svc := account.NewService(account.NewMemoryStore())
 	tmpl := template.Must(template.New("").Funcs(Funcs).ParseGlob("../../templates/*.html"))
 	c := &Coffee{Home: &Home{Cfg: &config.Config{Brand: "Kafumu", Origin: "https://kafumu.test"}, Tmpl: tmpl}, Accounts: svc,
-		C: &coffee.Client{Base: srv.URL, Token: "tok", Key: []byte("0123456789abcdef0123456789abcdef")}}
+		C: &coffee.Client{Base: srv.URL, Token: "tok", Key: []byte("0123456789abcdef0123456789abcdef"), Members: &coffee.MemoryMembers{}}}
 	ctx := context.Background()
 	user := func(name, role string) *account.User {
 		u, _, err := svc.Create(ctx, "en")
@@ -174,6 +174,10 @@ func TestCoffeeStartInviteJoin(t *testing.T) {
 	}
 	if w := as(bea, "POST", "/coffee/join", q, c.Join); w.Code != 303 || len(bea.Groups) != 1 || len(lp.groups[gid]) != 2 {
 		t.Fatalf("bea's join: %d %v %v", w.Code, bea.Groups, lp.groups[gid])
+	}
+	// Members (97c): both names on the card, for members.
+	if w := as(bea, "GET", "/coffee", nil, c.Show); !strings.Contains(w.Body.String(), "@ana, @bea") {
+		t.Fatalf("members line: %s", w.Body.String())
 	}
 	// The pages: bea's wallet (balance, dividend, days); the join page for a
 	// valid invite names the group, a forged one says it isn't valid.
@@ -278,6 +282,9 @@ func TestCoffeeStartInviteJoin(t *testing.T) {
 	}
 	if m := leave(bea, url.Values{"g": {gid}, "mode": {"share"}, "sure": {"1"}}); m != "/coffee?left" || slices.Contains(bea.Groups, gid) || lp.left[len(lp.left)-1]["mode"] != "redistribute" {
 		t.Fatalf("share: %s %v %v", m, bea.Groups, lp.left)
+	}
+	if w := as(ana, "GET", "/coffee", nil, c.Show); strings.Contains(w.Body.String(), "@bea") {
+		t.Fatal("bea still listed as a member after leaving")
 	}
 	if m := leave(ana, url.Values{"g": {gid2}, "mode": {"move"}, "tg": {gid}, "sure": {"1"}}); m != "/coffee?left" || slices.Contains(ana.Groups, gid2) {
 		t.Fatalf("move: %s %v", m, ana.Groups)

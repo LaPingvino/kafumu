@@ -1708,7 +1708,10 @@ read, expiring like every line (rule 3 holds).
       Was: Groups first, currency as a bonus (Joop: "put the groups UI as groups first, currency as a bonus, e.g.
       together with contacts"): Groups get their own place next to Contacts (Chats / Connect), a group page with its
       board, members and where people are; the K$ wallet is one part of it. Me → CoffeeBucks becomes Groups.
-- [ ] 97c. Members of a group, for its members only: their @names (server: only to a member of that group; cached).
+- [x] 97c. Done + deployed: GroupMembers (account ids per group; updated on start/join/leave/delete; a member who
+      opens Groups is added if missing; empty = deleted); each group card shows "👥 Members: @a, @b" (only your own
+      groups are ever listed, so only members see it; names resolved fresh, so renames show). 1 string x 24; test.
+      Was: Members of a group, for its members only: their @names (server: only to a member of that group; cached).
 - [ ] 97d. Where you are, to your group: "📍 around <area> today" as an encrypted board line that expires at the end
       of the day; the same plain banner and pause as for contacts (95), automatic in areas you shared before, asks in
       a new one.

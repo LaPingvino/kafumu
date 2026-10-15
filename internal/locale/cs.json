@@ -924,5 +924,6 @@
   "js.board_pay": "Zaplatit {amount}",
   "groups.title": "Skupiny",
   "groups.intro": "Malé skupiny lidí, kteří se znají: nástěnka jen pro členy na nabídky a poptávky, a vlastní peníze, CoffeeBucks, se stejnou dividendou pro každého člena.",
-  "js.push_board": "📋 Novinka na nástěnce skupiny {group}"
+  "js.push_board": "📋 Novinka na nástěnce skupiny {group}",
+  "coffee.members_list": "Členové"
 }

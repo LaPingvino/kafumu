@@ -924,5 +924,6 @@
   "js.board_pay": "{amount} 지불",
   "groups.title": "그룹",
   "groups.intro": "서로 아는 사람들의 작은 그룹: 제안과 요청을 위한 회원 전용 게시판, 그리고 모든 회원에게 같은 배당이 있는 우리만의 돈, CoffeeBucks.",
-  "js.push_board": "📋 {group} 게시판에 새 글"
+  "js.push_board": "📋 {group} 게시판에 새 글",
+  "coffee.members_list": "회원"
 }

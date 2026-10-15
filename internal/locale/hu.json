@@ -924,5 +924,6 @@
   "js.board_pay": "{amount} fizetése",
   "groups.title": "Csoportok",
   "groups.intro": "Egymást ismerő emberek kis csoportjai: csak tagoknak szóló tábla ajánlatokhoz és kérésekhez, és saját pénz, CoffeeBucks, minden tagnak ugyanakkora osztalékkal.",
-  "js.push_board": "📋 Új bejegyzés a(z) {group} tábláján"
+  "js.push_board": "📋 Új bejegyzés a(z) {group} tábláján",
+  "coffee.members_list": "Tagok"
 }

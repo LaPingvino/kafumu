@@ -100,8 +100,10 @@ func main() {
 	accounts.Coffee = coffeeH.C
 	if db != nil {
 		coffeeH.Asks = &coffee.DatastoreAsks{DB: db}
+		coffeeH.C.Members = &coffee.DatastoreMembers{DB: db}
 	} else {
 		coffeeH.Asks = &coffee.MemoryAsks{}
+		coffeeH.C.Members = &coffee.MemoryMembers{}
 	}
 	purge.OnUserDeleted = coffeeH.C.DestroyAll
 	mailbox := box.NewHandler(&box.CachedStore{Store: boxes, Cache: kv})

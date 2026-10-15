@@ -62,6 +62,9 @@ func (c *Coffee) StartGroup(w http.ResponseWriter, r *http.Request) {
 	if err == nil {
 		err = c.Accounts.Update(ctx, u, func(x *account.User) { x.Groups = append(x.Groups, gid) })
 	}
+	if err == nil && c.C.Members != nil {
+		c.C.Members.Add(ctx, gid, u.ID)
+	}
 	if err != nil {
 		log.Printf("coffee: start group: %v", err)
 		http.Error(w, "could not start the group", http.StatusInternalServerError)
@@ -128,6 +131,9 @@ func (c *Coffee) Join(w http.ResponseWriter, r *http.Request) {
 	if err == nil {
 		err = c.Accounts.Update(ctx, u, func(x *account.User) { x.Groups = append(x.Groups, gid) })
 	}
+	if err == nil && c.C.Members != nil {
+		c.C.Members.Add(ctx, gid, u.ID)
+	}
 	if err != nil {
 		log.Printf("coffee: join %s: %v", gid, err)
 		http.Error(w, "could not join", http.StatusInternalServerError)
@@ -137,6 +143,7 @@ func (c *Coffee) Join(w http.ResponseWriter, r *http.Request) {
 }
 
 type coffeeGroup struct {
+	MemberNames   []string      // the group's members, for its members only (97c)
 	Currency, Sym string        // the group's own currency name and symbol (96k)
 	Links         []coffee.Link // groups this one is linked with
 	Gid, Name     string
@@ -195,6 +202,7 @@ func (c *Coffee) Show(w http.ResponseWriter, r *http.Request) {
 			if !g.Unavailable {
 				g.Links, _ = c.C.Links(r.Context(), gid)
 			}
+			g.MemberNames = c.memberNames(r.Context(), gid, u)
 			p.Groups = append(p.Groups, g)
 		}
 		for i, a := range p.Groups {
@@ -539,6 +547,9 @@ func (c *Coffee) Leave(w http.ResponseWriter, r *http.Request) {
 			x.Groups = slices.DeleteFunc(x.Groups, func(g string) bool { return g == gid })
 		})
 	}
+	if err == nil && c.C.Members != nil {
+		c.C.Members.Remove(ctx, gid, u.ID)
+	}
 	if err != nil {
 		log.Printf("coffee: leave %s: %v", gid, err)
 		again("error")
@@ -748,4 +759,29 @@ func (c *Coffee) ShowRequest(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Cache-Control", "no-store")
 	c.Home.render(w, "coffee_request.html", p)
+}
+
+// memberNames: the @names of a group's members, for one of them (the page
+// only lists your own groups); you are added if you're missing (members from
+// before the list existed).
+func (c *Coffee) memberNames(ctx context.Context, gid string, me *account.User) []string {
+	if c.C.Members == nil {
+		return nil
+	}
+	ids, err := c.C.Members.List(ctx, gid)
+	if err != nil {
+		return nil
+	}
+	if !slices.Contains(ids, me.ID) {
+		c.C.Members.Add(ctx, gid, me.ID)
+		ids = append(ids, me.ID)
+	}
+	var out []string
+	for _, id := range ids {
+		if u, err := c.Accounts.ByID(ctx, id); err == nil && u != nil && u.Username != "" && slices.Contains(u.Groups, gid) {
+			out = append(out, u.Username)
+		}
+	}
+	slices.Sort(out)
+	return out
 }

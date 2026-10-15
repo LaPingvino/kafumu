@@ -924,5 +924,6 @@
   "js.board_pay": "Payer {amount}",
   "groups.title": "Groupes",
   "groups.intro": "De petits groupes de gens qui se connaissent : un tableau réservé aux membres pour les offres et les demandes, et une monnaie à vous, CoffeeBucks, avec le même dividende pour chaque membre.",
-  "js.push_board": "📋 Nouveau sur le tableau de {group}"
+  "js.push_board": "📋 Nouveau sur le tableau de {group}",
+  "coffee.members_list": "Membres"
 }

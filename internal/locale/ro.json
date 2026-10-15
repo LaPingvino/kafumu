@@ -924,5 +924,6 @@
   "js.board_pay": "Plătește {amount}",
   "groups.title": "Grupuri",
   "groups.intro": "Grupuri mici de oameni care se cunosc: un panou doar pentru membri cu oferte și cereri, și o monedă proprie, CoffeeBucks, cu același dividend pentru fiecare membru.",
-  "js.push_board": "📋 Ceva nou pe panoul {group}"
+  "js.push_board": "📋 Ceva nou pe panoul {group}",
+  "coffee.members_list": "Membri"
 }

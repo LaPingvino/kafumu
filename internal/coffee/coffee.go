@@ -30,6 +30,9 @@ type Client struct {
 	DB   *datastore.Client
 	HTTP *http.Client
 
+	// Members: who is in each group (97c); nil = not kept.
+	Members Members
+
 	// For tests: set both and DB is not needed.
 	Token string
 	Key   []byte
@@ -385,6 +388,9 @@ func (c *Client) DestroyAll(ctx context.Context, userID string, groups []string)
 	for _, gid := range groups {
 		if err := c.Leave(ctx, gid, me, "destroy", ""); err != nil {
 			log.Printf("coffee: destroy on delete in %s: %v", gid, err)
+		}
+		if c.Members != nil {
+			c.Members.Remove(ctx, gid, userID)
 		}
 	}
 }

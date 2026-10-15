@@ -924,5 +924,6 @@
   "js.board_pay": "Bayar {amount}",
   "groups.title": "Grup",
   "groups.intro": "Kelompok kecil orang yang saling kenal: papan khusus anggota untuk tawaran dan permintaan, dan uang sendiri, CoffeeBucks, dengan dividen yang sama untuk setiap anggota.",
-  "js.push_board": "📋 Ada yang baru di papan {group}"
+  "js.push_board": "📋 Ada yang baru di papan {group}",
+  "coffee.members_list": "Anggota"
 }

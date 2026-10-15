@@ -924,5 +924,6 @@
   "js.board_pay": "{amount} を支払う",
   "groups.title": "グループ",
   "groups.intro": "知り合い同士の小さなグループ：提供や募集のためのメンバー専用ボード、そしてメンバー全員に同じ配当がある自分たちのお金、CoffeeBucks。",
-  "js.push_board": "📋 {group} のボードに新着"
+  "js.push_board": "📋 {group} のボードに新着",
+  "coffee.members_list": "メンバー"
 }
