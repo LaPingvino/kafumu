@@ -1527,7 +1527,13 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
 - [x] 96e2. (split into 96e2a/b) Was: ~/liquiditypub/gae: host many group nodes (LPGroup registry; in-process Sender; /lp/g/<gid>/ reads; an
       admin API for Kafumu: create group, add member, pay, link two groups = a contact seeded at UD parity,
       cross-group transfer). Test: two groups, dividend, link, a payment across, both ledgers verify.
-- [ ] 96e3. Kafumu: start a group, invite link, join (calls the lp admin API with the token from Datastore).
+- [x] 96e3a. Done (server, not deployed: no UI yet): internal/coffee client (admin token from LPConfig ns lp;
+      Kafumu's own key in Config/coffee, made once); member id u+16 hex HMAC(user id); invite token HMAC(gid, inviter)
+      — nothing stored; User.Groups (max 5); POST /coffee/group (named + passkey or role), GET /coffee/invite (members),
+      POST /coffee/join (named; valid invite; not your own). KAFUMU_LP_BASE in app.yaml. Handler test against a fake lp.
+- [ ] 96e3b. The page: /coffee (your groups, balance, dividend, invite link to copy/QR, start a group) and
+      /coffee/join (which group, who invited, Join), linked from the Me tab; 24 languages; deploy.
+- [x] 96e3. (split into 96e3a/b) Was: Kafumu: start a group, invite link, join (calls the lp admin API with the token from Datastore).
 - [ ] 96f. Wallet on the Me tab: balance in K$ and in UD, dividends received, 💸 pay @name in your group; across
       groups at the pool's price, shown before paying.
 - [ ] 96g. Privacy page + /about: what's public in the ledger, what isn't.

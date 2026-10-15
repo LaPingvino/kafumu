@@ -52,6 +52,9 @@ type User struct {
 	Where        string    `datastore:"where,noindex"` // "booth A23", "blue hat"
 	Langs        []string  `datastore:"langs,noindex"` // "epo/native", "por/learning"
 	Tags         []string  `datastore:"tags,noindex"`
+	// Groups: the CoffeeBucks groups this account is a member of (VISION §4);
+	// its money lives in each group's ledger under a pseudonymous member id.
+	Groups []string `datastore:"groups,noindex"`
 	// A public inbox lets people who find you write to you, encrypted to a
 	// key only your device holds, paying InboxBits of work per message.
 	InboxBox  string `datastore:"inbox_box,noindex"`

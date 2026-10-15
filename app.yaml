@@ -15,6 +15,8 @@ env_variables:
   KAFUMU_LEGACY_ORIGINS: "https://lokumo.ew.r.appspot.com https://lokumo.appspot.com"
   KAFUMU_PASSKEYS: "1"
   KAFUMU_ATPROTO: "1"
+  # CoffeeBucks (VISION §4): the LiquidityPub service in this project (not a secret).
+  KAFUMU_LP_BASE: "https://lp-dot-lokumo.ew.r.appspot.com"
   # Donations, the same channels as esperanto-kurso.net.
   KAFUMU_PAYPAL: "https://www.paypal.com/paypalme/lapingvino"
   KAFUMU_BUNQ: "https://bunq.me/lapingvino"

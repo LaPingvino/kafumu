@@ -28,6 +28,7 @@ import (
 	"github.com/LaPingvino/kafumu/internal/bsky"
 	"github.com/LaPingvino/kafumu/internal/business"
 	"github.com/LaPingvino/kafumu/internal/cache"
+	"github.com/LaPingvino/kafumu/internal/coffee"
 	"github.com/LaPingvino/kafumu/internal/config"
 	"github.com/LaPingvino/kafumu/internal/gazetteer"
 	"github.com/LaPingvino/kafumu/internal/handle"
@@ -94,6 +95,8 @@ func main() {
 	meetups := &handler.Meetups{Home: home, Svc: home.Meetups, Importer: importer.New(), Businesses: businesses}
 	accounts := &handler.Accounts{Home: home, Svc: account.NewService(users)}
 	home.Accounts = accounts.Svc
+	// CoffeeBucks (96e): groups, invites, joining; the money lives in the lp service.
+	coffeeH := &handler.Coffee{Home: home, Accounts: accounts.Svc, C: &coffee.Client{Base: os.Getenv("KAFUMU_LP_BASE"), DB: db}}
 	mailbox := box.NewHandler(&box.CachedStore{Store: boxes, Cache: kv})
 	slotAPI := slot.NewHandler(&slot.CachedStore{Store: slots, Cache: kv})
 	var pushStore push.Store = push.NewMemoryStore()
@@ -176,6 +179,9 @@ func main() {
 	mux.HandleFunc("POST /account/name", accounts.SetName)
 	mux.HandleFunc("POST /account/profile", accounts.SetProfile)
 	mux.HandleFunc("POST /account/here", accounts.SetHere)
+	mux.HandleFunc("POST /coffee/group", coffeeH.StartGroup)
+	mux.HandleFunc("GET /coffee/invite", coffeeH.Invite)
+	mux.HandleFunc("POST /coffee/join", coffeeH.Join)
 	mux.HandleFunc("POST /account/inbox", accounts.SetInbox)
 	mux.HandleFunc("GET /account/move", accounts.MoveRequest)
 	mux.HandleFunc("POST /account/move", accounts.MoveRequest)
