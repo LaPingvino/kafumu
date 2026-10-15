@@ -815,7 +815,7 @@
   "coffee.groups": "你的群組",
   "coffee.unavailable": "現在無法存取該群組的帳本。",
   "coffee.in_days": "約 {n} 天的分紅",
-  "coffee.dividend": "今日分紅",
+  "coffee.dividend": "每日分紅（每小時發放）",
   "coffee.members": "{n} 位成員",
   "coffee.invite": "分享邀請連結",
   "coffee.invite_note": "透過你的連結加入的人，由你擔保。",

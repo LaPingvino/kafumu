@@ -815,7 +815,7 @@
   "coffee.groups": "Nhóm của bạn",
   "coffee.unavailable": "Hiện không truy cập được sổ cái của nhóm.",
   "coffee.in_days": "≈ {n} ngày cổ tức",
-  "coffee.dividend": "Cổ tức hôm nay",
+  "coffee.dividend": "Cổ tức mỗi ngày (trả mỗi giờ)",
   "coffee.members": "{n} thành viên",
   "coffee.invite": "Chia sẻ liên kết mời",
   "coffee.invite_note": "Ai tham gia qua liên kết của bạn, bạn là người bảo lãnh.",

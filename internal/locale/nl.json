@@ -815,7 +815,7 @@
   "coffee.groups": "Je groepen",
   "coffee.unavailable": "Het grootboek van de groep is nu niet bereikbaar.",
   "coffee.in_days": "≈ {n} dagen dividend",
-  "coffee.dividend": "Dividend van vandaag",
+  "coffee.dividend": "Dividend per dag (elk uur uitbetaald)",
   "coffee.members": "{n} leden",
   "coffee.invite": "Deel een uitnodigingslink",
   "coffee.invite_note": "Wie via jouw link lid wordt, daar sta jij voor in.",

@@ -815,7 +815,7 @@
   "coffee.groups": "Your groups",
   "coffee.unavailable": "Can't reach the group's ledger right now.",
   "coffee.in_days": "≈ {n} days of dividend",
-  "coffee.dividend": "Today's dividend",
+  "coffee.dividend": "Dividend per day (paid every hour)",
   "coffee.members": "{n} members",
   "coffee.invite": "Share an invite link",
   "coffee.invite_note": "Whoever joins with your link, you vouched for.",

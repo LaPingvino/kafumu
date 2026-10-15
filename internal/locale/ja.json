@@ -815,7 +815,7 @@
   "coffee.groups": "あなたのグループ",
   "coffee.unavailable": "いまグループの台帳にアクセスできません。",
   "coffee.in_days": "配当 約{n}日分",
-  "coffee.dividend": "今日の配当",
+  "coffee.dividend": "1日あたりの配当（1時間ごとに支払い）",
   "coffee.members": "メンバー {n}人",
   "coffee.invite": "招待リンクを共有",
   "coffee.invite_note": "あなたのリンクで参加した人の保証人はあなたです。",

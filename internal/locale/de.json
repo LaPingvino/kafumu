@@ -815,7 +815,7 @@
   "coffee.groups": "Deine Gruppen",
   "coffee.unavailable": "Das Kassenbuch der Gruppe ist gerade nicht erreichbar.",
   "coffee.in_days": "≈ {n} Tage Dividende",
-  "coffee.dividend": "Heutige Dividende",
+  "coffee.dividend": "Dividende pro Tag (stündlich ausgezahlt)",
   "coffee.members": "{n} Mitglieder",
   "coffee.invite": "Einladungslink teilen",
   "coffee.invite_note": "Wer mit deinem Link beitritt, für den bürgst du.",

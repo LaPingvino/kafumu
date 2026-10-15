@@ -815,7 +815,7 @@
   "coffee.groups": "A csoportjaid",
   "coffee.unavailable": "A csoport főkönyve most nem érhető el.",
   "coffee.in_days": "≈ {n} napnyi osztalék",
-  "coffee.dividend": "Mai osztalék",
+  "coffee.dividend": "Napi osztalék (óránként fizetve)",
   "coffee.members": "{n} tag",
   "coffee.invite": "Meghívó link megosztása",
   "coffee.invite_note": "Akit a linkeddel csatlakozik, érte te kezeskedsz.",

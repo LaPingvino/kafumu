@@ -815,7 +815,7 @@
   "coffee.groups": "Tvoje skupiny",
   "coffee.unavailable": "Účetní kniha skupiny teď není dostupná.",
   "coffee.in_days": "≈ {n} dní dividendy",
-  "coffee.dividend": "Dnešní dividenda",
+  "coffee.dividend": "Dividenda za den (vyplácí se každou hodinu)",
   "coffee.members": "{n} členů",
   "coffee.invite": "Sdílet pozvánku",
   "coffee.invite_note": "Za každého, kdo se přidá přes tvůj odkaz, ručíš.",

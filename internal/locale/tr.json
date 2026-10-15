@@ -815,7 +815,7 @@
   "coffee.groups": "Grupların",
   "coffee.unavailable": "Grubun defterine şu an ulaşılamıyor.",
   "coffee.in_days": "≈ {n} günlük kâr payı",
-  "coffee.dividend": "Bugünkü kâr payı",
+  "coffee.dividend": "Günlük kâr payı (her saat ödenir)",
   "coffee.members": "{n} üye",
   "coffee.invite": "Davet bağlantısı paylaş",
   "coffee.invite_note": "Bağlantınla katılan kişiye sen kefil olursun.",

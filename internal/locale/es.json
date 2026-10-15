@@ -815,7 +815,7 @@
   "coffee.groups": "Tus grupos",
   "coffee.unavailable": "Ahora no se puede consultar el libro del grupo.",
   "coffee.in_days": "≈ {n} días de dividendo",
-  "coffee.dividend": "Dividendo de hoy",
+  "coffee.dividend": "Dividendo por día (se paga cada hora)",
   "coffee.members": "{n} miembros",
   "coffee.invite": "Compartir un enlace de invitación",
   "coffee.invite_note": "Quien entre con tu enlace, tú respondes por esa persona.",

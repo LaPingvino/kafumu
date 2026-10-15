@@ -815,7 +815,7 @@
   "coffee.groups": "Grupurile tale",
   "coffee.unavailable": "Registrul grupului nu poate fi accesat acum.",
   "coffee.in_days": "≈ {n} zile de dividend",
-  "coffee.dividend": "Dividendul de azi",
+  "coffee.dividend": "Dividend pe zi (plătit în fiecare oră)",
   "coffee.members": "{n} membri",
   "coffee.invite": "Trimite un link de invitație",
   "coffee.invite_note": "Pentru cine intră cu linkul tău, garantezi tu.",

@@ -815,7 +815,7 @@
   "coffee.groups": "Dine grupper",
   "coffee.unavailable": "Gruppens regnskab kan ikke nås lige nu.",
   "coffee.in_days": "≈ {n} dages udbytte",
-  "coffee.dividend": "Dagens udbytte",
+  "coffee.dividend": "Udbytte pr. dag (udbetales hver time)",
   "coffee.members": "{n} medlemmer",
   "coffee.invite": "Del et invitationslink",
   "coffee.invite_note": "Den, der bliver medlem via dit link, går du god for.",

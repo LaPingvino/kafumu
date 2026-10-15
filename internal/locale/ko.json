@@ -815,7 +815,7 @@
   "coffee.groups": "내 그룹",
   "coffee.unavailable": "지금은 그룹 장부에 접근할 수 없어요.",
   "coffee.in_days": "배당 약 {n}일치",
-  "coffee.dividend": "오늘의 배당",
+  "coffee.dividend": "하루 배당 (매시간 지급)",
   "coffee.members": "회원 {n}명",
   "coffee.invite": "초대 링크 공유",
   "coffee.invite_note": "내 링크로 들어온 사람은 내가 보증하는 거예요.",

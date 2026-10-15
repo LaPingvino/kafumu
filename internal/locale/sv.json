@@ -815,7 +815,7 @@
   "coffee.groups": "Dina grupper",
   "coffee.unavailable": "Gruppens kassabok går inte att nå just nu.",
   "coffee.in_days": "≈ {n} dagars utdelning",
-  "coffee.dividend": "Dagens utdelning",
+  "coffee.dividend": "Utdelning per dag (betalas varje timme)",
   "coffee.members": "{n} medlemmar",
   "coffee.invite": "Dela en inbjudningslänk",
   "coffee.invite_note": "Den som går med via din länk går du i god för.",

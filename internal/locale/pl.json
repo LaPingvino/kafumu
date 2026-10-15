@@ -815,7 +815,7 @@
   "coffee.groups": "Twoje grupy",
   "coffee.unavailable": "Księga grupy jest teraz niedostępna.",
   "coffee.in_days": "≈ {n} dni dywidendy",
-  "coffee.dividend": "Dzisiejsza dywidenda",
+  "coffee.dividend": "Dywidenda na dzień (wypłacana co godzinę)",
   "coffee.members": "Członków: {n}",
   "coffee.invite": "Udostępnij zaproszenie",
   "coffee.invite_note": "Za każdego, kto dołączy przez twój link, ręczysz.",

@@ -815,7 +815,7 @@
   "coffee.groups": "Tes groupes",
   "coffee.unavailable": "Le registre du groupe est injoignable pour le moment.",
   "coffee.in_days": "≈ {n} jours de dividende",
-  "coffee.dividend": "Dividende du jour",
+  "coffee.dividend": "Dividende par jour (versé chaque heure)",
   "coffee.members": "{n} membres",
   "coffee.invite": "Partager un lien d'invitation",
   "coffee.invite_note": "Qui rejoint avec ton lien, tu t'en portes garant.",

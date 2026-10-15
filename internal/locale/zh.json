@@ -815,7 +815,7 @@
   "coffee.groups": "你的群组",
   "coffee.unavailable": "现在无法访问该群组的账本。",
   "coffee.in_days": "约 {n} 天的分红",
-  "coffee.dividend": "今日分红",
+  "coffee.dividend": "每日分红（每小时发放）",
   "coffee.members": "{n} 位成员",
   "coffee.invite": "分享邀请链接",
   "coffee.invite_note": "通过你的链接加入的人，由你担保。",

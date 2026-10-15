@@ -815,7 +815,7 @@
   "coffee.groups": "Grupmu",
   "coffee.unavailable": "Buku besar grup sedang tidak bisa dijangkau.",
   "coffee.in_days": "≈ {n} hari dividen",
-  "coffee.dividend": "Dividen hari ini",
+  "coffee.dividend": "Dividen per hari (dibayar tiap jam)",
   "coffee.members": "{n} anggota",
   "coffee.invite": "Bagikan tautan undangan",
   "coffee.invite_note": "Siapa pun yang bergabung lewat tautanmu, kamu yang menjaminnya.",
