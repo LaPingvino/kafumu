@@ -904,5 +904,9 @@
   "coffee.request_for_line": "Ne için: {for}",
   "coffee.request_self": "Bu senin kendi isteğin: bağlantıyı ya da QR kodunu paylaş.",
   "coffee.request_pay_from": "Şuradan öde",
-  "coffee.request_no_group": "Ödemek için bir CoffeeBucks grubunda olman gerekir: @{name} kişisinden davet iste."
+  "coffee.request_no_group": "Ödemek için bir CoffeeBucks grubunda olman gerekir: @{name} kişisinden davet iste.",
+  "js.board_key_ok": "Pano anahtarı bu cihazda: grubun panosu burada okunabilir.",
+  "js.board_nokey": "Bu cihazda grubun pano anahtarı yok: anahtarı olan bir üyenin davet bağlantısını aç.",
+  "js.board_start_warn": "Panoyu yalnızca grupta henüz kimsenin anahtarı yoksa başlat, yoksa panoyu ikiye bölersin.",
+  "coffee.board_start": "Bu grubun panosunu başlat"
 }

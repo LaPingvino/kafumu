@@ -904,5 +904,9 @@
   "coffee.request_for_line": "Cho: {for}",
   "coffee.request_self": "Đây là yêu cầu của chính bạn: hãy chia sẻ liên kết hoặc mã QR.",
   "coffee.request_pay_from": "Trả từ",
-  "coffee.request_no_group": "Để trả tiền, bạn cần ở trong một nhóm CoffeeBucks: hãy xin @{name} một lời mời."
+  "coffee.request_no_group": "Để trả tiền, bạn cần ở trong một nhóm CoffeeBucks: hãy xin @{name} một lời mời.",
+  "js.board_key_ok": "Khóa bảng có trên thiết bị này: bảng của nhóm đọc được ở đây.",
+  "js.board_nokey": "Thiết bị này chưa có khóa bảng của nhóm: hãy mở liên kết mời từ một thành viên đang có khóa.",
+  "js.board_start_warn": "Chỉ bắt đầu bảng khi chưa ai trong nhóm có khóa, nếu không bạn sẽ chia đôi bảng.",
+  "coffee.board_start": "Bắt đầu bảng của nhóm"
 }

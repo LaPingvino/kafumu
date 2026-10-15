@@ -904,5 +904,9 @@
   "coffee.request_for_line": "För: {for}",
   "coffee.request_self": "Det här är din egen förfrågan: dela länken eller QR-koden.",
   "coffee.request_pay_from": "Betala från",
-  "coffee.request_no_group": "För att betala måste du vara med i en CoffeeBucks-grupp: be @{name} om en inbjudan."
+  "coffee.request_no_group": "För att betala måste du vara med i en CoffeeBucks-grupp: be @{name} om en inbjudan.",
+  "js.board_key_ok": "Tavelnyckel på den här enheten: gruppens tavla går att läsa här.",
+  "js.board_nokey": "Den här enheten har inte gruppens tavelnyckel: öppna en inbjudningslänk från en medlem som har den.",
+  "js.board_start_warn": "Starta tavlan bara om ingen i gruppen har en nyckel än, annars delar du den i två.",
+  "coffee.board_start": "Starta gruppens tavla"
 }

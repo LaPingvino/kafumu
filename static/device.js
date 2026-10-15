@@ -606,14 +606,14 @@
     }).then(function (pt) { return JSON.parse(new TextDecoder().decode(pt)); });
   }
   function snapshot() {
-    return Promise.all([store.contacts(), store.get("personas"), store.get("shareChoice"), store.get("personasAt"), store.get("tombstones"), store.get("chips"), store.get("invite:named"), store.get("handle"), store.get("me"), store.get("publicInbox"), store.get("inboxMsgs")])
+    return Promise.all([store.contacts(), store.get("personas"), store.get("shareChoice"), store.get("personasAt"), store.get("tombstones"), store.get("chips"), store.get("invite:named"), store.get("handle"), store.get("me"), store.get("publicInbox"), store.get("inboxMsgs"), store.get("groupKeys")])
       .then(function (r) { return { contacts: r[0] || [], personas: r[1] || [], shareChoice: r[2] || null, personasAt: r[3] || "", tombstones: r[4] || {}, chips: r[5] || null, named: r[6] && r[6].privJwk ? r[6] : null, handle: r[7] || null, me: r[8] || null,
-        inbox: r[9] && r[9].privJwk ? r[9] : null, inboxMsgs: r[10] || [] }; });
+        inbox: r[9] && r[9].privJwk ? r[9] : null, inboxMsgs: r[10] || [], groupKeys: r[11] || {} }; });
   }
   function stamp(c) { return (c && (c.updatedAt || c.createdAt)) || ""; }
   function canon(s) {
     var cs = s.contacts.slice().sort(function (a, b) { return a.id < b.id ? -1 : 1; });
-    return JSON.stringify([cs, s.personas, s.shareChoice, s.personasAt, Object.keys(s.tombstones).sort().map(function (k) { return [k, s.tombstones[k]]; }), s.chips || null, s.named || null, s.handle || null, s.me || null, s.inbox || null, (s.inboxMsgs || []).map(function (m) { return m.id; }).sort()]);
+    return JSON.stringify([cs, s.personas, s.shareChoice, s.personasAt, Object.keys(s.tombstones).sort().map(function (k) { return [k, s.tombstones[k]]; }), s.chips || null, s.named || null, s.handle || null, s.me || null, s.inbox || null, (s.inboxMsgs || []).map(function (m) { return m.id; }).sort(), Object.keys(s.groupKeys || {}).sort().map(function (g) { return [g, s.groupKeys[g]]; })]);
   }
   function merge(a, b) {
     var cutoff = new Date(Date.now() - 30 * 864e5).toISOString(), ts = {}, byID = {};
@@ -650,7 +650,10 @@
     var inbox = ((b.inbox && b.inbox.createdAt) || 0) > ((a.inbox && a.inbox.createdAt) || 0) ? b.inbox : (a.inbox || b.inbox || null);
     var seenMsg = {}, inboxMsgs = (a.inboxMsgs || []).concat(b.inboxMsgs || []).filter(function (m) { if (!m || seenMsg[m.id]) return false; seenMsg[m.id] = true; return true; })
       .sort(function (x, y) { return String(y.at).localeCompare(String(x.at)); }).slice(0, 100);
-    return { contacts: contacts, personas: personas, shareChoice: a.shareChoice || b.shareChoice, personasAt: "", tombstones: ts, chips: chips, named: named, handle: handle, me: me || null, inbox: inbox, inboxMsgs: inboxMsgs };
+    // CoffeeBucks board keys (97a): every key either side has (a group's key
+    // never changes once made, so a union is enough).
+    var groupKeys = Object.assign({}, b.groupKeys || {}, a.groupKeys || {});
+    return { contacts: contacts, personas: personas, shareChoice: a.shareChoice || b.shareChoice, personasAt: "", tombstones: ts, chips: chips, named: named, handle: handle, me: me || null, inbox: inbox, inboxMsgs: inboxMsgs, groupKeys: groupKeys };
   }
   function writeLocal(local, m) {
     var keep = {};
@@ -664,6 +667,7 @@
     if (m.inboxMsgs && m.inboxMsgs.length) steps.push(store.set("inboxMsgs", m.inboxMsgs));
     if (m.me) steps.push(store.set("me", m.me));
     if (m.handle) steps.push(store.set("handle", m.handle));
+    if (m.groupKeys && Object.keys(m.groupKeys).length) steps.push(store.set("groupKeys", m.groupKeys));
     if (m.chips) { steps.push(store.set("chips", m.chips)); try { localStorage.setItem("kafumu.chips", JSON.stringify(m.chips)); } catch (e) {} }
     return Promise.all(steps);
   }

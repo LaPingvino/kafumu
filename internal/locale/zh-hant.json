@@ -904,5 +904,9 @@
   "coffee.request_for_line": "用途：{for}",
   "coffee.request_self": "這是你自己的請求：分享連結或 QR 碼吧。",
   "coffee.request_pay_from": "從哪個群組付款",
-  "coffee.request_no_group": "要付款，你需要在一個 CoffeeBucks 群組裡：請向 @{name} 要一個邀請。"
+  "coffee.request_no_group": "要付款，你需要在一個 CoffeeBucks 群組裡：請向 @{name} 要一個邀請。",
+  "js.board_key_ok": "此裝置上有看板金鑰：可以在這裡閱讀群組看板。",
+  "js.board_nokey": "此裝置沒有群組的看板金鑰：請打開一位有金鑰的成員傳來的邀請連結。",
+  "js.board_start_warn": "只有在群組裡還沒有人有金鑰時才開始看板，否則看板會被分成兩個。",
+  "coffee.board_start": "開始這個群組的看板"
 }

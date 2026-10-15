@@ -904,5 +904,9 @@
   "coffee.request_for_line": "Untuk: {for}",
   "coffee.request_self": "Ini permintaanmu sendiri: bagikan tautan atau kode QR-nya.",
   "coffee.request_pay_from": "Bayar dari",
-  "coffee.request_no_group": "Untuk membayar, kamu harus ada di grup CoffeeBucks: minta undangan ke @{name}."
+  "coffee.request_no_group": "Untuk membayar, kamu harus ada di grup CoffeeBucks: minta undangan ke @{name}.",
+  "js.board_key_ok": "Kunci papan di perangkat ini: papan grup bisa dibaca di sini.",
+  "js.board_nokey": "Perangkat ini belum punya kunci papan grup: buka tautan undangan dari anggota yang memilikinya.",
+  "js.board_start_warn": "Mulai papan hanya jika belum ada anggota grup yang punya kunci; kalau tidak, papannya terbelah dua.",
+  "coffee.board_start": "Mulai papan grup ini"
 }

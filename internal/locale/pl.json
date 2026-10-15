@@ -904,5 +904,9 @@
   "coffee.request_for_line": "Za: {for}",
   "coffee.request_self": "To twoja własna prośba: udostępnij link lub kod QR.",
   "coffee.request_pay_from": "Zapłać z",
-  "coffee.request_no_group": "Aby zapłacić, musisz być w grupie CoffeeBucks: poproś @{name} o zaproszenie."
+  "coffee.request_no_group": "Aby zapłacić, musisz być w grupie CoffeeBucks: poproś @{name} o zaproszenie.",
+  "js.board_key_ok": "Klucz tablicy na tym urządzeniu: tablica grupy jest tu czytelna.",
+  "js.board_nokey": "To urządzenie nie ma klucza tablicy grupy: otwórz zaproszenie od członka, który go ma.",
+  "js.board_start_warn": "Załóż tablicę tylko wtedy, gdy nikt w grupie nie ma jeszcze klucza, inaczej podzielisz ją na dwie.",
+  "coffee.board_start": "Załóż tablicę tej grupy"
 }

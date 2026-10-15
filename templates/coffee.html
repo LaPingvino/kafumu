@@ -16,7 +16,7 @@
   {{if .User}}
   {{if .Groups}}<h2>{{t .Lang "coffee.groups"}}</h2>
   <ul class="boxed-list">{{range $g := .Groups}}
-    <li id="g-{{.Gid}}" class="card coffee-group{{if eq .Gid $.Focus}} flash{{end}}" style="padding:8px 16px 12px">
+    <li id="g-{{.Gid}}" data-g="{{.Gid}}" data-members="{{.Members}}" class="card coffee-group{{if eq .Gid $.Focus}} flash{{end}}" style="padding:8px 16px 12px">
       <h3>{{.Name}}</h3>
       {{if .Currency}}<p class="dim small">{{.Currency}} ({{.Sym}})</p>{{end}}
       {{if .Unavailable}}<p class="dim">{{t $.Lang "coffee.unavailable"}}</p>{{else}}
@@ -32,6 +32,7 @@
         <button type="button" class="pill-sm coffee-invite-contact" data-g="{{.Gid}}" data-name="{{.Name}}">👤 {{t $.Lang "coffee.invite_contact"}}</button></div>
       <div class="chips coffee-pick" hidden></div>
       <p class="dim small">{{t $.Lang "coffee.invite_note"}}</p>
+      <p class="small coffee-key" hidden><span class="dim"></span> <button type="button" class="pill-sm coffee-key-start" hidden>🔐 {{t $.Lang "coffee.board_start"}}</button></p>
       {{if $.User.Username}}<details class="coffee-request"><summary class="small">🧾 {{t $.Lang "coffee.request_btn"}}</summary>
         <form class="coffee-request-form inline" data-g="{{.Gid}}" data-to="{{$.User.Username}}">
           <input name="amount" required inputmode="decimal" placeholder="0.00 {{.Sym}}" aria-label="{{ts $.Lang "coffee.pay_amount"}}" class="coffee-amount">
@@ -81,6 +82,27 @@
       mine: function (t, kw, b) { return window.kafumuOLN.post(t, kw, b, function () {}); } });
     return pair;
   }
+  // The group's board key (97a): AES, made in the browser, kept on your
+  // devices (synced with the vault) and passed on in invite links' #k=, which
+  // never reach the server.
+  var dev = window.kafumuDevice;
+  function keys() { return dev ? dev.store.get("groupKeys").then(function (k) { return k || {}; }) : Promise.resolve({}); }
+  function newKey() { var b = crypto.getRandomValues(new Uint8Array(32)); return btoa(String.fromCharCode.apply(null, b)).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); }
+  function saveKey(g, k) { return keys().then(function (all) { if (!all[g]) { all[g] = k; return dev.store.set("groupKeys", all); } }); }
+  function withKey(link, g) { return keys().then(function (all) { return all[g] ? link + "#k=" + all[g] : link; }); }
+  function drawKeys() {
+    keys().then(function (all) {
+      document.querySelectorAll(".coffee-group").forEach(function (li) {
+        var g = li.dataset.g, p = li.querySelector(".coffee-key"), btn = p.querySelector(".coffee-key-start");
+        if (!all[g] && li.dataset.members === "1") { saveKey(g, newKey()).then(drawKeys); return; } // a new group: you're its first member
+        p.hidden = false;
+        p.querySelector("span").textContent = all[g] ? "🔐 " + (T.board_key_ok || "") : (T.board_nokey || "") + " " + (T.board_start_warn || "");
+        btn.hidden = !!all[g];
+        btn.onclick = function () { saveKey(g, newKey()).then(drawKeys); };
+      });
+    });
+  }
+  if (dev) drawKeys();
   // Payment requests (96l): the link carries everything (nothing stored);
   // the note stays in the link, never on the ledger.
   document.querySelectorAll(".coffee-request-form").forEach(function (f) {
@@ -103,8 +125,8 @@
       var li = b.closest("li"), pick = li.querySelector(".coffee-pick"), st = li.querySelector(".coffee-status"), dev = window.kafumuDevice;
       if (!pick.hidden) { pick.hidden = true; return; }
       if (!dev || !getPair()) return;
-      Promise.all([dev.store.contacts(), fetch("/coffee/invite?g=" + encodeURIComponent(b.dataset.g), { credentials: "same-origin" }).then(function (r) { return r.json(); })]).then(function (res) {
-        var cs = res[0], link = res[1].link;
+      Promise.all([dev.store.contacts(), fetch("/coffee/invite?g=" + encodeURIComponent(b.dataset.g), { credentials: "same-origin" }).then(function (r) { return r.json(); }).then(function (j) { return withKey(j.link, b.dataset.g); })]).then(function (res) {
+        var cs = res[0], link = res[1];
         pick.textContent = "";
         if (!cs.length) { pick.appendChild(Object.assign(document.createElement("span"), { className: "dim small", textContent: T.seen_none || "" })); }
         cs.sort(function (a, z) { return (z.lastChat || z.createdAt || "").localeCompare(a.lastChat || a.createdAt || ""); }).slice(0, 12).forEach(function (c) {
@@ -129,6 +151,8 @@
     b.onclick = function () {
       var st = b.closest("li").querySelector(".coffee-status");
       fetch("/coffee/invite?g=" + encodeURIComponent(b.dataset.g), { credentials: "same-origin" }).then(function (r) { return r.json(); }).then(function (j) {
+        return withKey(j.link, b.dataset.g).then(function (link) { j.link = link; return j; });
+      }).then(function (j) {
         if (!j.link) return;
         if (navigator.share) navigator.share({ url: j.link }).catch(function () {});
         else if (navigator.clipboard) navigator.clipboard.writeText(j.link).then(function () { st.textContent = "✓ " + (T.link_copied || "Copied"); });

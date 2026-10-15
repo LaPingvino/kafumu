@@ -904,5 +904,9 @@
   "coffee.request_for_line": "Por: {for}",
   "coffee.request_self": "Ĉi tio estas via propra peto: kunhavigu la ligilon aŭ la QR-kodon.",
   "coffee.request_pay_from": "Pagi el",
-  "coffee.request_no_group": "Por pagi vi devas esti en CoffeeBucks-grupo: petu inviton de @{name}."
+  "coffee.request_no_group": "Por pagi vi devas esti en CoffeeBucks-grupo: petu inviton de @{name}.",
+  "js.board_key_ok": "Tabula ŝlosilo sur ĉi tiu aparato: la tabulo de la grupo estas legebla ĉi tie.",
+  "js.board_nokey": "Ĉi tiu aparato ne havas la tabulan ŝlosilon de la grupo: malfermu invitan ligilon de membro, kiu havas ĝin.",
+  "js.board_start_warn": "Komencu la tabulon nur se neniu en la grupo jam havas ŝlosilon, alie vi dividus ĝin en du.",
+  "coffee.board_start": "Komenci la tabulon de ĉi tiu grupo"
 }

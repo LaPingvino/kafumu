@@ -904,5 +904,9 @@
   "coffee.request_for_line": "Voor: {for}",
   "coffee.request_self": "Dit is je eigen verzoek: deel de link of de QR-code.",
   "coffee.request_pay_from": "Betalen vanuit",
-  "coffee.request_no_group": "Om te betalen moet je in een CoffeeBucks-groep zitten: vraag @{name} om een uitnodiging."
+  "coffee.request_no_group": "Om te betalen moet je in een CoffeeBucks-groep zitten: vraag @{name} om een uitnodiging.",
+  "js.board_key_ok": "Bordsleutel op dit apparaat: het bord van de groep is hier leesbaar.",
+  "js.board_nokey": "Dit apparaat heeft de bordsleutel van de groep niet: open een uitnodigingslink van een lid dat hem heeft.",
+  "js.board_start_warn": "Begin het bord alleen als nog niemand in de groep een sleutel heeft, anders splits je het in tweeën.",
+  "coffee.board_start": "Bord van deze groep beginnen"
 }

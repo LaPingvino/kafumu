@@ -1677,7 +1677,11 @@ AES-GCM key that lives only on members' devices (synced with your own devices vi
 invite link's #fragment, which never reaches the server. Board posts are OLN lines encrypted with it, under a tag
 derived from it (HMAC(key, "board")), fetched anonymously like pair messages: the server stores ciphertext it can't
 read, expiring like every line (rule 3 holds).
-- [ ] 97a. The group key: made in the browser when a group starts, kept in the device store, added to invite links
+- [x] 97a. Done, NOT deployed (it mentions the board, which comes in 97b: deploy together): groupKeys in the
+      device store, synced with the vault (merge = union); made in the browser for a new group (only member),
+      "Start this group's board" (with the don't-split warning) where none exists; invite links (share + send to a
+      contact) get #k=, the join page keeps it before joining; 4 strings x 24. Known edge: two of your own devices
+      opening a brand-new group before syncing could each make a key (one wins at sync). Was: The group key: made in the browser when a group starts, kept in the device store, added to invite links
       as #k=…; joining through such a link keeps it. A member whose device has no key (e.g. Esperantistoj, started
       before this) sees "ask a member to share the board key"; a member with it can share a key link. Tests (key
       never in a request).

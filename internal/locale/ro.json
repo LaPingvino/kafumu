@@ -904,5 +904,9 @@
   "coffee.request_for_line": "Pentru: {for}",
   "coffee.request_self": "Aceasta e propria ta cerere: trimite linkul sau codul QR.",
   "coffee.request_pay_from": "Plătește din",
-  "coffee.request_no_group": "Ca să plătești trebuie să fii într-un grup CoffeeBucks: cere-i lui @{name} o invitație."
+  "coffee.request_no_group": "Ca să plătești trebuie să fii într-un grup CoffeeBucks: cere-i lui @{name} o invitație.",
+  "js.board_key_ok": "Cheia panoului pe acest dispozitiv: panoul grupului se poate citi aici.",
+  "js.board_nokey": "Acest dispozitiv nu are cheia panoului grupului: deschide un link de invitație de la un membru care o are.",
+  "js.board_start_warn": "Pornește panoul doar dacă nimeni din grup nu are încă o cheie, altfel l-ai împărți în două.",
+  "coffee.board_start": "Pornește panoul acestui grup"
 }

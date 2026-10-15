@@ -904,5 +904,9 @@
   "coffee.request_for_line": "Erre: {for}",
   "coffee.request_self": "Ez a saját kérésed: oszd meg a linket vagy a QR-kódot.",
   "coffee.request_pay_from": "Fizetés innen",
-  "coffee.request_no_group": "A fizetéshez CoffeeBucks-csoportban kell lenned: kérj meghívót @{name} felhasználótól."
+  "coffee.request_no_group": "A fizetéshez CoffeeBucks-csoportban kell lenned: kérj meghívót @{name} felhasználótól.",
+  "js.board_key_ok": "Táblakulcs ezen az eszközön: a csoport táblája itt olvasható.",
+  "js.board_nokey": "Ezen az eszközön nincs meg a csoport táblakulcsa: nyiss meg egy meghívó linket egy tagtól, akinél megvan.",
+  "js.board_start_warn": "Csak akkor indítsd el a táblát, ha a csoportban még senkinek nincs kulcsa, különben kettéválasztod.",
+  "coffee.board_start": "A csoport táblájának indítása"
 }

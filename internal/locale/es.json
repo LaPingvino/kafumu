@@ -904,5 +904,9 @@
   "coffee.request_for_line": "Para: {for}",
   "coffee.request_self": "Esta es tu propia petición: comparte el enlace o el código QR.",
   "coffee.request_pay_from": "Pagar desde",
-  "coffee.request_no_group": "Para pagar tienes que estar en un grupo de CoffeeBucks: pide una invitación a @{name}."
+  "coffee.request_no_group": "Para pagar tienes que estar en un grupo de CoffeeBucks: pide una invitación a @{name}.",
+  "js.board_key_ok": "Llave del tablón en este dispositivo: aquí se puede leer el tablón del grupo.",
+  "js.board_nokey": "Este dispositivo no tiene la llave del tablón del grupo: abre un enlace de invitación de un miembro que la tenga.",
+  "js.board_start_warn": "Inicia el tablón solo si nadie del grupo tiene aún una llave; si no, lo partirías en dos.",
+  "coffee.board_start": "Iniciar el tablón de este grupo"
 }

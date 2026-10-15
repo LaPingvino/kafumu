@@ -904,5 +904,9 @@
   "coffee.request_for_line": "Per: {for}",
   "coffee.request_self": "Questa è la tua richiesta: condividi il link o il codice QR.",
   "coffee.request_pay_from": "Paga da",
-  "coffee.request_no_group": "Per pagare devi essere in un gruppo CoffeeBucks: chiedi un invito a @{name}."
+  "coffee.request_no_group": "Per pagare devi essere in un gruppo CoffeeBucks: chiedi un invito a @{name}.",
+  "js.board_key_ok": "Chiave della bacheca su questo dispositivo: qui la bacheca del gruppo si legge.",
+  "js.board_nokey": "Questo dispositivo non ha la chiave della bacheca del gruppo: apri un link d'invito di un membro che ce l'ha.",
+  "js.board_start_warn": "Avvia la bacheca solo se nessuno nel gruppo ha ancora una chiave, altrimenti la divideresti in due.",
+  "coffee.board_start": "Avvia la bacheca di questo gruppo"
 }

@@ -12,4 +12,15 @@
   {{else}}<p><a href="/account?next={{print "/coffee/join?g=" .Gid "&by=" .By "&t=" .T | urlquery}}" role="button" class="pill">{{t .Lang "here.need_name"}} →</a></p>{{end}}
   {{end}}
 </article>
+<script>window.KAFUMU_T = window.KAFUMU_T || {{.JS}};</script>
+<script src="/static/device.js?v={{.V}}"></script>
+<script>
+// The group's board key rides in the link's #k= (never sent to the server):
+// keep it on this device before joining (97a).
+(function () {
+  var k = /[#&]k=([A-Za-z0-9_-]{20,})/.exec(location.hash), g = {{.Gid}}, dev = window.kafumuDevice;
+  if (!k || !g || !dev) return;
+  dev.store.get("groupKeys").then(function (all) { all = all || {}; if (!all[g]) { all[g] = k[1]; return dev.store.set("groupKeys", all); } });
+})();
+</script>
 {{template "foot" .}}

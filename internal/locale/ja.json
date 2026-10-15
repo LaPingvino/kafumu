@@ -904,5 +904,9 @@
   "coffee.request_for_line": "用途：{for}",
   "coffee.request_self": "これはあなた自身のリクエストです。リンクか QR コードを共有してください。",
   "coffee.request_pay_from": "支払い元",
-  "coffee.request_no_group": "支払うには CoffeeBucks のグループに入っている必要があります。@{name} に招待を頼んでください。"
+  "coffee.request_no_group": "支払うには CoffeeBucks のグループに入っている必要があります。@{name} に招待を頼んでください。",
+  "js.board_key_ok": "この端末にボードの鍵があります：ここでグループのボードを読めます。",
+  "js.board_nokey": "この端末にはグループのボードの鍵がありません：鍵を持っているメンバーの招待リンクを開いてください。",
+  "js.board_start_warn": "グループの誰もまだ鍵を持っていない場合だけボードを始めてください。そうでないとボードが2つに分かれます。",
+  "coffee.board_start": "このグループのボードを始める"
 }

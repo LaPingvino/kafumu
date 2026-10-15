@@ -904,5 +904,9 @@
   "coffee.request_for_line": "용도: {for}",
   "coffee.request_self": "내가 만든 요청이에요. 링크나 QR 코드를 공유하세요.",
   "coffee.request_pay_from": "어디서 지불",
-  "coffee.request_no_group": "지불하려면 CoffeeBucks 그룹에 있어야 해요. @{name}에게 초대를 부탁하세요."
+  "coffee.request_no_group": "지불하려면 CoffeeBucks 그룹에 있어야 해요. @{name}에게 초대를 부탁하세요.",
+  "js.board_key_ok": "이 기기에 게시판 키가 있어요: 여기서 그룹 게시판을 읽을 수 있어요.",
+  "js.board_nokey": "이 기기에는 그룹 게시판 키가 없어요: 키를 가진 회원의 초대 링크를 여세요.",
+  "js.board_start_warn": "그룹에 아직 아무도 키가 없을 때만 게시판을 시작하세요. 아니면 게시판이 둘로 나뉘어요.",
+  "coffee.board_start": "이 그룹의 게시판 시작"
 }

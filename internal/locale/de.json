@@ -904,5 +904,9 @@
   "coffee.request_for_line": "Für: {for}",
   "coffee.request_self": "Das ist deine eigene Anfrage: Teile den Link oder den QR-Code.",
   "coffee.request_pay_from": "Bezahlen aus",
-  "coffee.request_no_group": "Um zu bezahlen, musst du in einer CoffeeBucks-Gruppe sein: Bitte @{name} um eine Einladung."
+  "coffee.request_no_group": "Um zu bezahlen, musst du in einer CoffeeBucks-Gruppe sein: Bitte @{name} um eine Einladung.",
+  "js.board_key_ok": "Brettschlüssel auf diesem Gerät: Das Brett der Gruppe ist hier lesbar.",
+  "js.board_nokey": "Dieses Gerät hat den Brettschlüssel der Gruppe nicht: Öffne einen Einladungslink von einem Mitglied, das ihn hat.",
+  "js.board_start_warn": "Starte das Brett nur, wenn noch niemand in der Gruppe einen Schlüssel hat, sonst teilst du es in zwei.",
+  "coffee.board_start": "Brett dieser Gruppe starten"
 }

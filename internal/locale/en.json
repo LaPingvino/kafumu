@@ -904,5 +904,9 @@
   "coffee.request_for_line": "For: {for}",
   "coffee.request_self": "This is your own request: share the link or the QR code.",
   "coffee.request_pay_from": "Pay from",
-  "coffee.request_no_group": "To pay, you need to be in a CoffeeBucks group: ask @{name} for an invite."
+  "coffee.request_no_group": "To pay, you need to be in a CoffeeBucks group: ask @{name} for an invite.",
+  "js.board_key_ok": "Board key on this device: the group's board is readable here.",
+  "js.board_nokey": "This device doesn't have the group's board key: open an invite link from a member who has it.",
+  "js.board_start_warn": "Start the board only if nobody in the group has a key yet, or you'd split it in two.",
+  "coffee.board_start": "Start this group's board"
 }
