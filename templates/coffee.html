@@ -10,7 +10,8 @@
       {{if .Unavailable}}<p class="dim">{{t $.Lang "coffee.unavailable"}}</p>{{else}}
       <p class="coffee-balance"><strong>{{.Balance}} K$</strong>{{if .Days}} <span class="dim small">{{ts $.Lang "coffee.in_days" | replace "{n}" .Days}}</span>{{end}}</p>
       <p class="dim small">{{t $.Lang "coffee.dividend"}}: {{.UD}} K$ · {{ts $.Lang "coffee.members" | replace "{n}" (print .Members)}}</p>{{end}}
-      {{if eq .Gid $.Focus}}{{with $.Msg}}<p class="coffee-msg{{if eq . "paid"}} ok{{else}} error{{end}}" role="status">{{if eq . "paid"}}✓ {{ts $.Lang "coffee.paid" | replace "{amount}" $.Amount | replace "{name}" $.To}}{{else if eq . "not_member"}}{{ts $.Lang "coffee.pay_not_member" | replace "{name}" $.To}}{{else}}{{t $.Lang (print "coffee.pay_" .)}}{{end}}</p>{{end}}{{end}}
+      {{with .Links}}<p class="dim small">🔗 {{t $.Lang "coffee.linked_with"}}: {{range $i, $l := .}}{{if $i}}, {{end}}{{$l.Name}}{{end}}</p>{{end}}
+      {{if eq .Gid $.Focus}}{{with $.Msg}}<p class="coffee-msg{{if or (eq . "paid") (eq . "sent") (eq . "linked")}} ok{{else}} error{{end}}" role="status">{{if eq . "paid"}}✓ {{ts $.Lang "coffee.paid" | replace "{amount}" $.Amount | replace "{name}" $.To}}{{else if eq . "sent"}}✓ {{ts $.Lang "coffee.pay_sent" | replace "{amount}" $.Amount | replace "{name}" $.To}}{{else if eq . "linked"}}✓ {{t $.Lang "coffee.linked"}}{{else if eq . "not_member"}}{{ts $.Lang "coffee.pay_not_member" | replace "{name}" $.To}}{{else}}{{t $.Lang (print "coffee.pay_" .)}}{{end}}</p>{{end}}{{end}}
       {{if not .Unavailable}}<form method="post" action="/coffee/pay#g-{{.Gid}}" class="inline coffee-pay"><input type="hidden" name="g" value="{{.Gid}}">
         <input name="to" required placeholder="@name" aria-label="{{ts $.Lang "coffee.pay_to"}}" autocomplete="off" autocapitalize="off">
         <input name="amount" required inputmode="decimal" placeholder="0.00 K$" aria-label="{{ts $.Lang "coffee.pay_amount"}}" class="coffee-amount">
@@ -19,7 +20,12 @@
       <p class="dim small">{{t $.Lang "coffee.invite_note"}}</p>
       <p class="dim small coffee-status" role="status"></p>
     </li>{{end}}
-  </ul>{{else}}<p class="dim">{{t .Lang "coffee.none"}}</p>{{end}}
+  </ul>
+  {{with .Pairs}}<h2>{{t $.Lang "coffee.link_title"}}</h2>
+  <p class="dim small">{{t $.Lang "coffee.link_explain"}}</p>
+  {{range .}}<form method="post" action="/coffee/link"><input type="hidden" name="a" value="{{(index . 0).Gid}}"><input type="hidden" name="b" value="{{(index . 1).Gid}}">
+    <button type="submit" class="pill-sm">🔗 {{ts $.Lang "coffee.link_btn" | replace "{a}" (index . 0).Name | replace "{b}" (index . 1).Name}}</button></form>{{end}}{{end}}
+  {{else}}<p class="dim">{{t .Lang "coffee.none"}}</p>{{end}}
   <h2>{{t .Lang "coffee.start"}}</h2>
   {{if .MayStart}}<form method="post" action="/coffee/group" class="inline" id="coffee-start">
     <input name="name" maxlength="60" required placeholder="{{ts .Lang "coffee.start_name"}}" aria-label="{{ts .Lang "coffee.start_name"}}">

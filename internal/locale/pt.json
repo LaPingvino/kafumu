@@ -836,5 +836,18 @@
   "coffee.pay_funds": "Não tens K$ suficientes para isso.",
   "coffee.pay_self": "Não te podes pagar a ti próprio.",
   "coffee.pay_bad_amount": "Esse valor não está certo: p. ex. 2,50",
-  "coffee.pay_error": "Não foi possível pagar agora. Tenta outra vez."
+  "coffee.pay_error": "Não foi possível pagar agora. Tenta outra vez.",
+  "coffee.linked_with": "Ligado a",
+  "coffee.link_title": "Ligar os teus grupos",
+  "coffee.link_explain": "Estás nos dois: liga-os para que os membros possam pagar-se. Cada grupo põe cem dias de dividendo no fundo comum; depois o câmbio move-se com os pagamentos.",
+  "coffee.link_btn": "Ligar {a} e {b}",
+  "coffee.linked": "Ligados: os membros dos dois grupos já se podem pagar.",
+  "coffee.pay_sent": "Enviaste {amount} K$ a @{name}: a caminho pelo fundo comum.",
+  "coffee.pay_busy": "Essa ligação está ocupada com outro pagamento. Tenta daqui a pouco.",
+  "coffee.confirm_title": "Pagar entre grupos",
+  "coffee.confirm_pay": "Pagas",
+  "coffee.confirm_gets": "@{name} recebe",
+  "coffee.confirm_rate": "Ao câmbio de hoje entre os dois grupos; muda um pouco a cada pagamento.",
+  "coffee.confirm_go": "Pagar {amount} K$",
+  "coffee.confirm_bad": "Este pagamento não é (já) possível."
 }

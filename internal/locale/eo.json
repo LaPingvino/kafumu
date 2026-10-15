@@ -836,5 +836,18 @@
   "coffee.pay_funds": "Ne sufiĉas K$ por tio.",
   "coffee.pay_self": "Vi ne povas pagi al vi mem.",
   "coffee.pay_bad_amount": "Tiu sumo ne ĝustas: ekz. 2,50",
-  "coffee.pay_error": "Nun ne eblas pagi. Reprovu."
+  "coffee.pay_error": "Nun ne eblas pagi. Reprovu.",
+  "coffee.linked_with": "Ligita kun",
+  "coffee.link_title": "Ligi viajn grupojn",
+  "coffee.link_explain": "Vi estas en ambaŭ: ligu ilin, por ke iliaj membroj povu pagi unu al la alia. Ĉiu grupo metas cent tagojn da dividendo en la komunan kason; poste la kurzo moviĝas kun la pagoj.",
+  "coffee.link_btn": "Ligi {a} kaj {b}",
+  "coffee.linked": "Ligitaj: membroj de ambaŭ grupoj nun povas pagi unu al la alia.",
+  "coffee.pay_sent": "Sendis {amount} K$ al @{name}: survoje tra la kaso.",
+  "coffee.pay_busy": "Tiu ligo nun okupiĝas pri alia pago. Reprovu post momento.",
+  "coffee.confirm_title": "Pagi inter grupoj",
+  "coffee.confirm_pay": "Vi pagas",
+  "coffee.confirm_gets": "@{name} ricevas",
+  "coffee.confirm_rate": "Laŭ la hodiaŭa kurzo inter la du grupoj; ĝi iom moviĝas kun ĉiu pago.",
+  "coffee.confirm_go": "Pagi {amount} K$",
+  "coffee.confirm_bad": "Ĉi tiu pago ne (plu) eblas."
 }

@@ -836,5 +836,18 @@
   "coffee.pay_funds": "Ikke nok K$ til det.",
   "coffee.pay_self": "Du kan ikke betale dig selv.",
   "coffee.pay_bad_amount": "Det beløb ser forkert ud: f.eks. 2,50",
-  "coffee.pay_error": "Betaling lykkedes ikke lige nu. Prøv igen."
+  "coffee.pay_error": "Betaling lykkedes ikke lige nu. Prøv igen.",
+  "coffee.linked_with": "Forbundet med",
+  "coffee.link_title": "Forbind dine grupper",
+  "coffee.link_explain": "Du er i begge: forbind dem, så deres medlemmer kan betale hinanden. Hver gruppe lægger hundrede dages udbytte i puljen imellem dem; kursen følger derefter betalingerne.",
+  "coffee.link_btn": "Forbind {a} og {b}",
+  "coffee.linked": "Forbundet: medlemmer af begge grupper kan nu betale hinanden.",
+  "coffee.pay_sent": "Sendt {amount} K$ til @{name}: på vej gennem puljen.",
+  "coffee.pay_busy": "Den forbindelse er optaget af en anden betaling. Prøv igen om lidt.",
+  "coffee.confirm_title": "Betal mellem grupper",
+  "coffee.confirm_pay": "Du betaler",
+  "coffee.confirm_gets": "@{name} får",
+  "coffee.confirm_rate": "Til dagens kurs mellem de to grupper; den flytter sig lidt ved hver betaling.",
+  "coffee.confirm_go": "Betal {amount} K$",
+  "coffee.confirm_bad": "Denne betaling er ikke (længere) mulig."
 }

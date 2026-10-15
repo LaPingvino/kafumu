@@ -23,6 +23,8 @@ type fakeLP struct {
 	groups  map[string][]string
 	created []string
 	paid    []map[string]any
+	links   [][2]string
+	sent    []map[string]any
 }
 
 func (f *fakeLP) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -48,6 +50,26 @@ func (f *fakeLP) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	case "/lp/admin/group":
 		f.groups[in["gid"]] = nil
 		f.created = append(f.created, in["gid"])
+	case "/lp/admin/link":
+		f.links = append(f.links, [2]string{in["a"], in["b"]})
+	case "/lp/admin/links":
+		var out []map[string]string
+		for _, l := range f.links {
+			for i := 0; i < 2; i++ {
+				if l[i] == r.FormValue("gid") {
+					out = append(out, map[string]string{"gid": l[1-i], "name": "Other"})
+				}
+			}
+		}
+		json.NewEncoder(w).Encode(out)
+		return
+	case "/lp/admin/quote":
+		w.Write([]byte(`{"amount":2000000,"dst":1960784}`))
+		return
+	case "/lp/admin/transfer":
+		f.sent = append(f.sent, raw)
+		w.Write([]byte(`{"id":"t1"}`))
+		return
 	case "/lp/admin/pay":
 		if raw["amount"].(float64) > 10_000_000 {
 			http.Error(w, `{"error":"insufficient balance"}`, 400)
@@ -167,6 +189,37 @@ func TestCoffeeStartInviteJoin(t *testing.T) {
 	}
 	if w := as(anon, "POST", "/coffee/pay", url.Values{"g": {gid}, "to": {"bea"}, "amount": {"1"}}, c.Pay); w.Code != 403 {
 		t.Fatal("a non-member paid from the group")
+	}
+	// Across groups: ana (in both) links them; bea pays @dan in the other
+	// group: the confirm page shows the quote, then the transfer goes out.
+	w = as(ana, "POST", "/coffee/group", url.Values{"name": {"Arnhem"}}, c.StartGroup)
+	gid2 := lp.created[1]
+	dan := user("dan", "")
+	w = as(ana, "GET", "/coffee/invite?g="+gid2, nil, c.Invite)
+	json.NewDecoder(w.Body).Decode(&inv)
+	u2, _ := url.Parse(inv.Link)
+	as(dan, "POST", "/coffee/join", u2.Query(), c.Join)
+	if w := as(bea, "POST", "/coffee/link", url.Values{"a": {gid}, "b": {gid2}}, c.Link); w.Code != 403 {
+		t.Fatal("bea linked a group she isn't in")
+	}
+	if w := as(ana, "POST", "/coffee/link", url.Values{"a": {gid}, "b": {gid2}}, c.Link); w.Code != 303 || len(lp.links) != 1 {
+		t.Fatalf("ana's link: %d %v", w.Code, lp.links)
+	}
+	w = as(bea, "POST", "/coffee/pay", url.Values{"g": {gid}, "to": {"dan"}, "amount": {"2"}}, c.Pay)
+	loc, _ := url.Parse(w.Header().Get("Location"))
+	if loc.Path != "/coffee/confirm" || loc.Query().Get("tg") != gid2 {
+		t.Fatalf("paying across should confirm first: %s", w.Header().Get("Location"))
+	}
+	w = as(bea, "GET", loc.String(), nil, c.Confirm)
+	if !strings.Contains(w.Body.String(), "2.00 K$") || !strings.Contains(w.Body.String(), "1.96 K$") || !strings.Contains(w.Body.String(), "@dan receives") {
+		t.Fatalf("confirm page: %s", w.Body.String())
+	}
+	w = as(bea, "POST", "/coffee/across", loc.Query(), c.Across)
+	if m, _ := url.Parse(w.Header().Get("Location")); m.Query().Get("m") != "sent" || len(lp.sent) != 1 || lp.sent[0]["to_gid"] != gid2 {
+		t.Fatalf("across: %s %v", w.Header().Get("Location"), lp.sent)
+	}
+	if w := as(dan, "POST", "/coffee/across", loc.Query(), c.Across); w.Code != 400 {
+		t.Fatal("someone outside the payer's group sent the payment")
 	}
 	// Member ids: stable per account, different between accounts.
 	a1, _ := c.C.MemberID(ctx, ana.ID)

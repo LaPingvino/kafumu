@@ -289,3 +289,36 @@ func ParseMoney(s string) (int64, bool) {
 	m := w*1_000_000 + f
 	return m, m > 0
 }
+
+// Link is a group linked with another (an active pool between them).
+type Link struct {
+	Gid  string `json:"gid"`
+	Name string `json:"name"`
+}
+
+// Links lists the groups gid is linked with.
+func (c *Client) Links(ctx context.Context, gid string) ([]Link, error) {
+	var out []Link
+	err := c.do(ctx, "GET", "/lp/admin/links?gid="+gid, nil, &out)
+	return out, err
+}
+
+// LinkGroups opens a pool between two groups (each seeds it with a hundred
+// dividends of its own K$: UD parity, VISION §4).
+func (c *Client) LinkGroups(ctx context.Context, a, b string) error {
+	return c.do(ctx, "POST", "/lp/admin/link", map[string]string{"a": a, "b": b}, nil)
+}
+
+// Quote: what the payee in group to receives for amount from group from, now.
+func (c *Client) Quote(ctx context.Context, from, to string, amount int64) (int64, error) {
+	var q struct{ Dst int64 }
+	err := c.do(ctx, "GET", fmt.Sprintf("/lp/admin/quote?from_gid=%s&to_gid=%s&amount=%d", from, to, amount), nil, &q)
+	return q.Dst, err
+}
+
+// Transfer pays across two linked groups, priced by their pool.
+func (c *Client) Transfer(ctx context.Context, fromGid, from, toGid, to string, amount int64) (string, error) {
+	var out struct{ ID string }
+	err := c.do(ctx, "POST", "/lp/admin/transfer", map[string]any{"from_gid": fromGid, "from": from, "to_gid": toGid, "to": to, "amount": amount}, &out)
+	return out.ID, err
+}

@@ -836,5 +836,18 @@
   "coffee.pay_funds": "Niet genoeg K$ daarvoor.",
   "coffee.pay_self": "Je kunt jezelf niet betalen.",
   "coffee.pay_bad_amount": "Dat bedrag klopt niet: bijvoorbeeld 2,50",
-  "coffee.pay_error": "Betalen lukt nu niet. Probeer het opnieuw."
+  "coffee.pay_error": "Betalen lukt nu niet. Probeer het opnieuw.",
+  "coffee.linked_with": "Verbonden met",
+  "coffee.link_title": "Verbind je groepen",
+  "coffee.link_explain": "Je zit in allebei: verbind ze, dan kunnen hun leden elkaar betalen. Elke groep stopt honderd dagen dividend in de pot ertussen; de koers beweegt daarna mee met de betalingen.",
+  "coffee.link_btn": "Verbind {a} en {b}",
+  "coffee.linked": "Verbonden: leden van beide groepen kunnen elkaar nu betalen.",
+  "coffee.pay_sent": "{amount} K$ gestuurd aan @{name}: onderweg via de pot.",
+  "coffee.pay_busy": "Die verbinding is bezig met een andere betaling. Probeer het zo nog eens.",
+  "coffee.confirm_title": "Betalen tussen groepen",
+  "coffee.confirm_pay": "Jij betaalt",
+  "coffee.confirm_gets": "@{name} krijgt",
+  "coffee.confirm_rate": "Tegen de koers van vandaag tussen de twee groepen; die beweegt bij elke betaling een beetje.",
+  "coffee.confirm_go": "Betaal {amount} K$",
+  "coffee.confirm_bad": "Deze betaling kan niet (meer)."
 }

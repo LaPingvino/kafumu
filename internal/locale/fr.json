@@ -836,5 +836,18 @@
   "coffee.pay_funds": "Pas assez de K$ pour ça.",
   "coffee.pay_self": "Tu ne peux pas te payer toi-même.",
   "coffee.pay_bad_amount": "Ce montant ne va pas : par ex. 2,50",
-  "coffee.pay_error": "Paiement impossible pour l'instant. Réessaie."
+  "coffee.pay_error": "Paiement impossible pour l'instant. Réessaie.",
+  "coffee.linked_with": "Relié à",
+  "coffee.link_title": "Relier tes groupes",
+  "coffee.link_explain": "Tu es dans les deux : relie-les pour que leurs membres puissent se payer. Chaque groupe met cent jours de dividende dans la cagnotte commune ; le taux évolue ensuite avec les paiements.",
+  "coffee.link_btn": "Relier {a} et {b}",
+  "coffee.linked": "Reliés : les membres des deux groupes peuvent maintenant se payer.",
+  "coffee.pay_sent": "{amount} K$ envoyés à @{name} : en route via la cagnotte.",
+  "coffee.pay_busy": "Ce lien traite déjà un autre paiement. Réessaie dans un instant.",
+  "coffee.confirm_title": "Payer entre groupes",
+  "coffee.confirm_pay": "Tu paies",
+  "coffee.confirm_gets": "@{name} reçoit",
+  "coffee.confirm_rate": "Au taux du jour entre les deux groupes ; il bouge un peu à chaque paiement.",
+  "coffee.confirm_go": "Payer {amount} K$",
+  "coffee.confirm_bad": "Ce paiement n'est pas (plus) possible."
 }

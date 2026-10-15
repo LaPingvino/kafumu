@@ -836,5 +836,18 @@
   "coffee.pay_funds": "Dafür reichen deine K$ nicht.",
   "coffee.pay_self": "Du kannst dich nicht selbst bezahlen.",
   "coffee.pay_bad_amount": "Dieser Betrag stimmt nicht: z. B. 2,50",
-  "coffee.pay_error": "Bezahlen geht gerade nicht. Versuch es noch einmal."
+  "coffee.pay_error": "Bezahlen geht gerade nicht. Versuch es noch einmal.",
+  "coffee.linked_with": "Verbunden mit",
+  "coffee.link_title": "Verbinde deine Gruppen",
+  "coffee.link_explain": "Du bist in beiden: Verbinde sie, dann können ihre Mitglieder einander bezahlen. Jede Gruppe legt hundert Tage Dividende in den Topf dazwischen; der Kurs bewegt sich dann mit den Zahlungen.",
+  "coffee.link_btn": "{a} und {b} verbinden",
+  "coffee.linked": "Verbunden: Mitglieder beider Gruppen können einander jetzt bezahlen.",
+  "coffee.pay_sent": "{amount} K$ an @{name} geschickt: unterwegs über den Topf.",
+  "coffee.pay_busy": "Diese Verbindung ist gerade mit einer anderen Zahlung beschäftigt. Versuch es gleich noch einmal.",
+  "coffee.confirm_title": "Zwischen Gruppen bezahlen",
+  "coffee.confirm_pay": "Du zahlst",
+  "coffee.confirm_gets": "@{name} bekommt",
+  "coffee.confirm_rate": "Zum heutigen Kurs zwischen den beiden Gruppen; er bewegt sich mit jeder Zahlung ein wenig.",
+  "coffee.confirm_go": "{amount} K$ zahlen",
+  "coffee.confirm_bad": "Diese Zahlung geht (nicht mehr)."
 }

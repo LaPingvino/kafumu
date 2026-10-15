@@ -836,5 +836,18 @@
   "coffee.pay_funds": "Ehhez nincs elég K$-od.",
   "coffee.pay_self": "Magadnak nem fizethetsz.",
   "coffee.pay_bad_amount": "Ez az összeg nem jó: pl. 2,50",
-  "coffee.pay_error": "Most nem sikerült fizetni. Próbáld újra."
+  "coffee.pay_error": "Most nem sikerült fizetni. Próbáld újra.",
+  "coffee.linked_with": "Összekötve ezzel",
+  "coffee.link_title": "Kösd össze a csoportjaidat",
+  "coffee.link_explain": "Mindkettőben benne vagy: kösd össze őket, hogy a tagjaik fizethessenek egymásnak. Mindegyik csoport száz napnyi osztalékot tesz a közös kasszába; az árfolyam ezután a fizetésekkel mozog.",
+  "coffee.link_btn": "{a} és {b} összekötése",
+  "coffee.linked": "Összekötve: a két csoport tagjai most már fizethetnek egymásnak.",
+  "coffee.pay_sent": "Elküldve {amount} K$ neki: @{name}, úton a kasszán át.",
+  "coffee.pay_busy": "Ez a kapcsolat most egy másik fizetéssel foglalt. Próbáld újra kicsit később.",
+  "coffee.confirm_title": "Fizetés csoportok között",
+  "coffee.confirm_pay": "Te fizetsz",
+  "coffee.confirm_gets": "@{name} kap",
+  "coffee.confirm_rate": "A két csoport mai árfolyamán; minden fizetéssel kicsit mozdul.",
+  "coffee.confirm_go": "{amount} K$ fizetése",
+  "coffee.confirm_bad": "Ez a fizetés nem (már nem) lehetséges."
 }

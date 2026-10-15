@@ -836,5 +836,18 @@
   "coffee.pay_funds": "Na to nemáš dost K$.",
   "coffee.pay_self": "Nemůžeš platit sám sobě.",
   "coffee.pay_bad_amount": "Tahle částka nesedí: např. 2,50",
-  "coffee.pay_error": "Teď se zaplatit nepodařilo. Zkus to znovu."
+  "coffee.pay_error": "Teď se zaplatit nepodařilo. Zkus to znovu.",
+  "coffee.linked_with": "Propojeno s",
+  "coffee.link_title": "Propoj své skupiny",
+  "coffee.link_explain": "Jsi v obou: propoj je, aby si jejich členové mohli platit. Každá skupina vloží do společné pokladny sto dní dividendy; kurz se pak hýbe s platbami.",
+  "coffee.link_btn": "Propojit {a} a {b}",
+  "coffee.linked": "Propojeno: členové obou skupin si teď mohou platit.",
+  "coffee.pay_sent": "Posláno {amount} K$ uživateli @{name}: na cestě přes pokladnu.",
+  "coffee.pay_busy": "Toto propojení teď zpracovává jinou platbu. Zkus to za chvíli.",
+  "coffee.confirm_title": "Platit mezi skupinami",
+  "coffee.confirm_pay": "Platíš",
+  "coffee.confirm_gets": "@{name} dostane",
+  "coffee.confirm_rate": "Za dnešní kurz mezi oběma skupinami; s každou platbou se trochu pohne.",
+  "coffee.confirm_go": "Zaplatit {amount} K$",
+  "coffee.confirm_bad": "Tahle platba (už) není možná."
 }

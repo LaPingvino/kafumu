@@ -836,5 +836,18 @@
   "coffee.pay_funds": "Inte tillräckligt med K$ för det.",
   "coffee.pay_self": "Du kan inte betala dig själv.",
   "coffee.pay_bad_amount": "Beloppet ser fel ut: t.ex. 2,50",
-  "coffee.pay_error": "Det gick inte att betala just nu. Försök igen."
+  "coffee.pay_error": "Det gick inte att betala just nu. Försök igen.",
+  "coffee.linked_with": "Kopplad till",
+  "coffee.link_title": "Koppla ihop dina grupper",
+  "coffee.link_explain": "Du är med i båda: koppla ihop dem så att medlemmarna kan betala varandra. Varje grupp lägger hundra dagars utdelning i potten mellan dem; kursen följer sedan betalningarna.",
+  "coffee.link_btn": "Koppla ihop {a} och {b}",
+  "coffee.linked": "Ihopkopplade: medlemmar i båda grupperna kan nu betala varandra.",
+  "coffee.pay_sent": "Skickade {amount} K$ till @{name}: på väg genom potten.",
+  "coffee.pay_busy": "Den kopplingen är upptagen med en annan betalning. Försök igen om en stund.",
+  "coffee.confirm_title": "Betala mellan grupper",
+  "coffee.confirm_pay": "Du betalar",
+  "coffee.confirm_gets": "@{name} får",
+  "coffee.confirm_rate": "Till dagens kurs mellan de två grupperna; den rör sig lite med varje betalning.",
+  "coffee.confirm_go": "Betala {amount} K$",
+  "coffee.confirm_bad": "Den här betalningen går inte (längre)."
 }

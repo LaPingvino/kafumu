@@ -836,5 +836,18 @@
   "coffee.pay_funds": "Bunun için yeterli K$'ın yok.",
   "coffee.pay_self": "Kendine ödeme yapamazsın.",
   "coffee.pay_bad_amount": "Bu tutar doğru görünmüyor: örn. 2,50",
-  "coffee.pay_error": "Şu an ödeme yapılamadı. Tekrar dene."
+  "coffee.pay_error": "Şu an ödeme yapılamadı. Tekrar dene.",
+  "coffee.linked_with": "Bağlantılı",
+  "coffee.link_title": "Gruplarını bağla",
+  "coffee.link_explain": "İkisinde de varsın: bağla ki üyeleri birbirine ödeme yapabilsin. Her grup aradaki ortak havuza yüz günlük kâr payı koyar; kur sonra ödemelerle değişir.",
+  "coffee.link_btn": "{a} ve {b} gruplarını bağla",
+  "coffee.linked": "Bağlandı: iki grubun üyeleri artık birbirine ödeme yapabilir.",
+  "coffee.pay_sent": "@{name} kişisine {amount} K$ gönderildi: havuz üzerinden yolda.",
+  "coffee.pay_busy": "Bu bağlantı başka bir ödemeyle meşgul. Birazdan tekrar dene.",
+  "coffee.confirm_title": "Gruplar arası ödeme",
+  "coffee.confirm_pay": "Sen ödüyorsun",
+  "coffee.confirm_gets": "@{name} alacak",
+  "coffee.confirm_rate": "İki grup arasındaki bugünkü kurla; her ödemeyle biraz değişir.",
+  "coffee.confirm_go": "{amount} K$ öde",
+  "coffee.confirm_bad": "Bu ödeme (artık) mümkün değil."
 }

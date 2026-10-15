@@ -836,5 +836,18 @@
   "coffee.pay_funds": "Not enough K$ for that.",
   "coffee.pay_self": "You can't pay yourself.",
   "coffee.pay_bad_amount": "That amount doesn't look right: e.g. 2.50",
-  "coffee.pay_error": "Couldn't pay right now. Try again."
+  "coffee.pay_error": "Couldn't pay right now. Try again.",
+  "coffee.linked_with": "Linked with",
+  "coffee.link_title": "Link your groups",
+  "coffee.link_explain": "You're in both: link them so their members can pay each other. Each group puts a hundred days of dividend into the pool between them; the rate then moves with the payments.",
+  "coffee.link_btn": "Link {a} and {b}",
+  "coffee.linked": "Linked: members of both groups can now pay each other.",
+  "coffee.pay_sent": "Sent {amount} K$ to @{name}: on its way through the pool.",
+  "coffee.pay_busy": "That link is busy with another payment. Try again in a moment.",
+  "coffee.confirm_title": "Pay across groups",
+  "coffee.confirm_pay": "You pay",
+  "coffee.confirm_gets": "@{name} receives",
+  "coffee.confirm_rate": "At today's rate between the two groups; it moves a little with every payment.",
+  "coffee.confirm_go": "Pay {amount} K$",
+  "coffee.confirm_bad": "This payment isn't possible (any more)."
 }

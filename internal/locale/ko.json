@@ -836,5 +836,18 @@
   "coffee.pay_funds": "K$가 부족해요.",
   "coffee.pay_self": "자기 자신에게는 지불할 수 없어요.",
   "coffee.pay_bad_amount": "금액이 올바르지 않아요: 예) 2.50",
-  "coffee.pay_error": "지금은 지불할 수 없어요. 다시 시도하세요."
+  "coffee.pay_error": "지금은 지불할 수 없어요. 다시 시도하세요.",
+  "coffee.linked_with": "연결된 그룹",
+  "coffee.link_title": "그룹 연결하기",
+  "coffee.link_explain": "두 그룹 모두에 속해 있어요. 연결하면 회원끼리 서로 지불할 수 있어요. 각 그룹이 배당 100일치를 공동 풀에 넣고, 이후 환율은 지불에 따라 움직여요.",
+  "coffee.link_btn": "{a}와(과) {b} 연결",
+  "coffee.linked": "연결됐어요. 두 그룹 회원이 이제 서로 지불할 수 있어요.",
+  "coffee.pay_sent": "@{name}에게 {amount} K$를 보냈어요. 풀을 거쳐 가는 중이에요.",
+  "coffee.pay_busy": "이 연결은 다른 지불을 처리 중이에요. 잠시 후 다시 시도하세요.",
+  "coffee.confirm_title": "그룹 간 지불",
+  "coffee.confirm_pay": "내가 내는 금액",
+  "coffee.confirm_gets": "@{name}이(가) 받는 금액",
+  "coffee.confirm_rate": "두 그룹 사이의 오늘 환율이에요. 지불할 때마다 조금씩 움직여요.",
+  "coffee.confirm_go": "{amount} K$ 지불",
+  "coffee.confirm_bad": "이 지불은 (더 이상) 할 수 없어요."
 }

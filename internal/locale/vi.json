@@ -836,5 +836,18 @@
   "coffee.pay_funds": "Bạn không đủ K$ cho khoản đó.",
   "coffee.pay_self": "Bạn không thể tự trả cho mình.",
   "coffee.pay_bad_amount": "Số tiền này không đúng: vd. 2,50",
-  "coffee.pay_error": "Hiện chưa trả được. Hãy thử lại."
+  "coffee.pay_error": "Hiện chưa trả được. Hãy thử lại.",
+  "coffee.linked_with": "Đã liên kết với",
+  "coffee.link_title": "Liên kết các nhóm của bạn",
+  "coffee.link_explain": "Bạn ở cả hai nhóm: hãy liên kết để thành viên có thể trả tiền cho nhau. Mỗi nhóm góp một trăm ngày cổ tức vào quỹ chung; sau đó tỷ giá thay đổi theo các khoản thanh toán.",
+  "coffee.link_btn": "Liên kết {a} và {b}",
+  "coffee.linked": "Đã liên kết: thành viên hai nhóm giờ có thể trả tiền cho nhau.",
+  "coffee.pay_sent": "Đã gửi {amount} K$ cho @{name}: đang trên đường qua quỹ chung.",
+  "coffee.pay_busy": "Liên kết đó đang bận với một khoản khác. Hãy thử lại sau giây lát.",
+  "coffee.confirm_title": "Trả tiền giữa các nhóm",
+  "coffee.confirm_pay": "Bạn trả",
+  "coffee.confirm_gets": "@{name} nhận",
+  "coffee.confirm_rate": "Theo tỷ giá hôm nay giữa hai nhóm; mỗi lần thanh toán lại dịch đi một chút.",
+  "coffee.confirm_go": "Trả {amount} K$",
+  "coffee.confirm_bad": "Khoản thanh toán này không (còn) thực hiện được."
 }

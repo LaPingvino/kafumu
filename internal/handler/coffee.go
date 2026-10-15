@@ -134,6 +134,7 @@ func (c *Coffee) Join(w http.ResponseWriter, r *http.Request) {
 }
 
 type coffeeGroup struct {
+	Links       []coffee.Link // groups this one is linked with
 	Gid, Name   string
 	Balance, UD string // K$, two decimals
 	Days        string // the balance in days of dividend
@@ -149,6 +150,8 @@ type coffeePage struct {
 	// Msg: how the last payment went (paid, funds, not_member, self, amount,
 	// error), with To and Amount for "paid".
 	Msg, To, Amount string
+	// Pairs: two of your groups not linked yet (you can link them).
+	Pairs [][2]coffeeGroup
 }
 
 // Show renders /coffee: your groups (balance, today's dividend), invites,
@@ -177,7 +180,21 @@ func (c *Coffee) Show(w http.ResponseWriter, r *http.Request) {
 			} else {
 				g.Unavailable = true
 			}
+			if !g.Unavailable {
+				g.Links, _ = c.C.Links(r.Context(), gid)
+			}
 			p.Groups = append(p.Groups, g)
+		}
+		for i, a := range p.Groups {
+			for _, b := range p.Groups[i+1:] {
+				linked := false
+				for _, l := range a.Links {
+					linked = linked || l.Gid == b.Gid
+				}
+				if !linked && !a.Unavailable && !b.Unavailable {
+					p.Pairs = append(p.Pairs, [2]coffeeGroup{a, b})
+				}
+			}
 		}
 	}
 	w.Header().Set("Cache-Control", "no-store")
@@ -236,7 +253,22 @@ func (c *Coffee) Pay(w http.ResponseWriter, r *http.Request) {
 	if err == nil && id != "" {
 		to, err = c.Accounts.ByID(ctx, id)
 	}
-	if err != nil || to == nil || !slices.Contains(to.Groups, gid) {
+	if err != nil || to == nil {
+		back("not_member", "to", name)
+		return
+	}
+	if !slices.Contains(to.Groups, gid) {
+		// In a group linked with this one? Then it's a payment across the
+		// pool: show what arrives first (/coffee/confirm).
+		if links, lerr := c.C.Links(ctx, gid); lerr == nil {
+			for _, l := range links {
+				if slices.Contains(to.Groups, l.Gid) {
+					q := url.Values{"g": {gid}, "tg": {l.Gid}, "to": {name}, "a": {fmt.Sprint(amount)}}
+					http.Redirect(w, r, "/coffee/confirm?"+q.Encode(), http.StatusSeeOther)
+					return
+				}
+			}
+		}
 		back("not_member", "to", name)
 		return
 	}
@@ -260,4 +292,100 @@ func (c *Coffee) Pay(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	back("paid", "to", name, "a", coffee.Money(amount))
+}
+
+// Link handles POST /coffee/link (a, b): someone in both groups links them —
+// how groups "link up" (VISION §4): a pool seeded with a hundred dividends a side.
+func (c *Coffee) Link(w http.ResponseWriter, r *http.Request) {
+	u := UserFrom(r.Context())
+	a, b := r.FormValue("a"), r.FormValue("b")
+	if u == nil || a == b || !slices.Contains(u.Groups, a) || !slices.Contains(u.Groups, b) {
+		http.Error(w, "link groups you're in", http.StatusForbidden)
+		return
+	}
+	m := "linked"
+	if err := c.C.LinkGroups(r.Context(), a, b); err != nil {
+		log.Printf("coffee: link %s-%s: %v", a, b, err)
+		m = "error"
+	}
+	http.Redirect(w, r, "/coffee?"+url.Values{"g": {a}, "m": {m}}.Encode()+"#g-"+a, http.StatusSeeOther)
+}
+
+type confirmPage struct {
+	page
+	Gid, Tg, From, ToGroup, To string
+	Amount                     int64
+	Pay, Gets                  string
+	Ok                         bool
+}
+
+// across resolves a payment across groups from the form: the payer in g, @to
+// in tg, the groups linked. ok false when any of that doesn't hold.
+func (c *Coffee) across(r *http.Request) (u, to *account.User, gid, tg string, amount int64, ok bool) {
+	u = UserFrom(r.Context())
+	gid, tg = r.FormValue("g"), r.FormValue("tg")
+	name := strings.ToLower(strings.TrimPrefix(r.FormValue("to"), "@"))
+	fmt.Sscan(r.FormValue("a"), &amount)
+	if u == nil || amount <= 0 || !slices.Contains(u.Groups, gid) {
+		return
+	}
+	id, err := c.Accounts.Store.LookupUsername(r.Context(), name)
+	if err != nil || id == "" {
+		return
+	}
+	if to, err = c.Accounts.ByID(r.Context(), id); err != nil || to == nil || !slices.Contains(to.Groups, tg) || to.ID == u.ID {
+		return
+	}
+	links, err := c.C.Links(r.Context(), gid)
+	if err != nil {
+		return
+	}
+	for _, l := range links {
+		if l.Gid == tg {
+			return u, to, gid, tg, amount, true
+		}
+	}
+	return
+}
+
+// Confirm renders /coffee/confirm: what you pay, what arrives, at today's rate.
+func (c *Coffee) Confirm(w http.ResponseWriter, r *http.Request) {
+	p := confirmPage{page: c.Home.newPage(r, "CoffeeBucks")}
+	p.Tab = "account"
+	_, to, gid, tg, amount, ok := c.across(r)
+	if ok {
+		if dst, err := c.C.Quote(r.Context(), gid, tg, amount); err == nil {
+			p.Ok, p.Gid, p.Tg, p.To, p.Amount = true, gid, tg, to.Username, amount
+			p.Pay, p.Gets = coffee.Money(amount), coffee.Money(dst)
+			p.From, p.ToGroup = c.C.GroupName(r.Context(), gid), c.C.GroupName(r.Context(), tg)
+		}
+	}
+	w.Header().Set("Cache-Control", "no-store")
+	c.Home.render(w, "coffee_confirm.html", p)
+}
+
+// Across handles POST /coffee/across: the confirmed payment, through the pool.
+func (c *Coffee) Across(w http.ResponseWriter, r *http.Request) {
+	u, to, gid, tg, amount, ok := c.across(r)
+	if !ok {
+		http.Error(w, "not possible", http.StatusBadRequest)
+		return
+	}
+	ctx := r.Context()
+	from, err1 := c.C.MemberID(ctx, u.ID)
+	them, err2 := c.C.MemberID(ctx, to.ID)
+	m := "sent"
+	if err1 != nil || err2 != nil {
+		m = "error"
+	} else if _, err := c.C.Transfer(ctx, gid, from, tg, them, amount); err != nil {
+		log.Printf("coffee: across %s->%s: %v", gid, tg, err)
+		m = "error"
+		if strings.Contains(err.Error(), "balance") {
+			m = "funds"
+		} else if strings.Contains(err.Error(), "busy") {
+			m = "busy"
+		}
+	}
+	q := url.Values{"g": {gid}, "m": {m}, "to": {to.Username}, "a": {coffee.Money(amount)}}
+	http.Redirect(w, r, "/coffee?"+q.Encode()+"#g-"+gid, http.StatusSeeOther)
 }

@@ -836,5 +836,18 @@
   "coffee.pay_funds": "K$-mu tidak cukup untuk itu.",
   "coffee.pay_self": "Kamu tidak bisa membayar dirimu sendiri.",
   "coffee.pay_bad_amount": "Jumlah itu tidak benar: mis. 2,50",
-  "coffee.pay_error": "Pembayaran gagal saat ini. Coba lagi."
+  "coffee.pay_error": "Pembayaran gagal saat ini. Coba lagi.",
+  "coffee.linked_with": "Terhubung dengan",
+  "coffee.link_title": "Hubungkan grupmu",
+  "coffee.link_explain": "Kamu ada di keduanya: hubungkan agar anggotanya bisa saling membayar. Setiap grup memasukkan seratus hari dividen ke kolam bersama; kursnya lalu bergerak mengikuti pembayaran.",
+  "coffee.link_btn": "Hubungkan {a} dan {b}",
+  "coffee.linked": "Terhubung: anggota kedua grup kini bisa saling membayar.",
+  "coffee.pay_sent": "Mengirim {amount} K$ ke @{name}: dalam perjalanan lewat kolam.",
+  "coffee.pay_busy": "Hubungan itu sedang memproses pembayaran lain. Coba lagi sebentar lagi.",
+  "coffee.confirm_title": "Bayar antar grup",
+  "coffee.confirm_pay": "Kamu membayar",
+  "coffee.confirm_gets": "@{name} menerima",
+  "coffee.confirm_rate": "Dengan kurs hari ini antara kedua grup; sedikit berubah setiap ada pembayaran.",
+  "coffee.confirm_go": "Bayar {amount} K$",
+  "coffee.confirm_bad": "Pembayaran ini tidak (lagi) bisa dilakukan."
 }

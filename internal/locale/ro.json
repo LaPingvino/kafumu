@@ -836,5 +836,18 @@
   "coffee.pay_funds": "Nu ai destui K$ pentru asta.",
   "coffee.pay_self": "Nu îți poți plăti singur.",
   "coffee.pay_bad_amount": "Suma nu pare corectă: de ex. 2,50",
-  "coffee.pay_error": "Nu se poate plăti acum. Încearcă din nou."
+  "coffee.pay_error": "Nu se poate plăti acum. Încearcă din nou.",
+  "coffee.linked_with": "Legat de",
+  "coffee.link_title": "Leagă-ți grupurile",
+  "coffee.link_explain": "Ești în amândouă: leagă-le, ca membrii lor să-și poată plăti. Fiecare grup pune o sută de zile de dividend în fondul comun; apoi cursul se mișcă odată cu plățile.",
+  "coffee.link_btn": "Leagă {a} și {b}",
+  "coffee.linked": "Legate: membrii ambelor grupuri își pot plăti acum unul altuia.",
+  "coffee.pay_sent": "Ai trimis {amount} K$ lui @{name}: pe drum prin fondul comun.",
+  "coffee.pay_busy": "Legătura e ocupată cu altă plată. Încearcă din nou peste puțin timp.",
+  "coffee.confirm_title": "Plată între grupuri",
+  "coffee.confirm_pay": "Tu plătești",
+  "coffee.confirm_gets": "@{name} primește",
+  "coffee.confirm_rate": "La cursul de azi dintre cele două grupuri; se mișcă puțin la fiecare plată.",
+  "coffee.confirm_go": "Plătește {amount} K$",
+  "coffee.confirm_bad": "Plata asta nu (mai) e posibilă."
 }

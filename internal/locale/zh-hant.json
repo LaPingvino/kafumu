@@ -836,5 +836,18 @@
   "coffee.pay_funds": "你的 K$ 不夠。",
   "coffee.pay_self": "不能付款給自己。",
   "coffee.pay_bad_amount": "這個金額不對：例如 2.50",
-  "coffee.pay_error": "暫時無法付款，請再試一次。"
+  "coffee.pay_error": "暫時無法付款，請再試一次。",
+  "coffee.linked_with": "已連結",
+  "coffee.link_title": "連結你的群組",
+  "coffee.link_explain": "你在兩個群組裡：把它們連結起來，成員就能互相付款。每個群組往兩者之間的資金池放入一百天的分紅；之後匯率隨付款而變動。",
+  "coffee.link_btn": "連結 {a} 和 {b}",
+  "coffee.linked": "已連結：兩個群組的成員現在可以互相付款。",
+  "coffee.pay_sent": "已向 @{name} 傳送 {amount} K$：正經由資金池送達。",
+  "coffee.pay_busy": "這個連結正在處理另一筆付款，請稍後再試。",
+  "coffee.confirm_title": "跨群組付款",
+  "coffee.confirm_pay": "你付出",
+  "coffee.confirm_gets": "@{name} 收到",
+  "coffee.confirm_rate": "按兩個群組之間今天的匯率；每筆付款都會讓它稍微變動。",
+  "coffee.confirm_go": "支付 {amount} K$",
+  "coffee.confirm_bad": "這筆付款無法（再）進行。"
 }

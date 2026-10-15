@@ -1543,7 +1543,10 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       Tests: ParseMoney/Money; pay paid/not_member/self/bad_amount/funds/non-member against the fake lp.
 - [x] 96f2a. Done + deployed (lp): GET /lp/admin/links?gid= (linked groups with names), GET /lp/admin/quote
       (what the payee gets, PoolPrice on the live reserves); test: the settled transfer pays exactly the quote.
-- [ ] 96f2b. Kafumu: link your groups (a member of both), pay @name in a linked group: quote shown, then confirm;
+- [x] 96f2b. Done: someone in two groups links them (/coffee/link; "Link your groups" lists unlinked pairs);
+      group cards say what they're linked with; paying @name who is in a linked group goes to /coffee/confirm (you pay,
+      they receive, today's rate) then /coffee/across (the lp transfer; busy/funds/error said); 13 strings x 24.
+      Test: link (only by a member of both), pay across → confirm with the quote → sent; outsider refused. Was: Kafumu: link your groups (a member of both), pay @name in a linked group: quote shown, then confirm;
       the transfer's state on the card; strings x 24.
 - [x] 96f2. (split into 96f2a/b) Was: Across linked groups: link two groups (members of both), pay @name in another group at the pool's price,
       shown before paying (the lp transfer + its state).
