@@ -1470,3 +1470,30 @@ buttons (so a "👀 Did you see this?" to a contact arrives with where it was an
 - [x] Polish (idle tick): replies under a card no longer carry their own reply box (reactions + a small 💬 instead); the card box and its chat do the talking. Browser check.
 - [x] Polish (idle tick): the Look section (theme, pictures) showed on Findable too; now only on Account.
 - [x] Polish (idle tick): Findable signed out no longer repeats the sign-in block; it says what it is and links "First pick a name for your account →" (/account?next=/findable).
+
+## 96. CoffeeBucks (K$): Kafumu as a LiquidityPub node (Joop 2026-10-15)
+Kafumu runs ~/liquiditypub's protocol as its money layer, alongside OLN ("fits well alongside OLN"). Decisions:
+currency **CoffeeBucks, K$**; Universal Dividend (reference ~10%/year, daily); no external contact points yet;
+regulation: go ahead, learn from use. Sybil answer (Joop: "pretend groups are separate nodes until they link up,
+like Circles"): **groups are explicit** (made by someone, joined by invite link from a member = vouching), never
+derived from the private contact graph (the server doesn't know pairs). Each group is its own K$ node with its own
+dividend; two groups linking = a contact pool seeded at UD parity, price floating. A fake group mints only its own
+K$, worth something to others only through a pool someone chose to open. Kafumu = a clearing house of group nodes
+(PROTOCOL §12), internal clearing between them; one external identity at kafumu.com.
+Shape: the node runs as its own GAE service `lp` (max 1 instance) in project lokumo; dispatch sends
+/.well-known/liquiditypub and /lp/* to it; Kafumu's app stays as it is. Node key in Datastore, never in git.
+Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there with the same trailers.
+- [ ] 96a. VISION.md: the money tier as a stated exception to rule 3 (a LiquidityPub ledger is public and permanent
+      by design; accounts pseudonymous; groups explicit) + the add-a-layer answers; privacy page paragraph (only
+      when 96d is live: say what exists).
+- [ ] 96b. ~/liquiditypub: make node/ deployable as a GAE service (conformance importable: tag or vendor; a
+      cmd/lpgae main that serves one or more hosted nodes under one base); runs locally.
+- [ ] 96c. ~/liquiditypub: a Datastore store: ledger records as append-only entities + one small state entity with
+      a version check (single writer; the 1 MiB entity limit rules out one snapshot blob). Tests on the emulator.
+- [ ] 96d. Live: service `lp` + dispatch.yaml + cron (daily dividend); the K$ identity document at
+      kafumu.com/.well-known/liquiditypub. Nothing user-facing yet.
+- [ ] 96e. Groups: start a group (a hosted node, its own K$ and dividend), invite link to join (member = Kafumu
+      account with a name), link two groups (a pool at UD parity). Design note first if the node can't host many.
+- [ ] 96f. Wallet on the Me tab: balance in K$ and in UD, dividends received, 💸 pay @name in your group; across
+      groups at the pool's price, shown before paying.
+- [ ] 96g. Privacy page + /about: what's public in the ledger, what isn't.
