@@ -878,5 +878,18 @@
   "coffee.rename_note": "任何成员都可以改名。金额保持不变。",
   "coffee.renamed": "已改名。",
   "coffee.pay_rename_bad": "改名失败：名称最多 60、货币最多 30、符号最多 5 个字符。",
-  "coffee.leave_last_gc": "如果 90 天内没有人加入，群组会连同账本一起被删除。"
+  "coffee.leave_last_gc": "如果 90 天内没有人加入，群组会连同账本一起被删除。",
+  "coffee.link_what_title": "连接两个群组意味着什么",
+  "coffee.link_what": "连接后，两个群组的成员就可以互相付款。每个群组把一百天的分红放进两者之间的共同资金池：这是新发行的群组货币，不是任何人的余额。付款经由这个资金池，两种货币之间的汇率会随每笔付款稍微变动。目前还不能取消连接。",
+  "coffee.linkpay_title": "你们的群组还没有连接",
+  "coffee.linkpay_line": "你想从 {from} 向 @{name} 支付 {amount} K$，但 @{name} 在 {to}。",
+  "coffee.linkpay_ask": "请 @{name} 连接并接受",
+  "coffee.asked": "已向 @{name} 提出请求：对方接受后，群组会连接，你的 {amount} K$ 随即付出。",
+  "coffee.asks_title": "连接请求",
+  "coffee.ask_line": "@{name}（{from}）请求把 {from} 和你的群组 {to} 连接起来，并付给你 {amount} K$。",
+  "coffee.ask_accept": "连接并接受",
+  "coffee.ask_decline": "拒绝",
+  "coffee.accepted": "已连接，付款正在到来：{amount} K$。",
+  "coffee.declined": "已拒绝。",
+  "coffee.ask_gone": "该请求已不存在或已过期。"
 }

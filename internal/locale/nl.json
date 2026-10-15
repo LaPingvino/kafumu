@@ -878,5 +878,18 @@
   "coffee.rename_note": "Elk lid kan deze hernoemen. Bedragen blijven gelijk.",
   "coffee.renamed": "Hernoemd.",
   "coffee.pay_rename_bad": "Hernoemen lukte niet: naam max. 60, munt max. 30, symbool max. 5 tekens.",
-  "coffee.leave_last_gc": "Wordt er binnen 90 dagen niemand lid, dan wordt de groep verwijderd, grootboek en al."
+  "coffee.leave_last_gc": "Wordt er binnen 90 dagen niemand lid, dan wordt de groep verwijderd, grootboek en al.",
+  "coffee.link_what_title": "Wat twee groepen verbinden betekent",
+  "coffee.link_what": "Leden van beide groepen kunnen elkaar dan betalen. Elke groep stopt honderd dagen van zijn dividend in een gedeelde pot ertussen: nieuw uitgegeven groepsgeld, niemands saldo. Betalingen gaan via die pot, en de koers tussen de twee munten beweegt bij elke betaling een beetje. Een verbinding ongedaan maken kan nog niet.",
+  "coffee.linkpay_title": "Jullie groepen zijn nog niet verbonden",
+  "coffee.linkpay_line": "Je wilt @{name} {amount} K$ betalen vanuit {from}, en @{name} zit in {to}.",
+  "coffee.linkpay_ask": "Vraag @{name} om te verbinden en te accepteren",
+  "coffee.asked": "@{name} gevraagd: als die accepteert, worden de groepen verbonden en gaat je {amount} K$ eruit.",
+  "coffee.asks_title": "Verzoeken om te verbinden",
+  "coffee.ask_line": "@{name} ({from}) vraagt {from} te verbinden met jouw groep {to} en jou {amount} K$ te betalen.",
+  "coffee.ask_accept": "Verbinden en accepteren",
+  "coffee.ask_decline": "Weigeren",
+  "coffee.accepted": "Verbonden, en de betaling is onderweg naar je: {amount} K$.",
+  "coffee.declined": "Geweigerd.",
+  "coffee.ask_gone": "Dat verzoek is weg of verlopen."
 }

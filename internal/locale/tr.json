@@ -878,5 +878,18 @@
   "coffee.rename_note": "Her üye bunları yeniden adlandırabilir. Tutarlar aynı kalır.",
   "coffee.renamed": "Yeniden adlandırıldı.",
   "coffee.pay_rename_bad": "Olmadı: ad en fazla 60, para birimi 30, sembol 5 karakter.",
-  "coffee.leave_last_gc": "90 gün içinde kimse katılmazsa grup, defteriyle birlikte silinir."
+  "coffee.leave_last_gc": "90 gün içinde kimse katılmazsa grup, defteriyle birlikte silinir.",
+  "coffee.link_what_title": "İki grubu bağlamak ne demek",
+  "coffee.link_what": "İki grubun üyeleri artık birbirine ödeme yapabilir. Her grup, aradaki ortak havuza yüz günlük kâr payını koyar: yeni çıkarılmış grup parası, kimsenin bakiyesi değil. Ödemeler bu havuzdan geçer ve iki para arasındaki kur her ödemeyle biraz değişir. Bir bağlantıyı geri almak henüz mümkün değil.",
+  "coffee.linkpay_title": "Gruplarınız henüz bağlı değil",
+  "coffee.linkpay_line": "@{name} kişisine {from} grubundan {amount} K$ ödemek istiyorsun, @{name} ise {to} grubunda.",
+  "coffee.linkpay_ask": "@{name} kişisinden bağlamasını ve kabul etmesini iste",
+  "coffee.asked": "@{name} kişisine soruldu: kabul edince gruplar bağlanır ve {amount} K$'ın gider.",
+  "coffee.asks_title": "Bağlantı istekleri",
+  "coffee.ask_line": "@{name} ({from}), {from} grubunu senin {to} grubunla bağlamak ve sana {amount} K$ ödemek istiyor.",
+  "coffee.ask_accept": "Bağla ve kabul et",
+  "coffee.ask_decline": "Reddet",
+  "coffee.accepted": "Bağlandı ve ödeme sana geliyor: {amount} K$.",
+  "coffee.declined": "Reddedildi.",
+  "coffee.ask_gone": "Bu istek artık yok ya da süresi doldu."
 }

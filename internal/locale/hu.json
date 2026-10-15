@@ -878,5 +878,18 @@
   "coffee.rename_note": "Bármelyik tag átnevezheti. Az összegek nem változnak.",
   "coffee.renamed": "Átnevezve.",
   "coffee.pay_rename_bad": "Nem sikerült: név legfeljebb 60, pénznem 30, szimbólum 5 karakter.",
-  "coffee.leave_last_gc": "Ha 90 napon belül senki sem lép be, a csoport főkönyvestül törlődik."
+  "coffee.leave_last_gc": "Ha 90 napon belül senki sem lép be, a csoport főkönyvestül törlődik.",
+  "coffee.link_what_title": "Mit jelent két csoport összekötése",
+  "coffee.link_what": "A két csoport tagjai ezután fizethetnek egymásnak. Mindkét csoport száz napnyi osztalékát teszi egy közös kasszába: frissen kibocsátott csoportpénz, senkinek az egyenlege. A fizetések ezen a kasszán át mennek, és a két pénz közti árfolyam minden fizetéssel kicsit mozdul. Az összekötést még nem lehet visszavonni.",
+  "coffee.linkpay_title": "A csoportjaitok még nincsenek összekötve",
+  "coffee.linkpay_line": "{amount} K$-t akarsz fizetni neki: @{name}, innen: {from}, és @{name} ebben van: {to}.",
+  "coffee.linkpay_ask": "Kérd meg @{name} felhasználót az összekötésre és elfogadásra",
+  "coffee.asked": "Megkérdezted @{name} felhasználót: ha elfogadja, a csoportok összekötődnek, és mennek a {amount} K$-od.",
+  "coffee.asks_title": "Összekötési kérések",
+  "coffee.ask_line": "@{name} ({from}) azt kéri, hogy {from} kötődjön össze a {to} csoportoddal, és fizetne neked {amount} K$-t.",
+  "coffee.ask_accept": "Összekötés és elfogadás",
+  "coffee.ask_decline": "Elutasítás",
+  "coffee.accepted": "Összekötve, és a fizetés úton van hozzád: {amount} K$.",
+  "coffee.declined": "Elutasítva.",
+  "coffee.ask_gone": "Ez a kérés már nem létezik vagy lejárt."
 }

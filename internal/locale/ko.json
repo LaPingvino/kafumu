@@ -878,5 +878,18 @@
   "coffee.rename_note": "회원 누구나 바꿀 수 있어요. 금액은 그대로예요.",
   "coffee.renamed": "이름을 바꿨어요.",
   "coffee.pay_rename_bad": "바꾸지 못했어요: 이름 60자, 화폐 30자, 기호 5자까지.",
-  "coffee.leave_last_gc": "90일 안에 아무도 들어오지 않으면 그룹은 장부와 함께 삭제돼요."
+  "coffee.leave_last_gc": "90일 안에 아무도 들어오지 않으면 그룹은 장부와 함께 삭제돼요.",
+  "coffee.link_what_title": "두 그룹을 연결한다는 것",
+  "coffee.link_what": "그러면 두 그룹의 회원끼리 서로 지불할 수 있어요. 각 그룹이 배당 100일치를 둘 사이의 공동 풀에 넣어요. 새로 발행된 그룹 돈이고, 누구의 잔액도 아니에요. 지불은 이 풀을 거치고, 두 화폐 사이의 환율은 지불할 때마다 조금씩 움직여요. 연결을 되돌리는 기능은 아직 없어요.",
+  "coffee.linkpay_title": "그룹이 아직 연결되지 않았어요",
+  "coffee.linkpay_line": "{from}에서 @{name}에게 {amount} K$를 보내려는데, @{name}은(는) {to}에 있어요.",
+  "coffee.linkpay_ask": "@{name}에게 연결과 수락 요청하기",
+  "coffee.asked": "@{name}에게 요청했어요. 수락하면 그룹이 연결되고 {amount} K$가 나가요.",
+  "coffee.asks_title": "연결 요청",
+  "coffee.ask_line": "@{name}({from})이(가) {from}와(과) 당신의 그룹 {to}를 연결하고 {amount} K$를 지불하겠대요.",
+  "coffee.ask_accept": "연결하고 수락",
+  "coffee.ask_decline": "거절",
+  "coffee.accepted": "연결됐고 지불이 오고 있어요: {amount} K$.",
+  "coffee.declined": "거절했어요.",
+  "coffee.ask_gone": "그 요청은 없어졌거나 만료됐어요."
 }

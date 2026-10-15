@@ -878,5 +878,18 @@
   "coffee.rename_note": "Każdy członek może zmienić te nazwy. Kwoty się nie zmieniają.",
   "coffee.renamed": "Nazwa zmieniona.",
   "coffee.pay_rename_bad": "Nie udało się: nazwa do 60, waluta do 30, symbol do 5 znaków.",
-  "coffee.leave_last_gc": "Jeśli nikt nie dołączy w ciągu 90 dni, grupa zostanie usunięta razem z księgą."
+  "coffee.leave_last_gc": "Jeśli nikt nie dołączy w ciągu 90 dni, grupa zostanie usunięta razem z księgą.",
+  "coffee.link_what_title": "Co znaczy połączenie dwóch grup",
+  "coffee.link_what": "Członkowie obu grup mogą wtedy sobie płacić. Każda grupa wkłada sto dni swojej dywidendy do wspólnej puli między nimi: nowo wyemitowane pieniądze grupy, niczyje saldo. Płatności idą przez tę pulę, a kurs między obiema walutami zmienia się trochę z każdą płatnością. Połączenia nie da się jeszcze cofnąć.",
+  "coffee.linkpay_title": "Wasze grupy nie są jeszcze połączone",
+  "coffee.linkpay_line": "Chcesz zapłacić @{name} {amount} K$ z {from}, a @{name} jest w {to}.",
+  "coffee.linkpay_ask": "Poproś @{name} o połączenie i przyjęcie",
+  "coffee.asked": "Poproszono @{name}: gdy przyjmie, grupy się połączą i twoje {amount} K$ zostanie wysłane.",
+  "coffee.asks_title": "Prośby o połączenie",
+  "coffee.ask_line": "@{name} ({from}) prosi o połączenie {from} z twoją grupą {to} i zapłacenie ci {amount} K$.",
+  "coffee.ask_accept": "Połącz i przyjmij",
+  "coffee.ask_decline": "Odrzuć",
+  "coffee.accepted": "Połączone, a płatność jest w drodze: {amount} K$.",
+  "coffee.declined": "Odrzucono.",
+  "coffee.ask_gone": "Ta prośba już nie istnieje albo wygasła."
 }

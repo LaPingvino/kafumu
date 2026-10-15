@@ -878,5 +878,18 @@
   "coffee.rename_note": "Přejmenovat může kterýkoli člen. Částky zůstávají stejné.",
   "coffee.renamed": "Přejmenováno.",
   "coffee.pay_rename_bad": "Přejmenovat nešlo: název do 60, měna do 30, symbol do 5 znaků.",
-  "coffee.leave_last_gc": "Když se do 90 dní nikdo nepřidá, skupina se smaže i s knihou."
+  "coffee.leave_last_gc": "Když se do 90 dní nikdo nepřidá, skupina se smaže i s knihou.",
+  "coffee.link_what_title": "Co znamená propojit dvě skupiny",
+  "coffee.link_what": "Členové obou skupin si pak mohou navzájem platit. Každá skupina vloží sto dní své dividendy do společné pokladny mezi nimi: nově vydané peníze skupiny, ne něčí zůstatek. Platby jdou přes tu pokladnu a kurz mezi oběma měnami se s každou platbou trochu pohne. Propojení zatím nejde zrušit.",
+  "coffee.linkpay_title": "Vaše skupiny ještě nejsou propojené",
+  "coffee.linkpay_line": "Chceš zaplatit {amount} K$ uživateli @{name} z {from} a @{name} je v {to}.",
+  "coffee.linkpay_ask": "Požádat @{name} o propojení a přijetí",
+  "coffee.asked": "Požádáno @{name}: až přijme, skupiny se propojí a tvých {amount} K$ odejde.",
+  "coffee.asks_title": "Žádosti o propojení",
+  "coffee.ask_line": "@{name} ({from}) žádá o propojení {from} s tvou skupinou {to} a o zaplacení {amount} K$.",
+  "coffee.ask_accept": "Propojit a přijmout",
+  "coffee.ask_decline": "Odmítnout",
+  "coffee.accepted": "Propojeno a platba je na cestě k tobě: {amount} K$.",
+  "coffee.declined": "Odmítnuto.",
+  "coffee.ask_gone": "Ta žádost už neexistuje nebo vypršela."
 }

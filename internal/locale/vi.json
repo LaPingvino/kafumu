@@ -878,5 +878,18 @@
   "coffee.rename_note": "Thành viên nào cũng đổi tên được. Số tiền giữ nguyên.",
   "coffee.renamed": "Đã đổi tên.",
   "coffee.pay_rename_bad": "Không đổi được: tên tối đa 60, đồng tiền 30, ký hiệu 5 ký tự.",
-  "coffee.leave_last_gc": "Nếu không ai tham gia trong 90 ngày, nhóm sẽ bị xóa, cả sổ cái."
+  "coffee.leave_last_gc": "Nếu không ai tham gia trong 90 ngày, nhóm sẽ bị xóa, cả sổ cái.",
+  "coffee.link_what_title": "Liên kết hai nhóm nghĩa là gì",
+  "coffee.link_what": "Thành viên hai nhóm khi đó có thể trả tiền cho nhau. Mỗi nhóm góp một trăm ngày cổ tức vào một quỹ chung giữa hai nhóm: tiền nhóm mới phát hành, không phải số dư của ai. Các khoản thanh toán đi qua quỹ đó, và tỷ giá giữa hai đồng tiền dịch đi một chút sau mỗi lần thanh toán. Hiện chưa thể hủy một liên kết.",
+  "coffee.linkpay_title": "Các nhóm của các bạn chưa được liên kết",
+  "coffee.linkpay_line": "Bạn muốn trả @{name} {amount} K$ từ {from}, còn @{name} ở trong {to}.",
+  "coffee.linkpay_ask": "Đề nghị @{name} liên kết và chấp nhận",
+  "coffee.asked": "Đã đề nghị @{name}: khi họ chấp nhận, hai nhóm liên kết và {amount} K$ của bạn được gửi đi.",
+  "coffee.asks_title": "Đề nghị liên kết",
+  "coffee.ask_line": "@{name} ({from}) đề nghị liên kết {from} với nhóm {to} của bạn và trả bạn {amount} K$.",
+  "coffee.ask_accept": "Liên kết và chấp nhận",
+  "coffee.ask_decline": "Từ chối",
+  "coffee.accepted": "Đã liên kết, và khoản thanh toán đang đến với bạn: {amount} K$.",
+  "coffee.declined": "Đã từ chối.",
+  "coffee.ask_gone": "Đề nghị đó không còn hoặc đã hết hạn."
 }

@@ -156,6 +156,12 @@ type coffeePage struct {
 	Msg, To, Amount string
 	// Pairs: two of your groups not linked yet (you can link them).
 	Pairs [][2]coffeeGroup
+	// Asks: requests to link addressed to you (96n).
+	Asks []askView
+}
+
+type askView struct {
+	ID, From, FromGroup, ToGroup, Amount, Sym string
 }
 
 // Show renders /coffee: your groups (balance, today's dividend), invites,
@@ -200,6 +206,16 @@ func (c *Coffee) Show(w http.ResponseWriter, r *http.Request) {
 					p.Pairs = append(p.Pairs, [2]coffeeGroup{a, b})
 				}
 			}
+		}
+	}
+	if u != nil {
+		for _, a := range c.pendingAsks(r.Context(), u) {
+			fi, ti := c.C.GroupInfo(r.Context(), a.FromGid), c.C.GroupInfo(r.Context(), a.ToGid)
+			v := askView{ID: a.ID, FromGroup: fi.Name, ToGroup: ti.Name, Amount: coffee.Money(a.Amount), Sym: fi.Symbol}
+			if payer, err := c.Accounts.ByID(r.Context(), a.FromUser); err == nil && payer != nil {
+				v.From = payer.Username
+			}
+			p.Asks = append(p.Asks, v)
 		}
 	}
 	w.Header().Set("Cache-Control", "no-store")
@@ -665,4 +681,26 @@ func (c *Coffee) LinkDecline(w http.ResponseWriter, r *http.Request) {
 		c.dropAsk(r.Context(), u, id)
 	}
 	http.Redirect(w, r, "/coffee?m=declined", http.StatusSeeOther)
+}
+
+type linkPayPage struct {
+	page
+	Gid, Tg, To, A, Pay, Sym, From, ToGroup string
+	Ok                                      bool
+}
+
+// LinkPay renders /coffee/linkpay?g=&tg=&to=&a=: your groups aren't linked;
+// what linking means, in plain words; ask @to to link and accept.
+func (c *Coffee) LinkPay(w http.ResponseWriter, r *http.Request) {
+	p := linkPayPage{page: c.Home.newPage(r, "CoffeeBucks"), Gid: r.FormValue("g"), Tg: r.FormValue("tg"), A: r.FormValue("a")}
+	p.Tab = "account"
+	u := p.User
+	var amount int64
+	fmt.Sscan(p.A, &amount)
+	if to := c.userByName(r.Context(), r.FormValue("to")); u != nil && to != nil && amount > 0 && slices.Contains(u.Groups, p.Gid) && slices.Contains(to.Groups, p.Tg) && p.Gid != p.Tg {
+		fi, ti := c.C.GroupInfo(r.Context(), p.Gid), c.C.GroupInfo(r.Context(), p.Tg)
+		p.Ok, p.To, p.Pay, p.Sym, p.From, p.ToGroup = true, to.Username, coffee.Money(amount), fi.Symbol, fi.Name, ti.Name
+	}
+	w.Header().Set("Cache-Control", "no-store")
+	c.Home.render(w, "coffee_linkpay.html", p)
 }

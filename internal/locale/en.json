@@ -878,5 +878,18 @@
   "coffee.rename_note": "Any member can rename these. Amounts stay the same.",
   "coffee.renamed": "Renamed.",
   "coffee.pay_rename_bad": "Couldn't rename: name up to 60, currency up to 30, symbol up to 5 characters.",
-  "coffee.leave_last_gc": "If nobody joins within 90 days, the group is deleted, ledger and all."
+  "coffee.leave_last_gc": "If nobody joins within 90 days, the group is deleted, ledger and all.",
+  "coffee.link_what_title": "What linking two groups means",
+  "coffee.link_what": "Members of the two groups can then pay each other. Each group puts a hundred days of its dividend into a shared pot between them: newly issued group money, not anyone's balance. Payments go through that pot, and the rate between the two currencies moves a little with every payment. There's no way to undo a link yet.",
+  "coffee.linkpay_title": "Your groups aren't linked yet",
+  "coffee.linkpay_line": "You want to pay @{name} {amount} K$ from {from}, and @{name} is in {to}.",
+  "coffee.linkpay_ask": "Ask @{name} to link and accept",
+  "coffee.asked": "Asked @{name}: when they accept, the groups link and your {amount} K$ goes.",
+  "coffee.asks_title": "Requests to link",
+  "coffee.ask_line": "@{name} ({from}) asks to link {from} with your group {to} and to pay you {amount} K$.",
+  "coffee.ask_accept": "Link and accept",
+  "coffee.ask_decline": "Decline",
+  "coffee.accepted": "Linked, and the payment is on its way to you: {amount} K$.",
+  "coffee.declined": "Declined.",
+  "coffee.ask_gone": "That request is gone or has expired."
 }

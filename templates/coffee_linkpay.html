@@ -1,0 +1,18 @@
+{{template "head" .}}
+<article class="coffee">
+  <h1>☕ {{t .Lang "coffee.linkpay_title"}}</h1>
+  {{if .Ok}}
+  <p>{{ts .Lang "coffee.linkpay_line" | amount .Pay .Sym | replace "{name}" .To | replace "{from}" .From | replace "{to}" .ToGroup}}</p>
+  <div class="card" style="padding:8px 16px 12px">
+    <h2>🔗 {{t .Lang "coffee.link_what_title"}}</h2>
+    <p>{{t .Lang "coffee.link_what"}}</p>
+  </div>
+  <form method="post" action="/coffee/linkask" class="actions">
+    <input type="hidden" name="g" value="{{.Gid}}"><input type="hidden" name="tg" value="{{.Tg}}">
+    <input type="hidden" name="to" value="{{.To}}"><input type="hidden" name="a" value="{{.A}}">
+    <button type="submit" class="pill suggested">🔗 {{ts .Lang "coffee.linkpay_ask" | replace "{name}" .To}}</button>
+    <a href="/coffee?g={{.Gid}}" class="pill-sm" role="button">{{t .Lang "common.close"}}</a>
+  </form>
+  {{else}}<p>{{t .Lang "coffee.confirm_bad"}} <a href="/coffee">→</a></p>{{end}}
+</article>
+{{template "foot" .}}

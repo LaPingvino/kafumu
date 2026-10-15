@@ -2,10 +2,20 @@
 <article class="coffee">
   <h1>☕ {{t .Lang "coffee.title"}}</h1>
   <p>{{t .Lang "coffee.explain"}}</p>
-  {{if eq .Msg "left"}}<p class="coffee-msg ok" role="status">✓ {{t .Lang "coffee.left"}}</p>{{end}}
+  {{if eq .Msg "left"}}<p class="coffee-msg ok" role="status">✓ {{t .Lang "coffee.left"}}</p>
+  {{else if eq .Msg "declined"}}<p class="coffee-msg ok" role="status">{{t .Lang "coffee.declined"}}</p>
+  {{else if eq .Msg "ask_gone"}}<p class="coffee-msg error" role="status">{{t .Lang "coffee.ask_gone"}}</p>{{end}}
+  {{with .Asks}}<h2>🔗 {{t $.Lang "coffee.asks_title"}}</h2>
+  <p class="dim small">{{t $.Lang "coffee.link_what"}}</p>
+  {{range .}}<div class="card" style="padding:8px 16px 12px">
+    <p>{{ts $.Lang "coffee.ask_line" | amount .Amount .Sym | replace "{name}" .From | replace "{from}" .FromGroup | replace "{to}" .ToGroup}}</p>
+    <div class="actions">
+      <form method="post" action="/coffee/linkaccept"><input type="hidden" name="id" value="{{.ID}}"><button type="submit" class="pill suggested">🔗 {{t $.Lang "coffee.ask_accept"}}</button></form>
+      <form method="post" action="/coffee/linkdecline"><input type="hidden" name="id" value="{{.ID}}"><button type="submit" class="pill-sm">{{t $.Lang "coffee.ask_decline"}}</button></form>
+    </div></div>{{end}}{{end}}
   {{if .User}}
   {{if .Groups}}<h2>{{t .Lang "coffee.groups"}}</h2>
-  <ul class="boxed-list">{{range .Groups}}
+  <ul class="boxed-list">{{range $g := .Groups}}
     <li id="g-{{.Gid}}" class="card coffee-group{{if eq .Gid $.Focus}} flash{{end}}" style="padding:8px 16px 12px">
       <h3>{{.Name}}</h3>
       {{if .Currency}}<p class="dim small">{{.Currency}} ({{.Sym}})</p>{{end}}
@@ -13,7 +23,7 @@
       <p class="coffee-balance"><strong>{{.Balance}} {{.Sym}}</strong>{{if .Days}} <span class="dim small">{{ts $.Lang "coffee.in_days" | replace "{n}" .Days}}</span>{{end}}</p>
       <p class="dim small">{{t $.Lang "coffee.dividend"}}: {{.UD}} {{.Sym}} · {{ts $.Lang "coffee.members" | replace "{n}" (print .Members)}}</p>{{end}}
       {{with .Links}}<p class="dim small">🔗 {{t $.Lang "coffee.linked_with"}}: {{range $i, $l := .}}{{if $i}}, {{end}}{{$l.Name}}{{end}}</p>{{end}}
-      {{if eq .Gid $.Focus}}{{with $.Msg}}<p class="coffee-msg{{if or (eq . "paid") (eq . "sent") (eq . "linked") (eq . "renamed")}} ok{{else}} error{{end}}" role="status">{{if eq . "paid"}}✓ {{ts $.Lang "coffee.paid" | amount $.Amount .Sym | replace "{name}" $.To}}{{else if eq . "sent"}}✓ {{ts $.Lang "coffee.pay_sent" | amount $.Amount .Sym | replace "{name}" $.To}}{{else if eq . "linked"}}✓ {{t $.Lang "coffee.linked"}}{{else if eq . "renamed"}}✓ {{t $.Lang "coffee.renamed"}}{{else if eq . "not_member"}}{{ts $.Lang "coffee.pay_not_member" | replace "{name}" $.To}}{{else}}{{t $.Lang (print "coffee.pay_" .)}}{{end}}</p>{{end}}{{end}}
+      {{if eq .Gid $.Focus}}{{with $.Msg}}<p class="coffee-msg{{if or (eq . "paid") (eq . "sent") (eq . "linked") (eq . "renamed") (eq . "asked") (eq . "accepted")}} ok{{else}} error{{end}}" role="status">{{if eq . "paid"}}✓ {{ts $.Lang "coffee.paid" | amount $.Amount $g.Sym | replace "{name}" $.To}}{{else if eq . "sent"}}✓ {{ts $.Lang "coffee.pay_sent" | amount $.Amount $g.Sym | replace "{name}" $.To}}{{else if eq . "linked"}}✓ {{t $.Lang "coffee.linked"}}{{else if eq . "renamed"}}✓ {{t $.Lang "coffee.renamed"}}{{else if eq . "asked"}}✓ {{ts $.Lang "coffee.asked" | amount $.Amount $g.Sym | replace "{name}" $.To}}{{else if eq . "accepted"}}✓ {{ts $.Lang "coffee.accepted" | amount $.Amount $g.Sym}}{{else if eq . "not_member"}}{{ts $.Lang "coffee.pay_not_member" | replace "{name}" $.To}}{{else}}{{t $.Lang (print "coffee.pay_" .)}}{{end}}</p>{{end}}{{end}}
       {{if not .Unavailable}}<form method="post" action="/coffee/pay#g-{{.Gid}}" class="inline coffee-pay"><input type="hidden" name="g" value="{{.Gid}}">
         <input name="to" required placeholder="@name" aria-label="{{ts $.Lang "coffee.pay_to"}}" autocomplete="off" autocapitalize="off">
         <input name="amount" required inputmode="decimal" placeholder="0.00 {{.Sym}}" aria-label="{{ts $.Lang "coffee.pay_amount"}}" class="coffee-amount">

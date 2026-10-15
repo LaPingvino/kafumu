@@ -878,5 +878,18 @@
   "coffee.rename_note": "Alla medlemmar kan byta namn. Beloppen förblir desamma.",
   "coffee.renamed": "Namnet är bytt.",
   "coffee.pay_rename_bad": "Kunde inte byta namn: namn upp till 60, valuta upp till 30, symbol upp till 5 tecken.",
-  "coffee.leave_last_gc": "Går ingen med inom 90 dagar raderas gruppen, kassabok och allt."
+  "coffee.leave_last_gc": "Går ingen med inom 90 dagar raderas gruppen, kassabok och allt.",
+  "coffee.link_what_title": "Vad det innebär att koppla ihop två grupper",
+  "coffee.link_what": "Medlemmar i båda grupperna kan då betala varandra. Varje grupp lägger hundra dagars utdelning i en gemensam pott mellan dem: nyutgivna grupppengar, inte någons saldo. Betalningar går genom potten, och kursen mellan de två valutorna rör sig lite med varje betalning. Det går inte att ångra en koppling än.",
+  "coffee.linkpay_title": "Era grupper är inte ihopkopplade än",
+  "coffee.linkpay_line": "Du vill betala @{name} {amount} K$ från {from}, och @{name} är med i {to}.",
+  "coffee.linkpay_ask": "Be @{name} koppla ihop och godkänna",
+  "coffee.asked": "Frågat @{name}: när de godkänner kopplas grupperna ihop och dina {amount} K$ går iväg.",
+  "coffee.asks_title": "Förfrågningar om koppling",
+  "coffee.ask_line": "@{name} ({from}) ber att koppla ihop {from} med din grupp {to} och betala dig {amount} K$.",
+  "coffee.ask_accept": "Koppla ihop och godkänn",
+  "coffee.ask_decline": "Avböj",
+  "coffee.accepted": "Ihopkopplade, och betalningen är på väg till dig: {amount} K$.",
+  "coffee.declined": "Avböjt.",
+  "coffee.ask_gone": "Den förfrågan finns inte längre eller har gått ut."
 }

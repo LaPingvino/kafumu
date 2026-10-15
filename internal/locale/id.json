@@ -878,5 +878,18 @@
   "coffee.rename_note": "Setiap anggota bisa mengganti nama ini. Jumlahnya tetap sama.",
   "coffee.renamed": "Nama diganti.",
   "coffee.pay_rename_bad": "Gagal mengganti nama: nama maks. 60, mata uang 30, simbol 5 karakter.",
-  "coffee.leave_last_gc": "Kalau tidak ada yang bergabung dalam 90 hari, grup dihapus beserta buku besarnya."
+  "coffee.leave_last_gc": "Kalau tidak ada yang bergabung dalam 90 hari, grup dihapus beserta buku besarnya.",
+  "coffee.link_what_title": "Apa artinya menghubungkan dua grup",
+  "coffee.link_what": "Anggota kedua grup kemudian bisa saling membayar. Setiap grup memasukkan seratus hari dividennya ke kolam bersama di antara mereka: uang grup yang baru diterbitkan, bukan saldo siapa pun. Pembayaran lewat kolam itu, dan kurs antara kedua mata uang sedikit bergerak setiap ada pembayaran. Hubungan belum bisa dibatalkan.",
+  "coffee.linkpay_title": "Grup kalian belum terhubung",
+  "coffee.linkpay_line": "Kamu ingin membayar @{name} {amount} K$ dari {from}, dan @{name} ada di {to}.",
+  "coffee.linkpay_ask": "Minta @{name} menghubungkan dan menerima",
+  "coffee.asked": "Sudah diminta ke @{name}: begitu diterima, grup terhubung dan {amount} K$-mu terkirim.",
+  "coffee.asks_title": "Permintaan menghubungkan",
+  "coffee.ask_line": "@{name} ({from}) meminta menghubungkan {from} dengan grupmu {to} dan membayarmu {amount} K$.",
+  "coffee.ask_accept": "Hubungkan dan terima",
+  "coffee.ask_decline": "Tolak",
+  "coffee.accepted": "Terhubung, dan pembayaran sedang menuju kamu: {amount} K$.",
+  "coffee.declined": "Ditolak.",
+  "coffee.ask_gone": "Permintaan itu sudah tidak ada atau kedaluwarsa."
 }

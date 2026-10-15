@@ -878,5 +878,18 @@
   "coffee.rename_note": "Orice membru le poate redenumi. Sumele rămân aceleași.",
   "coffee.renamed": "Redenumit.",
   "coffee.pay_rename_bad": "Nu s-a putut redenumi: nume până la 60, monedă până la 30, simbol până la 5 caractere.",
-  "coffee.leave_last_gc": "Dacă nimeni nu intră în 90 de zile, grupul e șters, cu registru cu tot."
+  "coffee.leave_last_gc": "Dacă nimeni nu intră în 90 de zile, grupul e șters, cu registru cu tot.",
+  "coffee.link_what_title": "Ce înseamnă să legi două grupuri",
+  "coffee.link_what": "Membrii celor două grupuri își pot plăti atunci unul altuia. Fiecare grup pune o sută de zile din dividendul său într-un fond comun între ele: bani de grup nou emiși, nu soldul cuiva. Plățile trec prin acel fond, iar cursul dintre cele două monede se mișcă puțin la fiecare plată. O legătură nu se poate încă desface.",
+  "coffee.linkpay_title": "Grupurile voastre nu sunt încă legate",
+  "coffee.linkpay_line": "Vrei să-i plătești lui @{name} {amount} K$ din {from}, iar @{name} e în {to}.",
+  "coffee.linkpay_ask": "Cere-i lui @{name} să lege și să accepte",
+  "coffee.asked": "I-ai cerut lui @{name}: când acceptă, grupurile se leagă și pleacă cei {amount} K$ ai tăi.",
+  "coffee.asks_title": "Cereri de legare",
+  "coffee.ask_line": "@{name} ({from}) cere să lege {from} de grupul tău {to} și să-ți plătească {amount} K$.",
+  "coffee.ask_accept": "Leagă și acceptă",
+  "coffee.ask_decline": "Refuză",
+  "coffee.accepted": "Legate, iar plata e pe drum spre tine: {amount} K$.",
+  "coffee.declined": "Refuzat.",
+  "coffee.ask_gone": "Cererea nu mai există sau a expirat."
 }

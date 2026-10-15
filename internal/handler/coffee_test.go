@@ -186,6 +186,14 @@ func TestCoffeeStartInviteJoin(t *testing.T) {
 	if w := as(anon, "GET", "/coffee/join?"+bad.Encode(), nil, c.ShowJoin); !strings.Contains(w.Body.String(), "This invite link isn") {
 		t.Fatalf("forged join page: %s", w.Body.String())
 	}
+	// Every message a group card can show renders (a template slip once made
+	// "paid" fail: the card's symbol was read from the message string).
+	for _, m := range []string{"paid", "sent", "linked", "renamed", "asked", "accepted", "not_member", "funds", "error", "self", "bad_amount", "busy", "rename_bad"} {
+		w := as(bea, "GET", "/coffee?"+url.Values{"g": {gid}, "m": {m}, "to": {"ana"}, "a": {"1.00"}}.Encode(), nil, c.Show)
+		if w.Code != 200 || !strings.Contains(w.Body.String(), "coffee-msg") {
+			t.Fatalf("message %q: %d", m, w.Code)
+		}
+	}
 	// Paying @name in the group: the ledger gets two member ids, never names.
 	pay := func(u *account.User, to, amount string) string {
 		w := as(u, "POST", "/coffee/pay", url.Values{"g": {gid}, "to": {to}, "amount": {amount}}, c.Pay)
@@ -292,12 +300,18 @@ func TestCoffeeStartInviteJoin(t *testing.T) {
 	if lpURL.Path != "/coffee/linkpay" || lpURL.Query().Get("tg") != gid3 {
 		t.Fatalf("paying across unlinked groups: %s", w.Header().Get("Location"))
 	}
+	if w := as(ana, "GET", lpURL.String(), nil, c.LinkPay); !strings.Contains(w.Body.String(), "What linking two groups means") || !strings.Contains(w.Body.String(), "Ask @eli to link and accept") {
+		t.Fatalf("link-and-pay page: %s", w.Body.String())
+	}
 	w = as(ana, "POST", "/coffee/linkask", lpURL.Query(), c.LinkAsk)
 	eli, _ = svc.ByID(ctx, eli.ID) // the handler updated the stored account
 	if len(eli.CoffeeAsks) != 1 {
 		t.Fatalf("eli got no request: %d %v", w.Code, eli.CoffeeAsks)
 	}
 	askID := eli.CoffeeAsks[0]
+	if w := as(eli, "GET", "/coffee", nil, c.Show); !strings.Contains(w.Body.String(), "@ana (") || !strings.Contains(w.Body.String(), "Link and accept") {
+		t.Fatalf("eli's requests: %s", w.Body.String())
+	}
 	if w := as(ana, "POST", "/coffee/linkaccept", url.Values{"id": {askID}}, c.LinkAccept); !strings.Contains(w.Header().Get("Location"), "ask_gone") {
 		t.Fatal("the payer accepted their own request")
 	}

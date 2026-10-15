@@ -878,5 +878,18 @@
   "coffee.rename_note": "メンバーなら誰でも変えられます。金額は変わりません。",
   "coffee.renamed": "名前を変えました。",
   "coffee.pay_rename_bad": "変更できませんでした：名前60文字、通貨30文字、記号5文字まで。",
-  "coffee.leave_last_gc": "90日以内に誰も参加しなければ、グループは台帳ごと削除されます。"
+  "coffee.leave_last_gc": "90日以内に誰も参加しなければ、グループは台帳ごと削除されます。",
+  "coffee.link_what_title": "2つのグループをつなぐとは",
+  "coffee.link_what": "つなぐと、両グループのメンバー同士で支払えるようになります。各グループが配当100日分を、両者の間の共通のプールに入れます。新しく発行されたグループのお金で、誰かの残高ではありません。支払いはこのプールを通り、2つの通貨のレートは支払いのたびに少し動きます。つながりを解除することはまだできません。",
+  "coffee.linkpay_title": "グループはまだつながっていません",
+  "coffee.linkpay_line": "{from} から @{name} に {amount} K$ を支払おうとしていますが、@{name} は {to} にいます。",
+  "coffee.linkpay_ask": "@{name} につないで受け取ってもらう",
+  "coffee.asked": "@{name} に頼みました。受け入れられると、グループがつながり {amount} K$ が送られます。",
+  "coffee.asks_title": "つながりのリクエスト",
+  "coffee.ask_line": "@{name}（{from}）が、{from} とあなたのグループ {to} をつないで、あなたに {amount} K$ を支払いたいと言っています。",
+  "coffee.ask_accept": "つないで受け取る",
+  "coffee.ask_decline": "断る",
+  "coffee.accepted": "つながりました。支払いが届きます：{amount} K$。",
+  "coffee.declined": "断りました。",
+  "coffee.ask_gone": "このリクエストはもうないか、期限切れです。"
 }

@@ -878,5 +878,18 @@
   "coffee.rename_note": "Ĉiu membro povas renomi ilin. La sumoj restas samaj.",
   "coffee.renamed": "Renomita.",
   "coffee.pay_rename_bad": "Ne eblis renomi: nomo ĝis 60, mono ĝis 30, simbolo ĝis 5 signoj.",
-  "coffee.leave_last_gc": "Se neniu aliĝas ene de 90 tagoj, la grupo estas forigita, kun la librotenado."
+  "coffee.leave_last_gc": "Se neniu aliĝas ene de 90 tagoj, la grupo estas forigita, kun la librotenado.",
+  "coffee.link_what_title": "Kion signifas ligi du grupojn",
+  "coffee.link_what": "Membroj de ambaŭ grupoj tiam povas pagi unu al la alia. Ĉiu grupo metas cent tagojn de sia dividendo en komunan kason inter ili: nove eldonita grupa mono, nenies saldo. Pagoj iras tra tiu kaso, kaj la kurzo inter la du monoj iom moviĝas kun ĉiu pago. Malfari ligon ankoraŭ ne eblas.",
+  "coffee.linkpay_title": "Viaj grupoj ankoraŭ ne estas ligitaj",
+  "coffee.linkpay_line": "Vi volas pagi {amount} K$ al @{name} el {from}, kaj @{name} estas en {to}.",
+  "coffee.linkpay_ask": "Peti @{name} ligi kaj akcepti",
+  "coffee.asked": "Petis @{name}: kiam tiu akceptos, la grupoj ligiĝos kaj viaj {amount} K$ foriros.",
+  "coffee.asks_title": "Petoj por ligi",
+  "coffee.ask_line": "@{name} ({from}) petas ligi {from} kun via grupo {to} kaj pagi al vi {amount} K$.",
+  "coffee.ask_accept": "Ligi kaj akcepti",
+  "coffee.ask_decline": "Rifuzi",
+  "coffee.accepted": "Ligitaj, kaj la pago estas survoje al vi: {amount} K$.",
+  "coffee.declined": "Rifuzita.",
+  "coffee.ask_gone": "Tiu peto ne plu ekzistas aŭ eksvalidiĝis."
 }

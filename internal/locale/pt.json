@@ -878,5 +878,18 @@
   "coffee.rename_note": "Qualquer membro pode mudar estes nomes. Os valores mantêm-se.",
   "coffee.renamed": "Nome alterado.",
   "coffee.pay_rename_bad": "Não foi possível: nome até 60, moeda até 30, símbolo até 5 caracteres.",
-  "coffee.leave_last_gc": "Se ninguém entrar em 90 dias, o grupo é apagado, com livro e tudo."
+  "coffee.leave_last_gc": "Se ninguém entrar em 90 dias, o grupo é apagado, com livro e tudo.",
+  "coffee.link_what_title": "O que significa ligar dois grupos",
+  "coffee.link_what": "Os membros dos dois grupos podem então pagar-se. Cada grupo põe cem dias do seu dividendo num fundo comum entre eles: dinheiro de grupo acabado de emitir, não o saldo de ninguém. Os pagamentos passam por esse fundo, e o câmbio entre as duas moedas muda um pouco a cada pagamento. Ainda não é possível desfazer uma ligação.",
+  "coffee.linkpay_title": "Os vossos grupos ainda não estão ligados",
+  "coffee.linkpay_line": "Queres pagar {amount} K$ a @{name} a partir de {from}, e @{name} está em {to}.",
+  "coffee.linkpay_ask": "Pedir a @{name} para ligar e aceitar",
+  "coffee.asked": "Pedido a @{name}: quando aceitar, os grupos ligam-se e os teus {amount} K$ seguem.",
+  "coffee.asks_title": "Pedidos de ligação",
+  "coffee.ask_line": "@{name} ({from}) pede para ligar {from} ao teu grupo {to} e pagar-te {amount} K$.",
+  "coffee.ask_accept": "Ligar e aceitar",
+  "coffee.ask_decline": "Recusar",
+  "coffee.accepted": "Ligados, e o pagamento vai a caminho: {amount} K$.",
+  "coffee.declined": "Recusado.",
+  "coffee.ask_gone": "Esse pedido já não existe ou expirou."
 }

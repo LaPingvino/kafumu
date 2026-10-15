@@ -878,5 +878,18 @@
   "coffee.rename_note": "Qualsiasi membro può rinominarli. Gli importi restano uguali.",
   "coffee.renamed": "Rinominato.",
   "coffee.pay_rename_bad": "Impossibile rinominare: nome fino a 60, moneta fino a 30, simbolo fino a 5 caratteri.",
-  "coffee.leave_last_gc": "Se nessuno entra entro 90 giorni, il gruppo viene eliminato, registro compreso."
+  "coffee.leave_last_gc": "Se nessuno entra entro 90 giorni, il gruppo viene eliminato, registro compreso.",
+  "coffee.link_what_title": "Cosa vuol dire collegare due gruppi",
+  "coffee.link_what": "I membri dei due gruppi possono allora pagarsi. Ogni gruppo mette cento giorni del suo dividendo in un fondo comune tra loro: moneta di gruppo appena emessa, non il saldo di nessuno. I pagamenti passano da quel fondo, e il cambio tra le due monete si muove un po' a ogni pagamento. Non si può ancora annullare un collegamento.",
+  "coffee.linkpay_title": "I vostri gruppi non sono ancora collegati",
+  "coffee.linkpay_line": "Vuoi pagare {amount} K$ a @{name} da {from}, e @{name} è in {to}.",
+  "coffee.linkpay_ask": "Chiedi a @{name} di collegare e accettare",
+  "coffee.asked": "Chiesto a @{name}: quando accetta, i gruppi si collegano e partono i tuoi {amount} K$.",
+  "coffee.asks_title": "Richieste di collegamento",
+  "coffee.ask_line": "@{name} ({from}) chiede di collegare {from} con il tuo gruppo {to} e di pagarti {amount} K$.",
+  "coffee.ask_accept": "Collega e accetta",
+  "coffee.ask_decline": "Rifiuta",
+  "coffee.accepted": "Collegati, e il pagamento è in arrivo: {amount} K$.",
+  "coffee.declined": "Rifiutato.",
+  "coffee.ask_gone": "Quella richiesta non c'è più o è scaduta."
 }

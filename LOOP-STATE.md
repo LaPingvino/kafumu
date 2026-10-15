@@ -1616,7 +1616,11 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
 - [x] 96n1. Done (server; NOT deployed: Pay now redirects to /coffee/linkpay, which comes in 96n2): LinkAsk
       (expiring entity, a week; purged), User.CoffeeAsks; POST /coffee/linkask (payer in g, payee in tg), /linkaccept
       (only the payee: link the groups, then the payment, retried while the link opens), /linkdecline. Handler test.
-- [ ] 96n2. The pages: /coffee/linkpay (what a link is, what it costs, the rate, undoing: plain words; "Ask @name to
+- [x] 96n2. Done + deployed: /coffee/linkpay (plain words: members pay each other, each group puts a hundred days
+      of dividend into a shared pot, newly issued, nobody's balance; the rate moves with payments; no undo yet) and
+      "Ask @name to link and accept"; the payee's requests on /coffee (same words, Link and accept / Decline); 13
+      strings x 24. Also fixed: group-card messages read the symbol from the message string ("paid" etc. would not
+      render since 96k2): $g.Sym, and a test renders every card message. Was: The pages: /coffee/linkpay (what a link is, what it costs, the rate, undoing: plain words; "Ask @name to
       link and pay"), the payee's requests on /coffee (accept / decline, the same explanation); messages; strings x 24;
       then deploy.
 - [x] 96n. (split into 96n1/n2) Linking from a payment (Joop: "first person tries a cross-group payment, it starts linking? might be the

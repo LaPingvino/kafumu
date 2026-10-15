@@ -878,5 +878,18 @@
   "coffee.rename_note": "Tout membre peut les renommer. Les montants restent les mêmes.",
   "coffee.renamed": "Renommé.",
   "coffee.pay_rename_bad": "Impossible de renommer : nom 60, monnaie 30, symbole 5 caractères max.",
-  "coffee.leave_last_gc": "Si personne ne rejoint d'ici 90 jours, le groupe est supprimé, registre compris."
+  "coffee.leave_last_gc": "Si personne ne rejoint d'ici 90 jours, le groupe est supprimé, registre compris.",
+  "coffee.link_what_title": "Ce que veut dire relier deux groupes",
+  "coffee.link_what": "Les membres des deux groupes peuvent alors se payer. Chaque groupe met cent jours de son dividende dans une cagnotte commune : de la monnaie de groupe nouvellement émise, le solde de personne. Les paiements passent par cette cagnotte, et le taux entre les deux monnaies bouge un peu à chaque paiement. On ne peut pas encore défaire un lien.",
+  "coffee.linkpay_title": "Vos groupes ne sont pas encore reliés",
+  "coffee.linkpay_line": "Tu veux payer {amount} K$ à @{name} depuis {from}, et @{name} est dans {to}.",
+  "coffee.linkpay_ask": "Demander à @{name} de relier et d'accepter",
+  "coffee.asked": "Demandé à @{name} : quand c'est accepté, les groupes sont reliés et tes {amount} K$ partent.",
+  "coffee.asks_title": "Demandes de lien",
+  "coffee.ask_line": "@{name} ({from}) demande de relier {from} à ton groupe {to} et de te payer {amount} K$.",
+  "coffee.ask_accept": "Relier et accepter",
+  "coffee.ask_decline": "Refuser",
+  "coffee.accepted": "Reliés, et le paiement est en route vers toi : {amount} K$.",
+  "coffee.declined": "Refusé.",
+  "coffee.ask_gone": "Cette demande n'existe plus ou a expiré."
 }

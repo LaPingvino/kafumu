@@ -878,5 +878,18 @@
   "coffee.rename_note": "Alle medlemmer kan omdøbe dem. Beløbene er de samme.",
   "coffee.renamed": "Omdøbt.",
   "coffee.pay_rename_bad": "Kunne ikke omdøbe: navn op til 60, valuta op til 30, symbol op til 5 tegn.",
-  "coffee.leave_last_gc": "Bliver ingen medlem inden for 90 dage, slettes gruppen, regnskab og det hele."
+  "coffee.leave_last_gc": "Bliver ingen medlem inden for 90 dage, slettes gruppen, regnskab og det hele.",
+  "coffee.link_what_title": "Hvad det betyder at forbinde to grupper",
+  "coffee.link_what": "Medlemmer af de to grupper kan så betale hinanden. Hver gruppe lægger hundrede dage af sit udbytte i en fælles pulje imellem dem: nyudstedte gruppepenge, ikke nogens saldo. Betalinger går gennem den pulje, og kursen mellem de to valutaer flytter sig lidt ved hver betaling. Man kan endnu ikke fortryde en forbindelse.",
+  "coffee.linkpay_title": "Jeres grupper er ikke forbundet endnu",
+  "coffee.linkpay_line": "Du vil betale @{name} {amount} K$ fra {from}, og @{name} er i {to}.",
+  "coffee.linkpay_ask": "Bed @{name} om at forbinde og acceptere",
+  "coffee.asked": "Spurgt @{name}: når de accepterer, forbindes grupperne og dine {amount} K$ sendes.",
+  "coffee.asks_title": "Anmodninger om forbindelse",
+  "coffee.ask_line": "@{name} ({from}) beder om at forbinde {from} med din gruppe {to} og betale dig {amount} K$.",
+  "coffee.ask_accept": "Forbind og accepter",
+  "coffee.ask_decline": "Afvis",
+  "coffee.accepted": "Forbundet, og betalingen er på vej til dig: {amount} K$.",
+  "coffee.declined": "Afvist.",
+  "coffee.ask_gone": "Den anmodning findes ikke længere eller er udløbet."
 }

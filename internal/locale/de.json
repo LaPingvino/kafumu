@@ -878,5 +878,18 @@
   "coffee.rename_note": "Jedes Mitglied kann das umbenennen. Beträge bleiben gleich.",
   "coffee.renamed": "Umbenannt.",
   "coffee.pay_rename_bad": "Umbenennen ging nicht: Name bis 60, Währung bis 30, Symbol bis 5 Zeichen.",
-  "coffee.leave_last_gc": "Tritt innerhalb von 90 Tagen niemand bei, wird die Gruppe gelöscht, samt Kassenbuch."
+  "coffee.leave_last_gc": "Tritt innerhalb von 90 Tagen niemand bei, wird die Gruppe gelöscht, samt Kassenbuch.",
+  "coffee.link_what_title": "Was es heißt, zwei Gruppen zu verbinden",
+  "coffee.link_what": "Die Mitglieder beider Gruppen können einander dann bezahlen. Jede Gruppe legt hundert Tage ihrer Dividende in einen gemeinsamen Topf dazwischen: neu ausgegebenes Gruppengeld, kein Guthaben von irgendwem. Zahlungen laufen über diesen Topf, und der Kurs zwischen den beiden Währungen bewegt sich mit jeder Zahlung ein wenig. Eine Verbindung lässt sich noch nicht rückgängig machen.",
+  "coffee.linkpay_title": "Eure Gruppen sind noch nicht verbunden",
+  "coffee.linkpay_line": "Du willst @{name} {amount} K$ aus {from} zahlen, und @{name} ist in {to}.",
+  "coffee.linkpay_ask": "@{name} bitten, zu verbinden und anzunehmen",
+  "coffee.asked": "@{name} gefragt: Sobald angenommen, werden die Gruppen verbunden und deine {amount} K$ gehen raus.",
+  "coffee.asks_title": "Bitten um Verbindung",
+  "coffee.ask_line": "@{name} ({from}) bittet darum, {from} mit deiner Gruppe {to} zu verbinden und dir {amount} K$ zu zahlen.",
+  "coffee.ask_accept": "Verbinden und annehmen",
+  "coffee.ask_decline": "Ablehnen",
+  "coffee.accepted": "Verbunden, und die Zahlung ist unterwegs zu dir: {amount} K$.",
+  "coffee.declined": "Abgelehnt.",
+  "coffee.ask_gone": "Diese Anfrage gibt es nicht mehr oder sie ist abgelaufen."
 }

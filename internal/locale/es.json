@@ -878,5 +878,18 @@
   "coffee.rename_note": "Cualquier miembro puede renombrarlos. Los importes no cambian.",
   "coffee.renamed": "Renombrado.",
   "coffee.pay_rename_bad": "No se pudo renombrar: nombre hasta 60, moneda hasta 30, símbolo hasta 5 caracteres.",
-  "coffee.leave_last_gc": "Si nadie entra en 90 días, el grupo se borra, libro incluido."
+  "coffee.leave_last_gc": "Si nadie entra en 90 días, el grupo se borra, libro incluido.",
+  "coffee.link_what_title": "Qué significa enlazar dos grupos",
+  "coffee.link_what": "Los miembros de ambos grupos pueden pagarse entonces. Cada grupo pone cien días de su dividendo en un fondo común entre ellos: dinero de grupo recién emitido, no el saldo de nadie. Los pagos pasan por ese fondo, y el cambio entre las dos monedas se mueve un poco con cada pago. Todavía no se puede deshacer un enlace.",
+  "coffee.linkpay_title": "Vuestros grupos aún no están enlazados",
+  "coffee.linkpay_line": "Quieres pagar {amount} K$ a @{name} desde {from}, y @{name} está en {to}.",
+  "coffee.linkpay_ask": "Pedir a @{name} que enlace y acepte",
+  "coffee.asked": "Pedido a @{name}: cuando acepte, los grupos se enlazan y salen tus {amount} K$.",
+  "coffee.asks_title": "Peticiones de enlace",
+  "coffee.ask_line": "@{name} ({from}) pide enlazar {from} con tu grupo {to} y pagarte {amount} K$.",
+  "coffee.ask_accept": "Enlazar y aceptar",
+  "coffee.ask_decline": "Rechazar",
+  "coffee.accepted": "Enlazados, y el pago va de camino a ti: {amount} K$.",
+  "coffee.declined": "Rechazado.",
+  "coffee.ask_gone": "Esa petición ya no existe o ha caducado."
 }
