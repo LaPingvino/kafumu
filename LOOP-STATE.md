@@ -1519,7 +1519,10 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       inside + link + pay across, settled; two nodes paying each other concurrently 30x under -race: all settle or
       refused, channel root/op seq/reserves agree, supply unchanged. That test found a real data race in the node
       (values read after Unlock): fixed, node/v0.2.2.
-- [ ] 96e2b. ~/liquiditypub/gae: wire Host into main (groups registry LPGroup; daily cron = Host.RunUD), /lp/g/<gid>/
+- [x] 96e2b. Done + deployed: LPGroup registry opened at start; /cron/ud pays the node and every group;
+      /lp/g/<gid>/ public reads; admin API (Bearer token from LPConfig/coffeebucks, ns lp): group, member, balance,
+      pay, link, transfer (+ state). HTTP test of the whole API; live: 401 without token, 404 unknown group, node key
+      unchanged. Was: ~/liquiditypub/gae: wire Host into main (groups registry LPGroup; daily cron = Host.RunUD), /lp/g/<gid>/
       public reads, admin API for Kafumu (create group, add member, pay, link, cross-group transfer), deploy.
 - [x] 96e2. (split into 96e2a/b) Was: ~/liquiditypub/gae: host many group nodes (LPGroup registry; in-process Sender; /lp/g/<gid>/ reads; an
       admin API for Kafumu: create group, add member, pay, link two groups = a contact seeded at UD parity,
