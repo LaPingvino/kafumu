@@ -866,5 +866,7 @@
   "coffee.leave_sure_needed": "先にチェックを入れてください：抜けると取り消せません。",
   "coffee.leave_go": "抜ける",
   "coffee.leave_error": "いま抜けられませんでした。もう一度お試しください。",
-  "coffee.left": "グループを抜けました。"
+  "coffee.left": "グループを抜けました。",
+  "account.delete_coffee": "CoffeeBucks の残高も一緒に消滅します。",
+  "privacy.coffee_delete": "そのとき残高は消滅し、流通から外されます。名前のあるアカウントが1年使われずに削除された場合も同じです。"
 }

@@ -866,5 +866,7 @@
   "coffee.leave_sure_needed": "Bifează mai întâi căsuța: ieșirea nu se poate anula.",
   "coffee.leave_go": "Ieși",
   "coffee.leave_error": "Nu se poate ieși acum. Încearcă din nou.",
-  "coffee.left": "Ai ieșit din grup."
+  "coffee.left": "Ai ieșit din grup.",
+  "account.delete_coffee": "Soldurile tale CoffeeBucks sunt distruse odată cu el.",
+  "privacy.coffee_delete": "Soldurile sale sunt atunci distruse: scoase din circulație. La fel se întâmplă cu un cont cu nume șters după un an de nefolosire."
 }

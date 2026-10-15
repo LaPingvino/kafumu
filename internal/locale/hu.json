@@ -866,5 +866,7 @@
   "coffee.leave_sure_needed": "Előbb jelöld be a négyzetet: a kilépés nem vonható vissza.",
   "coffee.leave_go": "Kilépés",
   "coffee.leave_error": "Most nem sikerült kilépni. Próbáld újra.",
-  "coffee.left": "Kiléptél a csoportból."
+  "coffee.left": "Kiléptél a csoportból.",
+  "account.delete_coffee": "A CoffeeBucks-egyenlegeid ezzel együtt megsemmisülnek.",
+  "privacy.coffee_delete": "Az egyenlegei ekkor megsemmisülnek: kikerülnek a forgalomból. Ugyanez történik egy névvel rendelkező fiókkal, amelyet egy év használaton kívüliség után törölnek."
 }

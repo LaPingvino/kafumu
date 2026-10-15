@@ -5,6 +5,7 @@ import (
 	"github.com/LaPingvino/kafumu/internal/business"
 	"github.com/LaPingvino/kafumu/internal/oln"
 	"os"
+	"strings"
 	"testing"
 	"time"
 
@@ -70,6 +71,16 @@ func TestRun(t *testing.T) {
 	put(datastore.NameKey("Note", "reply-gone", nil), &note{now.Add(-time.Hour), "0123456789"})
 	put(datastore.NameKey("Note", "line-gone", nil), &note{now.Add(-time.Hour), ""})
 
+	// A named account in CoffeeBucks groups, gone for a year: the hook runs.
+	put(datastore.NameKey("User", "named-coffee", nil), &struct {
+		Username   string    `datastore:"username"`
+		LastSeenAt time.Time `datastore:"last_seen_at"`
+		Groups     []string  `datastore:"groups,noindex"`
+	}{"eli", now.Add(-400 * 24 * time.Hour), []string{"g1", "g2"}})
+	var hooked []string
+	OnUserDeleted = func(_ context.Context, id string, groups []string) { hooked = append(hooked, id+":"+strings.Join(groups, ",")) }
+	defer func() { OnUserDeleted = nil }()
+
 	r, err := Run(ctx, db, now)
 	if err != nil {
 		t.Fatal(err)
@@ -97,7 +108,10 @@ func TestRun(t *testing.T) {
 			t.Errorf("expired line %s kept: %v", k, err)
 		}
 	}
-	if r.Meetups != 3 || r.Boxes != 1 || r.Slots != 1 || r.Users != 2 || r.Usernames != 1 {
+	if len(hooked) != 1 || hooked[0] != "named-coffee:g1,g2" {
+		t.Errorf("CoffeeBucks hook: %v", hooked)
+	}
+	if r.Meetups != 3 || r.Boxes != 1 || r.Slots != 1 || r.Users != 3 || r.Usernames != 2 {
 		t.Errorf("result = %s", r)
 	}
 	for _, k := range []*datastore.Key{datastore.NameKey("Meetup", "new", nil), datastore.NameKey("User", "anon-active", nil),

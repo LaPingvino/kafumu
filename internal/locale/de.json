@@ -866,5 +866,7 @@
   "coffee.leave_sure_needed": "Setz zuerst das Häkchen: Verlassen lässt sich nicht rückgängig machen.",
   "coffee.leave_go": "Verlassen",
   "coffee.leave_error": "Verlassen geht gerade nicht. Versuch es noch einmal.",
-  "coffee.left": "Du hast die Gruppe verlassen."
+  "coffee.left": "Du hast die Gruppe verlassen.",
+  "account.delete_coffee": "Deine CoffeeBucks-Guthaben werden dabei vernichtet.",
+  "privacy.coffee_delete": "Die Guthaben werden dann vernichtet: aus dem Umlauf genommen. Dasselbe geschieht mit einem Konto mit Namen, das nach einem Jahr ohne Nutzung gelöscht wird."
 }

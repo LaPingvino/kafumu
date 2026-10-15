@@ -251,6 +251,13 @@ func TestCoffeeStartInviteJoin(t *testing.T) {
 	if mv := lp.left[len(lp.left)-1]; mv["path"] != "/lp/admin/move" || mv["to_gid"] != gid || mv["member"] != mv["to"] {
 		t.Fatalf("move call: %v", mv)
 	}
+	// Deleting an account destroys its balances in every group (96h4).
+	before := len(lp.left)
+	acc := &Accounts{Home: c.Home, Svc: svc, Coffee: c.C}
+	as(dan, "POST", "/account/delete", url.Values{"confirm": {"yes"}}, acc.Delete)
+	if len(lp.left) != before+len(dan.Groups) || lp.left[len(lp.left)-1]["mode"] != "destroy" {
+		t.Fatalf("delete: %v", lp.left[before:])
+	}
 	// Member ids: stable per account, different between accounts.
 	a1, _ := c.C.MemberID(ctx, ana.ID)
 	a2, _ := c.C.MemberID(ctx, ana.ID)

@@ -866,5 +866,7 @@
   "coffee.leave_sure_needed": "Tick the box first: leaving can't be undone.",
   "coffee.leave_go": "Leave",
   "coffee.leave_error": "Couldn't leave right now. Try again.",
-  "coffee.left": "You left the group."
+  "coffee.left": "You left the group.",
+  "account.delete_coffee": "Your CoffeeBucks balances are destroyed with it.",
+  "privacy.coffee_delete": "Its balances are destroyed then: taken out of circulation. The same happens to a named account deleted after a year without use."
 }

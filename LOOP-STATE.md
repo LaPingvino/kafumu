@@ -1574,5 +1574,8 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       group comes off the account; 13 strings x 24. Test: page, tick needed, give to a non-member refused, share and
       move call lp and drop the group. Not yet: rejoining a group you left (the node keeps you, inactive). Was: Kafumu: on a group card "Leave this group": move to <linked group you're in> / give it to @name /
       share it out at the next dividend / destroy it (a clear confirm); strings x 24.
-- [ ] 96h4. Kafumu: deleting an account destroys its balances in every group (the default for unlinked accounts),
+- [x] 96h4. Done: deleting an account (yourself, or purge after a year idle: purge.OnUserDeleted) destroys its
+      balance in every group (coffee.DestroyAll: leave destroy); the delete confirmation says so when you're in a group;
+      the privacy paragraph adds it; 2 strings x 24. Tests: handler delete sends destroy per group; purge (emulator)
+      calls the hook for a named idle account in groups. Was: Kafumu: deleting an account destroys its balances in every group (the default for unlinked accounts),
       said on the delete confirmation and the privacy page.

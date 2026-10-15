@@ -866,5 +866,7 @@
   "coffee.leave_sure_needed": "Centang kotaknya dulu: keluar tidak bisa dibatalkan.",
   "coffee.leave_go": "Keluar",
   "coffee.leave_error": "Belum bisa keluar sekarang. Coba lagi.",
-  "coffee.left": "Kamu telah keluar dari grup."
+  "coffee.left": "Kamu telah keluar dari grup.",
+  "account.delete_coffee": "Saldo CoffeeBucks-mu ikut dimusnahkan.",
+  "privacy.coffee_delete": "Saldonya kemudian dimusnahkan: ditarik dari peredaran. Hal yang sama terjadi pada akun bernama yang dihapus setelah setahun tidak dipakai."
 }

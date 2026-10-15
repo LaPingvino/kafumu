@@ -866,5 +866,7 @@
   "coffee.leave_sure_needed": "Unue marku la skatolon: forlaso ne malfareblas.",
   "coffee.leave_go": "Forlasi",
   "coffee.leave_error": "Nun ne eblas forlasi. Reprovu.",
-  "coffee.left": "Vi forlasis la grupon."
+  "coffee.left": "Vi forlasis la grupon.",
+  "account.delete_coffee": "Viaj CoffeeBucks-saldoj estas detruitaj kune.",
+  "privacy.coffee_delete": "Ties saldoj tiam estas detruitaj: forprenitaj el cirkulado. Same okazas al nomita konto forigita post jaro sen uzo."
 }

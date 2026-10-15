@@ -97,6 +97,8 @@ func main() {
 	home.Accounts = accounts.Svc
 	// CoffeeBucks (96e): groups, invites, joining; the money lives in the lp service.
 	coffeeH := &handler.Coffee{Home: home, Accounts: accounts.Svc, C: &coffee.Client{Base: os.Getenv("KAFUMU_LP_BASE"), DB: db}}
+	accounts.Coffee = coffeeH.C
+	purge.OnUserDeleted = coffeeH.C.DestroyAll
 	mailbox := box.NewHandler(&box.CachedStore{Store: boxes, Cache: kv})
 	slotAPI := slot.NewHandler(&slot.CachedStore{Store: slots, Cache: kv})
 	var pushStore push.Store = push.NewMemoryStore()

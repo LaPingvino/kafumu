@@ -866,5 +866,7 @@
   "coffee.leave_sure_needed": "Spunta prima la casella: lasciare non si può annullare.",
   "coffee.leave_go": "Lascia",
   "coffee.leave_error": "Ora non si riesce a lasciare. Riprova.",
-  "coffee.left": "Hai lasciato il gruppo."
+  "coffee.left": "Hai lasciato il gruppo.",
+  "account.delete_coffee": "I tuoi saldi CoffeeBucks vengono distrutti insieme all'account.",
+  "privacy.coffee_delete": "I saldi vengono allora distrutti: tolti dalla circolazione. Lo stesso succede a un account con nome eliminato dopo un anno senza uso."
 }

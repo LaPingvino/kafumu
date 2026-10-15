@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/LaPingvino/kafumu/internal/business"
+	"github.com/LaPingvino/kafumu/internal/coffee"
 	"github.com/LaPingvino/kafumu/internal/geo"
 	"github.com/LaPingvino/kafumu/internal/handle"
 	"github.com/LaPingvino/kafumu/internal/vault"
@@ -47,6 +48,8 @@ type Accounts struct {
 	Vault vault.Store
 	// Handles maps usernames to long-lived connect codes (kafumu.com/@name).
 	Handles *handle.Store
+	// Coffee: a deleted account's CoffeeBucks balances are destroyed (96h4).
+	Coffee *coffee.Client
 	// BizProfile serves /@name when the name is a business's.
 	BizProfile func(w http.ResponseWriter, r *http.Request, id, payload string)
 }
@@ -229,6 +232,9 @@ func (a *Accounts) Delete(w http.ResponseWriter, r *http.Request) {
 			_ = a.Handles.Delete(r.Context(), u.Username)
 		}
 		a.leaveBusinesses(r, u.ID)
+		if a.Coffee != nil {
+			a.Coffee.DestroyAll(r.Context(), u.ID, u.Groups)
+		}
 		if err := a.Svc.Delete(r.Context(), u); err != nil {
 			log.Printf("account: delete: %v", err)
 			http.Error(w, "could not delete account", http.StatusInternalServerError)

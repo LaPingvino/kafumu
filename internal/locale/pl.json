@@ -866,5 +866,7 @@
   "coffee.leave_sure_needed": "Najpierw zaznacz pole: wyjścia nie da się cofnąć.",
   "coffee.leave_go": "Opuść",
   "coffee.leave_error": "Nie udało się teraz wyjść. Spróbuj ponownie.",
-  "coffee.left": "Opuściłeś/opuściłaś grupę."
+  "coffee.left": "Opuściłeś/opuściłaś grupę.",
+  "account.delete_coffee": "Twoje salda CoffeeBucks zostaną przy tym zniszczone.",
+  "privacy.coffee_delete": "Jego salda są wtedy niszczone: wycofywane z obiegu. To samo dzieje się z kontem z nazwą usuniętym po roku nieużywania."
 }

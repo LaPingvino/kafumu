@@ -866,5 +866,7 @@
   "coffee.leave_sure_needed": "Kryssa i rutan först: att lämna går inte att ångra.",
   "coffee.leave_go": "Lämna",
   "coffee.leave_error": "Det gick inte att lämna just nu. Försök igen.",
-  "coffee.left": "Du har lämnat gruppen."
+  "coffee.left": "Du har lämnat gruppen.",
+  "account.delete_coffee": "Dina CoffeeBucks-saldon förstörs samtidigt.",
+  "privacy.coffee_delete": "Saldona förstörs då: tas ur omlopp. Detsamma händer ett namngivet konto som raderas efter ett år utan användning."
 }

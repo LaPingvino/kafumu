@@ -866,5 +866,7 @@
   "coffee.leave_sure_needed": "Vink eerst het vakje aan: verlaten kan niet ongedaan worden.",
   "coffee.leave_go": "Verlaten",
   "coffee.leave_error": "Verlaten lukt nu niet. Probeer het opnieuw.",
-  "coffee.left": "Je hebt de groep verlaten."
+  "coffee.left": "Je hebt de groep verlaten.",
+  "account.delete_coffee": "Je CoffeeBucks-saldi worden daarbij vernietigd.",
+  "privacy.coffee_delete": "De saldi worden dan vernietigd: uit omloop gehaald. Hetzelfde gebeurt met een account met naam dat na een jaar zonder gebruik verwijderd wordt."
 }

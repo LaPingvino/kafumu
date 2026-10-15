@@ -24,6 +24,10 @@ const (
 	NamedIdle     = 365 * 24 * time.Hour
 )
 
+// OnUserDeleted, when set, runs for every account purge deletes, before it
+// goes (CoffeeBucks destroys its balances, 96h4).
+var OnUserDeleted func(ctx context.Context, userID string, groups []string)
+
 // Result counts what was deleted.
 type Result struct{ Meetups, Boxes, Slots, ATSessions, Users, Usernames int }
 
@@ -61,6 +65,7 @@ func Run(ctx context.Context, db *datastore.Client, now time.Time) (Result, erro
 		Username   string    `datastore:"username"`
 		LastSeenAt time.Time `datastore:"last_seen_at"`
 		KeepDays   int       `datastore:"keep_days,noindex"`
+		Groups     []string  `datastore:"groups,noindex"`
 	}
 	keys, err := db.GetAll(ctx, q, &us)
 	if err != nil {
@@ -81,6 +86,9 @@ func Run(ctx context.Context, db *datastore.Client, now time.Time) (Result, erro
 		}
 		if u.KeepDays == -1 || idle < keep {
 			continue
+		}
+		if OnUserDeleted != nil && len(u.Groups) > 0 {
+			OnUserDeleted(ctx, k.Name, u.Groups)
 		}
 		del = append(del, k, datastore.NameKey("Vault", k.Name, nil)) // their synced data goes with them
 		if u.Username != "" {

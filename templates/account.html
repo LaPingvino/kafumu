@@ -162,7 +162,7 @@
     <h2>{{t .Lang "account.leave_title"}}</h2>
     <div class="actions">
     <form method="post" action="/account/signout"><button type="submit" class="secondary">{{t .Lang "account.signout"}}</button></form>
-    <form method="post" action="/account/delete" onsubmit="return confirm(this.dataset.q)" data-q="{{ts .Lang "account.delete_confirm"}}">
+    <form method="post" action="/account/delete" onsubmit="return confirm(this.dataset.q)" data-q="{{ts .Lang "account.delete_confirm"}}{{if and .User .User.Groups}} {{ts .Lang "account.delete_coffee"}}{{end}}">
       <input type="hidden" name="confirm" value="yes">
       <fieldset{{if .Acting}} disabled class="personal-only" title="{{ts .Lang "biz.personal_part"}}"{{end}}><button type="submit" class="contrast">{{t .Lang "account.delete"}}</button></fieldset>
     </form>

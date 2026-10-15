@@ -866,5 +866,7 @@
   "coffee.leave_sure_needed": "Sæt først kryds: at forlade kan ikke fortrydes.",
   "coffee.leave_go": "Forlad",
   "coffee.leave_error": "Det lykkedes ikke at forlade lige nu. Prøv igen.",
-  "coffee.left": "Du har forladt gruppen."
+  "coffee.left": "Du har forladt gruppen.",
+  "account.delete_coffee": "Dine CoffeeBucks-saldi tilintetgøres samtidig.",
+  "privacy.coffee_delete": "Dens saldi tilintetgøres da: tages ud af omløb. Det samme sker med en navngiven konto, der slettes efter et år uden brug."
 }

@@ -866,5 +866,7 @@
   "coffee.leave_sure_needed": "Önce kutuyu işaretle: ayrılmak geri alınamaz.",
   "coffee.leave_go": "Ayrıl",
   "coffee.leave_error": "Şu an ayrılamadın. Tekrar dene.",
-  "coffee.left": "Gruptan ayrıldın."
+  "coffee.left": "Gruptan ayrıldın.",
+  "account.delete_coffee": "CoffeeBucks bakiyelerin de onunla birlikte yok edilir.",
+  "privacy.coffee_delete": "Bakiyeleri o zaman yok edilir: dolaşımdan çıkarılır. Bir yıl kullanılmadığı için silinen adlı bir hesap için de aynısı geçerlidir."
 }

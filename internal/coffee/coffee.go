@@ -14,6 +14,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
 	"net/http"
 	"regexp"
 	"strings"
@@ -332,4 +333,24 @@ func (c *Client) Leave(ctx context.Context, gid, member, mode, to string) error 
 // then leaves the first group.
 func (c *Client) Move(ctx context.Context, fromGid, member, toGid, to string) error {
 	return c.do(ctx, "POST", "/lp/admin/move", map[string]string{"from_gid": fromGid, "member": member, "to_gid": toGid, "to": to}, nil)
+}
+
+// DestroyAll is what happens to a deleted account's money (the default for
+// unlinked accounts, VISION §4): in each of its groups the balance goes back
+// to issuance and the member stops getting the dividend. Errors are logged
+// per group; the account goes either way.
+func (c *Client) DestroyAll(ctx context.Context, userID string, groups []string) {
+	if len(groups) == 0 {
+		return
+	}
+	me, err := c.MemberID(ctx, userID)
+	if err != nil {
+		log.Printf("coffee: destroy on delete: %v", err)
+		return
+	}
+	for _, gid := range groups {
+		if err := c.Leave(ctx, gid, me, "destroy", ""); err != nil {
+			log.Printf("coffee: destroy on delete in %s: %v", gid, err)
+		}
+	}
 }

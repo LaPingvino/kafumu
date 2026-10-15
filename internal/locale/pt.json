@@ -866,5 +866,7 @@
   "coffee.leave_sure_needed": "Marca primeiro a caixa: sair não se pode desfazer.",
   "coffee.leave_go": "Sair",
   "coffee.leave_error": "Não foi possível sair agora. Tenta outra vez.",
-  "coffee.left": "Saíste do grupo."
+  "coffee.left": "Saíste do grupo.",
+  "account.delete_coffee": "Os teus saldos de CoffeeBucks são destruídos com ela.",
+  "privacy.coffee_delete": "Os saldos são então destruídos: saem de circulação. O mesmo acontece a uma conta com nome apagada após um ano sem uso."
 }

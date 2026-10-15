@@ -866,5 +866,7 @@
   "coffee.leave_sure_needed": "Hãy đánh dấu ô trước: rời nhóm không thể hoàn tác.",
   "coffee.leave_go": "Rời nhóm",
   "coffee.leave_error": "Hiện chưa rời được. Hãy thử lại.",
-  "coffee.left": "Bạn đã rời nhóm."
+  "coffee.left": "Bạn đã rời nhóm.",
+  "account.delete_coffee": "Số dư CoffeeBucks của bạn cũng bị hủy theo.",
+  "privacy.coffee_delete": "Khi đó số dư của nó bị hủy: rút khỏi lưu thông. Điều tương tự xảy ra với một tài khoản có tên bị xóa sau một năm không dùng."
 }
