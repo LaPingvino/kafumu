@@ -1565,7 +1565,9 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       shares, leavers get no dividend, no leaving twice, chain); node/v0.2.3, gae on it. Was: ~/liquiditypub/node: Burn(member) (balance back to issuance: supply shrinks; a published tx type);
       a redistribution fund (fund:redistribute) paid out equally to active members with the next RunUD (supply
       unchanged); Leave = deactivate (exists). Tests: conservation, supply, chain; tag node/v0.2.3.
-- [ ] 96h2. ~/liquiditypub/gae admin API: POST /lp/admin/leave {gid, member, mode: destroy|redistribute|give, to?};
+- [x] 96h2. Done + deployed: POST /lp/admin/leave {gid,member,mode,to?}; POST /lp/admin/move (whole balance through
+      the pool to your account in the other group, waits for SETTLED, then leave keep; not settled = still a member).
+      Admin test: move empties and leaves, arrives; give; no leaving twice; no move to a missing account. Was: admin API: POST /lp/admin/leave {gid, member, mode: destroy|redistribute|give, to?};
       move = transfer the whole balance to your own member id in a linked group, then leave. Deploy.
 - [ ] 96h3. Kafumu: on a group card "Leave this group": move to <linked group you're in> / give it to @name /
       share it out at the next dividend / destroy it (a clear confirm); strings x 24.
