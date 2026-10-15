@@ -1642,11 +1642,14 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       2 strings x 24. Inline script parse-checked; not browser-tested (needs a group + a connected contact). Was: (Joop): next to "Share an invite link", "Send to a contact" lists your
       contacts (device-side, like 👀 "Did you see this?") and sends "☕ Join my CoffeeBucks group <name>: <link>" as a
       chat line through the pair (device.js/pair.js on /coffee); strings x 24.
-- [ ] 96r. A welcome dividend (Joop: "you start with 0 K$ and wait a night for your first UD; cron every hour?"):
-      instead of hourly (24x the records, or 24x the money), a new member gets one day's dividend at once on joining
-      (issuance.grant of the current UD; rejoining doesn't get a second one). Node + lp member endpoint; tests.
-- [ ] Fix (Joop 2026-10-15): after picking a piece of sea with no local names, picking a place that does have them
-      shows no names (the heading/"Lavradio · Seixal…" line stays empty); a placeholder name may fix it. Next after 96l.
+- [ ] 96r. Hourly dividend, the bank way (Joop: "run every hour, consolidate ledger entries"; "the ledger grows
+      anyway"): the log is a hash chain, so no rewriting history — batch at write time instead: RunUD writes ONE
+      issuance.ud tx per run with an entry for every active member (not one record per member). Then hourly costs 24
+      records/day per group whatever its size. Group nodes: UDPeriod PT1H, c ≈ 11 ppm/hour (≈10.1 %/year; integer
+      ppm can't do 274/24 exactly), GenesisUD floor per hour; cron hourly. New members get a dividend within the hour.
+      Node (+ conformance/PHP note: batched UD is node-internal), lp, cron.yaml; tests.
+- [ ] Fix (Joop 2026-10-15): picking an area in the picker doesn't show the name of the area you clicked; it shows
+      properly only after a reload (seen after visiting a piece of sea with no local names first). Next.
 - [x] 96l. Done + deployed: 🧾 Ask for a payment on each group card (amount, what for) → a link + QR (built in the
       browser; nothing stored; the note stays in the link) to share; /coffee/request shows "@you asks you for 3.50 B$",
       the pay form filled in (Pay from: your groups when you're not in theirs; then the usual pay / across / link
