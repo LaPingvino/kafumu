@@ -1556,5 +1556,16 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       the server can tell which id is yours and sees payments, like a bank; no purpose written down; deleting your
       account leaves the id with nothing linking it to you); /about "A local currency" + link; 4 strings x 24.
       (A first draft promised "leaving a group stops your dividend": no leave exists yet, so it says what's true.)
-- [ ] 96h. (open, for Joop) Leave a group (deactivate the member: no more dividend, balance stays), and what
-      happens to a balance then. Not built: decide first. Was: Privacy page + /about: what's public in the ledger, what isn't.
+- 96h design (Joop 2026-10-15: "a group migration mechanism, a full payout to what becomes their account in a new
+      group"; "when leaving completely, pick between destroy, redistribute in the next dividend, or move it all to
+      someone else"; "destroy can be the default for unlinked accounts"). Already true: one account, up to 5 groups,
+      a balance in each. Unlinked = an account deleted from Kafumu (its ledger id links to nobody any more).
+- [ ] 96h1. ~/liquiditypub/node: Burn(member) (balance back to issuance: supply shrinks; a published tx type);
+      a redistribution fund (fund:redistribute) paid out equally to active members with the next RunUD (supply
+      unchanged); Leave = deactivate (exists). Tests: conservation, supply, chain; tag node/v0.2.3.
+- [ ] 96h2. ~/liquiditypub/gae admin API: POST /lp/admin/leave {gid, member, mode: destroy|redistribute|give, to?};
+      move = transfer the whole balance to your own member id in a linked group, then leave. Deploy.
+- [ ] 96h3. Kafumu: on a group card "Leave this group": move to <linked group you're in> / give it to @name /
+      share it out at the next dividend / destroy it (a clear confirm); strings x 24.
+- [ ] 96h4. Kafumu: deleting an account destroys its balances in every group (the default for unlinked accounts),
+      said on the delete confirmation and the privacy page.
