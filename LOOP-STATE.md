@@ -1497,7 +1497,10 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       made once and kept in LPConfig. Emulator tests: 600-record ledger survives a restart, chain intact; second
       writer gets ErrConflict; token kept. Was: ~/liquiditypub: a Datastore store: ledger records as append-only entities + one small state entity with
       a version check (single writer; the 1 MiB entity limit rules out one snapshot blob). Tests on the emulator.
-- [ ] 96d. Live: service `lp` + dispatch.yaml + cron (daily dividend); the K$ identity document at
+- [x] 96d. Done: service lp deployed from ~/liquiditypub/gae; dispatch.yaml sends /.well-known/liquiditypub and
+      /lp/* to it (https://kafumu.com/.well-known/liquiditypub serves CoffeeBucks K$, its key kept across instances);
+      cron.yaml: /cron/ud daily 00:05 (target lp; 404 from outside). Deploy: gcloud app deploy app.yaml in gae/,
+      dispatch.yaml cron.yaml here. No members yet. Was: Live: service `lp` + dispatch.yaml + cron (daily dividend); the K$ identity document at
       kafumu.com/.well-known/liquiditypub. Nothing user-facing yet.
 - [ ] 96e. Groups: start a group (a hosted node, its own K$ and dividend), invite link to join (member = Kafumu
       account with a name), link two groups (a pool at UD parity). Design note first if the node can't host many.

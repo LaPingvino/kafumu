@@ -1,0 +1,8 @@
+# CoffeeBucks (K$, VISION §4): the LiquidityPub node runs as its own service
+# "lp" (~/liquiditypub/gae); its protocol paths go there, everything else to
+# Kafumu (default). Deploy with: gcloud app deploy dispatch.yaml --project lokumo
+dispatch:
+  - url: "*/.well-known/liquiditypub"
+    service: lp
+  - url: "*/lp/*"
+    service: lp
