@@ -1502,8 +1502,22 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       cron.yaml: /cron/ud daily 00:05 (target lp; 404 from outside). Deploy: gcloud app deploy app.yaml in gae/,
       dispatch.yaml cron.yaml here. No members yet. Was: Live: service `lp` + dispatch.yaml + cron (daily dividend); the K$ identity document at
       kafumu.com/.well-known/liquiditypub. Nothing user-facing yet.
-- [ ] 96e. Groups: start a group (a hosted node, its own K$ and dividend), invite link to join (member = Kafumu
-      account with a name), link two groups (a pool at UD parity). Design note first if the node can't host many.
+- 96e design (from reading ~/liquiditypub/node): one lp process can host many nodes (no globals; the federation
+      Sender is an interface: Deliver, FetchIdentity/Outbox/Checkpoint). Contacts are keyed by the peer's host, so
+      each group gets its own host as its base: https://<gid>.g.kafumu.com (an identifier, internal clearing only
+      for now: an in-process Sender delivers envelopes straight to the other group's ProcessInbound, the full
+      signed protocol without HTTP). Each group: its own DSStore id, key, K$ dividend. Public reads per group at
+      /lp/g/<gid>/... A Kafumu account is a member as "u" + 16 hex of HMAC(server secret, user id): pseudonymous,
+      derived, nothing stored that maps it back. Missing in the node: a local member-to-member payment (TxPayment
+      exists, unused).
+- [x] 96e1. Done: node.Pay (TxPayment between active members, balance checked, persisted, no note on the
+      ledger), test; node/v0.2.1 tagged, gae requires it. Also fixed: gae restart test compared two zero balances
+      (member prefix is m:), now asserts a real one. Was: ~/liquiditypub/node: Node.Pay(from, to, amount, note): a local payment between active members (balance
+      checked, persisted), test; tag node/v0.2.1, gae requires it.
+- [ ] 96e2. ~/liquiditypub/gae: host many group nodes (LPGroup registry; in-process Sender; /lp/g/<gid>/ reads; an
+      admin API for Kafumu: create group, add member, pay, link two groups = a contact seeded at UD parity,
+      cross-group transfer). Test: two groups, dividend, link, a payment across, both ledgers verify.
+- [ ] 96e3. Kafumu: start a group, invite link, join (calls the lp admin API with the token from Datastore).
 - [ ] 96f. Wallet on the Me tab: balance in K$ and in UD, dividends received, 💸 pay @name in your group; across
       groups at the pool's price, shown before paying.
 - [ ] 96g. Privacy page + /about: what's public in the ledger, what isn't.
