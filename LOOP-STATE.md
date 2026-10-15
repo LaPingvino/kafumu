@@ -1695,7 +1695,10 @@ read, expiring like every line (rule 3 holds).
 - [ ] 97e. Group boards in Chats (Joop: "access the group chats together with all others, notification-wise"):
       each group's board is a thread in Chats (Activity) with its unread count, opens like the others (docked / its
       page), and new posts wake you like chat lines (push: the board tag joins the device's watched pair tags).
-- [ ] 97f. Groups first, currency as a bonus (Joop: "put the groups UI as groups first, currency as a bonus, e.g.
+- [x] 97f. Done + deployed: "👥 Groups" (/groups, /coffee still works) linked next to Contacts in Chats and from
+      Me; each card: the board first (opened at once when the device has the key), invites, links, then "💰 <currency>"
+      (balance, dividend, pay, request); intro says groups first (the "where you are" part waits for 97d); 2 strings x 24.
+      Was: Groups first, currency as a bonus (Joop: "put the groups UI as groups first, currency as a bonus, e.g.
       together with contacts"): Groups get their own place next to Contacts (Chats / Connect), a group page with its
       board, members and where people are; the K$ wallet is one part of it. Me → CoffeeBucks becomes Groups.
 - [ ] 97c. Members of a group, for its members only: their @names (server: only to a member of that group; cached).

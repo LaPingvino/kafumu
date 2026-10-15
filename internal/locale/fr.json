@@ -921,5 +921,7 @@
   "js.board_empty": "Rien sur le tableau pour l'instant.",
   "js.board_reply": "Répondre",
   "js.board_connect_btn": "Se connecter",
-  "js.board_pay": "Payer {amount}"
+  "js.board_pay": "Payer {amount}",
+  "groups.title": "Groupes",
+  "groups.intro": "De petits groupes de gens qui se connaissent : un tableau réservé aux membres pour les offres et les demandes, et une monnaie à vous, CoffeeBucks, avec le même dividende pour chaque membre."
 }

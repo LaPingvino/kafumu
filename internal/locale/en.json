@@ -921,5 +921,7 @@
   "js.board_empty": "Nothing on the board yet.",
   "js.board_reply": "Reply",
   "js.board_connect_btn": "Connect",
-  "js.board_pay": "Pay {amount}"
+  "js.board_pay": "Pay {amount}",
+  "groups.title": "Groups",
+  "groups.intro": "Small groups of people who know each other: a members-only board for offers and requests, and a money of your own, CoffeeBucks, with the same dividend for every member."
 }

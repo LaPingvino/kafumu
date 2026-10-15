@@ -921,5 +921,7 @@
   "js.board_empty": "Belum ada apa-apa di papan.",
   "js.board_reply": "Balas",
   "js.board_connect_btn": "Hubungkan",
-  "js.board_pay": "Bayar {amount}"
+  "js.board_pay": "Bayar {amount}",
+  "groups.title": "Grup",
+  "groups.intro": "Kelompok kecil orang yang saling kenal: papan khusus anggota untuk tawaran dan permintaan, dan uang sendiri, CoffeeBucks, dengan dividen yang sama untuk setiap anggota."
 }

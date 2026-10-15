@@ -921,5 +921,7 @@
   "js.board_empty": "Na tablicy jeszcze nic nie ma.",
   "js.board_reply": "Odpowiedz",
   "js.board_connect_btn": "Połącz",
-  "js.board_pay": "Zapłać {amount}"
+  "js.board_pay": "Zapłać {amount}",
+  "groups.title": "Grupy",
+  "groups.intro": "Małe grupy ludzi, którzy się znają: tablica tylko dla członków na oferty i prośby, i własne pieniądze, CoffeeBucks, z tą samą dywidendą dla każdego członka."
 }

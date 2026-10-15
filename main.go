@@ -187,6 +187,7 @@ func main() {
 	mux.HandleFunc("POST /account/profile", accounts.SetProfile)
 	mux.HandleFunc("POST /account/here", accounts.SetHere)
 	mux.HandleFunc("GET /coffee", coffeeH.Show)
+	mux.HandleFunc("GET /groups", coffeeH.Show) // groups first, currency a part of them (97f)
 	mux.HandleFunc("GET /coffee/join", coffeeH.ShowJoin)
 	mux.HandleFunc("POST /coffee/group", coffeeH.StartGroup)
 	mux.HandleFunc("GET /coffee/invite", coffeeH.Invite)

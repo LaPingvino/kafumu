@@ -1,6 +1,6 @@
 {{template "head" .}}
 {{template "subnav" .}}
-{{if and .User .User.Username (not .Findable)}}<p class="card" style="padding:8px 16px"><a href="/coffee">☕ {{t .Lang "coffee.title"}} →</a></p>{{end}}
+{{if and .User .User.Username (not .Findable)}}<p class="card" style="padding:8px 16px"><a href="/groups">👥 {{t .Lang "groups.title"}} →</a></p>{{end}}
 <article>
   <h1>{{if .Findable}}{{t .Lang "profile.title"}}{{else}}{{t .Lang "account.title"}}{{end}}</h1>
   {{if .Error}}<p role="alert" class="error">{{.Error}}</p>{{end}}

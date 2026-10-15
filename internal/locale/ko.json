@@ -921,5 +921,7 @@
   "js.board_empty": "게시판에 아직 아무것도 없어요.",
   "js.board_reply": "답글",
   "js.board_connect_btn": "연결",
-  "js.board_pay": "{amount} 지불"
+  "js.board_pay": "{amount} 지불",
+  "groups.title": "그룹",
+  "groups.intro": "서로 아는 사람들의 작은 그룹: 제안과 요청을 위한 회원 전용 게시판, 그리고 모든 회원에게 같은 배당이 있는 우리만의 돈, CoffeeBucks."
 }

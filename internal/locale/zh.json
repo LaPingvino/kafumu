@@ -921,5 +921,7 @@
   "js.board_empty": "看板上还没有内容。",
   "js.board_reply": "回复",
   "js.board_connect_btn": "建立联系",
-  "js.board_pay": "支付 {amount}"
+  "js.board_pay": "支付 {amount}",
+  "groups.title": "群组",
+  "groups.intro": "彼此认识的人组成的小群组：只有成员能看的看板（提供与求购）、以及你们自己的钱 CoffeeBucks，每位成员分红相同。"
 }

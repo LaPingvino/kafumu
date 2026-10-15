@@ -921,5 +921,7 @@
   "js.board_empty": "Aún no hay nada en el tablón.",
   "js.board_reply": "Responder",
   "js.board_connect_btn": "Conectar",
-  "js.board_pay": "Pagar {amount}"
+  "js.board_pay": "Pagar {amount}",
+  "groups.title": "Grupos",
+  "groups.intro": "Grupos pequeños de gente que se conoce: un tablón solo para miembros con ofertas y peticiones, y una moneda propia, CoffeeBucks, con el mismo dividendo para cada miembro."
 }

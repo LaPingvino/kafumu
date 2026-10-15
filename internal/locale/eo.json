@@ -921,5 +921,7 @@
   "js.board_empty": "Ankoraŭ nenio sur la tabulo.",
   "js.board_reply": "Respondi",
   "js.board_connect_btn": "Konektiĝi",
-  "js.board_pay": "Pagi {amount}"
+  "js.board_pay": "Pagi {amount}",
+  "groups.title": "Grupoj",
+  "groups.intro": "Malgrandaj grupoj de homoj, kiuj konas unu la alian: tabulo nur por membroj por ofertoj kaj petoj, kaj propra mono, CoffeeBucks, kun la sama dividendo por ĉiu membro."
 }

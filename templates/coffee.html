@@ -1,7 +1,7 @@
 {{template "head" .}}
 <article class="coffee">
-  <h1>☕ {{t .Lang "coffee.title"}}</h1>
-  <p>{{t .Lang "coffee.explain"}}</p>
+  <h1>👥 {{t .Lang "groups.title"}}</h1>
+  <p>{{t .Lang "groups.intro"}}</p>
   {{if eq .Msg "left"}}<p class="coffee-msg ok" role="status">✓ {{t .Lang "coffee.left"}}</p>
   {{else if eq .Msg "declined"}}<p class="coffee-msg ok" role="status">{{t .Lang "coffee.declined"}}</p>
   {{else if eq .Msg "ask_gone"}}<p class="coffee-msg error" role="status">{{t .Lang "coffee.ask_gone"}}</p>{{end}}
@@ -14,26 +14,26 @@
       <form method="post" action="/coffee/linkdecline"><input type="hidden" name="id" value="{{.ID}}"><button type="submit" class="pill-sm">{{t $.Lang "coffee.ask_decline"}}</button></form>
     </div></div>{{end}}{{end}}
   {{if .User}}
-  {{if .Groups}}<h2>{{t .Lang "coffee.groups"}}</h2>
+  {{if .Groups}}
   <ul class="boxed-list">{{range $g := .Groups}}
     <li id="g-{{.Gid}}" data-g="{{.Gid}}" data-members="{{.Members}}" data-sym="{{.Sym}}" class="card coffee-group{{if eq .Gid $.Focus}} flash{{end}}" style="padding:8px 16px 12px">
       <h3>{{.Name}}</h3>
-      {{if .Currency}}<p class="dim small">{{.Currency}} ({{.Sym}})</p>{{end}}
+      <details class="coffee-board" hidden><summary>📋 <span class="board-title"></span></summary><div class="board-body"></div></details>
+      <p class="small coffee-key" hidden><span class="dim"></span> <button type="button" class="pill-sm coffee-key-start" hidden>🔐 {{t $.Lang "coffee.board_start"}}</button></p>
+      <div class="actions"><button type="button" class="pill-sm suggested coffee-invite" data-g="{{.Gid}}">🔗 {{t $.Lang "coffee.invite"}}</button>
+        <button type="button" class="pill-sm coffee-invite-contact" data-g="{{.Gid}}" data-name="{{.Name}}">👤 {{t $.Lang "coffee.invite_contact"}}</button></div>
+      <div class="chips coffee-pick" hidden></div>
+      <p class="dim small">{{t $.Lang "coffee.invite_note"}}</p>
+      {{with .Links}}<p class="dim small">🔗 {{t $.Lang "coffee.linked_with"}}: {{range $i, $l := .}}{{if $i}}, {{end}}{{$l.Name}}{{end}}</p>{{end}}
+      <div class="coffee-money"><h4>💰 {{if .Currency}}{{.Currency}}{{else}}CoffeeBucks{{end}} ({{.Sym}})</h4>
       {{if .Unavailable}}<p class="dim">{{t $.Lang "coffee.unavailable"}}</p>{{else}}
       <p class="coffee-balance"><strong>{{.Balance}} {{.Sym}}</strong>{{if .Days}} <span class="dim small">{{ts $.Lang "coffee.in_days" | replace "{n}" .Days}}</span>{{end}}</p>
       <p class="dim small">{{t $.Lang "coffee.dividend"}}: {{.UD}} {{.Sym}} · {{ts $.Lang "coffee.members" | replace "{n}" (print .Members)}}</p>{{end}}
-      {{with .Links}}<p class="dim small">🔗 {{t $.Lang "coffee.linked_with"}}: {{range $i, $l := .}}{{if $i}}, {{end}}{{$l.Name}}{{end}}</p>{{end}}
       {{if eq .Gid $.Focus}}{{with $.Msg}}<p class="coffee-msg{{if or (eq . "paid") (eq . "sent") (eq . "linked") (eq . "renamed") (eq . "asked") (eq . "accepted")}} ok{{else}} error{{end}}" role="status">{{if eq . "paid"}}✓ {{ts $.Lang "coffee.paid" | amount $.Amount $g.Sym | replace "{name}" $.To}}{{else if eq . "sent"}}✓ {{ts $.Lang "coffee.pay_sent" | amount $.Amount $g.Sym | replace "{name}" $.To}}{{else if eq . "linked"}}✓ {{t $.Lang "coffee.linked"}}{{else if eq . "renamed"}}✓ {{t $.Lang "coffee.renamed"}}{{else if eq . "asked"}}✓ {{ts $.Lang "coffee.asked" | amount $.Amount $g.Sym | replace "{name}" $.To}}{{else if eq . "accepted"}}✓ {{ts $.Lang "coffee.accepted" | amount $.Amount $g.Sym}}{{else if eq . "not_member"}}{{ts $.Lang "coffee.pay_not_member" | replace "{name}" $.To}}{{else}}{{t $.Lang (print "coffee.pay_" .)}}{{end}}</p>{{end}}{{end}}
       {{if not .Unavailable}}<form method="post" action="/coffee/pay#g-{{.Gid}}" class="inline coffee-pay"><input type="hidden" name="g" value="{{.Gid}}">
         <input name="to" required placeholder="@name" aria-label="{{ts $.Lang "coffee.pay_to"}}" autocomplete="off" autocapitalize="off">
         <input name="amount" required inputmode="decimal" placeholder="0.00 {{.Sym}}" aria-label="{{ts $.Lang "coffee.pay_amount"}}" class="coffee-amount">
         <button type="submit" class="pill">💸 {{t $.Lang "coffee.pay"}}</button></form>{{end}}
-      <div class="actions"><button type="button" class="pill-sm suggested coffee-invite" data-g="{{.Gid}}">🔗 {{t $.Lang "coffee.invite"}}</button>
-        <button type="button" class="pill-sm coffee-invite-contact" data-g="{{.Gid}}" data-name="{{.Name}}">👤 {{t $.Lang "coffee.invite_contact"}}</button></div>
-      <div class="chips coffee-pick" hidden></div>
-      <p class="dim small">{{t $.Lang "coffee.invite_note"}}</p>
-      <details class="coffee-board" hidden><summary>📋 <span class="board-title"></span></summary><div class="board-body"></div></details>
-      <p class="small coffee-key" hidden><span class="dim"></span> <button type="button" class="pill-sm coffee-key-start" hidden>🔐 {{t $.Lang "coffee.board_start"}}</button></p>
       {{if $.User.Username}}<details class="coffee-request"><summary class="small">🧾 {{t $.Lang "coffee.request_btn"}}</summary>
         <form class="coffee-request-form inline" data-g="{{.Gid}}" data-to="{{$.User.Username}}">
           <input name="amount" required inputmode="decimal" placeholder="0.00 {{.Sym}}" aria-label="{{ts $.Lang "coffee.pay_amount"}}" class="coffee-amount">
@@ -43,6 +43,7 @@
           <p class="inline-row"><input readonly class="coffee-request-link" onclick="this.select()" aria-label="link">
           <button type="button" class="pill-sm coffee-request-share">🔗 {{t $.Lang "coffee.invite"}}</button></p></div>
         <p class="dim small">{{t $.Lang "coffee.request_note"}}</p></details>{{end}}
+      </div>
       <details class="coffee-rename"><summary class="dim small">✎ {{t $.Lang "coffee.rename"}}</summary>
         <form method="post" action="/coffee/rename#g-{{.Gid}}"><input type="hidden" name="g" value="{{.Gid}}">
           <label>{{t $.Lang "coffee.rename_group"}}<input name="name" maxlength="60" placeholder="{{.Name}}"></label>
@@ -174,7 +175,7 @@
         var d = li.querySelector(".coffee-board"), key = all[li.dataset.g];
         d.hidden = !key || !window.kafumuBoard;
         d.querySelector(".board-title").textContent = T.board || "Board";
-        if (key) d.ontoggle = function () { if (d.open && !d.dataset.loaded) { d.dataset.loaded = "1"; drawBoard(li, key); } };
+        if (key && !d.dataset.loaded) { d.dataset.loaded = "1"; d.open = true; drawBoard(li, key); } // groups first: the board is the first thing
       });
     });
   }

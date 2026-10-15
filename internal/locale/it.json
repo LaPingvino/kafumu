@@ -921,5 +921,7 @@
   "js.board_empty": "Ancora niente in bacheca.",
   "js.board_reply": "Rispondi",
   "js.board_connect_btn": "Collegati",
-  "js.board_pay": "Paga {amount}"
+  "js.board_pay": "Paga {amount}",
+  "groups.title": "Gruppi",
+  "groups.intro": "Piccoli gruppi di persone che si conoscono: una bacheca solo per i membri con offerte e richieste, e una moneta vostra, CoffeeBucks, con lo stesso dividendo per ogni membro."
 }

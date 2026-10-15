@@ -921,5 +921,7 @@
   "js.board_empty": "Még nincs semmi a táblán.",
   "js.board_reply": "Válasz",
   "js.board_connect_btn": "Kapcsolódás",
-  "js.board_pay": "{amount} fizetése"
+  "js.board_pay": "{amount} fizetése",
+  "groups.title": "Csoportok",
+  "groups.intro": "Egymást ismerő emberek kis csoportjai: csak tagoknak szóló tábla ajánlatokhoz és kérésekhez, és saját pénz, CoffeeBucks, minden tagnak ugyanakkora osztalékkal."
 }
