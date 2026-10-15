@@ -1584,3 +1584,11 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       Tests: no dividend while gone, dividend after rejoining, no double activation. Was: Rejoin a group you left (Joop: "rejoining/reactivating sounds good"): node.Reactivate (the same
       member id, dividend again; balance as it was); lp /lp/admin/member reactivates an inactive member instead of
       refusing; Kafumu's join then just works (a fresh invite). Tests; tag node, deploy lp.
+- [ ] 96j. The last member (Joop: "what happens after being the last one leaving?"): a group with nobody active is
+      dormant: ledger stays, no dividend (computeUDBase returns 0 with no weight), pools keep their reserves, payments
+      in are refused, any old invite revives it. The leave page says "you're the last member" and offers move or
+      destroy only (share would just sit in the fund, give has nobody to give to); members count via balance API.
+- [ ] 96k. Rename your group's currency and symbol (Joop: "a nice bit of flair"): LPGroup keeps starter (member id),
+      currency name (≤30) and symbol (≤5); the starter renames (anyone once the starter left); lp sets them on the node
+      (identity doc), POST /lp/admin/currency; Kafumu shows each group's own symbol instead of a fixed K$ (from the
+      identity doc), a small "rename" form for who may; strings x 24.
