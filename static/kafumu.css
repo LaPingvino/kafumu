@@ -550,3 +550,4 @@ main:focus { outline: none; }
 .coffee-pay input.coffee-amount { flex: 0 1 7rem; }
 .coffee-msg.ok { color: var(--accent); }
 .coffee-msg.error { color: var(--del-color, #b3261e); }
+.coffee-qr svg { width: 200px; height: 200px; background: #fff; border-radius: 8px; }

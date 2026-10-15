@@ -895,5 +895,14 @@
   "coffee.link_cap": "The pot can never run dry, but the bigger a payment, the worse its rate: paying a hundred days of dividend across gets about half that.",
   "coffee.confirm_impact": "This payment gets {pct}% less than the pot's current rate, because the pot between the groups is small next to it. Smaller payments get a better rate.",
   "coffee.invite_contact": "Send to a contact",
-  "js.coffee_invite_text": "☕ Join my CoffeeBucks group {group}:"
+  "js.coffee_invite_text": "☕ Join my CoffeeBucks group {group}:",
+  "coffee.request_btn": "Ask for a payment",
+  "coffee.request_for": "What for (optional)",
+  "coffee.request_make": "Make a link",
+  "coffee.request_note": "Anyone with the link or the QR code can pay you. The note stays in the link, never on the ledger.",
+  "coffee.request_title": "@{name} asks you for {amount} K$",
+  "coffee.request_for_line": "For: {for}",
+  "coffee.request_self": "This is your own request: share the link or the QR code.",
+  "coffee.request_pay_from": "Pay from",
+  "coffee.request_no_group": "To pay, you need to be in a CoffeeBucks group: ask @{name} for an invite."
 }

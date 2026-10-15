@@ -199,6 +199,7 @@ func main() {
 	mux.HandleFunc("POST /coffee/leave", coffeeH.Leave)
 	mux.HandleFunc("POST /coffee/rename", coffeeH.Rename)
 	mux.HandleFunc("GET /coffee/linkpay", coffeeH.LinkPay)
+	mux.HandleFunc("GET /coffee/request", coffeeH.ShowRequest)
 	mux.HandleFunc("POST /coffee/linkask", coffeeH.LinkAsk)
 	mux.HandleFunc("POST /coffee/linkaccept", coffeeH.LinkAccept)
 	mux.HandleFunc("POST /coffee/linkdecline", coffeeH.LinkDecline)

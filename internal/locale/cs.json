@@ -895,5 +895,14 @@
   "coffee.link_cap": "Pokladna se nikdy nevyprázdní, ale čím větší platba, tím horší kurz: zaplatit sto dní dividendy do druhé skupiny dorazí zhruba z poloviny.",
   "coffee.confirm_impact": "Tahle platba dostane o {pct} % méně, než je současný kurz pokladny, protože pokladna mezi skupinami je proti ní malá. Menší platby mají lepší kurz.",
   "coffee.invite_contact": "Poslat kontaktu",
-  "js.coffee_invite_text": "☕ Přidej se do mé skupiny CoffeeBucks {group}:"
+  "js.coffee_invite_text": "☕ Přidej se do mé skupiny CoffeeBucks {group}:",
+  "coffee.request_btn": "Požádat o platbu",
+  "coffee.request_for": "Za co (nepovinné)",
+  "coffee.request_make": "Vytvořit odkaz",
+  "coffee.request_note": "Zaplatit ti může kdokoli s odkazem nebo QR kódem. Poznámka zůstává v odkazu, nikdy v knize.",
+  "coffee.request_title": "@{name} tě žádá o {amount} K$",
+  "coffee.request_for_line": "Za: {for}",
+  "coffee.request_self": "Tohle je tvoje vlastní žádost: sdílej odkaz nebo QR kód.",
+  "coffee.request_pay_from": "Platit z",
+  "coffee.request_no_group": "K placení musíš být ve skupině CoffeeBucks: požádej @{name} o pozvánku."
 }

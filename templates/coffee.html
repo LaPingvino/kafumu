@@ -32,6 +32,15 @@
         <button type="button" class="pill-sm coffee-invite-contact" data-g="{{.Gid}}" data-name="{{.Name}}">👤 {{t $.Lang "coffee.invite_contact"}}</button></div>
       <div class="chips coffee-pick" hidden></div>
       <p class="dim small">{{t $.Lang "coffee.invite_note"}}</p>
+      {{if $.User.Username}}<details class="coffee-request"><summary class="small">🧾 {{t $.Lang "coffee.request_btn"}}</summary>
+        <form class="coffee-request-form inline" data-g="{{.Gid}}" data-to="{{$.User.Username}}">
+          <input name="amount" required inputmode="decimal" placeholder="0.00 {{.Sym}}" aria-label="{{ts $.Lang "coffee.pay_amount"}}" class="coffee-amount">
+          <input name="for" maxlength="80" placeholder="{{ts $.Lang "coffee.request_for"}}" aria-label="{{ts $.Lang "coffee.request_for"}}">
+          <button type="submit" class="pill-sm suggested">{{t $.Lang "coffee.request_make"}}</button></form>
+        <div class="coffee-request-out" hidden><div class="coffee-qr"></div>
+          <p class="inline-row"><input readonly class="coffee-request-link" onclick="this.select()" aria-label="link">
+          <button type="button" class="pill-sm coffee-request-share">🔗 {{t $.Lang "coffee.invite"}}</button></p></div>
+        <p class="dim small">{{t $.Lang "coffee.request_note"}}</p></details>{{end}}
       <details class="coffee-rename"><summary class="dim small">✎ {{t $.Lang "coffee.rename"}}</summary>
         <form method="post" action="/coffee/rename#g-{{.Gid}}"><input type="hidden" name="g" value="{{.Gid}}">
           <label>{{t $.Lang "coffee.rename_group"}}<input name="name" maxlength="60" placeholder="{{.Name}}"></label>
@@ -56,6 +65,7 @@
   {{else}}<p><a href="/account?next=/coffee" role="button" class="pill">{{t .Lang "here.need_name"}} →</a></p>{{end}}
 </article>
 <script>window.KAFUMU_T = window.KAFUMU_T || {{.JS}};</script>
+<script src="/static/vendor/qrcode-1.4.4.js?v={{.V}}"></script>
 <script src="/static/device.js?v={{.V}}"></script>
 <script src="/static/sha1.js?v={{.V}}"></script>
 <script src="/static/pair.js?v={{.V}}"></script>
@@ -71,6 +81,23 @@
       mine: function (t, kw, b) { return window.kafumuOLN.post(t, kw, b, function () {}); } });
     return pair;
   }
+  // Payment requests (96l): the link carries everything (nothing stored);
+  // the note stays in the link, never on the ledger.
+  document.querySelectorAll(".coffee-request-form").forEach(function (f) {
+    f.onsubmit = function (e) {
+      e.preventDefault();
+      var q = new URLSearchParams({ g: f.dataset.g, to: f.dataset.to, a: f.amount.value.trim() });
+      if (f.for.value.trim()) q.set("for", f.for.value.trim());
+      var url = location.origin + "/coffee/request?" + q.toString(), out = f.parentNode.querySelector(".coffee-request-out");
+      if (window.qrcode) { var qr = qrcode(0, "M"); qr.addData(url); qr.make(); out.querySelector(".coffee-qr").innerHTML = qr.createSvgTag({ cellSize: 5, margin: 2, scalable: true }); }
+      out.querySelector(".coffee-request-link").value = url;
+      out.querySelector(".coffee-request-share").onclick = function () {
+        if (navigator.share) navigator.share({ url: url }).catch(function () {});
+        else if (navigator.clipboard) navigator.clipboard.writeText(url);
+      };
+      out.hidden = false;
+    };
+  });
   document.querySelectorAll(".coffee-invite-contact").forEach(function (b) {
     b.onclick = function () {
       var li = b.closest("li"), pick = li.querySelector(".coffee-pick"), st = li.querySelector(".coffee-status"), dev = window.kafumuDevice;

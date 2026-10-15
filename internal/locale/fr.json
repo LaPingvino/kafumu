@@ -895,5 +895,14 @@
   "coffee.link_cap": "La cagnotte ne peut jamais se vider, mais plus un paiement est gros, moins son taux est bon : payer cent jours de dividende d'un groupe à l'autre en fait arriver environ la moitié.",
   "coffee.confirm_impact": "Ce paiement obtient {pct} % de moins que le taux actuel de la cagnotte, car la cagnotte entre les groupes est petite en comparaison. Les petits paiements obtiennent un meilleur taux.",
   "coffee.invite_contact": "Envoyer à un contact",
-  "js.coffee_invite_text": "☕ Rejoins mon groupe CoffeeBucks {group} :"
+  "js.coffee_invite_text": "☕ Rejoins mon groupe CoffeeBucks {group} :",
+  "coffee.request_btn": "Demander un paiement",
+  "coffee.request_for": "Pour quoi (facultatif)",
+  "coffee.request_make": "Créer un lien",
+  "coffee.request_note": "Quiconque a le lien ou le QR code peut te payer. La note reste dans le lien, jamais dans le registre.",
+  "coffee.request_title": "@{name} te demande {amount} K$",
+  "coffee.request_for_line": "Pour : {for}",
+  "coffee.request_self": "C'est ta propre demande : partage le lien ou le QR code.",
+  "coffee.request_pay_from": "Payer depuis",
+  "coffee.request_no_group": "Pour payer, il faut être dans un groupe CoffeeBucks : demande une invitation à @{name}."
 }

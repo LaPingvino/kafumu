@@ -895,5 +895,14 @@
   "coffee.link_cap": "Pula nigdy się nie wyczerpie, ale im większa płatność, tym gorszy kurs: przelanie stu dni dywidendy do drugiej grupy daje mniej więcej połowę.",
   "coffee.confirm_impact": "Ta płatność dostaje o {pct}% mniej niż obecny kurs puli, bo pula między grupami jest przy niej mała. Mniejsze płatności mają lepszy kurs.",
   "coffee.invite_contact": "Wyślij kontaktowi",
-  "js.coffee_invite_text": "☕ Dołącz do mojej grupy CoffeeBucks {group}:"
+  "js.coffee_invite_text": "☕ Dołącz do mojej grupy CoffeeBucks {group}:",
+  "coffee.request_btn": "Poproś o płatność",
+  "coffee.request_for": "Za co (opcjonalnie)",
+  "coffee.request_make": "Utwórz link",
+  "coffee.request_note": "Każdy z linkiem lub kodem QR może ci zapłacić. Notatka zostaje w linku, nigdy w księdze.",
+  "coffee.request_title": "@{name} prosi cię o {amount} K$",
+  "coffee.request_for_line": "Za: {for}",
+  "coffee.request_self": "To twoja własna prośba: udostępnij link lub kod QR.",
+  "coffee.request_pay_from": "Zapłać z",
+  "coffee.request_no_group": "Aby zapłacić, musisz być w grupie CoffeeBucks: poproś @{name} o zaproszenie."
 }

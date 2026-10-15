@@ -895,5 +895,14 @@
   "coffee.link_cap": "Der Topf wird nie leer, aber je größer eine Zahlung, desto schlechter ihr Kurs: Wer hundert Tage Dividende hinüberzahlt, bekommt etwa die Hälfte davon an.",
   "coffee.confirm_impact": "Diese Zahlung bekommt {pct} % weniger als der aktuelle Kurs des Topfs, weil der Topf zwischen den Gruppen im Vergleich klein ist. Kleinere Zahlungen bekommen einen besseren Kurs.",
   "coffee.invite_contact": "An einen Kontakt schicken",
-  "js.coffee_invite_text": "☕ Komm in meine CoffeeBucks-Gruppe {group}:"
+  "js.coffee_invite_text": "☕ Komm in meine CoffeeBucks-Gruppe {group}:",
+  "coffee.request_btn": "Um eine Zahlung bitten",
+  "coffee.request_for": "Wofür (optional)",
+  "coffee.request_make": "Link erstellen",
+  "coffee.request_note": "Alle mit dem Link oder dem QR-Code können dich bezahlen. Die Notiz bleibt im Link, nie im Kassenbuch.",
+  "coffee.request_title": "@{name} bittet dich um {amount} K$",
+  "coffee.request_for_line": "Für: {for}",
+  "coffee.request_self": "Das ist deine eigene Anfrage: Teile den Link oder den QR-Code.",
+  "coffee.request_pay_from": "Bezahlen aus",
+  "coffee.request_no_group": "Um zu bezahlen, musst du in einer CoffeeBucks-Gruppe sein: Bitte @{name} um eine Einladung."
 }

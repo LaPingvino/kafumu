@@ -895,5 +895,14 @@
   "coffee.link_cap": "Quỹ chung không bao giờ cạn, nhưng khoản thanh toán càng lớn thì tỷ giá càng kém: trả một trăm ngày cổ tức sang nhóm kia thì chỉ đến được khoảng một nửa.",
   "coffee.confirm_impact": "Khoản thanh toán này nhận ít hơn {pct}% so với tỷ giá hiện tại của quỹ, vì quỹ giữa hai nhóm nhỏ so với nó. Khoản nhỏ hơn sẽ được tỷ giá tốt hơn.",
   "coffee.invite_contact": "Gửi cho một liên hệ",
-  "js.coffee_invite_text": "☕ Tham gia nhóm CoffeeBucks {group} của mình nhé:"
+  "js.coffee_invite_text": "☕ Tham gia nhóm CoffeeBucks {group} của mình nhé:",
+  "coffee.request_btn": "Yêu cầu thanh toán",
+  "coffee.request_for": "Để làm gì (không bắt buộc)",
+  "coffee.request_make": "Tạo liên kết",
+  "coffee.request_note": "Ai có liên kết hoặc mã QR đều có thể trả cho bạn. Ghi chú nằm trong liên kết, không bao giờ vào sổ cái.",
+  "coffee.request_title": "@{name} yêu cầu bạn trả {amount} K$",
+  "coffee.request_for_line": "Cho: {for}",
+  "coffee.request_self": "Đây là yêu cầu của chính bạn: hãy chia sẻ liên kết hoặc mã QR.",
+  "coffee.request_pay_from": "Trả từ",
+  "coffee.request_no_group": "Để trả tiền, bạn cần ở trong một nhóm CoffeeBucks: hãy xin @{name} một lời mời."
 }

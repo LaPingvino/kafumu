@@ -895,5 +895,14 @@
   "coffee.link_cap": "De pot raakt nooit leeg, maar hoe groter de betaling, hoe slechter de koers: honderd dagen dividend overmaken levert ongeveer de helft op.",
   "coffee.confirm_impact": "Deze betaling krijgt {pct}% minder dan de huidige koers van de pot, omdat de pot tussen de groepen klein is vergeleken ermee. Kleinere betalingen krijgen een betere koers.",
   "coffee.invite_contact": "Naar een contact sturen",
-  "js.coffee_invite_text": "☕ Word lid van mijn CoffeeBucks-groep {group}:"
+  "js.coffee_invite_text": "☕ Word lid van mijn CoffeeBucks-groep {group}:",
+  "coffee.request_btn": "Om een betaling vragen",
+  "coffee.request_for": "Waarvoor (optioneel)",
+  "coffee.request_make": "Link maken",
+  "coffee.request_note": "Iedereen met de link of de QR-code kan je betalen. De notitie blijft in de link, nooit in het grootboek.",
+  "coffee.request_title": "@{name} vraagt je om {amount} K$",
+  "coffee.request_for_line": "Voor: {for}",
+  "coffee.request_self": "Dit is je eigen verzoek: deel de link of de QR-code.",
+  "coffee.request_pay_from": "Betalen vanuit",
+  "coffee.request_no_group": "Om te betalen moet je in een CoffeeBucks-groep zitten: vraag @{name} om een uitnodiging."
 }

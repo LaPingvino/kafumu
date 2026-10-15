@@ -1,0 +1,19 @@
+{{template "head" .}}
+<article class="coffee">
+  {{if and .To .MicroOK}}
+  <h1>🧾 {{ts .Lang "coffee.request_title" | amount .Amount .Sym | replace "{name}" .To}}</h1>
+  <p class="dim">{{.Group}}{{with .For}} · {{ts $.Lang "coffee.request_for_line" | replace "{for}" .}}{{end}}</p>
+  {{if .Self}}<p>{{t .Lang "coffee.request_self"}}</p>
+  {{else if and .User .From}}
+  <form method="post" action="/coffee/pay" class="card" style="padding:8px 16px 12px">
+    <input type="hidden" name="to" value="{{.To}}"><input type="hidden" name="amount" value="{{.Amount}}">
+    {{if .Member}}<input type="hidden" name="g" value="{{.Gid}}">
+    {{else}}<label>{{t .Lang "coffee.request_pay_from"}}<select name="g">{{range .From}}<option value="{{.Gid}}">{{.Name}}</option>{{end}}</select></label>{{end}}
+    <button type="submit" class="pill suggested">💸 {{ts .Lang "coffee.confirm_go" | amount .Amount .Sym}}</button>
+  </form>
+  {{else}}<p>{{ts .Lang "coffee.request_no_group" | replace "{name}" .To}}</p>
+  {{if not .User}}<p><a href="/account?next=/coffee" role="button" class="pill">{{t .Lang "here.need_name"}} →</a></p>{{end}}{{end}}
+  <p class="dim small">{{t .Lang "coffee.explain"}}</p>
+  {{else}}<h1>☕ {{t .Lang "coffee.title"}}</h1><p>{{t .Lang "coffee.confirm_bad"}} <a href="/coffee">→</a></p>{{end}}
+</article>
+{{template "foot" .}}

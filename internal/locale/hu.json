@@ -895,5 +895,14 @@
   "coffee.link_cap": "A kassza sosem ürül ki, de minél nagyobb a fizetés, annál rosszabb az árfolyama: ha száz napnyi osztalékot fizetsz át, nagyjából a fele érkezik meg.",
   "coffee.confirm_impact": "Ez a fizetés {pct}%-kal kevesebbet kap a kassza mostani árfolyamánál, mert a csoportok közti kassza ehhez képest kicsi. A kisebb fizetések jobb árfolyamot kapnak.",
   "coffee.invite_contact": "Küldés egy ismerősnek",
-  "js.coffee_invite_text": "☕ Lépj be a CoffeeBucks-csoportomba ({group}):"
+  "js.coffee_invite_text": "☕ Lépj be a CoffeeBucks-csoportomba ({group}):",
+  "coffee.request_btn": "Fizetés kérése",
+  "coffee.request_for": "Mire (nem kötelező)",
+  "coffee.request_make": "Link készítése",
+  "coffee.request_note": "Bárki, akinél a link vagy a QR-kód van, fizethet neked. A megjegyzés a linkben marad, sosem kerül a főkönyvbe.",
+  "coffee.request_title": "@{name} {amount} K$-t kér tőled",
+  "coffee.request_for_line": "Erre: {for}",
+  "coffee.request_self": "Ez a saját kérésed: oszd meg a linket vagy a QR-kódot.",
+  "coffee.request_pay_from": "Fizetés innen",
+  "coffee.request_no_group": "A fizetéshez CoffeeBucks-csoportban kell lenned: kérj meghívót @{name} felhasználótól."
 }

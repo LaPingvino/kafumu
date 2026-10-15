@@ -329,6 +329,24 @@ func TestCoffeeStartInviteJoin(t *testing.T) {
 	if w := as(eli, "POST", "/coffee/linkaccept", url.Values{"id": {askID}}, c.LinkAccept); !strings.Contains(w.Header().Get("Location"), "ask_gone") {
 		t.Fatal("a request was accepted twice")
 	}
+	// Payment requests (96l): the card offers one; the request page fills in
+	// the pay form; your own request says share it; no group says ask.
+	if w := as(ana, "GET", "/coffee", nil, c.Show); !strings.Contains(w.Body.String(), "Ask for a payment") {
+		t.Fatal("no request form on the card")
+	}
+	rq := url.Values{"g": {gid}, "to": {"ana"}, "a": {"3,5"}, "for": {"two bicas"}}
+	if w := as(eli, "GET", "/coffee/request?"+rq.Encode(), nil, c.ShowRequest); !strings.Contains(w.Body.String(), "@ana asks you for 3.50") || !strings.Contains(w.Body.String(), "two bicas") || !strings.Contains(w.Body.String(), "Pay from") {
+		t.Fatalf("request page for a member of another group: %s", w.Body.String())
+	}
+	if w := as(ana, "GET", "/coffee/request?"+rq.Encode(), nil, c.ShowRequest); !strings.Contains(w.Body.String(), "your own request") {
+		t.Fatal("own request")
+	}
+	if w := as(nil, "GET", "/coffee/request?"+rq.Encode(), nil, c.ShowRequest); !strings.Contains(w.Body.String(), "ask @ana for an invite") {
+		t.Fatalf("signed out: %s", w.Body.String())
+	}
+	if w := as(eli, "GET", "/coffee/request?g="+gid+"&to=ana&a=zero", nil, c.ShowRequest); !strings.Contains(w.Body.String(), "isn't possible") {
+		t.Fatal("a broken request rendered as payable")
+	}
 	// Member ids: stable per account, different between accounts.
 	a1, _ := c.C.MemberID(ctx, ana.ID)
 	a2, _ := c.C.MemberID(ctx, ana.ID)

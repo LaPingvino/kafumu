@@ -895,5 +895,14 @@
   "coffee.link_cap": "Фонд никогда не опустеет, но чем крупнее платёж, тем хуже его курс: если перевести сто дней дивиденда в другую группу, дойдёт примерно половина.",
   "coffee.confirm_impact": "Этот платёж получает на {pct}% меньше текущего курса фонда, потому что фонд между группами по сравнению с ним мал. У платежей поменьше курс лучше.",
   "coffee.invite_contact": "Отправить контакту",
-  "js.coffee_invite_text": "☕ Вступай в мою группу CoffeeBucks «{group}»:"
+  "js.coffee_invite_text": "☕ Вступай в мою группу CoffeeBucks «{group}»:",
+  "coffee.request_btn": "Попросить оплату",
+  "coffee.request_for": "За что (необязательно)",
+  "coffee.request_make": "Создать ссылку",
+  "coffee.request_note": "Заплатить тебе может любой, у кого есть ссылка или QR-код. Заметка остаётся в ссылке и никогда не попадает в книгу.",
+  "coffee.request_title": "@{name} просит у тебя {amount} K$",
+  "coffee.request_for_line": "За: {for}",
+  "coffee.request_self": "Это твой собственный запрос: поделись ссылкой или QR-кодом.",
+  "coffee.request_pay_from": "Платить из",
+  "coffee.request_no_group": "Чтобы заплатить, нужно быть в группе CoffeeBucks: попроси приглашение у @{name}."
 }

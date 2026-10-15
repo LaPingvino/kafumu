@@ -1642,7 +1642,15 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       2 strings x 24. Inline script parse-checked; not browser-tested (needs a group + a connected contact). Was: (Joop): next to "Share an invite link", "Send to a contact" lists your
       contacts (device-side, like 👀 "Did you see this?") and sends "☕ Join my CoffeeBucks group <name>: <link>" as a
       chat line through the pair (device.js/pair.js on /coffee); strings x 24.
-- [ ] 96l. Payment requests (Joop): "ask @me for 3.50 in <group>" as a link and a QR code (/coffee/pay?g=&to=&a=&for=
+- [ ] 96r. A welcome dividend (Joop: "you start with 0 K$ and wait a night for your first UD; cron every hour?"):
+      instead of hourly (24x the records, or 24x the money), a new member gets one day's dividend at once on joining
+      (issuance.grant of the current UD; rejoining doesn't get a second one). Node + lp member endpoint; tests.
+- [ ] Fix (Joop 2026-10-15): after picking a piece of sea with no local names, picking a place that does have them
+      shows no names (the heading/"Lavradio · Seixal…" line stays empty); a placeholder name may fix it. Next after 96l.
+- [x] 96l. Done + deployed: 🧾 Ask for a payment on each group card (amount, what for) → a link + QR (built in the
+      browser; nothing stored; the note stays in the link) to share; /coffee/request shows "@you asks you for 3.50 B$",
+      the pay form filled in (Pay from: your groups when you're not in theirs; then the usual pay / across / link
+      flow); your own request says share it; no group says ask for an invite; 9 strings x 24; tests. Was: Payment requests (Joop): "ask @me for 3.50 in <group>" as a link and a QR code (/coffee/pay?g=&to=&a=&for=
       prefilled, a short note not stored on the ledger); scanning or opening it shows the pay form filled in (or the
       across confirm when the payer is in a linked group); strings x 24.
 

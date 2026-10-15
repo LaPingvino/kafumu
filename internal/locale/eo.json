@@ -895,5 +895,14 @@
   "coffee.link_cap": "La kaso neniam malpleniĝas, sed ju pli granda pago, des pli malbona ĝia kurzo: pagi cent tagojn da dividendo al la alia grupo alvenigas ĉirkaŭ duonon.",
   "coffee.confirm_impact": "Ĉi tiu pago ricevas {pct}% malpli ol la nuna kurzo de la kaso, ĉar la kaso inter la grupoj estas malgranda kompare. Pli malgrandaj pagoj ricevas pli bonan kurzon.",
   "coffee.invite_contact": "Sendi al kontakto",
-  "js.coffee_invite_text": "☕ Aliĝu al mia CoffeeBucks-grupo {group}:"
+  "js.coffee_invite_text": "☕ Aliĝu al mia CoffeeBucks-grupo {group}:",
+  "coffee.request_btn": "Peti pagon",
+  "coffee.request_for": "Por kio (nedeviga)",
+  "coffee.request_make": "Fari ligilon",
+  "coffee.request_note": "Ĉiu kun la ligilo aŭ la QR-kodo povas pagi al vi. La noto restas en la ligilo, neniam en la librotenado.",
+  "coffee.request_title": "@{name} petas de vi {amount} K$",
+  "coffee.request_for_line": "Por: {for}",
+  "coffee.request_self": "Ĉi tio estas via propra peto: kunhavigu la ligilon aŭ la QR-kodon.",
+  "coffee.request_pay_from": "Pagi el",
+  "coffee.request_no_group": "Por pagi vi devas esti en CoffeeBucks-grupo: petu inviton de @{name}."
 }

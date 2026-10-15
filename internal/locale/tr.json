@@ -895,5 +895,14 @@
   "coffee.link_cap": "Havuz asla tükenmez, ama ödeme büyüdükçe kuru kötüleşir: diğer gruba yüz günlük kâr payı ödersen kabaca yarısı ulaşır.",
   "coffee.confirm_impact": "Bu ödeme, havuzun şu anki kurundan %{pct} daha az alıyor, çünkü gruplar arasındaki havuz buna göre küçük. Daha küçük ödemeler daha iyi kur alır.",
   "coffee.invite_contact": "Bir kişiye gönder",
-  "js.coffee_invite_text": "☕ CoffeeBucks grubuma katıl: {group}"
+  "js.coffee_invite_text": "☕ CoffeeBucks grubuma katıl: {group}",
+  "coffee.request_btn": "Ödeme iste",
+  "coffee.request_for": "Ne için (isteğe bağlı)",
+  "coffee.request_make": "Bağlantı oluştur",
+  "coffee.request_note": "Bağlantıya ya da QR koduna sahip herkes sana ödeme yapabilir. Not bağlantıda kalır, deftere asla yazılmaz.",
+  "coffee.request_title": "@{name} senden {amount} K$ istiyor",
+  "coffee.request_for_line": "Ne için: {for}",
+  "coffee.request_self": "Bu senin kendi isteğin: bağlantıyı ya da QR kodunu paylaş.",
+  "coffee.request_pay_from": "Şuradan öde",
+  "coffee.request_no_group": "Ödemek için bir CoffeeBucks grubunda olman gerekir: @{name} kişisinden davet iste."
 }

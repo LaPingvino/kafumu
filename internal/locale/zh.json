@@ -895,5 +895,14 @@
   "coffee.link_cap": "资金池永远不会被掏空，但付款越大，汇率越差：把一百天的分红付到对方群组，大约只能到账一半。",
   "coffee.confirm_impact": "这笔付款比资金池当前汇率少得 {pct}%，因为群组之间的资金池相对它来说很小。较小的付款汇率更好。",
   "coffee.invite_contact": "发给联系人",
-  "js.coffee_invite_text": "☕ 加入我的 CoffeeBucks 群组 {group}："
+  "js.coffee_invite_text": "☕ 加入我的 CoffeeBucks 群组 {group}：",
+  "coffee.request_btn": "请求付款",
+  "coffee.request_for": "用途（可选）",
+  "coffee.request_make": "生成链接",
+  "coffee.request_note": "任何拿到链接或二维码的人都可以付款给你。备注只留在链接里，绝不写进账本。",
+  "coffee.request_title": "@{name} 向你请求 {amount} K$",
+  "coffee.request_for_line": "用途：{for}",
+  "coffee.request_self": "这是你自己的请求：分享链接或二维码吧。",
+  "coffee.request_pay_from": "从哪个群组付款",
+  "coffee.request_no_group": "要付款，你需要在一个 CoffeeBucks 群组里：请向 @{name} 要一个邀请。"
 }

@@ -895,5 +895,14 @@
   "coffee.link_cap": "Fondul nu se golește niciodată, dar cu cât plata e mai mare, cu atât cursul e mai slab: dacă plătești o sută de zile de dividend către celălalt grup, ajunge cam jumătate.",
   "coffee.confirm_impact": "Această plată primește cu {pct}% mai puțin decât cursul actual al fondului, pentru că fondul dintre grupuri e mic față de ea. Plățile mai mici au un curs mai bun.",
   "coffee.invite_contact": "Trimite unui contact",
-  "js.coffee_invite_text": "☕ Intră în grupul meu CoffeeBucks {group}:"
+  "js.coffee_invite_text": "☕ Intră în grupul meu CoffeeBucks {group}:",
+  "coffee.request_btn": "Cere o plată",
+  "coffee.request_for": "Pentru ce (opțional)",
+  "coffee.request_make": "Fă un link",
+  "coffee.request_note": "Oricine are linkul sau codul QR îți poate plăti. Nota rămâne în link, niciodată în registru.",
+  "coffee.request_title": "@{name} îți cere {amount} K$",
+  "coffee.request_for_line": "Pentru: {for}",
+  "coffee.request_self": "Aceasta e propria ta cerere: trimite linkul sau codul QR.",
+  "coffee.request_pay_from": "Plătește din",
+  "coffee.request_no_group": "Ca să plătești trebuie să fii într-un grup CoffeeBucks: cere-i lui @{name} o invitație."
 }

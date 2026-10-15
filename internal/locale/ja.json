@@ -895,5 +895,14 @@
   "coffee.link_cap": "プールが空になることはありませんが、支払いが大きいほどレートは悪くなります。配当100日分を向こうへ払うと、届くのはおよそ半分です。",
   "coffee.confirm_impact": "この支払いはプールの現在のレートより {pct}% 少なくなります。グループ間のプールがこの金額に比べて小さいためです。小さな支払いのほうがレートは良くなります。",
   "coffee.invite_contact": "連絡先に送る",
-  "js.coffee_invite_text": "☕ 私の CoffeeBucks グループ「{group}」に参加しよう："
+  "js.coffee_invite_text": "☕ 私の CoffeeBucks グループ「{group}」に参加しよう：",
+  "coffee.request_btn": "支払いをお願いする",
+  "coffee.request_for": "用途（任意）",
+  "coffee.request_make": "リンクを作る",
+  "coffee.request_note": "リンクか QR コードを持っている人なら誰でも支払えます。メモはリンクの中だけに残り、台帳には書かれません。",
+  "coffee.request_title": "@{name} があなたに {amount} K$ を求めています",
+  "coffee.request_for_line": "用途：{for}",
+  "coffee.request_self": "これはあなた自身のリクエストです。リンクか QR コードを共有してください。",
+  "coffee.request_pay_from": "支払い元",
+  "coffee.request_no_group": "支払うには CoffeeBucks のグループに入っている必要があります。@{name} に招待を頼んでください。"
 }

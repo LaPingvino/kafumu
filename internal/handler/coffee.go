@@ -710,3 +710,41 @@ func (c *Coffee) LinkPay(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Cache-Control", "no-store")
 	c.Home.render(w, "coffee_linkpay.html", p)
 }
+
+type requestPage struct {
+	page
+	Gid, To, Amount, Sym, Group, For string
+	MicroOK                          bool
+	Self, Member                     bool
+	From                             []coffee.Link // your groups to pay from
+}
+
+// ShowRequest renders /coffee/request?g=&to=&a=&for=: a payment request
+// (Tikkie-style, 96l): @to asks for a in group g, for a note that lives only
+// in the link. The pay form is filled in; paying goes the usual way (inside the
+// group, across a link, or asking to link).
+func (c *Coffee) ShowRequest(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+	p := requestPage{page: c.Home.newPage(r, "CoffeeBucks"), Gid: r.FormValue("g")}
+	p.Tab = "account"
+	if m, ok := coffee.ParseMoney(r.FormValue("a")); ok {
+		p.Amount, p.MicroOK = coffee.Money(m), true
+	}
+	p.For = strings.TrimSpace(r.FormValue("for"))
+	if len([]rune(p.For)) > 80 {
+		p.For = string([]rune(p.For)[:80])
+	}
+	if to := c.userByName(ctx, r.FormValue("to")); to != nil && slices.Contains(to.Groups, p.Gid) {
+		info := c.C.GroupInfo(ctx, p.Gid)
+		p.To, p.Group, p.Sym = to.Username, info.Name, info.Symbol
+		if u := p.User; u != nil {
+			p.Self = u.ID == to.ID
+			p.Member = slices.Contains(u.Groups, p.Gid)
+			for _, gid := range u.Groups {
+				p.From = append(p.From, coffee.Link{Gid: gid, Name: c.C.GroupName(ctx, gid)})
+			}
+		}
+	}
+	w.Header().Set("Cache-Control", "no-store")
+	c.Home.render(w, "coffee_request.html", p)
+}

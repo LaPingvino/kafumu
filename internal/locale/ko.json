@@ -895,5 +895,14 @@
   "coffee.link_cap": "풀은 절대 바닥나지 않지만, 지불이 클수록 환율이 나빠져요. 배당 100일치를 건너편으로 보내면 대략 절반만 도착해요.",
   "coffee.confirm_impact": "이 지불은 풀의 현재 환율보다 {pct}% 적게 받아요. 그룹 사이의 풀이 이 금액에 비해 작기 때문이에요. 작은 지불일수록 환율이 좋아요.",
   "coffee.invite_contact": "연락처에 보내기",
-  "js.coffee_invite_text": "☕ 내 CoffeeBucks 그룹 {group}에 들어와요:"
+  "js.coffee_invite_text": "☕ 내 CoffeeBucks 그룹 {group}에 들어와요:",
+  "coffee.request_btn": "지불 요청하기",
+  "coffee.request_for": "무엇에 대해 (선택)",
+  "coffee.request_make": "링크 만들기",
+  "coffee.request_note": "링크나 QR 코드가 있는 사람은 누구나 지불할 수 있어요. 메모는 링크에만 있고 장부에는 절대 남지 않아요.",
+  "coffee.request_title": "@{name}이(가) {amount} K$를 요청해요",
+  "coffee.request_for_line": "용도: {for}",
+  "coffee.request_self": "내가 만든 요청이에요. 링크나 QR 코드를 공유하세요.",
+  "coffee.request_pay_from": "어디서 지불",
+  "coffee.request_no_group": "지불하려면 CoffeeBucks 그룹에 있어야 해요. @{name}에게 초대를 부탁하세요."
 }

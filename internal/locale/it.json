@@ -895,5 +895,14 @@
   "coffee.link_cap": "Il fondo non si svuota mai, ma più un pagamento è grande, peggiore è il cambio: pagando cento giorni di dividendo all'altro gruppo ne arriva circa la metà.",
   "coffee.confirm_impact": "Questo pagamento riceve il {pct}% in meno del cambio attuale del fondo, perché il fondo tra i gruppi è piccolo al confronto. I pagamenti più piccoli hanno un cambio migliore.",
   "coffee.invite_contact": "Invia a un contatto",
-  "js.coffee_invite_text": "☕ Entra nel mio gruppo CoffeeBucks {group}:"
+  "js.coffee_invite_text": "☕ Entra nel mio gruppo CoffeeBucks {group}:",
+  "coffee.request_btn": "Chiedi un pagamento",
+  "coffee.request_for": "Per cosa (facoltativo)",
+  "coffee.request_make": "Crea link",
+  "coffee.request_note": "Chiunque abbia il link o il codice QR può pagarti. La nota resta nel link, mai nel registro.",
+  "coffee.request_title": "@{name} ti chiede {amount} K$",
+  "coffee.request_for_line": "Per: {for}",
+  "coffee.request_self": "Questa è la tua richiesta: condividi il link o il codice QR.",
+  "coffee.request_pay_from": "Paga da",
+  "coffee.request_no_group": "Per pagare devi essere in un gruppo CoffeeBucks: chiedi un invito a @{name}."
 }

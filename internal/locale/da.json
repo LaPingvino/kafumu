@@ -895,5 +895,14 @@
   "coffee.link_cap": "Puljen kan aldrig løbe tør, men jo større en betaling er, jo dårligere kurs: betaler man hundrede dages udbytte over, kommer cirka halvdelen frem.",
   "coffee.confirm_impact": "Denne betaling får {pct} % mindre end puljens nuværende kurs, fordi puljen mellem grupperne er lille i forhold til den. Mindre betalinger får en bedre kurs.",
   "coffee.invite_contact": "Send til en kontakt",
-  "js.coffee_invite_text": "☕ Bliv medlem af min CoffeeBucks-gruppe {group}:"
+  "js.coffee_invite_text": "☕ Bliv medlem af min CoffeeBucks-gruppe {group}:",
+  "coffee.request_btn": "Bed om en betaling",
+  "coffee.request_for": "Hvad for (valgfrit)",
+  "coffee.request_make": "Lav et link",
+  "coffee.request_note": "Alle med linket eller QR-koden kan betale dig. Noten bliver i linket, aldrig i regnskabet.",
+  "coffee.request_title": "@{name} beder dig om {amount} K$",
+  "coffee.request_for_line": "For: {for}",
+  "coffee.request_self": "Det er din egen anmodning: del linket eller QR-koden.",
+  "coffee.request_pay_from": "Betal fra",
+  "coffee.request_no_group": "For at betale skal du være i en CoffeeBucks-gruppe: bed @{name} om en invitation."
 }

@@ -895,5 +895,14 @@
   "coffee.link_cap": "Potten kan aldrig ta slut, men ju större betalning, desto sämre kurs: betalar man hundra dagars utdelning över kommer ungefär hälften fram.",
   "coffee.confirm_impact": "Den här betalningen får {pct} % mindre än pottens nuvarande kurs, eftersom potten mellan grupperna är liten i jämförelse. Mindre betalningar får bättre kurs.",
   "coffee.invite_contact": "Skicka till en kontakt",
-  "js.coffee_invite_text": "☕ Gå med i min CoffeeBucks-grupp {group}:"
+  "js.coffee_invite_text": "☕ Gå med i min CoffeeBucks-grupp {group}:",
+  "coffee.request_btn": "Be om en betalning",
+  "coffee.request_for": "Vad för (valfritt)",
+  "coffee.request_make": "Skapa länk",
+  "coffee.request_note": "Alla med länken eller QR-koden kan betala dig. Anteckningen stannar i länken, aldrig i kassaboken.",
+  "coffee.request_title": "@{name} ber dig om {amount} K$",
+  "coffee.request_for_line": "För: {for}",
+  "coffee.request_self": "Det här är din egen förfrågan: dela länken eller QR-koden.",
+  "coffee.request_pay_from": "Betala från",
+  "coffee.request_no_group": "För att betala måste du vara med i en CoffeeBucks-grupp: be @{name} om en inbjudan."
 }
