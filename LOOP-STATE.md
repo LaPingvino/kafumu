@@ -1668,3 +1668,23 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
   a stranger and keep nothing durable (a free loan from that group). Joop's guards: a weak link capped until N
   different members of a group have paid the same other group; weak links bias against the new group's trust unless
   the group votes it in. Needs: unlink by consent, per-link caps, a vote — design before building.
+
+## 97. Inside a CoffeeBucks group: a board, its members, where you are (Joop 2026-10-15)
+Joop: "an internal forum for trades"; "a way to tell these groups where you are, so you know when you can trade in
+person"; "OLN with encryption specific to the group, doesn't need to be super strong, just not obvious"; "shared key
+AES internal to the group"; "member list only visible to the members of the group". Design: each group has an
+AES-GCM key that lives only on members' devices (synced with your own devices via the vault); it travels in the
+invite link's #fragment, which never reaches the server. Board posts are OLN lines encrypted with it, under a tag
+derived from it (HMAC(key, "board")), fetched anonymously like pair messages: the server stores ciphertext it can't
+read, expiring like every line (rule 3 holds).
+- [ ] 97a. The group key: made in the browser when a group starts, kept in the device store, added to invite links
+      as #k=…; joining through such a link keeps it. A member whose device has no key (e.g. Esperantistoj, started
+      before this) sees "ask a member to share the board key"; a member with it can share a key link. Tests (key
+      never in a request).
+- [ ] 97b. The board: offers, requests and notes (an optional price) as encrypted OLN lines; replies in their thread;
+      on a post 💸 Pay / 🧾 Request (prefilled), 🤝 Connect (the post carries a connect code, as questions do).
+      Fades like any line; 🔁 keeps it. Strings x 24.
+- [ ] 97c. Members of a group, for its members only: their @names (server: only to a member of that group; cached).
+- [ ] 97d. Where you are, to your group: "📍 around <area> today" as an encrypted board line that expires at the end
+      of the day; the same plain banner and pause as for contacts (95), automatic in areas you shared before, asks in
+      a new one.
