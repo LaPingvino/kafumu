@@ -1487,7 +1487,10 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       checklist answers (privacy page waits for 96d/96g). Was: VISION.md: the money tier as a stated exception to rule 3 (a LiquidityPub ledger is public and permanent
       by design; accounts pseudonymous; groups explicit) + the add-a-layer answers; privacy page paragraph (only
       when 96d is live: say what exists).
-- [ ] 96b. ~/liquiditypub: make node/ deployable as a GAE service (conformance importable: tag or vendor; a
+- [x] 96b. Done: ~/liquiditypub/gae serves one node (CoffeeBucks K$, UD 274 ppm/day, pseudonymous) from app.yaml
+      env (service lp, max 1 instance); conformance/v0.2.0 + node/v0.2.0 tagged on GitHub, go.work for local dev;
+      builds standalone (GOWORK=off) as App Engine will; identity doc + signed checkpoint served locally. No
+      persistence yet; admin token random per process (closed). Was: ~/liquiditypub: make node/ deployable as a GAE service (conformance importable: tag or vendor; a
       cmd/lpgae main that serves one or more hosted nodes under one base); runs locally.
 - [ ] 96c. ~/liquiditypub: a Datastore store: ledger records as append-only entities + one small state entity with
       a version check (single writer; the 1 MiB entity limit rules out one snapshot blob). Tests on the emulator.
