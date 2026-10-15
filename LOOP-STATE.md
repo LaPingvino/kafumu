@@ -1560,7 +1560,9 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       group"; "when leaving completely, pick between destroy, redistribute in the next dividend, or move it all to
       someone else"; "destroy can be the default for unlinked accounts"). Already true: one account, up to 5 groups,
       a balance in each. Unlinked = an account deleted from Kafumu (its ledger id links to nobody any more).
-- [ ] 96h1. ~/liquiditypub/node: Burn(member) (balance back to issuance: supply shrinks; a published tx type);
+- [x] 96h1. Done: node.Leave(member, destroy|redistribute|give|keep, to) then deactivate; issuance.burn and
+      fund.redistribute (paid out equally with the next RunUD, remainder kept) named in PROTOCOL §9; tests (supply,
+      shares, leavers get no dividend, no leaving twice, chain); node/v0.2.3, gae on it. Was: ~/liquiditypub/node: Burn(member) (balance back to issuance: supply shrinks; a published tx type);
       a redistribution fund (fund:redistribute) paid out equally to active members with the next RunUD (supply
       unchanged); Leave = deactivate (exists). Tests: conservation, supply, chain; tag node/v0.2.3.
 - [ ] 96h2. ~/liquiditypub/gae admin API: POST /lp/admin/leave {gid, member, mode: destroy|redistribute|give, to?};
