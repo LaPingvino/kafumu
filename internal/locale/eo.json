@@ -868,5 +868,6 @@
   "coffee.leave_error": "Nun ne eblas forlasi. Reprovu.",
   "coffee.left": "Vi forlasis la grupon.",
   "account.delete_coffee": "Viaj CoffeeBucks-saldoj estas detruitaj kune.",
-  "privacy.coffee_delete": "Ties saldoj tiam estas detruitaj: forprenitaj el cirkulado. Same okazas al nomita konto forigita post jaro sen uzo."
+  "privacy.coffee_delete": "Ties saldoj tiam estas detruitaj: forprenitaj el cirkulado. Same okazas al nomita konto forigita post jaro sen uzo.",
+  "coffee.leave_last": "Vi estas la lasta membro: la grupo ripozos (sen dividendo) ĝis iu aliĝos denove per invito. Movu vian saldon aŭ detruu ĝin."
 }

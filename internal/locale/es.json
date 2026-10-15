@@ -868,5 +868,6 @@
   "coffee.leave_error": "Ahora no se puede salir. Inténtalo de nuevo.",
   "coffee.left": "Has salido del grupo.",
   "account.delete_coffee": "Tus saldos de CoffeeBucks se destruyen con ella.",
-  "privacy.coffee_delete": "Sus saldos se destruyen entonces: se retiran de la circulación. Lo mismo pasa con una cuenta con nombre que se borra tras un año sin uso."
+  "privacy.coffee_delete": "Sus saldos se destruyen entonces: se retiran de la circulación. Lo mismo pasa con una cuenta con nombre que se borra tras un año sin uso.",
+  "coffee.leave_last": "Eres el último miembro: el grupo queda en pausa (sin dividendo) hasta que alguien vuelva a entrar con una invitación. Mueve tu saldo o destrúyelo."
 }

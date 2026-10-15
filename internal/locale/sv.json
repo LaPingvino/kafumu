@@ -868,5 +868,6 @@
   "coffee.leave_error": "Det gick inte att lämna just nu. Försök igen.",
   "coffee.left": "Du har lämnat gruppen.",
   "account.delete_coffee": "Dina CoffeeBucks-saldon förstörs samtidigt.",
-  "privacy.coffee_delete": "Saldona förstörs då: tas ur omlopp. Detsamma händer ett namngivet konto som raderas efter ett år utan användning."
+  "privacy.coffee_delete": "Saldona förstörs då: tas ur omlopp. Detsamma händer ett namngivet konto som raderas efter ett år utan användning.",
+  "coffee.leave_last": "Du är den sista medlemmen: gruppen vilar (ingen utdelning) tills någon går med igen via en inbjudan. Flytta ditt saldo eller förstör det."
 }

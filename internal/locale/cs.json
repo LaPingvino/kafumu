@@ -868,5 +868,6 @@
   "coffee.leave_error": "Teď se odejít nepodařilo. Zkus to znovu.",
   "coffee.left": "Opustil(a) jsi skupinu.",
   "account.delete_coffee": "Tvé zůstatky CoffeeBucks se s ním zničí.",
-  "privacy.coffee_delete": "Jeho zůstatky se pak zničí: stáhnou se z oběhu. Totéž se stane s pojmenovaným účtem smazaným po roce nepoužívání."
+  "privacy.coffee_delete": "Jeho zůstatky se pak zničí: stáhnou se z oběhu. Totéž se stane s pojmenovaným účtem smazaným po roce nepoužívání.",
+  "coffee.leave_last": "Jsi poslední člen: skupina utichne (bez dividendy), dokud se někdo znovu nepřidá přes pozvánku. Převeď svůj zůstatek, nebo ho znič."
 }

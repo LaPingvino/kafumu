@@ -868,5 +868,6 @@
   "coffee.leave_error": "暫時無法退出，請再試一次。",
   "coffee.left": "你已退出群組。",
   "account.delete_coffee": "你的 CoffeeBucks 餘額也會隨之銷毀。",
-  "privacy.coffee_delete": "屆時其餘額會被銷毀：退出流通。有名字的帳號在一年未使用後被刪除時也一樣。"
+  "privacy.coffee_delete": "屆時其餘額會被銷毀：退出流通。有名字的帳號在一年未使用後被刪除時也一樣。",
+  "coffee.leave_last": "你是最後一位成員：在有人憑邀請重新加入之前，群組會進入休眠（沒有分紅）。請轉走你的餘額或將其銷毀。"
 }

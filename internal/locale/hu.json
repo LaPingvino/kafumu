@@ -868,5 +868,6 @@
   "coffee.leave_error": "Most nem sikerült kilépni. Próbáld újra.",
   "coffee.left": "Kiléptél a csoportból.",
   "account.delete_coffee": "A CoffeeBucks-egyenlegeid ezzel együtt megsemmisülnek.",
-  "privacy.coffee_delete": "Az egyenlegei ekkor megsemmisülnek: kikerülnek a forgalomból. Ugyanez történik egy névvel rendelkező fiókkal, amelyet egy év használaton kívüliség után törölnek."
+  "privacy.coffee_delete": "Az egyenlegei ekkor megsemmisülnek: kikerülnek a forgalomból. Ugyanez történik egy névvel rendelkező fiókkal, amelyet egy év használaton kívüliség után törölnek.",
+  "coffee.leave_last": "Te vagy az utolsó tag: a csoport elcsendesedik (nincs osztalék), amíg valaki meghívóval újra be nem lép. Helyezd át az egyenlegedet, vagy semmisítsd meg."
 }

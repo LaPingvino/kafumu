@@ -868,5 +868,6 @@
   "coffee.leave_error": "Nu se poate ieși acum. Încearcă din nou.",
   "coffee.left": "Ai ieșit din grup.",
   "account.delete_coffee": "Soldurile tale CoffeeBucks sunt distruse odată cu el.",
-  "privacy.coffee_delete": "Soldurile sale sunt atunci distruse: scoase din circulație. La fel se întâmplă cu un cont cu nume șters după un an de nefolosire."
+  "privacy.coffee_delete": "Soldurile sale sunt atunci distruse: scoase din circulație. La fel se întâmplă cu un cont cu nume șters după un an de nefolosire.",
+  "coffee.leave_last": "Ești ultimul membru: grupul intră în repaus (fără dividend) până când cineva intră din nou cu o invitație. Mută-ți soldul sau distruge-l."
 }

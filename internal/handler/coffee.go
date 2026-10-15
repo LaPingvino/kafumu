@@ -395,6 +395,9 @@ type leavePage struct {
 	Gid, Name, Balance string
 	MoveTo             []coffee.Link // linked groups you're also in
 	Err, To            string
+	// Last: you're the only active member (96j): give has nobody to go to and
+	// sharing out would only sit in the fund, so it's move or destroy.
+	Last bool
 }
 
 // ShowLeave renders /coffee/leave?g=: what happens to your balance.
@@ -414,6 +417,7 @@ func (c *Coffee) ShowLeave(w http.ResponseWriter, r *http.Request) {
 	if me, err := c.C.MemberID(ctx, u.ID); err == nil {
 		if wl, err := c.C.Balance(ctx, gid, me); err == nil {
 			p.Balance = coffee.Money(wl.Balance)
+			p.Last = wl.Members <= 1
 		}
 	}
 	if links, err := c.C.Links(ctx, gid); err == nil {
@@ -453,7 +457,14 @@ func (c *Coffee) Leave(w http.ResponseWriter, r *http.Request) {
 		again("error")
 		return
 	}
-	switch mode := r.FormValue("mode"); mode {
+	mode := r.FormValue("mode")
+	if mode == "give" || mode == "share" {
+		if wl, berr := c.C.Balance(ctx, gid, me); berr == nil && wl.Members <= 1 {
+			again("last")
+			return
+		}
+	}
+	switch mode {
 	case "move":
 		tg := r.FormValue("tg")
 		if !slices.Contains(u.Groups, tg) || tg == gid {

@@ -868,5 +868,6 @@
   "coffee.leave_error": "지금은 나갈 수 없어요. 다시 시도하세요.",
   "coffee.left": "그룹에서 나왔어요.",
   "account.delete_coffee": "CoffeeBucks 잔액도 함께 사라져요.",
-  "privacy.coffee_delete": "그때 잔액은 사라지고 유통에서 빠져요. 이름이 있는 계정이 1년 동안 쓰이지 않아 삭제될 때도 마찬가지예요."
+  "privacy.coffee_delete": "그때 잔액은 사라지고 유통에서 빠져요. 이름이 있는 계정이 1년 동안 쓰이지 않아 삭제될 때도 마찬가지예요.",
+  "coffee.leave_last": "당신이 마지막 회원이에요. 누군가 초대로 다시 들어올 때까지 그룹은 쉬어요(배당 없음). 잔액을 옮기거나 없애세요."
 }

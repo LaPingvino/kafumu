@@ -1584,11 +1584,15 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       Tests: no dividend while gone, dividend after rejoining, no double activation. Was: Rejoin a group you left (Joop: "rejoining/reactivating sounds good"): node.Reactivate (the same
       member id, dividend again; balance as it was); lp /lp/admin/member reactivates an inactive member instead of
       refusing; Kafumu's join then just works (a fresh invite). Tests; tag node, deploy lp.
-- [ ] 96j. The last member (Joop: "what happens after being the last one leaving?"): a group with nobody active is
-      dormant: ledger stays, no dividend (computeUDBase returns 0 with no weight), pools keep their reserves, payments
-      in are refused, any old invite revives it. The leave page says "you're the last member" and offers move or
-      destroy only (share would just sit in the fund, give has nobody to give to); members count via balance API.
-- [ ] 96k. Rename your group's currency and symbol (Joop: "a nice bit of flair"): LPGroup keeps starter (member id),
-      currency name (≤30) and symbol (≤5); the starter renames (anyone once the starter left); lp sets them on the node
-      (identity doc), POST /lp/admin/currency; Kafumu shows each group's own symbol instead of a fixed K$ (from the
-      identity doc), a small "rename" form for who may; strings x 24.
+- [x] 96j. Done: the last member's leave page says the group goes quiet until someone joins with an invite and
+      offers move or destroy only; give/share refused server-side when last (balance API now counts active members).
+      Found on the way: the node's identity doc published active_members counting members who left (peers price
+      dilution from it): fixed, node/v0.2.5 (the PHP node was right). String x 24, handler test.
+- [ ] 96k. Rename your group, its currency and its symbol (Joop: "a nice bit of flair"; "any member can rename,
+      that encourages small groups where you truly know and trust each other"; "keeps the whimsy in it, and makes a
+      good argument about the 'is this real money' thing"): LPGroup keeps group name, currency name (≤30) and symbol
+      (≤5); POST /lp/admin/rename {gid, name?, currency?, symbol?} sets them on the node (identity doc); any member
+      renames from the group card; Kafumu shows each group's own symbol instead of a fixed K$; strings x 24.
+- [ ] 96l. Payment requests (Joop): "ask @me for 3.50 in <group>" as a link and a QR code (/coffee/pay?g=&to=&a=&for=
+      prefilled, a short note not stored on the ledger); scanning or opening it shows the pay form filled in (or the
+      across confirm when the payer is in a linked group); strings x 24.

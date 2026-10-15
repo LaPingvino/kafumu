@@ -868,5 +868,6 @@
   "coffee.leave_error": "Couldn't leave right now. Try again.",
   "coffee.left": "You left the group.",
   "account.delete_coffee": "Your CoffeeBucks balances are destroyed with it.",
-  "privacy.coffee_delete": "Its balances are destroyed then: taken out of circulation. The same happens to a named account deleted after a year without use."
+  "privacy.coffee_delete": "Its balances are destroyed then: taken out of circulation. The same happens to a named account deleted after a year without use.",
+  "coffee.leave_last": "You're the last member: the group goes quiet (no dividend) until someone joins again with an invite. Move your balance or destroy it."
 }

@@ -868,5 +868,6 @@
   "coffee.leave_error": "Nie udało się teraz wyjść. Spróbuj ponownie.",
   "coffee.left": "Opuściłeś/opuściłaś grupę.",
   "account.delete_coffee": "Twoje salda CoffeeBucks zostaną przy tym zniszczone.",
-  "privacy.coffee_delete": "Jego salda są wtedy niszczone: wycofywane z obiegu. To samo dzieje się z kontem z nazwą usuniętym po roku nieużywania."
+  "privacy.coffee_delete": "Jego salda są wtedy niszczone: wycofywane z obiegu. To samo dzieje się z kontem z nazwą usuniętym po roku nieużywania.",
+  "coffee.leave_last": "Jesteś ostatnim członkiem: grupa zamiera (bez dywidendy), aż ktoś dołączy z zaproszeniem. Przenieś saldo albo je zniszcz."
 }

@@ -868,5 +868,6 @@
   "coffee.leave_error": "Impossible de quitter pour l'instant. Réessaie.",
   "coffee.left": "Tu as quitté le groupe.",
   "account.delete_coffee": "Tes soldes CoffeeBucks sont alors détruits.",
-  "privacy.coffee_delete": "Ses soldes sont alors détruits : retirés de la circulation. Il en va de même pour un compte avec nom supprimé après un an sans utilisation."
+  "privacy.coffee_delete": "Ses soldes sont alors détruits : retirés de la circulation. Il en va de même pour un compte avec nom supprimé après un an sans utilisation.",
+  "coffee.leave_last": "Tu es le dernier membre : le groupe se met en sommeil (pas de dividende) jusqu'à ce que quelqu'un le rejoigne avec une invitation. Transfère ton solde ou détruis-le."
 }

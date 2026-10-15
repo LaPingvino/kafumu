@@ -27,6 +27,7 @@ type fakeLP struct {
 	links   [][2]string
 	sent    []map[string]any
 	left    []map[string]any
+	lastOne bool
 }
 
 func (f *fakeLP) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -82,7 +83,11 @@ func (f *fakeLP) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 		f.paid = append(f.paid, raw)
 	case "/lp/admin/balance":
-		w.Write([]byte(`{"member":"x","active":true,"balance":12345678,"current_ud":1000000,"members":2}`))
+		if f.lastOne {
+			w.Write([]byte(`{"member":"x","active":true,"balance":12345678,"current_ud":1000000,"members":1}`))
+		} else {
+			w.Write([]byte(`{"member":"x","active":true,"balance":12345678,"current_ud":1000000,"members":2}`))
+		}
 		return
 	case "/lp/admin/member":
 		for _, m := range f.groups[in["gid"]] {
@@ -239,6 +244,14 @@ func TestCoffeeStartInviteJoin(t *testing.T) {
 	if m := leave(bea, url.Values{"g": {gid}, "mode": {"share"}}); m != "/coffee/leave?sure" {
 		t.Fatalf("no tick: %s", m)
 	}
+	lp.lastOne = true // the fake now says one active member: give and share are refused
+	if m := leave(bea, url.Values{"g": {gid}, "mode": {"share"}, "sure": {"1"}}); m != "/coffee/leave?last" {
+		t.Fatalf("the last member shared out: %s", m)
+	}
+	if w := as(bea, "GET", "/coffee/leave?g="+gid, nil, c.ShowLeave); !strings.Contains(w.Body.String(), "You're the last member") || strings.Contains(w.Body.String(), `value="share"`) {
+		t.Fatal("the last member's leave page offers sharing out")
+	}
+	lp.lastOne = false
 	if m := leave(bea, url.Values{"g": {gid}, "mode": {"give"}, "to": {"dan"}, "sure": {"1"}}); m != "/coffee/leave?give_bad" {
 		t.Fatalf("give to a non-member: %s", m)
 	}

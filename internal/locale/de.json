@@ -868,5 +868,6 @@
   "coffee.leave_error": "Verlassen geht gerade nicht. Versuch es noch einmal.",
   "coffee.left": "Du hast die Gruppe verlassen.",
   "account.delete_coffee": "Deine CoffeeBucks-Guthaben werden dabei vernichtet.",
-  "privacy.coffee_delete": "Die Guthaben werden dann vernichtet: aus dem Umlauf genommen. Dasselbe geschieht mit einem Konto mit Namen, das nach einem Jahr ohne Nutzung gelöscht wird."
+  "privacy.coffee_delete": "Die Guthaben werden dann vernichtet: aus dem Umlauf genommen. Dasselbe geschieht mit einem Konto mit Namen, das nach einem Jahr ohne Nutzung gelöscht wird.",
+  "coffee.leave_last": "Du bist das letzte Mitglied: Die Gruppe ruht (keine Dividende), bis jemand mit einer Einladung wieder beitritt. Übertrage dein Guthaben oder vernichte es."
 }

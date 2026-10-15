@@ -868,5 +868,6 @@
   "coffee.leave_error": "Det lykkedes ikke at forlade lige nu. Prøv igen.",
   "coffee.left": "Du har forladt gruppen.",
   "account.delete_coffee": "Dine CoffeeBucks-saldi tilintetgøres samtidig.",
-  "privacy.coffee_delete": "Dens saldi tilintetgøres da: tages ud af omløb. Det samme sker med en navngiven konto, der slettes efter et år uden brug."
+  "privacy.coffee_delete": "Dens saldi tilintetgøres da: tages ud af omløb. Det samme sker med en navngiven konto, der slettes efter et år uden brug.",
+  "coffee.leave_last": "Du er det sidste medlem: gruppen går i dvale (intet udbytte), indtil nogen bliver medlem igen med en invitation. Flyt din saldo eller tilintetgør den."
 }

@@ -868,5 +868,6 @@
   "coffee.leave_error": "Verlaten lukt nu niet. Probeer het opnieuw.",
   "coffee.left": "Je hebt de groep verlaten.",
   "account.delete_coffee": "Je CoffeeBucks-saldi worden daarbij vernietigd.",
-  "privacy.coffee_delete": "De saldi worden dan vernietigd: uit omloop gehaald. Hetzelfde gebeurt met een account met naam dat na een jaar zonder gebruik verwijderd wordt."
+  "privacy.coffee_delete": "De saldi worden dan vernietigd: uit omloop gehaald. Hetzelfde gebeurt met een account met naam dat na een jaar zonder gebruik verwijderd wordt.",
+  "coffee.leave_last": "Je bent het laatste lid: de groep wordt stil (geen dividend) tot iemand weer lid wordt met een uitnodiging. Verplaats je saldo of vernietig het."
 }
