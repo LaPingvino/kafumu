@@ -44,6 +44,10 @@ Every piece of data lives in exactly one of three places. Deciding which is most
 1. **Private data never leaves the device unencrypted.** Pairs, notes, check-in history, preferences. Sync is an opaque blob under a key the server doesn't have.
 2. **Public data is the user's, on ATproto.** If a thing is meant to be seen by strangers, it is a record in the user's PDS, and Kafumu only indexes it.
 3. **The server holds only opaque or expiring data.** Random-keyed slots and boxes, cached bundles, TTL'd fallback records, and the minimal account. Every server entity has either no meaning without a client-held key, or an `expiresAt`, or both. For pair-derived keys, **only the owner side is authenticated; the other side is anonymous** (`credentials: 'omit'`), otherwise random ids would be linked by the cookies on both ends.
+   *One stated exception (2026-10-15): the money layer.* A LiquidityPub ledger (CoffeeBucks, §4) is public and
+   permanent by design — tamper-evidence is the point — so it neither expires nor hides behind a client key. It
+   lives in its own service, holds pseudonymous account ids, and records only what members chose to do with
+   money. Nothing else may lean on this exception.
 4. **Ranking and matching happen on the device**, against per-cell bundles, so the server never learns what matched you.
 5. **A layer that needs a new rule, a new tier, or a new primitive is a red flag.** It should need only new tags, new record kinds and new client code.
 
@@ -158,6 +162,26 @@ optionally swapping cards) or publicly (an OLN message with a parent id). Routin
 devices. PoW stays off the pair mailboxes, which relationships already bound. Moderation without
 accounts: hide on the device, reports that cost PoW too, an admin hidden-id set, and difficulty that
 climbs when a cell is noisy.
+
+### Money: CoffeeBucks, a LiquidityPub node (added 2026-10-15)
+
+*Adds:* a local currency, **CoffeeBucks (K$)**, on Joop's LiquidityPub protocol (~/liquiditypub,
+github.com/LaPingvino/liquiditypub): money issued as a Universal Dividend to every member (~10%/year, daily), a
+signed, hash-linked, append-only ledger, and exchange between communities through contact pools (two reciprocal
+reserves pricing like a constant-product market) — no blockchain. It sits beside OLN: OLN is Kafumu's ephemeral
+public layer, LiquidityPub its durable money layer. **Groups are the communities:** someone starts a group, members
+join by an invite link from an existing member (that is the vouching), and each group is its own K$ node with its
+own dividend. Two groups that link open a pool seeded at dividend parity, and the price floats with the flows. A
+group of sockpuppets mints only its own K$, worth something to others only through a pool someone chose to open
+with it (Joop: "pretend groups are separate nodes until they link up", Circles-style accounting). Groups are made
+on purpose, never derived from the contact graph: the server still doesn't know pairs. Kafumu acts as a clearing
+house for its group nodes (LiquidityPub PROTOCOL §12), clearing between them internally, with one identity at
+kafumu.com for later federation with outside nodes. Checklist: (1) its own tier — the stated exception to rule 3:
+a separate GAE service `lp` with a Datastore ledger, public and permanent by design; (2) no OLN tags; addressed by
+LiquidityPub's own endpoints (`/.well-known/liquiditypub`, `/lp/*`); (3) the server sees each member's
+pseudonymous account, their group, and every payment, as the published ledger does; (4) no TTL on the ledger;
+cost: a few writes per payment and one dividend run a day per group; (5) the wallet reads its own account; nothing
+in the Bundle. Regulation (closed-loop/limited-network rules): Joop's call is to learn from real use first.
 
 ### How to add a layer (checklist)
 

@@ -1483,7 +1483,8 @@ K$, worth something to others only through a pool someone chose to open. Kafumu 
 Shape: the node runs as its own GAE service `lp` (max 1 instance) in project lokumo; dispatch sends
 /.well-known/liquiditypub and /lp/* to it; Kafumu's app stays as it is. Node key in Datastore, never in git.
 Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there with the same trailers.
-- [ ] 96a. VISION.md: the money tier as a stated exception to rule 3 (a LiquidityPub ledger is public and permanent
+- [x] 96a. Done: VISION rule 3 names the money layer as its one exception; §4 "Money: CoffeeBucks" with the
+      checklist answers (privacy page waits for 96d/96g). Was: VISION.md: the money tier as a stated exception to rule 3 (a LiquidityPub ledger is public and permanent
       by design; accounts pseudonymous; groups explicit) + the add-a-layer answers; privacy page paragraph (only
       when 96d is live: say what exists).
 - [ ] 96b. ~/liquiditypub: make node/ deployable as a GAE service (conformance importable: tag or vendor; a
