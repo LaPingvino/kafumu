@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"slices"
 	"strings"
 	"sync"
 	"testing"
@@ -25,6 +26,7 @@ type fakeLP struct {
 	paid    []map[string]any
 	links   [][2]string
 	sent    []map[string]any
+	left    []map[string]any
 }
 
 func (f *fakeLP) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -50,6 +52,9 @@ func (f *fakeLP) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	case "/lp/admin/group":
 		f.groups[in["gid"]] = nil
 		f.created = append(f.created, in["gid"])
+	case "/lp/admin/leave", "/lp/admin/move":
+		raw["path"] = r.URL.Path
+		f.left = append(f.left, raw)
 	case "/lp/admin/link":
 		f.links = append(f.links, [2]string{in["a"], in["b"]})
 	case "/lp/admin/links":
@@ -220,6 +225,31 @@ func TestCoffeeStartInviteJoin(t *testing.T) {
 	}
 	if w := as(dan, "POST", "/coffee/across", loc.Query(), c.Across); w.Code != 400 {
 		t.Fatal("someone outside the payer's group sent the payment")
+	}
+	// Leaving: the page; the box must be ticked; give needs a member; share
+	// and move call the service and take the group off the account.
+	if w := as(bea, "GET", "/coffee/leave?g="+gid, nil, c.ShowLeave); !strings.Contains(w.Body.String(), "Leave Barreiro Coffee!") {
+		t.Fatalf("leave page: %s", w.Body.String())
+	}
+	leave := func(u *account.User, form url.Values) string {
+		w := as(u, "POST", "/coffee/leave", form, c.Leave)
+		loc, _ := url.Parse(w.Header().Get("Location"))
+		return loc.Path + "?" + loc.Query().Get("m")
+	}
+	if m := leave(bea, url.Values{"g": {gid}, "mode": {"share"}}); m != "/coffee/leave?sure" {
+		t.Fatalf("no tick: %s", m)
+	}
+	if m := leave(bea, url.Values{"g": {gid}, "mode": {"give"}, "to": {"dan"}, "sure": {"1"}}); m != "/coffee/leave?give_bad" {
+		t.Fatalf("give to a non-member: %s", m)
+	}
+	if m := leave(bea, url.Values{"g": {gid}, "mode": {"share"}, "sure": {"1"}}); m != "/coffee?left" || slices.Contains(bea.Groups, gid) || lp.left[len(lp.left)-1]["mode"] != "redistribute" {
+		t.Fatalf("share: %s %v %v", m, bea.Groups, lp.left)
+	}
+	if m := leave(ana, url.Values{"g": {gid2}, "mode": {"move"}, "tg": {gid}, "sure": {"1"}}); m != "/coffee?left" || slices.Contains(ana.Groups, gid2) {
+		t.Fatalf("move: %s %v", m, ana.Groups)
+	}
+	if mv := lp.left[len(lp.left)-1]; mv["path"] != "/lp/admin/move" || mv["to_gid"] != gid || mv["member"] != mv["to"] {
+		t.Fatalf("move call: %v", mv)
 	}
 	// Member ids: stable per account, different between accounts.
 	a1, _ := c.C.MemberID(ctx, ana.ID)

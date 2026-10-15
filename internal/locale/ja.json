@@ -853,5 +853,18 @@
   "privacy.coffee_title": "CoffeeBucks：ずっと残る唯一のもの",
   "privacy.coffee": "CoffeeBucks のグループに入ると、そのグループの台帳は Kafumu のお金のサービスが管理し、意図的に公開・永続です。お金が無から現れていないことを誰でも確かめられます。台帳の中のあなたは名前やアカウントではなく、仮名の ID です。Kafumu のサーバーはどの ID があなたのものか知っており、銀行と同じようにすべての支払いを見ますが、支払いの目的はどこにも記録されません。Kafumu のアカウントを削除すると、あなたの ID は台帳の履歴に残りますが、それをあなたと結びつけるものはもうありません。Kafumu でこのように保存されるものはほかにありません。",
   "about.coffee_title": "地域通貨",
-  "about.coffee": "CoffeeBucks（K$）は、知り合い同士のグループが一緒に管理するお金です。メンバーは毎日同じ配当を受け取り、つながったグループ同士は支払いに応じて動くレートで支払い合えます。オープンなプロトコル LiquidityPub で動いており、ブロックチェーンも、間に入る企業もありません。"
+  "about.coffee": "CoffeeBucks（K$）は、知り合い同士のグループが一緒に管理するお金です。メンバーは毎日同じ配当を受け取り、つながったグループ同士は支払いに応じて動くレートで支払い合えます。オープンなプロトコル LiquidityPub で動いており、ブロックチェーンも、間に入る企業もありません。",
+  "coffee.leave_link": "このグループを抜ける",
+  "coffee.leave_title": "{group} を抜ける",
+  "coffee.leave_explain": "ここでは配当を受け取れなくなります。{amount} K$ はどうしますか？",
+  "coffee.leave_explain0": "ここでは配当を受け取れなくなります。",
+  "coffee.leave_move": "{group} の自分のアカウントに移す（プールのレートで）",
+  "coffee.leave_give": "すべて渡す相手：",
+  "coffee.leave_share": "次の配当でメンバーに分ける",
+  "coffee.leave_destroy": "消滅させる（流通から外す）",
+  "coffee.leave_sure": "取り消せないことを理解しました",
+  "coffee.leave_sure_needed": "先にチェックを入れてください：抜けると取り消せません。",
+  "coffee.leave_go": "抜ける",
+  "coffee.leave_error": "いま抜けられませんでした。もう一度お試しください。",
+  "coffee.left": "グループを抜けました。"
 }

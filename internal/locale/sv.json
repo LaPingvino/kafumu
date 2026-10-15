@@ -853,5 +853,18 @@
   "privacy.coffee_title": "CoffeeBucks: det enda som sparas för gott",
   "privacy.coffee": "Går du med i en CoffeeBucks-grupp förs gruppens kassabok av Kafumus pengatjänst, och den är avsiktligt offentlig och permanent: vem som helst kan kontrollera att inga pengar uppstår ur tomma intet. Där är du ett pseudonym, inte ditt namn eller konto. Kafumus server vet vilket pseudonym som är ditt och ser varje betalning, som en bank; vad en betalning gällde skrivs aldrig ner. Raderar du ditt Kafumu-konto finns ditt pseudonym kvar i kassabokens historik, men inget kopplar det till dig längre. Inget annat på Kafumu sparas så här.",
   "about.coffee_title": "En lokal valuta",
-  "about.coffee": "CoffeeBucks (K$) är pengar som grupper av folk som känner varandra håller ihop: varje medlem får samma utdelning varje dag, och sammankopplade grupper kan betala varandra till en kurs som rör sig med betalningarna. Det körs på LiquidityPub, ett öppet protokoll: ingen blockkedja och inget företag emellan."
+  "about.coffee": "CoffeeBucks (K$) är pengar som grupper av folk som känner varandra håller ihop: varje medlem får samma utdelning varje dag, och sammankopplade grupper kan betala varandra till en kurs som rör sig med betalningarna. Det körs på LiquidityPub, ett öppet protokoll: ingen blockkedja och inget företag emellan.",
+  "coffee.leave_link": "Lämna den här gruppen",
+  "coffee.leave_title": "Lämna {group}",
+  "coffee.leave_explain": "Du får ingen utdelning här längre. Vad ska hända med dina {amount} K$?",
+  "coffee.leave_explain0": "Du får ingen utdelning här längre.",
+  "coffee.leave_move": "Flytta dem till mitt konto i {group} (till pottens kurs)",
+  "coffee.leave_give": "Ge allt till:",
+  "coffee.leave_share": "Fördela dem bland medlemmarna vid nästa utdelning",
+  "coffee.leave_destroy": "Förstör dem (tas ur omlopp)",
+  "coffee.leave_sure": "Jag förstår att det inte går att ångra",
+  "coffee.leave_sure_needed": "Kryssa i rutan först: att lämna går inte att ångra.",
+  "coffee.leave_go": "Lämna",
+  "coffee.leave_error": "Det gick inte att lämna just nu. Försök igen.",
+  "coffee.left": "Du har lämnat gruppen."
 }

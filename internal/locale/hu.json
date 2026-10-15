@@ -853,5 +853,18 @@
   "privacy.coffee_title": "CoffeeBucks: az egyetlen, ami végleg megmarad",
   "privacy.coffee": "Ha belépsz egy CoffeeBucks-csoportba, a csoport főkönyvét a Kafumu pénzügyi szolgáltatása vezeti, és ez szándékosan nyilvános és végleges: bárki ellenőrizheti, hogy nem keletkezik pénz a semmiből. Ebben egy álnév vagy, nem a neved vagy a fiókod. A Kafumu szervere tudja, melyik álnév a tiéd, és lát minden fizetést, ahogy egy bank; hogy mire ment egy fizetés, azt sehol nem írja le. Ha törlöd a Kafumu-fiókodat, az álneved a főkönyv történetében marad, de már semmi sem köti hozzád. Semmi mást nem őriz így a Kafumu.",
   "about.coffee_title": "Helyi pénz",
-  "about.coffee": "A CoffeeBucks (K$) olyan pénz, amelyet egymást ismerő emberek csoportjai közösen vezetnek: minden tag minden nap ugyanannyi osztalékot kap, az összekapcsolt csoportok pedig a fizetésekkel mozgó árfolyamon fizethetnek egymásnak. A LiquidityPub nyílt protokollon fut: nincs blokklánc, és nincs cég középen."
+  "about.coffee": "A CoffeeBucks (K$) olyan pénz, amelyet egymást ismerő emberek csoportjai közösen vezetnek: minden tag minden nap ugyanannyi osztalékot kap, az összekapcsolt csoportok pedig a fizetésekkel mozgó árfolyamon fizethetnek egymásnak. A LiquidityPub nyílt protokollon fut: nincs blokklánc, és nincs cég középen.",
+  "coffee.leave_link": "Kilépés ebből a csoportból",
+  "coffee.leave_title": "Kilépés: {group}",
+  "coffee.leave_explain": "Itt már nem kapsz osztalékot. Mi legyen a {amount} K$-oddal?",
+  "coffee.leave_explain0": "Itt már nem kapsz osztalékot.",
+  "coffee.leave_move": "Áthelyezés a fiókomba itt: {group} (a kassza árfolyamán)",
+  "coffee.leave_give": "Mindet odaadom neki:",
+  "coffee.leave_share": "Szétosztás a tagok között a következő osztalékkor",
+  "coffee.leave_destroy": "Megsemmisítés (kivonják a forgalomból)",
+  "coffee.leave_sure": "Értem, hogy ez nem vonható vissza",
+  "coffee.leave_sure_needed": "Előbb jelöld be a négyzetet: a kilépés nem vonható vissza.",
+  "coffee.leave_go": "Kilépés",
+  "coffee.leave_error": "Most nem sikerült kilépni. Próbáld újra.",
+  "coffee.left": "Kiléptél a csoportból."
 }

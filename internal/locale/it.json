@@ -853,5 +853,18 @@
   "privacy.coffee_title": "CoffeeBucks: l'unica cosa conservata per sempre",
   "privacy.coffee": "Se entri in un gruppo CoffeeBucks, il registro di quel gruppo è tenuto dal servizio monetario di Kafumu, ed è pubblico e permanente per scelta: chiunque può verificare che non compaia denaro dal nulla. Lì sei un identificativo pseudonimo, non il tuo nome né il tuo account. Il server di Kafumu sa quale identificativo è il tuo e vede ogni pagamento, come una banca; a cosa serviva un pagamento non viene mai scritto. Se elimini il tuo account Kafumu, il tuo identificativo resta nella storia del registro, ma niente lo collega più a te. Nient'altro su Kafumu viene conservato così.",
   "about.coffee_title": "Una moneta locale",
-  "about.coffee": "CoffeeBucks (K$) è denaro che gruppi di persone che si conoscono tengono insieme: ogni membro riceve lo stesso dividendo ogni giorno, e i gruppi collegati possono pagarsi a un cambio che si muove con i pagamenti. Funziona su LiquidityPub, un protocollo aperto: niente blockchain e nessuna azienda in mezzo."
+  "about.coffee": "CoffeeBucks (K$) è denaro che gruppi di persone che si conoscono tengono insieme: ogni membro riceve lo stesso dividendo ogni giorno, e i gruppi collegati possono pagarsi a un cambio che si muove con i pagamenti. Funziona su LiquidityPub, un protocollo aperto: niente blockchain e nessuna azienda in mezzo.",
+  "coffee.leave_link": "Lascia questo gruppo",
+  "coffee.leave_title": "Lascia {group}",
+  "coffee.leave_explain": "Qui smetti di ricevere il dividendo. Cosa succede ai tuoi {amount} K$?",
+  "coffee.leave_explain0": "Qui smetti di ricevere il dividendo.",
+  "coffee.leave_move": "Spostali sul mio conto in {group} (al cambio del fondo)",
+  "coffee.leave_give": "Dai tutto a:",
+  "coffee.leave_share": "Ripartiscili tra i membri al prossimo dividendo",
+  "coffee.leave_destroy": "Distruggili (tolti dalla circolazione)",
+  "coffee.leave_sure": "Capisco che non si può annullare",
+  "coffee.leave_sure_needed": "Spunta prima la casella: lasciare non si può annullare.",
+  "coffee.leave_go": "Lascia",
+  "coffee.leave_error": "Ora non si riesce a lasciare. Riprova.",
+  "coffee.left": "Hai lasciato il gruppo."
 }

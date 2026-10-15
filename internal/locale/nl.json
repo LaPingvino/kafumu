@@ -853,5 +853,18 @@
   "privacy.coffee_title": "CoffeeBucks: het enige dat blijft",
   "privacy.coffee": "Word je lid van een CoffeeBucks-groep, dan houdt de geld-service van Kafumu het grootboek van die groep bij, en dat is openbaar en blijvend, met opzet: iedereen kan nagaan dat er geen geld uit het niets verschijnt. Daarin ben je een pseudoniem, niet je naam of account. De server van Kafumu weet welk pseudoniem van jou is en ziet elke betaling, zoals een bank; waarvoor een betaling was, wordt nergens opgeschreven. Verwijder je je Kafumu-account, dan blijft je pseudoniem in de geschiedenis van het grootboek, maar niets koppelt het nog aan jou. Niets anders op Kafumu wordt zo bewaard.",
   "about.coffee_title": "Een lokale munt",
-  "about.coffee": "CoffeeBucks (K$) is geld dat groepen mensen die elkaar kennen samen bijhouden: elk lid krijgt elke dag hetzelfde dividend, en verbonden groepen kunnen elkaar betalen tegen een koers die met de betalingen meebeweegt. Het draait op LiquidityPub, een open protocol: geen blockchain, en geen bedrijf ertussen."
+  "about.coffee": "CoffeeBucks (K$) is geld dat groepen mensen die elkaar kennen samen bijhouden: elk lid krijgt elke dag hetzelfde dividend, en verbonden groepen kunnen elkaar betalen tegen een koers die met de betalingen meebeweegt. Het draait op LiquidityPub, een open protocol: geen blockchain, en geen bedrijf ertussen.",
+  "coffee.leave_link": "Deze groep verlaten",
+  "coffee.leave_title": "{group} verlaten",
+  "coffee.leave_explain": "Je krijgt hier geen dividend meer. Wat gebeurt er met je {amount} K$?",
+  "coffee.leave_explain0": "Je krijgt hier geen dividend meer.",
+  "coffee.leave_move": "Naar mijn account in {group} (tegen de koers van de pot)",
+  "coffee.leave_give": "Alles geven aan:",
+  "coffee.leave_share": "Verdelen onder de leden bij het volgende dividend",
+  "coffee.leave_destroy": "Vernietigen (uit omloop gehaald)",
+  "coffee.leave_sure": "Ik snap dat dit niet terug te draaien is",
+  "coffee.leave_sure_needed": "Vink eerst het vakje aan: verlaten kan niet ongedaan worden.",
+  "coffee.leave_go": "Verlaten",
+  "coffee.leave_error": "Verlaten lukt nu niet. Probeer het opnieuw.",
+  "coffee.left": "Je hebt de groep verlaten."
 }

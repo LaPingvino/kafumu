@@ -853,5 +853,18 @@
   "privacy.coffee_title": "CoffeeBucks: das Einzige, was bleibt",
   "privacy.coffee": "Wenn du einer CoffeeBucks-Gruppe beitrittst, führt Kafumus Geld-Dienst das Kassenbuch dieser Gruppe, und das ist absichtlich öffentlich und dauerhaft: Jeder kann prüfen, dass kein Geld aus dem Nichts entsteht. Darin bist du ein Pseudonym, nicht dein Name oder Konto. Kafumus Server weiß, welches Pseudonym dir gehört, und sieht jede Zahlung, wie eine Bank; wofür eine Zahlung war, wird nirgends festgehalten. Löschst du dein Kafumu-Konto, bleibt dein Pseudonym in der Geschichte des Kassenbuchs, aber nichts verbindet es mehr mit dir. Nichts anderes auf Kafumu wird so aufbewahrt.",
   "about.coffee_title": "Eine lokale Währung",
-  "about.coffee": "CoffeeBucks (K$) ist Geld, das Gruppen von Leuten, die sich kennen, gemeinsam führen: Jedes Mitglied bekommt jeden Tag dieselbe Dividende, und verbundene Gruppen können einander zu einem Kurs bezahlen, der sich mit den Zahlungen bewegt. Es läuft auf LiquidityPub, einem offenen Protokoll: keine Blockchain und keine Firma dazwischen."
+  "about.coffee": "CoffeeBucks (K$) ist Geld, das Gruppen von Leuten, die sich kennen, gemeinsam führen: Jedes Mitglied bekommt jeden Tag dieselbe Dividende, und verbundene Gruppen können einander zu einem Kurs bezahlen, der sich mit den Zahlungen bewegt. Es läuft auf LiquidityPub, einem offenen Protokoll: keine Blockchain und keine Firma dazwischen.",
+  "coffee.leave_link": "Diese Gruppe verlassen",
+  "coffee.leave_title": "{group} verlassen",
+  "coffee.leave_explain": "Du bekommst hier keine Dividende mehr. Was passiert mit deinen {amount} K$?",
+  "coffee.leave_explain0": "Du bekommst hier keine Dividende mehr.",
+  "coffee.leave_move": "Auf mein Konto in {group} übertragen (zum Kurs des Topfs)",
+  "coffee.leave_give": "Alles geben an:",
+  "coffee.leave_share": "Bei der nächsten Dividende unter den Mitgliedern verteilen",
+  "coffee.leave_destroy": "Vernichten (aus dem Umlauf genommen)",
+  "coffee.leave_sure": "Ich verstehe, dass das nicht rückgängig zu machen ist",
+  "coffee.leave_sure_needed": "Setz zuerst das Häkchen: Verlassen lässt sich nicht rückgängig machen.",
+  "coffee.leave_go": "Verlassen",
+  "coffee.leave_error": "Verlassen geht gerade nicht. Versuch es noch einmal.",
+  "coffee.left": "Du hast die Gruppe verlassen."
 }

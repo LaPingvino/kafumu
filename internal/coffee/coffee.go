@@ -322,3 +322,14 @@ func (c *Client) Transfer(ctx context.Context, fromGid, from, toGid, to string, 
 	err := c.do(ctx, "POST", "/lp/admin/transfer", map[string]any{"from_gid": fromGid, "from": from, "to_gid": toGid, "to": to, "amount": amount}, &out)
 	return out.ID, err
 }
+
+// Leave leaves a group: mode destroy | redistribute | give (to) | keep.
+func (c *Client) Leave(ctx context.Context, gid, member, mode, to string) error {
+	return c.do(ctx, "POST", "/lp/admin/leave", map[string]string{"gid": gid, "member": member, "mode": mode, "to": to}, nil)
+}
+
+// Move moves a member's whole balance to their account in a linked group,
+// then leaves the first group.
+func (c *Client) Move(ctx context.Context, fromGid, member, toGid, to string) error {
+	return c.do(ctx, "POST", "/lp/admin/move", map[string]string{"from_gid": fromGid, "member": member, "to_gid": toGid, "to": to}, nil)
+}

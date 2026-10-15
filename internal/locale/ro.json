@@ -853,5 +853,18 @@
   "privacy.coffee_title": "CoffeeBucks: singurul lucru păstrat definitiv",
   "privacy.coffee": "Dacă intri într-un grup CoffeeBucks, registrul grupului e ținut de serviciul monetar al Kafumu și e, intenționat, public și permanent: oricine poate verifica că nu apar bani din nimic. În el ești un identificator pseudonim, nu numele sau contul tău. Serverul Kafumu știe care identificator e al tău și vede fiecare plată, ca o bancă; pentru ce a fost o plată nu se scrie nicăieri. Dacă îți ștergi contul Kafumu, identificatorul tău rămâne în istoria registrului, dar nimic nu-l mai leagă de tine. Nimic altceva pe Kafumu nu e păstrat așa.",
   "about.coffee_title": "O monedă locală",
-  "about.coffee": "CoffeeBucks (K$) sunt bani pe care grupuri de oameni care se cunosc îi țin împreună: fiecare membru primește zilnic același dividend, iar grupurile legate își pot plăti la un curs care se mișcă odată cu plățile. Funcționează pe LiquidityPub, un protocol deschis: fără blockchain și fără vreo firmă la mijloc."
+  "about.coffee": "CoffeeBucks (K$) sunt bani pe care grupuri de oameni care se cunosc îi țin împreună: fiecare membru primește zilnic același dividend, iar grupurile legate își pot plăti la un curs care se mișcă odată cu plățile. Funcționează pe LiquidityPub, un protocol deschis: fără blockchain și fără vreo firmă la mijloc.",
+  "coffee.leave_link": "Ieși din acest grup",
+  "coffee.leave_title": "Ieși din {group}",
+  "coffee.leave_explain": "Aici nu mai primești dividendul. Ce se întâmplă cu cei {amount} K$ ai tăi?",
+  "coffee.leave_explain0": "Aici nu mai primești dividendul.",
+  "coffee.leave_move": "Mută-i în contul meu din {group} (la cursul fondului)",
+  "coffee.leave_give": "Dă-i pe toți lui:",
+  "coffee.leave_share": "Împarte-i membrilor la următorul dividend",
+  "coffee.leave_destroy": "Distruge-i (scoși din circulație)",
+  "coffee.leave_sure": "Înțeleg că nu se poate anula",
+  "coffee.leave_sure_needed": "Bifează mai întâi căsuța: ieșirea nu se poate anula.",
+  "coffee.leave_go": "Ieși",
+  "coffee.leave_error": "Nu se poate ieși acum. Încearcă din nou.",
+  "coffee.left": "Ai ieșit din grup."
 }

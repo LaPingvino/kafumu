@@ -1,0 +1,25 @@
+{{template "head" .}}
+<article class="coffee">
+  <h1>☕ {{ts .Lang "coffee.leave_title" | replace "{group}" .Name}}</h1>
+  <p>{{if .Balance}}{{ts .Lang "coffee.leave_explain" | replace "{amount}" .Balance}}{{else}}{{t .Lang "coffee.leave_explain0"}}{{end}}</p>
+  {{with .Err}}<p class="coffee-msg error" role="alert">{{if eq . "give_bad"}}{{ts $.Lang "coffee.pay_not_member" | replace "{name}" $.To}}{{else if eq . "sure"}}{{t $.Lang "coffee.leave_sure_needed"}}{{else}}{{t $.Lang "coffee.leave_error"}}{{end}}</p>{{end}}
+  <form method="post" action="/coffee/leave" class="card coffee-leave" style="padding:8px 16px 12px">
+    <input type="hidden" name="g" value="{{.Gid}}">
+    {{range $i, $l := .MoveTo}}<label><input type="radio" name="mode" value="move" data-tg="{{$l.Gid}}"{{if eq $i 0}} checked{{end}}> {{ts $.Lang "coffee.leave_move" | replace "{group}" $l.Name}}</label>{{end}}
+    {{with .MoveTo}}<input type="hidden" name="tg" value="{{(index . 0).Gid}}">{{end}}
+    <label><input type="radio" name="mode" value="give"> {{t .Lang "coffee.leave_give"}}</label>
+    <input name="to" placeholder="@name" autocomplete="off" autocapitalize="off" aria-label="{{ts .Lang "coffee.pay_to"}}" value="{{.To}}">
+    <label><input type="radio" name="mode" value="share"{{if not .MoveTo}} checked{{end}}> {{t .Lang "coffee.leave_share"}}</label>
+    <label><input type="radio" name="mode" value="destroy"> {{t .Lang "coffee.leave_destroy"}}</label>
+    <label class="dim small"><input type="checkbox" name="sure" value="1" required> {{t .Lang "coffee.leave_sure"}}</label>
+    <div class="actions"><button type="submit" class="contrast">{{t .Lang "coffee.leave_go"}}</button>
+      <a href="/coffee?g={{.Gid}}" class="pill-sm" role="button">{{t .Lang "common.close"}}</a></div>
+  </form>
+</article>
+<script>
+// Which linked group a "move" radio means.
+document.querySelectorAll('.coffee-leave input[name=mode][data-tg]').forEach(function (r) {
+  r.addEventListener("change", function () { document.querySelector('.coffee-leave input[name=tg]').value = r.dataset.tg; });
+});
+</script>
+{{template "foot" .}}

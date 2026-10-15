@@ -853,5 +853,18 @@
   "privacy.coffee_title": "CoffeeBucks：唯一永久保存的东西",
   "privacy.coffee": "如果你加入一个 CoffeeBucks 群组，该群组的账本由 Kafumu 的货币服务保管，而且有意是公开且永久的：任何人都可以核实没有凭空出现的钱。在账本里你是一个化名 ID，而不是你的名字或账户。Kafumu 的服务器知道哪个 ID 是你的，并像银行一样看到每一笔付款；付款的用途从不被记录。如果你删除 Kafumu 账户，你的 ID 仍留在账本的历史中，但再也没有任何东西把它和你联系起来。Kafumu 上没有别的东西是这样保存的。",
   "about.coffee_title": "本地货币",
-  "about.coffee": "CoffeeBucks（K$）是由彼此认识的人组成的群组共同管理的钱：每位成员每天获得同样的分红，相互连接的群组可以按随付款变动的汇率互相付款。它运行在开放协议 LiquidityPub 之上：没有区块链，也没有夹在中间的公司。"
+  "about.coffee": "CoffeeBucks（K$）是由彼此认识的人组成的群组共同管理的钱：每位成员每天获得同样的分红，相互连接的群组可以按随付款变动的汇率互相付款。它运行在开放协议 LiquidityPub 之上：没有区块链，也没有夹在中间的公司。",
+  "coffee.leave_link": "退出这个群组",
+  "coffee.leave_title": "退出 {group}",
+  "coffee.leave_explain": "你在这里将不再获得分红。你的 {amount} K$ 怎么处理？",
+  "coffee.leave_explain0": "你在这里将不再获得分红。",
+  "coffee.leave_move": "转到我在 {group} 的账户（按资金池汇率）",
+  "coffee.leave_give": "全部给：",
+  "coffee.leave_share": "在下次分红时分给成员",
+  "coffee.leave_destroy": "销毁（退出流通）",
+  "coffee.leave_sure": "我明白这无法撤销",
+  "coffee.leave_sure_needed": "请先勾选：退出无法撤销。",
+  "coffee.leave_go": "退出",
+  "coffee.leave_error": "暂时无法退出，请再试一次。",
+  "coffee.left": "你已退出群组。"
 }

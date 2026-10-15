@@ -853,5 +853,18 @@
   "privacy.coffee_title": "CoffeeBucks: jediné, co zůstává natrvalo",
   "privacy.coffee": "Když se přidáš do skupiny CoffeeBucks, účetní knihu té skupiny vede peněžní služba Kafumu a ta je záměrně veřejná a trvalá: kdokoli si může ověřit, že se peníze neobjevují z ničeho. Jsi v ní pseudonymní identifikátor, ne tvé jméno ani účet. Server Kafumu ví, který identifikátor je tvůj, a vidí každou platbu, jako banka; za co platba byla, se nikde nezapisuje. Když smažeš svůj účet na Kafumu, tvůj identifikátor zůstane v historii knihy, ale už ho s tebou nic nespojuje. Nic jiného na Kafumu se takhle neuchovává.",
   "about.coffee_title": "Místní měna",
-  "about.coffee": "CoffeeBucks (K$) jsou peníze, které spolu vedou skupiny lidí, kteří se znají: každý člen dostává každý den stejnou dividendu a propojené skupiny si mohou platit za kurz, který se hýbe s platbami. Běží na LiquidityPub, otevřeném protokolu: žádný blockchain a žádná firma uprostřed."
+  "about.coffee": "CoffeeBucks (K$) jsou peníze, které spolu vedou skupiny lidí, kteří se znají: každý člen dostává každý den stejnou dividendu a propojené skupiny si mohou platit za kurz, který se hýbe s platbami. Běží na LiquidityPub, otevřeném protokolu: žádný blockchain a žádná firma uprostřed.",
+  "coffee.leave_link": "Opustit tuto skupinu",
+  "coffee.leave_title": "Opustit {group}",
+  "coffee.leave_explain": "Tady už nebudeš dostávat dividendu. Co se stane s tvými {amount} K$?",
+  "coffee.leave_explain0": "Tady už nebudeš dostávat dividendu.",
+  "coffee.leave_move": "Převést na můj účet v {group} (za kurz pokladny)",
+  "coffee.leave_give": "Dát všechno uživateli:",
+  "coffee.leave_share": "Rozdělit mezi členy při příští dividendě",
+  "coffee.leave_destroy": "Zničit (stáhnout z oběhu)",
+  "coffee.leave_sure": "Rozumím, že to nejde vrátit",
+  "coffee.leave_sure_needed": "Nejdřív zaškrtni políčko: odchod nejde vrátit.",
+  "coffee.leave_go": "Opustit",
+  "coffee.leave_error": "Teď se odejít nepodařilo. Zkus to znovu.",
+  "coffee.left": "Opustil(a) jsi skupinu."
 }

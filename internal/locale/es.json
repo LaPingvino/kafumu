@@ -853,5 +853,18 @@
   "privacy.coffee_title": "CoffeeBucks: lo único que se guarda para siempre",
   "privacy.coffee": "Si te unes a un grupo de CoffeeBucks, el servicio monetario de Kafumu lleva el libro de ese grupo, y es público y permanente a propósito: cualquiera puede comprobar que no aparece dinero de la nada. En él eres un identificador seudónimo, no tu nombre ni tu cuenta. El servidor de Kafumu sabe qué identificador es el tuyo y ve cada pago, como un banco; para qué era un pago nunca se anota. Si borras tu cuenta de Kafumu, tu identificador sigue en la historia del libro, pero ya nada lo vincula contigo. Nada más en Kafumu se guarda así.",
   "about.coffee_title": "Una moneda local",
-  "about.coffee": "CoffeeBucks (K$) es dinero que llevan juntos grupos de gente que se conoce: cada miembro recibe el mismo dividendo cada día, y los grupos enlazados pueden pagarse a un cambio que se mueve con los pagos. Funciona sobre LiquidityPub, un protocolo abierto: sin blockchain y sin ninguna empresa en medio."
+  "about.coffee": "CoffeeBucks (K$) es dinero que llevan juntos grupos de gente que se conoce: cada miembro recibe el mismo dividendo cada día, y los grupos enlazados pueden pagarse a un cambio que se mueve con los pagos. Funciona sobre LiquidityPub, un protocolo abierto: sin blockchain y sin ninguna empresa en medio.",
+  "coffee.leave_link": "Salir de este grupo",
+  "coffee.leave_title": "Salir de {group}",
+  "coffee.leave_explain": "Aquí dejas de recibir el dividendo. ¿Qué pasa con tus {amount} K$?",
+  "coffee.leave_explain0": "Aquí dejas de recibir el dividendo.",
+  "coffee.leave_move": "Pasarlos a mi cuenta en {group} (al cambio del fondo)",
+  "coffee.leave_give": "Dárselo todo a:",
+  "coffee.leave_share": "Repartirlos entre los miembros en el próximo dividendo",
+  "coffee.leave_destroy": "Destruirlos (se retiran de la circulación)",
+  "coffee.leave_sure": "Entiendo que no se puede deshacer",
+  "coffee.leave_sure_needed": "Marca primero la casilla: salir no se puede deshacer.",
+  "coffee.leave_go": "Salir",
+  "coffee.leave_error": "Ahora no se puede salir. Inténtalo de nuevo.",
+  "coffee.left": "Has salido del grupo."
 }

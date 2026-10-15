@@ -1569,7 +1569,10 @@ Code in ~/liquiditypub is Joop's (github LaPingvino/liquiditypub): commit there 
       the pool to your account in the other group, waits for SETTLED, then leave keep; not settled = still a member).
       Admin test: move empties and leaves, arrives; give; no leaving twice; no move to a missing account. Was: admin API: POST /lp/admin/leave {gid, member, mode: destroy|redistribute|give, to?};
       move = transfer the whole balance to your own member id in a linked group, then leave. Deploy.
-- [ ] 96h3. Kafumu: on a group card "Leave this group": move to <linked group you're in> / give it to @name /
+- [x] 96h3. Done: "Leave this group" on each card → /coffee/leave: move to my account in a linked group I'm in
+      (pool rate) / give it all to @name / share it out at the next dividend / destroy, an "I understand" tick; the
+      group comes off the account; 13 strings x 24. Test: page, tick needed, give to a non-member refused, share and
+      move call lp and drop the group. Not yet: rejoining a group you left (the node keeps you, inactive). Was: Kafumu: on a group card "Leave this group": move to <linked group you're in> / give it to @name /
       share it out at the next dividend / destroy it (a clear confirm); strings x 24.
 - [ ] 96h4. Kafumu: deleting an account destroys its balances in every group (the default for unlinked accounts),
       said on the delete confirmation and the privacy page.

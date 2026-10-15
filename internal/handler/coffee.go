@@ -389,3 +389,112 @@ func (c *Coffee) Across(w http.ResponseWriter, r *http.Request) {
 	q := url.Values{"g": {gid}, "m": {m}, "to": {to.Username}, "a": {coffee.Money(amount)}}
 	http.Redirect(w, r, "/coffee?"+q.Encode()+"#g-"+gid, http.StatusSeeOther)
 }
+
+type leavePage struct {
+	page
+	Gid, Name, Balance string
+	MoveTo             []coffee.Link // linked groups you're also in
+	Err, To            string
+}
+
+// ShowLeave renders /coffee/leave?g=: what happens to your balance.
+func (c *Coffee) ShowLeave(w http.ResponseWriter, r *http.Request) {
+	u := UserFrom(r.Context())
+	gid := r.FormValue("g")
+	if u == nil || !slices.Contains(u.Groups, gid) {
+		http.Redirect(w, r, "/coffee", http.StatusSeeOther)
+		return
+	}
+	ctx := r.Context()
+	p := leavePage{page: c.Home.newPage(r, "CoffeeBucks"), Gid: gid, Name: c.C.GroupName(ctx, gid), Err: r.FormValue("m"), To: r.FormValue("to")}
+	p.Tab = "account"
+	if p.Name == "" {
+		p.Name = gid
+	}
+	if me, err := c.C.MemberID(ctx, u.ID); err == nil {
+		if wl, err := c.C.Balance(ctx, gid, me); err == nil {
+			p.Balance = coffee.Money(wl.Balance)
+		}
+	}
+	if links, err := c.C.Links(ctx, gid); err == nil {
+		for _, l := range links {
+			if slices.Contains(u.Groups, l.Gid) {
+				p.MoveTo = append(p.MoveTo, l)
+			}
+		}
+	}
+	w.Header().Set("Cache-Control", "no-store")
+	c.Home.render(w, "coffee_leave.html", p)
+}
+
+// Leave handles POST /coffee/leave (g, mode: move|give|share|destroy, tg, to,
+// sure): the balance goes as chosen, then you're out of the group.
+func (c *Coffee) Leave(w http.ResponseWriter, r *http.Request) {
+	u := UserFrom(r.Context())
+	gid := r.FormValue("g")
+	if u == nil || !slices.Contains(u.Groups, gid) {
+		http.Error(w, "not a member", http.StatusForbidden)
+		return
+	}
+	ctx := r.Context()
+	again := func(m string, extra ...string) {
+		q := url.Values{"g": {gid}, "m": {m}}
+		for i := 0; i+1 < len(extra); i += 2 {
+			q.Set(extra[i], extra[i+1])
+		}
+		http.Redirect(w, r, "/coffee/leave?"+q.Encode(), http.StatusSeeOther)
+	}
+	if r.FormValue("sure") == "" {
+		again("sure")
+		return
+	}
+	me, err := c.C.MemberID(ctx, u.ID)
+	if err != nil {
+		again("error")
+		return
+	}
+	switch mode := r.FormValue("mode"); mode {
+	case "move":
+		tg := r.FormValue("tg")
+		if !slices.Contains(u.Groups, tg) || tg == gid {
+			again("error")
+			return
+		}
+		err = c.C.Move(ctx, gid, me, tg, me) // the same member id in every group
+	case "give":
+		name := strings.ToLower(strings.TrimPrefix(strings.TrimSpace(r.FormValue("to")), "@"))
+		id, lerr := c.Accounts.Store.LookupUsername(ctx, name)
+		var to *account.User
+		if lerr == nil && id != "" {
+			to, lerr = c.Accounts.ByID(ctx, id)
+		}
+		if lerr != nil || to == nil || to.ID == u.ID || !slices.Contains(to.Groups, gid) {
+			again("give_bad", "to", name)
+			return
+		}
+		them, merr := c.C.MemberID(ctx, to.ID)
+		if merr != nil {
+			again("error")
+			return
+		}
+		err = c.C.Leave(ctx, gid, me, "give", them)
+	case "share":
+		err = c.C.Leave(ctx, gid, me, "redistribute", "")
+	case "destroy":
+		err = c.C.Leave(ctx, gid, me, "destroy", "")
+	default:
+		again("error")
+		return
+	}
+	if err == nil {
+		err = c.Accounts.Update(ctx, u, func(x *account.User) {
+			x.Groups = slices.DeleteFunc(x.Groups, func(g string) bool { return g == gid })
+		})
+	}
+	if err != nil {
+		log.Printf("coffee: leave %s: %v", gid, err)
+		again("error")
+		return
+	}
+	http.Redirect(w, r, "/coffee?m=left", http.StatusSeeOther)
+}

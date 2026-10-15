@@ -2,6 +2,7 @@
 <article class="coffee">
   <h1>☕ {{t .Lang "coffee.title"}}</h1>
   <p>{{t .Lang "coffee.explain"}}</p>
+  {{if eq .Msg "left"}}<p class="coffee-msg ok" role="status">✓ {{t .Lang "coffee.left"}}</p>{{end}}
   {{if .User}}
   {{if .Groups}}<h2>{{t .Lang "coffee.groups"}}</h2>
   <ul class="boxed-list">{{range .Groups}}
@@ -18,6 +19,7 @@
         <button type="submit" class="pill">💸 {{t $.Lang "coffee.pay"}}</button></form>{{end}}
       <div class="actions"><button type="button" class="pill-sm suggested coffee-invite" data-g="{{.Gid}}">🔗 {{t $.Lang "coffee.invite"}}</button></div>
       <p class="dim small">{{t $.Lang "coffee.invite_note"}}</p>
+      <p class="small"><a href="/coffee/leave?g={{.Gid}}" class="dim">{{t $.Lang "coffee.leave_link"}}</a></p>
       <p class="dim small coffee-status" role="status"></p>
     </li>{{end}}
   </ul>

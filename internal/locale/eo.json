@@ -853,5 +853,18 @@
   "privacy.coffee_title": "CoffeeBucks: la sola afero konservata por ĉiam",
   "privacy.coffee": "Se vi aliĝas al CoffeeBucks-grupo, la mona servo de Kafumu tenas la librotenadon de tiu grupo, kaj ĝi estas intence publika kaj daŭra: ĉiu povas kontroli, ke neniu mono aperas el nenio. En ĝi vi estas pseŭdonima identigilo, ne via nomo aŭ konto. La servilo de Kafumu scias, kiu identigilo estas via, kaj vidas ĉiun pagon, kiel banko; por kio pago estis, neniam estas skribita. Se vi forigas vian Kafumu-konton, via identigilo restas en la historio de la librotenado, sed nenio plu ligas ĝin al vi. Nenio alia ĉe Kafumu estas konservata tiel.",
   "about.coffee_title": "Loka mono",
-  "about.coffee": "CoffeeBucks (K$) estas mono, kiun grupoj de homoj, kiuj konas unu la alian, tenas kune: ĉiu membro ricevas la saman dividendon ĉiutage, kaj ligitaj grupoj povas pagi unu al la alia laŭ kurzo, kiu moviĝas kun la pagoj. Ĝi funkcias per LiquidityPub, malferma protokolo: sen blokĉeno kaj sen firmao meze."
+  "about.coffee": "CoffeeBucks (K$) estas mono, kiun grupoj de homoj, kiuj konas unu la alian, tenas kune: ĉiu membro ricevas la saman dividendon ĉiutage, kaj ligitaj grupoj povas pagi unu al la alia laŭ kurzo, kiu moviĝas kun la pagoj. Ĝi funkcias per LiquidityPub, malferma protokolo: sen blokĉeno kaj sen firmao meze.",
+  "coffee.leave_link": "Forlasi ĉi tiun grupon",
+  "coffee.leave_title": "Forlasi {group}",
+  "coffee.leave_explain": "Vi ne plu ricevos la dividendon ĉi tie. Kio okazu al viaj {amount} K$?",
+  "coffee.leave_explain0": "Vi ne plu ricevos la dividendon ĉi tie.",
+  "coffee.leave_move": "Movi ilin al mia konto en {group} (laŭ la kurzo de la kaso)",
+  "coffee.leave_give": "Doni ĉion al:",
+  "coffee.leave_share": "Disdoni ilin inter la membroj ĉe la sekva dividendo",
+  "coffee.leave_destroy": "Detrui ilin (forprenitaj el cirkulado)",
+  "coffee.leave_sure": "Mi komprenas, ke tio ne malfareblas",
+  "coffee.leave_sure_needed": "Unue marku la skatolon: forlaso ne malfareblas.",
+  "coffee.leave_go": "Forlasi",
+  "coffee.leave_error": "Nun ne eblas forlasi. Reprovu.",
+  "coffee.left": "Vi forlasis la grupon."
 }

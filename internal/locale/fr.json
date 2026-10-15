@@ -853,5 +853,18 @@
   "privacy.coffee_title": "CoffeeBucks : la seule chose gardée pour de bon",
   "privacy.coffee": "Si tu rejoins un groupe CoffeeBucks, le registre de ce groupe est tenu par le service monétaire de Kafumu, et il est public et permanent, à dessein : chacun peut vérifier qu'aucune monnaie n'apparaît de nulle part. Tu y figures sous un identifiant pseudonyme, pas sous ton nom ni ton compte. Le serveur de Kafumu sait quel identifiant est le tien et voit chaque paiement, comme une banque ; l'objet d'un paiement n'est jamais noté. Si tu supprimes ton compte Kafumu, ton identifiant reste dans l'historique du registre, mais plus rien ne le relie à toi. Rien d'autre sur Kafumu n'est gardé ainsi.",
   "about.coffee_title": "Une monnaie locale",
-  "about.coffee": "CoffeeBucks (K$), c'est de l'argent que des groupes de gens qui se connaissent tiennent ensemble : chaque membre reçoit le même dividende chaque jour, et les groupes reliés peuvent se payer à un taux qui évolue avec les paiements. Ça tourne sur LiquidityPub, un protocole ouvert : pas de blockchain, ni d'entreprise au milieu."
+  "about.coffee": "CoffeeBucks (K$), c'est de l'argent que des groupes de gens qui se connaissent tiennent ensemble : chaque membre reçoit le même dividende chaque jour, et les groupes reliés peuvent se payer à un taux qui évolue avec les paiements. Ça tourne sur LiquidityPub, un protocole ouvert : pas de blockchain, ni d'entreprise au milieu.",
+  "coffee.leave_link": "Quitter ce groupe",
+  "coffee.leave_title": "Quitter {group}",
+  "coffee.leave_explain": "Tu ne reçois plus le dividende ici. Que deviennent tes {amount} K$ ?",
+  "coffee.leave_explain0": "Tu ne reçois plus le dividende ici.",
+  "coffee.leave_move": "Les transférer sur mon compte dans {group} (au taux de la cagnotte)",
+  "coffee.leave_give": "Tout donner à :",
+  "coffee.leave_share": "Les répartir entre les membres au prochain dividende",
+  "coffee.leave_destroy": "Les détruire (retirés de la circulation)",
+  "coffee.leave_sure": "Je comprends que c'est irréversible",
+  "coffee.leave_sure_needed": "Coche d'abord la case : quitter est irréversible.",
+  "coffee.leave_go": "Quitter",
+  "coffee.leave_error": "Impossible de quitter pour l'instant. Réessaie.",
+  "coffee.left": "Tu as quitté le groupe."
 }
