@@ -908,5 +908,18 @@
   "js.board_key_ok": "Brettschlüssel auf diesem Gerät: Das Brett der Gruppe ist hier lesbar.",
   "js.board_nokey": "Dieses Gerät hat den Brettschlüssel der Gruppe nicht: Öffne einen Einladungslink von einem Mitglied, das ihn hat.",
   "js.board_start_warn": "Starte das Brett nur, wenn noch niemand in der Gruppe einen Schlüssel hat, sonst teilst du es in zwei.",
-  "coffee.board_start": "Brett dieser Gruppe starten"
+  "coffee.board_start": "Brett dieser Gruppe starten",
+  "js.board": "Brett",
+  "js.board_fades": "Nur Mitglieder können dieses Brett lesen. Beiträge verschwinden nach einer Woche.",
+  "js.board_offer": "Angebot",
+  "js.board_request": "Gesuch",
+  "js.board_note": "Notiz",
+  "js.board_text_ph": "Was bietest oder suchst du?",
+  "js.board_price": "Preis (optional)",
+  "js.board_connect": "Mitglieder dürfen sich mit mir verbinden",
+  "js.board_post": "Posten",
+  "js.board_empty": "Noch nichts auf dem Brett.",
+  "js.board_reply": "Antworten",
+  "js.board_connect_btn": "Verbinden",
+  "js.board_pay": "{amount} zahlen"
 }

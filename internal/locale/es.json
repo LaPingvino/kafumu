@@ -908,5 +908,18 @@
   "js.board_key_ok": "Llave del tablón en este dispositivo: aquí se puede leer el tablón del grupo.",
   "js.board_nokey": "Este dispositivo no tiene la llave del tablón del grupo: abre un enlace de invitación de un miembro que la tenga.",
   "js.board_start_warn": "Inicia el tablón solo si nadie del grupo tiene aún una llave; si no, lo partirías en dos.",
-  "coffee.board_start": "Iniciar el tablón de este grupo"
+  "coffee.board_start": "Iniciar el tablón de este grupo",
+  "js.board": "Tablón",
+  "js.board_fades": "Solo los miembros pueden leer este tablón. Los mensajes desaparecen tras una semana.",
+  "js.board_offer": "Oferta",
+  "js.board_request": "Busco",
+  "js.board_note": "Nota",
+  "js.board_text_ph": "¿Qué ofreces o qué buscas?",
+  "js.board_price": "Precio (opcional)",
+  "js.board_connect": "Los miembros pueden conectar conmigo",
+  "js.board_post": "Publicar",
+  "js.board_empty": "Aún no hay nada en el tablón.",
+  "js.board_reply": "Responder",
+  "js.board_connect_btn": "Conectar",
+  "js.board_pay": "Pagar {amount}"
 }

@@ -908,5 +908,18 @@
   "js.board_key_ok": "Táblakulcs ezen az eszközön: a csoport táblája itt olvasható.",
   "js.board_nokey": "Ezen az eszközön nincs meg a csoport táblakulcsa: nyiss meg egy meghívó linket egy tagtól, akinél megvan.",
   "js.board_start_warn": "Csak akkor indítsd el a táblát, ha a csoportban még senkinek nincs kulcsa, különben kettéválasztod.",
-  "coffee.board_start": "A csoport táblájának indítása"
+  "coffee.board_start": "A csoport táblájának indítása",
+  "js.board": "Tábla",
+  "js.board_fades": "Ezt a táblát csak a tagok olvashatják. A bejegyzések egy hét után eltűnnek.",
+  "js.board_offer": "Ajánlat",
+  "js.board_request": "Keresés",
+  "js.board_note": "Jegyzet",
+  "js.board_text_ph": "Mit kínálsz vagy keresel?",
+  "js.board_price": "Ár (nem kötelező)",
+  "js.board_connect": "A tagok kapcsolódhatnak hozzám",
+  "js.board_post": "Közzététel",
+  "js.board_empty": "Még nincs semmi a táblán.",
+  "js.board_reply": "Válasz",
+  "js.board_connect_btn": "Kapcsolódás",
+  "js.board_pay": "{amount} fizetése"
 }

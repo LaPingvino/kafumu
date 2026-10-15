@@ -908,5 +908,18 @@
   "js.board_key_ok": "Pano anahtarı bu cihazda: grubun panosu burada okunabilir.",
   "js.board_nokey": "Bu cihazda grubun pano anahtarı yok: anahtarı olan bir üyenin davet bağlantısını aç.",
   "js.board_start_warn": "Panoyu yalnızca grupta henüz kimsenin anahtarı yoksa başlat, yoksa panoyu ikiye bölersin.",
-  "coffee.board_start": "Bu grubun panosunu başlat"
+  "coffee.board_start": "Bu grubun panosunu başlat",
+  "js.board": "Pano",
+  "js.board_fades": "Bu panoyu yalnızca üyeler okuyabilir. Gönderiler bir hafta sonra kaybolur.",
+  "js.board_offer": "Teklif",
+  "js.board_request": "Arıyorum",
+  "js.board_note": "Not",
+  "js.board_text_ph": "Ne sunuyorsun ya da ne arıyorsun?",
+  "js.board_price": "Fiyat (isteğe bağlı)",
+  "js.board_connect": "Üyeler benimle bağlantı kurabilir",
+  "js.board_post": "Paylaş",
+  "js.board_empty": "Panoda henüz bir şey yok.",
+  "js.board_reply": "Yanıtla",
+  "js.board_connect_btn": "Bağlan",
+  "js.board_pay": "{amount} öde"
 }

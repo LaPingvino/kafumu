@@ -908,5 +908,18 @@
   "js.board_key_ok": "Bordsleutel op dit apparaat: het bord van de groep is hier leesbaar.",
   "js.board_nokey": "Dit apparaat heeft de bordsleutel van de groep niet: open een uitnodigingslink van een lid dat hem heeft.",
   "js.board_start_warn": "Begin het bord alleen als nog niemand in de groep een sleutel heeft, anders splits je het in tweeën.",
-  "coffee.board_start": "Bord van deze groep beginnen"
+  "coffee.board_start": "Bord van deze groep beginnen",
+  "js.board": "Bord",
+  "js.board_fades": "Alleen leden kunnen dit bord lezen. Berichten verdwijnen na een week.",
+  "js.board_offer": "Aanbod",
+  "js.board_request": "Gevraagd",
+  "js.board_note": "Notitie",
+  "js.board_text_ph": "Wat bied je aan of zoek je?",
+  "js.board_price": "Prijs (optioneel)",
+  "js.board_connect": "Leden mogen met me verbinden",
+  "js.board_post": "Plaatsen",
+  "js.board_empty": "Nog niets op het bord.",
+  "js.board_reply": "Reageren",
+  "js.board_connect_btn": "Verbinden",
+  "js.board_pay": "{amount} betalen"
 }

@@ -908,5 +908,18 @@
   "js.board_key_ok": "Klíč nástěnky v tomto zařízení: nástěnka skupiny je tu čitelná.",
   "js.board_nokey": "Toto zařízení nemá klíč nástěnky skupiny: otevři pozvánku od člena, který ho má.",
   "js.board_start_warn": "Nástěnku založ jen tehdy, když ve skupině ještě nikdo klíč nemá, jinak bys ji rozdělil na dvě.",
-  "coffee.board_start": "Založit nástěnku skupiny"
+  "coffee.board_start": "Založit nástěnku skupiny",
+  "js.board": "Nástěnka",
+  "js.board_fades": "Tuto nástěnku mohou číst jen členové. Příspěvky po týdnu zmizí.",
+  "js.board_offer": "Nabídka",
+  "js.board_request": "Poptávka",
+  "js.board_note": "Poznámka",
+  "js.board_text_ph": "Co nabízíš nebo hledáš?",
+  "js.board_price": "Cena (nepovinné)",
+  "js.board_connect": "Členové se se mnou mohou spojit",
+  "js.board_post": "Zveřejnit",
+  "js.board_empty": "Na nástěnce zatím nic není.",
+  "js.board_reply": "Odpovědět",
+  "js.board_connect_btn": "Spojit se",
+  "js.board_pay": "Zaplatit {amount}"
 }

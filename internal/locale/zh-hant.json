@@ -908,5 +908,18 @@
   "js.board_key_ok": "此裝置上有看板金鑰：可以在這裡閱讀群組看板。",
   "js.board_nokey": "此裝置沒有群組的看板金鑰：請打開一位有金鑰的成員傳來的邀請連結。",
   "js.board_start_warn": "只有在群組裡還沒有人有金鑰時才開始看板，否則看板會被分成兩個。",
-  "coffee.board_start": "開始這個群組的看板"
+  "coffee.board_start": "開始這個群組的看板",
+  "js.board": "看板",
+  "js.board_fades": "只有成員能看到這個看板。貼文一週後消失。",
+  "js.board_offer": "提供",
+  "js.board_request": "徵求",
+  "js.board_note": "備註",
+  "js.board_text_ph": "你想提供或尋找什麼？",
+  "js.board_price": "價格（選填）",
+  "js.board_connect": "允許成員和我建立聯繫",
+  "js.board_post": "發佈",
+  "js.board_empty": "看板上還沒有內容。",
+  "js.board_reply": "回覆",
+  "js.board_connect_btn": "建立聯繫",
+  "js.board_pay": "支付 {amount}"
 }

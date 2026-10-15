@@ -16,7 +16,7 @@
   {{if .User}}
   {{if .Groups}}<h2>{{t .Lang "coffee.groups"}}</h2>
   <ul class="boxed-list">{{range $g := .Groups}}
-    <li id="g-{{.Gid}}" data-g="{{.Gid}}" data-members="{{.Members}}" class="card coffee-group{{if eq .Gid $.Focus}} flash{{end}}" style="padding:8px 16px 12px">
+    <li id="g-{{.Gid}}" data-g="{{.Gid}}" data-members="{{.Members}}" data-sym="{{.Sym}}" class="card coffee-group{{if eq .Gid $.Focus}} flash{{end}}" style="padding:8px 16px 12px">
       <h3>{{.Name}}</h3>
       {{if .Currency}}<p class="dim small">{{.Currency}} ({{.Sym}})</p>{{end}}
       {{if .Unavailable}}<p class="dim">{{t $.Lang "coffee.unavailable"}}</p>{{else}}
@@ -32,6 +32,7 @@
         <button type="button" class="pill-sm coffee-invite-contact" data-g="{{.Gid}}" data-name="{{.Name}}">👤 {{t $.Lang "coffee.invite_contact"}}</button></div>
       <div class="chips coffee-pick" hidden></div>
       <p class="dim small">{{t $.Lang "coffee.invite_note"}}</p>
+      <details class="coffee-board" hidden><summary>📋 <span class="board-title"></span></summary><div class="board-body"></div></details>
       <p class="small coffee-key" hidden><span class="dim"></span> <button type="button" class="pill-sm coffee-key-start" hidden>🔐 {{t $.Lang "coffee.board_start"}}</button></p>
       {{if $.User.Username}}<details class="coffee-request"><summary class="small">🧾 {{t $.Lang "coffee.request_btn"}}</summary>
         <form class="coffee-request-form inline" data-g="{{.Gid}}" data-to="{{$.User.Username}}">
@@ -71,6 +72,7 @@
 <script src="/static/sha1.js?v={{.V}}"></script>
 <script src="/static/pair.js?v={{.V}}"></script>
 <script src="/static/oln.js?v={{.V}}"></script>
+<script src="/static/board.js?v={{.V}}"></script>
 <script>
 (function () {
   var T = {{.JS}};
@@ -98,11 +100,85 @@
         p.hidden = false;
         p.querySelector("span").textContent = all[g] ? "🔐 " + (T.board_key_ok || "") : (T.board_nokey || "") + " " + (T.board_start_warn || "");
         btn.hidden = !!all[g];
-        btn.onclick = function () { saveKey(g, newKey()).then(drawKeys); };
+        btn.onclick = function () { saveKey(g, newKey()).then(function () { drawKeys(); drawBoards(); }); };
       });
     });
   }
   if (dev) drawKeys();
+
+  // The board (97b): members-only posts, encrypted with the group's key.
+  var ME = {{if .User}}{{.User.Username}}{{else}}""{{end}};
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function money(m) { return (m / 1e6).toFixed(2); }
+  function parseMoney(s) { s = String(s || "").trim().replace(",", "."); if (!/^\d*(\.\d{0,6})?$/.test(s) || !s || s === ".") return 0; return Math.round(parseFloat(s) * 1e6); }
+  function drawBoard(li, key) {
+    var g = li.dataset.g, body = li.querySelector(".board-body"), sym = li.dataset.sym || "K$";
+    body.textContent = "";
+    body.appendChild(el("p", "dim small", T.board_fades || ""));
+    var f = el("form", "board-form");
+    var kind = el("select"); [["offer", T.board_offer], ["request", T.board_request], ["note", T.board_note]].forEach(function (o) { var op = el("option", "", o[1] || o[0]); op.value = o[0]; kind.appendChild(op); });
+    var text = el("input"); text.maxLength = 500; text.required = true; text.placeholder = T.board_text_ph || ""; text.setAttribute("aria-label", text.placeholder);
+    var price = el("input", "coffee-amount"); price.inputMode = "decimal"; price.placeholder = "0.00 " + sym; price.setAttribute("aria-label", T.board_price || "");
+    var conn = el("label", "dim small"); var cb = el("input"); cb.type = "checkbox"; cb.checked = true; conn.appendChild(cb); conn.appendChild(document.createTextNode(" " + (T.board_connect || "")));
+    var go = el("button", "pill-sm suggested", T.board_post || "Post"); go.type = "submit";
+    var st = el("span", "dim small"); st.setAttribute("role", "status");
+    [kind, text, price, conn, go, st].forEach(function (x) { f.appendChild(x); });
+    body.appendChild(f);
+    var list = el("ul", "board-list"); body.appendChild(list);
+    function draw(posts) {
+      list.textContent = "";
+      var tops = posts.filter(function (p) { return !p.re; }), replies = posts.filter(function (p) { return p.re; });
+      if (!tops.length) list.appendChild(el("li", "dim small", T.board_empty || ""));
+      tops.forEach(function (p) {
+        var item = el("li", "board-post board-" + p.kind);
+        var head = el("div", "dim small", (p.kind === "offer" ? "🎁 " : p.kind === "request" ? "🙋 " : "📝 ") + (p.by ? "@" + p.by + " · " : "") + new Date(p.at).toLocaleString(window.KAFUMU_LOCALE, { weekday: "short", hour: "2-digit", minute: "2-digit" }));
+        item.appendChild(head);
+        item.appendChild(el("p", "", p.text + (p.price ? " · " + money(p.price) + " " + sym : "")));
+        var acts = el("div", "actions");
+        if (p.kind === "offer" && p.price && p.by && p.by !== ME) {
+          var pay = el("a", "pill-sm suggested", "💸 " + (T.board_pay || "Pay {amount}").replace("{amount}", money(p.price) + " " + sym));
+          pay.href = "/coffee/request?" + new URLSearchParams({ g: g, to: p.by, a: money(p.price), "for": p.text.slice(0, 80) }).toString();
+          acts.appendChild(pay);
+        }
+        if (p.connect && p.by !== ME) { var c = el("a", "pill-sm", "🤝 " + (T.board_connect_btn || "Connect")); c.href = p.connect; acts.appendChild(c); }
+        var rb = el("button", "pill-sm", "💬 " + (T.board_reply || "Reply")); rb.type = "button";
+        acts.appendChild(rb); item.appendChild(acts);
+        var rl = el("ul", "board-replies");
+        replies.filter(function (r) { return r.re === p.id; }).reverse().forEach(function (r) { rl.appendChild(el("li", "small", (r.by ? "@" + r.by + ": " : "") + r.text)); });
+        item.appendChild(rl);
+        rb.onclick = function () {
+          if (item.querySelector(".board-reply-form")) return;
+          var rf = el("form", "board-reply-form inline"), ri = el("input"); ri.maxLength = 500; ri.required = true; ri.placeholder = T.reply_placeholder || "";
+          var rgo = el("button", "pill-sm suggested", T.board_post || "Post"); rgo.type = "submit";
+          rf.appendChild(ri); rf.appendChild(rgo); item.appendChild(rf); ri.focus();
+          rf.onsubmit = function (e) { e.preventDefault(); rgo.disabled = true;
+            window.kafumuBoard.post(key, { kind: "reply", text: ri.value, by: ME, re: p.id }, mineFn).then(load, function () { rgo.disabled = false; }); };
+        };
+        list.appendChild(item);
+      });
+    }
+    function mineFn(t, kw, bits) { return window.kafumuOLN.post(t, kw, bits, function (n) { st.textContent = (T.oln_working || "{n}").replace("{n}", n); }); }
+    function load() { st.textContent = ""; window.kafumuBoard.read(key).then(draw, function () { st.textContent = T.network_retry || "…"; }); }
+    f.onsubmit = function (e) {
+      e.preventDefault(); go.disabled = true;
+      var withConnect = cb.checked && getPair() ? getPair().invite(false).then(function (inv) { return inv.url; }, function () { return ""; }) : Promise.resolve("");
+      withConnect.then(function (url) {
+        return window.kafumuBoard.post(key, { kind: kind.value, text: text.value, price: parseMoney(price.value), by: ME, connect: url }, mineFn);
+      }).then(function () { text.value = ""; price.value = ""; load(); }, function () { st.textContent = T.network_retry || "…"; }).then(function () { go.disabled = false; });
+    };
+    load();
+  }
+  function drawBoards() {
+    keys().then(function (all) {
+      document.querySelectorAll(".coffee-group").forEach(function (li) {
+        var d = li.querySelector(".coffee-board"), key = all[li.dataset.g];
+        d.hidden = !key || !window.kafumuBoard;
+        d.querySelector(".board-title").textContent = T.board || "Board";
+        if (key) d.ontoggle = function () { if (d.open && !d.dataset.loaded) { d.dataset.loaded = "1"; drawBoard(li, key); } };
+      });
+    });
+  }
+  if (dev) drawBoards();
   // Payment requests (96l): the link carries everything (nothing stored);
   // the note stays in the link, never on the ledger.
   document.querySelectorAll(".coffee-request-form").forEach(function (f) {

@@ -7,6 +7,7 @@ export GOCACHE="${GOCACHE:-${TMPDIR:-/tmp}/gocache}"
 go vet ./...
 go test ./...
 node test/geo_test.mjs
+node test/board_test.mjs
 node test/device_test.mjs
 node test/threads_test.mjs
 bin="${TMPDIR:-/tmp}/kafumu-test"

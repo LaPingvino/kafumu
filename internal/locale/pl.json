@@ -908,5 +908,18 @@
   "js.board_key_ok": "Klucz tablicy na tym urządzeniu: tablica grupy jest tu czytelna.",
   "js.board_nokey": "To urządzenie nie ma klucza tablicy grupy: otwórz zaproszenie od członka, który go ma.",
   "js.board_start_warn": "Załóż tablicę tylko wtedy, gdy nikt w grupie nie ma jeszcze klucza, inaczej podzielisz ją na dwie.",
-  "coffee.board_start": "Załóż tablicę tej grupy"
+  "coffee.board_start": "Załóż tablicę tej grupy",
+  "js.board": "Tablica",
+  "js.board_fades": "Tę tablicę czytają tylko członkowie. Wpisy znikają po tygodniu.",
+  "js.board_offer": "Oferta",
+  "js.board_request": "Szukam",
+  "js.board_note": "Notatka",
+  "js.board_text_ph": "Co oferujesz albo czego szukasz?",
+  "js.board_price": "Cena (opcjonalnie)",
+  "js.board_connect": "Członkowie mogą się ze mną połączyć",
+  "js.board_post": "Opublikuj",
+  "js.board_empty": "Na tablicy jeszcze nic nie ma.",
+  "js.board_reply": "Odpowiedz",
+  "js.board_connect_btn": "Połącz",
+  "js.board_pay": "Zapłać {amount}"
 }

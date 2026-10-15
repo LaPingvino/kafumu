@@ -908,5 +908,18 @@
   "js.board_key_ok": "Tabula ŝlosilo sur ĉi tiu aparato: la tabulo de la grupo estas legebla ĉi tie.",
   "js.board_nokey": "Ĉi tiu aparato ne havas la tabulan ŝlosilon de la grupo: malfermu invitan ligilon de membro, kiu havas ĝin.",
   "js.board_start_warn": "Komencu la tabulon nur se neniu en la grupo jam havas ŝlosilon, alie vi dividus ĝin en du.",
-  "coffee.board_start": "Komenci la tabulon de ĉi tiu grupo"
+  "coffee.board_start": "Komenci la tabulon de ĉi tiu grupo",
+  "js.board": "Tabulo",
+  "js.board_fades": "Nur membroj povas legi ĉi tiun tabulon. Afiŝoj malaperas post semajno.",
+  "js.board_offer": "Oferto",
+  "js.board_request": "Peto",
+  "js.board_note": "Noto",
+  "js.board_text_ph": "Kion vi ofertas aŭ serĉas?",
+  "js.board_price": "Prezo (nedeviga)",
+  "js.board_connect": "Membroj rajtas konektiĝi kun mi",
+  "js.board_post": "Afiŝi",
+  "js.board_empty": "Ankoraŭ nenio sur la tabulo.",
+  "js.board_reply": "Respondi",
+  "js.board_connect_btn": "Konektiĝi",
+  "js.board_pay": "Pagi {amount}"
 }

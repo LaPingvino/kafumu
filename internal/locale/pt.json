@@ -908,5 +908,18 @@
   "js.board_key_ok": "Chave do quadro neste dispositivo: aqui o quadro do grupo pode ser lido.",
   "js.board_nokey": "Este dispositivo não tem a chave do quadro do grupo: abre um link de convite de um membro que a tenha.",
   "js.board_start_warn": "Inicia o quadro só se ninguém do grupo tiver ainda uma chave; senão dividi-lo-ias em dois.",
-  "coffee.board_start": "Iniciar o quadro deste grupo"
+  "coffee.board_start": "Iniciar o quadro deste grupo",
+  "js.board": "Quadro",
+  "js.board_fades": "Só os membros podem ler este quadro. As mensagens desaparecem ao fim de uma semana.",
+  "js.board_offer": "Oferta",
+  "js.board_request": "Procura",
+  "js.board_note": "Nota",
+  "js.board_text_ph": "O que ofereces ou procuras?",
+  "js.board_price": "Preço (opcional)",
+  "js.board_connect": "Os membros podem ligar-se a mim",
+  "js.board_post": "Publicar",
+  "js.board_empty": "Ainda não há nada no quadro.",
+  "js.board_reply": "Responder",
+  "js.board_connect_btn": "Ligar",
+  "js.board_pay": "Pagar {amount}"
 }

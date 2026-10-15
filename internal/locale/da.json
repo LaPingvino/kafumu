@@ -908,5 +908,18 @@
   "js.board_key_ok": "Tavlenøgle på denne enhed: gruppens tavle kan læses her.",
   "js.board_nokey": "Denne enhed har ikke gruppens tavlenøgle: åbn et invitationslink fra et medlem, der har den.",
   "js.board_start_warn": "Start kun tavlen, hvis ingen i gruppen har en nøgle endnu, ellers deler du den i to.",
-  "coffee.board_start": "Start gruppens tavle"
+  "coffee.board_start": "Start gruppens tavle",
+  "js.board": "Tavle",
+  "js.board_fades": "Kun medlemmer kan læse denne tavle. Opslag forsvinder efter en uge.",
+  "js.board_offer": "Tilbud",
+  "js.board_request": "Efterlysning",
+  "js.board_note": "Note",
+  "js.board_text_ph": "Hvad tilbyder eller søger du?",
+  "js.board_price": "Pris (valgfri)",
+  "js.board_connect": "Medlemmer må forbinde sig med mig",
+  "js.board_post": "Slå op",
+  "js.board_empty": "Intet på tavlen endnu.",
+  "js.board_reply": "Svar",
+  "js.board_connect_btn": "Forbind",
+  "js.board_pay": "Betal {amount}"
 }

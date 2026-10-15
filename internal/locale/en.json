@@ -908,5 +908,18 @@
   "js.board_key_ok": "Board key on this device: the group's board is readable here.",
   "js.board_nokey": "This device doesn't have the group's board key: open an invite link from a member who has it.",
   "js.board_start_warn": "Start the board only if nobody in the group has a key yet, or you'd split it in two.",
-  "coffee.board_start": "Start this group's board"
+  "coffee.board_start": "Start this group's board",
+  "js.board": "Board",
+  "js.board_fades": "Only members can read this board. Posts fade after a week.",
+  "js.board_offer": "Offer",
+  "js.board_request": "Request",
+  "js.board_note": "Note",
+  "js.board_text_ph": "What are you offering or looking for?",
+  "js.board_price": "Price (optional)",
+  "js.board_connect": "Let members connect with me",
+  "js.board_post": "Post",
+  "js.board_empty": "Nothing on the board yet.",
+  "js.board_reply": "Reply",
+  "js.board_connect_btn": "Connect",
+  "js.board_pay": "Pay {amount}"
 }

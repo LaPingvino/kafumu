@@ -908,5 +908,18 @@
   "js.board_key_ok": "Cheia panoului pe acest dispozitiv: panoul grupului se poate citi aici.",
   "js.board_nokey": "Acest dispozitiv nu are cheia panoului grupului: deschide un link de invitație de la un membru care o are.",
   "js.board_start_warn": "Pornește panoul doar dacă nimeni din grup nu are încă o cheie, altfel l-ai împărți în două.",
-  "coffee.board_start": "Pornește panoul acestui grup"
+  "coffee.board_start": "Pornește panoul acestui grup",
+  "js.board": "Panou",
+  "js.board_fades": "Doar membrii pot citi acest panou. Mesajele dispar după o săptămână.",
+  "js.board_offer": "Ofertă",
+  "js.board_request": "Caut",
+  "js.board_note": "Notă",
+  "js.board_text_ph": "Ce oferi sau ce cauți?",
+  "js.board_price": "Preț (opțional)",
+  "js.board_connect": "Membrii se pot conecta cu mine",
+  "js.board_post": "Publică",
+  "js.board_empty": "Încă nimic pe panou.",
+  "js.board_reply": "Răspunde",
+  "js.board_connect_btn": "Conectează-te",
+  "js.board_pay": "Plătește {amount}"
 }

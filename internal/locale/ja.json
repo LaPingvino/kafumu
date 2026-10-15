@@ -908,5 +908,18 @@
   "js.board_key_ok": "この端末にボードの鍵があります：ここでグループのボードを読めます。",
   "js.board_nokey": "この端末にはグループのボードの鍵がありません：鍵を持っているメンバーの招待リンクを開いてください。",
   "js.board_start_warn": "グループの誰もまだ鍵を持っていない場合だけボードを始めてください。そうでないとボードが2つに分かれます。",
-  "coffee.board_start": "このグループのボードを始める"
+  "coffee.board_start": "このグループのボードを始める",
+  "js.board": "ボード",
+  "js.board_fades": "このボードはメンバーだけが読めます。投稿は1週間で消えます。",
+  "js.board_offer": "提供",
+  "js.board_request": "募集",
+  "js.board_note": "メモ",
+  "js.board_text_ph": "何を提供しますか、何を探していますか？",
+  "js.board_price": "価格（任意）",
+  "js.board_connect": "メンバーが私とつながれるようにする",
+  "js.board_post": "投稿",
+  "js.board_empty": "ボードにはまだ何もありません。",
+  "js.board_reply": "返信",
+  "js.board_connect_btn": "つながる",
+  "js.board_pay": "{amount} を支払う"
 }

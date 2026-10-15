@@ -1685,9 +1685,19 @@ read, expiring like every line (rule 3 holds).
       as #k=…; joining through such a link keeps it. A member whose device has no key (e.g. Esperantistoj, started
       before this) sees "ask a member to share the board key"; a member with it can share a key link. Tests (key
       never in a request).
-- [ ] 97b. The board: offers, requests and notes (an optional price) as encrypted OLN lines; replies in their thread;
+- [x] 97b. Done + deployed (with 97a): static/board.js (tag p+HMAC(key,"board"), AES-GCM "kafumu|board", posts
+      as pair-style OLN lines: no server change); 📋 Board on each group card: offer/request/note with an optional
+      price, "let members connect with me" (a connect code in the post), replies, 💸 Pay a priced offer (via the
+      request page), 🤝 Connect; fades after a week; 13 strings x 24; test/board_test.mjs (seal/open, wrong key,
+      tag, read skips the unreadable, post sends ciphertext). Not browser-tested end to end. Was: The board: offers, requests and notes (an optional price) as encrypted OLN lines; replies in their thread;
       on a post 💸 Pay / 🧾 Request (prefilled), 🤝 Connect (the post carries a connect code, as questions do).
       Fades like any line; 🔁 keeps it. Strings x 24.
+- [ ] 97e. Group boards in Chats (Joop: "access the group chats together with all others, notification-wise"):
+      each group's board is a thread in Chats (Activity) with its unread count, opens like the others (docked / its
+      page), and new posts wake you like chat lines (push: the board tag joins the device's watched pair tags).
+- [ ] 97f. Groups first, currency as a bonus (Joop: "put the groups UI as groups first, currency as a bonus, e.g.
+      together with contacts"): Groups get their own place next to Contacts (Chats / Connect), a group page with its
+      board, members and where people are; the K$ wallet is one part of it. Me → CoffeeBucks becomes Groups.
 - [ ] 97c. Members of a group, for its members only: their @names (server: only to a member of that group; cached).
 - [ ] 97d. Where you are, to your group: "📍 around <area> today" as an encrypted board line that expires at the end
       of the day; the same plain banner and pause as for contacts (95), automatic in areas you shared before, asks in

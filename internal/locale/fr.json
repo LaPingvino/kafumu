@@ -908,5 +908,18 @@
   "js.board_key_ok": "Clé du tableau sur cet appareil : le tableau du groupe est lisible ici.",
   "js.board_nokey": "Cet appareil n'a pas la clé du tableau du groupe : ouvre un lien d'invitation d'un membre qui l'a.",
   "js.board_start_warn": "Ne lance le tableau que si personne dans le groupe n'a encore de clé, sinon tu le couperais en deux.",
-  "coffee.board_start": "Lancer le tableau de ce groupe"
+  "coffee.board_start": "Lancer le tableau de ce groupe",
+  "js.board": "Tableau",
+  "js.board_fades": "Seuls les membres peuvent lire ce tableau. Les messages disparaissent après une semaine.",
+  "js.board_offer": "Offre",
+  "js.board_request": "Demande",
+  "js.board_note": "Note",
+  "js.board_text_ph": "Que proposes-tu ou que cherches-tu ?",
+  "js.board_price": "Prix (facultatif)",
+  "js.board_connect": "Les membres peuvent se connecter avec moi",
+  "js.board_post": "Publier",
+  "js.board_empty": "Rien sur le tableau pour l'instant.",
+  "js.board_reply": "Répondre",
+  "js.board_connect_btn": "Se connecter",
+  "js.board_pay": "Payer {amount}"
 }

@@ -551,3 +551,13 @@ main:focus { outline: none; }
 .coffee-msg.ok { color: var(--accent); }
 .coffee-msg.error { color: var(--del-color, #b3261e); }
 .coffee-qr svg { width: 200px; height: 200px; background: #fff; border-radius: 8px; }
+/* A group's board (97b). */
+.coffee-board { margin: .5rem 0; }
+.coffee-board summary { cursor: pointer; font-weight: 600; }
+.board-form { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: .4rem 0; }
+.board-form input:not([type=checkbox]) { flex: 1 1 12rem; margin: 0; }
+.board-form select { flex: 0 0 auto; width: auto; margin: 0; }
+.board-list { list-style: none; padding: 0; margin: .4rem 0; }
+.board-post { border-top: 1px solid var(--muted-border-color, #ddd); padding: .4rem 0; }
+.board-post p { margin: .2rem 0; }
+.board-replies { list-style: none; padding-left: 1rem; margin: 0; }

@@ -908,5 +908,18 @@
   "js.board_key_ok": "Kunci papan di perangkat ini: papan grup bisa dibaca di sini.",
   "js.board_nokey": "Perangkat ini belum punya kunci papan grup: buka tautan undangan dari anggota yang memilikinya.",
   "js.board_start_warn": "Mulai papan hanya jika belum ada anggota grup yang punya kunci; kalau tidak, papannya terbelah dua.",
-  "coffee.board_start": "Mulai papan grup ini"
+  "coffee.board_start": "Mulai papan grup ini",
+  "js.board": "Papan",
+  "js.board_fades": "Hanya anggota yang bisa membaca papan ini. Kiriman hilang setelah seminggu.",
+  "js.board_offer": "Tawaran",
+  "js.board_request": "Mencari",
+  "js.board_note": "Catatan",
+  "js.board_text_ph": "Apa yang kamu tawarkan atau cari?",
+  "js.board_price": "Harga (opsional)",
+  "js.board_connect": "Anggota boleh terhubung denganku",
+  "js.board_post": "Kirim",
+  "js.board_empty": "Belum ada apa-apa di papan.",
+  "js.board_reply": "Balas",
+  "js.board_connect_btn": "Hubungkan",
+  "js.board_pay": "Bayar {amount}"
 }

@@ -908,5 +908,18 @@
   "js.board_key_ok": "此设备上有看板密钥：可以在这里阅读群组看板。",
   "js.board_nokey": "此设备没有群组的看板密钥：请打开一位有密钥的成员发来的邀请链接。",
   "js.board_start_warn": "只有在群组里还没有人有密钥时才开始看板，否则看板会被分成两个。",
-  "coffee.board_start": "开始这个群组的看板"
+  "coffee.board_start": "开始这个群组的看板",
+  "js.board": "看板",
+  "js.board_fades": "只有成员能看到这个看板。帖子一周后消失。",
+  "js.board_offer": "提供",
+  "js.board_request": "求购",
+  "js.board_note": "备注",
+  "js.board_text_ph": "你想提供或寻找什么？",
+  "js.board_price": "价格（可选）",
+  "js.board_connect": "允许成员和我建立联系",
+  "js.board_post": "发布",
+  "js.board_empty": "看板上还没有内容。",
+  "js.board_reply": "回复",
+  "js.board_connect_btn": "建立联系",
+  "js.board_pay": "支付 {amount}"
 }

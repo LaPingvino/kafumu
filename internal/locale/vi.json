@@ -908,5 +908,18 @@
   "js.board_key_ok": "Khóa bảng có trên thiết bị này: bảng của nhóm đọc được ở đây.",
   "js.board_nokey": "Thiết bị này chưa có khóa bảng của nhóm: hãy mở liên kết mời từ một thành viên đang có khóa.",
   "js.board_start_warn": "Chỉ bắt đầu bảng khi chưa ai trong nhóm có khóa, nếu không bạn sẽ chia đôi bảng.",
-  "coffee.board_start": "Bắt đầu bảng của nhóm"
+  "coffee.board_start": "Bắt đầu bảng của nhóm",
+  "js.board": "Bảng",
+  "js.board_fades": "Chỉ thành viên đọc được bảng này. Bài đăng biến mất sau một tuần.",
+  "js.board_offer": "Đề nghị",
+  "js.board_request": "Cần tìm",
+  "js.board_note": "Ghi chú",
+  "js.board_text_ph": "Bạn đang mời gì hoặc cần gì?",
+  "js.board_price": "Giá (không bắt buộc)",
+  "js.board_connect": "Cho thành viên kết nối với tôi",
+  "js.board_post": "Đăng",
+  "js.board_empty": "Bảng chưa có gì.",
+  "js.board_reply": "Trả lời",
+  "js.board_connect_btn": "Kết nối",
+  "js.board_pay": "Trả {amount}"
 }

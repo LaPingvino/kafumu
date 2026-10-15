@@ -908,5 +908,18 @@
   "js.board_key_ok": "이 기기에 게시판 키가 있어요: 여기서 그룹 게시판을 읽을 수 있어요.",
   "js.board_nokey": "이 기기에는 그룹 게시판 키가 없어요: 키를 가진 회원의 초대 링크를 여세요.",
   "js.board_start_warn": "그룹에 아직 아무도 키가 없을 때만 게시판을 시작하세요. 아니면 게시판이 둘로 나뉘어요.",
-  "coffee.board_start": "이 그룹의 게시판 시작"
+  "coffee.board_start": "이 그룹의 게시판 시작",
+  "js.board": "게시판",
+  "js.board_fades": "이 게시판은 회원만 읽을 수 있어요. 게시물은 일주일 뒤 사라져요.",
+  "js.board_offer": "제안",
+  "js.board_request": "구해요",
+  "js.board_note": "메모",
+  "js.board_text_ph": "무엇을 제안하거나 찾고 있나요?",
+  "js.board_price": "가격 (선택)",
+  "js.board_connect": "회원들이 나와 연결할 수 있게 하기",
+  "js.board_post": "올리기",
+  "js.board_empty": "게시판에 아직 아무것도 없어요.",
+  "js.board_reply": "답글",
+  "js.board_connect_btn": "연결",
+  "js.board_pay": "{amount} 지불"
 }
