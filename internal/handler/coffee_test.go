@@ -3,6 +3,7 @@ package handler
 import (
 	"context"
 	"encoding/json"
+	"html/template"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -24,6 +25,10 @@ type fakeLP struct {
 }
 
 func (f *fakeLP) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	if strings.HasPrefix(r.URL.Path, "/lp/g/") { // public: a group's identity document
+		w.Write([]byte(`{"node":{"name":"Barreiro Coffee!"}}`))
+		return
+	}
 	if r.Header.Get("Authorization") != "Bearer tok" {
 		http.Error(w, `{"error":"unauthorized"}`, 401)
 		return
@@ -36,6 +41,9 @@ func (f *fakeLP) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	case "/lp/admin/group":
 		f.groups[in["gid"]] = nil
 		f.created = append(f.created, in["gid"])
+	case "/lp/admin/balance":
+		w.Write([]byte(`{"member":"x","active":true,"balance":12345678,"current_ud":1000000,"members":2}`))
+		return
 	case "/lp/admin/member":
 		for _, m := range f.groups[in["gid"]] {
 			if m == in["member"] {
@@ -53,7 +61,8 @@ func TestCoffeeStartInviteJoin(t *testing.T) {
 	srv := httptest.NewServer(lp)
 	defer srv.Close()
 	svc := account.NewService(account.NewMemoryStore())
-	c := &Coffee{Home: &Home{Cfg: &config.Config{Origin: "https://kafumu.test"}}, Accounts: svc,
+	tmpl := template.Must(template.New("").Funcs(Funcs).ParseGlob("../../templates/*.html"))
+	c := &Coffee{Home: &Home{Cfg: &config.Config{Brand: "Kafumu", Origin: "https://kafumu.test"}, Tmpl: tmpl}, Accounts: svc,
 		C: &coffee.Client{Base: srv.URL, Token: "tok", Key: []byte("0123456789abcdef0123456789abcdef")}}
 	ctx := context.Background()
 	user := func(name, role string) *account.User {
@@ -117,6 +126,17 @@ func TestCoffeeStartInviteJoin(t *testing.T) {
 	}
 	if w := as(bea, "POST", "/coffee/join", q, c.Join); w.Code != 303 || len(bea.Groups) != 1 || len(lp.groups[gid]) != 2 {
 		t.Fatalf("bea's join: %d %v %v", w.Code, bea.Groups, lp.groups[gid])
+	}
+	// The pages: bea's wallet (balance, dividend, days); the join page for a
+	// valid invite names the group, a forged one says it isn't valid.
+	if w := as(bea, "GET", "/coffee", nil, c.Show); w.Code != 200 || !strings.Contains(w.Body.String(), "12.34 K$") || !strings.Contains(w.Body.String(), "Barreiro Coffee!") || !strings.Contains(w.Body.String(), "≈ 12.3 days") {
+		t.Fatalf("wallet page: %d %s", w.Code, w.Body.String())
+	}
+	if w := as(anon, "GET", "/coffee/join?"+q.Encode(), nil, c.ShowJoin); !strings.Contains(w.Body.String(), "Join Barreiro Coffee!") || !strings.Contains(w.Body.String(), "/account?next=") {
+		t.Fatalf("join page: %s", w.Body.String())
+	}
+	if w := as(anon, "GET", "/coffee/join?"+bad.Encode(), nil, c.ShowJoin); !strings.Contains(w.Body.String(), "This invite link isn") {
+		t.Fatalf("forged join page: %s", w.Body.String())
 	}
 	// Member ids: stable per account, different between accounts.
 	a1, _ := c.C.MemberID(ctx, ana.ID)

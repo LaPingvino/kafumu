@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"net/url"
@@ -130,4 +131,75 @@ func (c *Coffee) Join(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	http.Redirect(w, r, "/coffee?g="+gid, http.StatusSeeOther)
+}
+
+type coffeeGroup struct {
+	Gid, Name   string
+	Balance, UD string // K$, two decimals
+	Days        string // the balance in days of dividend
+	Members     int64
+	Unavailable bool
+}
+
+type coffeePage struct {
+	page
+	Groups   []coffeeGroup
+	MayStart bool
+	Focus    string
+}
+
+// Show renders /coffee: your groups (balance, today's dividend), invites,
+// starting a group.
+func (c *Coffee) Show(w http.ResponseWriter, r *http.Request) {
+	p := coffeePage{page: c.Home.newPage(r, "CoffeeBucks"), Focus: r.FormValue("g")}
+	p.Tab = "account"
+	u := p.User
+	p.MayStart = mayStart(u)
+	if u != nil {
+		me, err := c.C.MemberID(r.Context(), u.ID)
+		for _, gid := range u.Groups {
+			g := coffeeGroup{Gid: gid, Name: c.C.GroupName(r.Context(), gid)}
+			if g.Name == "" {
+				g.Name = gid
+			}
+			if err == nil {
+				if wl, berr := c.C.Balance(r.Context(), gid, me); berr == nil {
+					g.Balance, g.UD, g.Members = coffee.Money(wl.Balance), coffee.Money(wl.CurrentUD), wl.Members
+					if wl.CurrentUD > 0 {
+						g.Days = fmt.Sprintf("%.1f", float64(wl.Balance)/float64(wl.CurrentUD))
+					}
+				} else {
+					g.Unavailable = true
+				}
+			} else {
+				g.Unavailable = true
+			}
+			p.Groups = append(p.Groups, g)
+		}
+	}
+	w.Header().Set("Cache-Control", "no-store")
+	c.Home.render(w, "coffee.html", p)
+}
+
+type joinPage struct {
+	page
+	Gid, By, T, Name string
+	Valid, Member    bool
+}
+
+// ShowJoin renders /coffee/join?g=&by=&t=: which group, and Join.
+func (c *Coffee) ShowJoin(w http.ResponseWriter, r *http.Request) {
+	p := joinPage{page: c.Home.newPage(r, "CoffeeBucks"), Gid: r.FormValue("g"), By: r.FormValue("by"), T: r.FormValue("t")}
+	p.Tab = "account"
+	p.Valid = c.C.ValidInvite(r.Context(), p.Gid, p.By, p.T)
+	if p.Valid {
+		p.Name = c.C.GroupName(r.Context(), p.Gid)
+		p.Valid = p.Name != ""
+	}
+	if u := p.User; u != nil {
+		p.Member = slices.Contains(u.Groups, p.Gid)
+	}
+	w.Header().Set("Cache-Control", "no-store")
+	w.Header().Set("Referrer-Policy", "no-referrer") // the link carries an invite
+	c.Home.render(w, "coffee_join.html", p)
 }

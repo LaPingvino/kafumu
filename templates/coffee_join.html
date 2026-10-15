@@ -1,0 +1,15 @@
+{{template "head" .}}
+<article class="coffee">
+  <h1>☕ {{if .Valid}}{{ts .Lang "coffee.join_title" | replace "{group}" .Name}}{{else}}{{t .Lang "coffee.title"}}{{end}}</h1>
+  {{if not .Valid}}<p>{{t .Lang "coffee.join_bad"}}</p>
+  {{else if .Member}}<p>{{t .Lang "coffee.join_member"}} <a href="/coffee?g={{.Gid}}">→</a></p>
+  {{else}}
+  <p>{{t .Lang "coffee.join_explain"}}</p>
+  <p class="dim small">{{t .Lang "coffee.explain"}}</p>
+  {{if and .User .User.Username}}<form method="post" action="/coffee/join">
+    <input type="hidden" name="g" value="{{.Gid}}"><input type="hidden" name="by" value="{{.By}}"><input type="hidden" name="t" value="{{.T}}">
+    <button type="submit" class="pill suggested">☕ {{t .Lang "coffee.join_go"}}</button></form>
+  {{else}}<p><a href="/account?next={{print "/coffee/join?g=" .Gid "&by=" .By "&t=" .T | urlquery}}" role="button" class="pill">{{t .Lang "here.need_name"}} →</a></p>{{end}}
+  {{end}}
+</article>
+{{template "foot" .}}

@@ -403,6 +403,8 @@ var Funcs = template.FuncMap{
 	"venue": meetup.CleanVenue,
 	// reid: a thing's reply id ("#re" + it), as the device makes it (93b).
 	"reid": oln.ReID,
+	// replace: {{ts .Lang "x" | replace "{n}" .N}} fills a placeholder.
+	"replace": func(old, new, s string) string { return strings.ReplaceAll(s, old, new) },
 	// tagLabel shows a tag to people: "lang:epo" as "🗣 Esperanto" (an
 	// internal language tag), anything else as "#tag".
 	"tagLabel": func(tag string) string {

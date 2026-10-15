@@ -201,3 +201,62 @@ func (c *Client) Balance(ctx context.Context, gid, member string) (Wallet, error
 func (c *Client) Pay(ctx context.Context, gid, from, to string, amount int64) error {
 	return c.do(ctx, "POST", "/lp/admin/pay", map[string]any{"gid": gid, "from": from, "to": to, "amount": amount}, nil)
 }
+
+var names = struct {
+	sync.Mutex
+	m map[string]nameEntry
+}{m: map[string]nameEntry{}}
+
+type nameEntry struct {
+	name string
+	at   time.Time
+}
+
+// GroupName reads a group's name from its public identity document (cached
+// ten minutes per instance); "" if the group doesn't exist.
+func (c *Client) GroupName(ctx context.Context, gid string) string {
+	names.Lock()
+	e, ok := names.m[gid]
+	names.Unlock()
+	if ok && time.Since(e.at) < 10*time.Minute {
+		return e.name
+	}
+	if c.Base == "" {
+		return ""
+	}
+	req, err := http.NewRequestWithContext(ctx, "GET", c.Base+"/lp/g/"+gid+"/.well-known/liquiditypub", nil)
+	if err != nil {
+		return ""
+	}
+	hc := c.HTTP
+	if hc == nil {
+		hc = &http.Client{Timeout: 10 * time.Second}
+	}
+	res, err := hc.Do(req)
+	if err != nil {
+		return ""
+	}
+	defer res.Body.Close()
+	var doc struct {
+		Node struct{ Name string } `json:"node"`
+	}
+	if res.StatusCode == http.StatusOK {
+		json.NewDecoder(res.Body).Decode(&doc)
+	}
+	names.Lock()
+	if len(names.m) > 1000 {
+		names.m = map[string]nameEntry{}
+	}
+	names.m[gid] = nameEntry{doc.Node.Name, time.Now()}
+	names.Unlock()
+	return doc.Node.Name
+}
+
+// Money formats micro-units as "12.34" (two decimals, floored).
+func Money(micro int64) string {
+	sign := ""
+	if micro < 0 {
+		sign, micro = "-", -micro
+	}
+	return fmt.Sprintf("%s%d.%02d", sign, micro/1_000_000, micro%1_000_000/10_000)
+}
