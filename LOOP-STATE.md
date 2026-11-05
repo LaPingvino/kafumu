@@ -1735,3 +1735,22 @@ read, expiring like every line (rule 3 holds).
       asks. 4 strings x 24; board unit test. Not browser-tested. Was: Swap cards from the member list (Joop: "the member list lacks a ping to signal getting each other's
       contacts"): "🤝 Swap cards?" by each member; it posts an encrypted board ping addressed to them, carrying a
       connect link; they see "@you would like to swap cards" with Connect in Chats (and a push). No server change.
+
+## 98. Fixes (Joop 2026-11-05; the loop takes these after WEquilibrium's work, before the usual rotation)
+- [ ] 98a. **Sources must not expire like local messages.** Joop: "the expiration system is a bit too brutal, and I
+      think local sources shouldn't expire like local messages". Today (81c, 81c-ui2) a source is an OLN line
+      mined for a day or a week; when it expires, purge removes it and its news goes with it (sources.go:536).
+      To build: a source stays until its adder removes it (or a steward/admin does); purge skips #feed lines
+      (as it skips held meetup replies, 93c); the "until"/↻ Renew in Account → Your sources goes, or becomes
+      "still wanted?" only after a long silence. Cleanup only for dead sources: a feed that has failed to fetch
+      for ~30 days, or whose adder's account is purged — shown first as "not read since …", decided in the slice.
+      The OLN value still sorts sources (mining stays meaningful); oln.html's "a source lives as long as its line"
+      changes in every language. Tests: purge on the emulator keeps an expired #feed line; the store test.
+- [ ] 98b. **The bill.** Joop's recent bills suggest the read/instance cost isn't under control. Found while
+      writing WEquilibrium's docs/GAE.md: pages poll — chatdock.js every 20 s per open chat (2 places),
+      activity.js and screen.js on short timers — every open tab is a steady stream of requests and Datastore
+      reads, and keeps instances warm. First measure (Cloud console: requests per handler, Datastore ops per
+      kind — ask Joop for the figures or a screenshot if the console isn't reachable), then cut: poll only when
+      visible and back off (20 s → minutes when nothing changes), answer "nothing new" from memcache without
+      Datastore reads, or one combined poll per page instead of one per chat. The public screen (84) is meant to
+      run all day: its interval matters most.
