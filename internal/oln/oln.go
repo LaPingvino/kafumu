@@ -895,6 +895,31 @@ func (s *Service) RenewVoted(ctx context.Context, cell string, now time.Time) in
 	return renewed
 }
 
+// SourceLife is how long a source stays after its feed was last read well
+// (98a, Joop 2026-11-05: "local sources shouldn't expire like local
+// messages"): a working source never lapses; one that can't be read for this
+// long goes, as foundation rule 3 wants (every server entity expires).
+const SourceLife = 90 * 24 * time.Hour
+
+// KeepSource keeps a source whose feed was just read well: it lives
+// SourceLife from now. Written only when less than 60 days are left, so a
+// source costs at most a write a month. Reports whether it was renewed.
+func (s *Service) KeepSource(ctx context.Context, n *Note, now time.Time) bool {
+	if !IsSource(n) || n.ExpiresAt.After(now.Add(60*24*time.Hour)) {
+		return false
+	}
+	c := *n
+	c.ExpiresAt = now.Add(SourceLife)
+	if s.Store.Put(ctx, &c) != nil {
+		return false
+	}
+	*n = c
+	s.mu.Lock()
+	delete(s.cells, n.Cell)
+	s.mu.Unlock()
+	return true
+}
+
 // StopSources stops an account from adding sources (it can still post).
 func (s *Service) StopSources(ctx context.Context, author string) error {
 	return s.Hide(ctx, "nosrc:"+author)

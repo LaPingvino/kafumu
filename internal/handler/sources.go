@@ -161,7 +161,7 @@ func (h *Meetups) pullSources(ctx context.Context, now time.Time) ([]feeds.Feed,
 		return nil, ""
 	}
 	var cals []feeds.Feed
-	read, items, renewed := 0, 0, 0
+	read, items, renewed, kept := 0, 0, 0, 0
 	// A seen cell and the ring around it: an area shows its neighbours too.
 	var todo []string
 	done := map[string]bool{}
@@ -198,6 +198,9 @@ func (h *Meetups) pullSources(ctx context.Context, now time.Time) ([]feeds.Feed,
 			if cal != nil {
 				cals = append(cals, *cal)
 			}
+			if (len(items) > 0 || cal != nil) && home.Notes.KeepSource(ctx, s, now) { // read well: it stays (98a)
+				kept++
+			}
 		}
 		sort.Slice(news, func(i, j int) bool { return news[i].At.After(news[j].At) })
 		if len(news) > maxNewsPerCell {
@@ -208,7 +211,7 @@ func (h *Meetups) pullSources(ctx context.Context, now time.Time) ([]feeds.Feed,
 		}
 		items += len(news)
 	}
-	return cals, "sources: " + itoa(read) + " read, " + itoa(items) + " news items, " + itoa(len(cals)) + " calendars, " + itoa(renewed) + " kept by votes"
+	return cals, "sources: " + itoa(read) + " read, " + itoa(items) + " news items, " + itoa(len(cals)) + " calendars, " + itoa(renewed) + " kept by votes, " + itoa(kept) + " kept as working"
 }
 
 // ---- Suggested sources (81f) ----

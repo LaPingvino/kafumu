@@ -714,3 +714,27 @@ func TestRenewVoted(t *testing.T) {
 		t.Fatalf("a source nobody reacted to was kept: %v", got.ExpiresAt)
 	}
 }
+
+// A source whose feed reads well stays SourceLife (98a: sources don't expire
+// like messages); one with time enough left isn't written; a message isn't kept.
+func TestKeepSource(t *testing.T) {
+	store := NewMemoryStore()
+	s := NewService(store)
+	ctx, now := context.Background(), time.Now().UTC()
+	src := &Note{ID: strings.Repeat("d", 40), Raw: "v2;d", Text: "📰 Krant https://krant.example/", Cell: "8ccgmw", Tags: []string{"geo8ccgmw", "feed"}, Src: "joop", At: now, ExpiresAt: now.Add(24 * time.Hour)}
+	store.Put(ctx, src)
+	if !s.KeepSource(ctx, src, now) {
+		t.Fatal("a working source wasn't kept")
+	}
+	if got, _ := store.Get(ctx, src.ID); got.ExpiresAt.Before(now.Add(89 * 24 * time.Hour)) {
+		t.Fatalf("kept until %v", got.ExpiresAt)
+	}
+	if s.KeepSource(ctx, src, now.Add(time.Hour)) {
+		t.Error("written again with 90 days left")
+	}
+	msg := &Note{ID: strings.Repeat("e", 40), Raw: "v2;e", Text: "Hello", Cell: "8ccgmw", Tags: []string{"geo8ccgmw"}, At: now, ExpiresAt: now.Add(time.Hour)}
+	store.Put(ctx, msg)
+	if s.KeepSource(ctx, msg, now) {
+		t.Error("a message was kept like a source")
+	}
+}

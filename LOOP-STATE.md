@@ -1737,7 +1737,12 @@ read, expiring like every line (rule 3 holds).
       connect link; they see "@you would like to swap cards" with Connect in Chats (and a push). No server change.
 
 ## 98. Fixes (Joop 2026-11-05; the loop takes these after WEquilibrium's work, before the usual rotation)
-- [ ] 98a. **Sources must not expire like local messages.** Joop: "the expiration system is a bit too brutal, and I
+- [x] 98a. DONE (2026-11-06): a source stays SourceLife (90 days) after each good read of its feed (oln.KeepSource,
+      called by the feeds job after a read that gave news or a calendar; written only when < 60 days are left: at most
+      a write a month per source), so a working source never lapses and a dead one goes after 90 days — foundation rule
+      3 kept (every server entity still expires). The voted-sources renewal (81h) and re-posting stay. oln.html says
+      so. TestKeepSource; test/run.sh green (browser part skipped). Not deployed alone: with 98b (Cloud Build minutes).
+      Was: **Sources must not expire like local messages.** Joop: "the expiration system is a bit too brutal, and I
       think local sources shouldn't expire like local messages". Today (81c, 81c-ui2) a source is an OLN line
       mined for a day or a week; when it expires, purge removes it and its news goes with it (sources.go:536).
       To build: a source stays until its adder removes it (or a steward/admin does); purge skips #feed lines
