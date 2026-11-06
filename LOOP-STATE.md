@@ -1751,7 +1751,14 @@ read, expiring like every line (rule 3 holds).
       for ~30 days, or whose adder's account is purged — shown first as "not read since …", decided in the slice.
       The OLN value still sorts sources (mining stays meaningful); oln.html's "a source lives as long as its line"
       changes in every language. Tests: purge on the emulator keeps an expired #feed line; the store test.
-- [ ] 98b. **The bill.** Joop's recent bills suggest the read/instance cost isn't under control. Found while
+- [~] 98b. MEASURED 2026-11-06 (read-only, gcloud): the last 6 h had 192 requests in all (/api/slot 36, /api/box 35,
+      / 19, /api/oln/re 15, bots on /robots.txt and /wp-admin …, /cron/ud 6) — polling isn't what costs today: pages
+      poll only while visible and traffic is small. Scaling is sane: default F1, max 3, min 0; lp F1, max 1, min 0.
+      Likely costs instead: (1) deploys — 20 versions made on 15–16 Oct (Cloud Build minutes each; old versions' images
+      kept in storage: 10 per service still listed); (2) the hourly /cron/ud on lp wakes an instance 24×/day (each
+      stays ~15 min: ~6 instance-hours/day of the 28 free, shared with default). WAITING ON JOOP: the bill's breakdown
+      by SKU (Billing → Reports, group by SKU) — then cut where it is: delete the old versions (irreversible, his
+      call), batch deploys, make /cron/ud every 6 h, or memcache "nothing new" on /api/box and /api/slot. Was: **The bill.** Joop's recent bills suggest the read/instance cost isn't under control. Found while
       writing WEquilibrium's docs/GAE.md: pages poll — chatdock.js every 20 s per open chat (2 places),
       activity.js and screen.js on short timers — every open tab is a steady stream of requests and Datastore
       reads, and keeps instances warm. First measure (Cloud console: requests per handler, Datastore ops per
