@@ -1751,7 +1751,8 @@ read, expiring like every line (rule 3 holds).
       for ~30 days, or whose adder's account is purged — shown first as "not read since …", decided in the slice.
       The OLN value still sorts sources (mining stays meaningful); oln.html's "a source lives as long as its line"
       changes in every language. Tests: purge on the emulator keeps an expired #feed line; the store test.
-- [~] 98b. MEASURED 2026-11-06 (read-only, gcloud): the last 6 h had 192 requests in all (/api/slot 36, /api/box 35,
+- [~] 98b. DECIDED 2026-11-06 (Joop): the bill is only ~€3 and esperanto-kurso (no crons) doesn't have it — likely the crons. CoffeeBucks: "compute on look seems great" → TO BUILD: the Universal Dividend accrues by elapsed time and is settled when a balance is read (or a payment made), so the hourly /cron/ud on lp goes (cron.yaml); feeds maybe every 12 h. Then deploy with 98a.
+      MEASURED 2026-11-06 (read-only, gcloud): the last 6 h had 192 requests in all (/api/slot 36, /api/box 35,
       / 19, /api/oln/re 15, bots on /robots.txt and /wp-admin …, /cron/ud 6) — polling isn't what costs today: pages
       poll only while visible and traffic is small. Scaling is sane: default F1, max 3, min 0; lp F1, max 1, min 0.
       Likely costs instead: (1) deploys — 20 versions made on 15–16 Oct (Cloud Build minutes each; old versions' images
