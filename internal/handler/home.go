@@ -160,7 +160,7 @@ func (h *Home) ShowHome(w http.ResponseWriter, r *http.Request) {
 		h.FollowHandle(w, r, strings.TrimPrefix(r.URL.Path, "/@"))
 		return
 	}
-	if r.URL.Path != "/" {
+	if r.URL.Path != "/" && r.URL.Path != "/around" {
 		http.NotFound(w, r)
 		return
 	}
@@ -168,8 +168,15 @@ func (h *Home) ShowHome(w http.ResponseWriter, r *http.Request) {
 	if !geo.Valid(cell) {
 		cell = ""
 	}
+	// A plain "/" is Home (99): Your Kafumu for someone this device knows,
+	// the entry page for a newcomer — the device picks. An area is
+	// "/?cell=…" (every link and share made so far) or "/around" (the last one).
+	start := r.URL.Path == "/" && !r.URL.Query().Has("cell")
 	p := homePage{page: h.newPage(r, ""), LangNames: langs.Names, LangTags: langs.Tags, From1: langs.From1}
 	p.Tab, p.Cell, p.Help = "around", cell, "around"
+	if start {
+		p.Tab, p.Help = "home", ""
+	}
 	if u := p.User; u != nil {
 		p.MyLangs, p.MyTags = u.Langs, u.Tags
 		if u.VisibleUntil.After(time.Now()) {
@@ -200,6 +207,10 @@ func (h *Home) ShowHome(w http.ResponseWriter, r *http.Request) {
 			}
 			w.Header().Set("Cache-Control", "private")
 		}
+	}
+	if start {
+		h.render(w, "start.html", p)
+		return
 	}
 	h.render(w, "home.html", p)
 }

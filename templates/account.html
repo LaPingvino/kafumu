@@ -45,7 +45,7 @@
     <p class="magic"><input readonly value="{{.MagicURL}}" onclick="this.select()" aria-label="{{ts .Lang "account.link_title"}}">
       <button type="button" class="secondary" onclick="navigator.clipboard&&navigator.clipboard.writeText(this.previousElementSibling.value);this.textContent='✓'">{{t .Lang "account.copy"}}</button></p>
 
-    {{if .Passkeys}}<h2>{{t .Lang "passkey.title"}}</h2>
+    {{if .Passkeys}}<h2 id="passkey">{{t .Lang "passkey.title"}}</h2>
     <p class="dim">{{t .Lang "passkey.explain"}}</p>
     <p><button type="button" id="passkey-add" class="pill" hidden>🔑 {{t .Lang "passkey.add"}}</button></p>
     <p id="passkey-status" class="dim small" role="status"></p>{{end}}

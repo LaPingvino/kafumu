@@ -214,7 +214,7 @@
       w.setAttribute("role", "dialog");
       w.setAttribute("aria-label", title);
       var head = el("div", "win-head"), back;
-      if (asPage && kind === "r:") { back = el("a", "win-back", "←"); back.href = "/"; back.onclick = function (e) { if (history.length > 1) { e.preventDefault(); history.back(); } }; back.setAttribute("aria-label", T.close || "Back"); }
+      if (asPage && kind === "r:") { back = el("a", "win-back", "←"); back.href = "/around"; back.onclick = function (e) { if (history.length > 1) { e.preventDefault(); history.back(); } }; back.setAttribute("aria-label", T.close || "Back"); }
       else if (asPage) { back = el("a", "win-back", "← 🔔"); back.href = "/activity"; back.setAttribute("aria-label", T.back_to_mailbox || "Back"); }
       else {
         back = el("button", "win-back", "←"); back.type = "button";

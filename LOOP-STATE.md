@@ -1799,5 +1799,24 @@ step ("Nothing loaded yet."); jargon (geo cell, OLN, signals, wings, personas, "
   "⚠ You don't have a login saved yet. Your contacts and chats live only on this phone — if it's lost or
   cleared, they're gone. Save a login (passkey) — it takes a few seconds." One button to the passkey step;
   it can be put off (back on the next visit), never hidden for good while there is nothing saved.
-Open for Joop: (1) Home as the first tab with Around folded into the area page reached from it (four tabs:
-Home, Chats, Connect, Account), or keep Around as a fifth; (3) the order of Home's sections.
+- 99f. Joop on (1) the tabs and (3) the order: "try, measure, correct". Built (2026-11-07): Home is the first tab
+  (still four: Home, Chats, Connect, Account; Home stays lit on an area). "/" is Home (start.html + start.js:
+  html.returning — set before drawing from kafumu.lastCell or a signed-in body — picks Your Kafumu, else the entry
+  page; contacts found later switch to it); an area is "/?cell=…" as before (every link and share) or "/around"
+  (the last one). The area page now keeps kafumu.recentCells and kafumu.cellNames (device only) for Your places and
+  place names. Order as drafted; on a phone one column, on desktop places / people in a 280 px side column.
+  Measured (phone 390 and desktop 1280, headless, a seeded returning visitor) and corrected:
+  · three bars stacked on Home (the account nudge, install, the warning) → the account nudge stays off Home, the
+    warning says it more plainly;
+  · a contact's message showed twice (came back + chats) → contact messages only under Your chats;
+  · a meetup change read "cancelled" in bold → rows without a person lead with the thing, what happened under it;
+  · the 📍 button wrapped as a bare icon on a phone → "📍 Use my location" full width under the search;
+  · "How it works" in three columns was cramped in the 720 px column → stacked.
+  Click checks (a newcomer types a place → the area, named → back on Home: Your Kafumu, the warning, Your places;
+  ✎ Change place searches; Later hides the warning; /around opens the last area): all pass.
+  Note for tests: headless Chrome is a bot to Kafumu (no bundle) unless its user agent is overridden, as
+  test/cdp.mjs does — an earlier "could not load the area" on a headless look at the live site was this.
+- 99g. Translated (23 languages, placeholders checked); sh test/run.sh green (Go, units, pairing, fuzz, two
+  browsers incl. 390 px, passkeys, emulator). The deploy was refused by the auto-mode check (2026-11-07) — Joop
+  runs: cd ~/Projects/kafumu && ~/google-cloud-sdk/bin/gcloud app deploy --project lokumo --quiet
+  Then: measure "Near you now" on kafumu.com against real Lisbon content (user agent overridden).

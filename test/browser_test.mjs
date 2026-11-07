@@ -14,7 +14,7 @@ const RUN = Date.now().toString(36);
 const A = await browser(9333), B = await browser(9334);
 try {
   // Area picker: no location prompt on load; search, map, tap a block.
-  await A.goto(base + "/");
+  await A.goto(base + "/around");
   await A.waitFor("!document.getElementById('place-edit').hidden", "the place search shown on first visit");
   await A.evaluate("(() => { const q = document.getElementById('place-q'); q.value = 'Barreiro'; q.dispatchEvent(new Event('input')); return true; })()");
   await A.waitFor("document.querySelectorAll('#place-results button').length > 0", "search results");
@@ -738,7 +738,7 @@ try {
     // First visit, no location: "Are you in or near …?" from App Engine's
     // city header (set by hand locally; production sets its own).
     if (!/kafumu\.com/.test(base)) await D.send("Network.enable"), await D.send("Network.setExtraHTTPHeaders", { headers: { "X-Appengine-Citylatlong": "52.040000,5.665000" } });
-    await D.goto(base + "/");
+    await D.goto(base + "/around");
     if (!/kafumu\.com/.test(base)) await D.waitFor("!document.getElementById('guess').hidden", "area guess offered");
     else { await sleep(2500); if (await D.evaluate("document.getElementById('guess').hidden")) console.log("note: no area guess for this connection"); }
     if (!/kafumu\.com/.test(base)) {
@@ -748,12 +748,12 @@ try {
       // A newcomer reads what this is (82a); ✕ closes it for good.
       await D.waitFor("!document.getElementById('intro').hidden && document.getElementById('intro').textContent.includes('notice board')", "what this is, for a newcomer");
       await D.evaluate("document.querySelector('#intro .no').click(); true");
-      await D.goto(base + "/");
+      await D.goto(base + "/around");
       await D.waitFor("document.getElementById('place-name').textContent === 'Ede' && document.getElementById('intro').hidden && !document.getElementById('help-again').hidden", "closed intro stays closed, ? offers it again");
       // Every page explains itself (87a): Contacts has its own line, closed apart from Around's.
       await D.goto(base + "/contacts");
       await D.waitFor("!document.getElementById('intro').hidden && document.getElementById('intro').dataset.help === 'contacts' && document.getElementById('intro').textContent.includes('connected with')", "Contacts explains itself");
-      await D.goto(base + "/");
+      await D.goto(base + "/around");
       await D.waitFor("document.getElementById('intro').hidden", "Around still closed");
       await D.evaluate("document.getElementById('help-again').click(); true");
       await D.waitFor("!document.getElementById('intro').hidden && !!document.getElementById('tour-start')", "? brings it back, with 👀 Show me");

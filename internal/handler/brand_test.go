@@ -24,8 +24,12 @@ func TestBrandPage(t *testing.T) {
 	home.Brands = brand.New(nil)
 	home.Brands.Save(context.Background(), &brand.Brand{Host: "bahais.test", Name: "Bahá'í Local", Tagline: "Pray and serve together, near you",
 		Accent: "#3a5f8a", Button: "🙏 Who wants to pray with me?", Tags: []string{"bahai"}})
-	get := func(host string) string {
-		r := httptest.NewRequest("GET", "/", nil)
+	get := func(host string, path ...string) string {
+		u := "/"
+		if len(path) > 0 {
+			u = path[0]
+		}
+		r := httptest.NewRequest("GET", u, nil)
 		r.Host = host
 		r.Header.Set("User-Agent", "Mozilla/5.0 Firefox/130")
 		r.Header.Set("Accept-Language", "en")
@@ -34,10 +38,14 @@ func TestBrandPage(t *testing.T) {
 		return w.Body.String()
 	}
 	b := get("bahais.test")
-	for _, want := range []string{"<title>Bahá&#39;í Local</title>", "--accent: #3a5f8a", "🙏 Who wants to pray with me?", "Pray and serve together, near you", `data-brand-tag="bahai"`} {
+	for _, want := range []string{"<title>Bahá&#39;í Local</title>", "--accent: #3a5f8a", "Pray and serve together, near you", `data-brand-tag="bahai"`} {
 		if !strings.Contains(b, want) {
-			t.Errorf("brand page lacks %q", want)
+			t.Errorf("brand home lacks %q", want)
 		}
+	}
+	// The main button is the area page's (Home is "/" since 99; the area is "/around" or "/?cell=").
+	if a := get("bahais.test", "/around"); !strings.Contains(a, "🙏 Who wants to pray with me?") || !strings.Contains(a, "--accent: #3a5f8a") {
+		t.Error("brand area page lacks its button or colour")
 	}
 	if p := get("kafumu.test"); strings.Contains(p, "--accent: #3a5f8a") || strings.Contains(p, "pray with me") || !strings.Contains(p, "Kafumu") {
 		t.Error("plain host shows the brand")

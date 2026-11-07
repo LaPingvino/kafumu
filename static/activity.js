@@ -14,7 +14,7 @@
   // reaction without a place ("000000") has neither: Around as it is.
   function areaLink() {
     for (var i = 0; i < arguments.length; i++) if (/^[23456789cfghjmpqrvwx]{6}$/.test(arguments[i] || "")) return "/?cell=" + arguments[i];
-    return "/";
+    return "/around";
   }
   // replies fetches the public replies to your live posts, 20 ids a call.
   function replies(posts) {

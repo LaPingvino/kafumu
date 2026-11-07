@@ -561,3 +561,53 @@ main:focus { outline: none; }
 .board-post { border-top: 1px solid var(--muted-border-color, #ddd); padding: .4rem 0; }
 .board-post p { margin: .2rem 0; }
 .board-replies { list-style: none; padding-left: 1rem; margin: 0; }
+
+/* Home (99): Your Kafumu for a device that knows you, the entry page for a
+   newcomer; html.returning (set before drawing) picks one. */
+html.returning #entry, html:not(.returning) #mine { display: none; }
+.mine-head { margin: 18px 0 6px; }
+.mine-head h1 { margin: 0 0 4px; font-size: 1.7rem; }
+.mine-place { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0; font-size: 1.05rem; }
+.mine-place a { font-weight: 700; }
+.save-login { margin: 14px 0 4px; padding: 10px 14px; border-radius: var(--radius); border-left: 4px solid var(--destructive);
+  background: color-mix(in srgb, var(--destructive) 9%, var(--card-bg)); }
+.save-login p { margin: 0 0 6px; } .save-login .actions { margin: 0; display: flex; gap: 8px; flex-wrap: wrap; }
+.home-sec { margin: 22px 0 0; }
+.home-sec[hidden] { display: none; }
+.home-sec h2 { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-size: 1.05rem; margin: 0 0 6px; }
+.home-sec h2 .more { font-size: .85rem; font-weight: 600; white-space: nowrap; }
+.home-sec .empty { margin: 4px 0 0; font-size: .92rem; }
+.home-list { margin: 0; }
+.home-list > li { padding: 0; }
+.home-row { display: flex; gap: 10px; align-items: flex-start; padding: 10px 14px; color: var(--fg); }
+.home-row:hover { background: var(--button-bg); text-decoration: none; }
+.home-row .ico { flex: none; width: 1.4em; text-align: center; }
+.home-row .txt { min-width: 0; display: flex; flex-direction: column; }
+.home-row strong { font-weight: 600; overflow-wrap: anywhere; }
+.home-row .meta { font-size: .85rem; color: var(--dim); }
+.home-row.hot strong::after { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--accent-bg); margin-left: 6px; vertical-align: middle; }
+.place-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.place-chips .chip { display: inline-flex; align-items: center; text-decoration: none; }
+.place-pick .place-results, .place-results { list-style: none; padding: 0; margin: 6px 0 0; display: flex; flex-direction: column; gap: 4px; }
+.place-hit { width: 100%; text-align: left; background: var(--button-bg); color: var(--fg); border: 0; border-radius: 8px; padding: 8px 12px; }
+.place-search { display: flex; flex-wrap: wrap; gap: 8px; }
+.place-search input { flex: 1 1 14em; min-width: 0; margin: 0; }
+.locate-btn { flex: none; white-space: nowrap; }
+@media (max-width: 560px) { .locate-btn { flex: 1 1 100%; } }
+@media (min-width: 1000px) {
+  .home-grid { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 0 32px;
+    width: min(1040px, calc(100vw - 48px)); position: relative; left: 50%; transform: translateX(-50%); }
+  .mine-head, .save-login { width: min(1040px, calc(100vw - 48px)); position: relative; left: 50%; transform: translateX(-50%); box-sizing: border-box; }
+}
+.entry h1 { font-size: 1.9rem; margin: 22px 0 8px; text-wrap: balance; }
+.entry .lead { font-size: 1.1rem; margin: 0 0 6px; }
+.lead-list { list-style: none; padding: 0; margin: 0 0 16px; display: flex; flex-direction: column; gap: 4px; font-size: 1.05rem; }
+.where-card { padding: 6px 18px 12px; }
+.where-card h2 { font-size: 1.15rem; margin: 10px 0 8px; }
+.guess-line { margin: 0 0 10px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-weight: 600; }
+.how { list-style: none; counter-reset: how; padding: 0; display: grid; gap: 10px; }
+.how li { counter-increment: how; background: var(--card-bg); border-radius: var(--radius); padding: 12px 14px 12px 52px; position: relative;
+  box-shadow: 0 0 0 1px var(--border); display: flex; flex-direction: column; gap: 2px; }
+.how li::before { content: counter(how); position: absolute; left: 14px; top: 12px; width: 26px; height: 26px; border-radius: 50%;
+  background: var(--accent-bg); color: var(--accent-fg); font-weight: 700; display: grid; place-items: center; font-size: .9rem; }
+.how li span { color: var(--dim); }

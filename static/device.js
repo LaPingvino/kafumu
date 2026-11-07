@@ -857,6 +857,7 @@
       bar((T0.nudge_biz || "Thanks for creating a business account! You're using Kafumu as {name}.").replace("{name}", b.acting), T0.nudge_biz_go || "Manage", "/business", k2);
       return;
     }
+    if (document.getElementById("save-login")) return; // Home says it itself, more plainly (99e)
     try { if (Date.now() - parseInt(localStorage.getItem(key) || "0", 10) < 7 * 864e5) return; } catch (e) { return; }
     if (b.signedIn && b.named && b.passkey) return;
     Promise.all([store.contacts(), store.get("card")]).then(function (r) {

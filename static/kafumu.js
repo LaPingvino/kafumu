@@ -1781,6 +1781,12 @@
     };
     setStatus(how);
     try { localStorage.setItem("kafumu.lastCell", c); } catch (e) {}
+    // Home's "Your places" (99a): the areas opened lately, newest first, on this device only.
+    try {
+      var recent = JSON.parse(localStorage.getItem("kafumu.recentCells") || "[]").filter(function (x) { return x !== c; });
+      recent.unshift(c);
+      localStorage.setItem("kafumu.recentCells", JSON.stringify(recent.slice(0, 8)));
+    } catch (e) {}
     currentCell = c;
     drawViews();
     var home = homeCell(c, gps);
@@ -1864,6 +1870,11 @@
         drawFilterChips(b);
         if (b.near && b.near.name) {
           var placeText = b.near.name + (b.near.city ? ", " + b.near.city : "");
+          // Home names its places by this (99a), kept on this device only.
+          try {
+            var names = JSON.parse(localStorage.getItem("kafumu.cellNames") || "{}");
+            if (names[c] !== placeText) { names[c] = placeText; localStorage.setItem("kafumu.cellNames", JSON.stringify(names)); }
+          } catch (e) {}
           // With a filter on, the heading says what you're looking at here.
           var langName = view.lang ? (((window.KAFUMU_ME || {}).names || {})[view.lang] || view.lang) : "";
           $("place-name").textContent = view.tag ? tagText(view.tag) + " · " + placeText : langName ? "🗣 " + langName + " · " + placeText : placeText;

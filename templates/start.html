@@ -1,0 +1,95 @@
+{{template "head" .}}
+<!-- Home (99): one page, two faces. A device that knows you (an area opened before, or
+     signed in) gets Your Kafumu; a newcomer gets the entry page. Chosen before drawing,
+     so neither flashes; start.js also switches to Your Kafumu when contacts turn up. -->
+<script>try { var lc = localStorage.getItem("kafumu.lastCell"); if ((lc && /^[23456789cfghjmpqrvwx]{6}$/.test(lc)) || document.body.dataset.signedIn) document.documentElement.classList.add("returning"); } catch (e) {}</script>
+<div id="start" data-guess="{{.GuessCell}}" data-guess-name="{{.GuessName}}">
+
+<section id="mine" class="mine" aria-labelledby="mine-title">
+  <!-- No login saved on this device (99e): said plainly, every visit until there is one. -->
+  <div id="save-login" class="save-login" role="alert" hidden>
+    <p><strong>⚠ {{t .Lang "start.nologin_title"}}</strong> {{t .Lang "start.nologin"}}</p>
+    <p class="actions"><a href="/account#passkey" role="button" class="pill-sm suggested">🔑 {{t .Lang "start.nologin_go"}}</a>
+      <button type="button" id="save-later" class="pill-sm">{{t .Lang "start.later"}}</button></p>
+  </div>
+  <header class="mine-head">
+    <h1 id="mine-title">{{t .Lang "start.welcome"}}</h1>
+    <p class="mine-place"><a id="mine-place" href="/around">📍 <span></span></a>
+      <button type="button" id="mine-change" class="pill-sm">✎ {{t .Lang "start.change"}}</button></p>
+    <div id="mine-pick" class="place-pick" hidden></div>
+  </header>
+  <div class="home-grid">
+    <div class="home-main">
+      <section class="home-sec" id="sec-back">
+        <h2>{{t .Lang "start.sec_back"}} <a href="/activity" class="more">{{t .Lang "start.all_activity"}}</a></h2>
+        <ul class="boxed-list home-list"></ul>
+        <p class="empty dim" hidden>{{t .Lang "start.back_empty"}}</p>
+      </section>
+      <section class="home-sec" id="sec-meetups">
+        <h2>{{t .Lang "start.sec_meetups"}}</h2>
+        <ul class="boxed-list home-list"></ul>
+        <p class="empty dim" hidden>{{t .Lang "start.meetups_empty"}} <a href="/around">{{t .Lang "start.see_whats_on"}}</a></p>
+      </section>
+      <section class="home-sec" id="sec-near">
+        <h2>{{t .Lang "start.sec_near"}} <a href="/around" class="more">{{t .Lang "start.near_all"}}</a></h2>
+        <ul class="boxed-list home-list"></ul>
+        <p class="empty dim" hidden>{{t .Lang "start.near_empty"}} <a href="/around">{{t .Lang "start.near_say"}}</a></p>
+      </section>
+      <section class="home-sec" id="sec-chats">
+        <h2>{{t .Lang "start.sec_chats"}} <a href="/activity" class="more">{{t .Lang "start.chats_all"}}</a></h2>
+        <ul class="boxed-list home-list"></ul>
+        <p class="empty dim" hidden>{{t .Lang "start.chats_empty"}} <a href="/connect">{{t .Lang "nav.connect"}} →</a></p>
+      </section>
+    </div>
+    <aside class="home-side">
+      <section class="home-sec" id="sec-places">
+        <h2>{{t .Lang "start.sec_places"}}</h2>
+        <div class="chips place-chips"></div>
+      </section>
+      <section class="home-sec" id="sec-people">
+        <h2>{{t .Lang "start.sec_people"}} <a href="/contacts" class="more">{{t .Lang "start.people_all"}}</a></h2>
+        <ul class="boxed-list home-list"></ul>
+        <p class="empty dim" hidden>{{t .Lang "start.people_empty"}} <a href="/connect">{{t .Lang "nav.connect"}} →</a></p>
+      </section>
+    </aside>
+  </div>
+</section>
+
+<section id="entry" class="entry" aria-labelledby="entry-title">
+  {{with .BrandInfo}}{{if .Tagline}}<p class="brand-tagline">{{.Tagline}}</p>{{end}}{{end}}
+  <h1 id="entry-title">{{t .Lang "start.lead_title"}}</h1>
+  <p class="lead">{{t .Lang "start.lead"}}</p>
+  <ul class="lead-list">
+    <li>🤝 {{t .Lang "start.lead_1"}}</li>
+    <li>🗣 {{t .Lang "start.lead_2"}}</li>
+    <li>💬 {{t .Lang "start.lead_3"}}</li>
+  </ul>
+  <div class="card where-card">
+    <h2>{{t .Lang "start.where"}}</h2>
+    <div id="entry-guess" class="guess-line" hidden><span></span> <button type="button" id="entry-guess-yes" class="pill-sm suggested">{{t .Lang "guess.yes"}}</button></div>
+    <div id="entry-pick" class="place-pick">
+      <div class="inline-row place-search">
+        <input id="start-q" type="search" autocomplete="off" placeholder="{{ts .Lang "start.search_ph"}}" aria-label="{{ts .Lang "start.where"}}">
+        <button type="button" id="start-locate" class="locate-btn">📍 <span>{{t .Lang "start.locate"}}</span></button>
+      </div>
+      <ul id="start-results" class="place-results"></ul>
+      <p class="dim small" id="start-status" role="status"></p>
+    </div>
+    <p class="dim small">{{t .Lang "start.privacy"}}</p>
+    <p class="small"><a href="/around">{{t .Lang "start.other"}}</a></p>
+  </div>
+  <h2>{{t .Lang "start.how"}}</h2>
+  <ol class="how">
+    <li><strong>{{t .Lang "start.how1_t"}}</strong><span>{{t .Lang "start.how1"}}</span></li>
+    <li><strong>{{t .Lang "start.how2_t"}}</strong><span>{{t .Lang "start.how2"}}</span></li>
+    <li><strong>{{t .Lang "start.how3_t"}}</strong><span>{{t .Lang "start.how3"}}</span></li>
+  </ol>
+  <p class="dim small">{{t .Lang "start.already"}} <a href="/account">{{t .Lang "nav.signin"}}</a> · <a href="/contacts#get">{{t .Lang "start.move"}}</a> · <a href="/about">{{t .Lang "nav.about"}}</a></p>
+</section>
+</div>
+<script>window.KAFUMU_T = {{.JS}};</script>
+<script src="/static/device.js?v={{.V}}"></script>
+<script src="/static/geo.js?v={{.V}}"></script>
+<script src="/static/activity.js?v={{.V}}"></script>
+<script src="/static/start.js?v={{.V}}"></script>
+{{template "foot" .}}
