@@ -1767,3 +1767,32 @@ read, expiring like every line (rule 3 holds).
       visible and back off (20 s → minutes when nothing changes), answer "nothing new" from memcache without
       Datastore reads, or one combined poll per page instead of one per chat. The public screen (84) is meant to
       run all day: its interval matters most.
+
+## 99. A personal home, a wordier entry, and a familiar look (Joop 2026-11-07: "the UI … is more confusing for many people than WE is"; DRAFT — waiting on Joop's three decisions)
+Joop: "probably best to copy over the personal home page thing first, then fit everything else nicely around
+it, and have a bit more wordy entry page for new visitors"; "we can format tag specific messages and whatever
+forum-style. OLN backed doesn't mean it should look unfamiliar"; Flarum/Discourse as the reference, "although
+that might also be a bit too modern for some people".
+Seen on the first visit (2026-11-07, phone + desktop): three inputs at once (city search, a "#geo cell / plus
+code / lat,lon" box, "Search here… or #tag"); the area titled "#geo8ccgpv" instead of a place name; five action
+buttons before any content; the notice-board banner a third of a phone screen; empty states without a next
+step ("Nothing loaded yet."); jargon (geo cell, OLN, signals, wings, personas, "Connect").
+- 99a. **Your Kafumu** (WE's My WE): for anyone with a last area / contacts / an account — "Welcome back",
+  the area by its place name (✎ to change); What came back to you (latest 3 → Activity); Your meetups (going /
+  hosting, next first); Near you now (top 5 meetups + messages → the area); Your chats (unread first); Your
+  places (most-looked areas, kafumu.cellCounts); Your people (contacts nearby this week, groups). One column on
+  a phone in that order; places / people in a side column on desktop. Every section's empty state says what
+  to do next. All assembled on the device from what it already keeps (foundation rules unchanged).
+- 99b. **The entry page** for new visitors: "What's near you right now?", three plain lines (friends in town,
+  meetups in your languages / hobbies, what people here say), ONE place box + "Use my location", the privacy
+  promise in a sentence, "How it works" in three short blocks, sign in / move from another phone small. The
+  geo-cell / plus-code box behind "Other ways to pick a place"; the notice-board banner goes.
+- 99c. **Messages look like a forum** (Discourse-like, not Flarum's app chrome): a subject / #tag is a board;
+  messages are topic rows (first line as title, who, replies, last activity); a message opens as a thread with
+  its reactions (#re<id>) as replies under it. OLN stays the format underneath; nothing changes on the wire.
+- 99d. Then fit the rest around the home: the area page content-first with one "Post here" button (Say / Ask /
+  I'm here / Meetup / Source as choices), everyday words for tabs and buttons, helpful empty states, WE's calmer
+  spacing and one accent.
+Open for Joop: (1) Home as the first tab with Around folded into the area page reached from it (four tabs:
+Home, Chats, Connect, Account), or keep Around as a fifth; (2) is a remembered area enough to count as a
+returning visitor; (3) the order of Home's sections.
