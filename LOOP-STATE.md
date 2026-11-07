@@ -1793,6 +1793,11 @@ step ("Nothing loaded yet."); jargon (geo cell, OLN, signals, wings, personas, "
 - 99d. Then fit the rest around the home: the area page content-first with one "Post here" button (Say / Ask /
   I'm here / Meetup / Source as choices), everyday words for tabs and buttons, helpful empty states, WE's calmer
   spacing and one accent.
+- 99e. (Joop 2026-11-07, answering (2): "probably good to show something like WARNING, YOU DON'T HAVE A
+  LOGIN SAVED YET … with just returning, no passkeys etc.") A remembered area is enough for Your Kafumu; with
+  no login saved on this device (no account, or an account without a passkey), Home opens with a warning band:
+  "⚠ You don't have a login saved yet. Your contacts and chats live only on this phone — if it's lost or
+  cleared, they're gone. Save a login (passkey) — it takes a few seconds." One button to the passkey step;
+  it can be put off (back on the next visit), never hidden for good while there is nothing saved.
 Open for Joop: (1) Home as the first tab with Around folded into the area page reached from it (four tabs:
-Home, Chats, Connect, Account), or keep Around as a fifth; (2) is a remembered area enough to count as a
-returning visitor; (3) the order of Home's sections.
+Home, Chats, Connect, Account), or keep Around as a fifth; (3) the order of Home's sections.
