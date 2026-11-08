@@ -1820,3 +1820,7 @@ step ("Nothing loaded yet."); jargon (geo cell, OLN, signals, wings, personas, "
   browsers incl. 390 px, passkeys, emulator). The deploy was refused by the auto-mode check (2026-11-07) — Joop
   runs: cd ~/Projects/kafumu && ~/google-cloud-sdk/bin/gcloud app deploy --project lokumo --quiet
   Then: measure "Near you now" on kafumu.com against real Lisbon content (user agent overridden).
+- 99h. (Joop 2026-11-08: "I think I want a more playful and attractive style for kafumu, by the way. At least as an
+  option...") A second look beside the GNOME-plain one, chosen under Me → Look like light / dark / high contrast
+  (html[data-theme]); design to be shown to Joop before building (several directions as screenshots of Home and an
+  area), then the default decided by trying it.
